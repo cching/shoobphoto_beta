@@ -1,0 +1,16 @@
+<h4 align="center"> CSV Import Instructions </h4>
+<div align="center">
+
+Lay out the CSV with the first row headers:<br />
+
+<%= image_tag("csv.jpg", class: "img-rounded") %><br />
+
+The headers have to match the example pefectly.
+</div><br />
+
+<div align="left">
+<%= form_tag admin_import_students_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import", class: "btn btn-primary" %>
+<% end %>
+</div>

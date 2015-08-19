@@ -1,0 +1,29 @@
+<h1>Listing extra_types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Required</th>
+      <th>Multiple</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @extra_types.each do |extra_type| %>
+      <tr>
+        <td><%= extra_type.name %></td>
+        <td><%= extra_type.required %></td>
+        <td><%= extra_type.multiple %></td>
+        <td><%= link_to 'Show', admin_extra_type_path(extra_type) %></td>
+        <td><%= link_to 'Edit', edit_admin_extra_type_path(extra_type) %></td>
+        <td><%= link_to 'Destroy', admin_extra_type_path(extra_type), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Extra type', new_admin_extra_type_path %>

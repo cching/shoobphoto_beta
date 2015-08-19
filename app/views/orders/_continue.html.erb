@@ -1,0 +1,13 @@
+<% student = @cart.students[@cart.students.count - 1] %>
+<% if @cart.order_packages.where(:student_id => student.id).any? %>
+
+<div class="next" align="right">
+
+<%= button_to student_select_package_path(@cart.cart_id, @cart.students.count - 1), { class: "btn btn-custom", method: :get } do %>
+      Select Packages <span class="glyphicon glyphicon-ok"></span>
+<% end %>
+
+</div>
+<% end %>
+<br />
+

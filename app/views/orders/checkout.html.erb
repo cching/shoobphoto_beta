@@ -1,0 +1,52 @@
+<% if @order.errors.any? %>
+  <div id="error_explanation" class="full">
+    <h2><%= pluralize(@order.errors.count, "error") %> prohibited this purchase:</h2>
+
+    <ul>
+    <% @order.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_for @order, :url => {:action => "confirm"} do |f| %>
+      <%= f.label :first_name, 'First Name on Card' %>
+      <%= f.text_field :first_name %>
+
+      <%= f.label :last_name, 'Last Name on Card' %>
+      <%= f.text_field :last_name %>
+
+      <%= f.label :phone %>
+      <%= f.text_field :phone %>
+
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+
+      <%= f.label :address %>
+      <%= f.text_field :address %>
+
+      <%= f.label :city %>
+      <%= f.text_field :city %>
+
+      <%= f.label :state %>
+      <%= f.text_field :state %>
+
+      <%= f.label :zip_code %>
+      <%= f.text_field :zip_code %>
+
+      <%= f.label :card_number %>
+      <%= f.text_field :card_number %>
+
+      <%= f.label :card_type %>
+      <%= f.select :card_type, Order::CardTypes %>
+ 
+      <%= f.label :card_expires_on %>
+      <%= f.date_select :card_expires_on, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true, :order => [:month, :year] %>
+
+      <%= f.label :card_verification, 'Card verification (number on back)' %>
+      <%= f.text_field :card_verification %>
+
+  <h2 class="two_thirds"><%= link_to 'Return to Cart', :back %></h2>
+  <h3 class="sixth align_right">Total: <%= number_to_currency @order.price %></h3>
+  <%= f.submit 'Purchase' %>
+<% end %>

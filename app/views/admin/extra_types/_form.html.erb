@@ -1,0 +1,21 @@
+<%= simple_form_for [:admin, @extra_type] do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <div class="row">
+    <div class="col-sm-6">
+    <%= f.association :options, as: :check_boxes, :label_method => lambda { |option| "#{option.package.name} | #{option.slug}" } %>
+    </div>
+    <div class="col-sm-6">
+    <%= f.association :extras, as: :check_boxes %>
+    </div>
+    </div>
+    <%= f.input :required %>
+    <%= f.input :multiple %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,5 @@
+$('#<%= @index %>').html('<%= escape_javascript(render(:partial => 'remove', :locals => {:cart_id => @cart.id, :type => @type, :image => @image.id, :index => @index, :url => @url})) %>');
+
+$('#continue').html('<%= escape_javascript(render(:partial => 'continue')) %>');
+
+$('#notice').html('<%= escape_javascript(render(:partial => 'alert', :locals => {:cart => @cart})) %>');

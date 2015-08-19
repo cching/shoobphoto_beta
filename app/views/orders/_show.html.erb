@@ -1,0 +1,109 @@
+<div class="modal-dialog" id="lesson_resources">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Order <%= @order.id %> Purchase Information</h4>
+      </div>
+      <div class="modal-body">
+      <div id="table">
+      <hr >
+      <% @order.cart.packages.order(:id).each_with_index do |package, index| %>
+
+      <% option = @order.cart.order_packages.where(:package_id => package.id).last.option %>
+      <div class="row">
+      <div class="col-sm-6">
+      <strong><%= package.name %></strong><br />
+      
+      <img src='<%= @image_url[index] %>', class="img-rounded img-package">
+      </div>
+      <div class="col-sm-6">
+        <strong><%= option.name %> - (<%= number_to_currency(option.price, :unit => "$") %>)</strong>
+          <ul>
+            <% option.image_types.each do |type| %>
+              <li><%= type.name %>
+              </li>
+            <% end %>
+          </ul>
+
+          <% if @order.cart.order_packages.where(:package_id => package.id).first.extras.any? %>
+            <% @order.cart.order_packages.where(:package_id => package.id).last.extras.each do |e| %>
+              <ul>
+              <li>
+              <%= e.extra_type.name %> - <%= e.name %> 
+              <%= number_to_currency(e.prices.first.try(:price), :unit => "$") %>  
+              </li>
+              </ul>  
+            <% end %>
+          <% end %>
+          </div>
+          </div>
+
+      <% end %>
+      <div class="row">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-6"><strong>Total: <%= number_to_currency(@order.price, :unit => "$") %>
+        </strong>
+        </div>
+        </div>
+
+
+      
+      <hr >
+
+
+      <div class="row">
+        <div class="col-sm-6">
+        <h3>Shipping Information</h3>
+        <%= @order.first_name %> <%= @order.last_name %><br />
+        <%= @order.shipping_address %><br />
+        <%= @order.shipping_city %>, <%= @order.shipping_state.upcase %> <%= @order.shipping_zip %>
+
+        </div>
+        <div class="col-sm-6">
+        <h3>Billing Information</h3>
+        <%= @order.first_name %> <%= @order.last_name %><br />
+        <%= @order.address %><br >
+        <%= @order.city %>, <%= @order.state.upcase %> <%= @order.zip_code %><br />
+        <%= @order.card_type.humanize %>, expires on <%= @order.card_expires_on %><br />
+        IP Address: <%= @order.ip_address %>
+        
+        </div>
+
+      </div>
+      <hr >
+      
+      <h3>Contact</h3>
+      
+
+
+      <div class="row">
+        <div class="col-sm-6">
+        <strong>Phone:</strong> <%= @order.phone %>
+        </div>
+        <div class="col-sm-6">
+        <strong>Email:</strong> <%= @order.email %>
+        </div>
+
+      </div><br/>
+      Notes: <br/>
+      <%= @order.notes %>
+<br />
+      </div>
+
+
+
+<div class="dropdown">
+
+
+
+
+      </div>
+      <div class="form-actions">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>   
+      </div>   
+
+    </div>
+  </div>
+</div>

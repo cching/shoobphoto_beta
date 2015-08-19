@@ -1,0 +1,36 @@
+<% unless @option.extra_types.nil? %>
+  <div id="options" class="half_box">
+    <% @cart_package.package.option_types(@cart_package.school).each do |option_type| %>
+      <div class="left">
+        <h4 class="margins"><%= option_type.title %></h4>
+      <% if option_type.multiple || option_type.options.count == 1 %>
+        <% option_type.options.each do |option| %>
+          <div class="check_box sixth">
+            <label for="<%= "cart_package_option_ids_#{option_type.id}" %>">
+              <%= image_tag option.image.url(:thumb), :class => 'twelfth' if option.image? %>
+              <%= option.title %><%= number_to_currency(option.price(@cart_package.school), :show_zero => false, :format => ' - <span>%u%n</span>') %>
+            </label>
+            <%= check_box_tag "cart_package[option_ids][#{option_type.id}]", option.id %>
+          </div>
+        <% end %>
+      <% else %>
+        <% option_type.options.each do |option| %>
+          <div class="check_box sixth">
+            <label for="<%= "cart_package_option_ids_#{option_type.id}_#{option.id}" %>">
+              <%= image_tag option.image.url(:thumb), :class => 'twelfth' if option.image? %>
+              <%= option.title %><%= number_to_currency(option.price(@cart_package.school), :show_zero => false, :format => ' - <span>%u%n</span>') %>
+            </label>
+            <%= radio_button_tag "cart_package[option_ids][#{option_type.id}]", option.id %>
+          </div>
+        <% end %>
+        <% unless option_type.required %>
+          <div class="check_box sixth">
+            <label for="<%= "cart_package_option_ids_#{option_type.id}_" %>">None</label>
+            <%= radio_button_tag "cart_package[option_ids][#{option_type.id}]", nil %>
+          </div>
+        <% end %>
+      <% end %>
+      </div>
+    <% end %>
+  </div>
+  <% end %>

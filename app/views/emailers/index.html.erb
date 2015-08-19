@@ -1,0 +1,14 @@
+<h4 align="center"> CSV Import Instructions </h4>
+<div align="center">
+<%= image_tag('emailer.jpg', class: "img-rounded") %><br/>
+<br />
+
+<div align="left">
+<%= form_tag import_emailer_path, multipart: true do %>
+  <%= collection_select(:school, :id, School.all.order(:name), :id, :name, {:prompt => false}, {:class => "form-control"}) %><br />
+  Prompt:
+  <%= text_field :prompt, '', class: "form-control" %><br/>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import", class: "btn btn-primary" %>
+<% end %>
+</div>

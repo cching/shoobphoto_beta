@@ -1,0 +1,28 @@
+Shoob Photography
+Receipt
+
+  Thank you for your order, <%= "#{@order.first_name} #{@order.last_name}" %>!
+
+
+    Name: <%= "#{@order.first_name} #{@order.last_name}" %>
+
+    Phone: <%= @order.phone %>
+
+
+    Email: <%= @order.email %>
+
+
+
+    Address:
+    <%= "#{@order.address} #{@order.city}, #{@order.state} #{@order.zip_code}" %>
+
+    Paid with:
+    <%= "#{@order.card_type.humanize}" %>
+
+    Total:
+    <%= number_to_currency @order.price %>
+
+  Order Number:
+  <%= @order.id %>
+
+Total: <%= number_to_currency @order.price %>

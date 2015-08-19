@@ -1,0 +1,20 @@
+<div align="center">
+<%= link_to image_tag("logo.gif", :class => 'header'), root_path %> 
+</div>
+<div id="navcontainer">
+<ul>
+      <% @nav_links.each do |nav_link| %>
+        <li<%= request.fullpath.split('/')[1] == nav_link.slug ? " class=current" : '' %>>
+          <%= link_to nav_link.title, nav_link.path %>
+        </li>
+      <% end %>
+
+      <li>
+      <a href="http://shoobphoto.com/school_support">School Support</a>
+      </li>
+      <li>
+      <a href="http://shoobphoto.com/contact">Contact</a>
+      </li>
+      </ul>
+</div>
+<br />

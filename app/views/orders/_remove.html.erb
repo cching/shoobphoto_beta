@@ -1,0 +1,2 @@
+<img src='<%= @url %>', class="img-rounded img-package-custom"><br /><br />
+	<%= link_to "Remove", order_delete_package_path(:cart_id => @cart.cart_id, :image => @image.id, :index => @index, :url => @url), class: "btn btn-danger", remote: true %> 

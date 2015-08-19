@@ -1,0 +1,107 @@
+<h1>Advanced Search</h1>
+
+<%= form_for @search do |f| %>
+<div class="row">
+<div class="col-sm-6">
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+  </div>
+</div>
+<div class="col-sm-6">
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-6">
+  <div class="field">
+    <%= f.label :student_first_name %><br />
+    <%= f.text_field :student_first_name %>
+  </div>
+</div>
+<div class="col-sm-6">
+  <div class="field">
+    <%= f.label :student_last_name %><br />
+    <%= f.text_field :student_last_name %>
+  </div>
+  </div>
+  </div>
+
+<div class="row">
+<div class="col-sm-6">
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_field :address %>
+  </div>
+</div>
+<div class="col-sm-3">
+<div class="field">
+    <%= f.label :zip %><br />
+    <%= f.text_field :zip %>
+  </div>
+</div>
+<div class="col-sm-3">
+  <div class="field">
+    <%= f.label :city %><br />
+    <%= f.text_field :city %>
+  </div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-sm-6">
+  <div class="field">
+    <%= f.label :billing_address %><br />
+    <%= f.text_field :billing_address %>
+  </div>
+</div>
+<div class="col-sm-3">
+<div class="field">
+    <%= f.label :billing_zip %><br />
+    <%= f.text_field :billing_zip %>
+  </div>
+</div>
+<div class="col-sm-3">
+  <div class="field">
+    <%= f.label :billing_city %><br />
+    <%= f.text_field :billing_city %>
+  </div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-sm-6">
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone %>
+  </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  </div>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :card_type %><br />
+    <%= f.text_field :card_type %>
+  </div>
+  <div class="field">
+    <%= f.label :school_id %><br />
+    <%= f.collection_select :school_id, School.order(:name), :id, :name, include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :processed %><br />
+    <%= f.check_box :processed %>
+  </div>
+
+
+  <div class="actions"><%= f.submit "Search" %></div>
+<% end %>

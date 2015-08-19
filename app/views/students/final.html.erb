@@ -1,0 +1,44 @@
+<h3>Cart:</h3>
+
+<table class="table">
+	<tr>
+		<td>Student's name</td>
+		<td>Package</td>
+	</tr>
+<% @cart.students.each do |student| %>
+	<tr>
+	<td>
+	<%= student.first_name %> <%= student.last_name %>
+	</td>
+	<td>
+	<% @cart.order_packages.where(:student_id => student.id).each do |o| %>
+
+			<%= number_to_currency(o.option.price, :unit => "$") %>  - <%= o.package.name %> - <%= o.option.name %><br/>
+
+			<% o.extras.each do |extra| %>
+				<%= number_to_currency(extra.prices.first.try(:price), :unit => "$") %> - <%= extra.name %> <br/>
+			<% end %>
+			<hr>
+ 	<% end %>
+ 	</td>
+ 	 </tr>
+ <% end %>
+
+<tr>
+	<td>
+	</td>
+	<td>
+	 <h3><%= number_to_currency(@cart.price, :unit => "$") %> </h3>
+	 </td>
+	 </tr>
+ </table>
+<div class="row">
+<div class="col-sm-3" align="left">
+ <%= link_to "Add more students to your order", student_schools_path(:cart_id => @cart.cart_id, :i => @cart.students.count), class: "btn btn-primary" %>
+ </div>
+ <div class="col-sm-6">
+ </div>
+ <div class="col-sm-3" align="right">
+ <%= link_to "Checkout", new_order_path(@cart.cart_id), class: "btn btn-primary" %>
+ </div>
+ </div>

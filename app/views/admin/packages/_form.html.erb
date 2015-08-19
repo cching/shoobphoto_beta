@@ -1,0 +1,50 @@
+<%= simple_form_for [:admin, @package] do |f| %>
+  <% if @package.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@package.errors.count, "error") %> prohibited this package from being saved:</h2>
+
+      <ul>
+      <% @package.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<fieldset>
+  <%= f.input :name %>
+  <%= f.input :slug %>
+  <%= image_tag @package.image.url if @package.image? %>
+
+  <%= f.input :image, as: :file %>
+
+  <%= image_tag @package.banner.url, class: "img-rounded img-cust" if @package.banner? %>
+
+  <%= f.input :banner, as: :file %>
+    <hr>
+  <h4>Shipping</h4>
+
+  <%= f.simple_fields_for :shippings do |builder| %>
+          <%= render 'shipping_fields', f: builder %>
+  <% end %>
+
+  <%= link_to_add_fields "Add Shipping", f, :shippings %>
+  <hr>
+
+  <%= f.simple_fields_for :options do |builder| %>
+          <%= render 'option_fields', f: builder %>
+  <% end %>
+
+  <br />
+
+  <%= link_to_add_fields "Add Package Categories", f, :options %>
+
+
+
+  <%= f.association :schools, as: :check_boxes %>
+
+  </fieldset>
+<br />
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

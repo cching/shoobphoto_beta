@@ -1,0 +1,13 @@
+<div class="row">
+	<div class="col-sm-2">
+		<%= f.input :price, :label => "Shipping (in dollars)" %>
+	</div>
+	<div class="col-sm-4">
+		<%= f.association :school, class: "form-control" %>
+  	</div>
+  	<div class="col-sm-4" align="left"><br/>
+  <%= f.label :_destroy, "Remove" %>
+  <%= f.check_box :_destroy %>
+</div>
+</div>
+

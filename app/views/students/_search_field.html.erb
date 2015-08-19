@@ -1,0 +1,36 @@
+<div class="jumbotron animated fadeInUp">
+<h3>We just need some information about your student at <%= @school.name %>:</h3><hr>
+<%= form_tag(student_input_path(@school.id), method: :get, :id => 'search_form') do %>
+        First Name: <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "form-control", id: "input_first_name", :value => "#{params[:first_name]}" %><br/>
+        Last Name: <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "form-control", id: "input_last_name", :value => "#{params[:first_name]}" %><br />
+        Student ID: <%= text_field_tag :student_id, nil, placeholder: "Student's ID Number", class: "form-control", id: "input_student_id", :value => "#{params[:student_id]}" %>
+    <div class="submit" id="submit">
+           <input class="btn btn-custom" name="commit" value="Continue" onclick="return validateForm()" readonly>
+
+    </div>
+
+	<% end %>
+
+</div>
+
+<script>
+function validateForm(){isValid = false;
+  var isValid = true;
+
+  var x = document.getElementById('input_first_name').value;
+    if (x == null || x == "") {
+        isValid = false;
+    }
+    var y = document.getElementById('input_last_name').value;
+    if (y == null || y == "") {
+        isValid = false;
+    }
+
+  if(isValid){
+    document.getElementById('search_form').submit();
+  }
+  else {
+    alert('Please fill all required fields');
+  }
+}
+</script>

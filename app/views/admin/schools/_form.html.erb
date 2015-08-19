@@ -1,0 +1,23 @@
+<%= simple_form_for [:admin, @school] do |f| %>
+  <% if @school.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@school.errors.count, "error") %> prohibited this school from being saved:</h2>
+
+      <ul>
+      <% @school.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.input :name %>
+
+  <%= f.association :school_type, as: :radio_buttons %>
+
+  <%= f.association :packages, as: :check_boxes, :label_method => lambda { |package| "#{package.name} - #{package.slug}" } %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,14 @@
+<% if @page.title? %>
+<div id="navcontainer">
+  <ul>
+  <% if @links.any? %>
+    <% @links.sort_by(&:position).each do |link| %>
+      <li<%= request.fullpath.split('/')[2] == link.slug ? " class='current'" : '' %>>
+        <%= link_to link.title, link.path %>
+      </li>
+    <% end %>
+  <% end %>
+  </ul>
+ </div>
+<% end %>
+<%= raw @page.body %> 

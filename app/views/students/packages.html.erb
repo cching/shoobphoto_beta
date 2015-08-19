@@ -1,0 +1,35 @@
+<div id="alert"></div>
+<h3 align="center">GALLERY</h3>
+
+<div class="row animated fadeInUp" id="row">
+	
+	<table id="package_list" align="center" class="table">
+	<tr>
+	<% @images.each_with_index do |image, index| %>
+		<td>
+		<h3><%= image.package.try(:name) %></h3>
+		<div id="<%= index %>" %>
+		<% unless @cart.order_packages.where(:package_id => image.package_id).where(:student_id => @student.id).any? %>
+			<img src='<%= @image_url[index] %>', class="img-rounded img-package"><br /><br /> 
+					<%= link_to "Select", order_create_package_path(:cart_id => @cart.cart_id, :image => image.id, :url => @image_url[index], :index => index), class: "btn btn-custom", remote: true %> <br />
+		<% else %>
+			<img src='<%= @image_url[index] %>', class="img-rounded img-package-custom"><br /><br />
+					<%= link_to "Remove", order_delete_package_path(:cart_id => @cart.cart_id, :image => image.id, :url => @image_url[index], :index => index), class: "btn btn-danger", remote: true %> <br />
+		<% end %><br />
+		</div>
+		</td>
+	<% end %>
+	</tr>
+
+	</table>
+
+	<hr />
+
+</div>
+												
+
+<div id="continue" class="animated fadeInUp">
+	<%= render 'orders/continue' %>
+
+</div>
+

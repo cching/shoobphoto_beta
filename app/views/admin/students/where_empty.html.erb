@@ -1,0 +1,33 @@
+<table class="table table-striped">
+	<thead>
+		<th>
+			First Name
+		</th>
+		<th>
+			Last Name
+		</th>
+		<th>
+			Grad ID
+		</th>
+		<th>
+			Senior ID
+		</th>
+	</thead>
+<% @students.each do |student| %>
+	<tr>
+		<td>
+		<%= student.first_name %>
+		</td>
+		<td>
+		<%= student.last_name %>
+		</td>
+		<td class="missing">
+		<%= student.grad_id if grad_missing(student) %>
+		</td>
+		<td class="missing">
+		<%= student.senior_id if senior_missing(student) %>
+		</td>
+	</tr>
+
+<% end %>
+</table>

@@ -1,0 +1,36 @@
+<%= form_for [:admin, @page] do |f| %>
+  <% if @page.errors.any? %>
+    <div id="error_explanation" class="full">
+      <h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
+      <ul>
+      <% @page.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="fourth_box">
+    <div class="field fourth">
+      <%= f.label :title %><br />
+      <%= f.text_field :title %>
+    </div>
+    <div class="field fourth">
+      <%= f.label :slug %><br />
+      <%= f.text_field :slug %>
+    </div>
+    <div class="field fourth">
+      <%= f.label :parent_id %><br />
+      <%= f.select :parent_id, nested_set_options(Page, @page) {|i| "#{'-' * i.level} #{i.title}" }, :include_blank => true %>
+    </div>
+  </div>
+  <div class="field three_fourths">
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </div>
+  <hr class="full" />
+  <div class="actions half">
+    <%= f.submit %>
+  </div>
+<% end %>
+ 

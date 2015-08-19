@@ -1,0 +1,4 @@
+$("#order_<%= @order.id %>_<%= @student.id %>").removeClass("success");
+$("#order_<%= @order.id %>_<%= @student.id %>").addClass("danger");
+
+$("#button_<%= @order.id %>_<%= @student.id %>").html("<%= escape_javascript(render partial: 'unprocess', :locals => {:order => @order, :student => @student }) %>"); 

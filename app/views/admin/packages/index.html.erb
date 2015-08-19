@@ -1,0 +1,24 @@
+<h1>Listing packages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @packages.each do |package| %>
+      <tr>
+        <td><%= package.name %> - <%= package.slug %>  </td>
+        <td><%= link_to 'Edit', edit_admin_package_path(package) %> | </td>
+        <td><%= link_to 'Destroy', admin_package_path(package), method: :delete, data: { confirm: 'Are you sure?' } %> | </td>
+        <td><%= link_to 'Upload Student Packages', admin_csv_packages_path(package), class: "btn btn-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Package', new_admin_package_path %>

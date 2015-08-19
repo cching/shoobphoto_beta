@@ -1,0 +1,22 @@
+<h3>Orders</h3>
+<hr>
+
+
+<p><%= link_to "Advanced Search", new_search_path %></p>
+
+<div class="row">
+<div class="col-sm-6">
+<%= link_to 'Download CSV File by Orders', orders_path(:format => 'csv') %>
+</div>
+<div class="col-sm-6">
+<%= form_tag('/orders/import/', multipart: true) do %>
+
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
+</div>
+</div>
+<br />
+<div id="orders">
+  <%= render 'index', :locals => {:orders => @orders} %>
+</div>

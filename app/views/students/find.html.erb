@@ -1,0 +1,16 @@
+<div id="search_field">
+<div class="jumbotron animated fadeIn">
+  <h2 align="center">Looks like we've had trouble finding <%= params[:first_name].capitalize %> <%= params[:last_name].capitalize %> at <%= @school.name %>.</h2>
+  <p align="center">This could be from a typo in the search form, or your student is not yet loaded into our database. You may still continue to purchase, however.</p><br />
+  <div class="row">
+    <div class="col-sm-2">
+      <%= link_to student_search_path(:school => { :id => @school.id }), { class: "btn btn-loading btn-primary", method: :get } do %>
+       <span class="glyphicon glyphicon-chevron-left"></span> Try again 
+      <% end %>
+    </div>
+    <div class="col-sm-8"></div>
+    <div class="col-sm-2">
+
+    </div>
+</div>
+</div>

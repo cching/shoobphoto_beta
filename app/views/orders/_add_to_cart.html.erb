@@ -1,0 +1,3 @@
+<img src='<%= @url %>', class="img-rounded img-package"><br /><br />
+	<%= link_to "Select", order_create_package_path(:cart_id => @cart.cart_id, :image => @image.id, :index => @index, :url => @url), class: "btn btn-custom", remote: true %> 
+

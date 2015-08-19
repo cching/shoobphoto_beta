@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @extra_type.name %>
+</p>
+
+<p>
+  <strong>Required:</strong>
+  <%= @extra_type.required %>
+</p>
+
+<p>
+  <strong>Multiple:</strong>
+  <%= @extra_type.multiple %>
+</p>
+
+<%= link_to 'Edit', edit_admin_extra_type_path(@extra_type) %> |
+<%= link_to 'Back', admin_extra_types_path %>

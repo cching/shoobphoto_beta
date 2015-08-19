@@ -1,0 +1,34 @@
+<%= form_for [:admin, @nav_link] do |f| %>
+  <% if @nav_link.errors.any? %>
+    <div id="error_explanation" class="full">
+      <h2><%= pluralize(@nav_link.errors.count, "error") %> prohibited this nav_link from being saved:</h2>
+
+      <ul>
+      <% @nav_link.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field fourth">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field fourth">
+    <%= f.label :slug %>
+    <%= f.text_field :slug %>
+  </div>
+  <div class="field fourth">
+    <%= f.label :parent_id %>
+    <%= f.select :parent_id, nested_set_options(NavLink, @nav_link) {|i| "#{'-' * i.level} #{i.title}" }, :include_blank => true %>
+  </div>
+  <div class="field fourth">
+    <%= f.label :position %>
+    <%= f.select :position, (0..30), :include_blank => true %>
+  </div>
+  <hr class="full" />
+  <div class="actions half">
+    <%= f.submit %>
+  </div>
+<% end %>

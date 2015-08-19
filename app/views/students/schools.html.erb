@@ -1,0 +1,10 @@
+<div class="jumbotron animated fadeInUp" align="center">
+<h4 align="center">What kind of school or league does your student attend?</h4>
+	<%= form_tag(student_school_find_path(:cart_id => @cart, :i => @i), method: :get, :id => 'search_form', remote: true) do %>
+        <%= collection_select(:school_types, :id, SchoolType.all.order(:name), :id, :name, {:prompt => false}, {:class => "form-control"}) %><br />
+     <%= submit_tag "Continue", class: "btn btn-primary" %>
+    <% end %>
+</div><br />
+
+<div id="results">
+</div>

@@ -1,0 +1,98 @@
+<div class="row">
+  <div class="col-sm-6 animated fadeInLeft">
+  <%= image_tag("image_left.jpg", class: "img-rounded img-large") %>
+  </div>
+  <div class="col-sm-6 animated fadeInRight">
+  <h3 class="info"><%= @school.name %></h3><hr>
+  <div class="info">Enter your student's information to purchase portraits.</div> <br />
+	<%= form_tag(student_find_path(@school.id), method: :get, :name => 'new_search_form', :id => "new_search_form") do %>
+        <div id="required">
+        <div class="requiredtext">
+        * required input
+        </div>
+        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
+        <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "form-control", id: "input_first_name" %>
+        </div><br/>
+        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
+        <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "form-control", id: "input_last_name" %>
+        </div><br />
+       
+        <% if @school.school_type.id == 3 %>
+        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
+        <%= select_tag :grade, options_for_select(Student::Elementary), class: "form-control", id: "input_student_grade" %>
+        </div><br/>
+
+        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
+        <%= text_field_tag :student_teacher, nil, placeholder: "Student's Teacher", class: "form-control", id: "input_student_teacher" %>
+        </div><br />
+
+        <% elsif @school.school_type.id == 2 %>
+        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
+        <%= select_tag :grade, options_for_select(Student::Middle), class: "form-control", id: "input_student_grade" %>
+        </div><br/>
+
+        <% elsif @school.school_type.id == 1 %>
+        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
+        <%= select_tag :grade, options_for_select(Student::High), class: "form-control", id: "input_student_grade" %>
+        </div><br/>
+
+        <% elsif @school.school_type.id == 4 %>
+        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
+        <%= select_tag :grade, options_for_select(Student::Grades), class: "form-control", id: "input_student_grade" %>
+        </div><br/>
+
+        <% end %>
+
+        <%= hidden_field_tag "cart", @cart %>
+        <%= hidden_field_tag "i", @i %>
+         <%= text_field_tag :student_id, nil, placeholder: "Student's ID Number", class: "form-control", id: "input_student_id" %><br />
+
+        <div class="row">
+        <div class="col-sm-5">
+        Student's date of birth
+        </div>
+        <div class="col-sm-7">
+        <%= select_day 0, :start_year => Time.now.year, :end_year => Time.now.year - 95, :field_name => :day, :prompt => { :day => 'Select day' } %>
+        <%= select_month 0, :start_year => Time.now.year, :end_year => Time.now.year - 95, :field_name => :month, :prompt => { :month => 'Select month' } %>
+        <%= select_year 0, :start_year => Time.now.year, :end_year => Time.now.year - 95, :field_name => :year, :prompt => { :year => 'Select year' }  %>
+
+        </div>
+        </div>
+        </div>
+        
+    <div class="submit" id="submit">
+           <input class="btn btn-custom" name="commit" value="Continue" onclick="return validateForm()" readonly>
+    </div>
+
+	<% end %>
+  </div>
+</div>
+
+<script>
+function validateForm(){isValid = false;
+  var isValid = true;
+
+  var x = document.getElementById('input_first_name').value;
+    if (x == null || x == "") {
+        isValid = false;
+    }
+    var y = document.getElementById('input_last_name').value;
+    if (y == null || y == "") {
+        isValid = false;
+    }
+
+    <% if @school.school_type.id == 3 %>
+      var y = document.getElementById('input_student_teacher').value;
+    if (y == null || y == "") {
+        isValid = false;
+    }
+    <% end %>
+
+  if(isValid){
+    document.getElementById('new_search_form').submit();
+  }
+  else {
+    alert('Please fill all required fields');
+  }
+}
+</script>

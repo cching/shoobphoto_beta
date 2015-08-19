@@ -1,0 +1,82 @@
+<div class="animated fadeIn">
+
+	<%= form_for(@cart, url: student_update_path(@cart.cart_id, @cart.students.count - 1), :html => {class: "form-horizontal"}) do |f| %>
+	<% @opackages.each_with_index do |opackage, index| %>
+	<% package = opackage.package %>
+	<div class="row">
+		<div class="col-sm-4" align="center">
+			<h3><%= package.name %></h3>
+			<img src='<%= @image_url[index] %>', class="img-rounded img-package">
+		</div><br />
+		<div class="col-sm-8">
+		<span id="package_<%= package.id %>">
+	  		<%= f.fields_for :order_packages, OrderPackage.where(:package_id => package.id).where(:student_id => @student.id).where(:cart_id => @cart.id) do |s| %>
+
+	  			<%= s.collection_select :option_id, package.options.order(:name), :id, :name, {prompt: false}, {class: "form-control", :onchange => 'test(this.dataset.package, this.value)', :id => :id, data: { :package => "#{package.id}"}} %>
+
+	  		<% end %>
+	  		<div align="center">
+	  		<%= image_tag(package.banner, class: "img-rounded img-cust") if package.banner? %>
+	  		</div>
+	  		<br />
+
+	  		<div class="row">
+				<%= package.options.order(:name).each_slice(3) do |slice| %>
+					<div class="row buff">
+						<% slice.each do |option| %>
+							<div class="col-sm-4 <%= 'selectedbackground' if package.order_packages.where(:cart_id => @cart.id).where(:student_id => @student.id).pluck(:option_id).include?(option.id) %>" id="option_<%= option.id %>">
+								<%= link_to "#{option.name} - #{number_to_currency(option.price, :unit => "$")}", '#', :onClick => 'select_option(this.id, this.dataset.package)', :id => "#{option.id}", data: { :package => "#{package.id}"} %>
+								<ul>
+									<% option.image_types.each do |type| %>
+										<li><%= type.name %>
+										</li>
+									<% end %>
+								</ul>
+							</div>
+						<% end %>
+					</div>
+				<% end %>
+			</div>
+		</span>
+	  	</div>
+	</div><br/>
+	<hr>
+	<% end %>
+
+<div class="row">
+	<div class="col-sm-2" align="left">
+		<%= link_to student_packages_path(@cart.cart_id, @cart.students.count - 1), { class: "btn btn-custom", method: :get } do %>
+      		 Add additional images
+		<% end %>
+
+	</div>
+	<div class="col-sm-8"></div>
+	<div class="col-sm-2" align="right">
+		<%= button_tag(type: 'submit', class: "btn btn-custom") do %>
+  			<span class="glyphicon glyphicon-search"></span>  Review your order 
+		<% end %>
+
+	</div>
+</div>
+
+<% end %>
+<br />
+
+<script>
+
+
+function select_option(i, packagei) {
+    $('#package_' + packagei + ' > select > option[value="' + i + '"]').attr("selected", "selected");
+    $('#package_' + packagei + '>.row>.row>.col-sm-4.selectedbackground').removeClass('selectedbackground animated fadeIn');
+
+    $('#option_' + i + '').addClass('selectedbackground animated fadeIn');
+    event.preventDefault();
+}
+function test(packagei, i) {
+	$('#package_' + packagei + '>.row>.row>.col-sm-4.selectedbackground').removeClass('selectedbackground animated fadeIn');
+
+    $('#option_' + i + '').addClass('selectedbackground animated fadeIn');
+    event.preventDefault();
+}
+
+</script>

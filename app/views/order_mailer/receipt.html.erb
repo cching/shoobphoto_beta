@@ -1,0 +1,64 @@
+<h1>Shoob Photography</h1>
+<h1>Receipt</h1>
+<p>
+  Thank you for your order, <%= "#{@order.first_name.capitalize} #{@order.last_name.capitalize}" %>!
+</p>
+<div>
+  <div>
+    <b>Name:</b> <%= "#{@order.first_name} #{@order.last_name}" %>
+  </div>
+  <div>
+    <b>Phone:</b> <%= @order.phone %>
+  </div>
+  <div>
+    <b>Email:</b> <%= @order.email %>
+  </div>
+
+</div>
+<br />
+<div>
+  <div>
+    <b>Address:</b>
+    <%= "#{@order.address} #{@order.city}, #{@order.state} #{@order.zip_code}" %>
+  </div>
+  <div>
+    <b>Paid with:</b>
+    <%= "#{@order.card_type.capitalize}" %>
+  </div>
+
+</div>
+<p>
+  <b>Order Number:</b>
+  <%= @order.id %>
+</p>
+
+<p>
+<table class="table">
+  <tr>
+    <td>Student's name</td>
+    <td>Package</td>
+  </tr>
+<% @cart.students.each do |student| %>
+  <tr>
+  <td>
+  <%= student.first_name %> <%= student.last_name %>
+  </td>
+  <td>
+  <% @cart.order_packages.where(:student_id => student.id).each do |o| %>
+
+      <%= number_to_currency(o.option.price, :unit => "$") %>  - <%= o.package.name %> - <%= o.option.name %><br/>
+
+      <% o.extras.each do |extra| %>
+        <%= number_to_currency(extra.prices.first.try(:price), :unit => "$") %> - <%= extra.name %> <br/>
+      <% end %>
+      <hr>
+  <% end %>
+  </td>
+   </tr>
+ <% end %>
+
+ </table>
+</p>
+
+<h3>Total: <%= number_to_currency @order.price %></h3>
+<br />

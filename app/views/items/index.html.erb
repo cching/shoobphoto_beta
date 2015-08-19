@@ -1,0 +1,39 @@
+<table>
+  <thead>
+    <th>
+      Item #
+    </th>
+
+    <th>
+      Description - Posters are 11x17 unless marked otherwise
+    </th>
+
+    <th>
+      Price
+    </th>
+    <th>
+      Preview
+    </th>
+  </thead>
+
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td>
+          <%= item.item_id %>
+        </td>
+        <td>
+          <%= item.name %>
+        </td>
+        <td>
+          <%= free(item.price) ? "Free" : "#{number_to_currency(item.price, :unit => "$")}" %> <%= "per page" if item.per_page? %>
+        </td>
+        <td>
+          <%= link_to "Preview", item_path(item), remote: true %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

@@ -1,0 +1,15 @@
+<div class="jumbotron animated fadeInUp" align="center">
+<h3>We've found a few students with the information you've provided.</h3>
+We just need you to select which student you were looking for.<br /><br/>
+<table class="duplicate">
+<tr>
+<% @students.each do |student| %>
+<td>
+<%= button_to student_cart_path(student.id), { class: "btn btn-loading btn-primary", method: :get } do %>
+       <%= student.first_name %> <%= student.last_name %><br />  Student ID: <%= student.student_id %> <br /> Grade:  <%= student.grade %>
+      <% end %>
+</td>
+<% end %>
+</tr>
+</table>
+</div>

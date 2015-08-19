@@ -1,0 +1,65 @@
+// Place all the styles related to the NavLinks controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#navcontainer ul
+{
+margin: 0;
+padding: 0;
+list-style-type: none;
+text-align: center;
+position:relative;
+}
+
+#navcontainer ul li { display: inline; }
+
+#navcontainer ul li a
+{
+padding-left:20px;
+padding-right:20px;
+position: relative;
+  color: #000;
+}
+
+
+.current a
+{
+padding-left:10px;
+padding-right:10px;
+position: relative;
+  color: #000;
+  text-decoration: none;
+  border-bottom: 2px solid black;
+}
+
+#navcontainer ul li a:hover
+{
+color: #000;
+}
+
+#navcontainer ul li a:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #000;
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+
+}
+
+#navcontainer ul li a:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+.header {
+  padding-top:20px;
+  padding-bottom:25px;
+}

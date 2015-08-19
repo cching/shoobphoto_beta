@@ -1,0 +1,33 @@
+<h1>Listing nav_links</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Slug</th>
+
+      <th>Parent</th>
+      <th>Position</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @nav_links.each do |nav_link| %>
+      <tr>
+        <td><%= nav_link.title %></td>
+        <td><%= nav_link.slug %></td>
+ 
+        <td><%= nav_link.parent_id %></td>
+        <td><%= nav_link.position %></td>
+        <td><%= link_to 'Show', admin_nav_link_path(nav_link) %></td>
+        <td><%= link_to 'Edit', edit_admin_nav_link_path(nav_link) %></td>
+        <td><%= link_to 'Destroy', admin_nav_link_path(nav_link), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Nav link', new_admin_nav_link_path %>

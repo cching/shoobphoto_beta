@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @nav_link.title %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @nav_link.slug %>
+</p>
+
+<p>
+  <strong>Lft:</strong>
+  <%= @nav_link.lft %>
+</p>
+
+<p>
+  <strong>Rgt:</strong>
+  <%= @nav_link.rgt %>
+</p>
+
+<p>
+  <strong>Parent:</strong>
+  <%= @nav_link.parent_id %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @nav_link.position %>
+</p>
+
+<%= link_to 'Edit', edit_nav_link_path(@nav_link) %> |
+<%= link_to 'Back', nav_links_path %>
