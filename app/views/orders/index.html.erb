@@ -20,3 +20,4 @@
 <div id="orders">
   <%= render 'index', :locals => {:orders => @orders} %>
 </div>
+<%= will_paginate @orders %>
