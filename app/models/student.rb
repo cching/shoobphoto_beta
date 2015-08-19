@@ -18,31 +18,10 @@ class Student < ActiveRecord::Base
     end
   end
 
-  Elementary = [
-    ['Kindergarten', 0],
-    ['First Grade', 1],
-    ['Second Grade', 2],
-    ['Third Grade', 3],
-    ['Fourth Grade', 4],
-    ['Fifth Grade', 5],
-    ['Sixth Grade', 6]
-  ]
-
-  Middle = [
-    ['Sixth Grade', 6],
-    ['Seventh Grade', 7],
-    ['Eight Grade', 8]
-  ]
-
-  High = [
-    ['Freshman', 9],
-    ['Sophomore', 10],
-    ['Junior', 11],
-    ['Senior', 12]
-  ]
 
     Grades = [
-    ['Kindergarten', 0],
+    ['Preschool', 'PS'],
+    ['Kindergarten', 'K'],
     ['First Grade', 1],
     ['Second Grade', 2],
     ['Third Grade', 3],
@@ -50,7 +29,7 @@ class Student < ActiveRecord::Base
     ['Fifth Grade', 5],
     ['Sixth Grade', 6],
     ['Seventh Grade', 7],
-    ['Eight Grade', 8],
+    ['Eighth Grade', 8],
     ['Freshman', 9],
     ['Sophomore', 10],
     ['Junior', 11],

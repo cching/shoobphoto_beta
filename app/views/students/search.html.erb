@@ -16,30 +16,17 @@
         <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
         <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "form-control", id: "input_last_name" %>
         </div><br />
+
+        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
+        <%= select_tag :grade, options_for_select(Student::Grades), class: "form-control", id: "input_student_grade" %>
+        </div><br/>
        
         <% if @school.school_type.id == 3 %>
-        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
-        <%= select_tag :grade, options_for_select(Student::Elementary), class: "form-control", id: "input_student_grade" %>
-        </div><br/>
+        
 
         <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
         <%= text_field_tag :student_teacher, nil, placeholder: "Student's Teacher", class: "form-control", id: "input_student_teacher" %>
         </div><br />
-
-        <% elsif @school.school_type.id == 2 %>
-        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
-        <%= select_tag :grade, options_for_select(Student::Middle), class: "form-control", id: "input_student_grade" %>
-        </div><br/>
-
-        <% elsif @school.school_type.id == 1 %>
-        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
-        <%= select_tag :grade, options_for_select(Student::High), class: "form-control", id: "input_student_grade" %>
-        </div><br/>
-
-        <% elsif @school.school_type.id == 4 %>
-        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
-        <%= select_tag :grade, options_for_select(Student::Grades), class: "form-control", id: "input_student_grade" %>
-        </div><br/>
 
         <% end %>
 
