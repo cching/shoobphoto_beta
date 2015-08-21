@@ -155,7 +155,7 @@ end
 
     			csv_file = ''
 
-    			csv_file << CSV.generate_line(@orders.first.attributes.keys[0..21].map{|column| column} + ['Price'] + ['Student First Name'] + ['Student Last Name'] + ['Student Teacher'] + ['Student ID'] + ['Student Grade'] + ['Student SChool'] + ['Student DoB'] + ['Type'] + ['Package'] + ['8x10 | 5x7 | 3x5 | Wallets | Image CD | Name on Wallets | Retouching'])
+    			csv_file << CSV.generate_line(@orders.first.attributes.keys[0..21].map{|column| column} + ['Student First Name'] + ['Student Last Name'] + ['Student Teacher'] + ['Student ID'] + ['Student Grade'] + ['Student SChool'] + ['Student DoB'] + ['Type'] + ['Package'] + ['8x10 | 5x7 | 3x5 | Wallets | Image CD | Name on Wallets | Retouching'])
             Order.where(:processed => false).each do |order|
             	order.cart.students.each do |student|
 
@@ -179,7 +179,7 @@ end
             	end            end
             	
               csv_file << CSV.generate_line(order.attributes.values[0..21] + 
-              	["$#{order.price}"] + ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.teacher}"] + ["#{student.student_id}"] + ["#{student.grade}"] + ["#{student.school.name}"] + ["#{student.dob}"] + 
+              	["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.teacher}"] + ["#{student.student_id}"] + ["#{student.grade}"] + ["#{student.school.name}"] + ["#{student.dob}"] + 
               	
               	
            	

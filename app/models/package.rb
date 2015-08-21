@@ -36,7 +36,7 @@ class Package < ActiveRecord::Base
       order = Order.find(order_id)
       student = Student.find(student_id)
 
-      order.cart.order_packages.where(:student_id => student.id).each do |o|
+      order.cart.order_packages.where(:student_id => student.id).each_with_index do |o, i|
         @cat = ""
         oids = o.extras.pluck(:id)
         if oids.include? ids[0]
@@ -80,7 +80,11 @@ class Package < ActiveRecord::Base
         else
           @cat = @cat + "0"
         end
-        @string = "#{@string}" + "#{o.package.slug}: " + "#{@cat}; "
+        if i > 1
+          @string = "#{@string}" + "#{@cat}; "
+        else
+          @string = "#{@string}" + "#{@cat}"
+        end
       end
       return @string
     end
