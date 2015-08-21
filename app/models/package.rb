@@ -38,6 +38,7 @@ class Package < ActiveRecord::Base
 
       order.cart.order_packages.where(:student_id => student.id).each_with_index do |o, i|
         @cat = ""
+        @string = ""
         oids = o.extras.pluck(:id)
         if oids.include? ids[0]
           @cat = @cat + "#{Extra.find(37).quantity}"
@@ -80,11 +81,8 @@ class Package < ActiveRecord::Base
         else
           @cat = @cat + "0"
         end
-        if i > 1
           @string = "#{@string}" + "#{@cat}; "
-        else
-          @string = "#{@string}" + "#{@cat}"
-        end
+ 
       end
       return @string
     end
