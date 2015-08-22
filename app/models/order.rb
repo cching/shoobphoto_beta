@@ -27,6 +27,32 @@ class Order < ActiveRecord::Base
   
   before_create :send_purchase
 
+  def self.price oid, sid
+    order = Order.find(oid)
+    @cart = order.cart
+    @price = 0
+
+
+      @cart.order_packages.where(:student_id => sid).each do |package|
+       @price = package.option.price + @price
+      end
+
+      @cart.order_packages.where(:student_id => sid).each do |opackage|
+        if opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).any?
+        @price = @price + opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).first.price
+        end
+      end
+
+    @cart.order_packages.where(:student_id => sid).each do |o|
+      o.extras.each do |e|
+        unless e.prices.first.try(:price).nil?
+        @price = @price + e.prices.first.price
+        end
+      end
+    end
+    return @price
+  end
+
   private 
 
   def purchase_address

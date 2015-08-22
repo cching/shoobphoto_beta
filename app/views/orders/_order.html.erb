@@ -1,16 +1,20 @@
-<tr class=<%= order.processed? ? "success" : "danger" %> id="order_<%= order.id %>" >
+<% order.cart.students.each do |student| %>
+      <tr class=<%= order.processed? ? "success" : "danger" %> id="order_<%= order.id %>_<%= student.id %>" >
         <td><%= link_to "More info", order_show_path(order), remote: true, class: "btn btn-primary" %></td>
         <td><%= order.created_at %></td>
         <td><%= order.id %></td>
-        <td><%= order.cart.student.school.try(:name) %></td>
+        <td><%= student.school.try(:name) %></td>
         <td><%= order.first_name %></td>
         <td><%= order.last_name %></td>
-        <td><%= order.cart.student.first_name %></td>
-        <td><%= order.cart.student.last_name %></td>
+        <td><%= student.first_name %></td>
+        <td><%= student.last_name %></td>
         <td><%= number_to_currency(order.price, :unit => "$") %></td>
-        <td id="button_<%= order.id %>">
+        <td id="button_<%= order.id %>_<%= student.id %>">
         <% if order.processed? %>
-          <%= link_to "Processed", order_notprocessed_path(order.id), class: "btn btn-success", remote: true %>
+          <%= link_to "Processed", order_notprocessed_path(order.id, student.id), class: "btn btn-success", remote: true %>
         <% else %>
-          <%= link_to "Not Processed", order_processed_path(order.id), remote: true, class: "btn btn-danger" %>
+          <%= link_to "Not Processed", order_processed_path(order.id, student.id), remote: true, class: "btn btn-danger" %>
           <% end %>
+        </td>
+      </tr>
+    <% end %>

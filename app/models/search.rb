@@ -7,9 +7,15 @@ class Search < ActiveRecord::Base
 private
   def find_orders
     orders = Order.order(:id)
-    orders = orders.where(school_id: school_id) if school_id.present?
-    orders = orders.joins(:student).where('lower(students.first_name) like ?', "%#{student_first_name.downcase}%") if student_first_name.present?
-    orders = orders.joins(:student).where('lower(students.last_name) like ?', "%#{student_first_name.downcase}%") if student_last_name.present?
+
+    students = Student.where('lower(students.first_name) like ?', "%#{student_first_name.downcase}%") if student_first_name.present?
+    students = students.where('lower(students.last_name) like ?', "%#{student_first_name.downcase}%") if student_last_name.present?
+    carts = CartStudent.where(student_id: students.pluck(:id)) if student_last_name.present? || student_first_name.present?
+    orders = Order.where(cart_id: carts.pluck(:cart_id)) if student_last_name.present? || student_first_name.present?
+    students = Student.where('students.school_id = ?', "#{school_id}") if school_id.present?
+    carts = CartStudent.where(student_id: students.pluck(:id)) if school_id.present?
+    orders = orders.where(cart_id: carts.pluck(:cart_id)) if school_id.present? 
+
     orders = orders.where("lower(first_name) like ?", "%#{first_name.downcase}%") if first_name.present?
     orders = orders.where("lower(last_name) like ?", "%#{last_name.downcase}%") if last_name.present?
     orders = orders.where("phone like ?", "%#{phone}%") if phone.present?
