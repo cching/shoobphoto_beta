@@ -151,7 +151,7 @@ end
     	respond_to do |format|
     		format.html
     		format.csv do 
-    			OrderExport.perform_async(@orders.first.id)
+    			OrderExport.perform_async(Order.first.id)
 	        end
 	    end
 	
