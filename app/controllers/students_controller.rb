@@ -20,9 +20,6 @@ class StudentsController < ApplicationController
       end
       end
 
-
-    puts "#{@price}"
-
        @cart.update(:price => @price)
   end
 

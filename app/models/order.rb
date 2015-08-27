@@ -14,7 +14,7 @@ class Order < ActiveRecord::Base
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
     order = find_by_id(row["id"])
-    order.attributes = row.to_hash.slice(*["id", "posted", "processed"])
+    order.attributes = row.to_hash.slice(*["id", "processed"])
     order.save
     end
   end
