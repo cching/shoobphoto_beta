@@ -52,7 +52,8 @@ class OrderExport
 
           key = File.basename(file_name)
 
-          s3.buckets['shoobphoto'].objects["csvs/#{key}"].write(:file => file_name)
+          file = s3.buckets['shoobphoto'].objects["csvs/#{key}"].write(:file => file_name)
+          file.acl = :public_read
 
           export.update(:file_path => key)
   end

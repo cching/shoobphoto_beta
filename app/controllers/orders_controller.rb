@@ -150,15 +150,18 @@ end
 
     	respond_to do |format|
     		format.html
-    		format.csv do 
-    			export = Export.create
-    			OrderExport.perform_async(export.id)
-    			
-
-	        end
+    			    			
+	        
 	    end
 	
 	end
+
+	def export
+		export = Export.create
+    	OrderExport.perform_async(export.id)
+
+    	redirect_to orders_path, notice: "The new order CSV is currently being generated."
+    end
 
 	def import
 	unless params[:file].nil?

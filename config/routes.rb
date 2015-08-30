@@ -56,6 +56,7 @@ Rails.application.routes.draw do
   match 'students/packages/:id/review/:i' => 'students#review', :via => 'GET', :as => 'student_review'
   match 'students/packages/:cart_id/final/:i' => 'students#final', :via => 'GET', :as => 'student_final'
   match 'orders/:id' => 'orders#show', :via => 'GET', :as => 'order_show'
+  match 'orders/export' => 'orders#export', :via => 'GET', :as => 'order_export'
   match 'students/cart/:cart_id/orders' => 'orders#confirm', :via => 'POST', :as => 'order_confirm'
   match 'students/cart/:cart_id/orders/new' => 'orders#new', :via => 'GET', :as => 'new_order'
   match 'students/cart/:cart_id/update_cart' => 'students#update_cart', :via => 'PATCH', :as => 'update_cart'

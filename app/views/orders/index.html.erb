@@ -6,9 +6,9 @@
 
 <div class="row">
 <div class="col-sm-6">
-<%= link_to 'Generate CSV File by Orders', orders_path(:format => 'csv') %>
+<%= link_to 'Generate CSV File by Orders', order_export_path %><br />
 
-<a href="https://s3.amazonaws.com/shoobphoto/csvs/<%= Export.last.file_path %>" download>Download CSV</a>
+<a href="https://s3.amazonaws.com/shoobphoto/csvs/<%= Export.last.file_path %>" download class="btn btn-primary">Download <%= Export.last.file_path %></a>
 
 </div>
 <div class="col-sm-6">
