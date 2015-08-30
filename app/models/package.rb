@@ -60,6 +60,8 @@ class Package < ActiveRecord::Base
 
         if oids.include? ids[3]
           @cat = @cat + "#{Extra.find(40).quantity}"
+        elsif oids.include? ids[7]
+          @cat = @cat + "#{Extra.find(2).quantity}"
         else
           @cat = @cat + "0"
         end
@@ -78,27 +80,15 @@ class Package < ActiveRecord::Base
 
         if oids.include? ids[6]
           @cat = @cat + "#{Extra.find(43).quantity}"
-        else
-          @cat = @cat + "0"
-        end
-
-        if oids.include? ids[7]
-          @cat = @cat + "#{Extra.find(2).quantity}"
-        else
-          @cat = @cat + "0"
-        end
-
-        if oids.include? ids[8]
+        elsif oids.include? ids[8]
           @cat = @cat + "#{Extra.find(9).quantity}"
-        else
-          @cat = @cat + "0"
-        end
-
-        if oids.include? ids[9]
+        elsif oids.include? ids[9]
           @cat = @cat + "#{Extra.find(36).quantity}"
         else
           @cat = @cat + "0"
         end
+
+
           @string = "#{@string}" + "#{@cat}; "
  
       end
