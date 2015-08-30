@@ -41,7 +41,7 @@ class OrderExport
               )
           end
           end
-          file_name = Rails.root.join('tmp', "order_#{Time.now}.csv");
+          file_name = Rails.root.join('tmp', "order_#{Time.now.day}-#{Time.now.month}-#{Time.now.year}_#{Time.now.hour}_#{Time.now.minute}.csv");
 
           File.open(file_name, 'wb') do |file|
           
