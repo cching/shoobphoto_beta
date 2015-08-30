@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818080115) do
+ActiveRecord::Schema.define(version: 20150830014025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "banners", force: true do |t|
     t.datetime "created_at"
@@ -50,6 +51,12 @@ ActiveRecord::Schema.define(version: 20150818080115) do
     t.string   "cart_type"
     t.integer  "school_id"
     t.boolean  "id_supplied", default: true
+  end
+
+  create_table "exports", force: true do |t|
+    t.text     "file_path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "extra_assignments", force: true do |t|
@@ -107,6 +114,13 @@ ActiveRecord::Schema.define(version: 20150818080115) do
     t.integer  "rgt"
     t.integer  "parent_id"
     t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "option_packages", force: true do |t|
+    t.integer  "option_id"
+    t.integer  "package_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -273,7 +287,6 @@ ActiveRecord::Schema.define(version: 20150818080115) do
   end
 
   create_table "students", force: true do |t|
-    t.integer "district_id"
     t.string  "student_id"
     t.string  "last_name"
     t.string  "first_name"

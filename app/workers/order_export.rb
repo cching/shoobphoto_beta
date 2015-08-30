@@ -1,7 +1,8 @@
 class OrderExport
   include Sidekiq::Worker
   sidekiq_options queue: "package_import"
-    def perform(chunk)
+    def perform(id)
+      export = Export.find(id)
       require 'csv'
 
       csv_file = ''
@@ -53,7 +54,7 @@ class OrderExport
 
           s3.buckets['shoobphoto'].objects["csvs/#{key}"].write(:file => file_name)
 
-          return key
+          export.update(:file_path => key)
   end
 end
 
