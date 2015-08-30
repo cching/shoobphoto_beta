@@ -152,7 +152,12 @@ end
     		format.html
     		format.csv do 
 
-    			OrderExport.perform_async(Order.last.id)
+    			key = OrderExport.perform_async(Order.last.id)
+
+    			  data = open("https://s3.amazonaws.com/shoobphoto/csvs/#{key}") 
+    			  send_data data.read, :type => data.content_type, :x_sendfile => true
+
+
 	        end
 	    end
 	

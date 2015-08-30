@@ -47,14 +47,13 @@ class OrderExport
             file.puts csv_file
           end
 
-          bucket = AWS::S3::Bucket.new('shoobphoto')
+          s3 = AWS::S3.new
 
-          AWS::S3::S3Object.store(
-          File.basename(file_name),
-          File.open(file_name),
-          bucket,
-          :content_type => 'csv'
-          )
+          key = File.basename(file_name)
+
+          s3.buckets['shoobphoto'].objects["csvs/#{key}"].write(:file => file_name)
+
+          return key
   end
 end
 
