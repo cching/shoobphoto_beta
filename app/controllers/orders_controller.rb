@@ -152,7 +152,7 @@ end
     		format.html
     		format.csv do 
     			export = Export.create
-    			key = OrderExport.perform_async(export.id)
+    			OrderExport.perform_async(export.id)
     			
 
 	        end
