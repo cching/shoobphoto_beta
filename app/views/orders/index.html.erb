@@ -6,10 +6,13 @@
 
 <div class="row">
 <div class="col-sm-6">
-<%= link_to 'Generate CSV File by Orders', order_export_path(Order.first.id) %><br />
+<%= link_to 'Generate the latest CSV File of Orders', order_export_path(Order.first.id) %><br />
 
+<% if Export.last.file_path.nil? %>
+<a href="https://s3.amazonaws.com/shoobphoto/csvs/<%= Export.last.file_path %>" download class="btn btn-disabled btn-primary">The CSV is still being processed. Please refresh in a few minutes.</a>
+<% else %>
 <a href="https://s3.amazonaws.com/shoobphoto/csvs/<%= Export.last.file_path %>" download class="btn btn-primary">Download <%= Export.last.file_path %></a>
-
+<% end %>
 </div>
 <div class="col-sm-6">
 <%= form_tag('/orders/import/', multipart: true) do %>
@@ -24,3 +27,5 @@
   <%= render 'index', :locals => {:orders => @orders} %>
 </div>
 <%= will_paginate @orders %>
+
+
