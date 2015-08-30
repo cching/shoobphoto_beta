@@ -1,7 +1,7 @@
 class EmailerImport
   include Sidekiq::Worker
   sidekiq_options queue: "package_import"
-    def perform(chunk, school_id, prompt)
+    def perform(chunk)
       require 'csv'
 
       csv_file = ''

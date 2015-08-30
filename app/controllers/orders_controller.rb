@@ -152,7 +152,7 @@ end
     		format.html
     		format.csv do 
 
-    			OrderExport.perform_async(chunk, @package.id, @school.id)
+    			OrderExport.perform_async(Order.last.id)
 	        end
 	    end
 	
