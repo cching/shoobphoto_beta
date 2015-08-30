@@ -32,7 +32,7 @@ class Package < ActiveRecord::Base
 
     def self.concat order_id, student_id
       @string = ""
-      ids = [37, 38, 39, 40, 41, 42, 43]
+      ids = [37, 38, 39, 40, 41, 42, 43, 2, 9, 36]
       order = Order.find(order_id)
       student = Student.find(student_id)
 
@@ -78,6 +78,24 @@ class Package < ActiveRecord::Base
 
         if oids.include? ids[6]
           @cat = @cat + "#{Extra.find(43).quantity}"
+        else
+          @cat = @cat + "0"
+        end
+
+        if oids.include? ids[7]
+          @cat = @cat + "#{Extra.find(2).quantity}"
+        else
+          @cat = @cat + "0"
+        end
+
+        if oids.include? ids[8]
+          @cat = @cat + "#{Extra.find(9).quantity}"
+        else
+          @cat = @cat + "0"
+        end
+
+        if oids.include? ids[9]
+          @cat = @cat + "#{Extra.find(36).quantity}"
         else
           @cat = @cat + "0"
         end
