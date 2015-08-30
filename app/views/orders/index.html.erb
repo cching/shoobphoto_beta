@@ -7,9 +7,6 @@
 
 <% @image_url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true) %>
 
-
-<a href="<%= @image_url %>" download>
-download</a>
 <p><%= link_to "Advanced Search", new_search_path %></p>
 
 <div class="row">
@@ -17,9 +14,9 @@ download</a>
 <%= link_to 'Generate the latest CSV File of Orders', order_export_path(Order.first.id) %><br />
 
 <% if Export.last.file_path.nil? %>
-<a href="https://s3.amazonaws.com/shoobphoto/csvs/<%= Export.last.file_path %>" download class="btn btn-disabled btn-primary">The CSV is still being processed. Please refresh in a few minutes.</a>
+<a href="#" download class="btn btn-disabled btn-primary">The CSV is still being processed. Please refresh in a few minutes.</a>
 <% else %>
-<a href="https://s3.amazonaws.com/shoobphoto/csvs/<%= Export.last.file_path %>" download class="btn btn-primary">Download <%= Export.last.file_path %></a>
+<a href="<%= @image_url %>" download class="btn btn-primary">Download <%= Export.last.file_path %></a>
 <% end %>
 </div>
 <div class="col-sm-6">
