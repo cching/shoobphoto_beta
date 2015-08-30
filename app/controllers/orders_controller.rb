@@ -154,10 +154,10 @@ end
     			export = Export.create
     			key = OrderExport.perform_async(export.id)
 
-    			until export.file_path != nil
+    			sleep(1) until export.file_path != nil
     			  data = open("https://s3.amazonaws.com/shoobphoto/csvs/#{key}") 
     			  send_data data.read, :type => data.content_type, :x_sendfile => true
-    			end
+    			
 
 	        end
 	    end
