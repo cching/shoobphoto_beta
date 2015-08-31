@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
 		@cart = Cart.find_by_cart_id(params[:cart_id])
 
 		if @cart.cart_type == 'catalog'
-			@order = Order.new
+			@order = Order.new :price => @cart.price
 		else
 		@price = 0
 

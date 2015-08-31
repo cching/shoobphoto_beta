@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150830014025) do
+ActiveRecord::Schema.define(version: 20150831052925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,31 @@ ActiveRecord::Schema.define(version: 20150830014025) do
     t.string   "cart_type"
     t.integer  "school_id"
     t.boolean  "id_supplied", default: true
+  end
+
+  create_table "corders", force: true do |t|
+    t.integer  "cart_id"
+    t.string   "ip_address"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip_code"
+    t.string   "card_type"
+    t.decimal  "price"
+    t.string   "shipping_address"
+    t.string   "shipping_city"
+    t.string   "shipping_zip"
+    t.string   "shipping_state"
+    t.boolean  "processed"
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "card_expires_on"
+    t.boolean  "free"
   end
 
   create_table "exports", force: true do |t|
@@ -98,13 +123,25 @@ ActiveRecord::Schema.define(version: 20150830014025) do
     t.integer  "item_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "main_file_name"
+    t.string   "main_content_type"
+    t.integer  "main_file_size"
+    t.datetime "main_updated_at"
   end
 
   create_table "items", force: true do |t|
-    t.text    "name"
-    t.decimal "price"
-    t.string  "item_id"
-    t.boolean "per_page"
+    t.text     "name"
+    t.decimal  "price"
+    t.boolean  "per_page"
+    t.string   "thumb_file_name"
+    t.string   "thumb_content_type"
+    t.integer  "thumb_file_size"
+    t.datetime "thumb_updated_at"
+    t.string   "number"
+    t.string   "main_file_name"
+    t.string   "main_content_type"
+    t.integer  "main_file_size"
+    t.datetime "main_updated_at"
   end
 
   create_table "nav_links", force: true do |t|

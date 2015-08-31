@@ -1,6 +1,7 @@
 <div class="" id="table">
 <table id="catalog">
   <thead>
+    <th></th>
     <th>
       Item #
     </th>
@@ -22,8 +23,11 @@
   <tbody>
     <% @items.each do |item| %>
       <tr>
+        <td id="preview">
+          <%= image_tag(item.thumb.url, class: "img img-rounded") %>
+        </td>
         <td>
-          <%= item.item_id %>
+          <%= item.number %>
         </td>
         <td>
           <%= item.name %>

@@ -1,0 +1,29 @@
+<%= simple_form_for(@corder) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :cart_id %>
+    <%= f.input :ip_address %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :phone %>
+    <%= f.input :email %>
+    <%= f.input :address %>
+    <%= f.input :city %>
+    <%= f.input :state %>
+    <%= f.input :zip_code %>
+    <%= f.input :card_type %>
+    <%= f.input :card_expires_on %>
+    <%= f.input :price %>
+    <%= f.input :shipping_address %>
+    <%= f.input :shipping_city %>
+    <%= f.input :shipping_zip %>
+    <%= f.input :shipping_state %>
+    <%= f.input :processed %>
+    <%= f.input :notes %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

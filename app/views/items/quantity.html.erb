@@ -15,7 +15,7 @@ Price
 <% @cart.items.each do |item| %>
 <div class="row">
 <div class="col-sm-6">
-	<%= item.name %>
+	<%= item.number %>: <%= item.name %>
 </div>
 <div class="col-sm-3">
 	<%= f.simple_fields_for :cart_items, item.cart_items.where(:item_id => item.id).last do |c| %>

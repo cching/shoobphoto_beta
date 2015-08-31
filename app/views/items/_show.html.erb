@@ -2,22 +2,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Preview of <%= @item.item_id %>: <%= @item.name %></h4>
+        <h4 class="modal-title" id="myModalLabel">Preview of <%= @item.number %>: <%= @item.name %></h4>
       </div>
       <div class="modal-body" align="center">
-      <table>
-      
-      <% @item.images.each_slice(2) do |slice| %>
-      <tr>
-        <% slice.each do |image| %>
-        <td>
-        <%= image_tag("#{image.url}.jpg", class: "img-rounded img-preview") %>
-        </td>
-      <% end %>
-      </tr><br />
-      <% end %>
-      </table>
-
+      <%= image_tag(@item.main.url, class: "img img-rounded") %>
+<br/>
 <div class="dropdown">
 
 

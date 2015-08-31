@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+
   mount Sidekiq::Web, at: "/sidekiq"
   
 
@@ -59,6 +60,8 @@ Rails.application.routes.draw do
   match 'orders/:id/export' => 'orders#export', :via => 'GET', :as => 'order_export'
   match 'students/cart/:cart_id/orders' => 'orders#confirm', :via => 'POST', :as => 'order_confirm'
   match 'students/cart/:cart_id/orders/new' => 'orders#new', :via => 'GET', :as => 'new_order'
+  match 'items/:cart_id/orders' => 'corders#confirm', :via => 'POST', :as => 'corder_confirm'
+  match 'items/:cart_id/orders/new' => 'corders#new', :via => 'GET', :as => 'new_corder'
   match 'students/cart/:cart_id/update_cart' => 'students#update_cart', :via => 'PATCH', :as => 'update_cart'
   match 'catalog' => 'items#index', :via => 'GET', :as => 'catalog'
   match 'items/cart/:cart_id' => 'items#cart', :via => 'GET', :as => 'items_cart'

@@ -9,6 +9,7 @@ class Cart < ActiveRecord::Base
 	has_many :items, through: :cart_items
 
 	has_many :orders
+	has_many :corders
 
 	accepts_nested_attributes_for :order_packages, allow_destroy: true
 	accepts_nested_attributes_for :cart_items, allow_destroy: true

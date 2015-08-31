@@ -34,7 +34,16 @@ class ItemsController < ApplicationController
 
     @cart.update(cart_params)
 
-    redirect_to new_order_path(@cart.cart_id)
+    @cart.price = 0
+
+    @cart.items.each do |item|
+      quantity = @cart.cart_items.where(:item_id => item.id).last.quantity
+      @cart.price = @cart.price + (item.price*quantity)
+    end
+
+    @cart.save
+
+    redirect_to new_corder_path(@cart.cart_id)
   end
 
   def cart
