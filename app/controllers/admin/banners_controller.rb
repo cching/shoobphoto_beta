@@ -42,6 +42,6 @@ class Admin::BannersController < ApplicationController
     end
 
     def banner_params
-      params.require(:banner).permit(:school_id, :image, :school_type_ids)
+      params.require(:banner).permit(:school_type_id, :image)
     end
 end
