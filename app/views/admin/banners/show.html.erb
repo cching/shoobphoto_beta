@@ -2,8 +2,10 @@
 
 <p>
   <strong>School:</strong>
-  <%= @banner.school_id %>
+  <%= @banner.school_type.name %>
 </p>
+
+<%= image_tag(@banner.image.url) if @banner.image.exists? %>
 
 <%= link_to 'Edit', edit_admin_banner_path(@banner) %> |
 <%= link_to 'Back', admin_banners_path %>
