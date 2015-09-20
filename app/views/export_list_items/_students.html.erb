@@ -1,0 +1,66 @@
+<h2><%= @school.name %></h2><hr />
+
+<table class="table table-striped">
+	<thead>
+		<th>
+			Student ID
+		</th>
+		<th>
+			Name
+		</th>
+		<th>
+			Grade
+		</th>
+
+		<th>
+			Show
+		</th>
+		<th> 
+			Export
+		</th>
+	</thead>
+	<tbody>
+<% @students.each do |student| %>
+	
+		<td>
+			<%= student.student_id %>
+		</td>
+		<td>
+			<%= student.first_name %> <%= student.last_name %>
+		</td>
+		<td>
+			<%= student.grade %>
+		</td>
+
+		<td> 
+			<%= link_to "Show", export_show_path(student.id, :image => @image.id), remote: true, class: "btn btn-primary" %>
+		</td>
+		<td>
+			<% if @image.student_images.where(:student_id => student.id).last.try(:url).nil? %>
+			<button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="This student is missing an image for an ID card. Please upload a portrait." data-original-title="" title="">Export</button>
+			<% else %>
+			<%= link_to "Export", export_types_path(student.id, :image => @image.id), remote: true, class: "btn btn-primary" %>
+			<% end %>
+		</td>
+	</tr>
+<% end %>
+</tbody>
+</table>
+
+<%= will_paginate @students %>
+
+<script>
+
+$('[data-toggle="popover"]').popover();
+
+$('body').on('click', function (e) {
+    $('[data-toggle="popover"]').each(function () {
+        //the 'is' for buttons that trigger popups
+        //the 'has' for icons within a button that triggers a popup
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            $(this).popover('hide');
+        }
+    });
+});
+
+</script>

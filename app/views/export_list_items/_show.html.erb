@@ -1,0 +1,40 @@
+
+
+<div class="modal-dialog" id="lesson_resources">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Edit Student</h4>
+      </div>
+      <div class="modal-body centered">
+<%= simple_form_for(@student, :url => export_update_path, remote: true) do |f| %>
+
+<div class="row">
+	<div class="col-sm-3">
+		<%= image_tag("#{@image_url}", class: "img-rounded img-med") unless @image_url.nil? %><br/><br/>
+	</div>
+	<div class="col-sm-9">
+		First name:
+<%= f.input :first_name, label: false %>
+Last name:
+<%= f.input :last_name, label: false %>
+Date of Birth:
+<%= f.input :dob, label: false %>
+
+<%= f.association :school %>
+</div>
+</div>
+<% end %>
+
+      <div class="form-actions">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+<button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+      </div>   
+      </div>   
+
+    </div>
+  </div>
+</div>
+

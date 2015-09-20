@@ -11,8 +11,56 @@ class ExportListItemsController < ApplicationController
   end
   end
 
+  def show
+    @student = Student.find(params[:id])
+    @package = Package.find(params[:image])
+    bucket = AWS::S3::Bucket.new('shoobphoto')
+    image = @package.student_images.where(:student_id => params[:id]).last
+    unless image.nil?
+          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.url.upcase}.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.url.upcase}.jpg")
+          elsif AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.url.downcase}.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.url.downcase}.jpg")
+          else
+            s3object = nil
+          end
+
+    @image_url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+  end
+  end
+
+  def update
+  end
+
+  def schools
+    @schools = School.all.order(:name)
+    respond_to :js
+  end
+
+  def school_user
+    @school = School.find(params[:id])
+    @image = @school.packages.where("name like ?", "%Fall%").last
+    @students = @school.students.order(:last_name).paginate(:page => params[:page], :per_page => 100)
+  end
+
+  def users
+    @users = User.all
+    respond_to :js
+  end
+
   def types
-    @types = Type.all.order(:name)
+      bucket = AWS::S3::Bucket.new('shoobphoto')
+          package = Package.find(params[:image])
+          image = package.student_images.where(:student_id => params[:id]).last
+          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.url.upcase}.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.url.upcase}.jpg")
+          elsif AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.url.downcase}.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.url.downcase}.jpg")
+          else
+            s3object = nil
+          end
+     
+    @types = Type.all.order(:name) unless s3object.nil?
 
     respond_to :js
   end
