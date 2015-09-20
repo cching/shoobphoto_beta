@@ -61,7 +61,7 @@
 			        	<div class="row">
 			        	<% slice.each do |extra| %>
 			        	<div class="col-sm-2">
-			          		<div class="check_box sixth" style="white-space:nowrap;">
+			          		<div class="check_box sixth">
 			            	<label for="<%= "order_package_#{op.id}_extra_ids_#{extra_type.id}" %>">
 			              	<%= image_tag extra.image.url(:thumb), :class => 'twelfth' if extra.image? %>
               				<%= extra.name %> - <%= number_to_currency(extra.prices.first.try(:price), :show_zero => false) %>
@@ -77,7 +77,7 @@
 				        <div class="row">
 			        	<% slice.each do |extra| %>
 			        	<div class="col-sm-3">
-				          	<div class="check_box sixth" style="white-space:nowrap;">
+				          	<div class="check_box sixth">
 				            <label for="<%= "order_package_#{op.id}_extra_ids_#{extra_type.id}_#{extra.id}" %>">
 				            <%= image_tag extra.image.url(:thumb), :class => 'twelfth' if extra.image? %>
 	              			<%= extra.name %> - <%= number_to_currency(extra.prices.first.try(:price), :show_zero => false) %>
@@ -138,32 +138,21 @@ $(document).ready(function(){
         id = $(this).closest('span').attr('class');
         price = $(this).closest('span').attr('id');
         eprice = $(this).closest('span').attr('price');
-
         var form = '#form_' + id;
-
         overheadprice = $('#price_' + id).attr('price');
-
 		var myTotal = 0;
      	$(form +  ' input[type="checkbox"]:checked').each(function() {
        		myTotal = +myTotal + +$(this).closest('span').attr('price');
     	});
-
 		$('#price_' + id).html('$' + (+myTotal + +overheadprice).toFixed(2) );
         totalprice = $('#totalprice').attr('price');
-
         newtotal = 0;
         $('input[type="checkbox"]:checked').each(function() {
        		newtotal = +newtotal + +$(this).closest('span').attr('price');
     	});
-
     	$('#totalprice').html('$' + ((+newtotal + +totalprice).toFixed(2)));
     });
-
 });
-
 </script>
-
-
-
 
 

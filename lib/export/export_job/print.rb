@@ -95,7 +95,7 @@ class ExportJob
         hash[key] = hash.has_key?(path = URI(key).path) ? hash[path] : nil
       end
       file_urls.each_with_object(Thread.current[:export_files]).map do |url, hash|
-        hash[URI(url).path] = open(url)
+        hash[URI(url).path] = open("#{url}")
       end
     end
 
