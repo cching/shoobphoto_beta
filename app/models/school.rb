@@ -12,4 +12,6 @@ class School < ActiveRecord::Base
 
 	belongs_to :school_type
 
+	has_many :users
+
 end

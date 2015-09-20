@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  x: 1
+  'y': 1
+  width: 1
+  height: 1
+  align: MyString
+  column: MyString
+  template_id: 1
+  font: MyString
+  font_id: 1
+  text_size: 1
+  color: MyString
+  spacing: 1
+  name: MyString
+
+two:
+  x: 1
+  'y': 1
+  width: 1
+  height: 1
+  align: MyString
+  column: MyString
+  template_id: 1
+  font: MyString
+  font_id: 1
+  text_size: 1
+  color: MyString
+  spacing: 1
+  name: MyString

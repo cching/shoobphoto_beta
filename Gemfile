@@ -45,6 +45,9 @@ gem 'awesome_nested_set'
 
 gem 'ransack'
 
+gem 'prawn', '0.12.0'
+gem 'prawnto'
+
 
 #Background queue
 gem 'smarter_csv'

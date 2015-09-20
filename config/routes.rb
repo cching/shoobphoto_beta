@@ -41,6 +41,10 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, :except => [:sign_up]
+  match 'export/students' => 'export_list_items#students', :via => 'GET', :as => 'export_students'
+  match 'export/students/:id/type' => 'export_list_items#types', :via => 'GET', :as => 'export_types'
+  match 'export/students/:id/type/:type_id/form' => 'export_list_items#form', :via => 'GET', :as => 'export_form'
+  match 'export/waiting' => 'export_list_items#waiting', :via => 'GET', :as => 'export_waiting'
   match 'students' => 'students#schools', :via => 'GET', :as => 'student_schools'
   match 'students/cart/:id' => 'students#cart', :via => 'GET', :as => 'student_cart'
   match 'students/duplicate/:school' => 'students#duplicate', :via => 'GET', :as => 'student_duplicate'

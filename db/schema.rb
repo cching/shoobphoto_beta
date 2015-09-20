@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150831052925) do
+ActiveRecord::Schema.define(version: 20150919205136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,37 @@ ActiveRecord::Schema.define(version: 20150831052925) do
     t.boolean  "free"
   end
 
+  create_table "export_data", force: true do |t|
+    t.text     "kind"
+    t.integer  "type_id"
+    t.string   "prompt_values"
+    t.string   "sort_by"
+    t.string   "certificate_title"
+    t.string   "distribution_date"
+    t.string   "additional_information"
+    t.integer  "user_id"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.string   "file_file_size"
+    t.string   "file_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "export_data_students", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "export_data_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "export_list_items", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "exports", force: true do |t|
     t.text     "file_path"
     t.datetime "created_at"
@@ -111,6 +142,34 @@ ActiveRecord::Schema.define(version: 20150831052925) do
     t.string   "quantity"
   end
 
+  create_table "fields", force: true do |t|
+    t.integer  "x"
+    t.integer  "y"
+    t.integer  "width"
+    t.integer  "height"
+    t.string   "align"
+    t.string   "column"
+    t.integer  "template_id"
+    t.string   "font"
+    t.integer  "font_id"
+    t.integer  "text_size"
+    t.string   "color"
+    t.integer  "spacing"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "fonts", force: true do |t|
+    t.string   "name"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.string   "file_file_size"
+    t.string   "file_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "image_types", force: true do |t|
     t.string   "name"
     t.string   "option_id"
@@ -123,10 +182,6 @@ ActiveRecord::Schema.define(version: 20150831052925) do
     t.integer  "item_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "main_file_name"
-    t.string   "main_content_type"
-    t.integer  "main_file_size"
-    t.datetime "main_updated_at"
   end
 
   create_table "items", force: true do |t|
@@ -242,6 +297,17 @@ ActiveRecord::Schema.define(version: 20150831052925) do
     t.datetime "updated_at"
   end
 
+  create_table "pdfs", force: true do |t|
+    t.string   "name"
+    t.string   "file_file_name"
+    t.string   "file_file_size"
+    t.string   "file_content_type"
+    t.string   "file_updated_at"
+    t.string   "template_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "prices", force: true do |t|
     t.decimal  "price"
     t.integer  "school_id"
@@ -324,14 +390,31 @@ ActiveRecord::Schema.define(version: 20150831052925) do
   end
 
   create_table "students", force: true do |t|
-    t.string  "student_id"
-    t.string  "last_name"
-    t.string  "first_name"
-    t.string  "grade"
-    t.string  "email"
-    t.integer "school_id"
-    t.date    "dob"
-    t.string  "teacher"
+    t.string   "student_id"
+    t.string   "last_name"
+    t.string   "first_name"
+    t.string   "grade"
+    t.string   "email"
+    t.integer  "school_id"
+    t.date     "dob"
+    t.string   "teacher"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
+  create_table "templates", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "types", force: true do |t|
+    t.string   "name"
+    t.integer  "pdf_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
@@ -348,6 +431,7 @@ ActiveRecord::Schema.define(version: 20150831052925) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "admin",                  default: false
+    t.integer  "school_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

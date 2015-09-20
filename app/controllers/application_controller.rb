@@ -5,7 +5,11 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_nav_links
   	def after_sign_in_path_for(resource)
-  		admin_dashboards_path
+  		if current_user.try(:admin)
+        admin_dashboards_path
+      else
+        export_students_path
+      end
 	end
 
 	def set_nav_links

@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  kind: MyText
+  type_id: 1
+  prompt_values: MyString
+  sort_by: MyString
+  certificate_title,: MyString
+  distribution_date,: MyString
+  additional_information,: MyString
+  user_id: 1
+  file_file_name: MyString
+  file_content_type: MyString
+  file_file_size: MyString
+  file_updated_at: MyString
+
+two:
+  kind: MyText
+  type_id: 1
+  prompt_values: MyString
+  sort_by: MyString
+  certificate_title,: MyString
+  distribution_date,: MyString
+  additional_information,: MyString
+  user_id: 1
+  file_file_name: MyString
+  file_content_type: MyString
+  file_file_size: MyString
+  file_updated_at: MyString
