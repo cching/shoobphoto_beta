@@ -36,7 +36,7 @@ class ExportJob
           end
      
 
-      @image_url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+      @image_url = s3object.url_for(:read, :expires => 1000.minutes)
 
           pdf.start_new_page template: @pdf, margin: 0
 
@@ -95,7 +95,7 @@ class ExportJob
         hash[key] = hash.has_key?(path = URI(key).path) ? hash[path] : nil
       end
       file_urls.each_with_object(Thread.current[:export_files]).map do |url, hash|
-        hash[URI(url).path] = open("#{url}")
+        hash[URI(url).path] = open("#{url}", 'User-Agent' => "Ruby/#{RUBY_VERSION}")
       end
     end
 
