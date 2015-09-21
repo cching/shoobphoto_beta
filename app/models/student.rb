@@ -16,6 +16,7 @@ class Student < ActiveRecord::Base
 
   validates_attachment_file_name :image, :matches => [/png\Z/, /jpe?g\Z/, /gif\Z/], region: 'us-west-1'
 
+  accepts_nested_attributes_for :student_images, allow_destroy: true
 
  def self.import(file)
   	CSV.foreach(file.path, headers: true) do |row|

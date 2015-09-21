@@ -25,11 +25,25 @@ class ExportListItemsController < ApplicationController
             s3object = nil
           end
 
-    @image_url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+    @image_url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true) unless s3object.nil?
   end
   end
 
   def update
+    @student = Student.find(params[:id])
+    @student.update(student_params)
+    @package = Package.find(params[:package])
+    image = @package.student_images.where(:student_id => params[:id]).last
+
+    unless params[:file].nil?
+    unless image.nil?
+      id = StudentImage.last.id + 1
+      image = @student.student_images.create(:id => id, :package_id => @package.id)
+    end
+    image.image = "#{params[:image]}"
+    image.save
+  end
+    respond_to :js
   end
 
   def schools
@@ -160,5 +174,11 @@ class ExportListItemsController < ApplicationController
     end
     coll
   end
+
+  private
+
+  def student_params
+      params.require(:student).permit(:first_name, :last_name, :grade, :school_id, :image, :dob, student_images_attributes: [:image])
+    end
 
 end

@@ -1,4 +1,5 @@
 
+<%= simple_form_for(@student, :url => export_update_path(@student.id, @package.id), remote: true) do |f| %>
 
 <div class="modal-dialog" id="lesson_resources">
     <div class="modal-content">
@@ -7,7 +8,6 @@
         <h4 class="modal-title" id="myModalLabel">Edit Student</h4>
       </div>
       <div class="modal-body centered">
-<%= simple_form_for(@student, :url => export_update_path, remote: true) do |f| %>
 
 <div class="row">
 	<div class="col-sm-3">
@@ -22,15 +22,20 @@ Date of Birth:
 <%= f.input :dob, label: false %>
 
 <%= f.association :school %>
+
+
+<%= file_field_tag :image %>
+
 </div>
+
+
 </div>
-<% end %>
 
       <div class="form-actions">
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-<button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+        <%= f.submit class: "btn btn-primary" %>
       </div>   
       </div>   
 
@@ -38,3 +43,4 @@ Date of Birth:
   </div>
 </div>
 
+<% end %>
