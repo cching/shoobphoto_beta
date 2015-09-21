@@ -14,9 +14,11 @@ class PackageImport
 	            id = Student.last.id + 1
 	            student = school.students.new(:id => id, :student_id => h["student_id"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"])
 	            student.save
+	           else
+	           	student.update(:student_id => h["student_id"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"])
 	          end
 
-	          image = package.student_images.new(:id => s_id, :student_id => student.id, :url => h["url"], :folder => h["folder"], :grade => h["grade"])
+	          image = package.student_images.new(:id => s_id, :student_id => student.id, :image_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :index_file_name => "#{h[url]}-index")
 	          image.save
 
 	        end

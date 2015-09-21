@@ -3,6 +3,8 @@
 <table class="table table-striped">
 	<thead>
 		<th>
+		</th>
+		<th>
 			Student ID
 		</th>
 		<th>
@@ -21,7 +23,9 @@
 	</thead>
 	<tbody>
 <% @students.each do |student| %>
-	
+		<td>
+			<%= image_tag("#{@image.student_images.where(:student_id => student.id).last.index unless @image.student_images.where(:student_id => student.id).last.try(:index).nil?}", class: "img-rounded") %>
+		</td>
 		<td>
 			<%= student.student_id %>
 		</td>
@@ -39,7 +43,7 @@
 			<% if @image.student_images.where(:student_id => student.id).last.try(:url).nil? %>
 			<button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="This student is missing an image for an ID card. Please upload a portrait." data-original-title="" title="">Export</button>
 			<% else %>
-			<%= link_to "Export", export_types_path(student.id, :image => @image.id), remote: true, class: "btn btn-primary" %>
+			<%= link_to "Print", export_types_path(student.id, :image => @image.id), remote: true, class: "btn btn-primary" %>
 			<% end %>
 		</td>
 	</tr>
