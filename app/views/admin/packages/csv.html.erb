@@ -16,6 +16,8 @@ Where:
 </ul>
 <br />
 
+There needs to be an ID column to avoid mass-assignment and assure upload. The last ID is: <%= StudentImage.last.id %>
+
 <div align="left">
 <%= form_tag admin_import_packages_path, multipart: true do %>
   <%= collection_select(:school, :id, @package.schools.order(:name), :id, :name, {:prompt => false}, {:class => "form-control"}) %><br />
