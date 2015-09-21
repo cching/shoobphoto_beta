@@ -17,10 +17,10 @@ class ExportListItemsController < ApplicationController
     bucket = AWS::S3::Bucket.new('shoobphoto')
     image = @package.student_images.where(:student_id => params[:id]).last
     unless image.nil?
-          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.url.upcase}.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.url.upcase}.jpg")
-          elsif AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.url.downcase}.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.url.downcase}.jpg")
+          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
+          elsif AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
           else
             s3object = nil
           end
@@ -52,10 +52,10 @@ class ExportListItemsController < ApplicationController
       bucket = AWS::S3::Bucket.new('shoobphoto')
           package = Package.find(params[:image])
           image = package.student_images.where(:student_id => params[:id]).last
-          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.url.upcase}.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.url.upcase}.jpg")
-          elsif AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.url.downcase}.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.url.downcase}.jpg")
+          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
+          elsif AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
           else
             s3object = nil
           end

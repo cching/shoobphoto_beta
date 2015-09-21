@@ -40,7 +40,7 @@
 			<%= link_to "Show", export_show_path(student.id, :image => @image.id), remote: true, class: "btn btn-primary" %>
 		</td>
 		<td>
-			<% if @image.student_images.where(:student_id => student.id).last.try(:url).nil? %>
+			<% if @image.student_images.where(:student_id => student.id).last.try(:image_file_name).nil? %>
 			<button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="This student is missing an image for an ID card. Please upload a portrait." data-original-title="" title="">Export</button>
 			<% else %>
 			<%= link_to "Print", export_types_path(student.id, :image => @image.id), remote: true, class: "btn btn-primary" %>
