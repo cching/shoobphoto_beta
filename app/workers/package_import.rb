@@ -19,12 +19,7 @@ class PackageImport
 	          end
 
 	          image = package.student_images.new(:id => s_id, :student_id => student.id, :image_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :index_file_name => "h[url]-index")
-	          unless image.save?
-	          	s_id = StudentImage.last.id + 10
-	          	image = package.student_images.new(:id => s_id, :student_id => student.id, :image_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :index_file_name => "h[url]-index")
-	          end
-
-	          unless image.save?
+	          unless image.save
 	          	s_id = StudentImage.last.id + 10
 	          	image = package.student_images.new(:id => s_id, :student_id => student.id, :image_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :index_file_name => "h[url]-index")
 	          end
