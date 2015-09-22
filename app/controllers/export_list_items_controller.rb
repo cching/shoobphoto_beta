@@ -11,12 +11,50 @@ class ExportListItemsController < ApplicationController
   end
   end
 
+  def search
+    @school = School.find(params[:school])
+    @image = @school.packages.where("name like ?", "%Fall%").last
+    @students = @school.students
+    @students = @students.where("lower(first_name) like ?", "%#{params[:first_name].downcase}%") unless params[:first_name].nil?
+    @students = @students.where("lower(last_name) like ?", "%#{params[:last_name].downcase}%") unless params[:last_name].nil?
+    @students = @students.paginate(:page => params[:page], :per_page => 100)
+
+    respond_to :js
+  end
+
+  def new
+    @student = Student.new
+    @image = Package.find(params[:package])
+    @school = School.find(params[:school])
+
+    respond_to :js
+  end
+
+  def create
+    @student = Student.new(student_params)
+    @student.id = Student.last.id + 1
+    @image = Package.find(params[:package])
+    image = @image.student_images.where(:student_id => params[:id]).last
+
+    unless params[:file].nil?
+    unless image.nil?
+      id = StudentImage.last.id + 1
+      image = @student.student_images.create(:id => id, :package_id => @image.id)
+    end
+    image.image = "#{params[:image]}"
+    image.save
+  end
+  @student.save
+    respond_to :js
+  end
+
+
   def show
     @student = Student.find(params[:id])
     @package = Package.find(params[:image])
     bucket = AWS::S3::Bucket.new('shoobphoto')
     image = @package.student_images.where(:student_id => params[:id]).last
-    unless image.nil?
+    unless image.nil? || (image.image_file_name.nil? || image.image_file_name == "")
           if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
             s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
           elsif AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg").exists?
