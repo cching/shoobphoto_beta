@@ -64,8 +64,8 @@ class ExportListItemsController < ApplicationController
 
   def types
       bucket = AWS::S3::Bucket.new('shoobphoto')
-          package = Package.find(params[:image])
-          image = package.student_images.where(:student_id => params[:id]).last
+          @package = Package.find(params[:image])
+          image = @package.student_images.where(:student_id => params[:id]).last
           if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
             s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
           elsif AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg").exists?
@@ -90,7 +90,7 @@ class ExportListItemsController < ApplicationController
     @export_data.export_data_students.new(:student_id => params[:id])
 
 
-      queued = @export_data.save && ExportJob.new(@export_data.id, current_user.school.packages.where("name like ?", "%Fall%").last)
+      queued = @export_data.save && ExportJob.new(@export_data.id, params[:package])
 
       redirect_to "/export/waiting?export_data_id=#{@export_data.id}"
 

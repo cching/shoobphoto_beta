@@ -10,6 +10,6 @@ class StudentImage < ActiveRecord::Base
 
   	has_attached_file :index,
   	:url => ':s3_domain_url',
-  	:path => '/images/:folder/:filename'
+  	:path => "/images/:folder/:filename.:extension"
   	validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 end
