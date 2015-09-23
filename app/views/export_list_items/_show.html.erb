@@ -1,7 +1,7 @@
 
-<%= simple_form_for(@student, :url => export_update_path(@student.id, @package.id), remote: true) do |f| %>
+<%= simple_form_for(@student, :url => export_update_path(@student.id, @package.id), remote: true, :html => {:multipart => true}) do |f| %>
 
-<div class="modal-dialog" id="lesson_resources">
+<div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -11,7 +11,7 @@
 
 <div class="row">
 	<div class="col-sm-3">
-		<%= image_tag("#{@image_url}", class: "img-rounded img-med") unless @image_url.nil? %><br/><br/>
+		<%= image_tag("#{@image.image}", class: "img-rounded img-med") unless @image.nil? %><br/><br/>
 	</div>
 	<div class="col-sm-9">
 		First name:
@@ -25,7 +25,7 @@ Date of Birth:
 
 
 <%= file_field_tag :image %>
-
+<br/>
 </div>
 
 
@@ -33,9 +33,12 @@ Date of Birth:
 
       <div class="form-actions">
       <div class="modal-footer">
+        
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-        <%= f.submit class: "btn btn-primary" %>
+        <%= f.submit class: "btn btn-primary", id: "submit" %>
+        <div id="window">
+        </div>
       </div>   
       </div>   
 
@@ -44,3 +47,9 @@ Date of Birth:
 </div>
 
 <% end %>
+
+<script>
+$("#submit").on("click", function() {
+  $("#window").html("<%= escape_javascript(render partial: 'loading') %>"); 
+});
+</script>

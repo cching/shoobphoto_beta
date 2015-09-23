@@ -55,18 +55,8 @@ class ExportListItemsController < ApplicationController
     @student = Student.find(params[:id])
     @package = Package.find(params[:image])
     bucket = AWS::S3::Bucket.new('shoobphoto')
-    image = @package.student_images.where(:student_id => params[:id]).last
-    unless image.nil? || (image.image_file_name.nil? || image.image_file_name == "")
-          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
-          elsif AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
-          else
-            s3object = nil
-          end
+    @image = @package.student_images.where(:student_id => params[:id]).last
 
-    @image_url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true) unless s3object.nil?
-  end
   end
 
   def update
@@ -75,14 +65,16 @@ class ExportListItemsController < ApplicationController
     @package = Package.find(params[:package])
     image = @package.student_images.where(:student_id => params[:id]).last
 
-    unless params[:file].nil?
-    unless image.nil?
-      id = StudentImage.last.id + 1
-      image = @student.student_images.create(:id => id, :package_id => @package.id)
+
+    if image.nil?
+        id = StudentImage.last.id + 1
+        image = @student.student_images.create(:id => id, :package_id => @package.id)
     end
-    image.image = "#{params[:image]}"
-    image.save
-  end
+
+    if params[:image].present?
+      image.image = params[:image]
+      image.save
+    end
     respond_to :js
   end
 
@@ -105,17 +97,9 @@ class ExportListItemsController < ApplicationController
   def types
       bucket = AWS::S3::Bucket.new('shoobphoto')
           @package = Package.find(params[:image])
-          image = @package.student_images.where(:student_id => params[:id]).last
-          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
-          elsif AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
-          else
-            s3object = nil
-          end
+          @image = @package.student_images.where(:student_id => params[:id]).last
      
-    @types = Type.all.order(:name) unless s3object.nil?
-
+    @types = Type.all.order(:name) if @image.image.exists?
     respond_to :js
   end
   

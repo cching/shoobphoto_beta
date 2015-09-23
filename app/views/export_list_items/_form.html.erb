@@ -1,7 +1,8 @@
 
 <%= simple_form_for(@student, :url => export_create_path(@school.id, @image.id), remote: true, :html => {:multipart => true}) do |f| %>
 
-<div class="modal-dialog" id="lesson_resources">
+<div class="modal-dialog">
+
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -21,18 +22,27 @@ Date of Birth:
 
 
 <%= file_field_tag :image %>
+<br/>
 
 
       <div class="form-actions">
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-        <%= f.submit class: "btn btn-primary" %>
-      </div>   
-      </div>   
+        <%= f.submit class: "btn btn-primary", id: "submit" %><br/>
+        <div id="window"></div>
 
+      </div>   
+      </div>  
+      
     </div>
   </div>
 </div>
 
 <% end %>
+
+<script>
+$("#submit").on("click", function() {
+  $("#window").html("<%= escape_javascript(render partial: 'loading') %>"); 
+});
+</script>

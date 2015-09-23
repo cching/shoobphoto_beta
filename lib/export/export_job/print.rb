@@ -27,16 +27,9 @@ class ExportJob
         @pdf = Thread.current[:export_files][@export_data.pdf.file.url]
 
         @export_data.students.each do |student|
-          bucket = AWS::S3::Bucket.new('shoobphoto')
-          image = @package.student_images.where(:student_id => student.id).last
-          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
-          else
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
-          end
+
      
 
-      @image_url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
 
           pdf.start_new_page template: @pdf, margin: 0
 
@@ -45,7 +38,7 @@ class ExportJob
             # Handle image inserts.
             if ExportJob.image_columns.include? field.column
               if url = student.send(field.column).try(:url)
-                pdf.image open("#{@image_url}"),
+                pdf.image open("#{student.student_images.where(:package_id => @package.id).last.image.url}"),
                   at: [field.x, field.y],
                   width: field.width,
                   height: field.height

@@ -13,7 +13,7 @@
     <h3>This student is missing a correct image. Please upload another.</h3>
     <% else %>
         <% @types.each do |type| %>
-            <%= link_to type.name, export_form_path(params[:id], type.id, @package.id), class: "btn btn-custom btn-centered" %><br/>
+            <%= link_to type.name, export_form_path(params[:id], type.id, @package.id), class: "btn btn-custom btn-centered", id: "submit" %><br/>
         <% end %>
     <% end %>
       </div>
@@ -30,3 +30,9 @@
     </div>
   </div>
 
+<script>
+$(".btn-centered").on("click", function() {
+  $('#myModal').modal('hide');
+
+});
+</script>
