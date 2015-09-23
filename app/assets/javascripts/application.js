@@ -15,6 +15,7 @@
 //= require bootstrap.min
 //= require turbolinks
 //= require jquery.remotipart
+//= require jquery.iframe-transport
 //= require_tree .
 
 $('.btn-loading').button();

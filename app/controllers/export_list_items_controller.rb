@@ -34,16 +34,14 @@ class ExportListItemsController < ApplicationController
     @student = Student.new(student_params)
     @student.id = Student.last.id + 1
     @image = Package.find(params[:package])
-    image = @image.student_images.where(:student_id => params[:id]).last
 
-    unless params[:file].nil?
-      unless image.nil?
+
         id = StudentImage.last.id + 1
-        image = @student.student_images.create(:id => id, :package_id => @image.id)
-      end
-      image.image = "#{params[:image]}"
+        image = @student.student_images.new(:id => id, :package_id => @image.id)
+      
+      image.image = params[:image]
       image.save
-    end
+    
   @student.save
     respond_to do |format|
       format.js { render 'create'}

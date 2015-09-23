@@ -52,7 +52,8 @@ gem 'prawnto'
 #Background queue
 gem 'smarter_csv'
 
-gem "remotipart", "~> 1.0"
+gem 'remotipart', '~> 1.2'
+
 
 
 

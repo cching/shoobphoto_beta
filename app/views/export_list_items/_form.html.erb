@@ -1,5 +1,5 @@
 
-<%= simple_form_for(@student, :url => export_create_path(@school.id, @image.id), remote: true) do |f| %>
+<%= simple_form_for(@student, :url => export_create_path(@school.id, @image.id), remote: true, :html => {:multipart => true}) do |f| %>
 
 <div class="modal-dialog" id="lesson_resources">
     <div class="modal-content">

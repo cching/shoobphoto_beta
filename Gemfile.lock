@@ -248,7 +248,7 @@ DEPENDENCIES
   rails (= 4.1.4)
   rails_12factor
   ransack
-  remotipart (~> 1.0)
+  remotipart (~> 1.2)
   roo
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
