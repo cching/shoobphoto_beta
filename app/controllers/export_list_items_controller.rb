@@ -106,12 +106,14 @@ class ExportListItemsController < ApplicationController
   def form
     
     @export_data = ExportData.new(( {}).merge({
+      student_ids: params[:id],
       kind: 'print',
       type_id: params[:type_id],
       user_id: current_user.id
     }))
 
-    @export_data.export_data_students.new(:student_id => params[:id])
+    puts "@@@@@@@@ export data saved"
+
 
 
       queued = @export_data.save && ExportJob.new(@export_data.id, params[:package])
@@ -129,8 +131,10 @@ class ExportListItemsController < ApplicationController
     send_file(
          "#{Rails.root}/tmp/#{@export_data.id}.#{@export_data.format}",
         filename: "#{@export_data.id}.#{@export_data.format}",
-        type: "#{@export_data.file_content_type}")
+        type: "#{@export_data.file_content_type}",
+        disposition: "attachment")
   end
+
 
   def upload
     if request.post?
