@@ -37,8 +37,8 @@ class ExportJob
 
             # Handle image inserts.
             if ExportJob.image_columns.include? field.column
-              if url = student.send(field.column).try(:url)
-                pdf.image open("#{student.student_images.where(:package_id => @package.id).last.image.url}"),
+              if url = student.student_images.where(:package_id => @package.id).last.image.url
+                pdf.image open(Thread.current[:export_files][url]),
                   at: [field.x, field.y],
                   width: field.width,
                   height: field.height
@@ -101,7 +101,15 @@ class ExportJob
     def file_urls
       urls = { @export_data.pdf.file.url => true }
       @export_data.template.fonts.map { |font| urls[font.file.url] = true }
-
+      if @export_data.columns.include? 'image'
+        @export_data.students.map { |student| urls[student.student_images.where(:package_id => @package.id).last.image.url] = true }
+      elsif @export_data.columns.include? 'image_if_present'
+        @export_data.students.map do |student|
+          if student.student_images.where(:package_id => @package.id).last.image?
+            urls[student.student_images.where(:package_id => @package.id).last.image.url] = true
+          end
+        end
+      end
       urls.keys
     end
     
