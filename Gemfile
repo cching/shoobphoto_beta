@@ -52,6 +52,9 @@ gem 'prawnto'
 #Background queue
 gem 'smarter_csv'
 
+gem "remotipart", "~> 1.0"
+
+
 
 gem 'sidekiq'
 gem 'unicorn', '~> 4.6.2'

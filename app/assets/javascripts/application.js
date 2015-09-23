@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap.min
 //= require turbolinks
+//= require jquery.remotipart
 //= require_tree .
 
 $('.btn-loading').button();

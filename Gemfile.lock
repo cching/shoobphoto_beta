@@ -163,6 +163,7 @@ GEM
     redis (3.2.1)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
+    remotipart (1.2.1)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
     roo (2.1.1)
@@ -247,6 +248,7 @@ DEPENDENCIES
   rails (= 4.1.4)
   rails_12factor
   ransack
+  remotipart (~> 1.0)
   roo
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
