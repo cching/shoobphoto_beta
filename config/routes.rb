@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   match 'export/show/:id' => 'export_list_items#show', :via => 'GET', :as => 'export_show'
   match 'export/students/:id/type/' => 'export_list_items#types', :via => 'GET', :as => 'export_types'
   match 'export/update/:id/:package' => 'export_list_items#update', :via => 'PATCH', :as => 'export_update'
+  match 'export/delete/:id' => 'export_list_items#delete', :via => 'delete', :as => 'export_delete'
   match 'export/students/:id/type/:type_id/form/:package' => 'export_list_items#form', :via => 'GET', :as => 'export_form'
   match 'export/students/search/:school' => 'export_list_items#search', :via => 'GET', :as => 'export_search'
   match 'export/students/new/:school/:package' => 'export_list_items#new', :via => 'GET', :as => 'export_new'

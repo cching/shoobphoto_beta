@@ -30,6 +30,14 @@ class ExportListItemsController < ApplicationController
     respond_to :js
   end
 
+  def delete
+    @student = Student.find(params[:id])
+    
+    @student.delete
+
+    respond_to :js
+  end
+
   def create
     @student = Student.new(student_params)
     @student.id = Student.last.id + 1

@@ -1,0 +1,20 @@
+<td>
+		<button class="btn btn-danger disabled">Deleted</button>
+		</td>
+		<td>
+			<%= @student.student_id %>
+		</td>
+		<td>
+			<%= @student.first_name %> <%= @student.last_name %>
+		</td>
+		<td>
+			<%= @student.grade %>
+		</td>
+
+		<td> 
+			<%= link_to "Show", '#', class: "btn btn-primary disabled" %>
+		</td>
+		<td>
+
+			<%= link_to "Print", '#', class: "btn btn-primary disabled" %>
+		</td>

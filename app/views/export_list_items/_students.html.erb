@@ -38,6 +38,8 @@
 	</thead>
 	<tbody>
 <% @students.each do |student| %>
+<tr id="student_<%= student.id %>">
+
 		<td>
 			<%= image_tag("#{@image.student_images.where(:student_id => student.id).last.index unless @image.student_images.where(:student_id => student.id).last.try(:index).nil?}", class: "img-rounded") %>
 		</td>
@@ -62,6 +64,7 @@
 			<% end %>
 		</td>
 	</tr>
+
 <% end %>
 </tbody>
 </table>

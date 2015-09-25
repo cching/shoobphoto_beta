@@ -14,4 +14,9 @@ class School < ActiveRecord::Base
 
 	has_many :users
 
+  has_many :school_templates
+
+  has_many :types, through: :school_templates
+
+
 end

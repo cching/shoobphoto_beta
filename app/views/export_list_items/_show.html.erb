@@ -18,8 +18,9 @@
 <%= f.input :first_name, label: false %>
 Last name:
 <%= f.input :last_name, label: false %>
-Date of Birth:
-<%= f.input :dob, label: false %>
+Student ID:
+
+<%= f.input :student_id, label: false %>
 
 <%= f.association :school %>
 
@@ -35,6 +36,8 @@ Date of Birth:
       <div class="modal-footer">
         
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+        <%= link_to "Delete Student", export_delete_path(@student.id), class: "btn btn-danger", remote: true,method: :delete, data: {confirm: "Are you sure?"} %>
 
         <%= f.submit class: "btn btn-primary", id: "submit" %>
         <div id="window">
