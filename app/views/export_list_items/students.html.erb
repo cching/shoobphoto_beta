@@ -11,7 +11,7 @@
     </div>
     <div class="col-sm-2">
     	Grade:
-    <%= select_tag :grade, options_for_select(Student::Grades), class: "form-control", id: "input_student_grade", :include_blank => true %>
+    <%= select_tag :grade, options_for_select( @school.students.select(:grade).map(&:grade).uniq), class: "form-control", id: "input_student_grade", :prompt => "Search by grade" %>
 
    	</div>
 
