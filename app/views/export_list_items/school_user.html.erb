@@ -22,13 +22,10 @@
 </div>
 
 
+<%= link_to "New Student", export_new_path(@school.id, @image.id), remote: true, class: "btn btn-primary btn-centered" %>
 
-<div class="row">
+
 		<%= render 'sidebar' %>
 
-		<div id="students_list"><%= render 'students', :locals => {:students => @students, :image => @image} %></div>
+		<div id="students_list"><%= render 'students', :locals => {:students => @students, :image => @image} %>
 
-<% else %>
-<%= render 'students', :locals => {:students => @students, :image => @image} %>
-
-<% end %>
