@@ -11978,3 +11978,25 @@ $(document).ready(function(){
     $(this).button('loading');
   });
 });
+
+
+$(function() {
+  $("#students_list").on("click", ".pagination a", function(){
+
+    $.getScript(this.href);
+    return false;
+  });
+
+  $('#students_search input').keyup(function () {
+  $.get($('#students_search').attr('action'), 
+    $('#students_search').serialize(), null, 'script');
+  return false;
+});
+
+  $('#students_search select').bind("change keyup", function(event){
+  $.get($('#students_search').attr('action'), 
+    $('#students_search').serialize(), null, 'script');
+  return false;
+});
+});
+

@@ -13,6 +13,9 @@
 
   <%= f.input :name %>
 
+    <%= f.input :ca_code %>
+
+
   <%= f.association :school_type, as: :radio_buttons %>
 
   <%= f.association :packages, as: :check_boxes, :label_method => lambda { |package| "#{package.name} - #{package.slug}" } %>

@@ -17,6 +17,19 @@ html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:1
   margin: auto;
   padding: 10px;
 }
+
+/* line 17, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/export_list_items.css.scss */
+.searchform {
+  background-color: #1289CD;
+  color: #1289CD;
+}
+
+/* line 21, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/export_list_items.css.scss */
+.white {
+  color: #fff;
+  padding-left: 10px;
+  padding-top: 35px;
+}
 /* line 5, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/extra_types.css.scss */
 #extras td {
   padding-left: 15px;

@@ -3,7 +3,7 @@ class ExportListItemsController < ApplicationController
   def students
     if current_user
     @school = current_user.school
-    @students = @school.students.order(:last_name).paginate(:page => params[:page], :per_page => 100)
+    @students = Student.search(@school.id, params[:first_name], params[:last_name], params[:grade]).paginate(:per_page => 100,:page => params[:page])
 
     @image = @school.packages.where("name like ?", "%Fall%").last
   else
@@ -20,7 +20,7 @@ class ExportListItemsController < ApplicationController
     @students = @students.paginate(:page => params[:page], :per_page => 100)
 
     respond_to :js
-  end
+  end 
 
   def new
     @student = Student.new
@@ -62,9 +62,19 @@ class ExportListItemsController < ApplicationController
   def show
     @student = Student.find(params[:id])
     @package = Package.find(params[:image])
-    bucket = AWS::S3::Bucket.new('shoobphoto')
     @image = @package.student_images.where(:student_id => params[:id]).last
 
+    @nodelete = @student.carts.map { |c| true if c.orders.any? }.any?
+
+  end
+
+  def download
+  @image = Package.find(params[:image_id])
+  @student = Student.find(params[:student_id])
+  data = open("#{@image.student_images.where(:student_id => @student.id).last.image.url}")
+  send_data data.read, filename: "#{@student.last_name}_#{@student.first_name}.jpg", type: "image/jpeg", :x_sendfile => true
+
+  
   end
 
   def update
@@ -94,7 +104,7 @@ class ExportListItemsController < ApplicationController
   def school_user
     @school = School.find(params[:id])
     @image = @school.packages.where("name like ?", "%Fall%").last
-    @students = @school.students.order(:last_name).paginate(:page => params[:page], :per_page => 100)
+    @students = Student.search(@school.id, params[:first_name], params[:last_name], params[:grade]).paginate(:per_page => 100,:page => params[:page])
   end
 
   def users
@@ -103,9 +113,9 @@ class ExportListItemsController < ApplicationController
   end
 
   def types
-      bucket = AWS::S3::Bucket.new('shoobphoto')
           @package = Package.find(params[:image])
           @image = @package.student_images.where(:student_id => params[:id]).last
+          @school = School.find(params[:school])
      
     @types = Type.all.order(:name) if @image.image.exists?
     respond_to :js

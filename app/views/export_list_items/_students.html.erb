@@ -1,21 +1,6 @@
-<%= form_tag(export_search_path(@school.id), method: :get, remote: true) do %>
-<div class="row">
-	<div class="col-sm-5">
-        First Name: <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "form-control", id: "input_first_name", :value => "#{params[:first_name]}"%>
-    </div>
-    <div class="col-sm-5">
-        Last Name: <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "form-control", id: "input_last_name", :value => "#{params[:last_name]}"%>
-    </div>
-    <div class="col-sm-2">
-<br/>    	<%= submit_tag "Search", class: "btn btn-primary" %>
-    </div>
-</div>
-<% end %>
-<br/>
 
-<%= link_to "New Student", export_new_path(@school.id, @image.id), remote: true, class: "btn btn-primary btn-centered" %>
 
-<table class="table table-striped">
+<table class="table table">
 	<thead>
 		<th>
 		</th>
@@ -30,7 +15,10 @@
 		</th>
 
 		<th>
-			Show
+			Edit
+		</th>
+		<th>
+			Download
 		</th>
 		<th> 
 			Export
@@ -38,8 +26,9 @@
 	</thead>
 	<tbody>
 <% @students.each do |student| %>
-<tr id="student_<%= student.id %>">
 
+<tr id="student_<%= student.id %>" data-link="<%=  %>">
+	<%= link_to export_show_path(student.id, :image => @image.id), remote: true do %>
 		<td>
 			<%= image_tag("#{@image.student_images.where(:student_id => student.id).last.index unless @image.student_images.where(:student_id => student.id).last.try(:index).nil?}", class: "img-rounded") %>
 		</td>
@@ -54,15 +43,25 @@
 		</td>
 
 		<td> 
-			<%= link_to "Show", export_show_path(student.id, :image => @image.id), remote: true, class: "btn btn-primary" %>
+			<%= link_to "Edit", export_show_path(student.id, :image => @image.id), remote: true, class: "btn btn-custom" %>
 		</td>
+		<td>
+
+			<% unless @image.student_images.where(:student_id => student.id).last.try(:image).nil? %>
+		<%= link_to "Download", export_download_path(student.id, @image.id), class: "btn btn-custom"  %>
+		<% else %>
+		<button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="This student is missing an image for an ID card. Please upload a portrait." data-original-title="" title="">Download</button>
+		<% end %>
+	</td>
+
 		<td>
 			<% if @image.student_images.where(:student_id => student.id).last.try(:image_file_name).nil? %>
 			<button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="This student is missing an image for an ID card. Please upload a portrait." data-original-title="" title="">Print</button>
 			<% else %>
-			<%= link_to "Print", export_types_path(student.id, :image => @image.id), remote: true, class: "btn btn-primary" %>
+			<%= link_to "Print", export_types_path(student.id, @school.id, :image => @image.id), remote: true, class: "btn btn-custom" %>
 			<% end %>
 		</td>
+		<% end %>
 	</tr>
 
 <% end %>
@@ -72,7 +71,6 @@
 <%= will_paginate @students %>
 
 <script>
-
 $('[data-toggle="popover"]').popover();
 
 $('body').on('click', function (e) {
@@ -84,5 +82,4 @@ $('body').on('click', function (e) {
         }
     });
 });
-
 </script>

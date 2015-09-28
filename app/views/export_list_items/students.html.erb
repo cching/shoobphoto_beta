@@ -1,17 +1,36 @@
 <h2><%= @school.name %></h2><hr />
-
-<% if current_user.try(:admin) %>
-
-
+<div class="searchform">
+<%= form_tag(export_students_path, method: :get, :id => "students_search") do %>
 <div class="row">
-	<div class="col-sm-3">
-		<%= render 'sidebar' %>
-	</div>
-	<div class="col-sm-9">
-		<%= render 'students', :locals => {:students => @students, :image => @image} %>
-	</div>
-</div>
-<% else %>
-<%= render 'students', :locals => {:students => @students, :image => @image} %>
+	<div class="col-sm-1"><div class="white">Search:</div></div>
+	<div class="col-sm-4">
+        First Name: <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "form-control", id: "input_first_name", label: false%>
+    </div>
+    <div class="col-sm-4">
+        Last Name: <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "form-control", id: "input_last_name", :value => "#{params[:last_name]}"%>
+    </div>
+    <div class="col-sm-2">
+    	Grade:
+    <%= select_tag :grade, options_for_select(Student::Grades), class: "form-control", id: "input_student_grade", :prompt => "Grade" %>
 
+   	</div>
+
+   	<div class="col-sm-1"></div>
+</div>
 <% end %>
+<br/>
+</div>
+
+
+<%= link_to "New Student", export_new_path(@school.id, @image.id), remote: true, class: "btn btn-primary btn-centered" %>
+
+	<% if current_user.try(:admin) %>
+
+
+			<%= render 'sidebar' %><br/>
+			<div id="students_list"><%= render 'students', :locals => {:students => @students, :image => @image} %></div>
+	</div>
+	<% else %>
+	<div id="students_list"><%= render 'students', :locals => {:students => @students, :image => @image} %></div>
+
+	<% end %>

@@ -28,6 +28,20 @@ class Student < ActiveRecord::Base
     end
   end
 
+  def self.search(school_id, first_name, last_name, grade)
+  school = School.find(school_id)
+  unless first_name.nil? || last_name.nil? || grade.nil?
+    
+    students = school.students
+    students = students.where("lower(first_name) like ?", "%#{first_name.downcase}%") unless first_name.nil?
+    students = students.where("lower(last_name) like ?", "%#{last_name.downcase}%") unless last_name.nil?
+    students = students.where("grade = ?", "#{grade}") unless grade.nil?
+  else
+    students = school.students
+  end
+  return students.order(:last_name)
+end
+
 
     Grades = [
     ['Preschool', 'PS'],

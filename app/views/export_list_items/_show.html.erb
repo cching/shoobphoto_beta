@@ -36,9 +36,12 @@ Student ID:
       <div class="modal-footer">
         
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
+    <%= link_to "Download Image", export_download_path(@student.id, @package.id), class: "btn btn-custom"  unless @package.student_images.where(:student_id => @student.id).last.try(:image).nil? %>
+        <% if @nodelete %>
+        <button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="This student has an associated order and cannot be deleted." data-original-title="" title="">Delete Student</button>
+        <% else %>
         <%= link_to "Delete Student", export_delete_path(@student.id), class: "btn btn-danger", remote: true,method: :delete, data: {confirm: "Are you sure?"} %>
-
+        <% end %>
         <%= f.submit class: "btn btn-primary", id: "submit" %>
         <div id="window">
         </div>
@@ -54,5 +57,17 @@ Student ID:
 <script>
 $("#submit").on("click", function() {
   $("#window").html("<%= escape_javascript(render partial: 'loading') %>"); 
+});
+
+$('[data-toggle="popover"]').popover();
+
+$('body').on('click', function (e) {
+    $('[data-toggle="popover"]').each(function () {
+        //the 'is' for buttons that trigger popups
+        //the 'has' for icons within a button that triggers a popup
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            $(this).popover('hide');
+        }
+    });
 });
 </script>
