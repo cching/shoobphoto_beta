@@ -1,5 +1,5 @@
 
-<%= simple_form_for(@student, :url => export_update_path(@student.id, @package.id), remote: true, :html => {:multipart => true}) do |f| %>
+<%= simple_form_for(@student, :url => export_update_path(@student.id, @package.id, html: {class: 'form-horizontal' }), remote: true, :html => {:multipart => true}) do |f| %>
 
 <div class="modal-dialog">
     <div class="modal-content">
@@ -21,8 +21,10 @@ Last name:
 Student ID:
 
 <%= f.input :student_id, label: false %>
-
-<%= f.association :school %>
+Grade:
+<%= f.select(:grade, Student::Grades, :class => 'form-control select')  %>
+<br/>
+<%= f.association :school, as: :select %>
 
 
 <%= file_field_tag :image %>

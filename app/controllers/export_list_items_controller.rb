@@ -220,7 +220,7 @@ class ExportListItemsController < ApplicationController
   private
 
   def student_params
-      params.require(:student).permit(:first_name, :last_name, :grade, :school_id, :image, :dob, student_images_attributes: [:image])
+      params.require(:student).permit(:first_name, :last_name, :grade, :school_id, :student_id, :grade, :image, :dob, student_images_attributes: [:image])
     end
 
 end

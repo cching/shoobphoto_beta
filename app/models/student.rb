@@ -33,9 +33,11 @@ class Student < ActiveRecord::Base
   unless first_name.nil? || last_name.nil? || grade.nil?
     
     students = school.students
+
     students = students.where("lower(first_name) like ?", "%#{first_name.downcase}%") unless first_name.nil?
     students = students.where("lower(last_name) like ?", "%#{last_name.downcase}%") unless last_name.nil?
-    students = students.where("grade = ?", "#{grade}") unless grade.nil?
+    students = students.where("grade = ?", "#{grade}") unless grade.nil? || grade == ""
+    
   else
     students = school.students
   end
