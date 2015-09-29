@@ -132,8 +132,8 @@ class ExportListItemsController < ApplicationController
     @export_data.export_data_students.new(:student_id => params[:id])
 
     queued = @export_data.save && ExportJob.new(@export_data.id, params[:package])
-
-      redirect_to "/export/waiting?export_data_id=#{@export_data.id}"
+    sleep 1
+    redirect_to "/export/waiting?export_data_id=#{@export_data.id}"
 
   end
 
