@@ -35,7 +35,7 @@ class OrderExport
                 ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.teacher}"] + ["#{student.student_id}"] + ["#{student.grade}"] + ["#{student.school.name}"] + ["#{student.dob}"] + 
                 
               
-             [@string] + [@string2] + [Package.concat(order.id, student.id)] + [order.cart.school.ca_code]
+             [@string] + [@string2] + [Package.concat(order.id, student.id)] + [order.cart.school.try(:ca_code)]
                 
 
               )

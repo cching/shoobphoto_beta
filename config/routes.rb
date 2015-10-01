@@ -40,7 +40,7 @@ Rails.application.routes.draw do
     match 'navlinks/csv' => 'nav_links#import', :via => 'POST', :as => 'import_nav_links'
   end
 
-  devise_for :users, :except => [:sign_up]
+  devise_for :users
   match 'export/students' => 'export_list_items#students', :via => 'GET', :as => 'export_students'
   match 'export/users' => 'export_list_items#users', :via => 'GET', :as => 'export_users'
   match 'export/schools' => 'export_list_items#schools', :via => 'GET', :as => 'export_schools'
