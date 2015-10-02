@@ -1,0 +1,7 @@
+<p id="notice"><%= notice %></p>
+
+<%= @pdf.name %><br/>
+<%= link_to @pdf.file.url %>
+
+<br />
+<%= link_to "Types: #{@pdf.types.count}", template_pdf_types_path(@template, @pdf), class: "btn btn-primary" %>

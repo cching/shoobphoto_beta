@@ -1,0 +1,25 @@
+<%= simple_form_for [@template, @field]  do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  	<%= f.input :x %><br/>
+  	<%= f.input :y %><br/>
+  	<%= f.input :width %><br/>
+  	<%= f.input :height %><br/>
+  	<%= f.input :align %><br/>
+  	<%= f.input :column %><br/>
+  	<%= f.input :name %><br/>
+  	<%= f.input :text_size %><br/>
+  	<%= f.input :color %><br/>
+  	<%= f.input :spacing %><br/>
+  	<%= f.association :font %><br />
+  	<%= f.association :template %>
+
+
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+<h3><%= @template.name %></h3>
+
+<br/>
+
+<%= link_to "Fields: #{@template.fields.count}", template_fields_path(@template), class: "btn btn-custom" %><br/><br/>
+<%= link_to "PDFs: #{@template.pdfs.count}", template_pdfs_path(@template), class: "btn btn-custom" %><br/><br/>
+
+<%= link_to 'Edit', edit_template_path(@template) %> |
+<%= link_to 'Back', templates_path %>

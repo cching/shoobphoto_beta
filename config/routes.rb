@@ -2,6 +2,19 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
+  
+
+  
+
+  resources :types
+
+  resources :templates do
+    resources :fields
+    resources :pdfs do
+      resources :types
+    end
+  end
+
   mount Sidekiq::Web, at: "/sidekiq"
   
 

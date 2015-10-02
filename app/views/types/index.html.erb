@@ -1,0 +1,23 @@
+<h1>Listing types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @types.each do |type| %>
+      <tr>
+        <td><%= link_to "#{type.name}", template_pdf_type_path(@template.id, @pdf, type) %> - </td>
+        <td><%= link_to 'Edit', edit_template_pdf_type_path(@template.id, @pdf, type) %> - </td>
+        <td><%= link_to 'Destroy', template_pdf_type_path(@template.id, @pdf, type), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Type', new_template_pdf_type_path(@template, @pdf) %>

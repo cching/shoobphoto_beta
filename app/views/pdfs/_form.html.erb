@@ -1,0 +1,13 @@
+<%= simple_form_for([@template, @pdf]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  	<%= f.input :name %>
+  	<%= f.association :template %>
+  	<%= f.input :file %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

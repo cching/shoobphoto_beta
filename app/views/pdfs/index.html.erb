@@ -1,0 +1,23 @@
+<h1>Listing pdfs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pdfs.each do |pdf| %>
+      <tr>
+        <td><%= link_to "#{pdf.name}", template_pdf_path(@template.id, pdf) %> - </td>
+        <td><%= link_to 'Edit', edit_template_pdf_path(@template, pdf) %> - </td>
+        <td><%= link_to 'Destroy', template_pdf_path(@template, pdf), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pdf', new_template_pdf_path %>
