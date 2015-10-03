@@ -132,7 +132,11 @@ class ExportListItemsController < ApplicationController
     @export_data.export_data_students.new(:student_id => params[:id])
 
     queued = @export_data.save && ExportJob.new(@export_data.id, params[:package])
-    sleep 1
+    filename = "#{Rails.root}/tmp/#{@export_data.id}.#{@export_data.format}"
+    until File.file?(filename)
+      sleep 1
+    end
+ 
     redirect_to "/export/waiting?export_data_id=#{@export_data.id}"
 
   end
