@@ -146,9 +146,7 @@ class ExportListItemsController < ApplicationController
 
     filename = "#{Rails.root}/tmp/#{@export_data.id}.#{@export_data.format}"
 
-    until File.file?(filename)
-      sleep 1
-    end
+   
 
     send_file(
          filename,
