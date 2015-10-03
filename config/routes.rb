@@ -67,7 +67,7 @@ Rails.application.routes.draw do
   match 'export/students/search/:school' => 'export_list_items#search', :via => 'GET', :as => 'export_search'
   match 'export/students/new/:school/:package' => 'export_list_items#new', :via => 'GET', :as => 'export_new'
   match 'export/students/create/:school/:package' => 'export_list_items#create', :via => 'POST', :as => 'export_create'
-  match 'export/waiting' => 'export_list_items#waiting', :via => 'GET', :as => 'export_waiting'
+  match 'export/waiting/:id/:package' => 'export_list_items#waiting', :via => 'GET', :as => 'export_waiting'
   match 'students' => 'students#schools', :via => 'GET', :as => 'student_schools'
   match 'students/cart/:id' => 'students#cart', :via => 'GET', :as => 'student_cart'
   match 'students/duplicate/:school' => 'students#duplicate', :via => 'GET', :as => 'student_duplicate'

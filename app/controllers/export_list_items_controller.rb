@@ -131,30 +131,26 @@ class ExportListItemsController < ApplicationController
 
     @export_data.export_data_students.new(:student_id => params[:id])
 
-    queued = @export_data.save && ExportJob.new(@export_data.id, params[:package])
+    queued = @export_data.save 
+    #&& ExportJob.new(@export_data.id, params[:package])
     
-    redirect_to "/export/waiting?export_data_id=#{@export_data.id}"
+        redirect_to export_waiting_path(@export_data.id, params[:package], :format => 'pdf')
 
   end
 
   
   def waiting
-    @pending = false
-    params[:export_data_id] = params[:export_data_id].to_i
+    @export_data = ExportData.find(params[:id])
 
-    @export_data = ExportData.find(params[:export_data_id])
-
-    filename = "#{Rails.root}/tmp/#{@export_data.id}.#{@export_data.format}"
-
-    until File.file?(filename)
-      puts "waiting for file"
-      sleep(0.5)
+    respond_to do |format|
+    format.pdf do
+      pdf = ExportPdf.new(@export_data, params[:package])
+      send_data pdf.render, filename: "id_#{@export_data.id}",
+                            type: "application/pdf",
+                            disposition: "inline"
     end
+  end
 
-    send_file(
-         filename,
-        filename: "#{@export_data.id}.#{@export_data.format}",
-        type: "#{@export_data.file_content_type}")
   end
 
 

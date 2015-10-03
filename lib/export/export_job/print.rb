@@ -28,9 +28,6 @@ class ExportJob
 
         @export_data.students.each do |student|
 
-     
-
-
           pdf.start_new_page template: @pdf, margin: 0
 
           @export_data.template.fields.each do |field|

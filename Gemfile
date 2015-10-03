@@ -38,14 +38,14 @@ gem 'devise'
 gem 'will_paginate', '~> 3.0.6'
 gem 'roo'
 
-gem 'simple_form', '~> 3.1.0.rc1', github: 'plataformatec/simple_form', branch: 'master'
+gem 'simple_form'
 
 
 gem 'awesome_nested_set'
 
 gem 'ransack'
 
-gem 'prawn', '0.12.0'
+gem 'prawn'
 gem 'prawnto'
 
 
