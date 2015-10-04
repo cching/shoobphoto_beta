@@ -1,4 +1,4 @@
-$('#<%= @index %>').html('<%= escape_javascript(render(:partial => 'remove', :locals => {:cart_id => @cart.id, :type => @type, :image => @image.id, :index => @index, :url => @url})) %>');
+$('#<%= @index %>').html('<%= escape_javascript(render(:partial => 'remove', :locals => {:cart_id => @cart.id, :type => @type, :package => @package.id, :index => @index, :url => @url, :student => @student})) %>');
 
 $('#continue').html('<%= escape_javascript(render(:partial => 'continue')) %>');
 

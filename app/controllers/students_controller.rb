@@ -64,18 +64,22 @@ class StudentsController < ApplicationController
     @opackages.each do |opackage|
       package = opackage.package
       image = package.student_images.where(:student_id => @student.id).last
-      unless image.image_file_name.nil? || @cart.id_supplied == false || image.image_file_name == ""
-        if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
-          s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
+      unless image.nil?
+        unless image.image_file_name.nil? || @cart.id_supplied == false || image.image_file_name == ""
+          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
+          else
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
+          end
         else
-          s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
+          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{image.package.id}/#{image.package.image_file_name}") #do default image in col later
         end
       else
-        s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{image.package.id}/#{image.package.image_file_name}") #do default image in col later
+          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
       end
 
       @image_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-    end
+    end 
   end
 
   def update
@@ -114,41 +118,36 @@ class StudentsController < ApplicationController
     @opackages.each do |opackage|
       package = opackage.package
       image = package.student_images.where(:student_id => @student.id).last
-      unless image.image_file_name.nil? || @cart.id_supplied == false || image.image_file_name == ""
-        if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
-          s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
+      unless image.nil?
+        unless image.image_file_name.nil? || @cart.id_supplied == false || image.image_file_name == ""
+          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
+          else
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
+          end
         else
-          s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
+          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{image.package.id}/#{image.package.image_file_name}") #do default image in col later
         end
       else
-        s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{image.package.id}/#{image.package.image_file_name}") #do default image in col later
+          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
       end
 
       @image_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
     end 
-  end
+  end 
 
   def packages
     @cart = Cart.find_by_cart_id(params[:id])
     @student = @cart.students[params[:i].to_i]
-    @images = @student.student_images.order(:id)
+    @packages = @student.school.packages.order(:id)
     @image_url = []
-    @ids = @student.school.packages.map(&:id) - @student.student_images.map(&:package_id)
-
-    if @ids.count > 0
-      @ids.each do |id|
-        package = Package.find(id)
-        sid = StudentImage.last.id + 1
-        @student.student_images.create(:package_id => id, :id => sid)
-      end
-    end
 
 
     bucket = AWS::S3::Bucket.new('shoobphoto')
 
-    @images.each do |image|
+    @packages.each do |package|
 
-      s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{image.package.id}/#{image.package.image_file_name}") #do default image in col later
+      s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}") #do default image in col later
       
 
       @image_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
@@ -173,18 +172,10 @@ class StudentsController < ApplicationController
     end
      
 
-    @school.packages.each do |package|
-      id = StudentImage.last.id + 1
-      @student.student_images.create(:package_id => package.id, :id => id)
-    end
-
     redirect_to student_packages_path(@cart.cart_id, @i)
   end
 
-  def duplicate
-    @school = School.find(params[:school])
-    @students = @school.students.where("lower(first_name) like ? and lower(last_name) like ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%")
-  end
+
 
   def find
     @school = School.find(params[:school])

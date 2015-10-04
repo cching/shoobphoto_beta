@@ -44,8 +44,7 @@ gem 'simple_form'
 gem 'awesome_nested_set'
 
 gem 'ransack'
-
-gem 'prawn'
+gem 'prawn','1.0.0.rc1'
 gem 'prawnto'
 
 

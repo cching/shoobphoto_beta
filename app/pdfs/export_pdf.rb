@@ -6,14 +6,14 @@ class ExportPdf < Prawn::Document
       @package = Package.find(package_id)
 
 
-      super(top_margin: 70)
+      super(skip_page_creation: true)
       generate
       
 
     end
     
     def generate
-      
+      require 'prawn'
             
       begin
         # Pre-fetch all fonts, pdfs, and images.
@@ -21,7 +21,7 @@ class ExportPdf < Prawn::Document
 
         # Register fonts.
         @export_data.template.fonts.each do |font|
-          font_families.update(font.name => {
+          self.font_families.update(font.name => {
             normal: font.file.url
           })
         end
@@ -31,14 +31,14 @@ class ExportPdf < Prawn::Document
 
         @export_data.students.each do |student|
 
-          start_new_page template: open(@pdf), margin: 0
+          self.start_new_page template: @pdf, margin: 0
 
           @export_data.template.fields.each do |field|
 
             # Handle image inserts.
             if ExportJob.image_columns.include? field.column
               if url = student.student_images.where(:package_id => @package.id).last.image.url
-                image open(Thread.current[:export_files][url]),
+                self.image open(Thread.current[:export_files][url]),
                   at: [field.x, field.y],
                   width: field.width,
                   height: field.height
@@ -46,8 +46,8 @@ class ExportPdf < Prawn::Document
 
             # Handle colors.
             elsif ExportJob.color_columns.include? field.column
-              fill_color student.send(field.column)
-              fill_rectangle [field.x, field.y], field.width, field.height
+              self.fill_color student.send(field.column)
+              self.fill_rectangle [field.x, field.y], field.width, field.height
 
             # Handle text inserts.
             else
@@ -60,9 +60,9 @@ class ExportPdf < Prawn::Document
                 student.send(field.column)
               end
 
-              font field.font.name
+              self.font field.font.name
               #pdf.fill_color field.color
-              text_box "#{text}", at: [field.x, field.y], width: field.width,
+              self.text_box "#{text}", at: [field.x, field.y], width: field.width,
                 height: field.height, align: field.align.to_sym, size: field.text_size,
                 overflow: :shrink_to_fit, character_spacing: field.spacing
             end
@@ -75,7 +75,6 @@ class ExportPdf < Prawn::Document
       ensure
         dump_files
       end
-      
       
     end
     

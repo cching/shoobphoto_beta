@@ -5,16 +5,16 @@
 	
 	<table id="package_list" align="center" class="table">
 	<tr>
-	<% @images.each_with_index do |image, index| %>
+	<% @packages.each_with_index do |package, index| %>
 		<td>
-		<h3><%= image.package.try(:name) %></h3>
+		<h3><%= package.try(:name) %></h3>
 		<div id="<%= index %>" %>
-		<% unless @cart.order_packages.where(:package_id => image.package_id).where(:student_id => @student.id).any? %>
+		<% unless @cart.order_packages.where(:package_id => package.id).where(:student_id => @student.id).any? %>
 			<img src='<%= @image_url[index] %>', class="img-rounded img-package"><br /><br /> 
-					<%= link_to "Select", order_create_package_path(:cart_id => @cart.cart_id, :image => image.id, :url => @image_url[index], :index => index), class: "btn btn-custom", remote: true %> <br />
+					<%= link_to "Select", order_create_package_path(:cart_id => @cart.cart_id, :package => package.id, :url => @image_url[index], :index => index, :student => @student.id), class: "btn btn-custom", remote: true %> <br />
 		<% else %>
 			<img src='<%= @image_url[index] %>', class="img-rounded img-package-custom"><br /><br />
-					<%= link_to "Remove", order_delete_package_path(:cart_id => @cart.cart_id, :image => image.id, :url => @image_url[index], :index => index), class: "btn btn-danger", remote: true %> <br />
+					<%= link_to "Remove", order_delete_package_path(:cart_id => @cart.cart_id, :package => package.id, :url => @image_url[index], :index => index, :student => @student.id), class: "btn btn-danger", remote: true %> <br />
 		<% end %><br />
 		</div>
 		</td>
