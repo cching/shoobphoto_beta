@@ -32,14 +32,14 @@ class Student < ActiveRecord::Base
   school = School.find(school_id)
   unless first_name.nil? || last_name.nil? || grade.nil?
     
-    students = school.students
+    students = school.students.where(:id_only => true)
 
     students = students.where("lower(first_name) like ?", "%#{first_name.downcase}%") unless first_name.nil?
     students = students.where("lower(last_name) like ?", "%#{last_name.downcase}%") unless last_name.nil?
     students = students.where("grade = ?", "#{grade}") unless grade.nil? || grade == ""
     
   else
-    students = school.students
+    students = school.students.where(:id_only => true)
   end
   return students.order(:last_name)
 end

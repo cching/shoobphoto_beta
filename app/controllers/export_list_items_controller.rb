@@ -14,7 +14,7 @@ class ExportListItemsController < ApplicationController
   def search
     @school = School.find(params[:school])
     @image = @school.packages.where("name like ?", "%Fall%").last
-    @students = @school.students
+    @students = @school.students.where(:id_only => true)
     @students = @students.where("lower(first_name) like ?", "%#{params[:first_name].downcase}%") unless params[:first_name].nil?
     @students = @students.where("lower(last_name) like ?", "%#{params[:last_name].downcase}%") unless params[:last_name].nil?
     @students = @students.paginate(:page => params[:page], :per_page => 100)
