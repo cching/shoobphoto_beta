@@ -9,4 +9,5 @@ class Pdf < ActiveRecord::Base
   validates_presence_of :name, :template
   validates_attachment :file, presence: true, content_type: {
     content_type: 'application/pdf' }
+    accepts_nested_attributes_for :types, allow_destroy: true
 end

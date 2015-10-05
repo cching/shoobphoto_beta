@@ -1,0 +1,41 @@
+  <div class="row">
+  	<div class="col-sm-2">
+  		<%= f.input :name, label: false %>
+  	</div>
+  	<div class="col-sm-1">
+  		X: <%= f.input :x, label: false %>
+ 		 Y: <%= f.input :y, label: false %>
+  	</div>
+  	<div class="col-sm-1">
+  		<%= f.input :width, label: false %>
+  	</div>
+  	<div class="col-sm-1">
+  		<%= f.input :height, label: false %>
+  	</div>
+  	
+  	
+  	<div class="col-sm-1">
+  		<%= f.input :text_size, label: false %>
+  	</div>
+  	<div class="col-sm-1">
+  		<%= f.input :color, label: false %>
+  	</div>
+  	<div class="col-sm-1">
+  		 <%= f.input :spacing, label: false %>
+  	</div>
+  	<div class="col-sm-1">
+  		<%= f.input :align, label: false, :collection => Field.align_options, :include_blank => false  %>
+
+  	</div>
+  	<div class="col-sm-1">
+  		<%= f.association :font, label: false, :include_blank => false %>
+  	</div>
+  	<div class="col-sm-2">
+  		<%= f.input :column, label: false, :collection => Student.template_column_options, :include_blank => false %>
+  	</div>
+
+  </div>
+<%= f.check_box :_destroy %>
+  <%= f.label :_destroy, "Remove Field" %>
+<hr>
+

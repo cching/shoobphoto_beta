@@ -10,6 +10,7 @@ class Field < ActiveRecord::Base
   
   belongs_to :template
   belongs_to :font
+
   
   validates_presence_of :name, :column, :x, :y, :width, :height, :template,
     :font, :text_size, :color

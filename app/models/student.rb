@@ -62,6 +62,45 @@ end
     ['Senior', 12]
   ]
 
+def self.sort_options
+    sorts.map { |option| [option.titleize, option] }
+  end
+  
+  def self.default_columns
+    @default_columns ||= column_names.reject do |column|
+      case column; when 'created_at', 'updated_at', 'id', /^image.+/, /_id$/; true end
+    end
+  end
+  
+  # Which columns can be sorted on during export.
+
+  
+  # Which columns are available for templates.
+
+
+  def self.template_column_options
+    {
+      'Student ID' => 'student_id',
+      'First Name' => 'first_name',
+      'Last Name' => 'last_name',
+      'Grade' => 'grade',
+      'Email' => 'email',
+      'Date of Birth' => 'dob',
+      'Teacher' => 'teacher',
+      'Shoob ID' => 'shoob_id',
+      'Grade with label' => 'grade_with_label',
+      'Last Name First Name' => 'last_name_first_name',
+      'First Name Last Name' => 'first_name_last_name',
+      'Image if Present' => 'image_if_present',
+      'Grade with Label' => 'grade_with_label',
+      'School Mascot Image' => 'school_mascot_image',
+      'School Name' => 'school_name',
+      'Type' => 'type',
+      'Barcode' => 'barcode',
+      'Prompt' => 'prompt'}
+  end
+
+
 def name
     "#{last_name}, #{first_name}"
   end

@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="col-sm-4">
+
+<%= f.input :name, label: false %>
+</div>
+<div class="col-sm-8">
+<%= f.input :file, label: false %>
+</div>
+</div>
+<%= f.check_box :_destroy %>
+  <%= f.label :_destroy, "Remove PDF" %>
+
+
+<div class="row">
+	<div class="col-sm-1">
+	</div>
+	<div class="col-sm-11">
+		<h3> Types </h3>
+<hr>
+		<%= f.simple_fields_for :types do |builder| %>
+	  <%= render 'type_fields', f: builder %>
+	<% end %>
+	<%= link_to_add_fields "Add Type", f, :types %>
+	</div>
+
+</div>
+

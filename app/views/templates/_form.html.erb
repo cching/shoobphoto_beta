@@ -5,6 +5,73 @@
   	<%= f.input :name %>
   </div>
 
+  <h3>Fields</h3>
+  <hr>
+
+  <div class="row">
+  	<div class="col-sm-2">
+  		Name
+  	</div>
+  	<div class="col-sm-1">
+  		Position
+  	</div>
+  	<div class="col-sm-1">
+  		Width
+  	</div>
+  	<div class="col-sm-1">
+  		Height
+  	</div>
+  	
+  	
+  	<div class="col-sm-1">
+  		Text Size
+  	</div>
+  	<div class="col-sm-1">
+  		Color
+  	</div>
+  	<div class="col-sm-1">
+  		Spacing
+  	</div>
+  	<div class="col-sm-1">
+  		Align
+  	</div>
+  	<div class="col-sm-1">
+  		Font
+  	</div>
+  	<div class="col-sm-2">
+  		Column
+  	</div>
+
+  </div>
+
+
+  	<%= f.simple_fields_for :fields do |builder| %>
+	  <%= render 'field_fields', f: builder %>
+	<% end %>
+
+	<%= link_to_add_fields "Add Field", f, :fields %>
+
+
+
+<h3>Pdfs</h3>
+<hr>
+<div class="row">
+  	<div class="col-sm-4">
+  		Name
+  	</div>
+  	
+  	<div class="col-sm-8">
+  		File
+  	</div>
+  </div>
+
+
+  	<%= f.simple_fields_for :pdfs do |builder| %>
+	  <%= render 'pdf_fields', f: builder %>
+	<% end %>
+
+	<%= link_to_add_fields "Add PDF", f, :pdfs %>
+<br/><br/>
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
