@@ -12,8 +12,7 @@ class Field < ActiveRecord::Base
   belongs_to :font
 
 
-  validates_presence_of :name, :column, :x, :y, :width, :height, :template_id,
-    :font_id, :text_size, :color
+  validates_presence_of :name, :column, :x, :y, :width, :height, :text_size, :color
   validates_format_of :color, with: /[0-9a-fA-F]{6}/
   validates_inclusion_of :align, in: Field.align_options.values,
     message: 'is not a valid align setting'
