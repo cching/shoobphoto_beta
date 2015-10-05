@@ -12,7 +12,8 @@ class Student < ActiveRecord::Base
  	has_many :student_images
 
   has_attached_file :image, path: '/id_images/:filename',
-  :s3_host_name => 's3-us-west-1.amazonaws.com'
+  :s3_host_name => 's3-us-west-1.amazonaws.com',
+                     :preserve_files => true
 
   validates_attachment_file_name :image, :matches => [/png\Z/, /jpe?g\Z/, /gif\Z/], region: 'us-west-1'
 
