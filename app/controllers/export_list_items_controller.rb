@@ -48,7 +48,11 @@ class ExportListItemsController < ApplicationController
         image = @student.student_images.new(:id => id, :package_id => @image.id)
       
       image.image = params[:image]
-      image.save
+      until image.save
+        image.id = id + 1
+      end
+
+    @student.id_only = true
     
   @student.save
     respond_to do |format|
