@@ -17,7 +17,9 @@ Last name:
 <%= f.input :last_name, label: false %>
 
 Student ID:
-<%= f.input :student_id, label: false %>
+<%= f.input :student_id, label: false %><br/>
+Grade:<br/>
+<%= f.input :grade, label: false, collection: Student::Grades, class: "form-control" %><br/>
 
 <%= f.association :school, :selected => @school.id %>
 

@@ -49,7 +49,8 @@ class ExportListItemsController < ApplicationController
       
       image.image = params[:image]
       until image.save
-        image.id = id + 1
+        id = id + 1
+        image.id = id
       end
 
     @student.id_only = true
@@ -228,7 +229,7 @@ class ExportListItemsController < ApplicationController
   private
 
   def student_params
-      params.require(:student).permit(:first_name, :last_name, :grade, :school_id, :student_id, :grade, :image, :dob, student_images_attributes: [:image])
+      params.require(:student).permit(:first_name, :last_name, :id_only, :grade, :school_id, :student_id, :grade, :image, :dob, student_images_attributes: [:image])
     end
 
 end
