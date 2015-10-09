@@ -8,4 +8,11 @@ class OrderPackage < ActiveRecord::Base
 
 	accepts_nested_attributes_for :option
 	accepts_nested_attributes_for :extras
+
+	def self.image url
+		bucket = AWS::S3::Bucket.new('shoobphoto')
+		s3object = AWS::S3::S3Object.new(bucket, "images/#{url}.jpg") #do default image in col later
+
+        return s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+	end
 end

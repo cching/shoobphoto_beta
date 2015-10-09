@@ -7,7 +7,12 @@
 		<div class="row">
 			<div class="col-sm-4" align="center">
 			<strong><%= package.name %></strong><br />
-					<img src='<%= @image_url[index] %>', class="img-rounded img-package"><br/>
+					<% if op.url.nil? %>
+					<img src='<%= @image_url[index] %>', class="img-rounded img-package">
+					<% else %>
+					<%= image_tag(OrderPackage.image(op.url), class: "img-rounded img-package") %>
+					<% end %>
+					<br/>
 					 <% if option.email_picture? %>
 	  			<%= label_tag :email_picture, "Send a digital copy of this portrait to your email" %>
 	  			<%= check_box_tag "order_package[#{op.id}][email_picture]", 1, :checked => true %>

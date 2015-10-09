@@ -17,7 +17,7 @@ class StudentsController < ApplicationController
         unless e.prices.first.try(:price).nil?
         @price = @price + e.prices.first.price
         end
-      end
+      end 
       end
 
        @cart.update(:price => @price)
@@ -77,7 +77,6 @@ class StudentsController < ApplicationController
       else
           s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
       end
-
       @image_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
     end 
   end
@@ -118,6 +117,34 @@ class StudentsController < ApplicationController
     @opackages.each do |opackage|
       package = opackage.package
       image = package.student_images.where(:student_id => @student.id).last
+      
+      if package.id == 6
+      @senior_url = []
+      @senior_id = []
+        unless image.nil? || @cart.id_supplied == false
+          
+          for attribute in ['url', 'url2', 'url3', 'url4']
+            unless image.attributes[attribute].nil? || image.attributes[attribute] == ""
+              if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].upcase}.jpg").exists?
+                s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].upcase}.jpg")
+              else
+                s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].downcase}.jpg")
+              end
+              @senior_id << "#{image.folder}/#{image.attributes[attribute]}"
+            else
+              s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}") #do default image in col later
+               @senior_id << "default"
+            end
+             @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+            
+          end
+        else
+          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
+          @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+          @senior_id << "default"
+        end
+      end
+
       unless image.nil?
         unless image.image_file_name.nil? || @cart.id_supplied == false || image.image_file_name == ""
           if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?

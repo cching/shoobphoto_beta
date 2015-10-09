@@ -27,6 +27,14 @@ class OrdersController < ApplicationController
 		end
 	end
 
+	def add_image
+		@opackage = OrderPackage.find(params[:id])
+		@opackage.update(:url => params[:url])
+		@index = params[:index]
+
+		respond_to :js
+	end
+
 	def new
 		@cart = Cart.find_by_cart_id(params[:cart_id])
 

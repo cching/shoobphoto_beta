@@ -54,6 +54,7 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
+  match 'orders/add_image/:id/:url' => 'orders#add_image', :via => 'GET', :as => 'orders_add_image'
   match 'export/students' => 'export_list_items#students', :via => 'GET', :as => 'export_students'
   match 'export/users' => 'export_list_items#users', :via => 'GET', :as => 'export_users'
   match 'export/schools' => 'export_list_items#schools', :via => 'GET', :as => 'export_schools'

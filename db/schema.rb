@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004101257) do
+ActiveRecord::Schema.define(version: 20151009072821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -242,6 +242,7 @@ ActiveRecord::Schema.define(version: 20151004101257) do
     t.integer  "option_id"
     t.boolean  "email_picture", default: false
     t.integer  "student_id"
+    t.string   "url"
   end
 
   create_table "orders", force: true do |t|
@@ -284,6 +285,7 @@ ActiveRecord::Schema.define(version: 20151004101257) do
     t.string   "banner_content_type"
     t.integer  "banner_file_size"
     t.datetime "banner_updated_at"
+    t.boolean  "multiple",            default: false
   end
 
   create_table "pages", force: true do |t|
@@ -391,6 +393,9 @@ ActiveRecord::Schema.define(version: 20151004101257) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "url2"
+    t.string   "url3"
+    t.string   "url4"
   end
 
   create_table "student_proofs", force: true do |t|

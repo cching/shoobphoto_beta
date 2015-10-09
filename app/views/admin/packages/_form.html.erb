@@ -20,6 +20,7 @@
   <%= image_tag @package.banner.url, class: "img-rounded img-cust" if @package.banner? %>
 
   <%= f.input :banner, as: :file %>
+  <%= f.input :multiple %>
     <hr>
   <h4>Shipping</h4>
 
