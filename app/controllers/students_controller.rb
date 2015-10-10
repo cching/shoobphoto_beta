@@ -188,13 +188,12 @@ class StudentsController < ApplicationController
     @school = School.find(params[:school])
     @i = params[:i]
     @cart_id = params[:cart]
-    id = Student.last.id + 1 
     if params[:cart].to_i == 1 
-      @student = @school.students.create(:id => id, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :teacher => params[:teacher], :grade => params[:grade], :dob => params[:dob])
+      @student = @school.students.create(:first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :teacher => params[:teacher], :grade => params[:grade], :dob => params[:dob])
       @cart = @student.carts.create(:school_id => @school.id, :cart_id => (0...8).map { (65 + rand(26)).chr }.join)
     else
       @cart = Cart.find_by_cart_id(params[:cart])
-      @student = @cart.students.create(:id => id, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:teacher], :grade => params[:grade], :dob => params[:dob])
+      @student = @cart.students.create(:first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:teacher], :grade => params[:grade], :dob => params[:dob])
 
     end
      
