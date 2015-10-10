@@ -16,6 +16,7 @@ class PackageImport
 
 	          image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"], :url2 => h["url2"], :url3 => h["url3"], :url4 => h["url4"] )
 	          image.index_file_name = "#{image.image_file_name}-index"
+	          image.save
 	          	
 	        end
      	end
