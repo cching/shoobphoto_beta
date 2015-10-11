@@ -40,18 +40,13 @@ class ExportListItemsController < ApplicationController
 
   def create
     @student = Student.new(student_params)
-    @student.id = Student.last.id + 1
     @image = Package.find(params[:package])
 
 
-        id = StudentImage.last.id + 1
-        image = @student.student_images.new(:id => id, :package_id => @image.id)
+        image = @student.student_images.new(:package_id => @image.id)
       
       image.image = params[:image]
-      until image.save
-        id = id + 1
-        image.id = id
-      end
+      image.save
 
     @student.id_only = true
     
@@ -90,8 +85,7 @@ class ExportListItemsController < ApplicationController
 
 
     if image.nil?
-        id = StudentImage.last.id + 1
-        image = @student.student_images.create(:id => id, :package_id => @package.id)
+        image = @student.student_images.create(:package_id => @package.id)
     end
 
     if params[:image].present?
