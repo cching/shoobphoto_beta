@@ -2,6 +2,35 @@ class StudentsController < ApplicationController
   require 'aws-sdk'
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
+  def find_student
+  end
+
+  def download
+    shoob_id = "#{params[:first]}#{params[:second].downcase}#{params[:third]}"
+    @student = Student.where("lower(shoob_id) = ?", "#{shoob_id}").first
+
+    unless @student.nil?
+    @carts = @student.carts.map { |c| c.id if c.orders.any? }.compact
+    @packages = []
+
+    @carts.each do |cart|
+      c = Cart.find(cart)
+      c.packages.each do |package|
+        @packages << package
+      end
+    end
+  end
+    
+  end
+
+  def download_image
+  @package = Package.find(params[:package])
+  @student = Student.find(params[:student])
+  data = open("#{@package.student_images.where(:student_id => @student.id).last.image.url}")
+  send_data data.read, filename: "#{@student.last_name}_#{@student.first_name}.jpg", type: "image/jpeg", :x_sendfile => true
+
+  end
+
   def final
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @price = 0

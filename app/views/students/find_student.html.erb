@@ -1,0 +1,18 @@
+<h3>Please enter your student's identification number that was emailed to you</h3>
+<hr>
+
+<%= form_tag(student_download_path, method: :get) do %>
+<div class="row">
+	<div class="col-sm-4">
+        <%= text_field_tag :first, nil, placeholder: "The first three numbers", class: "form-control" %>
+    </div>
+    <div class="col-sm-4">
+        <%= text_field_tag :second, nil, placeholder: "The following letter", class: "form-control" %>
+    </div>
+    <div class="col-sm-4">
+        <%= text_field_tag :third, nil, placeholder: "The last six numbers", class: "form-control" %>
+    </div>
+</div><br/>
+    <%= submit_tag nil, class: "btn btn-primary" %>
+
+	<% end %>
