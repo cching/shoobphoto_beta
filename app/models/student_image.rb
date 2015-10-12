@@ -4,12 +4,14 @@ class StudentImage < ActiveRecord::Base
 
 	has_attached_file :image,
   	:url => ':s3_domain_url',
-  	:path => '/images/:folder/:filename.jpg'
+  	:path => '/images/:folder/:filename.jpg',
+                     :preserve_files => true
   	validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
 
   	has_attached_file :index,
   	:url => ':s3_domain_url',
-  	:path => "/images/:folder/:filename.jpg"
+  	:path => "/images/:folder/:filename.jpg",
+                     :preserve_files => true
   	validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 end
