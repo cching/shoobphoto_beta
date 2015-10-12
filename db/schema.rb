@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009072821) do
+ActiveRecord::Schema.define(version: 20151012074657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -423,6 +423,10 @@ ActiveRecord::Schema.define(version: 20151009072821) do
     t.datetime "image_updated_at"
     t.string   "shoob_id"
     t.boolean  "id_only",            default: false
+    t.string   "data1"
+    t.string   "data2"
+    t.string   "data3"
+    t.string   "data4"
   end
 
   create_table "templates", force: true do |t|

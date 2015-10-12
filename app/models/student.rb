@@ -98,7 +98,11 @@ def self.sort_options
       'School Name' => 'school_name',
       'Type' => 'type',
       'Barcode' => 'barcode',
-      'Prompt' => 'prompt'}
+      'Prompt' => 'prompt',
+      'Data1' => 'data1',
+      'Data2' => 'data2',
+      'Data3' => 'data3',
+      'Data4' => 'data4'}
   end
 
 
