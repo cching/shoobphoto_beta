@@ -1,24 +1,25 @@
 <fieldset>
 <div class="row">
 	<div class="col-sm-1"></div>
-	<div class="col-sm-5">
+	<div class="col-sm-9">
 		Name: <%= f.input :name, label: false %>
 		  
 		
 	</div>
-	<div class="col-sm-5">
-
-		Price $ (In dollars): <%= f.input :price, label: false %>
-	</div>
+	
 	<div class="col-sm-1">
 
   <%= f.label :_destroy, "Remove" %>
   <%= f.check_box :_destroy %>
 
-
 	</div>
 </div>
 
+<div class="row">
+<div class="col-sm-2"></div>
+<div class="col-sm-8">Package Types
+<hr></div>
+</div>
 
 <%= f.fields_for :image_types do |builder| %>
           <%= render 'image_type_fields', f: builder %>
@@ -27,6 +28,22 @@
 <div class="col-sm-2"></div>
 <div class="col-sm-8"> 
   <%= link_to_add_fields "Add Package Types", f, :image_types %>
+ </div>
+ </div>
+
+ <div class="row">
+<div class="col-sm-2"></div>
+<div class="col-sm-8">Prices
+<hr></div>
+</div>
+
+<%= f.fields_for :prices do |builder| %>
+          <%= render 'price_fields', f: builder %>
+  <% end %>
+<div class="row">
+<div class="col-sm-2"></div>
+<div class="col-sm-8"> 
+  <%= link_to_add_fields "Add Prices", f, :prices %>
  </div>
  </div>
 </fieldset>

@@ -6,6 +6,8 @@ class Package < ActiveRecord::Base
 
   has_many :shippings
 
+  has_many :prices
+
 	has_many :student_images
 
 	has_many :school_packages, dependent: :destroy
@@ -28,6 +30,11 @@ class Package < ActiveRecord::Base
   	:url => ':s3_domain_url',
   	:path => '/images/banners/:id/:style/:filename'
   	validates_attachment_content_type :banner, :content_type => /\Aimage\/.*\Z/
+
+    def price school = nil
+    prices.where('school_id = ? OR school_id IS NULL', school).where('end > ? OR end IS NULL', Time.now).where('begin < ? OR begin IS NULL', Time.now).order('school_id DESC, end DESC, begin DESC').first.price rescue 0
+  end
+
 
 
     def self.concat order_id, student_id

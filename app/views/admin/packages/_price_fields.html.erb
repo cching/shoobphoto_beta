@@ -1,0 +1,26 @@
+<fieldset>
+<div class="row">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-8">Price (in $): <%= f.input :price, label: false %></div>
+  
+  
+  <div class="col-sm-2">
+
+
+  <%= f.label :_destroy, "Remove" %>
+  <%= f.check_box :_destroy %>
+
+
+  </div>
+</div>
+
+<div class="row">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-3"><%= f.input :begin %></div>
+	<div class="col-sm-3"><%= f.input :enddate %></div>
+	<div class="col-sm-4"><%= f.association :school, :collection => School.all.order(:name), as: :select %></div>
+  	
+  
+
+</div>
+</fieldset>

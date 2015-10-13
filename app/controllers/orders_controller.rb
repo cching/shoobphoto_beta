@@ -45,7 +45,9 @@ class OrdersController < ApplicationController
 
 
 	    @cart.order_packages.each do |package|
-	     @price = package.option.price + @price
+	  
+	    	@price = package.option.price(package.student.school.id) + @price
+	 		
 	    end
 
 	    @cart.order_packages.each do |opackage|

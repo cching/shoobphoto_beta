@@ -52,7 +52,7 @@
 					<div class="row buff">
 						<% slice.each do |option| %>
 							<div class="col-sm-4 <%= 'selectedbackground' if package.order_packages.where(:cart_id => @cart.id).where(:student_id => @student.id).pluck(:option_id).include?(option.id) %>" id="option_<%= option.id %>">
-								<%= link_to "#{option.name} - #{number_to_currency(option.price, :unit => "$")}", '#', :onClick => 'select_option(this.id, this.dataset.package)', :id => "#{option.id}", data: { :package => "#{package.id}"} %>
+								<%= link_to "#{option.name} - #{number_to_currency(option.price(@student.school), :unit => "$")}", '#', :onClick => 'select_option(this.id, this.dataset.package)', :id => "#{option.id}", data: { :package => "#{package.id}"} %>
 								<ul>
 									<% option.image_types.each do |type| %>
 										<li><%= type.name %>

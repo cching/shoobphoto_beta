@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012074657) do
+ActiveRecord::Schema.define(version: 20151013073608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -221,10 +221,9 @@ ActiveRecord::Schema.define(version: 20151012074657) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "price",         precision: 8, scale: 2
     t.integer  "package_id"
     t.string   "slug"
-    t.boolean  "email_picture",                         default: false
+    t.boolean  "email_picture", default: false
   end
 
   create_table "order_package_extras", force: true do |t|
@@ -314,7 +313,7 @@ ActiveRecord::Schema.define(version: 20151012074657) do
     t.decimal  "price"
     t.integer  "school_id"
     t.date     "begin"
-    t.date     "end"
+    t.date     "enddate"
     t.integer  "option_id"
     t.integer  "extra_id"
     t.integer  "package_id"

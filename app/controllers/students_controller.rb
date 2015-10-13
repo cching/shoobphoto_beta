@@ -33,9 +33,10 @@ class StudentsController < ApplicationController
 
   def final
     @cart = Cart.find_by_cart_id(params[:cart_id])
+    @student = @cart.students[params[:i].to_i]
     @price = 0
       @cart.order_packages.each do |package|
-       @price = package.option.price + @price
+       @price = package.option.price(@student.school.id) + @price
       end
 
       @cart.order_packages.each do |opackage|
@@ -119,7 +120,7 @@ class StudentsController < ApplicationController
     @cart.update(cart_params)
 
     @cart.order_packages.where(:student_id => @student.id).each do |package|
-     @price = package.option.price + @price
+     @price = package.option.price(@student.school.id) + @price
     end
 
     @cart.order_packages.where(:student_id => @student.id).each do |opackage|

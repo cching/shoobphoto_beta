@@ -31,13 +31,17 @@
   <%= link_to_add_fields "Add Shipping", f, :shippings %>
   <hr>
 
+
+
   <%= f.simple_fields_for :options do |builder| %>
           <%= render 'option_fields', f: builder %>
   <% end %>
 
   <br />
 
-  <%= link_to_add_fields "Add Package Categories", f, :options %>
+
+
+  <%= link_to_add_fields "Add Package Catagories", f, :options %>
 
 
 
