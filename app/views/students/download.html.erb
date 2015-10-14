@@ -1,17 +1,15 @@
-<% if @packages.nil? %>
+<% if @student.nil? || @student.student_images.where(:package_id => @package.id).last.image.nil? %>
 <h3 align="center">We've had trouble finding the images for your student. Please try again <%= link_to "here", student_find_student_path %>.<br/> If trouble persists, please contact us. </h3>
 <% else%>
-<h3>Here are the images we've found for your purchases </h3>
+<h3>Here are the images we've found for your purchase </h3>
 <hr>
-<% @packages.each do |package| %>
 <div class="row">
 	<div class="col-sm-5">
-	<%= image_tag(@student.student_images.where(:package_id => package.id).last.image.url, class: "img-rounded img-med") %>
+	<%= image_tag(@student.student_images.where(:package_id => @package.id).last.image.url, class: "img-rounded img-med") %>
 	</div>
 	<div class="col-sm-1"></div>
 	<div class="col-sm-6">
-		<%= link_to "Download Image", student_push_image_path(@student.id, package.id), class: "btn btn-primary" %>
+		<%= link_to "Download Image", student_push_image_path(@student.id, @package.id), class: "btn btn-primary" %>
 	</div>
 </div><br/>
-<% end %>
 <% end %>

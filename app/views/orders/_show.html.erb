@@ -7,38 +7,49 @@
       <div class="modal-body">
       <div id="table">
       <hr >
-      <% @order.cart.packages.order(:id).each_with_index do |package, index| %>
 
-      <% option = @order.cart.order_packages.where(:package_id => package.id).last.option %>
-      <div class="row">
+
+<% @order.cart.students.each_with_index do |student, index| %>
+
+  <strong>Student: </strong><%= student.first_name %> <%= student.last_name %><br/>
+  Grade: <%= student.grade %> <br/>
+  Teacher: <%= student.try(:teacher) %>
+ 
+  <% @order.cart.order_packages.where(:student_id => student.id).each do |o| %>
+  <div class="row">
       <div class="col-sm-6">
-      <strong><%= package.name %></strong><br />
+      <strong><%= o.package.name %></strong><br />
       
       <img src='<%= @image_url[index] %>', class="img-rounded img-package">
       </div>
       <div class="col-sm-6">
-        <strong><%= option.name %> - (<%= number_to_currency(option.price, :unit => "$") %>)</strong>
+        <strong><%= o.option.name %> - (<%= number_to_currency(o.option.price, :unit => "$") %>)</strong>
           <ul>
-            <% option.image_types.each do |type| %>
+            <% o.option.image_types.each do |type| %>
               <li><%= type.name %>
               </li>
             <% end %>
           </ul>
 
-          <% if @order.cart.order_packages.where(:package_id => package.id).first.extras.any? %>
-            <% @order.cart.order_packages.where(:package_id => package.id).last.extras.each do |e| %>
-              <ul>
-              <li>
-              <%= e.extra_type.name %> - <%= e.name %> 
-              <%= number_to_currency(e.prices.first.try(:price), :unit => "$") %>  
-              </li>
-              </ul>  
-            <% end %>
-          <% end %>
+          <%= number_to_currency(o.option.price, :unit => "$") %>  - <%= o.package.name %> - <%= o.option.name %><br/>
+
+      <% o.extras.each do |extra| %>
+        <%= number_to_currency(extra.prices.first.try(:price), :unit => "$") %> - <%= extra.name %> <br/>
+      <% end %>
+      <hr>
           </div>
           </div>
 
-      <% end %>
+      
+  <% end %>
+ 
+ <% end %>
+
+
+
+
+      
+
       <div class="row">
         <div class="col-sm-6"></div>
         <div class="col-sm-6"><strong>Total: <%= number_to_currency(@order.price, :unit => "$") %>

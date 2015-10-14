@@ -103,20 +103,23 @@ end
 		@packages.each do |package|
 		@order.cart.students.each do |student|
 		image = package.student_images.where(:student_id => student.id).last
-		      unless image.try(:image_file_name).nil?
-		        if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
-		          s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
-		        else
-		          s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
-		        end
-		      else
-		        s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{image.package.id}/#{image.package.image_file_name}") #do default image in col later
-		      end
-
-		      @image_url << s3object.url_for(:read, :expires => 60.minutes)
-		    end
+		  unless image.nil?
+        unless image.image_file_name.nil? || @cart.id_supplied == false || image.image_file_name == ""
+          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
+          else
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
+          end
+        else
+          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{image.package.id}/#{image.package.image_file_name}") #do default image in col later
+        end
+      else
+          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
+      end
+      @image_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+    end 
 		end
-		respond_to do |format|
+		respond_to do |format| 
 			format.html
 			format.js
 		end

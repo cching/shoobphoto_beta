@@ -6,21 +6,9 @@ class StudentsController < ApplicationController
   end
 
   def download
-    shoob_id = "#{params[:first]}#{params[:second].downcase}#{params[:third]}"
-    @student = Student.where("lower(shoob_id) = ?", "#{shoob_id}").first
+    @student = Student.where("lower(shoob_id) = ?", "#{params[:shoob_id].gsub(/\s+/, "").downcase}").first
+    @package = @student.school.packages.where("lower(name) like ?", "%fall%").last unless @student.nil?
 
-    unless @student.nil?
-    @carts = @student.carts.map { |c| c.id if c.orders.any? }.compact
-    @packages = []
-
-    @carts.each do |cart|
-      c = Cart.find(cart)
-      c.packages.each do |package|
-        @packages << package
-      end
-    end
-  end
-    
   end
 
   def download_image

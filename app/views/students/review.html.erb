@@ -5,7 +5,7 @@
 	<% option = @cart.order_packages.where(:package_id => package.id).last.option %>
 	<% op = @cart.order_packages.where(:option_id => option.id).last %>
 		<div class="row">
-			<div class="col-sm-4" align="center">
+			<div class="col-sm-4" align="center"> 
 			<strong><%= package.name %></strong><br />
 					<% if op.url.nil? %>
 					<img src='<%= @image_url[index] %>', class="img-rounded img-package">
