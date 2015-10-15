@@ -5,7 +5,7 @@ class UserImport
   	def perform(chunk)
 
       	chunk.each do |h|
-	            school = School.find_by_ca_code(h["ca_code"])
+	            school = School.find_by_ca_code(h["ca_code"].to_s)
 	           	school.users.create(:email => h["email"], :password => h["password"], :password_confirmation => h["password_confirmation"])
 	          
 	          	
