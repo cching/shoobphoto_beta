@@ -10485,10 +10485,14 @@ return jQuery;
         // This is a workaround to a IE bug.
         urlAnchor.href = urlAnchor.href;
 
-        // Make sure that the browser parses the URL and that the protocols and hosts match.
-        return !urlAnchor.protocol || !urlAnchor.host ||
-          (originAnchor.protocol + "//" + originAnchor.host !==
-            urlAnchor.protocol + "//" + urlAnchor.host);
+        // If URL protocol is false or is a string containing a single colon
+        // *and* host are false, assume it is not a cross-domain request
+        // (should only be the case for IE7 and IE compatibility mode).
+        // Otherwise, evaluate protocol and host of the URL against the origin
+        // protocol and host
+        return !(((!urlAnchor.protocol || urlAnchor.protocol === ':') && !urlAnchor.host) ||
+          (originAnchor.protocol + "//" + originAnchor.host ===
+            urlAnchor.protocol + "//" + urlAnchor.host));      //
       } catch (e) {
         // If there is an error parsing the URL, assume it is crossDomain.
         return true;
@@ -11916,6 +11920,10 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
 
 }).call(this);
 (function() {
+
+
+}).call(this);
+(function() {
   $(document).on('click', 'form .remove_fields', function(event) {
     $(this).prev('input[type=hidden]').val('1');
     $(this).closest('fieldset').hide();
@@ -11929,6 +11937,18 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     $(this).before($(this).data('fields').replace(regexp, time));
     return event.preventDefault();
   });
+
+}).call(this);
+(function() {
+
+
+}).call(this);
+(function() {
+
+
+}).call(this);
+(function() {
+
 
 }).call(this);
 (function() {

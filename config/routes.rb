@@ -38,7 +38,8 @@ Rails.application.routes.draw do
     resources :extra_types
 
     resources :extras
-    
+    match 'users/csv/' => 'users#csv', :via => 'GET', :as => 'users_csv'
+    match 'users/import/' => 'users#import', :via => 'POST', :as => 'users_import'
     match 'packages/:id/csv' => 'packages#csv', :via => 'GET', :as => 'csv_packages'
     match 'packages/:id/csv' => 'packages#import', :via => 'POST', :as => 'import_packages'
     match 'packages/:id/email' => 'packages#email_csv', :via => 'GET', :as => 'email_csv'
