@@ -40,7 +40,6 @@ gem 'roo'
 
 gem 'simple_form'
 
-
 gem 'awesome_nested_set'
 
 gem 'ransack'
@@ -53,11 +52,12 @@ gem 'smarter_csv'
 
 gem 'remotipart', '~> 1.2'
 
+gem 'puma'
 
+gem "rack-timeout"
 
 
 gem 'sidekiq'
-gem 'unicorn', '~> 4.6.2'
 
 gem 'sinatra', require: false
 gem 'slim'
