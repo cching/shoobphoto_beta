@@ -3,6 +3,41 @@ class TemplatesController < ApplicationController
 
   respond_to :html
 
+  def copy
+    @template = Template.find(params[:id])
+    @template1 = @template.dup
+    @template1.save
+    
+    @template.pdfs.each do |pdf|
+      unless pdf.nil?
+        p = pdf.dup
+        p.file = pdf.file
+        p.save
+        p.update(:template_id => @template1.id)
+        pdf.types.each do |type|
+          unless type.nil?
+            t = type.dup
+            t.save
+            t.schools = type.schools
+            t.update(:pdf_id => p.id)
+          end
+        end
+      end
+    end
+
+    @template.fields.each do |field|
+      unless field.nil?
+        f = field.dup
+        f.save
+        f.update(:template_id => @template1.id)
+      end
+    end
+
+    
+    redirect_to edit_template_path(@template1.id)
+
+  end
+
   def index
     @templates = Template.all
     respond_with(@templates)

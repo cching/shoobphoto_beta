@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   resources :types
 
   resources :templates do
+    member do
+      get 'copy'
+    end
     resources :fields
     resources :pdfs do
       resources :types

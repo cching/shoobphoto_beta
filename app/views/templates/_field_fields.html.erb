@@ -18,7 +18,8 @@
   		<%= f.input :text_size, label: false %>
   	</div>
   	<div class="col-sm-1">
-  		<%= f.input :color, label: false %>
+  		<%= f.input :color, as: :minicolors, input_html: {data: {
+          minicolors: {theme: :bootstrap, position: :right}}} %>
   	</div>
   	<div class="col-sm-1">
   		 <%= f.input :spacing, label: false %>

@@ -13,6 +13,7 @@
         <td><%= link_to "#{template.name}", template %></td>
         <td><%= link_to 'Edit', edit_template_path(template) %></td>
         <td><%= link_to 'Destroy', template, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Save as', copy_template_path(template) %></td>
       </tr>
     <% end %>
   </tbody>

@@ -55,6 +55,7 @@ gem 'remotipart', '~> 1.2'
 gem 'puma'
 
 gem "rack-timeout"
+gem 'jquery-minicolors-rails'
 
 
 gem 'sidekiq'
