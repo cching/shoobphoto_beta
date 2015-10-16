@@ -39,7 +39,7 @@ class TemplatesController < ApplicationController
   end
 
   def index
-    @templates = Template.all
+    @templates = Template.all.order(:name)
     respond_with(@templates)
   end
 

@@ -58,7 +58,7 @@ class ExportJob
               end
 
               pdf.font field.font.name
-              #pdf.fill_color field.color
+              pdf.fill_color field.color
               pdf.text_box "#{text}", at: [field.x, field.y], width: field.width,
                 height: field.height, align: field.align.to_sym, size: field.text_size,
                 overflow: :shrink_to_fit, character_spacing: field.spacing
