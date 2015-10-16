@@ -52,9 +52,8 @@ require 'smarter_csv'
   def import
     @package = Package.find(params[:id])
     @school = School.find(params[:school][:id])
-    file = File.open(params[:file].tempfile, "r:bom|utf-8")
 
-    chunk = SmarterCSV.process(file, {:chunk_size => 500, row_sep: :auto}) do |chunk|
+    chunk = SmarterCSV.process(params[:file].tempfile, {:chunk_size => 500, row_sep: :auto, :file_encoding => "uft-8"}) do |chunk|
       PackageImport.perform_async(chunk, @package.id, @school.id)
     end
     redirect_to admin_csv_packages_path, notice: "Student packages successfully imported."
