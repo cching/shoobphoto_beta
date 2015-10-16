@@ -53,8 +53,7 @@ require 'smarter_csv'
     @package = Package.find(params[:id])
     @school = School.find(params[:school][:id])
 
-    file = File.open(params[:file].tempfile, "r:bom|utf-8")
-
+    file = File.open(params[:file].tempfile, "r:ISO-8859-1")
 
     chunk = SmarterCSV.process(file, {:chunk_size => 500, row_sep: :auto}) do |chunk|
       PackageImport.perform_async(chunk, @package.id, @school.id)
