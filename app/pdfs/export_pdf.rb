@@ -61,7 +61,7 @@ class ExportPdf < Prawn::Document
               end
 
               self.font field.font.name
-              self.fill_color "#{remove_format(field.color)}"
+              self.fill_color remove_format(field.color)
               self.text_box "#{text}", at: [field.x, field.y], width: field.width,
                 height: field.height, align: field.align.to_sym, size: field.text_size,
                 overflow: :shrink_to_fit, character_spacing: field.spacing
@@ -93,6 +93,7 @@ class ExportPdf < Prawn::Document
     def remove_format color
       if color[0,1] == "#"
         color.slice!(0)
+        return color
       end
     end
 
