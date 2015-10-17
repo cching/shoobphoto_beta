@@ -206,6 +206,7 @@ class StudentsController < ApplicationController
     @school = School.find(params[:school])
     @i = params[:i]
     @cart_id = params[:cart]
+
     if params[:cart].to_i == 1 
       @student = @school.students.create(:first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :teacher => params[:teacher], :grade => params[:grade], :dob => params[:dob])
       @cart = @student.carts.create(:school_id => @school.id, :cart_id => (0...8).map { (65 + rand(26)).chr }.join)
@@ -226,7 +227,8 @@ class StudentsController < ApplicationController
     @i = (params[:i].nil? || params[:i] == "") ?  0 : params[:i]
     @cart_id = (params[:cart].nil? || params[:cart] == "") ?  1 : params[:cart]
     @dob = "#{params[:date][:year].to_s}/#{params[:date][:month].to_s}/#{params[:date][:day].to_s}"
-    if params[:student_id].nil? || params[:student_id] == ""
+    if (params[:student_id].nil? || params[:student_id] == "") && (params[:date][:year] == "" || params[:date][:month] == "" || params[:date][:day] == "")
+
       student = @school.students.where("lower(first_name) like ? and lower(last_name) like ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%")
 
       if student.count > 0
@@ -250,6 +252,9 @@ class StudentsController < ApplicationController
 
     else
       student = @school.students.where("lower(first_name) like ? and lower(last_name) like ? and student_id = ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%", "#{params[:student_id]}")
+      unless student.empty?
+        student = student.where("dob = ?", "#{@dob}")
+      end
       if student.count > 0
         @student = student.last
           if @cart_id.to_i == 1
