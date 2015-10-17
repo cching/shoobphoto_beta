@@ -61,7 +61,7 @@ class ExportPdf < Prawn::Document
               end
 
               self.font field.font.name
-              #pdf.fill_color field.color
+              self.fill_color "#{remove_format(field.color)}"
               self.text_box "#{text}", at: [field.x, field.y], width: field.width,
                 height: field.height, align: field.align.to_sym, size: field.text_size,
                 overflow: :shrink_to_fit, character_spacing: field.spacing
@@ -87,6 +87,12 @@ class ExportPdf < Prawn::Document
       end
       file_urls.each_with_object(Thread.current[:export_files]).map do |url, hash|
         hash[URI(url).path] = open(url)
+      end
+    end
+
+    def remove_format color
+      if color[0,1] == "#"
+        color.slice!(0)
       end
     end
 
