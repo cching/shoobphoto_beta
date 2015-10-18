@@ -3,10 +3,10 @@
 <%= form_tag(export_students_path, method: :get, :id => "students_search") do %>
 <div class="row">
 	<div class="col-sm-1"><div class="white">Search:</div></div>
-	<div class="col-sm-4">
+	<div class="col-sm-3">
         First Name: <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "form-control", id: "input_first_name", label: false%>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         Last Name: <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "form-control", id: "input_last_name" %>
     </div>
     <div class="col-sm-2">
@@ -14,6 +14,12 @@
     <%= select_tag :grade, options_for_select( @school.students.select(:grade).map(&:grade).uniq), class: "form-control", id: "input_student_grade", :prompt => "Search by grade" %>
 
    	</div>
+
+    <div class="col-sm-2">
+        Teacher:
+    <%= select_tag :teacher, options_for_select( @school.students.select(:teacher).map(&:teacher).uniq), class: "form-control", id: "input_student_teacher", :prompt => "Search by teacher" %>
+
+    </div>
 
    	<div class="col-sm-1"><br/><%= submit_tag "Go", class: "btn btn-primary" %></div>
 </div>

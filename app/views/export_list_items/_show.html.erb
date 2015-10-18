@@ -30,10 +30,24 @@ Grade:
 <%= file_field_tag :image %>
 
 <hr>
-<%= f.input :data1 %>
-<%= f.input :data2 %>
-<%= f.input :data3 %>
-<%= f.input :data4 %>
+<div class="row">
+  <div class="col-sm-6">
+    <%= f.input :data1 %>
+  </div>
+<div class="col-sm-6">
+    <%= f.input :data2 %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6">
+    <%= f.input :data3 %>
+  </div>
+  <div class="col-sm-6">
+    <%= f.input :data4 %>
+  </div>
+</div>
+
 <br/>
 </div>
 

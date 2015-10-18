@@ -31,15 +31,16 @@ class Student < ActiveRecord::Base
     end
   end
 
-  def self.search(school_id, first_name, last_name, grade)
+  def self.search(school_id, first_name, last_name, grade, teacher)
   school = School.find(school_id)
-  unless first_name.nil? || last_name.nil? || grade.nil?
+  unless first_name.nil? || last_name.nil? || grade.nil? || teacher.nil?
     
     students = school.students.where(:id_only => true)
 
     students = students.where("lower(first_name) like ?", "%#{first_name.downcase}%") unless first_name.nil?
     students = students.where("lower(last_name) like ?", "%#{last_name.downcase}%") unless last_name.nil?
     students = students.where("grade = ?", "#{grade}") unless grade.nil? || grade == ""
+    students = students.where("teacher like ?", "#{teacher}") unless teacher.nil? || teacher == ""
     
   else
     students = school.students.where(:id_only => true)
