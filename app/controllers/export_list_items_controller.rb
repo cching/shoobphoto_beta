@@ -103,7 +103,7 @@ class ExportListItemsController < ApplicationController
   def school_user
     @school = School.find(params[:id])
     @image = @school.packages.where("name like ?", "%Fall%").last
-    @students = Student.search(@school.id, params[:first_name], params[:last_name], params[:grade]).paginate(:per_page => 75,:page => params[:page])
+    @students = Student.search(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher]).paginate(:per_page => 75,:page => params[:page])
   end
 
   def users

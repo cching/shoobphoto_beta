@@ -10,14 +10,14 @@
         Last Name: <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "form-control", id: "input_last_name" %>
     </div>
     <div class="col-sm-2">
-    	Grade:
-    <%= select_tag :grade, options_for_select( @school.students.select(:grade).map(&:grade).uniq), class: "form-control", id: "input_student_grade", :prompt => "Search by grade" %>
+        Grade:
+    <%= select_tag :grade, options_for_select( @school.students.where(:id_only => true).select(:grade).order(:grade).map(&:grade).uniq), class: "form-control", id: "input_student_grade", :prompt => "Search by grade" %>
 
-   	</div>
+    </div>
 
     <div class="col-sm-2">
         Teacher:
-    <%= select_tag :teacher, options_for_select( @school.students.select(:teacher).map(&:teacher).uniq), class: "form-control", id: "input_student_teacher", :prompt => "Search by teacher" %>
+    <%= select_tag :teacher, options_for_select( @school.students.where(:id_only => true).select(:teacher).order(:teacher).map(&:teacher).uniq), class: "form-control", id: "input_student_teacher", :prompt => "Search by teacher" %>
 
     </div>
 
