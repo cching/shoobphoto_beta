@@ -8,12 +8,18 @@ class PackageImport
       	chunk.each do |h|
 	        unless h["student_id"].nil?
 	        student = school.students.find_by_student_id("#{h["student_id"]}")
-	          unless student.present?     
-	            student = school.students.new(:student_id => h["student_id"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :teacher => h["teacher"], :shoob_id => h["shoob_id"], :id_only => true)
+	        period = school.periods.where("name like ?", "%#{h["teacher"]}%").last
+
+	        unless period.present?     
+	            period = school.periods.create(:name => h["teacher"])
+	        end
+
+	        unless student.present?     
+	            student = school.students.new(:student_id => h["student_id"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :shoob_id => h["shoob_id"], :id_only => true, :period_id => period.id)
 	            student.save
-	           else
-	           	student.update(:student_id => h["student_id"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :teacher => h["teacher"], :shoob_id => h["shoob_id"], :id_only => true)
-	          end
+	        else
+	           	student.update(:student_id => h["student_id"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :shoob_id => h["shoob_id"], :id_only => true, :period_id => period.id)
+	        end
 
 	          image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"], :url2 => h["url2"], :url3 => h["url3"], :url4 => h["url4"] )
 	          image.index_file_name = "#{image.image_file_name}-index"

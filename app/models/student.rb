@@ -11,6 +11,8 @@ class Student < ActiveRecord::Base
 
  	has_many :student_images
 
+  belongs_to :period
+
   has_attached_file :image, path: '/id_images/:filename',
   :s3_host_name => 's3-us-west-1.amazonaws.com',
                      :preserve_files => true

@@ -226,7 +226,7 @@ class StudentsController < ApplicationController
     @school = School.find(params[:school])
     @i = (params[:i].nil? || params[:i] == "") ?  0 : params[:i]
     @cart_id = (params[:cart].nil? || params[:cart] == "") ?  1 : params[:cart]
-    @dob = "#{params[:date][:year].to_s}/#{params[:date][:month].to_s}/#{params[:date][:day].to_s}"
+    @dob = "#{params[:date][:year].to_s}/#{params[:date][:month].to_s}/#{params[:date][:day].to_s}".to_date
     if (params[:student_id].nil? || params[:student_id] == "") && (params[:date][:year] == "" || params[:date][:month] == "" || params[:date][:day] == "")
 
       student = @school.students.where("lower(first_name) like ? and lower(last_name) like ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%")

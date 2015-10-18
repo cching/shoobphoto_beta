@@ -18,5 +18,7 @@ class School < ActiveRecord::Base
 
   has_many :types, through: :school_templates
 
+  has_many :periods
+
 
 end
