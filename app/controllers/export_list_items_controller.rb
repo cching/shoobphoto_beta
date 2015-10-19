@@ -22,6 +22,7 @@ class ExportListItemsController < ApplicationController
           if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name}.jpg").exists?
           current_user.students << Student.find(student_id)
         end
+        end
       end
 
       @types = Type.all.order(:name)
