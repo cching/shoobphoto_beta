@@ -1,4 +1,19 @@
+<%= form_tag(export_batch_path(@school.id), method: :get, remote: true) do %>
+<div class="row">
+    <div class="col-sm-7">
+    </div>
+     <div class="col-sm-1"><div class="">Batch:</div>
 
+    </div>
+    <div class="col-sm-3">
+        <%= select_tag :operation, options_for_select(Student::Operations), class: "form-control", id: "input_student_grade" %>
+    </div>
+
+    <div class="col-1">
+        <%= submit_tag "Submit", class: "btn btn-primary" %>
+    </div>
+
+</div>
 
 <table class="table table">
 	<thead>
@@ -11,6 +26,9 @@
 			Name
 		</th>
 		<th>
+			Teacher/Class
+		</th>
+		<th>
 			Grade
 		</th>
 
@@ -21,7 +39,7 @@
 			Download
 		</th>
 		<th> 
-			Export
+			Print
 		</th>
 
 		<th> 
@@ -42,6 +60,9 @@
 		</td>
 		<td>
 			<%= student.first_name %> <%= student.last_name %>
+		</td>
+		<td>
+			<%= student.teacher %>
 		</td>
 		<td>
 			<%= student.grade %>
@@ -79,7 +100,7 @@
 </table>
 
 <%= will_paginate @students %>
-
+<% end %>
 <script>
 $('[data-toggle="popover"]').popover();
 

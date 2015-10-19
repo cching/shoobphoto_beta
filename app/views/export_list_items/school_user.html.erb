@@ -24,24 +24,7 @@
    	<div class="col-sm-1"><br/><%= submit_tag "Go", class: "btn btn-primary" %></div>
 </div>
 <% end %>
-<%= form_tag(export_batch_path(@school.id), method: :get, remote: true) do %>
-<div class="row">
-    <div class="col-sm-3">
-    </div>
-     <div class="col-sm-1"><div class="white">Batch:</div>
-
-    </div>
-    <div class="col-sm-3"><br/>
-        <%= select_tag :operation, options_for_select(Student::Operations), class: "form-control", id: "input_student_grade" %>
-    </div>
-
-    <div class="col-1"><br/>
-        <%= submit_tag "Submit", class: "btn btn-primary" %>
-    </div>
-
- <div class="col-sm-4">
-    </div>
-</div><br/>
+<br/>
 </div>
 
 
@@ -52,4 +35,3 @@
 
 		<div id="students_list"><%= render 'students', :locals => {:students => @students, :image => @image} %>
 
-<% end %>
