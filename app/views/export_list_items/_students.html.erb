@@ -10,7 +10,7 @@
     </div>
 
     <div class="col-1">
-        <%= submit_tag "Submit", class: "btn btn-primary" %>
+        <%= submit_tag "Submit", class: "btn btn-primary btn-submit" %>
     </div>
 
 </div>
@@ -124,5 +124,10 @@ $('#selectAll').click(function() {
            this.checked = false;                        
        });
    } 
+});
+
+$(".btn-submit").on("click", function() {
+  $('#myModal').modal('show');
+  $("#modal-window").html("<%= escape_javascript(render partial: 'loading_submit') %>"); 
 });
 </script>
