@@ -133,6 +133,7 @@ class ExportListItemsController < ApplicationController
   end
 
   def types
+    current_user.students = []
           @package = Package.find(params[:image])
           @image = @package.student_images.where(:student_id => params[:id]).last
           @school = School.find(params[:school])
