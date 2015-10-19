@@ -3,7 +3,7 @@ class ExportListItemsController < ApplicationController
   def students
     if current_user
     @school = current_user.school
-    @students = Student.search(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher]).paginate(:per_page => 75,:page => params[:page])
+    @students = Student.search(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher]).paginate(:per_page => 25,:page => params[:page])
 
     @image = @school.packages.where("name like ?", "%Fall%").last
   else
@@ -120,7 +120,7 @@ class ExportListItemsController < ApplicationController
   def school_user
     @school = School.find(params[:id])
     @image = @school.packages.where("name like ?", "%Fall%").last
-    @students = Student.search(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher]).paginate(:per_page => 75,:page => params[:page])
+    @students = Student.search(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher]).paginate(:per_page => 25,:page => params[:page])
   end
 
   def users
@@ -139,15 +139,22 @@ class ExportListItemsController < ApplicationController
   
   def form
 
-      student_ids = current_user.students.pluck(:id)
+  student_ids = current_user.students.pluck(:id)
 
 
     @export_data = ExportData.new(( {}).merge({
-      student_ids: student_ids,
       kind: 'print',
       type_id: params[:type_id],
       user_id: current_user.id
     }))
+
+    if student_ids.count > 0
+      current_user.students.each do |student|
+      @export_data.export_data_students.new(:student_id => student.id)
+    end
+    else
+      @export_data.export_data_students.new(:student_id => params[:id])
+    end
 
 
     queued = @export_data.save 

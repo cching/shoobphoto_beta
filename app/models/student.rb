@@ -70,7 +70,6 @@ end
   ]
 
   Operations = [
-    ['Download', 'download'],
     ['Print', 'print']
   ]
 
