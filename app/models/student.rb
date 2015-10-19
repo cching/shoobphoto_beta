@@ -13,6 +13,9 @@ class Student < ActiveRecord::Base
 
   belongs_to :period
 
+  has_many :user_students
+  has_many :users, through: :user_students
+
   has_attached_file :image, path: '/id_images/:filename',
   :s3_host_name => 's3-us-west-1.amazonaws.com',
                      :preserve_files => true
@@ -64,6 +67,11 @@ end
     ['Sophomore', 10],
     ['Junior', 11],
     ['Senior', 12]
+  ]
+
+  Operations = [
+    ['Download', 'download'],
+    ['Print', 'print']
   ]
 
 def self.sort_options

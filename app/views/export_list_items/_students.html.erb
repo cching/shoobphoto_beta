@@ -23,6 +23,11 @@
 		<th> 
 			Export
 		</th>
+
+		<th> 
+			<input type="checkbox" id="selectAll" value="selectAll"> Select / Deselect All
+
+		</th>
 	</thead>
 	<tbody>
 <% @students.each do |student| %>
@@ -61,6 +66,11 @@
 			<%= link_to "Print", export_types_path(student.id, @school.id, :image => @image.id), remote: true, class: "btn btn-custom" %>
 			<% end %>
 		</td>
+		<td>
+			<% unless @image.student_images.where(:student_id => student.id).last.try(:image_file_name).nil? %>
+			<%= check_box_tag "student[student_ids][]", student.id %>
+			<% end %>
+ 		 </td>
 		<% end %>
 	</tr>
 
@@ -81,5 +91,17 @@ $('body').on('click', function (e) {
             $(this).popover('hide');
         }
     });
+});
+
+$('#selectAll').click(function() {
+   if (this.checked) {
+       $(':checkbox').each(function() {
+           this.checked = true;                        
+       });
+   } else {
+      $(':checkbox').each(function() {
+           this.checked = false;                        
+       });
+   } 
 });
 </script>

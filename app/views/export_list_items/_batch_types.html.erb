@@ -1,0 +1,41 @@
+<div class="modal-dialog" id="lesson_resources">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Select Template</h4>
+      </div>
+      <div class="modal-body centered">
+<div id="table">
+  <div class="row">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6">
+
+    <% if current_user.try(:admin) %>
+        <% @types.each do |type| %>
+            <%= link_to type.name, export_form_path(1, type.id, @package.id), :target => "_blank", class: "btn btn-custom btn-centered", id: "submit" %><br/>
+        <% end %>
+    <% else %>
+        <% @school.types.each do |type| %>
+            <%= link_to type.name, export_form_path(1, type.id, @package.id), :target => "_blank", class: "btn btn-custom btn-centered", id: "submit" %><br/>
+        <% end %>
+    <% end %>
+      </div>
+  <div class="col-sm-3"></div>
+</div>
+</div>
+
+      <div class="form-actions">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>   
+      </div>   
+
+    </div>
+  </div>
+
+<script>
+$(".btn-centered").on("click", function() {
+  $('#myModal').modal('hide');
+
+});
+</script>

@@ -6,4 +6,7 @@ class User < ActiveRecord::Base
 
   belongs_to :school
 
+  has_many :user_students
+  has_many :students, through: :user_students
+
 end

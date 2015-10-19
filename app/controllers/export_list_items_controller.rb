@@ -11,6 +11,23 @@ class ExportListItemsController < ApplicationController
   end
   end
 
+  def batch
+    current_user.students = []
+    @school = School.find(params[:school_id])
+    @package = @school.packages.where("name like ?", "%Fall%").last
+      params[:student][:student_ids].each do |student_id, value|
+        student = Student.find(student_id)
+        if @package.student_images.where(:student_id => params[:id]).any?
+          current_user.students << Student.find(student_id)
+        end
+      end
+
+      @types = Type.all.order(:name)
+
+      respond_to :js
+
+  end
+
   def search
     @school = School.find(params[:school])
     @image = @school.packages.where("name like ?", "%Fall%").last
@@ -121,14 +138,17 @@ class ExportListItemsController < ApplicationController
   end
   
   def form
-    
+
+      student_ids = current_user.students.pluck(:id)
+
+
     @export_data = ExportData.new(( {}).merge({
+      student_ids: student_ids,
       kind: 'print',
       type_id: params[:type_id],
       user_id: current_user.id
     }))
 
-    @export_data.export_data_students.new(:student_id => params[:id])
 
     queued = @export_data.save 
     #&& ExportJob.new(@export_data.id, params[:package])
