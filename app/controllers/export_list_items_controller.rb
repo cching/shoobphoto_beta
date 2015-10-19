@@ -13,13 +13,14 @@ class ExportListItemsController < ApplicationController
 
   def batch
     current_user.students = []
+    bucket = AWS::S3::Bucket.new('shoobphoto')
     @school = School.find(params[:school_id])
     @package = @school.packages.where("name like ?", "%Fall%").last
       params[:student][:student_ids].each do |student_id, value|
         student = Student.find(student_id)
-        image = @package.student_images.where(:student_id => params[:id]).last
+        image = @package.student_images.where(:student_id => params[:id])
         if image.any?
-          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name}.jpg").exists?
+          if AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name}.jpg").exists?
           current_user.students << Student.find(student_id)
         end
         end
