@@ -231,8 +231,6 @@ class StudentsController < ApplicationController
     end
     if (params[:student_id].nil? || params[:student_id] == "") && (params[:date][:year] == "" || params[:date][:month] == "" || params[:date][:day] == "")
 
-      puts "@@@@@@ this was rendered"
-
       student = @school.students.where("lower(first_name) like ? and lower(last_name) like ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%")
 
       if student.count > 0
