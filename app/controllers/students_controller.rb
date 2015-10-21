@@ -6,15 +6,30 @@ class StudentsController < ApplicationController
   end
 
   def download
-    @student = Student.where("lower(shoob_id) = ?", "#{params[:shoob_id].gsub(/\s+/, "").downcase}").first
+    @student = Student.where("lower(shoob_id) = ?", "#{params[:shoob_id].gsub(/\s+/, "").downcase}").last
     @package = @student.school.packages.where("lower(name) like ?", "%fall%").last unless @student.nil?
 
+    bucket = AWS::S3::Bucket.new('shoobphoto')
+    unless @student.nil?
+    image = @student.student_images.where(:package_id => @package.id).last
+      unless image.nil?
+        unless image.image_file_name.nil? 
+          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name}-dl.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name}-dl.jpg")
+            @dl = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+          end
+          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name}-nw.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name}-nw.jpg")
+            @nw = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+          end
+        end
+      end
+    end
   end
 
   def download_image
-  @package = Package.find(params[:package])
   @student = Student.find(params[:student])
-  data = open("#{@package.student_images.where(:student_id => @student.id).last.image.url}")
+  data = open("#{params[:url]}")
   send_data data.read, filename: "#{@student.last_name}_#{@student.first_name}.jpg", type: "image/jpeg", :x_sendfile => true
 
   end

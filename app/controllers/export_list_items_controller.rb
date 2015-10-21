@@ -3,7 +3,7 @@ class ExportListItemsController < ApplicationController
   def students
     if current_user
     @school = current_user.school
-    @students = Student.search(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher]).paginate(:per_page => 25,:page => params[:page])
+    @students = Student.search(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).paginate(:per_page => 25,:page => params[:page])
 
     @image = @school.packages.where("name like ?", "%Fall%").last
   else
@@ -31,17 +31,6 @@ class ExportListItemsController < ApplicationController
       respond_to :js
 
   end
-
-  def search
-    @school = School.find(params[:school])
-    @image = @school.packages.where("name like ?", "%Fall%").last
-    @students = @school.students.where(:id_only => true)
-    @students = @students.where("lower(first_name) like ?", "%#{params[:first_name].downcase}%") unless params[:first_name].nil?
-    @students = @students.where("lower(last_name) like ?", "%#{params[:last_name].downcase}%") unless params[:last_name].nil?
-    @students = @students.paginate(:page => params[:page], :per_page => 100)
-
-    respond_to :js
-  end 
 
   def new
     @student = Student.new
@@ -124,7 +113,7 @@ class ExportListItemsController < ApplicationController
   def school_user
     @school = School.find(params[:id])
     @image = @school.packages.where("name like ?", "%Fall%").last
-    @students = Student.search(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher]).paginate(:per_page => 25,:page => params[:page])
+    @students = Student.search(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).paginate(:per_page => 25,:page => params[:page])
   end
 
   def users

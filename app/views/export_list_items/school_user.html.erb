@@ -3,11 +3,14 @@
 <%= form_tag(export_user_school_path(@school.id), method: :get, :id => "students_search") do %>
 <div class="row">
 	<div class="col-sm-1"><div class="white">Search:</div></div>
-	<div class="col-sm-3">
-        First Name: <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "form-control", id: "input_first_name", label: false%>
+	<div class="col-sm-2">
+        First Name: <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "form-control", id: "input_first_name", label: false, input_html: {value: "#{params[:first_name]}"} %>
     </div>
-    <div class="col-sm-3">
-        Last Name: <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "form-control", id: "input_last_name", :value => "#{params[:last_name]}"%>
+    <div class="col-sm-2">
+        Last Name: <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "form-control", id: "input_last_name", input_html: {value: "#{params[:last_name]}"} %>
+    </div>
+    <div class="col-sm-2">
+        Student ID: <%= text_field_tag :student_id, nil, placeholder: "Student's ID Number", class: "form-control", id: "input_id", input_html: {value: "#{params[:student_id]}"} %>
     </div>
     <div class="col-sm-2">
     	Grade:

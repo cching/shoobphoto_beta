@@ -1,15 +1,29 @@
-<% if @student.nil? || @student.student_images.where(:package_id => @package.id).last.image.nil? %>
+<% if @dl.nil? && @nw.nil? %>
 <h3 align="center">We've had trouble finding the images for your student. Please try again <%= link_to "here", student_find_student_path %>.<br/> If trouble persists, please contact us. </h3>
 <% else%>
 <h3>Here are the images we've found for your purchase </h3>
 <hr>
-<div class="row">
-	<div class="col-sm-5">
-	<%= image_tag(@student.student_images.where(:package_id => @package.id).last.image.url, class: "img-rounded img-med") %>
-	</div>
-	<div class="col-sm-1"></div>
-	<div class="col-sm-6">
-		<%= link_to "Download Image", student_push_image_path(@student.id, @package.id), class: "btn btn-primary" %>
-	</div>
-</div><br/>
-<% end %>
+	<% unless @dl.nil? %>
+	<div class="row">
+		<div class="col-sm-5">
+		<%= image_tag(@dl, class: "img-rounded img-med") %>
+		</div>
+		<div class="col-sm-1"></div>
+		<div class="col-sm-6">
+			<%= link_to "Download Image", student_push_image_path(@student.id, :url => @dl), class: "btn btn-primary" %>
+		</div>
+	</div><br/>
+	<% end %>
+
+	<% unless @nw.nil? %>
+	<div class="row">
+		<div class="col-sm-5">
+		<%= image_tag(@nw, class: "img-rounded img-med") %>
+		</div>
+		<div class="col-sm-1"></div>
+		<div class="col-sm-6">
+			<%= link_to "Download Image", student_push_image_path(@student.id, :url => @nw), class: "btn btn-primary" %>
+		</div>
+	</div><br/>
+	<% end %>
+<% end %> 
