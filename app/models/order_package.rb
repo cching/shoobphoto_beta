@@ -6,6 +6,7 @@ class OrderPackage < ActiveRecord::Base
 	has_many :order_package_extras, dependent: :destroy
 	has_many :extras, through: :order_package_extras
 
+	validates :package_id, uniqueness: {:scope => [:student_id, :cart_id]}
 
 
 	accepts_nested_attributes_for :option
