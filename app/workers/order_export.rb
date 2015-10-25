@@ -8,7 +8,7 @@ class OrderExport
       csv_file = ''
 
           csv_file << CSV.generate_line(Order.all.first.attributes.keys[0..12].map{|column| column} + Order.all.first.attributes.keys[14..21].map{|column| column} + ['Price'] + ['Student First Name'] + ['Student Last Name'] + ['Student Teacher'] + ['Student ID'] + ['Student Grade'] + ['Student SChool'] + ['Student DoB'] + ['Type'] + ['Package'] + ['8x10 | 5x7 | 3x5 | Wallets | Image CD | Name on Wallets | Retouching'] + ['CA Code'])
-            Order.where(:processed => false).each do |order|
+            Order.all.each do |order|
               order.cart.students.each do |student|
 
               if order.cart.order_packages.where(:student_id => student.id).count > 1
