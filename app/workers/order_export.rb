@@ -31,7 +31,7 @@ class OrderExport
               end
               
               csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{Order.price(order.id, student.id)}"] +
-                ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.teacher}"] + ["#{student.student_id}"] + ["#{student.grade}"] + ["#{student.school.name}"] + ["#{student.dob}"] + 
+                ["#{student.try(:first_name)}"] + ["#{student.try(:last_name)}"] + ["#{student.try(:teacher)}"] + ["#{student.try(:student_id)}"] + ["#{student.try(:grade)}"] + ["#{student.school.try(:name)}"] + ["#{student.try(:dob)}"] + 
                 
               
              [@string] + [@string2] + [Package.concat(order.id, student.id)] + [order.cart.school.try(:ca_code)] + [order.cart.order_packages.where(:student_id => student.id).try(:url)]
