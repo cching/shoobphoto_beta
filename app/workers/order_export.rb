@@ -7,8 +7,8 @@ class OrderExport
 
       csv_file = ''
 
-          csv_file << CSV.generate_line(Order.all.first.attributes.keys[0..12].map{|column| column} + Order.all.first.attributes.keys[14..21].map{|column| column} + ['Price'] + ['Student First Name'] + ['Student Last Name'] + ['Student Teacher'] + ['Student ID'] + ['Student Grade'] + ['Student SChool'] + ['Student DoB'] + ['Type'] + ['Package'] + ['8x10 | 5x7 | 3x5 | Wallets | Image CD | Name on Wallets | Retouching'] + ['CA Code'])
-            Order.all.each do |order|
+          csv_file << CSV.generate_line(Order.all.first.attributes.keys[0..12].map{|column| column} + Order.all.first.attributes.keys[14..21].map{|column| column} + ['Price'] + ['Student First Name'] + ['Student Last Name'] + ['Student Teacher'] + ['Student ID'] + ['Student Grade'] + ['Student SChool'] + ['Student DoB'] + ['Type'] + ['Package'] + ['8x10 | 5x7 | 3x5 | Wallets | Image CD | Name on Wallets | Retouching'] + ['CA Code'] + ['Senior Image'])
+            Order.where(:processed => false).each do |order|
               order.cart.students.each do |student|
 
               if order.cart.order_packages.where(:student_id => student.id).count > 1
@@ -21,24 +21,27 @@ class OrderExport
                 end
               end
 
+              unless order.cart.order_packages.where(:student_id => student.id).count == 0
+
               if order.cart.order_packages.where(:student_id => student.id).count > 1
 
-                @string2 = order.cart.order_packages.where(:student_id => student.id).collect { |w| w.option.try(:name)[-1] }.join(", ")
+                @string2 = order.cart.order_packages.where(:student_id => student.id).collect { |w| w.option.name[-1] }.join(", ")
               else
                 @string2 = ""
                 order.cart.order_packages.where(:student_id => student.id).each do |opackage|
-                  @string2 = @string2 + "#{opackage.option.try(:name)[-1]}"
+                  @string2 = @string2 + "#{opackage.option.name[-1]}"
                 end         
               end
               
               csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{Order.price(order.id, student.id)}"] +
-                ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.teacher}"] + ["#{student.student_id}"] + ["#{student.grade}"] + ["#{student.school.try(:name)}"] + ["#{student.dob}"] + 
+                ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.teacher}"] + ["#{student.student_id}"] + ["#{student.grade}"] + ["#{student.school.name}"] + ["#{student.dob}"] + 
                 
               
-             [@string] + [@string2] + [Package.concat(order.id, student.id)] + [order.cart.school.try(:ca_code)]
+             [@string] + [@string2] + [Package.concat(order.id, student.id)] + [order.cart.school.try(:ca_code)] + [order.cart.order_packages.where(:student_id => student.id).try(:url)]
                 
 
-              )
+              ) 
+            end
           end
           end
           file_name = Rails.root.join('tmp', "order_#{Time.now.day}-#{Time.now.month}-#{Time.now.year}_#{Time.now.hour}_#{Time.now.min}.csv");
