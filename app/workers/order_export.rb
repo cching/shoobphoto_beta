@@ -16,14 +16,14 @@ class OrderExport
               if order.cart.order_packages.where(:student_id => student.id).count > 1
 
                 @string = order.cart.order_packages.where(:student_id => student.id).collect { |w| w.package.slug }.join(", ")
-                @string2 = order.cart.order_packages.where(:student_id => student.id).collect { |w| w.option.name[-1] }.join(", ")
+                @string2 = order.cart.order_packages.where(:student_id => student.id).collect { |w| w.option.try(:name)[-1] }.join(", ")
               elsif order.cart.order_packages.where(:student_id => student.id).count == 1
                 @string = ""
                 @string2 = ""
 
                 order.cart.order_packages.where(:student_id => student.id).each do |opackage|
                   @string = @string + "#{opackage.package.slug}"
-                  @string2 = @string2 + "#{opackage.option.name[-1]}"
+                  @string2 = @string2 + "#{opackage.option.try(:name)[-1]}"
                 end
               else
                 @string = ""
