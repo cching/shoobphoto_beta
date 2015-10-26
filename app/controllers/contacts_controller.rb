@@ -23,7 +23,8 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(contact_params)
     @contact.save
-    
+
+    ContactMailer.send_mail(@contact).deliver
     redirect_to root_path, notice: "Thank you for contacting us! We'll get back to you soon."
   end
 
