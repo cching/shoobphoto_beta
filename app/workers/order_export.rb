@@ -14,26 +14,23 @@ class OrderExport
 
 
               if order.cart.order_packages.where(:student_id => student.id).count > 1
-                 @string = ""
-                @string2 = ""
 
-                @string = @string + order.cart.order_packages.where(:student_id => student.id).collect { |w| w.package.slug }.join(", ")
-                @string2 = @string2 + order.cart.order_packages.where(:student_id => student.id).collect { |w| w.option.try(:name)[-1] }.join(", ")
-              elsif order.cart.order_packages.where(:student_id => student.id).count == 1
+                @string = order.cart.order_packages.where(:student_id => student.id).collect { |w| w.package.slug }.join(", ")
+                @string2 = order.cart.order_packages.where(:student_id => student.id).collect { |w| w.option.name[-1] }.join(", ")
+              else
                 @string = ""
                 @string2 = ""
 
                 order.cart.order_packages.where(:student_id => student.id).each do |opackage|
                   @string = @string + "#{opackage.package.slug}"
-                  @string2 = @string2 + "#{opackage.option.try(:name)[-1]}"
+                  unless opackage.option.nil?
+                  @string2 = @string2 + "#{opackage.option.name[-1]}"
                 end
-              else
-                @string = ""
-                @string2 = ""
+                end
               end
               
               csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{Order.price(order.id, student.id)}"] +
-                ["#{student.try(:first_name)}"] + ["#{student.try(:last_name)}"] + ["#{student.try(:teacher)}"] + ["#{student.try(:student_id)}"] + ["#{student.try(:grade)}"] + ["#{student.school.try(:name)}"] + ["#{student.try(:dob)}"] + 
+                ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.teacher}"] + ["#{student.student_id}"] + ["#{student.grade}"] + ["#{student.school.name}"] + ["#{student.dob}"] + 
                 
               
              [@string] + [@string2] + [Package.concat(order.id, student.id)] + [order.cart.school.try(:ca_code)] + [order.cart.order_packages.where(:student_id => student.id).try(:url)]

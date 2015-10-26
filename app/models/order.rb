@@ -34,7 +34,9 @@ class Order < ActiveRecord::Base
 
 
       @cart.order_packages.where(:student_id => sid).each do |package|
+        unless package.option.nil?
        @price = package.option.price + @price
+     end
       end
 
       @cart.order_packages.where(:student_id => sid).each do |opackage|
