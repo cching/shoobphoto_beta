@@ -4,15 +4,15 @@
 
   From: <%= @contact.name %> <br/>
   User is a:<br/>
-  <%= if @contact.admin? %>
+  <% if @contact.admin? %>
   Administrator<br/>
   <% end %>
 
-  <%= if @contact.teacher? %>
+  <% if @contact.teacher? %>
   Teacher<br/>
   <% end %>
 
-  <%= if @contact.parent? %>
+  <% if @contact.parent? %>
   Parent:<br/>
   Student: <%= @contact.student %>, Grade: <%= @contact.grade %>, Teacher: <%= @contact.teacher_name %><br/>
   <% end %>
