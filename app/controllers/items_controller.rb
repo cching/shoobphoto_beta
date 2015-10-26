@@ -27,6 +27,10 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    @item = Item.find(params[:id])
+    @item.update(item_params)
+
+    respond_to :js
   end
 
   def update_items
@@ -60,7 +64,8 @@ class ItemsController < ApplicationController
 
   def update
     @item.update(item_params)
-    respond_with(@item)
+
+    respond_to :js
   end
 
   def destroy
@@ -98,7 +103,7 @@ class ItemsController < ApplicationController
     end
 
     def item_params
-      params.require(:item).permit(:name, :price, :item_id, :per_page)
+      params.require(:item).permit(:name, :price, :item_id, :per_page, :category_ids => [])
     end
 
     def cart_params

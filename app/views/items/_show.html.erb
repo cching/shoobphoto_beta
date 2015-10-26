@@ -7,6 +7,16 @@
       <div class="modal-body" align="center">
       <%= image_tag(@item.main.url, class: "img img-rounded") %>
 <br/>
+
+<% if current_user.try(:admin) %>
+<%= simple_form_for(@item, remote: true) do |f| %>
+
+<%= f.association :categories, as: :check_boxes %>
+
+<%= f.submit "Save" %>
+
+<% end %>
+<% end %>
 <div class="dropdown">
 
 

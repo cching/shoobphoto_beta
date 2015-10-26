@@ -1,8 +1,7 @@
-<h1>Listing corders</h1>
-
 <table>
   <thead>
     <tr>
+      <th></th>
       <th>Cart</th>
       <th>Ip address</th>
       <th>First name</th>
@@ -29,6 +28,7 @@
   <tbody>
     <% @corders.each do |corder| %>
       <tr>
+        <td><%= link_to "More info", corder_show_path(corder.id), remote: true, class: "btn btn-primary" %></td>
         <td><%= corder.cart_id %></td>
         <td><%= corder.ip_address %></td>
         <td><%= corder.first_name %></td>
@@ -46,11 +46,16 @@
         <td><%= corder.shipping_city %></td>
         <td><%= corder.shipping_zip %></td>
         <td><%= corder.shipping_state %></td>
-        <td><%= corder.processed %></td>
+        <td id="corder_<%= corder.id %>">
+
+          <% if corder.processed? %>
+          <%= render :partial => 'processed', :locals => {:corder => corder} %>
+          <% else %>
+          <%= render :partial => 'unprocessed', :locals => {:corder => corder} %>
+          <% end %>
+        </td>
         <td><%= corder.notes %></td>
-        <td><%= link_to 'Show', corder %></td>
-        <td><%= link_to 'Edit', edit_corder_path(corder) %></td>
-        <td><%= link_to 'Destroy', corder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
       </tr>
     <% end %>
   </tbody>
@@ -58,4 +63,3 @@
 
 <br>
 
-<%= link_to 'New Corder', new_corder_path %>

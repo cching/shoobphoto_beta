@@ -2,9 +2,10 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  
 
-  
+  resources :contacts
+
+  match 'contact' => 'contacts#new', :via => 'GET'
 
   resources :types
 
@@ -98,6 +99,10 @@ Rails.application.routes.draw do
   match 'students/cart/:cart_id/orders/new' => 'orders#new', :via => 'GET', :as => 'new_order'
   match 'items/:cart_id/orders' => 'corders#confirm', :via => 'POST', :as => 'corder_confirm'
   match 'items/:cart_id/orders/new' => 'corders#new', :via => 'GET', :as => 'new_corder'
+  match 'catalog_orders' => 'corders#index', :via => 'GET', :as => 'corders'
+  match 'catalog_orders/:id' => 'corders#show', :via => 'GET', :as => 'corder_show'
+  match 'catalog_orders/:id/processed' => 'corders#processed', :via => 'GET', :as => 'corders_processed'
+  match 'catalog_orders/:id/unprocessed' => 'corders#unprocessed', :via => 'GET', :as => 'corders_unprocessed'
   match 'students/cart/:cart_id/update_cart' => 'students#update_cart', :via => 'PATCH', :as => 'update_cart'
   match 'catalog' => 'items#index', :via => 'GET', :as => 'catalog'
   match 'items/cart/:cart_id' => 'items#cart', :via => 'GET', :as => 'items_cart'

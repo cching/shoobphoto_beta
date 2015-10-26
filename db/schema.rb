@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151018232456) do
+ActiveRecord::Schema.define(version: 20151026052100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,30 @@ ActiveRecord::Schema.define(version: 20151018232456) do
     t.string   "cart_type"
     t.integer  "school_id"
     t.boolean  "id_supplied", default: true
+  end
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contacts", force: true do |t|
+    t.string   "name"
+    t.string   "school"
+    t.string   "student"
+    t.string   "grade"
+    t.string   "teacher_name"
+    t.string   "address"
+    t.string   "city"
+    t.string   "email"
+    t.string   "phone"
+    t.text     "message"
+    t.boolean  "admin"
+    t.boolean  "teacher"
+    t.boolean  "parent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "corders", force: true do |t|
@@ -180,6 +204,13 @@ ActiveRecord::Schema.define(version: 20151018232456) do
   create_table "images", force: true do |t|
     t.text     "url"
     t.integer  "item_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "item_categories", force: true do |t|
+    t.integer  "item_id"
+    t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -433,14 +464,7 @@ ActiveRecord::Schema.define(version: 20151018232456) do
     t.string   "data2"
     t.string   "data3"
     t.string   "data4"
-    t.integer  "teacher_id"
     t.integer  "period_id"
-  end
-
-  create_table "teachers", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "templates", force: true do |t|

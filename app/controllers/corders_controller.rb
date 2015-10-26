@@ -16,6 +16,30 @@ class CordersController < ApplicationController
 
 end
 
+  def index 
+    @corders = Corder.all.order(:processed)
+  end
+
+  def show
+    @order = Corder.find(params[:id])
+
+    respond_to :js
+  end
+
+  def processed
+    @corder = Corder.find(params[:id])
+    @corder.update(:processed => true)
+
+    respond_to :js
+  end
+
+  def unprocessed
+    @corder = Corder.find(params[:id])
+    @corder.update(:processed => false)
+
+    respond_to :js
+  end
+
   def confirm
     @cart = Cart.find_by_cart_id(params[:cart_id])
     if @cart.price > 0
