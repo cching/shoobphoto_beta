@@ -6,8 +6,9 @@ class UserImport
 
       	chunk.each do |h|
 	            school = School.find_by_ca_code(h["ca_code"].to_s)
+	            unless school.nil?
 	           	school.users.create(:email => h["email"], :password => h["password"], :password_confirmation => h["password_confirmation"])
-	          
+	          	end
 	          	
 	        
      	end
