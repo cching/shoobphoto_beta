@@ -8,14 +8,14 @@
     
     <div class="row">
       <div class="col-sm-1"></div>
-      <div class="col-sm-2">
-        <%= f.input :admin, :label => "Administrator" %>
+      <div class="col-sm-2">Administrator
+        <%= f.check_box :admin, :label => "Administrator" %>
       </div>
-      <div class="col-sm-2">
-      <%= f.input :teacher, :label => "Teacher" %>
+      <div class="col-sm-2">Teacher
+      <%= f.check_box :teacher, :label => "Teacher" %>
       </div>
-      <div class="col-sm-3">
-      <%= f.input :parent, :label => "Parent of a child taking pictures", :label_html => {  :id => "parent" } %>
+      <div class="col-sm-4">Parent of a child taking pictures
+      <%= f.check_box :parent ,:id => "parent"  %>
       </div>
     </div>
     <hr>

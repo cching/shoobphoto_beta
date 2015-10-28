@@ -6,4 +6,5 @@ class ContactMailer < ActionMailer::Base
 
     mail :to => 'info@shoobphoto.com', :from => 'info@shoobphoto.com', :subject => 'Shoob Photography Contact'
   end
+
 end

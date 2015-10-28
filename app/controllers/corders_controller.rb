@@ -55,6 +55,7 @@ end
         @cart.cart_type = "catalog"
         @cart.save
         CorderMailer.receipt(@order).deliver
+        CorderMailer.send_receipt(@order).deliver
         redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt."
       else
         respond_to do |format|
