@@ -26,11 +26,11 @@ class Student < ActiveRecord::Base
 
  def self.import(file)
   	CSV.foreach(file.path, headers: true) do |row|
-    id = Student.last.id + 1
-    school = School.find_by_name(row['school'].split.map(&:capitalize).join(' '))
-    student = school.students.new(:id => id)
-    student.attributes = row.to_hash.slice(*["id", "district_id", "student_id", "last_name", "first_name", "grade", "email"])
-    student.save!
+    school = School.where("name like ?", "%#{h["school"]}%")
+    if school.any?
+      school = school.last
+      school.update(:ca_code => h["ca_code"])
+    end
     end
   end
 

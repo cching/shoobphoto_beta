@@ -9,7 +9,12 @@ class Admin::StudentsController < ApplicationController
 	end
 
 	def import
-		Student.import(params[:file])
+		file = File.open(params[:file].tempfile, "r:ISO-8859-1")
+
+    chunk = SmarterCSV.process(file, {:chunk_size => 500, row_sep: :auto}) do |chunk|
+      Student.import(chunk)
+    end
+    file.close
   		redirect_to admin_csv_students_path, notice: "Students imported."
 	end
 
