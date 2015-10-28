@@ -24,12 +24,13 @@ class Student < ActiveRecord::Base
 
   accepts_nested_attributes_for :student_images, allow_destroy: true
 
- def self.import(file)
-  	CSV.foreach(file.path, headers: true) do |row|
-    school = School.where("name like ?", "%#{h["school"]}%")
+ def self.import(chunk)
+  chunk.each do |h|
+    school = School.where("name like ?", "%#{h[:school_name]}%")
+    puts h[:school_name]
     if school.any?
       school = school.last
-      school.update(:ca_code => h["ca_code"])
+      school.update(:ca_code => "#{h[:ca_code]}")
     end
     end
   end
