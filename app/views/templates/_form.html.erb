@@ -1,5 +1,12 @@
 <%= simple_form_for(@template, :html => { :multipart => true } ) do |f| %>
   <%= f.error_notification %>
+  <% if @template.errors.any? %>
+  <ul>
+  <% @template.errors.each do |attr, message| %>
+  <li><%= attr %>: <%= message %></li>
+  <% end %>
+</ul>
+<% end %>
 
   <div class="form-inputs">
   	<%= f.input :name %>
