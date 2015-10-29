@@ -16,6 +16,20 @@ class CordersController < ApplicationController
 
 end
 
+def import
+  unless params[:file].nil?
+    Corder.import(params[:file])
+    redirect_to corders_path, notice: "Orders successfully imported."
+  end
+  end
+
+def export
+    export = Export.create
+      CorderExport.perform_async(export.id)
+
+      redirect_to orders_path, notice: "The new order CSV is currently being generated."
+    end
+
   def index 
     @corders = Corder.all.order(:processed)
   end
@@ -80,7 +94,7 @@ end
     # Use callbacks to share common setup or constraints between actions.
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:corder).permit(:cart_id, :last_name, :first_name, :ip_address, :phone, :posted, :email, :price, :notes, :address, :city, :state, :zip_code, :card_type, :card_expires_on, :card_number, :card_verification, :shipping_state, :processed, :shipping_address, :shipping_zip, :shipping_city, :student_id, :school_id)
+      params.require(:corder).permit(:cart_id, :last_name, :first_name, :ip_address, :school, :phone, :posted, :email, :price, :notes, :address, :city, :state, :zip_code, :card_type, :card_expires_on, :card_number, :card_verification, :shipping_state, :processed, :shipping_address, :shipping_zip, :shipping_city, :student_id, :school_id)
     end
 
 end

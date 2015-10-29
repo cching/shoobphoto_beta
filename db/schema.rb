@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026052100) do
+ActiveRecord::Schema.define(version: 20151029073330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 20151026052100) do
     t.datetime "updated_at"
     t.date     "card_expires_on"
     t.boolean  "free"
+    t.string   "schools"
   end
 
   create_table "export_data", force: true do |t|

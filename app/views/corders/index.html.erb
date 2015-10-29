@@ -1,3 +1,22 @@
+<div class="row">
+<div class="col-sm-6">
+<%= link_to 'Generate the latest CSV File of Orders', corder_export_path(Corder.first.id) %><br />
+
+<% if Export.last.file_path.nil? %>
+<a href="#" download class="btn btn-disabled btn-primary">The CSV is still being processed. Please refresh in a few minutes.</a>
+<% else %>
+<a href="<%= @image_url %>" download class="btn btn-primary">Download <%= Export.last.file_path %></a>
+<% end %>
+</div>
+<div class="col-sm-6">
+<%= form_tag('/corders/import/', multipart: true) do %>
+
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
+</div>
+</div>
+
 <table>
   <thead>
     <tr>

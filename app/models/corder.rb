@@ -12,13 +12,21 @@ class Corder < ActiveRecord::Base
 
 
 
-  validates_presence_of :first_name, :last_name, :phone, :email, :address, :city, :state, :zip_code, :card_type, :card_expires_on, :price
+  validates_presence_of :first_name, :last_name, :phone, :email, :address, :city, :state, :zip_code, :card_type, :card_expires_on, :price, :schools
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   validates_length_of :phone, :minimum => 7, :too_short => 'must be at least 7 numbers'
   
   attr_accessor :card_number, :card_verification, :clearance
   
   before_create :send_purchase, :if => :free?
+
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+    order = find_by_id(row["id"])
+    order.attributes = row.to_hash.slice(*["id", "processed"])
+    order.save
+    end
+  end
 
   private 
 

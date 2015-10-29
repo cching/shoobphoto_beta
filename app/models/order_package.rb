@@ -6,6 +6,8 @@ class OrderPackage < ActiveRecord::Base
 	has_many :order_package_extras, dependent: :destroy
 	has_many :extras, through: :order_package_extras
 
+	before_destroy :check_for_orders
+
 	validates :package_id, uniqueness: {:scope => [:student_id, :cart_id]}
 
 
@@ -18,4 +20,11 @@ class OrderPackage < ActiveRecord::Base
 
         return s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
 	end
+
+	private
+	  def check_for_orders
+	    if cart.purchased?
+	      return false
+	    end
+	  end
 end

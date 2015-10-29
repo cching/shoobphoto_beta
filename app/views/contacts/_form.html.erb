@@ -1,9 +1,9 @@
 <div align="center"><%= image_tag('contact.jpg', class: "img img-rounded") %></div>
 
-<%= simple_form_for(@contact, html: {class: 'form-horizontal' }) do |f| %>
+<%= simple_form_for(@contact) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
+  <div class="input">
     <h3>I am a:</h3>
     
     <div class="row">

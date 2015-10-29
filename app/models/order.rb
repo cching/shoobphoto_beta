@@ -1,5 +1,7 @@
 class Order < ActiveRecord::Base
   belongs_to :cart
+  delegate :order_packages, :to => :cart, :allow_nil => false
+  validates :order_packages, presence: true
   belongs_to :student #for indexing purposes of ransack
   belongs_to :school #for indexing purposes 
   require "active_merchant/billing/rails"

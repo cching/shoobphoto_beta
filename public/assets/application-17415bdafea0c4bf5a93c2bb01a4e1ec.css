@@ -18,6 +18,11 @@ html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:1
 pull-left {
   float: left;
 }
+/* line 5, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/corders.css.scss */
+textarea {
+  text-align: justify;
+  white-space: normal;
+}
 /* line 5, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/export_list_items.css.scss */
 .btn-centered {
   width: 100%;

@@ -117,7 +117,8 @@ Rails.application.routes.draw do
 
   match 'orders' => 'orders#index', :via => 'GET', :as => "orders"
   match 'orders/import' => 'orders#import', :via => 'POST', :as => "orders_import"
-
+  match 'corders/import' => 'corders#import', :via => 'POST', :as => "corders_import"
+  match 'corders/:id/export' => 'corders#export', :via => 'GET', :as => 'corder_export'
   resources :searches
 
   root :to => 'pages#show', :page => 'home'
