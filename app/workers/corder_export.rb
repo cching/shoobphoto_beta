@@ -12,12 +12,8 @@ class OrderExport
 
               
               csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21]
-                
 
-              
-            
-          
-          end
+              end
           file_name = Rails.root.join('tmp', "order_#{Time.now.day}-#{Time.now.month}-#{Time.now.year}_#{Time.now.hour}_#{Time.now.min}.csv");
 
           File.open(file_name, 'wb') do |file|
@@ -33,5 +29,6 @@ class OrderExport
           file.acl = :public_read
 
           export.update(:file_path => key)
-  end
+      end
+end
 end
