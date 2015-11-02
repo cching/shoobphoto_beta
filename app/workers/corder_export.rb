@@ -11,7 +11,7 @@ class CorderExport
             Corder.all.each do |order|
 
               
-              csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{number_to_currency(corder.price, :unit => "$")}"]
+              csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{number_to_currency(order.price, :unit => "$")}"]
                 
               
      
