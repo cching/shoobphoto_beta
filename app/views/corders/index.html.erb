@@ -1,5 +1,13 @@
+<%  bucket = AWS::S3::Bucket.new('shoobphoto') %>
+
+<% s3object = AWS::S3::S3Object.new(bucket, "csvs/#{Export.last.file_path}") %>
+      
+
+<% @image_url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true) %>
+
 <div class="row">
 <div class="col-sm-6">
+
 <%= link_to 'Generate the latest CSV File of Orders', corder_export_path(Corder.first.id) %><br />
 
 <% if Export.last.file_path.nil? %>
@@ -20,7 +28,7 @@
 <table>
   <thead>
     <tr>
-      <th></th>
+      <th></th> 
       <th>Cart</th>
       <th>Ip address</th>
       <th>First name</th>

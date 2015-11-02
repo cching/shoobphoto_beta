@@ -8,7 +8,7 @@ class CorderExport
       csv_file = ''
 
           csv_file << CSV.generate_line(Corder.all.first.attributes.keys[0..12].map{|column| column} + Corder.all.first.attributes.keys[14..21].map{|column| column} + ['Price'])
-            Corder.where(:processed => false).each do |order|
+            Corder.all.each do |order|
 
               
               csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{number_to_currency(corder.price, :unit => "$")}"]
