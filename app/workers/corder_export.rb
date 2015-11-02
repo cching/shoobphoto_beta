@@ -20,7 +20,7 @@ class CorderExport
               ) 
             
           end
-          end
+          
           file_name = Rails.root.join('tmp', "order_#{Time.now.day}-#{Time.now.month}-#{Time.now.year}_#{Time.now.hour}_#{Time.now.min}.csv");
 
           File.open(file_name, 'wb') do |file|
