@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151102071403) do
+ActiveRecord::Schema.define(version: 20151102081111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 20151102071403) do
     t.string   "shipping_city"
     t.string   "shipping_zip"
     t.string   "shipping_state"
-    t.boolean  "processed"
+    t.boolean  "processed",        default: false
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"

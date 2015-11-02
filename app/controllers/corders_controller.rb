@@ -42,14 +42,20 @@ def export
 
   def processed
     @corder = Corder.find(params[:id])
-    @corder.update(:processed => true)
+    @corder.processed = true
+    @corder.save validate: false
+
+    puts @corder.errors.first
 
     respond_to :js
   end
 
   def unprocessed
     @corder = Corder.find(params[:id])
-    @corder.update(:processed => false)
+    @corder.processed = false
+    @corder.save validate: false
+
+   
 
     respond_to :js
   end

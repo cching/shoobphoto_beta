@@ -7,15 +7,18 @@ class CorderExport
 
       csv_file = ''
 
-          csv_file << CSV.generate_line(Corder.all.first.attributes.keys[0..12].map{|column| column} + Corder.all.first.attributes.keys[14..21].map{|column| column} + ['Price'])
+          csv_file << CSV.generate_line(Corder.all.first.attributes.keys[0..12].map{|column| column} + Corder.all.first.attributes.keys[14..21].map{|column| column} + ['Price'] + ['Items'])
             Corder.where(:processed => false).each do |order|
 
               
-              csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{order.price.to_i}"]
-                
               
-     
+              @string = ""
                 
+              order.cart.items.each do |item|
+                citem = order.cart.cart_items.where(:item_id => item.id).last
+                @string = @string + "#{item.number}: #{item.name} - #{citem.quantity}"
+     
+                csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{order.price.to_i}"] + [@string]
 
               ) 
             
