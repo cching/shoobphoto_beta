@@ -1,4 +1,7 @@
 class ExportListItemsController < ApplicationController
+  require "rubygems"
+   require 'zip'
+ require "open-uri"
 
   def students
     if current_user
@@ -12,13 +15,14 @@ class ExportListItemsController < ApplicationController
   end
 
   def batch
+    @operation = params[:operation].to_s
     current_user.students = []
     bucket = AWS::S3::Bucket.new('shoobphoto')
     @school = School.find(params[:school_id])
     @package = @school.packages.where("name like ?", "%Fall%").last
       params[:student][:student_ids].each do |student_id, value|
         student = Student.find(student_id)
-        image = @package.student_images.where(:student_id => params[:id])
+        image = @package.student_images.where(:student_id => student.id)
         if image.any?
           if AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name}.jpg").exists?
           current_user.students << Student.find(student_id)
@@ -28,8 +32,31 @@ class ExportListItemsController < ApplicationController
 
       @types = Type.all.order(:name)
 
-      respond_to :js
+  end
 
+  def zip
+    @package = Package.find(params[:package])
+    bucket = AWS::S3::Bucket.new('shoobphoto')
+      t = Tempfile.new("my-temp-filename-#{Time.now}")
+      Zip::OutputStream.open(t.path) do |z|
+          current_user.students.each do |student|
+            image = @package.student_images.where(:student_id => student.id)
+              title = "#{student.last_name}_#{student.first_name}.jpg"
+              z.put_next_entry("images/#{title}")
+              s3object = AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name}.jpg")
+              url1 = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+              url1_data = open(url1)
+              z.print IO.read(url1_data)
+            
+          
+        end
+      end
+
+send_file t.path, :type => 'application/zip',
+                                 :x_sendfile => true,
+                                 :filename => "StudentImages.zip"
+                                 
+          t.close
   end
 
   def new

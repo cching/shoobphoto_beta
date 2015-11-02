@@ -46,6 +46,8 @@ gem 'ransack'
 gem 'prawn','1.0.0.rc1'
 gem 'prawnto'
 
+gem 'rubyzip'
+
 
 #Background queue
 gem 'smarter_csv'

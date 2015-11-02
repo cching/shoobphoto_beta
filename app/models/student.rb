@@ -72,7 +72,8 @@ end
   ]
 
   Operations = [
-    ['Print', 'print']
+    ['Print', 'print'],
+    ['Download', 'download']
   ]
 
 def self.sort_options

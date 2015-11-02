@@ -1,6 +1,10 @@
-
+<% if @operation == "print" %>
 $('#myModal').modal('show');
 $("#myModal").html("<%= escape_javascript(render 'batch_types') %>");
+<% else %>
+$('#myModal').modal('show');
+$("#myModal").html("<%= escape_javascript(render 'batch_zip') %>");
+<% end %>
 $(':checkbox').each(function() {
            this.checked = false;                        
        });

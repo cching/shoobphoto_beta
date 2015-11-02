@@ -150,9 +150,10 @@ textarea {
 #table {
   max-height: 75vh;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
-/* line 15, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/orders.css.scss */
+/* line 16, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/orders.css.scss */
 .small {
   max-height: 70px;
   max-widht: 50px;

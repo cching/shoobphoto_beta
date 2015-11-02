@@ -261,6 +261,7 @@ DEPENDENCIES
   ransack
   remotipart (~> 1.2)
   roo
+  rubyzip
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   sidekiq
