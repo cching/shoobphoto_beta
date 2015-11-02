@@ -7,12 +7,12 @@ class CordersController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:cart_id])
 
     if @cart.price > 0
-      free = true
+      @free = true
     else
-      free = false
+      @free = false
     end
 
-    @order = Corder.new :price => @cart.price, :free => free
+    @order = Corder.new :price => @cart.price, :free => @free
 
 end
 
@@ -94,7 +94,7 @@ def export
     # Use callbacks to share common setup or constraints between actions.
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:corder).permit(:cart_id, :last_name, :first_name, :ip_address, :school, :phone, :posted, :email, :price, :notes, :address, :city, :state, :zip_code, :card_type, :card_expires_on, :card_number, :card_verification, :shipping_state, :processed, :shipping_address, :shipping_zip, :shipping_city, :student_id, :school_id)
+      params.require(:corder).permit(:cart_id, :last_name, :first_name, :ip_address, :schools, :school, :phone, :posted, :email, :price, :notes, :address, :city, :state, :zip_code, :card_type, :card_expires_on, :card_number, :card_verification, :shipping_state, :processed, :shipping_address, :shipping_zip, :shipping_city, :student_id, :school_id, :admin, :teacher, :parent)
     end
 
 end

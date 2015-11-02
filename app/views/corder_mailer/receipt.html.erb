@@ -16,17 +16,21 @@
 
 </div>
 <br />
+<% if @order.free %>
 <div>
   <div>
     <b>Address:</b>
     <%= "#{@order.address} #{@order.city}, #{@order.state} #{@order.zip_code}" %>
   </div>
   <div>
+    
     <b>Paid with:</b>
     <%= "#{@order.card_type.capitalize}" %>
+    
   </div>
 
 </div>
+<% end %>
 <p>
   <b>Order Number:</b>
   <%= @order.id %>

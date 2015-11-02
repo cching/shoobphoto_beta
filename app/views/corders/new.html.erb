@@ -2,8 +2,11 @@
 
 
 <%= errors_for(@order) %>
-
+<% if @free %>
 <h3>Credit Card Information</h3>
+<% else %>
+<h3>Your information</h3>
+<% end %>
 <hr >
 <div class="row">
 <div class="col-sm-2">
@@ -16,7 +19,7 @@
 <br />
 <div class="row">
 <div class="col-sm-2">
-<%= f.label(:last_name, "Last Name")%>
+<%= f.label(:last_name, "Last Name")%> 
 </div>
 <div class="col-sm-10">
       <%= f.text_field :last_name, class: "form-control" %>
@@ -42,6 +45,47 @@ Email
 </div>
 </div>
 <br />
+
+<div class="row">
+<div class="col-sm-2">
+You are a:
+</div>
+<div class="col-sm-10">
+      <div class="row">
+        <div class="col-sm-1" align="right">
+          <%= f.check_box :admin, class: "form-control" %>
+        </div>
+        <div class="col-sm-2" align="left">
+          Administrator
+        </div>
+        <div class="col-sm-1">
+          <%= f.check_box :teacher, class: "form-control" %>
+        </div>
+        
+        <div class="col-sm-2">
+          Teacher
+        </div>
+        <div class="col-sm-1">
+          <%= f.check_box :parent, class: "form-control" %>
+        </div>
+        <div class="col-sm-2">
+          Parent
+        </div>
+        
+      </div>
+</div>
+</div>
+<br/>
+<div class="row">
+<div class="col-sm-2">
+School
+</div>
+<div class="col-sm-10">
+      <%= f.text_field :schools, class: "form-control" %>
+</div>
+</div>
+
+<% if @free %>
 <div class="row">
 <div class="col-sm-2">
 Card number
@@ -55,7 +99,7 @@ Card Type
 <div class="col-sm-3">
       <%= f.select :card_type, Order::CardTypes %>
       </div>
-      </div>
+</div>
  <br />
  <div class="row">
  <div class="col-sm-2">
@@ -72,7 +116,7 @@ Card Verification (number on back)
 <div class="col-sm-4">
       <%= f.text_field :card_verification, class: "form-control" %>
       </div>
-      </div>
+</div>
 
 <h3>Billing Address</h3>
 <hr >
@@ -111,6 +155,9 @@ Zip code
 <h3>Shipping Address    &nbsp; <label for="ship_to_billing_address"> <input type="checkbox" name="ship_to_billing_address" id="ship_to_billing_address" /> Check if the billing address is the same as your shipping address
         
     </label></h3>
+    <% else %>
+    <h3>Shipping Address</h3>
+    <% end %>
 <hr >
 
 <div class="row">
@@ -143,9 +190,7 @@ Zip code
 
 </div>
 </div><br />
-<%= f.label :schools, "School" %>
-<%= f.text_field :schools, class: "form-control", :rows => "100" %>
-<br />
+
 <%= f.label :notes, "Extra notes" %>
 <%= f.text_field :notes, class: "form-control", :rows => "100" %>
 <br />
