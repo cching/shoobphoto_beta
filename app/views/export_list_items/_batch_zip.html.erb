@@ -8,10 +8,10 @@
 <div id="table">
   <div class="row">
   <div class="col-sm-3"></div>
-  <div class="col-sm-6">
+  <div class="col-sm-6" align="center">
     <h3>Please click the button below to access your zip file of your selected students.</h3>
     <div align="center">
-   <%= link_to "Download", export_list_zip_path(@school.id, @package.id), :target => "_blank", class: "btn btn-primary" %><br/>
+   <%= link_to "Download", export_list_zip_path(@school.id, @package.id), :target => "_blank", class: "btn btn-primary" %><br/><hr>
    Your selected students' images are placed in a zip file. In order to access the inmages, the file must be "unzipped" first. Luckily, the tools needed for this are native on both Windows and OSX. Locate the downloaded file, right click it, and select either "Extract All" or "Open". 
  </div><br/>
       </div>
