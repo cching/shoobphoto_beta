@@ -178,7 +178,12 @@ end
 
 	def import
 	unless params[:file].nil?
-	  Order.import(params[:file])
+	  file = File.open(params[:file].tempfile, "r:ISO-8859-1")
+
+    chunk = SmarterCSV.process(file, {:chunk_size => 500, row_sep: :auto}) do |chunk|
+      OrderImport.perform_async(chunk)
+    end
+    file.close
 	  redirect_to orders_path, notice: "Orders successfully imported."
 	end
 	end
