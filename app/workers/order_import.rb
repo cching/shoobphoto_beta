@@ -1,7 +1,7 @@
 class OrderImport
   include Sidekiq::Worker
   sidekiq_options queue: "package_import"
-    def perform(id)
+    def perform(chunk)
       chunk.each do |h|
 
         order = find_by_id(h["id"])
