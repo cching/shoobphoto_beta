@@ -8,16 +8,8 @@ class OrderExport
       csv_file = ''
 
           csv_file << CSV.generate_line(Order.all.first.attributes.keys[0..12].map{|column| column} + Order.all.first.attributes.keys[14..21].map{|column| column} + ['Price'] + ['Student First Name'] + ['Student Last Name'] + ['Student Teacher'] + ['Student ID'] + ['Student Grade'] + ['Student SChool'] + ['Student DoB'] + ['Type'] + ['Package'] + ['8x10 | 5x7 | 3x5 | Wallets | Image CD | Name on Wallets | Retouching'] + ['CA Code'] + ['Senior Image'])
-            @order = []
-            Order.all.each do |order|
-              order.cart.order_packages.each do |opackage|
-                unless opackage.url.nil?
-                  @order << order
-                end
-              end
-            end
 
-            @order.each do |order|
+            Order.all.where.not(processed: true).order(:id).each do |order|
               order.cart.students.each do |student|
                 @string1 = ""
                 @string2 = ""
@@ -45,7 +37,7 @@ class OrderExport
               end
               end
               
-              csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{Order.price(order.id, student.id)}"] +
+              csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{order.price}"] +
                 ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.teacher}"] + ["#{student.student_id}"] + ["#{student.grade}"] + ["#{student.school.name}"] + ["#{student.dob}"] + 
                 
               
