@@ -1058,7 +1058,7 @@ span.field_error input {
 }
 /* line 5, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #itemtable {
-  height: 100%;
+  height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
