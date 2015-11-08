@@ -104,7 +104,7 @@ end
 		@order.cart.students.each do |student|
 		image = package.student_images.where(:student_id => student.id).last
 		  unless image.nil?
-        unless image.image_file_name.nil? || @cart.id_supplied == false || image.image_file_name == ""
+        unless image.image_file_name.nil? || image.image_file_name == ""
           if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
             s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
           else
