@@ -8,7 +8,7 @@ class UserImport
 
       		item = Item.find_by_number(h["itemnum"])
 
-      		if item.exists?
+      		unless item.nil?
 
       		category = Category.where("lower(name) like ?", "#{h["category"].downcase}")
 
