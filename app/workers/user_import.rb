@@ -15,14 +15,14 @@ class UserImport
       		if category.any?
       			category = category.last
       		else
-      			category = category.create(:name => "#{h["category"].upcase}")
+      			category = category.create(:name => "#{h["category"].humanize}")
       		end
       		subcategory = Subcategory.where("lower(name) like ?", "#{h["subcategory"].downcase}")
 
       			if subcategory.any?
       				subcategory = subcategory.last
 				else
-      				subcategory = category.subcategories.create(:name => "#{h["category"].upcase}")
+      				subcategory = category.subcategories.create(:name => "#{h["subcategory"].humanize}")
       			end
       		
       		item.update(:subcategory_id => subcategory.id)
