@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151102081111) do
+ActiveRecord::Schema.define(version: 20151108105838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -232,6 +232,7 @@ ActiveRecord::Schema.define(version: 20151102081111) do
     t.string   "main_content_type"
     t.integer  "main_file_size"
     t.datetime "main_updated_at"
+    t.integer  "subcategory_id"
   end
 
   create_table "nav_links", force: true do |t|
@@ -410,6 +411,19 @@ ActiveRecord::Schema.define(version: 20151102081111) do
     t.datetime "updated_at"
   end
 
+  create_table "searchterm_items", force: true do |t|
+    t.integer  "item_id"
+    t.integer  "searchterm_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "searchterms", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "shippings", force: true do |t|
     t.decimal  "price"
     t.integer  "school_id"
@@ -469,6 +483,13 @@ ActiveRecord::Schema.define(version: 20151102081111) do
     t.string   "data3"
     t.string   "data4"
     t.integer  "period_id"
+  end
+
+  create_table "subcategories", force: true do |t|
+    t.integer  "category_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "templates", force: true do |t|

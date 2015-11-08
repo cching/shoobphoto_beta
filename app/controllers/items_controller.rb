@@ -17,6 +17,15 @@ class ItemsController < ApplicationController
     end
   end
 
+  def preview
+    @item = Item.find(params[:id])
+    @cart = Cart.find(params[:cart])
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def new
     @item = Item.new
     respond_with(@item)
@@ -51,7 +60,7 @@ class ItemsController < ApplicationController
   end
 
   def cart
-    @items = Item.all
+    @items = Item.all.order(:number)
     @cart = Cart.find_by_cart_id(params[:cart_id])
     respond_with(@items)
   end

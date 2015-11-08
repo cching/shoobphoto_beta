@@ -1,0 +1,21 @@
+<div class="" id="table">
+
+  <% @item.each_slice(3) do |slice| %>
+  <div class="row">
+    <% slice.each do |item| %>
+      <div class="col-sm-4" id="preview">
+        <%= image_tag(item.thumb.url, class: "img img-rounded") %>
+      </div>
+    <% end %>
+
+
+  <% end %>
+
+
+</div>
+<div class="row">
+<div class="col-sm-10"></div>
+<div class="col-sm-2" align="right">
+<%= link_to "Continue", items_quantity_path(@cart.cart_id), class: "btn btn-custom" %>
+</div>
+</div>

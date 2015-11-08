@@ -1,57 +1,28 @@
-<div class="" id="table">
-<table id="catalog">
-  <thead>
-    <th></th>
-    <th>
-      Item #
-    </th>
+<div id="table">
 
-    <th>
-      Description 
-    </th>
+  <% @items.each_slice(3) do |slice| %>
+  <div class="row">
+    <% slice.each do |item| %>
+    
 
-    <th>
-      Price
-    </th>
-    <th>
-      Preview
-    </th>
-    <th>
-    </th>
-  </thead>
-
-  <tbody>
-    <% @items.each do |item| %>
-      <tr>
-        <td id="preview">
-          <%= image_tag(item.thumb.url, class: "img img-rounded") %>
-        </td>
-        <td>
-          <%= item.number %>
-        </td>
-        <td>
-          <%= item.name %>
-        </td>
-        <td>
-          <%= free(item.price) ? "Free" : "#{number_to_currency(item.price, :unit => "$")}" %> <%= "per page" if item.per_page? %>
-        </td>
-        <td>
-          <%= link_to "Preview", item_path(item), remote: true, class: "btn btn-custom" %>
-        </td>
-        <td>
-        <div id="<%= item.id %>">
-        <% if item.cart_items.where(:cart_id => @cart.id).any? %>
-          <%= link_to "Remove", items_remove_path(item, :cart_id => @cart.cart_id), remote: true, class: "btn btn-danger" %>
-          <% else %>
-          <%= link_to "Add to cart", items_add_path(item, :cart_id => @cart.cart_id), remote: true, class: "btn btn-primary" %>
-        <% end %>
+      <div class="col-sm-4" id="preview">
+        <%= link_to(items_preview_path(item.id, @cart.id), remote: true) do %>
+        <div class="row">
+        <div class="col-sm-3">
+        <%= image_tag(item.thumb.url, class: "img img-rounded") %>
         </div>
-        </td>
-      </tr>
+         <div class="col-sm-9">
+        <span class="grey"><%= item.number %></span><br/>
+        <strong><%= item.name %></strong>
+      </div>
+    </div>
     <% end %>
-  </tbody>
-</table><br />
-*Posters are 11x17 unless marked otherwise
+      </div>
+      
+    <% end %>
+  </div><br/>
+
+  <% end %>
 
 
 </div>

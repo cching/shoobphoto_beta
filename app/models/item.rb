@@ -4,8 +4,10 @@ class Item < ActiveRecord::Base
 
 	has_many :images
 
-  has_many :item_categories
-  has_many :categories, through: :item_categories
+  belongs_to :subcategory
+
+  has_many :searchterm_items
+  has_many :searchterms, through: :searchterm_items
 
 	has_attached_file :main,
   	:url => ':s3_domain_url',
