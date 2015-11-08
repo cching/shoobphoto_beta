@@ -30,3 +30,61 @@
 	text-color: #FFA500;
 	color: #FFA500;
 }
+
+.small {
+	font-size: 12px;
+}
+
+#list ul {
+	list-style-type: none;
+}
+.indent {
+	padding-left:15px;
+}
+
+#cat.academics {
+	color:#0064d8;
+}
+
+#subcat.academics {
+	border-left: solid #0064d8;
+	padding-right:10px;
+}
+
+#cat.guidance {
+	color:#fc8500;
+}
+
+#subcat.guidance {
+	border-left: solid #fc8500;
+	padding-right:10px;
+}
+
+
+#cat.communication {
+	color:#099c77;
+}
+
+#subcat.communication {
+	border-left: solid #099c77;
+	padding-right:10px;
+}
+
+#cat.management {
+	color:#ff3900;
+}
+
+#subcat.management {
+	border-left: solid #ff3900;
+	padding-right:10px;
+}
+
+#subcat ul li a:hover
+{
+color: #000;
+}
+
+#subcatlist ul li a {
+	color:#000;
+}
+

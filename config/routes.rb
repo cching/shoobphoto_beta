@@ -111,6 +111,8 @@ Rails.application.routes.draw do
   match 'items/cart/:cart_id/quantity' => 'items#quantity', :via => 'GET', :as => 'items_quantity'
   match 'items/cart/:cart_id/update_items' => 'items#update_items', :via => 'patch', :as => 'update_items'
   match 'items/add/:id/' => 'items#add', :via => 'GET', :as => 'items_add'
+  match 'items/filter/:cart/:subcat' => 'items#filter', :via => 'GET', :as => 'items_filter'
+  match 'items/search/:cart/' => 'items#search', :via => 'GET', :as => 'items_search'
   match 'items/remove/:id/' => 'items#remove', :via => 'GET', :as => 'items_remove'
   match 'items/preview/:id/:cart' => 'items#preview', :via => 'GET', :as => 'items_preview'
 

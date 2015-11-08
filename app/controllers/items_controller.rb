@@ -9,6 +9,29 @@ class ItemsController < ApplicationController
     redirect_to items_cart_path(@cart.cart_id)
   end
 
+  def filter
+    @cart = Cart.find(params[:cart])
+    @subcat = Subcategory.find(params[:subcat])
+
+    @items = @subcat.items
+
+  end
+
+  def search
+    @cart = Cart.find(params[:cart])
+    
+    @sterm = Searchterm.where("name like ?", "%#{params[:find]}%")
+
+    if @sterm.any?
+      puts "#{@sterm.pluck(:name)}"
+
+      @items = @sterm.last.items
+    else
+      @items = Item.all.order(:number)
+    end
+
+  end
+
   def show
     @item = Item.find(params[:id])
 
