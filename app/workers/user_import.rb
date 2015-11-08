@@ -6,7 +6,7 @@ class UserImport
 
       	chunk.each do |h|
 
-      		item = Item.find_by_number(h["itemnum"])
+      		item = Item.find_by_number(h["itemnum"].to_s)
 
       		unless item.nil?
 
