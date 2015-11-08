@@ -22,7 +22,7 @@ class UserImport
       			if subcategory.any?
       				subcategory = subcategory.last
 				else
-      				subcategory = category.subcatory.create(:name => "#{h["category"].upcase}")
+      				subcategory = category.subcategory.create(:name => "#{h["category"].upcase}")
       			end
       		
       		item.update(:subcategory_id => subcategory.id)
