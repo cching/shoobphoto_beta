@@ -1,39 +1,27 @@
-<h1>Listing school_notes</h1>
+<h1>Notes</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Cdscode</th>
-      <th>Name</th>
-      <th>District</th>
-      <th>City</th>
-      <th>Address</th>
-      <th>Phone</th>
-      <th>Principle</th>
-      <th>Secretary</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% @school_notes.each do |school| %>
+  <h4><%= school.name %></h4>
+  <hr>
+  <% school.notes.each do |note| %>
+  <div class="row">
+    <div class="col-sm-2">
+      <%= note.created_at.to_time %>
+    </div>
+    <div class="col-sm-8">
+      <%= note.note %>
+    </div>
+    <div class="col-sm-2">
+      Status: <%= note.complete? ? 'Completed' : 'Incomplete' %><br/>
+      <%= link_to "View", note_path(school.id, note.id), class: "btn btn-primary" %>
 
-  <tbody>
-    <% @school_notes.each do |school_note| %>
-      <tr>
-        <td><%= school_note.cdscode %></td>
-        <td><%= school_note.name %></td>
-        <td><%= school_note.district_id %></td>
-        <td><%= school_note.city_id %></td>
-        <td><%= school_note.address %></td>
-        <td><%= school_note.phone %></td>
-        <td><%= school_note.principle %></td>
-        <td><%= school_note.secretary %></td>
-        <td><%= link_to 'Show', school_note %></td>
-        <td><%= link_to 'Edit', edit_school_note_path(school_note) %></td>
-        <td><%= link_to 'Destroy', school_note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    </div>
+  </div><br/>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">Response: <%= note.action %></div>
+  </div><br/>
+  <hr>
+  <% end %>
 
-<br>
-
-<%= link_to 'New School note', new_school_note_path %>
+<% end %>

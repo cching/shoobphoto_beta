@@ -1,10 +1,11 @@
 class SchoolNotesController < ApplicationController
-  before_action :set_school_note, only: [:show, :edit, :update, :destroy]
+  before_action :set_school_note, only: [:show, :edit, :update, :destroy, :updatenote]
 
   respond_to :html
 
   def index
-    @school_notes = SchoolNote.all
+    @notes = Note.all.pluck(:school_note_id).uniq
+    @school_notes = SchoolNote.find(@notes)
     respond_with(@school_notes)
   end
 
@@ -12,18 +13,27 @@ class SchoolNotesController < ApplicationController
     respond_with(@school_note)
   end
 
-  def new
-    @school_note = SchoolNote.new
-    respond_with(@school_note)
+  def note
+    @school_note = SchoolNote.find(params[:id])
+    @note = Note.find(params[:note])
+  end
+
+  def updatenote
+    @school_note.update(school_note_params)
+    redirect_to school_notes_path
   end
 
   def search
-    @district = District.all.order.(:name)
+    @district = District.all.order(:name)
+  end
+
+  def school
+    @school = SchoolNote.find(params[:school][:id])
   end
 
   def district
-    @district = District.find(params[:id])
-    @schools = @district.schools.all.order(:name)
+    @district = District.find(params[:districts][:id])
+    @schools = @district.school_notes.all.order(:name)
   end
 
   def edit
@@ -51,6 +61,6 @@ class SchoolNotesController < ApplicationController
     end
 
     def school_note_params
-      params.require(:school_note).permit(:cdscode, :name, :district_id, :city_id, :address, :phone, :principle, :secretary)
+      params.require(:school_note).permit(:cdscode, :name, :district_id, :city_id, :address, :phone, :principle, :secretary, :notes_attributes => [:note, :created_at, :_destroy, :id, :action, :response])
     end
 end

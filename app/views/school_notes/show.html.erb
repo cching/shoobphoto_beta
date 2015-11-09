@@ -1,44 +1,21 @@
-<p id="notice"><%= notice %></p>
+<h4><%= @school_note.name %></h4>
+<hr>
+<%= @school_note.city.try(:name) %>: <%= @school_note.district.try(:name) %><br/>
+Address: <%= @school_note.address %><br/>
+Phone: <%= @school_note.phone %><br/>
 
-<p>
-  <strong>Cdscode:</strong>
-  <%= @school_note.cdscode %>
-</p>
+Principal: <%= @school_note.principal %><br/>
+Secretary: <%= @school_note.secretary %><br/>
+<hr>
 
-<p>
-  <strong>Name:</strong>
-  <%= @school_note.name %>
-</p>
+<h4>Notes</h4>
 
-<p>
-  <strong>District:</strong>
-  <%= @school_note.district_id %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @school_note.city_id %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @school_note.address %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @school_note.phone %>
-</p>
-
-<p>
-  <strong>Principle:</strong>
-  <%= @school_note.principle %>
-</p>
-
-<p>
-  <strong>Secretary:</strong>
-  <%= @school_note.secretary %>
-</p>
-
-<%= link_to 'Edit', edit_school_note_path(@school_note) %> |
-<%= link_to 'Back', school_notes_path %>
+<%= form_for(@school_note) do |f| %>
+  <%= f.fields_for :notes do |builder| %>
+    <%= render 'note_fields', f: builder %>
+  <% end %>
+    <%= link_to_add_fields "Add New Note", f, :notes %>
+<br/>
+    <hr>
+<%= f.submit %>
+<% end %>

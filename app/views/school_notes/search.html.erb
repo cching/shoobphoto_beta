@@ -1,0 +1,10 @@
+<div class="jumbotron animated fadeInUp" align="center">
+<h4 align="center">District:</h4>
+	<%= form_tag(district_school_notes_path, method: :get, :id => 'search_form', remote: true) do %>
+        <%= collection_select(:districts, :id, @district.all, :id, :name, {:prompt => false}, {:class => "form-control"}) %><br />
+     <%= submit_tag "Continue", class: "btn btn-primary" %>
+    <% end %>
+</div><br />
+
+<div id="results">
+</div>

@@ -1,0 +1,21 @@
+<div class="jumbotron animated fadeInUp">
+<h3 align="center">Which school?</h3>
+	<%= form_tag(school_school_notes_path, method: :get) do %>
+       <div class="field">
+	    <%= 
+	    collection_select(
+	    :school,
+	    :id,
+	    @schools.all, 
+	    :id, 
+	    :name,
+	    {:prompt => false}, {:class => "form-control"}) %>
+
+
+  </div>
+  	<div align="center">
+   <%= submit_tag "Continue", class: "btn btn-primary" %>
+   </div>
+     <% end %>
+</div>
+

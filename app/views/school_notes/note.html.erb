@@ -10,24 +10,28 @@ Secretary: <%= @school_note.secretary %><br/>
 
 <h4>Notes</h4>
 
-<% @school_note.notes.each do |note| %>
+<%= form_for(@school_note, :url => updatenote_school_note_path) do |f| %>
 
+<%= f.fields_for @note do |builder| %>
 <div class="row">
     <div class="col-sm-2">
-      <%= note.created_at.to_time %>
+      <%= @note.created_at.to_time %>
     </div>
     <div class="col-sm-8">
-      <%= note.note %>
+      <%= @note.note %>
     </div>
     <div class="col-sm-2">
-      Status: <%= note.complete? ? 'Completed' : 'Incomplete' %><br/>
+      Completed? <%= builder.check_box :complete %><br/>
 
     </div>
   </div><br/>
   <div class="row">
     <div class="col-sm-2"></div>
-    <div class="col-sm-10">Response: <%= note.action %></div>
+    <div class="col-sm-10">Response: <%= builder.text_area :action  %></div>
   </div><br/>
   <hr>
-<% end %>
+  <% end %>
 
+  <br/>
+  <%= f.submit "Save response" %>
+<% end %>
