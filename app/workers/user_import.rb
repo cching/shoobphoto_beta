@@ -19,7 +19,7 @@ class UserImport
       		if city.any?
       			city = city.last
       		else
-      			city.create(:name => "#{h["city"]}")
+      			city = city.create(:name => "#{h["city"]}")
       		end
 
       		district.school_notes.create(:cdscode => h["cdscode"], :name => "#{h["school"]}", :address => "#{h["address"]}", :phone => "#{h["phone"]}", :principal => "#{h["principal"]}", :secretary => "#{h["secretary"]}", :city_id => city.id)
