@@ -11,7 +11,7 @@ class UserImport
       		if district.any?
       			district = district.last
       		else
-      			district.create(:name => "#{h["district"]}")
+      			district = district.create(:name => "#{h["district"]}")
       		end
 
       		city = City.where("name like ?", "%#{h["city"]}%")
