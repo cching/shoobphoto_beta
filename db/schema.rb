@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108105838) do
+ActiveRecord::Schema.define(version: 20151109080429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,12 @@ ActiveRecord::Schema.define(version: 20151108105838) do
   end
 
   create_table "categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cities", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -104,6 +110,12 @@ ActiveRecord::Schema.define(version: 20151108105838) do
     t.boolean  "admin"
     t.boolean  "teacher"
     t.boolean  "parent"
+  end
+
+  create_table "districts", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "export_data", force: true do |t|
@@ -246,6 +258,15 @@ ActiveRecord::Schema.define(version: 20151108105838) do
     t.datetime "updated_at"
   end
 
+  create_table "notes", force: true do |t|
+    t.integer  "school_id"
+    t.text     "note"
+    t.text     "action"
+    t.boolean  "complete"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "option_packages", force: true do |t|
     t.integer  "option_id"
     t.integer  "package_id"
@@ -360,6 +381,19 @@ ActiveRecord::Schema.define(version: 20151108105838) do
     t.integer  "option_id"
     t.integer  "extra_id"
     t.integer  "package_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "school_notes", force: true do |t|
+    t.integer  "cdscode"
+    t.string   "name"
+    t.integer  "district_id"
+    t.integer  "city_id"
+    t.string   "address"
+    t.string   "phone"
+    t.string   "principal"
+    t.string   "secretary"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

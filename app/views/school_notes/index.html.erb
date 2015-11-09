@@ -1,0 +1,39 @@
+<h1>Listing school_notes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cdscode</th>
+      <th>Name</th>
+      <th>District</th>
+      <th>City</th>
+      <th>Address</th>
+      <th>Phone</th>
+      <th>Principle</th>
+      <th>Secretary</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @school_notes.each do |school_note| %>
+      <tr>
+        <td><%= school_note.cdscode %></td>
+        <td><%= school_note.name %></td>
+        <td><%= school_note.district_id %></td>
+        <td><%= school_note.city_id %></td>
+        <td><%= school_note.address %></td>
+        <td><%= school_note.phone %></td>
+        <td><%= school_note.principle %></td>
+        <td><%= school_note.secretary %></td>
+        <td><%= link_to 'Show', school_note %></td>
+        <td><%= link_to 'Edit', edit_school_note_path(school_note) %></td>
+        <td><%= link_to 'Destroy', school_note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New School note', new_school_note_path %>

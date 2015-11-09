@@ -3,6 +3,11 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  resources :school_notes
+  match 'school_notes/search/' => 'school_notes#search', :via => 'GET', :as => 'school_notes_search'
+  match 'school_notes/district/:id' => 'school_notes#district', :via => 'GET', :as => 'school_notes_district'
+
+
   resources :contacts
 
   match 'contact' => 'contacts#new', :via => 'GET'
