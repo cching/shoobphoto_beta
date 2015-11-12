@@ -29,8 +29,8 @@
   <thead>
     <tr>
       <th></th> 
-      <th>Cart</th>
-      <th>Ip address</th>
+      <th>ID</th>
+      <th>Date</th>
       <th>First name</th>
       <th>Last name</th>
       <th>Phone</th>
@@ -56,8 +56,8 @@
     <% @corders.each do |corder| %>
       <tr>
         <td><%= link_to "More info", corder_show_path(corder.id), remote: true, class: "btn btn-primary" %></td>
-        <td><%= corder.cart_id %></td>
-        <td><%= corder.ip_address %></td>
+        <td><%= corder.id %></td>
+        <td><%= corder.created_at %></td>
         <td><%= corder.first_name %></td>
         <td><%= corder.last_name %></td>
         <td><%= corder.phone %></td>

@@ -60,9 +60,7 @@ class ItemsController < ApplicationController
 
   def edit
     @item = Item.find(params[:id])
-    @item.update(item_params)
 
-    respond_to :js
   end
 
   def update_items
@@ -91,13 +89,14 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.save
-    respond_with(@item)
+    redirect_to items_path, notice: "Item created"
   end
 
   def update
     @item.update(item_params)
 
-    respond_to :js
+    redirect_to items_path, notice: "Item saved"
+
   end
 
   def destroy

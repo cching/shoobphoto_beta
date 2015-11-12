@@ -11,6 +11,9 @@
 </h4>
         </div>
         <div class="col-sm-2" id="<%= @item.id %>">
+          <% if current_user.try(:admin) %>
+          <%= link_to "Edit", edit_item_path(@item.id) %>
+          <% end %>
           <% if @item.cart_items.where(:cart_id => @cart.id).any? %>
           <%= link_to "Remove", items_remove_path(@item, :cart_id => @cart.cart_id), remote: true, class: "btn btn-danger" %>
           <% else %>

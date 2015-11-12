@@ -1,26 +1,9 @@
 <div class="row">
-    <div class="col-sm-2">
-      <% Category.all.order(:name).each do |category| %>
-        <div id="cat" class="<%= category.name.downcase %>"><%= category.name.upcase %></div>
-        <div id="subcatlist">
-        <ul class="list-unstyled indent <%= category.name.downcase %>" id="subcat">
-        <% category.subcategories.order(:name).each do |scategory| %>
-        <li class="small"><%= link_to "#{scategory.name}", items_filter_path(@cart.id, scategory.id), remote: true %></li>
-        <% end %>
-      </div>
-      </ul>
-      <% end %>
-    </div>
-    <div class="col-sm-10">
+    <%= render 'categories' %>
+    <div class="col-sm-9">
       <div id="itemlist">
       <%= render 'items', :locals => {:items => @items, :cart => @cart} %>
     </div>
     </div>
 </div>
 <br/>
-<div class="row">
-<div class="col-sm-10"></div>
-<div class="col-sm-2" align="right">
-<%= link_to "Continue", items_quantity_path(@cart.cart_id), class: "btn btn-custom" %>
-</div>
-</div>

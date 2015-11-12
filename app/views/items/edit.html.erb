@@ -2,5 +2,8 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @item %> |
-<%= link_to 'Back', items_path %>
+<%= link_to 'New', new_item_path %> |
+<%= link_to 'Back', items_path %><br/><br/>
+<%= link_to 'Delete', item_path(@item.id),
+            :confirm => 'Are you sure?', :method => :delete %>
+

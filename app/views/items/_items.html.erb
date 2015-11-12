@@ -1,18 +1,19 @@
 <div class="row">
-  <div class="col-sm-6">
+  <div class="col-sm-8">
 <% unless @subcat.nil? %>
-<h4 class="<%= @subcat.category.name.downcase %>" id="cat"><%= @subcat.name.upcase %></h4>
+<div class="grey small">Catalog Items > <strong><%= @subcat.category.name %></strong> > <%= @subcat.name.titleize %></div>
+<h4><%= @subcat.name.titleize %></h4>
+<% else %>
+<div class="grey small">Catalog Items</div>
 <% end %>
+</div>
+<div class="col-sm-4">
+  Your Cart <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (<span id="quantity"><%= @cart.items.count %></span>) <%= link_to "Checkout", items_quantity_path(@cart.cart_id), class: "checkout" %>
+
+
 </div>
 
-<%= form_tag(items_search_path(@cart.id), method: :get, remote: true) do %>
-<div class="col-sm-4">
-<%= text_field_tag :find, nil, placeholder: "Search", class: "form-control" %>
-</div>
-<div class="col-sm-2">
-<%= submit_tag "Submit", class: "btn btn-primary" %>
-</div>
-<% end %>
+
 </div>
 
 
@@ -26,15 +27,12 @@
 
       <div class="col-sm-4" id="preview">
         <%= link_to(items_preview_path(item.id, @cart.id), remote: true) do %>
-        <div class="row">
-        <div class="col-sm-3">
-        <%= image_tag(item.thumb.url, class: "img img-rounded") %>
-        </div>
-         <div class="col-sm-9">
+
+        <%= image_tag(item.main.url, class: "img-item") %><br/>
+       
         <span class="grey"><%= item.number %></span><br/>
-        <strong><%= item.name %></strong>
-      </div>
-    </div>
+        <strong><%= item.name %></strong><br/>
+        <%= item.price == 0 ? 'FREE' : "#{number_to_currency(item.price, :unit => "$")}" %> <%= 'per page' if item.per_page? %>
     <% end %>
       </div>
       

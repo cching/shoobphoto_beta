@@ -31,7 +31,7 @@ def export
     end
 
   def index 
-    @corders = Corder.all.order(:processed)
+    @corders = Corder.all.order(:processed, :id)
   end
 
   def show

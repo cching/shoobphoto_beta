@@ -16,7 +16,7 @@ class CorderExport
                 
               order.cart.items.each do |item|
                 citem = order.cart.cart_items.where(:item_id => item.id).last
-                @string = @string + "#{item.number}: #{item.name} - #{citem.quantity}"
+                @string = @string + "#{item.number}; #{item.name}; #{citem.quantity}; "
               end
      
                 csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{order.price.to_i}"] + [@string]

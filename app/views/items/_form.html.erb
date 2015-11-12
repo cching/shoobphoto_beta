@@ -1,4 +1,4 @@
-<%= form_for(@item) do |f| %>
+<%= simple_form_for(@item) do |f| %>
   <% if @item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
@@ -12,21 +12,19 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
     <%= f.text_area :name %>
   </div>
   <div class="field">
-    <%= f.label :price %><br>
-    <%= f.text_field :price %>
+    <%= f.input :price %>
   </div>
   <div class="field">
-    <%= f.label :item_id %><br>
-    <%= f.text_field :item_id %>
+    <%= f.input :number %>
   </div>
   <div class="field">
-    <%= f.label :per_page %><br>
-    <%= f.check_box :per_page %>
+    <%= f.input :per_page %>
   </div>
+    <%= f.input :main, as: :file %>
+
   <div class="actions">
     <%= f.submit %>
   </div>
