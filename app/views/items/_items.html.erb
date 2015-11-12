@@ -8,7 +8,7 @@
 <% end %>
 </div>
 <div class="col-sm-4">
-  Your Cart <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (<span id="quantity"><%= @cart.items.count %></span>) <%= link_to "Checkout", items_quantity_path(@cart.cart_id), class: "checkout" %>
+  Your Cart <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (<span id="quantity"><%= @cart.items.count %></span>) <% if @cart.items.any? %><%= link_to "Checkout", items_quantity_path(@cart.cart_id), class: "checkout" %><% end %>
 
 
 </div>
