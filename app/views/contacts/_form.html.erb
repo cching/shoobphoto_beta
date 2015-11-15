@@ -38,7 +38,7 @@
     <hr>
 
     <div class="row">
-      Enter NA if not applicable
+      
       <div class="col-sm-5">
         <%= f.input :name %>
       </div>
@@ -47,7 +47,10 @@
         <%= f.input :school %>
       </div>
     </div>
-    <div id="student" class="row" hidden>
+    <div  id="student" hidden>
+      Enter NA if not applicable
+    <div class="row" >
+      
       <div class="col-sm-3">
         <%= f.input :student, :label => "Student/Player" %>
       </div>
@@ -61,6 +64,7 @@
     <%= f.input :teacher_name %>
     </div>
   </div>
+</div>
     <div class="row">
     <div class="col-sm-5">
         <%= f.input :address%>
