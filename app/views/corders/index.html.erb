@@ -31,6 +31,7 @@
       <th></th> 
       <th>ID</th>
       <th>Date</th>
+      <th>School</th>
       <th>First name</th>
       <th>Last name</th>
       <th>Phone</th>
@@ -58,6 +59,7 @@
         <td><%= link_to "More info", corder_show_path(corder.id), remote: true, class: "btn btn-primary" %></td>
         <td><%= corder.id %></td>
         <td><%= corder.created_at %></td>
+        <td><%= corder.schools %></td>
         <td><%= corder.first_name %></td>
         <td><%= corder.last_name %></td>
         <td><%= corder.phone %></td>

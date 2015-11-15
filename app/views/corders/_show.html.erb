@@ -53,12 +53,14 @@ School: <%= @order.schools %>
 
         </div>
         <div class="col-sm-6">
+        <% if @order.free? %>
         <h3>Billing Information</h3>
         <%= @order.first_name %> <%= @order.last_name %><br />
         <%= @order.address %><br >
         <%= @order.city %>, <%= @order.state.upcase %> <%= @order.zip_code %><br />
         <%= @order.card_type.humanize %>, expires on <%= @order.card_expires_on %><br />
         IP Address: <%= @order.ip_address %>
+        <% end %>
         
         </div>
 
