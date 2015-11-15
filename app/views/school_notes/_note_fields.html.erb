@@ -1,12 +1,7 @@
 <fieldset>
-<div class="row">
-<div class="col-sm-3">
-	<%= f.date_select :created_at %>
-</div>
-<div class="col-sm-9">
+	<%= f.date_select :created_at %><br/>
   <%= f.text_area :note %><br/>
   <%= f.check_box :_destroy %>
   <%= f.label :_destroy, "Remove Note" %>
-</div>
-</div>
+
 </fieldset>

@@ -48,7 +48,6 @@
       <th>Shipping zip</th>
       <th>Shipping state</th>
       <th>Processed</th>
-      <th>Notes</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -83,7 +82,6 @@
           <%= render :partial => 'unprocessed', :locals => {:corder => corder} %>
           <% end %>
         </td>
-        <td><%= corder.notes %></td>
 
       </tr>
     <% end %>
