@@ -1,5 +1,5 @@
 <div class="col-sm-3">
-  <h4>Catalog Items</h4>
+  <div class="title">Catalog Items</div>
 <%= form_tag(items_search_path(@cart.id), method: :get, remote: true) do %>
 <div class="row">
   <div class="col-sm-7">
@@ -14,8 +14,8 @@
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="">
     <div role="tab" id="heading_<%= i %>">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_<%= i %>" aria-expanded="<%= i == 0 ? true : false %>" aria-controls="collapse_<%= i %>">
+      <h4 class="panel-title" id="category_name">
+        <a class="category_name" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_<%= i %>" aria-expanded="<%= i == 0 ? true : false %>" aria-controls="collapse_<%= i %>">
           <%= category.name.upcase %>
         </a>
       </h4>
@@ -25,7 +25,7 @@
        <ul class="list-unstyled indent" id="subcat">
         <% category.subcategories.order(:name).each do |scategory| %>
         <li class="panel-title small">
-          <p class="noline"><%= link_to "#{scategory.name.titleize}", items_filter_path(@cart.id, scategory.id), remote: true, class: "blacka" %></p></li>
+          <p class="noline" id="category_name"><span id="<%= scategory.id %>"><%= link_to "#{scategory.name.titleize}", items_filter_path(@cart.id, scategory.id), remote: true, class: "blacka" %></span></p></li>
         <% end %>
         </ul>
       </div>

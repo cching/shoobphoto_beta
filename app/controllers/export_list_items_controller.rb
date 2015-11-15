@@ -54,8 +54,7 @@ class ExportListItemsController < ApplicationController
 
 send_file t.path, :type => 'application/zip',
                                  :x_sendfile => true,
-                                 :filename => "StudentImages.zip"
-                                 
+                                 :filename => "StudentImages.zip"                
           t.close
   end
 

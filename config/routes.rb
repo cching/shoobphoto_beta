@@ -125,6 +125,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'items/cart/:cart_id/update_items' => 'items#update_items', :via => 'patch', :as => 'update_items'
   match 'items/add/:id/' => 'items#add', :via => 'GET', :as => 'items_add'
   match 'items/filter/:cart/:subcat' => 'items#filter', :via => 'GET', :as => 'items_filter'
+  match 'items/all/:cart/' => 'items#all', :via => 'GET', :as => 'items_all'
   match 'items/search/:cart/' => 'items#search', :via => 'GET', :as => 'items_search'
   match 'items/remove/:id/' => 'items#remove', :via => 'GET', :as => 'items_remove'
   match 'items/preview/:id/:cart' => 'items#preview', :via => 'GET', :as => 'items_preview'

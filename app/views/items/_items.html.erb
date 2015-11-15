@@ -1,15 +1,14 @@
 <div class="row">
   <div class="col-sm-8">
 <% unless @subcat.nil? %>
-<div class="grey small">Catalog Items > <strong><%= @subcat.category.name %></strong> > <%= @subcat.name.titleize %></div>
+<div class="grey small header" id="header"><%= link_to "Catalog Items", items_all_path(@cart.id), remote: true %> > <strong><%= @subcat.category.name %></strong> > <%= @subcat.name.titleize %></div>
 <h4><%= @subcat.name.titleize %></h4>
 <% else %>
-<div class="grey small">Catalog Items</div>
+<div class="grey small header" id="header">Catalog Items</div>
 <% end %>
 </div>
 <div class="col-sm-4">
   Your Cart <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (<span id="quantity"><%= @cart.items.count %>) <% if @cart.items.any? %><%= link_to "Checkout", items_quantity_path(@cart.cart_id), class: "checkout" %><% end %></span>
-
 
 </div>
 
@@ -31,8 +30,9 @@
         <%= image_tag(item.main.url, class: "img-item") %><br/>
        
         <span class="grey"><%= item.number %></span><br/>
-        <strong><%= item.name %></strong><br/>
+        <span class="item_title"><%= item.name %><br/>
         <%= item.price == 0 ? 'FREE' : "#{number_to_currency(item.price, :unit => "$")}" %> <%= 'per page' if item.per_page? %>
+        </span>
     <% end %>
       </div>
       

@@ -12,6 +12,21 @@ visibility:hidden;
 width:100%;
 }
 
+.one-third-col {
+	max-width:33%;
+	display:inline-block;margin-right:10px;
+}
+
+.two-third-col {
+	max-width:60%;
+	display:inline-block;
+}
+
+#page.img {
+	max-width:100%;
+}
+
+
 .imageflow img {
 border:none;
 position:absolute;

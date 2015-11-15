@@ -12,6 +12,11 @@
 	padding-right:5px;
 }
 
+.title {
+	text-size:14px;
+	font-weight:bold;
+}
+
 .free {
 	color:red;
 }
@@ -23,6 +28,51 @@
 
 .img-item img{
 	max-width:90%;
+}
+
+.category_name {
+	font-weight:bold;
+}
+
+
+#category_name a:hover {
+	text-color:#0071A5;
+	color:#0071A5;
+}
+
+.header a {
+	color:#909090;
+	text-decoration: underline;
+}
+
+.header a:hover {
+	color:#000;
+	font-weight: bold;
+}
+
+#category_name a:active {
+	text-color:#0071A5;
+	color:#0071A5;
+}
+
+.item_title {
+	font-size:16px;
+	font-weight:strong;
+	color:#000;
+}
+
+.highlighted a:link {
+	text-color:#0071A5;
+	color:#0071A5;
+}
+
+.noline {
+	font-size:14px;
+}
+
+#category_name a {
+	text-color:#000;
+	color:#000;
 }
 
 .checkout {
