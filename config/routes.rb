@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get :search
       get :district
       get :school
+      get :last
 end
 end
 match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'note'

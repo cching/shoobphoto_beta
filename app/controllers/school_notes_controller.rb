@@ -33,6 +33,13 @@ class SchoolNotesController < ApplicationController
 
   def district
     @district = District.find(params[:districts][:id])
+    District.update_all(:last => false)
+    @district.update(:last => true)
+    @schools = @district.school_notes.all.order(:name)
+  end
+
+  def last
+    @district = District.where(:last => true).last
     @schools = @district.school_notes.all.order(:name)
   end
 
@@ -61,6 +68,6 @@ class SchoolNotesController < ApplicationController
     end
 
     def school_note_params
-      params.require(:school_note).permit(:cdscode, :name, :district_id, :city_id, :address, :phone, :principle, :secretary, :notes_attributes => [:note, :created_at, :_destroy, :id, :action, :response])
+      params.require(:school_note).permit(:cdscode, :name, :district_id, :city_id, :address, :phone, :principle, :secretary, :notes_attributes => [:note, :created_at, :_destroy, :id, :action, :response, :complete])
     end
 end
