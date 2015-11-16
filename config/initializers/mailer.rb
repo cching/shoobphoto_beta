@@ -6,6 +6,6 @@ ActionMailer::Base.smtp_settings = {
   :port => 587,
   :domain => 'shoobphoto.com',
   :authentication => 'plain',
-  :user_name => 'projects@shoobphoto.com',
-  :password => 'jean0225'
+  :user_name => 'info@shoobphoto.com',
+  :password => 'can40d2011'
 }
