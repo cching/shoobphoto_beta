@@ -30,9 +30,9 @@
         <%= image_tag(item.main.url, class: "img-item") %><br/>
        
         <span class="grey"><%= item.number %></span><br/>
-        <span class="item_title"><%= item.name %><br/>
+        <p class="item_title"><%= item.name %><br/>
         <%= item.price == 0 ? 'FREE' : "#{number_to_currency(item.price, :unit => "$")}" %> <%= 'per page' if item.per_page? %>
-        </span>
+        </p>
     <% end %>
       </div>
       

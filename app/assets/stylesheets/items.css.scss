@@ -4,7 +4,7 @@
 
 .img-preview  {
 	max-height:300px;
-	max-width:90%;
+	max-width:90%; 
 }
 
 #catalog td {
@@ -50,15 +50,18 @@
 	font-weight: bold;
 }
 
+
+
 #category_name a:active {
 	text-color:#0071A5;
 	color:#0071A5;
 }
 
 .item_title {
-	font-size:16px;
+	font-size:14px;
 	font-weight:strong;
 	color:#000;
+	line-height: 120%;
 }
 
 .highlighted a:link {
@@ -68,11 +71,18 @@
 
 .noline {
 	font-size:14px;
+	margin-top:0px;
+	margin-bottom:5px;
 }
+
 
 #category_name a {
 	text-color:#000;
 	color:#000;
+	padding-top:0px;
+	padding-bottom:10px;
+	margin-top:0px;
+	margin-bottom:10px;
 }
 
 .checkout {

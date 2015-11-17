@@ -7,12 +7,11 @@
 </div>
 <div class="col-sm-2">
 <%= submit_tag "Submit", class: "btn btn-custom" %>
-</div>
+</div> 
 </div>
 <% end %><br/>
       <% Category.all.order(:name).each_with_index do |category, i| %>
-        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-  <div class="">
+        <span class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <div role="tab" id="heading_<%= i %>">
       <h4 class="panel-title" id="category_name">
         <a class="category_name" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_<%= i %>" aria-expanded="<%= i == 0 ? true : false %>" aria-controls="collapse_<%= i %>">
@@ -30,8 +29,7 @@
         </ul>
       </div>
     </div>
-  </div>
-</div>
+</span>
       
       <% end %>
 </div>

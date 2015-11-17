@@ -47,7 +47,7 @@
         <%= f.input :school %>
       </div>
     </div>
-    <div  id="student" hidden>
+    <div  id="student" <%= "hidden" unless @contact.parent? %>>
       Enter NA if not applicable
     <div class="row" >
       

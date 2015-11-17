@@ -116,129 +116,136 @@ input, label {
   font-weight: bold;
 }
 
-/* line 53, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 55, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 #category_name a:active {
   text-color: #0071A5;
   color: #0071A5;
 }
 
-/* line 58, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 60, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 .item_title {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: strong;
   color: #000;
+  line-height: 120%;
 }
 
-/* line 64, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 67, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 .highlighted a:link {
   text-color: #0071A5;
   color: #0071A5;
 }
 
-/* line 69, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 72, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 .noline {
   font-size: 14px;
+  margin-top: 0px;
+  margin-bottom: 5px;
 }
 
-/* line 73, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 79, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 #category_name a {
   text-color: #000;
   color: #000;
+  padding-top: 0px;
+  padding-bottom: 10px;
+  margin-top: 0px;
+  margin-bottom: 10px;
 }
 
-/* line 78, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 88, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 .checkout {
   color: #909090;
   text-decoration: underline;
 }
 
-/* line 83, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 93, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 .grey {
   text-color: #909090;
   color: #909090;
 }
 
-/* line 88, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 98, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 .orange {
   text-color: #FFA500;
   color: #FFA500;
 }
 
-/* line 93, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 103, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 .small {
   font-size: 12px;
 }
 
-/* line 96, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 106, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 p.noline {
   line-height: 1;
 }
 
-/* line 100, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 110, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 #list ul {
   list-style-type: none;
 }
 
-/* line 103, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 113, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 .indent {
   padding-left: 15px;
 }
 
-/* line 107, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 117, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 .blacka {
   color: #000000;
 }
 
-/* line 111, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 121, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 #cat.academics {
   color: #0064d8;
 }
 
-/* line 115, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 125, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 #subcat.academics {
   border-left: solid #0064d8;
   padding-right: 10px;
 }
 
-/* line 120, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 130, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 #cat.guidance {
   color: #fc8500;
 }
 
-/* line 124, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 134, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 #subcat.guidance {
   border-left: solid #fc8500;
   padding-right: 10px;
 }
 
-/* line 130, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 140, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 #cat.communication {
   color: #099c77;
 }
 
-/* line 134, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 144, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 #subcat.communication {
   border-left: solid #099c77;
   padding-right: 10px;
 }
 
-/* line 139, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 149, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 #cat.management {
   color: #ff3900;
 }
 
-/* line 143, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 153, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 #subcat.management {
   border-left: solid #ff3900;
   padding-right: 10px;
 }
 
-/* line 149, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 159, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 #subcat ul li a:hover {
   color: #000;
 }
 
-/* line 153, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
+/* line 163, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 #subcatlist ul li a {
   color: #000;
 }

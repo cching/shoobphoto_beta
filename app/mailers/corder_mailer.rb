@@ -14,6 +14,6 @@ class CorderMailer < ActionMailer::Base
     @cart = Cart.find(@order.cart_id)
 
 
-    mail :to => 'info@shoobphoto.com', :from => 'info@shoobphoto.com', :subject => 'Shoob Photography Order Receipt'
+    mail :to => 'projects@shoobphoto.com', :from => 'info@shoobphoto.com', :subject => 'Shoob Photography Order Receipt'
   end
 end
