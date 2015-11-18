@@ -1,0 +1,9 @@
+<div class="row">
+    <%= render 'outside_categories' %>
+    <div class="col-sm-9">
+      <div id="itemlist">
+      <%= render 'items', :locals => {:items => @items, :cart => @cart} %>
+    </div>
+    </div>
+</div>
+<br/>
