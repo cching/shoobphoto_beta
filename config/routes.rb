@@ -25,6 +25,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
 
   resources :templates do
     member do
+      get 'preview'
       get 'copy'
     end
     resources :fields

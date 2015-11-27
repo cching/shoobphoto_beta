@@ -1,6 +1,9 @@
 <%= f.input :name %>
 
-<%= f.association :schools %>
+<%= f.association :schools %><br/>
+<%= f.check_box :preview %>
+  <%= f.label :preview, "Preview this type" %><br/>
+
 <%= f.check_box :_destroy %>
   <%= f.label :_destroy, "Remove Type" %>
 <hr>

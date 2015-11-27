@@ -1,19 +1,19 @@
-class ExportPdf < Prawn::Document
+class DownloadPdf < Prawn::Document
   require 'prawn'
     
-    def initialize(export_data, package_id)
+    def initialize(export_data, package_id, path)
       @export_data = ExportData.find(export_data)
       @package = Package.find(package_id)
+      @path = path
 
       super(skip_page_creation: true)
-      generate
       
-
     end
     
     def generate
       require 'prawn'
-            
+      
+      
       begin
         # Pre-fetch all fonts, pdfs, and images.
         fetch_files
@@ -74,6 +74,8 @@ class ExportPdf < Prawn::Document
       ensure
         dump_files
       end
+
+      self.render_file @path
       
     end
     
