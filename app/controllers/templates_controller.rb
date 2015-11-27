@@ -94,7 +94,7 @@ class TemplatesController < ApplicationController
       user_id: current_user.id
     }))
 
-    @export_data.export_data_students.new(:student_id => 128556)
+    @export_data.export_data_students.new(:student_id => 129932)
     @export_data.save
 
 
