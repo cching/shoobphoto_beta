@@ -85,6 +85,6 @@ class TemplatesController < ApplicationController
     end
 
     def template_params
-      params[:template].permit(:name, fields_attributes: [:id, :x, :y, :height, :width, :align, :column_name, :template_id, :font, :font_id, :text_size, :spacing, :name, :_destroy, :color, :_destroy], pdfs_attributes: [:id, :name, :file, :_destroy, :template_id, types_attributes: [:id, :name, :_destroy, :school_ids => []]])
+      params[:template].permit(:name, fields_attributes: [:id, :x, :y, :height, :width, :align, :column, :template_id, :font, :font_id, :text_size, :spacing, :name, :_destroy, :color, :_destroy], pdfs_attributes: [:id, :name, :file, :_destroy, :template_id, types_attributes: [:id, :name, :_destroy, :school_ids => []]])
     end
 end

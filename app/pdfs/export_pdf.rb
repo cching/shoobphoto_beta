@@ -36,7 +36,7 @@ class ExportPdf < Prawn::Document
           @export_data.template.fields.each do |field|
 
             # Handle image inserts.
-            if ExportJob.image_columns.include? field.column_name
+            if ExportJob.image_columns.include? field.column
               if url = student.student_images.where(:package_id => @package.id).last.image.url
                 self.image open(Thread.current[:export_files][url]),
                   at: [field.x, field.y],
@@ -45,19 +45,19 @@ class ExportPdf < Prawn::Document
               end
 
             # Handle colors.
-            elsif ExportJob.color_columns.include? field.column_name
-              self.fill_color student.send(field.column_name)
+            elsif ExportJob.color_columns.include? field.column
+              self.fill_color student.send(field.column)
               self.fill_rectangle [field.x, field.y], field.width, field.height
 
             # Handle text inserts.
             else
 
-              text = if field.column_name == 'prompt'
+              text = if field.column == 'prompt'
                 @export_data.prompt_values[field.name] || ""
-              elsif field.column_name == 'type'
+              elsif field.column == 'type'
                 @export_data.type.name
               else
-                student.send(field.column_name)
+                student.send(field.column)
               end
 
               self.font field.font.name

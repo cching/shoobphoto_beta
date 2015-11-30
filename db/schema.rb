@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116012207) do
+ActiveRecord::Schema.define(version: 20151130095146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,13 @@ ActiveRecord::Schema.define(version: 20151116012207) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "columns", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "column_type"
   end
 
   create_table "contacts", force: true do |t|
@@ -135,6 +142,7 @@ ActiveRecord::Schema.define(version: 20151116012207) do
     t.string   "file_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "template_id"
   end
 
   create_table "export_data_students", force: true do |t|
@@ -200,6 +208,7 @@ ActiveRecord::Schema.define(version: 20151116012207) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "column_id"
   end
 
   create_table "fonts", force: true do |t|
@@ -528,10 +537,18 @@ ActiveRecord::Schema.define(version: 20151116012207) do
     t.datetime "updated_at"
   end
 
+  create_table "template_columns", force: true do |t|
+    t.integer  "column_id"
+    t.integer  "template_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "templates", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "export_data_id"
   end
 
   create_table "types", force: true do |t|
@@ -539,6 +556,7 @@ ActiveRecord::Schema.define(version: 20151116012207) do
     t.integer  "pdf_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "preview",    default: false
   end
 
   create_table "user_students", force: true do |t|

@@ -26,7 +26,7 @@ class Student < ActiveRecord::Base
 
  def self.import(chunk)
   chunk.each do |h|
-    Field.create(:id => h[:id], :x => h[:x], :y => h[:y], :width => h[:width], :height => [:height], :align => "#{h[:align]}", :column_name => "#{h[:column_name]}", :template_id => h[:template_id], :font_id => h[:font_id], :text_size => h[:text_size], :color => "#{h[:color]}", :spacing => h[:spacing], :name => "#{h[:name]}", :created_at => "#{h[:created_at]}", :updated_at => "#{h[:updated_at]}")
+    Field.create(:id => h[:id], :x => h[:x], :y => h[:y], :width => h[:width], :height => [:height], :align => "#{h[:align]}", :column => "#{h[:column]}", :template_id => h[:template_id], :font_id => h[:font_id], :text_size => h[:text_size], :color => "#{h[:color]}", :spacing => h[:spacing], :name => "#{h[:name]}", :created_at => "#{h[:created_at]}", :updated_at => "#{h[:updated_at]}")
   end
 end
 
