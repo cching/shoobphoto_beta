@@ -1,16 +1,10 @@
 <div class="row">
   <div class="col-sm-8">
-    <% unless @category.nil? %>
-<div class="grey small header" id="header"><%= link_to "Catalog Items", items_all_path(@cart.id), remote: true %> > <strong><%= @category.name %></strong></div>
-<h4><%= @category.name.titleize %></h4>
-<% end %>
 <% unless @subcat.nil? %>
 <div class="grey small header" id="header"><%= link_to "Catalog Items", items_all_path(@cart.id), remote: true %> > <strong><%= @subcat.category.name %></strong> > <%= @subcat.name.titleize %></div>
 <h4><%= @subcat.name.titleize %></h4>
 <% else %>
-<% if @category.nil? %>
 <div class="grey small header" id="header">Catalog Items</div>
-<% end %>
 <% end %>
 </div>
 <div class="col-sm-4">

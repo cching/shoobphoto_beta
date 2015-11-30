@@ -130,8 +130,6 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'items/search/:cart/' => 'items#search', :via => 'GET', :as => 'items_search'
   match 'items/remove/:id/' => 'items#remove', :via => 'GET', :as => 'items_remove'
   match 'items/preview/:id/:cart' => 'items#preview', :via => 'GET', :as => 'items_preview'
-  match 'items/outside/:cat' => 'items#outside', :via => 'GET', :as => 'items_outside'
-  match 'items/cart/:cart_id/cat/:cat' => 'items#cart_outside', :via => 'GET', :as => 'items_cart_outside'
 
   match 'orders/:id/find' => 'orders#find', :via => 'get', :as => 'order_find'
   match 'orders/:order_id/:student_id/processed' => 'orders#processed', :via => 'GET', :as => 'order_processed'

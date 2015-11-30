@@ -9,19 +9,6 @@ class ItemsController < ApplicationController
     redirect_to items_cart_path(@cart.cart_id)
   end
 
-  def outside
-    @cart = Cart.create(:cart_type => "catalog", :cart_id => (0...8).map { (65 + rand(26)).chr }.join)
-
-    redirect_to items_cart_outside_path(@cart.cart_id, params[:cat])
-  end
-
-  def cart_outside
-    @category = Category.find(params[:cat])
-    @items = @category.items.order(:number)
-    @cart = Cart.find_by_cart_id(params[:cart_id])
-    respond_with(@items)
-  end
-
   def all
     @cart = Cart.find(params[:cart])
     @items = Item.all.order(:number)
