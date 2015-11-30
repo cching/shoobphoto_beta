@@ -7,7 +7,6 @@ class StudentsController < ApplicationController
 
   def download
     @student = Student.where("lower(shoob_id) = ?", "#{params[:shoob_id].gsub(/\s+/, "").downcase}").last
-    puts "@#{Student.where("lower(shoob_id) = ?", "#{params[:shoob_id].gsub(/\s+/, "").downcase}").count}"
     @package = @student.school.packages.where("lower(name) like ?", "%fall%").last unless @student.nil?
 
     bucket = AWS::S3::Bucket.new('shoobphoto')
@@ -164,7 +163,7 @@ class StudentsController < ApplicationController
               else
                 s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].downcase}.jpg")
               end
-              @senior_id << "#{image.folder}/#{image.attributes[attribute]}"
+              @senior_id << "#{image.attributes[attribute]}"
             else
               s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}") #do default image in col later
                @senior_id << "default"

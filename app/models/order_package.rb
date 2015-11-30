@@ -14,13 +14,19 @@ class OrderPackage < ActiveRecord::Base
 	accepts_nested_attributes_for :option
 	accepts_nested_attributes_for :extras
 
-	def self.image url
+	def self.image id
+		op = OrderPackage.find(id)
 		bucket = AWS::S3::Bucket.new('shoobphoto')
-		s3object = AWS::S3::S3Object.new(bucket, "images/#{url}.jpg") #do default image in col later
+
+		if AWS::S3::S3Object.new(bucket, "images/#{op.folder}/#{op.url.upcase}.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{op.folder}/#{op.url.upcase}.jpg")
+        else
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{op.folder}/#{op.url.downcase}.jpg")
+        end
 
         return s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
 	end
-
+ 
 	private
 	  def check_for_orders
 	    if cart.purchased?

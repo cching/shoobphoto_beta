@@ -10,7 +10,7 @@
 					<% if op.url.nil? %>
 					<img src='<%= @image_url[index] %>', class="img-rounded img-package">
 					<% else %>
-					<%= image_tag(OrderPackage.image(op.url), class: "img-rounded img-package") %>
+					<%= image_tag(OrderPackage.image(op.id), class: "img-rounded img-package") %>
 					<% end %>
 					<br/>
 					 <% if option.email_picture? %>
@@ -18,7 +18,7 @@
 	  			<%= check_box_tag "order_package[#{op.id}][email_picture]", 1, :checked => true %>
 	  			<% end %>
 			</div>
-			<div class="col-sm-2" id="review">
+			<div class="col-sm-2" id="review"> 
 			
 				<h3 class="text">
 					
