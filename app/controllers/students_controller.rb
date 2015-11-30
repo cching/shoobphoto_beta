@@ -7,6 +7,7 @@ class StudentsController < ApplicationController
 
   def download
     @student = Student.where("lower(shoob_id) = ?", "#{params[:shoob_id].gsub(/\s+/, "").downcase}").last
+    puts "@#{@student.count}"
     @package = @student.school.packages.where("lower(name) like ?", "%fall%").last unless @student.nil?
 
     bucket = AWS::S3::Bucket.new('shoobphoto')

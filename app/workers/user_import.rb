@@ -5,11 +5,14 @@ class UserImport
   	def perform(chunk)
 
       	chunk.each do |h|
-    f = Field.create(:id => h["id"], :x => h["x"], :y => h["y"], :width => h["width"], :height => ["height"], :align => "#{h["align"]}", :column => "#{h["column"]}", :template_id => h["template_id"], :font_id => h["font_id"], :text_size => h["text_size"], :color => "#{h["color"]}", :spacing => h["spacing"], :name => "#{h["name"]}")
-    f.errors.full_messages.each do |error|
-    	puts "#@@@@@@#{error}"
-    end
-  end
+
+ 	            school = School.find_by_ca_code(h["ca_code"].to_s)
+	            unless school.nil?
+	           	school.users.create(:email => h["email"], :password => h["password"], :password_confirmation => h["password_confirmation"])
+	        end #end if
+	          	
+	        
+     	end #end chunk
  	end
 end
 
