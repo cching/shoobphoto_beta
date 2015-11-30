@@ -27,7 +27,12 @@
 						<% unless @senior_id[3] == "default" %>
 						<div class="col-sm-6" id="3"><%= link_to image_tag(@senior_url[3], :class => 'img-rounded img-package'), orders_add_image_path(opackage.id, @senior_id[3], :link => @senior_url[3], :index => "3"), remote: true %></div>
 						<% end %>
-					</div>
+					</div> 
+					<div class="row">
+						<% unless @senior_id[4] == "default" %>
+						<div class="col-sm-6" id="4"><%= link_to image_tag(@senior_url[4], :class => 'img-rounded img-package'), orders_add_image_path(opackage.id, @senior_id[4], :link => @senior_url[4], :index => "4"), remote: true %></div>
+						<% end %>
+					</div> 
 				<% else %>
 					<%= image_tag(@senior_url[0], class: "img-rounded img-package") %>
 				<% end %>

@@ -10,18 +10,18 @@ class OrderPackage < ActiveRecord::Base
 
 	validates :package_id, uniqueness: {:scope => [:student_id, :cart_id]}
 
-
 	accepts_nested_attributes_for :option
 	accepts_nested_attributes_for :extras
 
 	def self.image id
 		op = OrderPackage.find(id)
 		bucket = AWS::S3::Bucket.new('shoobphoto')
+		image = StudentImage.where(:student_id => op.student_id).where(:package_id => 6).last
 
-		if AWS::S3::S3Object.new(bucket, "images/#{op.folder}/#{op.url.upcase}.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{op.folder}/#{op.url.upcase}.jpg")
+		if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{op.url.upcase}.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{op.url.upcase}.jpg")
         else
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{op.folder}/#{op.url.downcase}.jpg")
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{op.url.downcase}.jpg")
         end
 
         return s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)

@@ -156,7 +156,7 @@ class StudentsController < ApplicationController
       @senior_id = []
         unless image.nil? || @cart.id_supplied == false
           
-          for attribute in ['url', 'url2', 'url3', 'url4']
+          for attribute in ['url', 'url1', 'url2', 'url3', 'url4']
             unless image.attributes[attribute].nil? || image.attributes[attribute] == ""
               if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].upcase}.jpg").exists?
                 s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].upcase}.jpg")
