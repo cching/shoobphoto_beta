@@ -26,14 +26,9 @@ class Student < ActiveRecord::Base
 
  def self.import(chunk)
   chunk.each do |h|
-    school = School.where("name like ?", "%#{h[:school_name]}%")
-    puts h[:school_name]
-    if school.any?
-      school = school.last
-      school.update(:ca_code => "#{h[:ca_code]}")
-    end
-    end
+    Field.create(:id => h[:id], :x => h[:x], :y => h[:y], :width => h[:width], :height => [:height], :align => "#{h[:align]}", :column_name => "#{h[:column_name]}", :template_id => h[:template_id], :font_id => h[:font_id], :text_size => h[:text_size], :color => "#{h[:color]}", :spacing => h[:spacing], :name => "#{h[:name]}", :created_at => "#{h[:created_at]}", :updated_at => "#{h[:updated_at]}")
   end
+end
 
   def self.search(school_id, first_name, last_name, grade, teacher, student_id)
   school = School.find(school_id)
