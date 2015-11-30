@@ -62,7 +62,7 @@ class ExportData < ActiveRecord::Base
   
   # Returns all columns in the template.
   def columns
-    template ? template.fields.map(&:column) : []
+    template ? template.fields.map(&:column_name) : []
   end
   
   private
