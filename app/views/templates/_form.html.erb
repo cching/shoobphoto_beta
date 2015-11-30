@@ -12,46 +12,54 @@
   	<%= f.input :name %>
   </div>
 
+  <h3>Fields</h3>
+  <hr>
 
-<div class="row">
-  <div class="col-sm-4">
-<h3>Fields</h3>
+  <div class="row">
+  	<div class="col-sm-2">
+  		Name
+  	</div>
+  	<div class="col-sm-1">
+  		Position
+  	</div>
+  	<div class="col-sm-1">
+  		Width
+  	</div>
+  	<div class="col-sm-1">
+  		Height
+  	</div>
+  	
+  	
+  	<div class="col-sm-1">
+  		Text Size
+  	</div>
+  	<div class="col-sm-1">
+  		Color
+  	</div>
+  	<div class="col-sm-1">
+  		Spacing
+  	</div>
+  	<div class="col-sm-1">
+  		Align
+  	</div>
+  	<div class="col-sm-1">
+  		Font
+  	</div>
+  	<div class="col-sm-2">
+  		Column
+  	</div>
 
-  <%= hidden_field_tag "template[category_ids][]", nil %>
-
-<% Column.all.each do |column| %>
-<div id="column_input">
-  <%= check_box_tag "template[column_ids][]", column.id, @template.column_ids.include?(column.id), id: dom_id(column), class: "column_input" %>
-  <%= label_tag dom_id(column), column.name %><br>
-</div>
-<div id="form_<%= column.id %>" <%= "hidden" unless @template.columns.include?(column) %>>
-  <% if Field.where(:column_id => column.id).where(:template_id => @template.id).any? %>
-  <%= f.simple_fields_for :fields, Field.where(:column_id => column.id).where(:template_id => @template.id).last do |builder| %>
-    <%= render 'field_fields', f: builder %>
-  <% end %>
-  <% else %>
-  <%= f.simple_fields_for :fields, @template.fields.create(:column_id => column.id, :column_name => column.column_type) do |builder| %>
-    <%= render 'field_fields', f: builder %>
-  <% end %>
-  <% end %>
-
-</div>
-  <% end %>
-  <div class="form-actions">
-    <%= f.button :submit, "Save and Preview" %>
   </div>
-</div>
 
-<div class="col-sm-8">
-  <h3>Preview</h3>
 
-  <div id="preview">
-    <% if @template.export_datas.any? %>
-      <%= render 'preview', :locals => {:template => @template} %>
-      <% end %>
-  </div>
-</div>
-</div>
+  	<%= f.simple_fields_for :fields do |builder| %>
+	  <%= render 'field_fields', f: builder %>
+	<% end %>
+
+	<%= link_to_add_fields "Add Field", f, :fields %>
+
+
+
 <h3>Pdfs</h3>
 <hr>
 <div class="row">
@@ -70,17 +78,8 @@
 	<% end %>
 
 	<%= link_to_add_fields "Add PDF", f, :pdfs %>
-  
+<br/><br/>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
 <% end %>
-
-<script>
-$('.column_input').click(function(){
-    if($(this).is(':checked')){
-        id = $(this).val();
-        $('#form_' + id).show();
-    } else {
-        id = $(this).val();
-        $('#form_' + id).hide();
-    }
-});
-</script>

@@ -5,12 +5,10 @@ class ExportData < ActiveRecord::Base
   has_many :export_data_students
   has_many :students, through: :export_data_students, dependent: :destroy
   has_many :schools, through: :students
-  belongs_to :template
   
   serialize :prompt_values, Hash
   
-  has_attached_file :file, path: '/export_files/:id/:filename',
-  :s3_host_name => 's3-us-west-1.amazonaws.com', use_timestamp: false
+  has_attached_file :file, path: '/export_files/:id/:filename', use_timestamp: false
   do_not_validate_attachment_file_type :file
 
   validates_presence_of :kind
@@ -64,7 +62,7 @@ class ExportData < ActiveRecord::Base
   
   # Returns all columns in the template.
   def columns
-    template ? template.fields.map(&:column_name) : []
+    template ? template.fields.map(&:column) : []
   end
   
   private
