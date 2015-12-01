@@ -128,7 +128,8 @@ end
 	def notprocessed
 		@order = Order.find(params[:order_id])
 		@student = Student.find(params[:student_id])
-		@order.update_attributes(:processed => false)
+		@order.processed = false
+		@order.save(:validate => false)
 
 		respond_to do |format|
 			format.js
@@ -138,7 +139,8 @@ end
 	def processed
 		@order = Order.find(params[:order_id])
 		@student = Student.find(params[:student_id])
-		@order.update_attributes(:processed => true)
+		@order.processed = true
+		@order.save(:validate => false)
 
 		respond_to do |format|
 			format.js
