@@ -11,7 +11,7 @@ class OrderExport
           @orders = []
           OrderPackage.where.not(url: nil).order(:id).each do |op|
             if op.cart.purchased?
-              @orders << op.cart.orders
+              @orders << op.cart.orders.first
             end
           end
             @orders.uniq.each do |order|
