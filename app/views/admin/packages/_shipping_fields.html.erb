@@ -3,7 +3,7 @@
 		<%= f.input :price, :label => "Shipping (in dollars)" %>
 	</div>
 	<div class="col-sm-4">
-		<%= f.association :school, class: "form-control" %>
+		<%= f.association :school, collection: School.all.order(:name), class: "form-control" %>
   	</div>
   	<div class="col-sm-4" align="left"><br/>
   <%= f.label :_destroy, "Remove" %>
