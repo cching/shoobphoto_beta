@@ -10,6 +10,8 @@ class Field < ActiveRecord::Base
   
   belongs_to :template
   belongs_to :font
+  belongs_to :column
+
 
 
 
