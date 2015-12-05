@@ -32,19 +32,8 @@
 
         <%= hidden_field_tag "cart", @cart %>
         <%= hidden_field_tag "i", @i %>
-         <%= text_field_tag :student_id, nil, placeholder: "Student's ID Number", class: "form-control", id: "input_student_id" %><br />
+         <%= text_field_tag :student_id, nil, placeholder: "Student's ID Number", class: "form-control", id: "input_student_id" %>
 
-        <div class="row">
-        <div class="col-sm-5">
-        Student's date of birth
-        </div>
-        <div class="col-sm-7">
-        <%= select_day 0, :start_year => Time.now.year, :end_year => Time.now.year - 95, :field_name => :day, :prompt => { :day => 'Select day' } %>
-        <%= select_month 0, :start_year => Time.now.year, :end_year => Time.now.year - 95, :field_name => :month, :prompt => { :month => 'Select month' } %>
-        <%= select_year 0, :start_year => Time.now.year, :end_year => Time.now.year - 95, :field_name => :year, :prompt => { :year => 'Select year' }  %>
-
-        </div>
-        </div>
         </div>
         
     <div class="submit" id="submit">
