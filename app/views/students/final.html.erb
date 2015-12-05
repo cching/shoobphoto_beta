@@ -18,6 +18,13 @@
 			<% o.extras.each do |extra| %>
 				<%= number_to_currency(extra.prices.first.try(:price), :unit => "$") %> - <%= extra.name %> <br/>
 			<% end %>
+
+			<% if o.package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).any? %>
+					+ <%= number_to_currency(o.package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).first.price, :unit => "$") %> shipping
+					<% elsif o.package.shippings.where(:school_id => nil).any? %>
+					+ <%= number_to_currency(o.package.shippings.where(:school_id => nil).first.price, :unit => "$") %> shipping
+					<% end %>
+
 			<hr>
  	<% end %>
  	</td>

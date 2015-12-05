@@ -33,9 +33,11 @@
 					<% else %>
 						<div id="price_<%= option.id %>" price="<%= option.price %>"><%= number_to_currency(option.price, :unit => "$") %></div>
 					<% end %>
-					<br />
+					
 					<% if package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).any? %>
 					+ <%= number_to_currency(package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).first.price, :unit => "$") %> shipping
+					<% elsif package.shippings.where(:school_id => nil).any? %>
+					+ <%= number_to_currency(package.shippings.where(:school_id => nil).first.price, :unit => "$") %> shipping
 					<% end %>
 				</h3>
 			</div>

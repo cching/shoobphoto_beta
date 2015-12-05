@@ -53,6 +53,8 @@ class OrdersController < ApplicationController
 	    @cart.order_packages.each do |opackage|
 	      if opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).any?
 	      @price = @price + opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).first.price
+	  	  elsif opackage.package.shippings.where(:school_id => nil).any?
+	      @price = @price + opackage.package.shippings.where(:school_id => nil).first.price
 	      end
 	    end
 

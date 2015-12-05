@@ -45,6 +45,8 @@ class StudentsController < ApplicationController
       @cart.order_packages.each do |opackage|
         if opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).any?
         @price = @price + opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).first.price
+        elsif opackage.package.shippings.where(:school_id => nil).any?
+        @price = @price + opackage.package.shippings.where(:school_id => nil).first.price
         end
         opackage.extras.each do |e|
         unless e.prices.first.try(:price).nil?
@@ -130,6 +132,9 @@ class StudentsController < ApplicationController
       package = opackage.package
       if package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).any?
       @price = @price + package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).first.price
+      elsif package.shippings.where(:school_id => nil).any?
+      @price = @price + package.shippings.where(:school_id => nil).first.price
+      
       end
     end
 
@@ -223,11 +228,11 @@ class StudentsController < ApplicationController
     @cart_id = params[:cart]
 
     if params[:cart].to_i == 1 
-      @student = @school.students.create(:first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :teacher => params[:teacher], :grade => params[:grade], :dob => params[:dob])
+      @student = @school.students.create(:first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :teacher => params[:teacher], :grade => params[:grade])
       @cart = @student.carts.create(:school_id => @school.id, :cart_id => (0...8).map { (65 + rand(26)).chr }.join)
     else
       @cart = Cart.find_by_cart_id(params[:cart])
-      @student = @cart.students.create(:first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:teacher], :grade => params[:grade], :dob => params[:dob])
+      @student = @cart.students.create(:first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:teacher], :grade => params[:grade])
 
     end
      
@@ -241,10 +246,8 @@ class StudentsController < ApplicationController
     @school = School.find(params[:school])
     @i = (params[:i].nil? || params[:i] == "") ?  0 : params[:i]
     @cart_id = (params[:cart].nil? || params[:cart] == "") ?  1 : params[:cart]
-    unless params[:date][:year] == "" || params[:date][:month] == "" || params[:date][:day] == ""
-    @dob = "#{params[:date][:year].to_s}/#{params[:date][:month].to_s}/#{params[:date][:day].to_s}".to_date
-    end
-    if (params[:student_id].nil? || params[:student_id] == "") && (params[:date][:year] == "" || params[:date][:month] == "" || params[:date][:day] == "")
+
+    if (params[:student_id].nil? || params[:student_id] == "")
 
       student = @school.students.where("lower(first_name) like ? and lower(last_name) like ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%")
 
@@ -263,18 +266,13 @@ class StudentsController < ApplicationController
       else
           respond_to do |format|
             format.js
-            format.html { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :grade => params[:grade], :dob => @dob) }
+            format.html { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :grade => params[:grade]) }
           end
       end
 
     else
       student = @school.students.where("lower(first_name) like ? and lower(last_name) like ? and student_id = ? and id_only = ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%", "#{params[:student_id]}", "true")
        
-      if student.empty?
-        unless @dob.nil?
-        student = @school.students.where("dob = ?", "#{@dob}")
-      end
-     end
     
       if student.count > 0
         @student = student.last
