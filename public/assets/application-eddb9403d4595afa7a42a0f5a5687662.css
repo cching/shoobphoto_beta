@@ -62,7 +62,7 @@ input, label {
 /* line 5, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 .img-preview {
   max-height: 300px;
-  max-width: 90%;
+  max-width: 80%;
 }
 
 /* line 10, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
@@ -84,13 +84,13 @@ input, label {
 
 /* line 24, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 #preview img {
-  max-width: 80%;
+  max-width: 70%;
   max-height: 200px;
 }
 
 /* line 29, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
 .img-item img {
-  max-width: 90%;
+  max-width: 80%;
 }
 
 /* line 33, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/items.css.scss */
@@ -527,19 +527,19 @@ p.noline {
 
 /* line 39, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .img-med {
-  max-width: 250px;
+  max-width: 90%;
   max-height: 300px;
   box-shadow: 10px 10px 5px #888888;
 }
 
 /* line 45, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .img-large {
-  max-width: 450px;
+  max-width: 300px;
   max-height: 500px;
   box-shadow: 10px 10px 5px #888888;
 }
 
-/* line 51, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 52, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .img-small {
   max-width: 250px;
   max-height: 200px;
@@ -547,32 +547,32 @@ p.noline {
 }
 
 @media (min-width: 1200px) {
-  /* line 60, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+  /* line 61, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
   .container-fluid {
     width: 1000px;
   }
 }
-/* line 65, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 66, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .buffer {
   padding-left: 80px;
 }
 
-/* line 69, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 70, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .buff {
   padding-left: 15px;
 }
 
-/* line 74, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 75, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 tr:hover {
   background: #EEE;
 }
 
-/* line 80, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 81, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 ul.list {
   border-top: 1px #DDD solid;
 }
 
-/* line 84, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 85, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 ul.list li {
   padding: 15px 10px;
   border-bottom: 1px #DDD solid;
@@ -580,7 +580,7 @@ ul.list li {
   font-weight: bold;
 }
 
-/* line 91, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 92, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 ul.list li.group_header {
   padding: 5px 10px;
   background: #F7F7F7;
@@ -589,50 +589,50 @@ ul.list li.group_header {
   font-size: 12px;
 }
 
-/* line 99, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 100, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 h1 {
   font-size: 20px;
 }
 
-/* line 103, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 104, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 h2 {
   font-size: 18px;
 }
 
-/* line 107, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 108, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 h1, h2, h3, p, hr, table {
   margin: 0 0 30px 0;
 }
 
-/* line 111, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 112, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 h4, h5, h6 {
   margin: 0 0 15px 0;
 }
 
-/* line 115, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 116, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 hr {
   height: 1px;
   background: #CCC;
   border: 0;
 }
 
-/* line 121, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 122, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 table {
   border-collapse: collapse;
 }
 
-/* line 125, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 126, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 table th {
   text-align: left;
 }
 
-/* line 129, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 130, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 #header {
   height: 60px;
   padding: 30px 0 0 0;
 }
 
-/* line 134, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 135, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 #header h1 {
   width: 250px;
   height: 42px;
@@ -643,14 +643,14 @@ table th {
   text-indent: -9999px;
 }
 
-/* line 144, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 145, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 #header h1 a {
   width: 250px;
   height: 42px;
   display: block;
 }
 
-/* line 150, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 151, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 ul.navigation {
   height: 30px;
   margin: 0 15px 0 0;
@@ -660,7 +660,7 @@ ul.navigation {
   z-index: 1;
 }
 
-/* line 159, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 160, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 ul.navigation li {
   padding: 0;
   border: 0;
@@ -668,7 +668,7 @@ ul.navigation li {
   float: left;
 }
 
-/* line 170, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 171, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 ul.navigation li a {
   height: 30px;
   display: block;
@@ -678,18 +678,18 @@ ul.navigation li a {
   font-weight: bold;
 }
 
-/* line 179, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 180, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 ul.navigation li a:hover {
   border-bottom: 1px #DDD solid;
 }
 
-/* line 183, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 184, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 ul.navigation li ul {
   display: none;
   z-index: 10;
 }
 
-/* line 188, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 189, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 ul.navigation li ul li a {
   width: 100px;
   margin-bottom: -1px;
@@ -699,246 +699,246 @@ ul.navigation li ul li a {
   border-bottom: 1px #DDD solid;
 }
 
-/* line 197, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 198, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 ul.navigation li.current a {
   border-bottom: 1px #0082C8 solid;
   color: #000;
 }
 
-/* line 202, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 203, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 #flash {
   margin-bottom: 30px;
 }
 
-/* line 207, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 208, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .left {
   float: left !important;
 }
 
-/* line 211, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 212, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .right {
   float: right !important;
 }
 
-/* line 215, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 216, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .clear {
   clear: both;
 }
 
-/* line 219, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 220, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .align_right {
   text-align: right;
 }
 
-/* line 223, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 224, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .align_center {
   text-align: center;
 }
 
-/* line 227, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 228, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .justify {
   text-align: justify;
 }
 
-/* line 231, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 232, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .banner {
   margin-bottom: 30px;
 }
 
-/* line 235, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 236, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .mini_popout {
   margin-top: -11px;
   margin-bottom: 5px;
 }
 
-/* line 240, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 241, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .mini_banner {
   margin-bottom: 5px;
 }
 
-/* line 244, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 245, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .price_bar {
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-/* line 249, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 250, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .bordered {
   border: 1px #CCC solid;
   padding: 15px;
 }
 
-/* line 254, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 255, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .margins {
   margin-left: 15px;
   margin-right: 15px;
   display: block;
 }
 
-/* line 260, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 261, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .full, .half, .third, .fourth, .two_thirds, .sixth, .three_twelfths, .twelfth, .three_fourths {
   margin-left: 15px;
   margin-right: 15px;
   float: left;
 }
 
-/* line 266, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 267, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .half_box, .third_box, .two_thirds_box, .fourth_box, .sixth_box {
   float: left;
 }
 
-/* line 270, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 271, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .popout {
   margin-top: -20px;
   margin-bottom: 10px;
 }
 
-/* line 275, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 276, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .popout_top {
   margin-top: -20px;
 }
 
-/* line 279, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 280, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .popout_bottom {
   margin-bottom: 10px;
 }
 
-/* line 283, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 284, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .full {
   width: 930px;
 }
 
-/* line 287, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 288, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .three_fourths {
   width: 690px;
 }
 
-/* line 291, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 292, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .half {
   width: 450px;
 }
 
-/* line 295, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 296, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .half_box {
   width: 480px;
 }
 
-/* line 299, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 300, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .third {
   width: 290px;
 }
 
-/* line 303, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 304, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .third_box {
   width: 320px;
 }
 
-/* line 307, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 308, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .fourth {
   width: 210px;
 }
 
-/* line 311, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 312, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .fourth_box {
   width: 240px;
 }
 
-/* line 315, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 316, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .two_thirds {
   width: 610px;
 }
 
-/* line 319, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 320, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .two_thirds_box {
   width: 640px;
 }
 
-/* line 323, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 324, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .sixth {
   width: 200x;
 }
 
-/* line 327, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 328, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .sixth_box {
   width: 160px;
 }
 
-/* line 331, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 332, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .three_twelfths {
   width: 210px;
 }
 
-/* line 335, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 336, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .twelfth {
   width: 50px;
 }
 
-/* line 339, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 340, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .shaded {
   background: #F5F5F5;
 }
 
-/* line 343, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 344, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .greyed {
   color: #999;
 }
 
-/* line 347, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 348, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .file_list {
   margin: 15px;
   list-style-type: decimal;
 }
 
-/* line 352, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 353, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 td.fixed_width, th.fixed_width {
   width: 50px;
 }
 
-/* line 356, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 357, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 fieldset {
   margin: 0;
   padding: 0;
   border: 0;
 }
 
-/* line 362, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 363, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 legend {
   font-size: 14px;
   font-weight: bold;
 }
 
-/* line 367, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 368, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .field, .check_box {
   padding: 15px 0;
   border-top: 1px #CCC solid;
 }
 
-/* line 372, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 373, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .field input, .field textarea, .field select, .field label {
   width: 100%;
 }
 
-/* line 376, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 377, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .search input {
   padding: 5px;
 }
 
-/* line 380, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 381, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .field input.radio_button, .field input[type='checkbox'] {
   width: auto;
 }
 
-/* line 384, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 385, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .field textarea {
   height: 50px;
 }
 
-/* line 388, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 389, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 span.field_error input {
   border: red 1px solid;
 }
 
-/* line 392, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 393, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .right_arrow {
   width: 5px;
   height: 10px;
@@ -947,19 +947,19 @@ span.field_error input {
   background: url(/images/interface/right_arrow.gif);
 }
 
-/* line 400, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 401, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .push_hr {
   margin: 20px 0;
 }
 
-/* line 404, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 405, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .school_support_links {
   position: absolute;
   right: 250px;
   padding-top: 7px;
 }
 
-/* line 410, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 411, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .school_support_links a {
   margin: 10px;
   padding: 10px;
@@ -969,12 +969,12 @@ span.field_error input {
   color: #0082C8;
 }
 
-/* line 419, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 420, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .school_support_links a:hover {
   color: #0A5795;
 }
 
-/* line 423, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 424, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .slider {
   width: 930px;
   height: 288px;
@@ -982,13 +982,13 @@ span.field_error input {
   margin-bottom: 50px;
 }
 
-/* line 430, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 431, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .slider a img {
   position: absolute;
   display: none;
 }
 
-/* line 435, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 436, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .loading_blackout {
   width: 100%;
   height: 100%;
@@ -1002,7 +1002,7 @@ span.field_error input {
   z-index: 100;
 }
 
-/* line 448, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 449, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .loading_popup {
   width: 450px;
   height: 60px;
@@ -1029,12 +1029,12 @@ span.field_error input {
  * March 2010
  */
 /* The Nivo Slider styles */
-/* line 476, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 477, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .nivoSlider {
   position: relative;
 }
 
-/* line 479, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 480, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .nivoSlider img {
   position: absolute;
   top: 0px;
@@ -1042,7 +1042,7 @@ span.field_error input {
 }
 
 /* If an image is wrapped in a link */
-/* line 485, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 486, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .nivoSlider a.nivo-imageLink {
   position: absolute;
   top: 0px;
@@ -1057,7 +1057,7 @@ span.field_error input {
 }
 
 /* The slices and boxes in the Slider */
-/* line 498, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 499, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .nivo-slice {
   display: block;
   position: absolute;
@@ -1065,7 +1065,7 @@ span.field_error input {
   height: 100%;
 }
 
-/* line 504, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 505, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .nivo-box {
   display: block;
   position: absolute;
@@ -1073,7 +1073,7 @@ span.field_error input {
 }
 
 /* Caption styles */
-/* line 510, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 511, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .nivo-caption {
   position: absolute;
   left: 0px;
@@ -1086,24 +1086,24 @@ span.field_error input {
   z-index: 8;
 }
 
-/* line 520, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 521, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .nivo-caption p {
   padding: 5px;
   margin: 0;
 }
 
-/* line 524, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 525, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .nivo-caption a {
   display: inline !important;
 }
 
-/* line 527, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 528, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .nivo-html-caption {
   display: none;
 }
 
 /* Direction nav styles (e.g. Next & Prev) */
-/* line 531, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 532, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .nivo-directionNav a {
   position: absolute;
   top: 295px;
@@ -1113,23 +1113,23 @@ span.field_error input {
   cursor: pointer;
 }
 
-/* line 539, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 540, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .nivo-directionNav a:hover {
   text-decoration: none;
 }
 
-/* line 542, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 543, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .nivo-prevNav {
   left: 0;
 }
 
-/* line 545, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 546, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .nivo-nextNav {
   right: 0;
 }
 
 /* Control nav styles (e.g. 1,2,3...) */
-/* line 549, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 550, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .nivo-controlNav {
   width: 100%;
   position: absolute;
@@ -1138,7 +1138,7 @@ span.field_error input {
   text-align: center;
 }
 
-/* line 556, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 557, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .nivo-controlNav a {
   width: 10px;
   height: 10px;
@@ -1149,12 +1149,12 @@ span.field_error input {
   cursor: pointer;
 }
 
-/* line 565, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 566, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .nivo-controlNav a.active {
   background-position: 0 -10px;
 }
 
-/* line 569, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+/* line 570, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 #footer {
   padding: 30px 0;
   clear: both;

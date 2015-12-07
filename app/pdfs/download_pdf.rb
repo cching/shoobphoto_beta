@@ -32,7 +32,10 @@ class DownloadPdf < Prawn::Document
 
           self.start_new_page template: @pdf, margin: 0
 
-          @export_data.template.fields.where.not(x: nil).each do |field|
+          @fields = @export_data.template.columns.all.map {|column| column.fields.where(:template_id => @export_data.template.id).where.not(x: nil).last }
+
+
+          @fields.each do |field|
 
             # Handle image inserts.
             if ExportJob.image_columns.include? field.column.column_type

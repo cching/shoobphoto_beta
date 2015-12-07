@@ -75,12 +75,7 @@ class TemplatesController < ApplicationController
 
   def update
     @template.update(template_params)
-    fields = @template.columns.all.map {|column| column.fields.where(:template_id => @template.id).last.id }
-    @template.fields.each do |field|
-      unless fields.include? field.id
-        field.delete
-      end
-    end
+
 
     if @template.types.where(:preview => true).any?
       typeid = @template.types.where(:preview => true).last.id

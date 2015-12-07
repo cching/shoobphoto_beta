@@ -1,6 +1,7 @@
 <div class="row">
     <%= render 'categories' %>
-    <div class="col-sm-9">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-8">
       <div id="itemlist">
       <%= render 'items', :locals => {:items => @items, :cart => @cart} %>
     </div>
