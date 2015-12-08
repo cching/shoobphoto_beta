@@ -13,9 +13,7 @@ class CorderExport
 
         @price = 0
 
-          cart.order_packages.where(:student_id => student.id).each do |package|
-           @price = package.option.price(student.school.id) + @price
-          end
+
 
           cart.order_packages.where(:student_id => student.id).each do |opackage|
             package = opackage.package
