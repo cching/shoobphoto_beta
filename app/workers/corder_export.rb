@@ -8,7 +8,7 @@ class CorderExport
       csv_file = ''
 
         csv_file << CSV.generate_line(['ID'] + ['School'] + ['Student'] + ['Price'] + ['Created at'] + ['Purchased?'] + ["Student found"])
-              Cart.where("created_at >= ?", 1.week.ago.utc).where.(:cart_type => nil).each do |cart|
+              Cart.where("created_at >= ?", 1.week.ago.utc).where(:cart_type => nil).each do |cart|
                 cart.students.each do |student|
 
         @price = 0
