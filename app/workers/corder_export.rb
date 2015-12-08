@@ -19,8 +19,8 @@ class CorderExport
 
           cart.order_packages.where(:student_id => student.id).each do |opackage|
             package = opackage.package
-            if package.shippings.where(:school_id => cart.students[params[:i].to_i].school.id).any?
-            @price = @price + package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).first.price
+            if package.shippings.where(:school_id => student.school.id).any?
+            @price = @price + package.shippings.where(:school_id => student.school.id).first.price
             elsif package.shippings.where(:school_id => nil).any?
             @price = @price + package.shippings.where(:school_id => nil).first.price
             
