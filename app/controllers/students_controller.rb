@@ -14,16 +14,31 @@ class StudentsController < ApplicationController
     image = @student.student_images.where(:package_id => @package.id).last
       unless image.nil?
         unless image.image_file_name.nil? 
-          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name}-dl.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name}-dl.jpg")
+
+          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
+            @reg = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+          elsif AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
+            @reg = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+          end
+
+          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}-dl.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}-dl.jpg")
+            @dl = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+          elsif AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}-dl.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
             @dl = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
           end
-          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name}-nw.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name}-nw.jpg")
+          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}-nw.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}-nw.jpg")
+            @nw = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+          elsif AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}-nw.jpg").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}-nw.jpg")
             @nw = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
           end
         end
-      end
+      end 
     end
   end
 
