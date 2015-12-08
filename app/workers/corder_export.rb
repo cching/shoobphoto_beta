@@ -29,7 +29,7 @@ class CorderExport
 
         csv_file << CSV.generate_line(["#{cart.id}"] + ["#{student.school.name}"] + ["$#{@price}"] + ["#{cart.created_at}"] + ["#{cart.purchased}"] + ["#[cart.id_supplied]"])
 
-
+      end
       end
 
 
