@@ -7,38 +7,23 @@ class CorderExport
 
       csv_file = ''
 
-        csv_file << CSV.generate_line(['ID'] + ['School'] + ['Student'] + ['Price'] + ['Created at'] + ['Purchased?'] + ["Student found"])
-              Cart.where("created_at >= ?", 1.week.ago.utc).where(:cart_type => nil).each do |cart|
-                cart.students.each do |student|
+          csv_file << CSV.generate_line(Corder.all.first.attributes.keys[0..12].map{|column| column} + Corder.all.first.attributes.keys[14..21].map{|column| column}  + ['School'] + ['Price'] + ['Items'])
+            Corder.where(:processed => false).each do |order|
 
-        @price = 0
+              
+              
+              @string = ""
+                
+              order.cart.items.each do |item|
+                citem = order.cart.cart_items.where(:item_id => item.id).last
+                @string = @string + "#{item.number}, #{item.name}, #{citem.quantity}; "
+              end
+     
+                csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{order.schools}"] + ["#{order.price.to_i}"] + [@string]
 
-          cart.order_packages.where(:student_id => student.id).each do |package|
-            if package.option.prices.where('school_id = ? OR school_id IS NULL', school).where('enddate > ? OR enddate IS NULL', Time.now).where('begin < ? OR begin IS NULL', Time.now).order('school_id DESC, enddate DESC, begin DESC').first.price.any?
-           @price = package.option.prices.where('school_id = ? OR school_id IS NULL', school).where('enddate > ? OR enddate IS NULL', Time.now).where('begin < ? OR begin IS NULL', Time.now).order('school_id DESC, enddate DESC, begin DESC').first.price
- + @price
-end
-          end
-        
-
-          cart.order_packages.where(:student_id => student.id).each do |opackage|
-            package = opackage.package
-            if package.shippings.where(:school_id => student.school.id).any?
-            @price = @price + package.shippings.where(:school_id => student.school.id).first.try(:price)
-            elsif package.shippings.where(:school_id => nil).any?
-            @price = @price + package.shippings.where(:school_id => nil).first.try(:price)
+              ) 
             
-            end
           end
-
-        csv_file << CSV.generate_line(["#{cart.id}"] + ["#{student.school.name}"] + ["#{student.first_name} #{student.last_name}"] + ["$#{@price}"] + ["#{cart.created_at}"] + ["#{cart.purchased}"] + ["#{cart.id_supplied}"])
-
-      end
-      end
-
-
-
-
           
           file_name = Rails.root.join('tmp', "order_#{Time.now.day}-#{Time.now.month}-#{Time.now.year}_#{Time.now.hour}_#{Time.now.min}.csv");
 
