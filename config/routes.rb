@@ -51,7 +51,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
     resources :packages do
       collection do
         get :carts
-        get :carts_export
+        get :export_carts
       end
     end
     resources :pages
