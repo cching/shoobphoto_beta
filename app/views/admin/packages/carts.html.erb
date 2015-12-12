@@ -1,0 +1,20 @@
+<%  bucket = AWS::S3::Bucket.new('shoobphoto') %>
+
+<% s3object = AWS::S3::S3Object.new(bucket, "csvs/#{Export.last.file_path}") %>
+      
+
+<% @image_url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true) %>
+
+<div class="row">
+<div class="col-sm-6">
+
+<%= link_to 'Generate CSV file', carts_export_admin_packages_path %><br />
+
+<% if Export.last.file_path.nil? %>
+<a href="#" download class="btn btn-disabled btn-primary">The CSV is still being processed. Please refresh in a few minutes.</a>
+<% else %>
+<a href="<%= @image_url %>" download class="btn btn-primary">Download <%= Export.last.file_path %></a>
+<% end %>
+</div>
+
+</div>

@@ -15,6 +15,16 @@ require 'smarter_csv'
     @packages = Package.all.order(:name)
   end
 
+  def carts
+  end
+
+  def export_carts
+    export = Export.create
+      CartExport.perform_async(export.id)
+
+      redirect_to carts_admin_packages_path, notice: "The new order CSV is currently being generated."
+  end
+
   def show
     @package = Package.find(params[:id])
   end
