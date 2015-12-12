@@ -16,10 +16,9 @@ class CartExport
         if cart.order_packages.where(:student_id => student.id).any?
 
           cart.order_packages.where(:student_id => student.id).each do |package|
-            if package.option.prices.where('school_id = ? OR school_id IS NULL', school).where('enddate > ? OR enddate IS NULL', Time.now).where('begin < ? OR begin IS NULL', Time.now).order('school_id DESC, enddate DESC, begin DESC').first.price.any?
-           @price = package.option.prices.where('school_id = ? OR school_id IS NULL', school).where('enddate > ? OR enddate IS NULL', Time.now).where('begin < ? OR begin IS NULL', Time.now).order('school_id DESC, enddate DESC, begin DESC').first.price
- + @price
-            end
+            unless package.option.nil?
+           @price = package.option.price(@student.school.id) + @price
+         end
           end
 
         
