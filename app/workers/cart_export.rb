@@ -17,7 +17,7 @@ class CartExport
 
           cart.order_packages.where(:student_id => student.id).each do |package|
             unless package.option.nil?
-           @price = package.option.price(@student.school.id) + @price
+           @price = package.option.price(student.school.id) + @price
          end
           end
 
