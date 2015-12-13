@@ -7,7 +7,7 @@ class CartExport
 
       csv_file = ''
 
-        csv_file << CSV.generate_line(['ID'] + ['School'] + ['Student'] + ['Price'] + ['Created at'] + ['Purchased?'] + ["Student found"])
+        csv_file << CSV.generate_line(['ID'] + ['School'] +  ['Student ID'] + ['Student'] + ['Price'] + ['Created at'] + ['Purchased?'] + ["Student found"])
               Cart.where("created_at >= ?", 1.week.ago.utc).where(:cart_type => nil).each do |cart|
                 cart.students.each do |student|
 
@@ -35,7 +35,7 @@ class CartExport
 
       end
 
-        csv_file << CSV.generate_line(["#{cart.id}"] + ["#{student.school.name}"] + ["#{student.first_name} #{student.last_name}"] + ["$#{@price}"] + ["#{cart.created_at}"] + ["#{cart.purchased}"] + ["#{cart.id_supplied}"])
+        csv_file << CSV.generate_line(["#{cart.id}"] + ["#{student.school.name}"] + ["#{student.student_id}"] + ["#{student.first_name} #{student.last_name}"] + ["$#{@price}"] + ["#{cart.created_at}"] + ["#{cart.purchased}"] + ["#{cart.id_supplied}"])
 
       end
       end
