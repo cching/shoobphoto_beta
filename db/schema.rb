@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151205220540) do
+ActiveRecord::Schema.define(version: 20151228100743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20151205220540) do
     t.boolean  "parent"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "jobseeker"
   end
 
   create_table "corders", force: true do |t|
@@ -157,6 +158,26 @@ ActiveRecord::Schema.define(version: 20151205220540) do
     t.integer  "student_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "export_list_students", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "export_list_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "export_lists", force: true do |t|
+    t.integer  "user_id"
+    t.boolean  "submitted"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
+    t.string   "name"
+    t.date     "date"
+    t.date     "delivery"
+    t.string   "school"
+    t.string   "data"
   end
 
   create_table "exports", force: true do |t|

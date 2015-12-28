@@ -10,24 +10,31 @@
 
 <div class="col-sm-10">
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-sm-3">
   <%= f.label :admin, class: 'checkbox' do %>
   <%= f.check_box :admin %>
   Administrator
 <% end %>
 </div>
 
-  <div class="col-sm-4">
+  <div class="col-sm-3">
   <%= f.label :teacher, class: 'checkbox' do %>
   <%= f.check_box :teacher %>
   Teacher/Coach
 <% end %>
 </div>
 
-  <div class="col-sm-4">
+  <div class="col-sm-3">
   <%= f.label :parent, class: 'checkbox' do %>
   <%= f.check_box :parent, :id => "parent" %>
   Parent of a child taking pictures
+<% end %>
+</div>
+
+<div class="col-sm-3">
+  <%= f.label :jobseeker, class: 'checkbox' do %>
+  <%= f.check_box :jobseeker, :id => "jobseeker" %>
+  Jobseeker
 <% end %>
 </div>
 </div>

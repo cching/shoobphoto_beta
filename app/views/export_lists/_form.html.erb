@@ -1,0 +1,35 @@
+
+<div class="modal-dialog" id="lesson_resources">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Student Awards List</h4>
+      </div>
+      <div class="modal-body centered">
+        <%= simple_form_for(@export_list, remote: true) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs" id="text">
+  	<%= f.input :name, :label_method => "Secretary's Name" %>
+  	<%= f.input :school %>
+  	<%= f.input :title %>
+  	<%= f.input :date %>
+  	<%= f.input :delivery %>
+ 	<%= f.input :data %>
+
+
+  </div>
+
+  
+<% end %>
+
+
+      <div class="form-actions">
+      <div class="modal-footer">
+    <%= f.button :submit %>
+      </div>   
+      </div>   
+
+    </div>
+  </div>
+</div>

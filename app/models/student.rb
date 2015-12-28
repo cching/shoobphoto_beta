@@ -16,6 +16,10 @@ class Student < ActiveRecord::Base
   has_many :user_students
   has_many :users, through: :user_students
 
+
+  has_many :export_list_students
+  has_many :export_lists, through: :export_list_students
+
   has_attached_file :image, path: '/id_images/:filename',
   :s3_host_name => 's3-us-west-1.amazonaws.com',
                      :preserve_files => true
@@ -68,7 +72,8 @@ end
 
   Operations = [
     ['Print', 'print'],
-    ['Download', 'download']
+    ['Download', 'download'],
+    ['Add to Awards List', 'awards']
   ]
 
 def self.sort_options

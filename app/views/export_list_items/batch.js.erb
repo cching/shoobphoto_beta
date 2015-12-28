@@ -1,6 +1,9 @@
 <% if @operation == "print" %>
 $('#myModal').modal('show');
 $("#myModal").html("<%= escape_javascript(render 'batch_types') %>");
+<% elsif @operation == "awards" %>
+$('#myModal').modal('show');
+$("#myModal").html("<%= escape_javascript(render 'batch_award') %>");
 <% else %>
 $('#myModal').modal('show');
 $("#myModal").html("<%= escape_javascript(render 'batch_zip') %>");

@@ -1,0 +1,2 @@
+$("#student_<%= @student.id %>").addClass("danger");
+$('#button_<%= @student.id %>').html("<%= escape_javascript(render("removed"))%>")

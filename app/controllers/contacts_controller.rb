@@ -47,6 +47,6 @@ class ContactsController < ApplicationController
     end
 
     def contact_params
-      params.require(:contact).permit(:name, :school, :student, :grade, :teacher, :address, :city, :email, :phone, :message, :admin, :teacher_name, :parent)
+      params.require(:contact).permit(:name, :school, :student, :grade, :jobseeker, :teacher, :address, :city, :email, :phone, :message, :admin, :teacher_name, :parent)
     end
 end

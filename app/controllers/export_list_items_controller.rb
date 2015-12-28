@@ -3,6 +3,8 @@ class ExportListItemsController < ApplicationController
    require 'zip'
  require "open-uri"
 
+
+
   def students
     if current_user
     @school = current_user.school
@@ -16,6 +18,11 @@ class ExportListItemsController < ApplicationController
 
   def batch
     @operation = params[:operation].to_s
+    if @operation == 'awards'
+      params[:student][:student_ids].each do |student_id, value|
+        current_user.students << Student.find(student_id)
+      end
+    else
     current_user.students = []
     bucket = AWS::S3::Bucket.new('shoobphoto')
     @school = School.find(params[:school_id])
@@ -31,7 +38,7 @@ class ExportListItemsController < ApplicationController
       end
 
       @types = Type.all.order(:name)
-
+    end
   end
 
   def zip
@@ -93,7 +100,7 @@ send_file t.path, :type => 'application/zip',
 
     end
   end
-
+ 
 
   def show
     @student = Student.find(params[:id])
@@ -130,6 +137,13 @@ send_file t.path, :type => 'application/zip',
     end
     respond_to :js
   end
+
+
+ def remove
+  @student = Student.find(params[:id])
+  current_user.user_students.where(:student_id => @student.id).destroy_all
+
+ end
 
   def schools
     @schools = School.all.order(:name)

@@ -3,6 +3,8 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  resources :export_lists
+
   resources :school_notes do
     member do
       patch :updatenote
@@ -79,7 +81,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   end
 
   devise_for :users
-  
+
+  match 'export/remove/:id' => 'export_list_items#remove', :via => 'GET', :as => 'export_list_remove'
   match 'export/zip/:school/:package' => 'export_list_items#zip', :via => 'GET', :as => 'export_list_zip'
   match 'orders/add_image/:id/:url' => 'orders#add_image', :via => 'GET', :as => 'orders_add_image'
   match 'export/batch/:school_id' => 'export_list_items#batch', :via => 'GET', :as => 'export_batch'
@@ -136,6 +139,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'items/search/:cart/' => 'items#search', :via => 'GET', :as => 'items_search'
   match 'items/remove/:id/' => 'items#remove', :via => 'GET', :as => 'items_remove'
   match 'items/preview/:id/:cart' => 'items#preview', :via => 'GET', :as => 'items_preview'
+  match 'items/next/:id/:cart' => 'items#next', :via => 'GET', :as => 'items_next'
+  match 'items/previous/:id/:cart' => 'items#previous', :via => 'GET', :as => 'items_previous'
 
   match 'orders/:id/find' => 'orders#find', :via => 'get', :as => 'order_find'
   match 'orders/:order_id/:student_id/processed' => 'orders#processed', :via => 'GET', :as => 'order_processed'

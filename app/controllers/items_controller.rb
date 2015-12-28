@@ -16,11 +16,12 @@ class ItemsController < ApplicationController
     respond_to :js
   end
 
-  def filter
+  def filter 
     @cart = Cart.find(params[:cart])
     @subcat = Subcategory.find(params[:subcat])
+    @subcat_id = @subcat.id
 
-    @items = @subcat.items
+    @items = @subcat.items.order(:number)
 
   end
 
@@ -42,6 +43,12 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
 
+    unless params[:subcat_id].nil?
+
+      @subcat_id = Subcategory.find(params[:subcat_id]).id
+
+    end
+
     respond_to do |format|
       format.js
     end
@@ -50,6 +57,52 @@ class ItemsController < ApplicationController
   def preview
     @item = Item.find(params[:id])
     @cart = Cart.find(params[:cart])
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def next
+    @item = Item.find(params[:id])
+    @cart = Cart.find(params[:cart])
+
+    if params[:subcat_id].nil?
+      @item_ids = Item.all.order(:number).pluck(:id)
+    else
+      @item_ids = Subcategory.find(params[:subcat_id]).items.order(:number).pluck(:id)
+    end
+    hash = Hash[@item_ids.map.with_index.to_a]
+    index = hash[@item.id] + 1
+
+    if index > @item_ids.count - 1
+      index = 0
+    end
+
+    @item = Item.find(@item_ids[index])
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def previous
+    @item = Item.find(params[:id])
+    @cart = Cart.find(params[:cart])
+
+    if params[:subcat_id].nil?
+      @item_ids = Item.all.order(:number).pluck(:id)
+    else
+      @item_ids = Subcategory.find(params[:subcat_id]).items.order(:number).pluck(:id)
+    end
+    hash = Hash[@item_ids.map.with_index.to_a]
+    index = hash[@item.id] - 1
+
+    if index < 0
+      index = @item_ids.count - 1
+    end
+
+    @item = Item.find(@item_ids[index])
 
     respond_to do |format|
       format.js

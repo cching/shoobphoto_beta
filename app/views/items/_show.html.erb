@@ -25,7 +25,13 @@
         </div>
       </div>
       <div class="modal-body" align="center">
+        <%= link_to items_previous_path(@item.id, @cart.id, :subcat_id => @subcat_id), remote: true, class: "btn btn-default" do %>
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        <% end %>
       <%= image_tag(@item.main.url, class: "img img-rounded") %>
+      <%= link_to items_next_path(@item.id, @cart.id, :subcat_id => @subcat_id), remote: true, class: "btn btn-default" do %>
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        <% end %>
 <br/>
 <br/>
 

@@ -1,7 +1,7 @@
 <h2><%= @school.name %></h2><hr />
 <div class="searchform">
 <%= form_tag(export_students_path, method: :get, :id => "students_search") do %>
-<div class="row">
+<div class="row"> 
 	<div class="col-sm-1"><div class="white">Search:</div></div>
 	<div class="col-sm-2">
         First Name: <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "form-control", id: "input_first_name", label: false, input_html: {value: "#{params[:first_name]}"} %>
