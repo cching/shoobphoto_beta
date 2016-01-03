@@ -8,7 +8,7 @@ class ListExport
       csv_file = ''
 
           csv_file << CSV.generate_line(['Student ID'] + ['First Name'] + ['Last Name'] + ['Grade'] + ['Teacher'])
-            current_user.students.each do |student|
+            export_list.user.students.each do |student|
 
                 csv_file << CSV.generate_line(["#{student.student_id}"] + ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.grade}"] + ["#{student.teacher}"]
 
