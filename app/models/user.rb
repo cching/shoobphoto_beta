@@ -9,4 +9,6 @@ class User < ActiveRecord::Base
   has_many :user_students
   has_many :students, through: :user_students
 
+  has_many :export_lists
+
 end

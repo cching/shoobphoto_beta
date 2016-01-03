@@ -8,7 +8,7 @@ class ExportListsController < ApplicationController
     respond_with(@export_lists)
   end
 
-  def show
+  def show 
     respond_with(@export_list)
   end
 
@@ -24,9 +24,10 @@ class ExportListsController < ApplicationController
   end
 
   def create
-    @export_list = ExportList.new(export_list_params)
+    @export_list = current_user.export_lists.new(export_list_params)
     @export_list.save
     respond_with(@export_list)
+    ListExport.perform_async(@export_list.id)
   end
 
   def update
@@ -45,6 +46,7 @@ class ExportListsController < ApplicationController
     end
 
     def export_list_params
-      params[:export_list]
+            params.require(:export_list).permit(:name, :school, :date, :delivery, :title, :data)
+
     end
 end

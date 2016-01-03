@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151228100743) do
+ActiveRecord::Schema.define(version: 20160103103149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(version: 20151228100743) do
     t.date     "delivery"
     t.string   "school"
     t.string   "data"
+    t.text     "file_path"
   end
 
   create_table "exports", force: true do |t|

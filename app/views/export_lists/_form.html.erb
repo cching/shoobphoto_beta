@@ -10,25 +10,32 @@
   <%= f.error_notification %>
 
   <div class="form-inputs" id="text">
-  	<%= f.input :name, :label_method => "Secretary's Name" %>
+  	<%= f.input :name, :label => "Secretary's Name" %>
   	<%= f.input :school %>
-  	<%= f.input :title %>
-  	<%= f.input :date %>
-  	<%= f.input :delivery %>
- 	<%= f.input :data %>
+  	<%= f.input :title, :label => "Award Title" %>
+    <div class="row">
+      <div class="col-sm-6">
+  	   <%= f.input :date, :label => "Award Date" %>
+      </div>
+      <div class="col-sm-6">
+  	   <%= f.input :delivery, :label => "Delivery Date" %>
+      </div>
+    </div>
+ 	  <%= f.input :data, :label => "Additional Data (GPA, Character Trait, etc)" %>
 
 
   </div>
 
   
-<% end %>
+
 
 
       <div class="form-actions">
       <div class="modal-footer">
-    <%= f.button :submit %>
+    <%= f.button :submit, "Export list" %>
       </div>   
       </div>   
+      <% end %>
 
     </div>
   </div>

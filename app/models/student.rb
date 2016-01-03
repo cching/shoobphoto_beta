@@ -73,7 +73,7 @@ end
   Operations = [
     ['Print', 'print'],
     ['Download', 'download'],
-    ['Add to Awards List', 'awards']
+    ['Email Awards List', 'awards']
   ]
 
 def self.sort_options
