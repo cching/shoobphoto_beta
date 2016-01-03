@@ -30,7 +30,7 @@ class ListExport
           file.acl = :public_read
 
           export_list.update(:file_path => key)
-          ExportMailer.list(export_list).deliver
+          ExportMailer.send_mail(export_list).deliver
           current_user.students = []
   end
 end
