@@ -31,6 +31,6 @@ class ListExport
 
           export_list.update(:file_path => key)
           ExportMailer.send_mail(export_list).deliver
-          current_user.students = []
+          export_list.user.students = []
   end
 end
