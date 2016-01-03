@@ -32,7 +32,7 @@
 
       <div class="form-actions">
       <div class="modal-footer">
-    <%= f.button :submit, "Export list" %>
+    <%= f.button :submit, "Export list", class: "btn-export" %>
       </div>   
       </div>   
       <% end %>
@@ -40,3 +40,10 @@
     </div>
   </div>
 </div>
+
+<script>
+   $(".btn-export").on("click", function() {
+     $('#myModal').modal('hide');
+   
+   });
+</script>
