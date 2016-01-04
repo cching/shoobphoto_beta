@@ -17,6 +17,9 @@ Rails.application.routes.draw do
       get :last
 end
 end
+
+get '*path' => redirect('/')
+
 match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'note'
 
   resources :contacts
