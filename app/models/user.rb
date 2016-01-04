@@ -12,3 +12,4 @@ class User < ActiveRecord::Base
   has_many :export_lists
 
 end
+ 

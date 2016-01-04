@@ -4,11 +4,11 @@ class ExportListItemsController < ApplicationController
  require "open-uri"
 
 
-
+ 
   def students
     if current_user
     @school = current_user.school
-    @students = Student.search(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).paginate(:per_page => 25,:page => params[:page])
+    @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).paginate(:per_page => 25,:page => params[:page])
 
     @image = @school.packages.where("name like ?", "%Fall%").last
   else
@@ -16,12 +16,32 @@ class ExportListItemsController < ApplicationController
   end
   end
 
+  def clear_students
+    current_user.students = []
+
+    respond_to :js
+  end
+
+  def searches
+    @search = current_user.students.search(params[:q])
+    @students = @search.result
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def batch
     @operation = params[:operation].to_s
+
+    unless params[:student].nil?
     if @operation == 'awards'
       params[:student][:student_ids].each do |student_id, value|
-        current_user.students << Student.find(student_id)
+        unless current_user.students.exists?(Student.find(student_id))
+          current_user.students << Student.find(student_id)
+        end
       end
+      redirect_to export_searches_path, format: 'js'
     else
     current_user.students = []
     bucket = AWS::S3::Bucket.new('shoobphoto')
@@ -39,6 +59,7 @@ class ExportListItemsController < ApplicationController
 
       @types = Type.all.order(:name)
     end
+  end
   end
 
   def zip
@@ -153,7 +174,7 @@ send_file t.path, :type => 'application/zip',
   def school_user
     @school = School.find(params[:id])
     @image = @school.packages.where("name like ?", "%Fall%").last
-    @students = Student.search(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).paginate(:per_page => 25,:page => params[:page])
+    @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).paginate(:per_page => 25,:page => params[:page])
   end
 
   def users

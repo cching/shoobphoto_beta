@@ -16,6 +16,7 @@
  *= require jquery.minicolors
  *= require component
  *= require animate
+ *= require bootstrap-datetimepicker.min
  *= require_self
  */
 

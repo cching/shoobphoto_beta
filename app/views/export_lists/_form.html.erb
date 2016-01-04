@@ -11,14 +11,13 @@
 
   <div class="form-inputs" id="text">
   	<%= f.input :name, :label => "Secretary's Name" %>
-  	<%= f.input :school %>
   	<%= f.input :title, :label => "Award Title" %>
     <div class="row">
       <div class="col-sm-6">
-  	   <%= f.input :date, :label => "Award Date" %>
+  	   <%= f.input :date, :label => "Award Date", :as => :date_picker %>
       </div>
       <div class="col-sm-6">
-  	   <%= f.input :delivery, :label => "Delivery Date" %>
+  	   <%= f.input :delivery, :label => "Delivery Date", :as => :date_picker  %>
       </div>
     </div>
  	  <%= f.input :data, :label => "Additional Data (GPA, Character Trait, etc)" %>
@@ -41,9 +40,7 @@
   </div>
 </div>
 
-<script>
-   $(".btn-export").on("click", function() {
-     $('#myModal').modal('hide');
-   
-   });
+
+<script type="text/javascript">
+    $('.datetimepicker').datetimepicker();
 </script>

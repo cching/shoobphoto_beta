@@ -8,47 +8,31 @@
         <div id="table">
         <table class="table">
           <thead>
-            <th>Remove</th>
-            <th>Student ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Grade</th>
-            <th>Teacher</th>
+            <th>Remove</th> 
+              <th><%= sort_link @search, :student_id, "Student ID",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
+              <th><%= sort_link @search, :first_name, "First Name",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
+              <th><%= sort_link @search, :last_name, "Last Name",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
+              <th><%= sort_link @search, :grade, "Grade",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
+              <th><%= sort_link @search, :teacher, "Teacher",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
           </thead>
           <tbody>
-       <% current_user.students.each do |student| %>
-       <tr id="student_<%= student.id %>">
-          <td id="button_<%=student.id %>">
-            <%= link_to "Remove", export_list_remove_path(student.id), remote: true, class: "btn btn-danger" %>
-          </td>
-          <td>
-            <%= student.student_id %>
-          </td>
-           <td>
-            <%= student.first_name %>
-          </td>
-           <td>
-            <%= student.last_name %>
-          </td>
-           <td>
-            <%= student.grade %>
-          </td>
-           <td>
-            <%= student.teacher %>
-          </td>
-       </tr>
-       <% end %>
-     </tbody>
+            <div class="display">
+              <%= render 'results', :students => @students %>
+            </div>
+          </tbody>
      </table>
    </div>
 
 
       <div class="form-actions">
       <div class="modal-footer">
-        <%= link_to "Finish", new_export_list_path, remote: true, class: "btn btn-primary" %>
+        <%= link_to "Clear List", export_clear_students_path, remote: true, class: "btn btn-danger", data: {confirm: "Are you sure?"} %>
         <button type="button" class="btn btn-default" data-dismiss="modal">Add More Students</button>
+        <%= link_to "Finish", new_export_list_path, remote: true, class: "btn btn-primary" %>
+
       </div>   
       </div>   
 
     </div>
   </div>
+

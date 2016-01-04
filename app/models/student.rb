@@ -34,7 +34,7 @@ class Student < ActiveRecord::Base
   end
 end
 
-  def self.search(school_id, first_name, last_name, grade, teacher, student_id)
+  def self.searching(school_id, first_name, last_name, grade, teacher, student_id)
   school = School.find(school_id)
   unless first_name.nil? || last_name.nil? || grade.nil? || teacher.nil?
     

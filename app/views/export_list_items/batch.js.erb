@@ -1,13 +1,17 @@
-<% if @operation == "print" %>
-$('#myModal').modal('show');
-$("#myModal").html("<%= escape_javascript(render 'batch_types') %>");
-<% elsif @operation == "awards" %>
-$('#myModal').modal('show');
-$("#myModal").html("<%= escape_javascript(render 'batch_award') %>");
+<% if current_user.students.any? %>
+	<% if @operation == "print" %>
+	$('#myModal').modal('show');
+	$("#myModal").html("<%= escape_javascript(render 'batch_types') %>");
+	$(':checkbox').each(function() {
+	           this.checked = false;                        
+	       });
+	<% else %>
+	$('#myModal').modal('show');
+	$("#myModal").html("<%= escape_javascript(render 'batch_zip') %>");
+	$(':checkbox').each(function() {
+	           this.checked = false;                        
+	       });
+	<% end %>
 <% else %>
-$('#myModal').modal('show');
-$("#myModal").html("<%= escape_javascript(render 'batch_zip') %>");
+	$('#myModal').modal('hide');
 <% end %>
-$(':checkbox').each(function() {
-           this.checked = false;                        
-       });

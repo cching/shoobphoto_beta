@@ -16,9 +16,12 @@
 //= require jquery_ujs
 //= require bootstrap.min
 //= require turbolinks
-//= require jquery.remotipart
-//= require jquery.iframe-transport
+//= require moment
+//= require bootstrap-datetimepicker
+//= require pickers
 //= require_tree .
+
+
 
 $('.btn-loading').button();
 

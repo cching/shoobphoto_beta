@@ -82,6 +82,9 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
 
   devise_for :users
 
+  match 'export/search/' => 'export_list_items#searches', :via => [:get, :post], :as => 'export_searches'
+  match 'export/clear/' => 'export_list_items#clear_students', :via => 'GET', :as => 'export_clear_students'
+
   match 'export/remove/:id' => 'export_list_items#remove', :via => 'GET', :as => 'export_list_remove'
   match 'export/zip/:school/:package' => 'export_list_items#zip', :via => 'GET', :as => 'export_list_zip'
   match 'orders/add_image/:id/:url' => 'orders#add_image', :via => 'GET', :as => 'orders_add_image'
