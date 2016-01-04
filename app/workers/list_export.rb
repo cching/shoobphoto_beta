@@ -1,6 +1,6 @@
 class ListExport
   include Sidekiq::Worker
-  sidekiq_options queue: "list_export"
+  sidekiq_options queue: "package_import"
     def perform(id)
       export_list = ExportList.find(id)
       require 'csv'
@@ -8,6 +8,8 @@ class ListExport
       csv_file = ''
       school = export_list.user.school
       package = school.packages.where("name like ?", "%Fall%").last
+
+      puts "@@@@@@@@#{school}@@@@@#{package}"
 
           csv_file << CSV.generate_line(['Student ID'] + ['First Name'] + ['Last Name'] + ['Grade'] + ['Teacher'] + ['Image'])
             export_list.user.students.each do |student|
