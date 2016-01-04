@@ -9,12 +9,16 @@ class ListExport
       school = export_list.user.school
       package = school.packages.where("name like ?", "%Fall%").last
 
-      puts "@@@@@@@@#{school}@@@@@#{package}"
+      if package.student_images.where(:student_id => student.id).any?
+        @string = "#{package.student_images.where(:student_id => student.id).last.image.url}"
+      else
+        @string = ""
+      end
 
           csv_file << CSV.generate_line(['Student ID'] + ['First Name'] + ['Last Name'] + ['Grade'] + ['Teacher'] + ['Image'])
             export_list.user.students.each do |student|
 
-                csv_file << CSV.generate_line(["#{student.student_id}"] + ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.grade}"] + ["#{student.teacher}"] + ["#{package.student_images.where(:student_id => student.id).last.image.url}"]
+                csv_file << CSV.generate_line(["#{student.student_id}"] + ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.grade}"] + ["#{student.teacher}"] + [@string]
 
               ) 
              
