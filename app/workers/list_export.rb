@@ -1,6 +1,6 @@
 class ListExport
   include Sidekiq::Worker
-  sidekiq_options queue: "package_import"
+  sidekiq_options queue: "list_export"
     def perform(id)
       export_list = ExportList.find(id)
       require 'csv'
@@ -22,7 +22,7 @@ class ListExport
 
           File.open(file_name, 'wb') do |file|
             file.puts csv_file
-          end
+          end 
 
           s3 = AWS::S3.new
 

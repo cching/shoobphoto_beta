@@ -26,7 +26,6 @@ class ExportListsController < ApplicationController
   def create
     @export_list = current_user.export_lists.new(export_list_params)
     @export_list.save
-    respond_with(@export_list)
     ListExport.perform_async(@export_list.id)
   end
 
