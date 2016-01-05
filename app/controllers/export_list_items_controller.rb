@@ -24,7 +24,12 @@ class ExportListItemsController < ApplicationController
 
   def searches
     @search = current_user.students.search(params[:q])
-    @students = @search.result
+
+    if params[:q].nil?
+      @students = @search.result.order(:teacher).order(:last_name)
+    else
+      @students = @search.result
+    end
 
     respond_to do |format|
       format.js
