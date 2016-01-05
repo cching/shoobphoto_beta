@@ -149,7 +149,6 @@ class ExportListItemsController < ApplicationController
   @student.save
     respond_to do |format|
       format.js { render 'create'}
-      format.html
 
     end
   end
