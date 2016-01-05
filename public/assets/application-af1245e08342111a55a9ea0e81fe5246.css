@@ -54,6 +54,11 @@ text.text_field {
   width: 1000px;
   height: auto;
 }
+
+/* line 33, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/export_list_items.css.scss */
+#batch_links {
+  padding-top: 5px;
+}
 /* line 5, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/extra_types.css.scss */
 #extras td {
   padding-left: 15px;

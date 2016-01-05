@@ -22,7 +22,7 @@ end
 match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'note'
 
   resources :contacts
-
+ 
   match 'contact' => 'contacts#new', :via => 'GET'
 
   resources :types
@@ -86,6 +86,15 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
 
   match 'export/search/' => 'export_list_items#searches', :via => [:get, :post], :as => 'export_searches'
   match 'export/clear/' => 'export_list_items#clear_students', :via => 'GET', :as => 'export_clear_students'
+
+  match 'export/add_student/:student_id' => 'export_list_items#add_student', :via => 'GET', :as => 'export_add_student'
+  match 'export/remove_student/:student_id' => 'export_list_items#remove_student', :via => 'GET', :as => 'export_remove_student'
+
+  match 'export/select_all' => 'export_list_items#select_all', :via => 'GET', :as => 'export_select_all'
+  match 'export/deselect_all' => 'export_list_items#deselect_all', :via => 'GET', :as => 'export_deselect_all'
+
+
+  match 'export/clean_up' => 'export_list_items#clean_up', :via => 'GET', :as => 'export_clean_up'
 
   match 'export/remove/:id' => 'export_list_items#remove', :via => 'GET', :as => 'export_list_remove'
   match 'export/zip/:school/:package' => 'export_list_items#zip', :via => 'GET', :as => 'export_list_zip'

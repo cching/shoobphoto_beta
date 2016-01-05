@@ -30,13 +30,11 @@
 
 </div>
 
-
-<%= link_to "New Student", export_new_path(@school.id, @image.id), remote: true, class: "btn btn-primary btn-centered" %>
-
+<%= render 'batch_links' %>
 
 
 	<% if current_user.try(:admin) %>
-
+ 
 
 			<%= render 'sidebar' %><br/>
 			<div id="students_list"><%= render 'students', :locals => {:students => @students, :image => @image} %></div>

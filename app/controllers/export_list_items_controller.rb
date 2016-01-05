@@ -3,8 +3,36 @@ class ExportListItemsController < ApplicationController
    require 'zip'
  require "open-uri"
 
+  def clean_up
+    @first = params[:students]
+  end
 
- 
+  def add_student
+    @student = Student.find(params[:student_id])
+    current_user.students << @student
+  end
+
+  def remove_student
+    @student = Student.find(params[:student_id])
+    current_user.students.delete(@student)
+  end
+
+  def select_all
+    @ids = params[:students]
+    @ids.each do |student_id|
+      unless current_user.students.exists?(Student.find(student_id))
+          current_user.students << Student.find(student_id)
+      end
+    end
+  end
+
+  def deselect_all
+    @ids = params[:students]
+    @ids.each do |student_id|
+      current_user.students.delete(Student.find(student_id))
+    end
+  end
+
   def students
     if current_user
     @school = current_user.school
@@ -17,6 +45,7 @@ class ExportListItemsController < ApplicationController
   end
 
   def clear_students
+    @ids = current_user.students.pluck(:id)
     current_user.students = []
 
     respond_to :js
@@ -38,36 +67,32 @@ class ExportListItemsController < ApplicationController
 
   def batch
     @operation = params[:operation].to_s
+    @types = Type.all.order(:name)
+    @first = current_user.students.first(25)
 
-    unless params[:student].nil?
+    if current_user.students.any?
     if @operation == 'awards'
-      params[:student][:student_ids].each do |student_id, value|
-        unless current_user.students.exists?(Student.find(student_id))
-          current_user.students << Student.find(student_id)
-        end
-      end
       redirect_to export_searches_path, format: 'js'
     else
-    current_user.students = []
     bucket = AWS::S3::Bucket.new('shoobphoto')
     @school = School.find(params[:school_id])
     @package = @school.packages.where("name like ?", "%Fall%").last
-      params[:student][:student_ids].each do |student_id, value|
-        student = Student.find(student_id)
+      current_user.students.each do |student|
         image = @package.student_images.where(:student_id => student.id)
         if image.any?
-          if AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name}.jpg").exists?
-          current_user.students << Student.find(student_id)
-        end
+          unless AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name}.jpg").exists?
+            current_user.students.delete(student)
+          end
         end
       end
 
-      @types = Type.all.order(:name)
+      
     end
   end
   end
 
   def zip
+    @first = current_user.students.first(25)
     @package = Package.find(params[:package])
     bucket = AWS::S3::Bucket.new('shoobphoto')
       t = Tempfile.new("my-temp-filename-#{Time.now}")
@@ -80,15 +105,17 @@ class ExportListItemsController < ApplicationController
               url1 = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
               url1_data = open(url1)
               z.print IO.read(url1_data)
-            
-          
         end
       end
 
-send_file t.path, :type => 'application/zip',
+          send_file t.path, :type => 'application/zip',
                                  :x_sendfile => true,
                                  :filename => "StudentImages.zip"                
           t.close
+
+          @left = current_user.students.pluck(:id) - @first.map(&:id)
+          current_user.students = []
+          current_user.students << Student.find(@left)
   end
 
   def new
@@ -143,7 +170,6 @@ send_file t.path, :type => 'application/zip',
   data = open("#{@image.student_images.where(:student_id => @student.id).last.image.url}")
   send_data data.read, filename: "#{@student.last_name}_#{@student.first_name}.jpg", type: "image/jpeg", :x_sendfile => true
 
-  
   end
 
   def update
@@ -221,7 +247,7 @@ send_file t.path, :type => 'application/zip',
     #&& ExportJob.new(@export_data.id, params[:package])
     
         redirect_to export_waiting_path(@export_data.id, params[:package], :format => 'pdf')
-
+        current_user.students = []
   end
 
   

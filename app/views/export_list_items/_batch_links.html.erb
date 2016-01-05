@@ -1,0 +1,23 @@
+<div class="row" id="batch_links">
+<div class="col-sm-3">
+	<%= link_to "New Student", export_new_path(@school.id, @image.id), remote: true, class: "btn btn-custom btn-centered" %>
+</div>
+<div class="col-sm-3">
+	<%= link_to "Print", export_batch_path(@school.id, :operation => 'print'), remote: true, class: "btn btn-custom btn-centered" %><br/>
+</div>
+<div class="col-sm-3">
+<%= link_to "Download", export_batch_path(@school.id, :operation => 'download'), remote: true, class: "btn btn-custom btn-centered" %><br/>
+</div>
+<div class="col-sm-3">
+
+<%= link_to "Email Awards List", export_batch_path(@school.id, :operation => 'awards'), remote: true, class: "btn btn-custom btn-centered" %><br/>
+</div>
+</div>
+
+<script>
+$(".btn-custom").on("click", function() {
+
+  $('#myModal').modal('show');
+  $("#myModal").html("<%= escape_javascript(render partial: 'loading_submit') %>"); 
+});
+</script>

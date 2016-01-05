@@ -8,10 +8,11 @@
 	<% else %>
 	$('#myModal').modal('show');
 	$("#myModal").html("<%= escape_javascript(render 'batch_zip') %>");
-	$(':checkbox').each(function() {
-	           this.checked = false;                        
-	       });
+
 	<% end %>
+
 <% else %>
 	$('#myModal').modal('hide');
 <% end %>
+
+

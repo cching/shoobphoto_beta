@@ -1,0 +1,7 @@
+<% @ids.each do |id| %>
+<% @student = Student.find(id) %>
+    $("#student_<%= id %>_check").html("<%= escape_javascript(render 'add_student', :locals => {:student => @student }) %>");
+<% end %>
+
+$("#select_all").html("<%= escape_javascript(render 'select_all') %>");
+

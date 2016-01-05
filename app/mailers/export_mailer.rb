@@ -9,7 +9,7 @@ class ExportMailer < ActionMailer::Base
     attachments["#{@export.file_path}.csv"] = open("#{@image_url}").read
 
 
-    mail(:to => "awards@shoobphoto.com", :from => 'info@shoobphoto.com', :subject => 'Shoob Photography Award List',
+    mail(:to => "awards@shoobphoto.com", :from => 'info@shoobphoto.com', :subject => "#{@export.user.school.name} - awards",
      :cc => "#{@export.user.email}" )
   end
 

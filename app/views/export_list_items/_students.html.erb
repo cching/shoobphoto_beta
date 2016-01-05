@@ -1,20 +1,3 @@
-<%= form_tag(export_batch_path(@school.id), method: :get, remote: true) do %>
-<div class="row">
-    <div class="col-sm-7">
-    </div>
-     <div class="col-sm-1"><div class="">Batch:</div>
-
-    </div>
-    <div class="col-sm-3">
-        <%= select_tag :operation, options_for_select(Student::Operations), class: "form-control", id: "input_student_grade" %>
-    </div>
- 
-    <div class="col-1">
-        <%= submit_tag "Submit", class: "btn btn-primary btn-submit" %>
-    </div>
-
-</div>
-
 <table class="table table">
 	<thead>
 		<th>
@@ -43,8 +26,17 @@
 		</th>
 
 		<th> 
-			<input type="checkbox" id="selectAll" value="selectAll"> Select All
-
+			<div id="select_all">
+			<% if (@students.pluck(:id) - current_user.students.pluck(:id)).empty? %>
+				<%= link_to export_deselect_all_path(:students => @students.pluck(:id)), remote: true do %>
+					    <span class="glyphicon glyphicon-check"></span>
+				<% end %>Deselect All
+			<% else %>
+				<%= link_to export_select_all_path(:students => @students.pluck(:id)), remote: true do %>
+					    <span class="glyphicon glyphicon-unchecked"></span>
+				<% end %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select All
+			<% end %>
+			</div>
 		</th>
 	</thead>
 	<tbody>
@@ -89,7 +81,17 @@
 		</td>
 		<td>
 			<% unless @image.student_images.where(:student_id => student.id).last.try(:image_file_name).nil? %>
-			<%= check_box_tag "student[student_ids][]", student.id %>
+			<div id="student_<%= student.id %>_check" class="student_check">
+			<% if current_user.students.exists?(student) %>
+				<%= link_to export_remove_student_path(student.id), remote: true do %>
+				    <span class="glyphicon glyphicon-check"></span>
+				<% end %>
+			<% else %>
+				<%= link_to export_add_student_path(student.id), remote: true do %>
+				    <span class="glyphicon glyphicon-unchecked"></span>
+				<% end %>
+			<% end %>
+			</div>
 			<% end %>
  		 </td>
 		<% end %>
@@ -98,9 +100,7 @@
 <% end %>
 </tbody>
 </table>
-
 <%= will_paginate @students %>
-<% end %>
 <script>
 $('[data-toggle="popover"]').popover();
 
@@ -114,17 +114,6 @@ $('body').on('click', function (e) {
     });
 });
 
-$('#selectAll').click(function() {
-   if (this.checked) {
-       $(':checkbox').each(function() {
-           this.checked = true;                        
-       });
-   } else {
-      $(':checkbox').each(function() {
-           this.checked = false;                        
-       });
-   } 
-});
 
 $(".btn-submit").on("click", function() {
 

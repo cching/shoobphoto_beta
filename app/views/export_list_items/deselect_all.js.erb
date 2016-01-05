@@ -1,6 +1,5 @@
-$('#myModal').modal('hide');
-<% @first.each do |id| %>
-<% @student = Student.find(id.to_i) %>
+<% @ids.each do |id| %>
+<% @student = Student.find(id) %>
     $("#student_<%= id %>_check").html("<%= escape_javascript(render 'remove_student', :locals => {:student => @student }) %>");
 <% end %>
 
