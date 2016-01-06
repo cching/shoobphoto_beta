@@ -139,14 +139,17 @@ class ExportListItemsController < ApplicationController
     @image = Package.find(params[:package])
 
 
-        image = @student.student_images.new(:package_id => @image.id)
+
+      image = @student.student_images.new(:package_id => @image.id)
       
       image.image = params[:image]
+      image.index = params[:image]
       image.save
 
     @student.id_only = true
     
   @student.save
+  @school = @student.school
     respond_to do |format|
       format.js { render 'create'}
 

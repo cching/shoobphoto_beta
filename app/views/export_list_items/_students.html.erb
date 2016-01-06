@@ -40,67 +40,22 @@
 		</th>
 	</thead>
 	<tbody>
-<% @students.each do |student| %>
+		
+	<tr id="newstudentlist"></tr>
 
-<tr id="student_<%= student.id %>" data-link="<%=  %>">
-	<%= link_to export_show_path(student.id, :image => @image.id), remote: true do %>
-		<td>
-			<%= image_tag("#{@image.student_images.where(:student_id => student.id).last.index unless @image.student_images.where(:student_id => student.id).last.try(:index).nil?}", class: "img-rounded") %>
-		</td>
-		<td>
-			<%= student.student_id %>
-		</td>
-		<td>
-			<%= student.first_name %> <%= student.last_name %>
-		</td>
-		<td>
-			<%= student.teacher %>
-		</td>
-		<td>
-			<%= student.grade %>
-		</td>
+<% @students.order(:last_name).each do |student| %>
 
-		<td> 
-			<%= link_to "Edit", export_show_path(student.id, :image => @image.id), remote: true, class: "btn btn-custom" %>
-		</td>
-		<td>
-
-			<% unless @image.student_images.where(:student_id => student.id).last.try(:image).nil? %>
-		<%= link_to "Download", export_download_path(student.id, @image.id), class: "btn btn-custom"  %>
-		<% else %>
-		<button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="This student is missing an image for an ID card. Please upload a portrait." data-original-title="" title="">Download</button>
-		<% end %>
-	</td>
-
-		<td>
-			<% if @image.student_images.where(:student_id => student.id).last.try(:image_file_name).nil? %>
-			<button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="This student is missing an image for an ID card. Please upload a portrait." data-original-title="" title="">Print</button>
-			<% else %>
-			<%= link_to "Print", export_types_path(student.id, @school.id, :image => @image.id), remote: true, class: "btn btn-custom" %>
-			<% end %>
-		</td>
-		<td>
-			<% unless @image.student_images.where(:student_id => student.id).last.try(:image_file_name).nil? %>
-			<div id="student_<%= student.id %>_check" class="student_check">
-			<% if current_user.students.exists?(student) %>
-				<%= link_to export_remove_student_path(student.id), remote: true do %>
-				    <span class="glyphicon glyphicon-check"></span>
-				<% end %>
-			<% else %>
-				<%= link_to export_add_student_path(student.id), remote: true do %>
-				    <span class="glyphicon glyphicon-unchecked"></span>
-				<% end %>
-			<% end %>
-			</div>
-			<% end %>
- 		 </td>
-		<% end %>
-	</tr>
+<%= render 'student_list', :student => student %>
 
 <% end %>
+
 </tbody>
+
 </table>
+
 <%= will_paginate @students %>
+
+
 <script>
 $('[data-toggle="popover"]').popover();
 
