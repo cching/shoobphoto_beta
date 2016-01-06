@@ -8,7 +8,7 @@
         <h4 class="modal-title" id="myModalLabel">Edit Student</h4>
       </div>
       <div class="modal-body centered">
-
+<div id="studenttable">
 <div class="row">
 	<div class="col-sm-3">
 		<%= image_tag("#{@image.image}", class: "img-rounded img-med") unless @image.nil? %><br/><br/>
@@ -21,6 +21,8 @@ Last name:
 Student ID:
 
 <%= f.input :student_id, label: false %>
+Teacher/Class:
+<%= f.input :teacher, label: false %>
 Grade:
 <%= f.select(:grade, Student::Grades, :class => 'form-control select')  %>
 <br/>
@@ -52,6 +54,7 @@ Grade:
 </div>
 
 
+</div>
 </div>
 
       <div class="form-actions">
