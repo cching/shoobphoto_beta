@@ -32,7 +32,7 @@
 	</thead>
 	<tbody>
 		<td>
-			<%= image_tag("#{@image.student_images.where(:student_id => @student.id).last.index unless @image.student_images.where(:student_id => @student.id).last.try(:index).nil?}", class: "img-rounded") %>
+			<%= image_tag("#{@image.student_images.where(:student_id => @student.id).last.index unless @image.student_images.where(:student_id => @student.id).last.try(:index).nil?}", class: "img-rounded img-med") %>
 		</td>
 		<td>
 			<%= @student.student_id %>
