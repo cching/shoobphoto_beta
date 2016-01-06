@@ -2,11 +2,11 @@ class YearbooksController < ApplicationController
   before_action :set_yearbook, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
-  before_action :require_admin
+  before_action :require_login
 
 
-  def require_admin
-    unless current_user.try(:admin)
+  def require_login
+    unless current_user
       redirect_to root_path
     end
   end
