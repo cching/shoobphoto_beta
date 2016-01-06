@@ -1,0 +1,29 @@
+<div class="modal-dialog" id="lesson_resources">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Select School</h4>
+      </div>
+      <div class="modal-body centered">
+<div id="table">
+  <div class="row">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6">
+
+        <% @schools.each do |school| %>
+            <%= link_to school.name, school_user_yearbook_path(school.id), class: "btn btn-custom btn-centered" %><br/>
+        <% end %>
+      </div>
+  <div class="col-sm-3"></div>
+</div>
+</div>
+
+      <div class="form-actions">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>   
+      </div>   
+
+    </div>
+  </div>
+

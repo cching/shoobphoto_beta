@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @yearbook.date %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @yearbook.quantity %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @yearbook.amount %>
+</p>
+
+<%= link_to 'Edit', edit_yearbook_path(@yearbook) %> |
+<%= link_to 'Back', yearbooks_path %>

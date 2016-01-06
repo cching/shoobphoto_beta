@@ -7,7 +7,7 @@ class Order < ActiveRecord::Base
   require "active_merchant/billing/rails"
 
   CardTypes = [
-    ['Visa', 'visa'],
+    ['Visa', 'visa'], 
     ['MasterCard', 'master'],
     ['Discover', 'discover'],
     ['American Express', 'american_express']

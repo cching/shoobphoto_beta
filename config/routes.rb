@@ -3,6 +3,17 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  resources :yearbooks do
+    member do
+      get :buy
+      get :school_user
+    end
+    collection do 
+      get :schools
+      get :dashboard
+    end
+  end
+
   resources :export_lists
 
   resources :school_notes do

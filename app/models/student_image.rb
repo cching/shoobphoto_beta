@@ -9,7 +9,7 @@ class StudentImage < ActiveRecord::Base
   	validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
 
-  	has_attached_file :index, styles: {thumb: "28x35#"},
+  	has_attached_file :index,
   	:url => ':s3_domain_url',
   	:path => "/images/:folder/:filename.jpg",
                      :preserve_files => true

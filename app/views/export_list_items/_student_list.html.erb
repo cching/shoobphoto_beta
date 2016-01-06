@@ -4,7 +4,7 @@
 
 <tr id="student_<%= student.id %>" >
 		<td>
-			<%= image_tag("#{@image.student_images.where(:student_id => student.id).last.index unless @image.student_images.where(:student_id => student.id).last.try(:index).nil?}", class: "img-rounded") %>
+			<%= image_tag("#{@image.student_images.where(:student_id => student.id).last.index unless @image.student_images.where(:student_id => student.id).last.try(:index).nil?}", class: "img-rounded img-index") %>
 		</td>
 		<td>
 			<%= student.student_id %>
@@ -21,6 +21,13 @@
 
 		<td> 
 			<%= link_to "Edit", export_show_path(student.id, :image => @image.id), remote: true, class: "btn btn-custom" %>
+		</td>
+		<td id="student_buy_<%= student.id %>">
+			<% if student.yearbooks.any? %>
+			<%= render 'yearbooks/bought' %>
+			<% else %>
+			<%= link_to "Buy", buy_yearbook_path(student.id), class: "btn btn-custom", remote: true %>
+			<% end %>
 		</td>
 		<td>
 

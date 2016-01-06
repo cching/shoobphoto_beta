@@ -138,8 +138,6 @@ class ExportListItemsController < ApplicationController
     @student = Student.new(student_params)
     @image = Package.find(params[:package])
 
-
-
       image = @student.student_images.new(:package_id => @image.id)
       
       image.image = params[:image]
