@@ -7,7 +7,7 @@ class YearbooksController < ApplicationController
 
   def require_login
     unless current_user
-      redirect_to root_path
+      redirect_to new_user_session_path 
     end
   end
   def buy
