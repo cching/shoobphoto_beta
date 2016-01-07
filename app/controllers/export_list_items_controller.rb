@@ -53,6 +53,7 @@ class ExportListItemsController < ApplicationController
 
   def searches
     @search = current_user.students.search(params[:q])
+    @school = params[:id]
 
     if params[:q].nil?
       @students = @search.result.order(:teacher).order(:last_name)
@@ -72,7 +73,7 @@ class ExportListItemsController < ApplicationController
 
     if current_user.students.any?
     if @operation == 'awards'
-      redirect_to export_searches_path, format: 'js'
+      redirect_to export_searches_path(params[:school_id]), format: 'js'
     else
     bucket = AWS::S3::Bucket.new('shoobphoto')
     @school = School.find(params[:school_id])
@@ -122,6 +123,7 @@ class ExportListItemsController < ApplicationController
     @student = Student.new
     @image = Package.find(params[:package])
     @school = School.find(params[:school])
+    @teacher = @school.students.where(:id_only => true).select(:teacher).order(:teacher).map(&:teacher).uniq
 
     respond_to :js
   end

@@ -21,7 +21,7 @@
       </div>
     </div>
  	  <%= f.input :data, :label => "Additional Data (GPA, Character Trait, etc)" %>
-
+    <%= f.input :school_id, :as => :hidden, :input_html => { :value => params[:school] } %>
 
   </div>
 

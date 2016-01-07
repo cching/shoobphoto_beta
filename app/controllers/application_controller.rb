@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   		if current_user.try(:admin)
         admin_dashboards_path
       else
-        dashboard_yearbooks_path
+        export_students_path
       end
 	end
 

@@ -3,4 +3,5 @@ class ExportList < ActiveRecord::Base
 
 	has_many :export_list_students
 	has_many :students, through: :export_list_students
+	belongs_to :school
 end

@@ -45,7 +45,7 @@ class ExportListsController < ApplicationController
     end
 
     def export_list_params
-            params.require(:export_list).permit(:name, :school, :date, :delivery, :title, :data)
+            params.require(:export_list).permit(:name, :school, :date, :delivery, :title, :data, :school_id)
 
     end
 end

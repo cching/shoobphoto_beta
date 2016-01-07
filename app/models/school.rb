@@ -20,4 +20,6 @@ class School < ActiveRecord::Base
 
   has_many :periods
 
+  has_many :export_lists
+
 end

@@ -18,8 +18,13 @@ Last name:
 
 Student ID:
 <%= f.input :student_id, label: false %>
-Teacher/Class:
-<%= f.input :teacher, label: false %>
+Teacher/Class: <%= link_to "Select from list", "#", id: "select_list" %>
+<div class="teacher_input">
+<%= f.input :teacher, label: false, id: "teacher_input" %>
+</div>
+<div class="teacher" hidden>
+<%= f.input :teacher, label: false, :collection => @teacher, :include_blank => true  %><br/>
+</div>
 Grade:<br/>
 <%= f.input :grade, label: false, collection: Student::Grades, class: "form-control" %><br/>
 
@@ -70,4 +75,14 @@ Grade:<br/>
 $("#submit").on("click", function() {
   $("#window").html("<%= escape_javascript(render partial: 'loading') %>"); 
 });
+
+$('#select_list').click(function (event) {
+  $('#teacher_input').attr('readonly', true);
+  $('.teacher_input').hide();
+  $('.teacher').show();
+
+  event.preventDefault(); // Prevent link from following its href
+});
+
+
 </script>
