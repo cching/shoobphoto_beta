@@ -1,7 +1,7 @@
 <h2><%= @school.name %></h2><hr />
-<div class="searchform">
+<div class="searchform" id="wide">
 <%= form_tag(export_user_school_path(@school.id), method: :get, :id => "students_search") do %>
-<div class="row">
+<div class="row"> 
 	<div class="col-sm-2" id="padding">
         First Name: <%= text_field_tag :first_name, nil, placeholder: "First Name", class: "form-control", id: "input_first_name", label: false, input_html: {value: "#{params[:first_name]}"} %>
     </div>
@@ -13,13 +13,13 @@
     </div>
     <div class="col-sm-2">
     	Grade:
-    <%= select_tag :grade, options_for_select( @school.students.where(:id_only => true).select(:grade).order(:grade).map(&:grade).uniq), class: "form-control", id: "input_student_grade", :prompt => "Search by grade" %>
+    <%= select_tag :grade, options_for_select( @school.students.where(:id_only => true).select(:grade).order(:grade).map(&:grade).uniq), class: "form-control", id: "input_student_grade", :prompt => "Grade" %>
 
    	</div>
 
     <div class="col-sm-2">
         Teacher:
-    <%= select_tag :teacher, options_for_select( @school.students.where(:id_only => true).select(:teacher).order(:teacher).map(&:teacher).uniq), class: "form-control", id: "input_student_teacher", :prompt => "Search by teacher" %>
+    <%= select_tag :teacher, options_for_select( @school.students.where(:id_only => true).select(:teacher).order(:teacher).map(&:teacher).uniq), class: "form-control", id: "input_student_teacher", :prompt => "Teacher" %>
 
     </div>
 

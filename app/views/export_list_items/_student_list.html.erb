@@ -12,37 +12,37 @@
 		<td>
 			<%= student.first_name %> <%= student.last_name %>
 		</td>
-		<td>
+		<td> 
 			<%= student.teacher %>
 		</td>
 		<td>
 			<%= student.grade %>
 		</td>
 
-		<td> 
-			<%= link_to "Edit", export_show_path(student.id, :image => @image.id), remote: true, class: "btn btn-custom" %>
+		<td class="button" style="padding-right:0px" style="padding-left:0px"> 
+			<%= link_to "Edit", export_show_path(student.id, :image => @image.id), remote: true, class: "btn btn-custom responsive-width" %>
 		</td>
-		<td id="student_buy_<%= student.id %>">
+		<td id="student_buy_<%= student.id %>" class="button" style="padding-right:0px" style="padding-left:0px">
 			<% if student.yearbooks.any? %>
 			<%= render 'yearbooks/bought' %>
 			<% else %>
-			<%= link_to "Buy", buy_yearbook_path(student.id), class: "btn btn-custom", remote: true %>
+			<%= link_to "Buy", buy_yearbook_path(student.id), class: "btn btn-custom responsive-width", remote: true %>
 			<% end %>
 		</td>
-		<td>
+		<td class="button" style="padding-right:0px" style="padding-left:0px">
 
 			<% unless @image.student_images.where(:student_id => student.id).last.try(:image).nil? %>
-		<%= link_to "Download", export_download_path(student.id, @image.id), class: "btn btn-custom"  %>
+		<%= link_to "Download", export_download_path(student.id, @image.id), class: "btn btn-custom responsive-width"  %>
 		<% else %>
-		<button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="This student is missing an image for an ID card. Please upload a portrait." data-original-title="" title="">Download</button>
+		<button type="button" class="btn btn-danger responsive-width" data-container="body" data-toggle="popover" data-placement="top" data-content="This student is missing an image for an ID card. Please upload a portrait." data-original-title="" title="">Download</button>
 		<% end %>
 	</td>
 
-		<td>
+		<td class="button" style="padding-left:0px"  style="padding-right:0px">
 			<% if @image.student_images.where(:student_id => student.id).last.try(:image_file_name).nil? %>
-			<button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="top" data-content="This student is missing an image for an ID card. Please upload a portrait." data-original-title="" title="">Print</button>
+			<button type="button" class="btn btn-danger responsive-width" data-container="body" data-toggle="popover" data-placement="top" data-content="This student is missing an image for an ID card. Please upload a portrait." data-original-title="" title="">Print</button>
 			<% else %>
-			<%= link_to "Print", export_types_path(student.id, @school.id, :image => @image.id), remote: true, class: "btn btn-custom" %>
+			<%= link_to "Print", export_types_path(student.id, @school.id, :image => @image.id), remote: true, class: "btn btn-custom responsive-width" %>
 			<% end %>
 		</td>
 		<td>

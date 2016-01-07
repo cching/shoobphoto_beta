@@ -6,6 +6,35 @@
 	margin-left:15px;
 }
 
+#button td th {
+	margin-left:1px;
+	margin-right:1px;
+	padding-left:1px;
+	padding-right:1px;
+	margin:0px !important;
+	padding:0px !important;
+}
+
+.button td th {
+	margin-left:1px;
+	margin-right:1px;
+	padding-left:1px;
+	padding-right:1px;
+	margin:0px !important;
+	padding:0px !important;
+}
+
+
+.responsive-width {
+    font-size: 1.3vw !important;
+    padding-left:5px !important;
+    margin-left:5px !important;
+    padding-right:5px !important;
+    margin-right:5px !important;
+    padding-top:5px !important;
+    padding-bottom:5px !important;
+}
+
 .img-index {
 	max-width: 28px;
 	max-height:35px;

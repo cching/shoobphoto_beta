@@ -9,36 +9,47 @@
 			Name
 		</th>
 		<th>
-			Teacher/Class
+			Teacher
 		</th>
 		<th>
 			Grade
 		</th>
 
-		<th>
+		<th id="button" style="padding-right:0px" style="padding-left:0px">
 			Edit
 		</th>
-		<th>
+		<th id="button" style="padding-right:0px"  style="padding-left:0px">
 			YB
 		</th>
-		<th>
+		<th id="button" style="padding-right:0px" style="padding-left:0px">
 			Download
 		</th>
-		<th> 
+		<th id="button" style="padding-right:0px" style="padding-left:0px"> 
 			Print
 		</th>
 
 		<th> 
-			<div id="select_all">
+			<div id="select_all" class="row">
+			<div class="col-sm-5">
 			<% if (@students.pluck(:id) - current_user.students.pluck(:id)).empty? %>
 				<%= link_to export_deselect_all_path(:students => @students.pluck(:id)), remote: true do %>
 					    <span class="glyphicon glyphicon-check"></span>
-				<% end %>Deselect All
+				<% end %>
+			</div>
+			<div class="col-sm-7">
+				Deselect All
+			</div>
 			<% else %>
 				<%= link_to export_select_all_path(:students => @students.pluck(:id)), remote: true do %>
 					    <span class="glyphicon glyphicon-unchecked"></span>
-				<% end %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select All
+				<% end %>
+			</div>
+			<div class="col-sm-7">
+			Select All
+			</div>
 			<% end %>
+		</div>
+	</div>
 			</div>
 		</th>
 	</thead>
