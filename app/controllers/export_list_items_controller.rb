@@ -39,6 +39,10 @@ class ExportListItemsController < ApplicationController
     @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).paginate(:per_page => 25,:page => params[:page])
 
     @image = @school.packages.where("name like ?", "%Fall%").last
+
+    if @image.nil?
+      @image = @school.packages.first
+    end
   else
     redirect_to new_user_session_path
   end
@@ -205,9 +209,17 @@ class ExportListItemsController < ApplicationController
   end
 
   def school_user
+    if current_user.try(:admin)
     @school = School.find(params[:id])
     @image = @school.packages.where("name like ?", "%Fall%").last
     @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).paginate(:per_page => 25,:page => params[:page])
+
+    if @image.nil?
+      @image = @school.packages.first
+    end
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   def users
