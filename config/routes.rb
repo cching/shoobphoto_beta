@@ -57,7 +57,11 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
 
   resources :schools
 
-  resources :items
+  resources :items do
+    member do
+      get 'search_term'
+    end
+  end
   match 'emailers/' => 'emailers#index', :via => 'GET', :as => 'emailer'
   match 'emailers/csv' => 'emailers#import', :via => 'POST', :as => 'import_emailer'
   namespace :admin do

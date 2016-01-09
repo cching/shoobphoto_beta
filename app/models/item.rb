@@ -21,3 +21,4 @@ class Item < ActiveRecord::Base
                      :preserve_files => true
   	validates_attachment_content_type :thumb, :content_type => /\Aimage\/.*\Z/
 end
+ 

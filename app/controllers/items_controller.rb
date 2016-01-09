@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update, :destroy, :search_term]
 
   respond_to :html
 
@@ -7,6 +7,16 @@ class ItemsController < ApplicationController
     @cart = Cart.create(:cart_type => "catalog", :cart_id => (0...8).map { (65 + rand(26)).chr }.join)
 
     redirect_to items_cart_path(@cart.cart_id)
+  end
+
+  def search_term
+    if Searchterm.where("name like ?", "%#{params[:search_term]}%").any?
+      @term = Searchterm.where("name like ?", "%#{params[:search_term]}%").last
+    else
+      @term = Searchterm.create(:name => params[:search_term])
+    end
+    @item.searchterms << @term
+    respond_to :js
   end
 
   def outside
@@ -162,7 +172,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.save
-    redirect_to items_path, notice: "Item created"
+    redirect_to edit_item_path(@item), notice: "Item created, please add search terms"
   end
 
   def update
@@ -207,7 +217,7 @@ class ItemsController < ApplicationController
     end
 
     def item_params
-      params.require(:item).permit(:name, :price, :item_id, :main, :number, :per_page, :category_ids => [])
+      params.require(:item).permit(:name, :price, :item_id, :main, :number, :thumb, :subcategory_id, :per_page, :category_ids => [])
     end
 
     def cart_params

@@ -12,19 +12,20 @@
   <% end %>
 
   <div class="field">
-    <%= f.text_area :name %>
-  </div>
-  <div class="field">
-    <%= f.input :price %>
-  </div>
-  <div class="field">
-    <%= f.input :number %>
-  </div>
-  <div class="field">
-    <%= f.input :per_page %>
-  </div>
-    <%= f.input :main, as: :file %>
+    <%= f.input :name, as: :tel %>
+    <%= f.input :number, label: "Item Number" %>
 
+    <%= f.input :price %>
+    <%= f.input :per_page, label: "Price per page?" %>
+
+
+    <%= f.input :main, as: :file %>
+    <%= f.input :thumb, as: :file %>
+
+    <%= f.association :subcategory %>
+
+
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
