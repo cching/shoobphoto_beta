@@ -22,7 +22,7 @@
     <%= f.input :main, as: :file %>
     <%= f.input :thumb, as: :file %>
 
-    <%= f.association :subcategory %>
+    <%= f.association :subcategory, collection: Subcategory.all.order(:name) %>
 
 
   </div>

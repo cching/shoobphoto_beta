@@ -17,7 +17,7 @@
           <% if @item.cart_items.where(:cart_id => @cart.id).any? %>
           <%= link_to "Remove", items_remove_path(@item, :cart_id => @cart.cart_id), remote: true, class: "btn btn-danger" %>
           <% else %>
-          <%= link_to "Add to cart", items_add_path(@item, :cart_id => @cart.cart_id), remote: true, class: "btn btn-primary" %>
+          <%= link_to "Add to cart", items_add_path(@item, :cart_id => @cart.cart_id), remote: true, class: "btn btn-custom" %>
         <% end %>
         </div>
       </div>
@@ -25,13 +25,9 @@
         </div>
       </div>
       <div class="modal-body" align="center">
-        <%= link_to items_previous_path(@item.id, @cart.id, :subcat_id => @subcat_id), remote: true, class: "btn btn-default" do %>
-          <span class="glyphicon glyphicon-chevron-left"></span>
-        <% end %>
+
       <%= image_tag(@item.main.url, class: "img img-rounded") %>
-      <%= link_to items_next_path(@item.id, @cart.id, :subcat_id => @subcat_id), remote: true, class: "btn btn-default" do %>
-          <span class="glyphicon glyphicon-chevron-right"></span>
-        <% end %>
+
 <br/>
 <br/>
 
@@ -43,8 +39,19 @@
 
       </div>
       <div class="form-actions">
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <div class="modal-footer row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-2">
+          <%= link_to items_previous_path(@item.id, @cart.id, :subcat_id => @subcat_id), remote: true, class: "btn btn-custom" do %>
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        <% end %>
+              <%= link_to items_next_path(@item.id, @cart.id, :subcat_id => @subcat_id), remote: true, class: "btn btn-custom" do %>
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        <% end %>
+      </div>
+      <div class="col-sm-3"></div>
+        <button type="button" class="btn btn-custom col-sm-2" data-dismiss="modal">Close</button>
       </div>   
       </div>   
 
