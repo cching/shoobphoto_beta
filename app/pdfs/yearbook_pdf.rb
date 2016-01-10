@@ -38,6 +38,7 @@ def items
 
     table([["Student", "Grade", "Teacher", "Date", "Quantity", "Price", "Payment Type"]], :column_widths => widths)
 
+    if @students.exists?
     @students.map do |student|
        student.carts.where(:purchased => true).map do |cart| 
             cart.order_packages.where(:package_id => 7).where(:student_id => student.id).map do |o| 
@@ -53,7 +54,8 @@ def items
             end
         end
     end
-
+    end
+    if @yearbooks.exists?
     @yearbooks.each do |yearbook|
       if yearbook.amount.nil?
         @price = "0.00"
@@ -74,6 +76,7 @@ def items
         make_cell(:content => "Notes: #{yearbook.notes}")
         ]], :column_widths => width)
      end
+  end
   end
 end
 
