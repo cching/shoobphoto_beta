@@ -27,7 +27,7 @@ class YearbooksController < ApplicationController
     @school = School.find(params[:id])
 
     @yearbooks = []
-    @carts = []
+    @students = []
 
     @school.students.each do |student|
       if student.yearbooks.any?
@@ -40,7 +40,7 @@ class YearbooksController < ApplicationController
           if cart.purchased?
             cart.order_packages.each do |order|
               if order.package_id == 7
-                @carts << cart
+                @students << student
               end
             end
           end
@@ -53,7 +53,7 @@ class YearbooksController < ApplicationController
     
     @school = current_user.school
     @yearbooks = []
-    @carts = []
+    @students = []
 
     @school.students.each do |student|
       if student.yearbooks.any?
@@ -66,7 +66,7 @@ class YearbooksController < ApplicationController
           if cart.purchased?
             cart.order_packages.each do |order|
               if order.package_id == 7
-                @carts << cart
+                @students << student
               end
             end
           end
@@ -79,12 +79,12 @@ class YearbooksController < ApplicationController
 
   def show
   @yearbooks = params[:yearbooks]
-  @carts = params[:carts]
+  @students = params[:students]
   @school = params[:school]
   respond_to do |format|
     format.html
     format.pdf do
-      pdf = YearbookPdf.new(@carts, @yearbooks, @school)
+      pdf = YearbookPdf.new(@students, @yearbooks, @school)
       send_data pdf.render, filename: "test",
                             type: "application/pdf",
                             disposition: "inline"

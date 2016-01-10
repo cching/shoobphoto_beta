@@ -1,6 +1,7 @@
 <% if current_user.admin %>
-<%= link_to "Admin: Select school", schools_yearbooks_path, class: "btn btn-custom", remote: true %>
+<%= link_to "Admin: Select school", schools_yearbooks_path, class: "btn btn-custom", remote: true %><br/><br/>
 <% end %>
+<p><%= link_to "Download List (PDF)", yearbook_path(1, :yearbooks => @yearbooks.map(&:id), :students => @students.map(&:id), :school => @school, format: "pdf"), class: "btn btn-custom" %></p>
 <h3>Yearbooks for <%= @school.name %></h3>
 <hr>
 <table class="table">
@@ -12,38 +13,49 @@
       <th>Date</th>
       <th>Quantity</th>
       <th>Price</th>
+      <th>Payment Type</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @carts.each do |cart| %>
-      <% cart.students.where(:school_id => @school.id).order(:last_name).each do |student| %>
+    <% unless @students.nil? %>
+    <% @students.each do |student| %>
+      <% student.carts.where(:purchased => true).each do |cart| %>
       <tr>
             <% cart.order_packages.where(:package_id => 7).where(:student_id => student.id).each do |o| %>
               <td><%= student.first_name %> <%= student.last_name %></td>
               <td><%= student.grade %></td>
               <td><%= student.teacher %></td>
-              <td><%= cart.created_at %></td>
+              <td><%= cart.created_at.strftime("%B %d, %Y") %></td>
               <td>1</td>
               <td><%= number_to_currency(o.option.price(student.school), :unit => "$") %></td>
+              <td>Shoob Online</td>
             <% end %>
       </tr>
-          <% end %> 
         <% end %>
-
+        <% end %> 
+        <% end %> 
         <% @yearbooks.each do |yearbook| %>
         <tr>
               <td><%= yearbook.student.first_name %> <%= yearbook.student.last_name %></td>
               <td><%= yearbook.student.grade %></td>
               <td><%= yearbook.student.teacher %></td>
-              <td><%= yearbook.created_at %></td>
+              <td><%= yearbook.created_at.strftime("%B %d, %Y") %></td>
               <td><%= yearbook.quantity %></td>
               <td><%= number_to_currency(yearbook.amount, :unit => "$") %></td>
+              <td><%= yearbook.payment_type %></td>
         </tr>
+        <% unless yearbook.notes.nil? %>
+        <tr>
+          <td colspan="7">
+          Notes: <%= yearbook.notes %>
+        </td>
+        </tr>
+        <% end %>
         <% end %>
       </tbody>
 </table>
 
 <br>
 
-<p><%= link_to "Download List (broken)", yearbook_path(1, :yearbooks => @yearbooks.map(&:id), :carts => @carts.map(&:id), :school => @school, format: "pdf") %></p>
+
