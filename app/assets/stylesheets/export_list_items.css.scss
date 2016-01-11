@@ -12,7 +12,9 @@
 	font-size: 1px !important;
 	margin-left:0px;
 	margin-right:0px;
-}
+} 
+
+
 
 #button td th {
 	margin-left:1px;
@@ -42,6 +44,27 @@
     padding-top:5px !important;
     padding-bottom:5px !important;
 }
+
+.responsive-th {
+    font-size: 1.7vw !important;
+    padding-left:5px !important;
+    margin-left:5px !important;
+    padding-right:5px !important;
+    margin-right:5px !important;
+    padding-top:5px !important;
+    padding-bottom:5px !important;
+}
+
+table.responsive_table thead th td {
+    font-size: 1.7vw !important;
+    padding-left:5px !important;
+    margin-left:5px !important;
+    padding-right:5px !important;
+    margin-right:5px !important;
+    padding-top:5px !important;
+    padding-bottom:5px !important;
+}
+
 
 .img-index {
 	max-width: 28px;

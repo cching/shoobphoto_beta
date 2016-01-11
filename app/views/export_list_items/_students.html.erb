@@ -1,57 +1,52 @@
-<table class="table table students">
+<table class="table table-responsive">
 	<thead>
-		<th style="padding-right:0px" style="padding-left:0px">
+		<tr>
+		<th style="padding-right:0px" style="padding-left:0px" class="responsive-th">
 		</th>
-		<th style="padding-right:0px" style="padding-left:0px">
-			Student ID
+		<th style="padding-right:0px" style="padding-left:0px" class="responsive-th">
+			 ID
 		</th>
-		<th style="padding-right:0px" style="padding-left:0px">
+		<th style="padding-right:0px" style="padding-left:0px" class="responsive-th">
 			Name
 		</th>
-		<th style="padding-right:0px" style="padding-left:0px">
+		<th style="padding-right:0px" style="padding-left:0px" class="responsive-th">
 			Teacher
 		</th>
-		<th style="padding-right:0px" style="padding-left:0px">
+		<th style="padding-right:0px" style="padding-left:0px" class="responsive-th">
 			Grade
 		</th>
 
-		<th id="button" style="padding-right:0px" style="padding-left:0px">
+		<th id="button" style="padding-right:0px" style="padding-left:0px" class="responsive-th">
 			Edit
 		</th>
-		<th id="button" style="padding-right:0px"  style="padding-left:0px">
+		<th id="button" style="padding-right:0px"  style="padding-left:0px" class="responsive-th">
 			YB
 		</th>
-		<th id="button" style="padding-right:0px" style="padding-left:0px">
+		<th id="button" style="padding-right:0px" style="padding-left:0px" class="responsive-th">
 			Download
 		</th>
-		<th id="button" style="padding-right:0px" style="padding-left:0px"> 
+		<th id="button" style="padding-right:0px" style="padding-left:0px" class="responsive-th"> 
 			Print
 		</th>
 
-		<th> 
-			<div id="select_all" class="row">
-			<div class="col-sm-5">
+		<th style="padding-right:0px" style="padding-left:0px" class="responsive-th"> 
+			<div id="select_all">
 			<% if (@students.pluck(:id) - current_user.students.pluck(:id)).empty? %>
 				<%= link_to export_deselect_all_path(:students => @students.pluck(:id)), remote: true do %>
 					    <span class="glyphicon glyphicon-check"></span>
 				<% end %>
-			</div>
-			<div class="col-sm-7">
+
 				Deselect All
-			</div>
 			<% else %>
 				<%= link_to export_select_all_path(:students => @students.pluck(:id)), remote: true do %>
 					    <span class="glyphicon glyphicon-unchecked"></span>
 				<% end %>
-			</div>
-			<div class="col-sm-7">
+
 			Select All
-			</div>
 			<% end %>
 		</div>
-	</div>
-			</div>
 		</th>
+	</tr>
 	</thead>
 	<tbody>
 		

@@ -2,7 +2,7 @@
 <% student = @student %>
 <% end %>
 
-<tr id="student_<%= student.id %>" >
+<tr id="student_<%= student.id %>"  class="responsive-width">
 		<td style="padding-right:0px" style="padding-left:0px">
 			<%= image_tag("#{@image.student_images.where(:student_id => student.id).last.index unless @image.student_images.where(:student_id => student.id).last.try(:index).nil?}", class: "img-rounded img-index") %>
 		</td>
