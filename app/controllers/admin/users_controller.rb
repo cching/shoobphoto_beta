@@ -35,7 +35,7 @@ class Admin::UsersController < ApplicationController
     chunk = SmarterCSV.process(params[:file].tempfile, {:chunk_size => 500, row_sep: :auto}) do |chunk|
       UserImport.perform_async(chunk)
     end
-    redirect_to admin_users_csv_path, notice: "Users successfully imported."
+    redirect_to csv_admin_users_path, notice: "Users successfully imported."
   end
 
   private
