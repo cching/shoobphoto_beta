@@ -67,7 +67,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   namespace :admin do
     resources :dashboards
     resources :schools
-    
+
     resources :packages do
       collection do
         get :carts
@@ -81,8 +81,12 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
     resources :extra_types
 
     resources :extras
-    resources :users
-    match 'users/csv/' => 'users#csv', :via => 'GET', :as => 'users_csv'
+    resources :users do
+      collection do
+        get :csv
+        post :import
+      end
+    end
     match 'users/import/' => 'users#import', :via => 'POST', :as => 'users_import'
 
     match 'packages/:id/csv' => 'packages#csv', :via => 'GET', :as => 'csv_packages'
