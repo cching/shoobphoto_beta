@@ -191,6 +191,7 @@ class ExportListItemsController < ApplicationController
 
     if params[:image].present?
       image.image = params[:image]
+      image.index = params[:image]
       image.save
     end
     respond_to :js
@@ -209,7 +210,7 @@ class ExportListItemsController < ApplicationController
   end
 
   def school_user
-    if current_user.try(:admin)
+    if current_user.try(:admin) || current_user.try(:school_admin)
     @school = School.find(params[:id])
     @image = @school.packages.where("name like ?", "%Fall%").last
     @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).paginate(:per_page => 25,:page => params[:page])
@@ -350,7 +351,7 @@ class ExportListItemsController < ApplicationController
   private
 
   def student_params
-      params.require(:student).permit(:first_name, :last_name, :id_only, :grade, :school_id, :student_id, :grade, :image, :dob, :teacher, :data1, :data2, :data3, :data4, student_images_attributes: [:image])
+      params.require(:student).permit(:first_name, :last_name, :id_only, :grade, :school_id, :student_id, :grade, :image, :index, :dob, :teacher, :data1, :data2, :data3, :data4, student_images_attributes: [:image])
     end
 
 end

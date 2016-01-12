@@ -17,7 +17,7 @@ class Admin::SchoolsController < ApplicationController
     respond_with(@schools)
   end
 
-  def show
+  def show 
     @school = School.find(params[:id])
   end
 

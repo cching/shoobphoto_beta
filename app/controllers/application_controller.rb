@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   	def after_sign_in_path_for(resource)
   		if current_user.try(:admin)
         admin_dashboards_path
+      elsif current_user.try(:parent)
+        yearbooks_path
       else
         export_students_path
       end

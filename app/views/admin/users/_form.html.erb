@@ -1,0 +1,18 @@
+<%= simple_form_for [:admin, @user], html: {class: 'form-horizontal' } do |f| %>
+<div class="form-inputs">
+<%= f.input :first_name %>
+<%= f.input :last_name %>
+
+<%= f.input :email %>
+<%= f.input :password %>
+<%= f.input :password_confirmation %>
+<%= f.association :school, collection: School.all.order(:name), as: :select %><br/>
+<%= f.input_field :school_admin, as: :boolean, inline_label: 'School Administrator' %><br/>
+<%= f.input_field :principal, as: :boolean, inline_label: 'Principal' %><br/>
+<%= f.input_field :teacher, as: :boolean, inline_label: 'Teacher' %><br/>
+<%= f.input_field :parent, as: :boolean, inline_label: 'Parent' %><br/>
+<%= f.input_field :secretary, as: :boolean, inline_label: 'Secretary' %><br/>
+</div>
+<%= f.submit %>
+
+<% end %>

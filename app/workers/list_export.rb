@@ -25,7 +25,7 @@ class ListExport
              
           end
           
-          file_name = Rails.root.join('tmp', "export_list_#{export_list.name}_#{export_list.id}.csv");
+          file_name = Rails.root.join('tmp', "#{export_list.title}_#{export_list.created_at}.csv");
 
           File.open(file_name, 'wb') do |file|
             file.puts csv_file
