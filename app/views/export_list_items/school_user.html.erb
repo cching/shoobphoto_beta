@@ -3,9 +3,7 @@
         <h2><%= @school.name %></h2>
     </div>
     <div class="col-sm-2">
-        <% unless user.teacher %>
         <%= link_to "Yearbook Management", yearbooks_path, class: "btn btn-custom" %>
-        <% end %>
     </div>
 </div>
 <hr />
