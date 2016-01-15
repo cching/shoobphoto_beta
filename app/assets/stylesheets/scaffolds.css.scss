@@ -15,12 +15,7 @@
   text-decoration: none;
 }
 
-.footer {
-  text-align:center;
-  color:#878787;
-  padding-top:35px;
-  font-size:12px;
-}
+
 
 .btn-custom:hover {
   background: #3cb0fd;
@@ -200,355 +195,7 @@ ul.navigation {
       color: #000;
     }
 
-#flash {
-  margin-bottom: 30px;
-}
 
-
-  .left {
-    float: left !important;
-  }
-  
-  .right {
-    float: right !important;
-  }
-  
-  .clear {
-    clear: both;
-  }
-  
-  .align_right {
-    text-align: right;
-  }
-  
-  .align_center {
-    text-align: center;
-  }
-  
-  .justify {
-    text-align: justify;
-  }
-  
-  .banner {
-    margin-bottom: 30px;
-  }
-  
-  .mini_popout {
-    margin-top: -11px;
-    margin-bottom: 5px;
-  }
-  
-  .mini_banner {
-    margin-bottom: 5px;
-  }
-  
-  .price_bar {
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-  
-  .bordered {
-    border: 1px #CCC solid;
-    padding: 15px;
-  }
-  
-  .margins {
-    margin-left: 15px;
-    margin-right: 15px;
-    display: block;
-  }
-
-  .full, .half, .third, .fourth, .two_thirds, .sixth, .three_twelfths, .twelfth, .three_fourths {
-    margin-left: 15px;
-    margin-right: 15px;
-    float: left;
-  }
-  
-  .half_box, .third_box, .two_thirds_box, .fourth_box, .sixth_box {
-    float: left;
-  }
-  
-  .popout {
-    margin-top: -20px;
-    margin-bottom: 10px;
-  }
-  
-  .popout_top {
-    margin-top: -20px;
-  }
-  
-  .popout_bottom {
-    margin-bottom: 10px;
-  }
-
-  .full {
-    width: 930px;
-  }
-  
-  .three_fourths {
-    width: 690px;
-  }
-  
-  .half {
-    width: 450px;
-  }
-  
-  .half_box {
-    width: 480px;
-  }
-  
-  .third {
-    width: 290px;
-  }
-  
-  .third_box {
-    width: 320px;
-  }
-  
-  .fourth {
-    width: 210px;
-  }
-  
-  .fourth_box {
-    width: 240px;
-  }
-  
-  .two_thirds {
-    width: 610px;
-  }
-  
-  .two_thirds_box {
-    width: 640px;
-  }
-  
-  .sixth {
-    width: 200x;
-  }
-  
-  .sixth_box {
-    width: 160px;
-  }
-  
-  .three_twelfths {
-    width: 210px;
-  }
-  
-  .twelfth {
-    width: 50px;
-  }
-  
-  .shaded {
-    background: #F5F5F5;
-  }
-  
-  .greyed {
-    color: #999;
-  }
-  
-  .file_list {
-    margin: 15px;
-    list-style-type: decimal;
-  }
-  
-  td.fixed_width, th.fixed_width {
-    width: 50px;
-  }
-  
-  fieldset {
-    margin: 0;
-    padding: 0;
-    border: 0;
-  }
-  
-  legend {
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  .field, .check_box {
-    padding: 15px 0;
-    border-top: 1px #CCC solid;
-  }
-  
-  .field input, .field textarea, .field select, .field label {
-    width: 100%;
-  }
-  
-  .search input {
-    padding: 5px;
-  }
-  
-  .field input.radio_button, .field input[type='checkbox'] {
-    width: auto;
-  }
-    
-  .field textarea {
-    height: 50px;
-  }
-  
-  span.field_error input {
-    border: red 1px solid;
-  }
-  
-  .right_arrow {
-    width: 5px;
-    height: 10px;
-    display: inline-block;
-    margin: 0 15px 3px 15px;
-    background: url(/images/interface/right_arrow.gif);
-  }
-
-.push_hr {
-  margin: 20px 0;
-}
-
-
-
-.slider {
-  width: 930px;
-  height: 288px;
-  position: relative;
-  margin-bottom: 50px;
-}
-
-  .slider a img {
-    position: absolute;
-    display: none;
-  }
-
-.loading_blackout {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: #000;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 100;
-}
-
-.loading_popup {
-  width: 450px;
-  height: 60px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -150px 0 0 -250px;
-  background: #FFF;
-  z-index: 101;
-  text-align: center;
-  font-weight: bold;
-  font-size: 21px;
-  padding: 120px 25px;
-}
-
-/*
- * jQuery Nivo Slider v2.5.1
- * http://nivo.dev7studios.com
- *
- * Copyright 2011, Gilbert Pellegrom
- * Free to use and abuse under the MIT license.
- * http://www.opensource.org/licenses/mit-license.php
- * 
- * March 2010
- */
- 
- 
-/* The Nivo Slider styles */
-.nivoSlider {
-    position:relative;
-}
-.nivoSlider img {
-    position:absolute;
-    top:0px;
-    left:0px;
-}
-/* If an image is wrapped in a link */
-.nivoSlider a.nivo-imageLink {
-    position:absolute;
-    top:0px;
-    left:0px;
-    width:100%;
-    height:100%;
-    border:0;
-    padding:0;
-    margin:0;
-    z-index:6;
-    display:none;
-}
-/* The slices and boxes in the Slider */
-.nivo-slice {
-    display:block;
-    position:absolute;
-    z-index:5;
-    height:100%;
-}
-.nivo-box {
-    display:block;
-    position:absolute;
-    z-index:5;
-}
-/* Caption styles */
-.nivo-caption {
-    position:absolute;
-    left:0px;
-    bottom:0px;
-    background:#000;
-    color:#fff;
-    opacity:0.8; /* Overridden by captionOpacity setting */
-    width:100%;
-    z-index:8;
-}
-.nivo-caption p {
-    padding:5px;
-    margin:0;
-}
-.nivo-caption a {
-    display:inline !important;
-}
-.nivo-html-caption {
-    display:none;
-}
-/* Direction nav styles (e.g. Next & Prev) */
-.nivo-directionNav a {
-  position: absolute;
-  top: 295px;
-  font-weight: bold;
-  text-decoration: underline;
-  z-index: 9;
-  cursor: pointer;
-}
-.nivo-directionNav a:hover {
-  text-decoration: none;
-}
-.nivo-prevNav {
-  left: 0;
-}
-.nivo-nextNav {
-  right: 0;
-}
-/* Control nav styles (e.g. 1,2,3...) */
-.nivo-controlNav {
-  width: 100%;
-  position: absolute;
-  top: 265px;
-  padding: 30px 0;
-  text-align: center;
-}
-.nivo-controlNav a {
-  width: 10px;
-  height: 10px;
-  display: inline-block;
-  margin: 0 15px;
-  text-indent: -9999px;
-  background: url(/images/interface/navigation.gif) no-repeat;
-  cursor: pointer;
-}
-.nivo-controlNav a.active {
-  background-position: 0 -10px;
-}
 
 #footer {
   padding: 30px 0;
@@ -556,5 +203,42 @@ ul.navigation {
   color: #AAA;
   font-weight: bold;
   text-align: center;
+}
+
+#bottom_images img{
+  max-width:100%;
+  align:center;
+  margin-right: auto; margin-left: auto;
+}
+
+#bottom_images {
+  max-width:70%;
+  align:center;
+  margin-right: auto; margin-left: auto;
+}
+
+
+
+
+.carousel-control.left, .carousel-control.right {
+    background-image: none
+}
+
+.carousel {
+  max-width:70%;
+  align:center;
+  margin-right: auto; margin-left: auto;
+}
+
+.privacypolicy {
+  text-decoration:underline;
+}
+
+.footer {
+  text-align:center;
+  color:#878787;
+  padding-top:20px;
+  font-size:12px;
+  letter-spacing: 1.4px;
 }
 

@@ -18,6 +18,11 @@ class Admin::UsersController < ApplicationController
 		respond_with(@user)
 	end
 
+	def update
+    @user.update(user_params)
+    redirect_to admin_users_path
+  end
+
 	def index
 		@users = User.all.order(:last_name)
 	end
