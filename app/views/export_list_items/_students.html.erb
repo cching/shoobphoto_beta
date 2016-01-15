@@ -30,6 +30,7 @@
 		</th>
 
 		<th style="padding-right:0px" style="padding-left:0px" class="responsive-th select-all"> 
+			
 			<div id="select_all">
 			<% if (@students.pluck(:id) - current_user.students.pluck(:id)).empty? %>
 				<%= link_to export_deselect_all_path(:students => @students.pluck(:id)), remote: true do %>
