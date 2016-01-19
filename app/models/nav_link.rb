@@ -14,5 +14,13 @@ class NavLink < ActiveRecord::Base
     navlink.save!
     end
   end
+  
+
+   
+  def path
+    "/#{self_and_ancestors.map(&:slug).join('/')}"
+  end
+  
+  
 
 end
