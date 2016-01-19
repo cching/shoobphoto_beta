@@ -1,7 +1,6 @@
 class NavLink < ActiveRecord::Base
   acts_as_nested_set
     
-  before_validation :set_slug
   
   validates_presence_of :title
 
@@ -19,7 +18,7 @@ class NavLink < ActiveRecord::Base
   def slug= slug_value
     write_attribute :slug, slug_value.parameterize('_')
   end
-  
+   
   def path
     "/#{self_and_ancestors.map(&:slug).join('/')}"
   end
