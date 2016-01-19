@@ -14,18 +14,5 @@ class NavLink < ActiveRecord::Base
     navlink.save!
     end
   end
-  
-  def slug= slug_value
-    write_attribute :slug, slug_value.parameterize('_')
-  end
-   
-  def path
-    "/#{self_and_ancestors.map(&:slug).join('/')}"
-  end
-  
-  private
-  
-  def set_slug
-    write_attribute :slug, title.parameterize('_') if slug.blank?
-  end
+
 end
