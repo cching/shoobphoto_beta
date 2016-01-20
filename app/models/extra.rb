@@ -3,6 +3,8 @@ class Extra < ActiveRecord::Base
 
 	has_many :prices
 
+	accepts_nested_attributes_for :prices, allow_destroy: true
+
 	has_many :order_package_extras, dependent: :destroy
 	has_many :order_packages, through: :order_package_extras
 	has_attached_file :image,

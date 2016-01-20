@@ -9,6 +9,17 @@
   <%= f.input :quantity %>
   <%= f.input :image, as: :file %>
 
+  <%= f.simple_fields_for :prices do |builder| %>
+          <%= render 'price_fields', f: builder %>
+  <% end %>
+
+  <div class="row">
+<div class="col-sm-2"></div>
+<div class="col-sm-8"> 
+  <%= link_to_add_fields "Add Prices", f, :prices %>
+ </div>
+ </div>
+
   <div class="form-actions">
     <%= f.button :submit %>
   </div>

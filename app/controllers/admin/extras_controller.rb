@@ -43,6 +43,6 @@ class Admin::ExtrasController < ApplicationController
     end
 
     def extra_params
-      params.require(:extra).permit(:name, :extra_type_id, :image, :quantity)
+      params.require(:extra).permit(:name, :extra_type_id, :image, :quantity, prices_attributes: [:id, :price, :enddate, :begin, :school_id, :_destroy])
     end
 end
