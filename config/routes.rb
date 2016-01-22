@@ -26,7 +26,7 @@ Rails.application.routes.draw do
       get :district
       get :school
       get :last
-end
+end 
 end
 
 
@@ -58,6 +58,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   resources :schools
 
   resources :items do
+
     member do
       get 'search_term'
     end
@@ -74,7 +75,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
         get :export_carts
       end
     end
-    resources :pages
+    resources :pages 
     resources :nav_links
     resources :banners
 
@@ -167,6 +168,9 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'students/cart/:cart_id/update_cart' => 'students#update_cart', :via => 'PATCH', :as => 'update_cart'
   match 'catalog' => 'items#index', :via => 'GET', :as => 'catalog'
   match 'items/cart/:cart_id' => 'items#cart', :via => 'GET', :as => 'items_cart'
+  get "students/lessonbuilder" => redirect("http://lessonbuilder.shoobphoto.com")
+
+
   match 'items/cart/:cart_id/quantity' => 'items#quantity', :via => 'GET', :as => 'items_quantity'
   match 'items/cart/:cart_id/update_items' => 'items#update_items', :via => 'patch', :as => 'update_items'
   match 'items/add/:id/' => 'items#add', :via => 'GET', :as => 'items_add'

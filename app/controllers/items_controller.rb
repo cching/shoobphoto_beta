@@ -25,6 +25,8 @@ class ItemsController < ApplicationController
     redirect_to items_cart_outside_path(@cart.cart_id, params[:cat])
   end
 
+  
+
   def cart_outside
     @category = Category.find(params[:cat])
     @items = @category.items.order(:number)

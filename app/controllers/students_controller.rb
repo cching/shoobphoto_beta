@@ -131,6 +131,10 @@ class StudentsController < ApplicationController
     end 
   end
 
+  def lessonbuilder
+    redirect_to "www.lessonbuilder.shoobphoto.com"
+  end
+
   def update
     @cart = Cart.find_by_cart_id(params[:id])
     @student = @cart.students[params[:i].to_i]
