@@ -95,7 +95,7 @@ class ExportListItemsController < ApplicationController
     end
   end
   end
-
+ 
   def zip
     @first = current_user.students.first(25)
     @package = Package.find(params[:package])
