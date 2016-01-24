@@ -23,7 +23,6 @@ class ListExport
                 if image.last.try(:folder).nil? && (image.last.downloaded == false)
                     title = "#{student.last_name}_#{student.first_name}.jpg"
                     z.put_next_entry("images/#{title}")
-                    puts "@@@@@@ #{image.last.image.url}"
                     url1_data = open(image.last.image.url)
                     z.print IO.read(url1_data)
                     image.last.update(:downloaded => true)
@@ -46,6 +45,7 @@ class ListExport
             file = s3.buckets['shoobphoto'].objects["zips/#{@tkey}.zip"].write(:file => t.path)
             file.acl = :public_read
           end
+          t.close
       end
           
           file_name = Rails.root.join('tmp', "#{export_list.title}_#{export_list.created_at}.csv");
