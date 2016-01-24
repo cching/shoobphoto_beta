@@ -43,7 +43,7 @@ class ListExport
           s3 = AWS::S3.new
 
           @tkey = File.basename(t)
-          file = s3.buckets['shoobphoto'].objects["zips/#{tkey}"].write(:file => t)
+          file = s3.buckets['shoobphoto'].objects["zips/#{@tkey}"].write(:file => t)
           file.acl = :public_read
 
       end
