@@ -46,7 +46,6 @@ class ListExport
           file = s3.buckets['shoobphoto'].objects["zips/#{tkey}"].write(:file => t)
           file.acl = :public_read
 
-          t.close
       end
           
           file_name = Rails.root.join('tmp', "#{export_list.title}_#{export_list.created_at}.csv");
