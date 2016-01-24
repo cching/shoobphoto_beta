@@ -10,8 +10,8 @@ class ListExport
       package = school.packages.where("name like ?", "%Fall%").last
 
       bucket = AWS::S3::Bucket.new('shoobphoto')
-      t = Rails.root.join('tmp', "zip-#{Time.now}.zip");
-      Zip::OutputStream.open(t) do |z|
+      t = Tempfile.new("my-temp-filename-#{Time.now}")
+      Zip::OutputStream.open(t.path) do |z|
             
           csv_file << CSV.generate_line(['Student ID'] + ['First Name'] + ['Last Name'] + ['Grade'] + ['Teacher'] + ['Image'])
             export_list.user.students.each do |student|
@@ -42,8 +42,8 @@ class ListExport
           end
           s3 = AWS::S3.new
 
-          @tkey = File.basename(t)
-          file = s3.buckets['shoobphoto'].objects["zips/#{@tkey}"].write(:file => t)
+          @tkey = "#{Time.now}-zip"
+          file = s3.buckets['shoobphoto'].objects["zips/#{@tkey}.zip"].write(:file => t)
           file.acl = :public_read
 
       end
