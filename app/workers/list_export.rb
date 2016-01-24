@@ -24,6 +24,7 @@ class ListExport
                   z.put_next_entry("images/#{title}")
                   s3object = AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name}.jpg")
                   url1 = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+                  puts "@@@@@ #{url1}"
                   url1_data = open(url1)
                   z.print IO.read(url1_data)
                   image.last.update(:downloaded => true)
