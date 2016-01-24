@@ -42,7 +42,7 @@ class ListExport
           end
           s3 = AWS::S3.new
 
-          tkey = File.basename(t)
+          @tkey = File.basename(t)
           file = s3.buckets['shoobphoto'].objects["zips/#{tkey}"].write(:file => t)
           file.acl = :public_read
 
@@ -62,7 +62,7 @@ class ListExport
           file.acl = :public_read
 
           export_list.update(:file_path => key)
-          ExportMailer.send_mail(export_list, tkey).deliver
+          ExportMailer.send_mail(export_list, @tkey).deliver
 
   end
 end
