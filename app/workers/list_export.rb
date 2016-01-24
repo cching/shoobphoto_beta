@@ -19,7 +19,7 @@ class ListExport
                 @string = "#{package.student_images.where(:student_id => student.id).last.image.url}"
 
                 image = package.student_images.where(:student_id => student.id)
-                unless image.last.try(:folder).nil? && (image.last.downloaded == false)
+                if image.last.try(:folder).nil? && (image.last.downloaded == false)
                   if AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name}.jpg").exists?
                     title = "#{student.last_name}_#{student.first_name}.jpg"
                     z.put_next_entry("images/#{title}")
