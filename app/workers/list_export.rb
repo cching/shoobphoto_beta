@@ -20,15 +20,13 @@ class ListExport
 
                 image = package.student_images.where(:student_id => student.id)
                 if image.last.try(:folder).nil? && (image.last.downloaded == false)
-                  if AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name}.jpg").exists?
                     title = "#{student.last_name}_#{student.first_name}.jpg"
                     z.put_next_entry("images/#{title}")
-                    s3object = AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name}.jpg")
-                    url1 = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-                    url1_data = open(url1)
+                    puts "@@@@@@ #{image.last.image.url}"
+                    url1_data = open(image.last.image.url)
                     z.print IO.read(url1_data)
                     image.last.update(:downloaded => true)
-                  end
+                  
                 end
 
               else
