@@ -8,6 +8,7 @@ class ListExport
       csv_file = ''
       school = export_list.user.school
       package = school.packages.where("name like ?", "%Fall%").last
+      @any = false
 
       bucket = AWS::S3::Bucket.new('shoobphoto')
       t = Tempfile.new("my-temp-filename-#{Time.now}")
@@ -26,7 +27,7 @@ class ListExport
                     url1_data = open(image.last.image.url)
                     z.print IO.read(url1_data)
                     image.last.update(:downloaded => true)
-                  
+                    @any = true
                 end
 
               else
@@ -38,12 +39,13 @@ class ListExport
               ) 
              
           end
-          s3 = AWS::S3.new
+          if @any
+            s3 = AWS::S3.new
 
-          @tkey = "#{Time.now}-zip"
-          file = s3.buckets['shoobphoto'].objects["zips/#{@tkey}.zip"].write(:file => t)
-          file.acl = :public_read
-
+            @tkey = "#{Time.now}-zip"
+            file = s3.buckets['shoobphoto'].objects["zips/#{@tkey}.zip"].write(:file => t.path)
+            file.acl = :public_read
+          end
       end
           
           file_name = Rails.root.join('tmp', "#{export_list.title}_#{export_list.created_at}.csv");
