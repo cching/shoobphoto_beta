@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112103118) do
+ActiveRecord::Schema.define(version: 20160124215440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -520,6 +520,7 @@ ActiveRecord::Schema.define(version: 20160112103118) do
     t.string   "url3"
     t.string   "url4"
     t.string   "url1"
+    t.boolean  "downloaded",         default: false
   end
 
   create_table "student_proofs", force: true do |t|
