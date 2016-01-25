@@ -141,7 +141,8 @@ class ExportListItemsController < ApplicationController
   end
 
   def create
-    @student = Student.new(student_params)
+    @school = School.find(params[:school])
+    @student = @school.students.new(student_params)
     @image = Package.find(params[:package])
 
       image = @student.student_images.new(:package_id => @image.id)

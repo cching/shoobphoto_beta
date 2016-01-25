@@ -26,7 +26,6 @@ Teacher/Class:
 Grade:
 <%= f.select(:grade, Student::Grades, :class => 'form-control select')  %>
 <br/>
-<%= f.association :school, as: :select %>
 
 
 <%= file_field_tag :image %>
