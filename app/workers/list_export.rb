@@ -24,7 +24,7 @@ class ListExport
                     title = "#{student.last_name}_#{student.first_name}.jpg"
                     z.put_next_entry("images/#{title}")
                     url1_data = open(image.last.image.url)
-                    z.osprint IO.read(url1_data)
+                    z.print IO.read(url1_data)
 
                     image.last.update(:downloaded => true)
                     @any = true
