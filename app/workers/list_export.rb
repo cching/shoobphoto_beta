@@ -20,7 +20,9 @@ class ListExport
                 @string = "#{package.student_images.where(:student_id => student.id).last.image.url}"
 
                 image = package.student_images.where(:student_id => student.id)
+                puts "1@@@@@ #{image.last}"
                 if image.last.try(:folder).nil? && (image.last.downloaded == false)
+                  puts "2@@@@@ #{image.last}"
                     title = "#{student.last_name}_#{student.first_name}.jpg"
                     z.put_next_entry("images/#{title}")
                     url1_data = open(image.last.image.url)
