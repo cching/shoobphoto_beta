@@ -45,7 +45,7 @@ Teacher/Class: <%= link_to "Select from list", "#", id: "select_list" %>
 </div>
 
 
-<%= f.input :school, :value => @school.id, class: "form-control", :as => :hidden %>
+<%= f.input :school, input_html: {value: @school.id}, class: "form-control", :as => :hidden %>
 
 
 
