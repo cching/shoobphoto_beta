@@ -11,13 +11,20 @@
       <div class="modal-body centered">
 
 <div id="studenttable">
-		First name:
-<%= f.input :first_name, label: false %>
-Last name:
-<%= f.input :last_name, label: false %>
+<div class="row">
+  <div class="col-sm-6">
+<%= f.input :first_name %>
+</div>
+<div class="col-sm-6">
+<%= f.input :last_name %>
+</div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <%= f.input :grade, collection: Student::Grades, class: "form-control" %><br/>
 
-Student ID:
-<%= f.input :student_id, label: false %>
+</div>
+  <div class="col-sm-6">
 Teacher/Class: <%= link_to "Select from list", "#", id: "select_list" %>
 <div class="teacher_input">
 <%= f.input :teacher, label: false, id: "teacher_input" %>
@@ -25,13 +32,22 @@ Teacher/Class: <%= link_to "Select from list", "#", id: "select_list" %>
 <div class="teacher" hidden>
 <%= f.input :teacher, label: false, :collection => @teacher, :include_blank => true  %><br/>
 </div>
-Grade:<br/>
-<%= f.input :grade, label: false, collection: Student::Grades, class: "form-control" %><br/>
+</div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+<%= f.input :student_id, label: "Student ID" %>
+</div>
+<div class="col-sm-6">
+  Student Image<br/>
+  <%= file_field_tag :image %>
+</div>
+</div>
 
-<%= f.association :school, :selected => @school.id, class: "form-control" %>
+
+<%= f.association :school, :selected => @school.id, class: "form-control", :as => :hidden %>
 
 
-<%= file_field_tag :image %>
 
 <hr>
 <div class="row">
