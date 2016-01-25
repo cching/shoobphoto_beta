@@ -16,7 +16,7 @@ class ExportMailer < ActionMailer::Base
     end
 
 
-    mail(:to => "cfching95@gmail.com", :from => 'info@shoobphoto.com', :subject => "#{@export.school.name} - awards",
+    mail(:to => "awards@shoobphoto.com", :from => 'info@shoobphoto.com', :subject => "#{@export.school.name} - awards",
      :cc => "#{@export.user.email}" )
   end
 
