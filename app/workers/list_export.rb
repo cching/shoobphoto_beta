@@ -40,6 +40,9 @@ class ListExport
               ) 
              
           end
+          
+      end
+
           if @any
             s3 = AWS::S3.new
 
@@ -48,7 +51,6 @@ class ListExport
             file.acl = :public_read
           end
           t.close
-      end
           
           file_name = Rails.root.join('tmp', "#{export_list.title}_#{export_list.created_at}.csv");
 

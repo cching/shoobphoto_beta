@@ -8,9 +8,12 @@ class ExportMailer < ActionMailer::Base
     s3object = AWS::S3::S3Object.new(bucket, "csvs/#{@export.file_path}") 
     @image_url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true) 
     attachments["#{@export.file_path}.csv"] = open("#{@image_url}").read
-    s3object = AWS::S3::S3Object.new(bucket, "zips/#{@key}") 
-    @url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true) 
-    attachments["StudentImages.zip"] = open("#{@url}").read
+
+    unless (defined? @key) == nil
+      s3object = AWS::S3::S3Object.new(bucket, "zips/#{@key}") 
+      @url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true) 
+      attachments["StudentImages.zip"] = open("#{@url}").read
+    end
 
 
     mail(:to => "cfching95@gmail.com", :from => 'info@shoobphoto.com', :subject => "#{@export.school.name} - awards",
