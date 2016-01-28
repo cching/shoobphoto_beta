@@ -5,7 +5,7 @@
 <tr id="student_<%= student.id %>"  class="responsive-width">
 		<td style="padding-right:0px" style="padding-left:0px">
 
-			<%= image_tag("#{@image.student_images.where(:student_id => student.id).last.image}", class: "img-rounded img-index") %>
+			<%= image_tag("#{@image.student_images.where(:student_id => student.id).last.try(:image)}", class: "img-rounded img-index") %>
 
 		</td>
 		<td style="padding-right:0px" style="padding-left:0px">
