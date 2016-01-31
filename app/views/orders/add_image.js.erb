@@ -4,6 +4,11 @@ $('#2 img').removeClass('animated fadeIn img-package-custom');
 $('#3 img').removeClass('animated fadeIn img-package-custom');
 
 
-$('#<%= @index %> img').addClass('animated fadeIn img-package-custom img-package');
+$('.checkboxesonpage').each(function(i, obj) {
+    $('.checkboxesonpage').html('<%= escape_javascript(render(:partial => 'unchecked')) %>');
 
+});
+
+$('#<%= @index %> img').addClass('animated fadeIn img-package-custom img-package');
+$('#check_<%= @index %>').html('<%= escape_javascript(render(:partial => 'check')) %>');
 

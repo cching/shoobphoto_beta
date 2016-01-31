@@ -1,0 +1,38 @@
+<% if @students.any? %>
+<table>
+	<tr>
+		<th>
+			First Name
+		</th>
+		<th>
+			Last Name
+		</th>
+		<th>
+			Grade
+		</th>
+		<th>
+			Teacher
+		</th>
+	</tr>
+
+	<% @students.each do |student| %>
+	<tr>
+		<td>
+			<%= student.first_name %>
+		</td>
+		<td>
+			<%= student.last_name %>
+		</td>
+		<td>
+			<%= student.grade %>
+		</td>
+		<td>
+			<%= student.teacher %>
+		</td>
+</tr>
+	<% end %>
+	
+<% else %>
+<h3>No students were synced for this user</h3>
+<% end %>
+<%= link_to "Back", admin_users_path %>

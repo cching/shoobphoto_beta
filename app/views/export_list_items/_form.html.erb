@@ -13,7 +13,7 @@
 <div id="studenttable">
 <div class="row">
   <div class="col-sm-6">
-<%= f.input :first_name %>
+<%= f.input :first_name %> 
 </div>
 <div class="col-sm-6">
 <%= f.input :last_name %>
@@ -25,12 +25,10 @@
 
 </div>
   <div class="col-sm-6">
-Teacher/Class: <%= link_to "Select from list", "#", id: "select_list" %>
-<div class="teacher_input">
-<%= f.input :teacher, label: false, id: "teacher_input" %>
-</div>
-<div class="teacher" hidden>
-<%= f.input :teacher, label: false, :collection => @teacher, :include_blank => true  %><br/>
+Teacher/Class:
+
+<div class="teacher">
+<%= f.input :teacher, label: false, :collection => @school.students.where(:id_only => true).select(:teacher).order(:teacher).map(&:teacher).uniq, :include_blank => true  %><br/>
 </div>
 </div>
 </div>
@@ -91,13 +89,7 @@ $("#submit").on("click", function() {
   $("#window").html("<%= escape_javascript(render partial: 'loading') %>"); 
 });
 
-$('#select_list').click(function (event) {
-  $('#teacher_input').attr('readonly', true);
-  $('.teacher_input').hide();
-  $('.teacher').show();
 
-  event.preventDefault(); // Prevent link from following its href
-});
 
 
 </script>

@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
 		@url = params[:url]
 		respond_to do |format|
 			format.js
-		end
+		end 
 	end
  
 	def delete_package

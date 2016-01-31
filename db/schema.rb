@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160124215440) do
+ActiveRecord::Schema.define(version: 20160131053841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20160124215440) do
     t.string   "cart_type"
     t.integer  "school_id"
     t.boolean  "id_supplied", default: true
+    t.string   "email"
   end
 
   create_table "categories", force: true do |t|
@@ -553,6 +554,7 @@ ActiveRecord::Schema.define(version: 20160124215440) do
     t.string   "data3"
     t.string   "data4"
     t.integer  "period_id"
+    t.integer  "user_id"
   end
 
   create_table "subcategories", force: true do |t|

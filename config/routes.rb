@@ -83,6 +83,9 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
 
     resources :extras
     resources :users do
+      member do 
+        get :sync
+      end
       collection do
         get :csv
         post :import

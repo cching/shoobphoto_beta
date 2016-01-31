@@ -17,6 +17,11 @@ if you have any questions.</p>
         * required input
         </div>
         <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
+        <%= text_field_tag :email, nil, placeholder: "Your email address", class: "form-control", id: "input_email" %>
+        </div><br/>
+        <%= text_field_tag :student_id, nil, placeholder: "Student's ID Number", class: "form-control", id: "input_student_id" %><br/>
+
+        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
         <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "form-control", id: "input_first_name" %>
         </div><br/>
         <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
@@ -32,13 +37,12 @@ if you have any questions.</p>
 
         <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
         <%= text_field_tag :student_teacher, nil, placeholder: "Student's Teacher", class: "form-control", id: "input_student_teacher" %>
-        </div><br />
+        </div>
 
         <% end %>
 
         <%= hidden_field_tag "cart", @cart %>
         <%= hidden_field_tag "i", @i %>
-         <%= text_field_tag :student_id, nil, placeholder: "Student's ID Number", class: "form-control", id: "input_student_id" %>
         </div>
         
     <div class="submit" id="submit">
@@ -57,6 +61,12 @@ function validateForm(){isValid = false;
     if (x == null || x == "") {
         isValid = false;
     }
+
+    var z = document.getElementById('input_email').value;
+    if (z == null || z == "") {
+        isValid = false;
+    }
+
     var y = document.getElementById('input_last_name').value;
     if (y == null || y == "") {
         isValid = false;

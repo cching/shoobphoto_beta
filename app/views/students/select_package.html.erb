@@ -9,30 +9,21 @@
 			<% if package.multiple %>
 				<% if @senior_url.length > 1 %>
 				
-				Please select a pose for your order:
-				<hr>
-
+					<% @senior_url.each_slice(2) do |slice| %>
 					<div class="row">
-						<% unless @senior_id[0] == "default" %>
-						<div class="col-sm-6" id="0"><%= link_to image_tag(@senior_url[0], :class => 'img-rounded img-package'), orders_add_image_path(opackage.id, @senior_id[0], :link => @senior_url[0], :index => "0"), remote: true %></div>
+						<% slice.each do |senior_url| %>
+						<% i = @senior_url.index(senior_url) %>
+						<% unless @senior_id[i] == "default" %>
+						<div class="col-sm-6" id="<%= @senior_url.index(senior_url) %>"><%= image_tag(senior_url, :class => 'img-rounded img-package')%><br/>
+								<%= link_to orders_add_image_path(opackage.id, @senior_id[i], :link => senior_url, :index => "#{i}"), remote: true do %>
+								    <span id="check_<%= i%>"><span class="glyphicon glyphicon-unchecked"></span></span> Pose <%= i + 1 %>
+								<% end %>
+
+						</div>
 						<% end %>
-						<% unless @senior_id[1] == "default" %>
-						<div class="col-sm-6" id="1"><%= link_to image_tag(@senior_url[1], :class => 'img-rounded img-package'), orders_add_image_path(opackage.id, @senior_id[1], :link => @senior_url[1], :index => "1"), remote: true %></div>
 						<% end %>
 					</div>
-					<div class="row">
-						<% unless @senior_id[2] == "default" %>
-						<div class="col-sm-6" id="2"><%= link_to image_tag(@senior_url[2], :class => 'img-rounded img-package'), orders_add_image_path(opackage.id, @senior_id[2], :link => @senior_url[2], :index => "2"), remote: true %></div>
-						<% end %>
-						<% unless @senior_id[3] == "default" %>
-						<div class="col-sm-6" id="3"><%= link_to image_tag(@senior_url[3], :class => 'img-rounded img-package'), orders_add_image_path(opackage.id, @senior_id[3], :link => @senior_url[3], :index => "3"), remote: true %></div>
-						<% end %>
-					</div> 
-					<div class="row">
-						<% unless @senior_id[4] == "default" %>
-						<div class="col-sm-6" id="4"><%= link_to image_tag(@senior_url[4], :class => 'img-rounded img-package'), orders_add_image_path(opackage.id, @senior_id[4], :link => @senior_url[4], :index => "4"), remote: true %></div>
-						<% end %>
-					</div> 
+					<% end %>
 				<% else %>
 					<%= image_tag(@senior_url[0], class: "img-rounded img-package") %>
 				<% end %>
@@ -41,6 +32,7 @@
 			<% end %>
 		</div><br />
 		<div class="col-sm-8">
+			<h3>Please select the <%= "pose and" if (@senior_url.length > 1 && package.id == 6) %> package you wish to purchase.</h3>
 		<span id="package_<%= package.id %>">
 	  		<%= f.fields_for :order_packages, OrderPackage.where(:package_id => package.id).where(:student_id => @student.id).where(:cart_id => @cart.id) do |s| %>
 

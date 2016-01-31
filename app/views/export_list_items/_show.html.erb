@@ -22,7 +22,9 @@ Student ID:
 
 <%= f.input :student_id, label: false %>
 Teacher/Class:
-<%= f.input :teacher, label: false %>
+<div class="teacher">
+<%= f.input :teacher, label: false, :collection => @student.school.students.where(:id_only => true).select(:teacher).order(:teacher).map(&:teacher).uniq, :include_blank => true  %><br/>
+</div>
 Grade:
 <%= f.select(:grade, Student::Grades, :class => 'form-control select')  %>
 <br/>

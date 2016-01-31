@@ -29,8 +29,26 @@ class Admin::UsersController < ApplicationController
 
 	def create
 		@user = User.new(user_params)
-    	@user.save
-    	redirect_to admin_users_path, notice: "User created."
+
+    	if @user.save
+
+	    	if @user.teacher?
+	    		redirect_to sync_admin_user_path(@user)
+	    	else
+	    		redirect_to admin_users_path, notice: "User created."
+	    	end
+	    else
+	    	render('new')
+	    end
+    end
+
+    def sync
+    	@user = User.find(params[:id])
+    	@students = @user.school.students.where("teacher like ?", "%#{@user.last_name}%")
+
+    	@students.each do |student|
+    		student.update(:user_id => @user.id)
+    	end
     end
 
 	def edit
@@ -49,6 +67,6 @@ class Admin::UsersController < ApplicationController
     end
 
     def user_params
-      params[:user].permit(:first_name, :school_id, :last_name, :password, :password_confirmation, :school_admin, :parent, :secretary, :teacher, :email)
+      params[:user].permit(:first_name, :school_id, :last_name, :password, :password_confirmation, :school_admin, :principal, :parent, :secretary, :teacher, :email)
     end
 end
