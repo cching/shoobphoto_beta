@@ -32,7 +32,11 @@
 			<% end %>
 		</div><br />
 		<div class="col-sm-8">
+			<% if (defined? @senior_url) %>
 			<h3>Please select the <%= "pose and" if (@senior_url.try(:length) > 1 && package.id == 6) %> package you wish to purchase.</h3>
+			<% else %>
+			<h3>Please select the package you wish to purchase.</h3>
+			<% end %>
 		<span id="package_<%= package.id %>">
 	  		<%= f.fields_for :order_packages, OrderPackage.where(:package_id => package.id).where(:student_id => @student.id).where(:cart_id => @cart.id) do |s| %>
 
