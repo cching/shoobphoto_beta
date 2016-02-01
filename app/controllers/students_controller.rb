@@ -5,6 +5,18 @@ class StudentsController < ApplicationController
   def find_student
   end
 
+  def findbyid
+    @school = School.find(params[:school])
+    @students = @school.students.where("student_id = ?", "#{params[:student_id].gsub(/\s+/, "")}").where(:id_only => true)
+
+    if @students.any? && (params[:student_id].gsub(/\s+/, "") != "" && params[:student_id] != nil)
+      @student = @students.last
+      respond_to :js
+    else
+      render :nothing => true
+    end
+  end
+
   def download
     @student = Student.where("lower(shoob_id) = ?", "#{params[:shoob_id].gsub(/\s+/, "").downcase}").last
     @package = @student.school.packages.where("lower(name) like ?", "%fall%").last unless @student.nil?

@@ -146,6 +146,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'students' => 'students#schools', :via => 'GET', :as => 'student_schools'
   match 'students/cart/:id' => 'students#cart', :via => 'GET', :as => 'student_cart'
   match 'students/duplicate/:school' => 'students#duplicate', :via => 'GET', :as => 'student_duplicate'
+  match 'students/findbyid/:school' => 'students#findbyid', :via => 'GET', :as => 'student_findbyid'
+
   match 'students/input/:school/:cart/:i' => 'students#input', :via => 'GET', :as => 'student_input'
   match 'students/school_find/' => 'students#school_find', :via => 'GET', :as => 'student_school_find'
   match 'students/search' => 'students#search', :via => 'GET', :as => 'student_search'

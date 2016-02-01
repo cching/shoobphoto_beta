@@ -1,0 +1,30 @@
+<div class="animated fadeIn">
+<div class="input-group"><span class="input-group-addon ok" id="sizing-addon3"><span class="glyphicon glyphicon-ok"></span>
+</span>
+        <%= text_field_tag :first_name, @student.first_name, placeholder: "Student's First Name", class: "form-control", id: "input_first_name" %>
+        </div><br/>
+        <div class="input-group"><span class="input-group-addon ok" id="sizing-addon3"><span class="glyphicon glyphicon-ok"></span>
+</span></span>
+        <%= text_field_tag :last_name, @student.last_name, placeholder: "Student's Last Name", class: "form-control", id: "input_last_name" %>
+        </div><br />
+
+        <div class="input-group"><span class="input-group-addon ok" id="sizing-addon3"><span class="glyphicon glyphicon-ok"></span>
+</span></span>
+        <%= select_tag :grade, options_for_select(Student::Grades, :selected => @student.grade), class: "form-control", id: "input_student_grade" %>
+        </div><br/>
+       
+        <% if @school.school_type.id == 3 %>
+        
+        <% if @student.teacher.nil? %>
+        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
+        <%= text_field_tag :student_teacher, nil, placeholder: "Student's Teacher", class: "form-control", id: "input_student_teacher" %>
+        </div>
+        <% else %>
+        <div class="input-group"><span class="input-group-addon ok" id="sizing-addon3"><span class="glyphicon glyphicon-ok"></span>
+        </span></span>
+        <%= text_field_tag :student_teacher, @student.teacher, placeholder: "Student's Teacher", class: "form-control", id: "input_student_teacher" %>
+        </div>
+        <% end %><br/>
+
+        <% end %>
+</div>

@@ -16,30 +16,35 @@ if you have any questions.</p>
         <div class="requiredtext">
         * required input
         </div>
-        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
+        <span id="emailspan"></span>
+        <div class="input-group"><span class="input-group-addon emaillist" id="sizing-addon3">*</span>
         <%= text_field_tag :email, nil, placeholder: "Your email address", class: "form-control", id: "input_email" %>
-        </div><br/>
-        <%= text_field_tag :student_id, nil, placeholder: "Student's ID Number", class: "form-control", id: "input_student_id" %><br/>
+        </div>
+        <br/>
+        <%= text_field_tag :student_id, nil, placeholder: "Student's ID Number", class: "form-control", id: "input_student_id", :'data-validate' => "/students/findbyid/#{@school.id}" %><br/>
 
-        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
+        <span id="replace">
+
+        <div class="input-group"><span class="input-group-addon firstname" id="sizing-addon3">*</span>
         <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "form-control", id: "input_first_name" %>
         </div><br/>
-        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
+        <div class="input-group"><span class="input-group-addon lastname" id="sizing-addon3">*</span>
         <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "form-control", id: "input_last_name" %>
         </div><br />
 
-        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
+        <div class="input-group"><span class="input-group-addon grade" id="sizing-addon3">*</span>
         <%= select_tag :grade, options_for_select(Student::Grades), class: "form-control", id: "input_student_grade" %>
         </div><br/>
        
         <% if @school.school_type.id == 3 %>
         
 
-        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
+        <div class="input-group"><span class="input-group-addon teacher" id="sizing-addon3">*</span>
         <%= text_field_tag :student_teacher, nil, placeholder: "Student's Teacher", class: "form-control", id: "input_student_teacher" %>
-        </div>
+        </div><br/>
 
         <% end %>
+      </div>
 
         <%= hidden_field_tag "cart", @cart %>
         <%= hidden_field_tag "i", @i %>
@@ -67,10 +72,17 @@ function validateForm(){isValid = false;
         isValid = false;
     }
 
+    var emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; 
+
+      if(!emailReg.test(z)) {
+        isValid = false;
+      }
+
     var y = document.getElementById('input_last_name').value;
     if (y == null || y == "") {
         isValid = false;
     }
+
 
     <% if @school.school_type.id == 3 %>
       var y = document.getElementById('input_student_teacher').value;
@@ -86,4 +98,73 @@ function validateForm(){isValid = false;
     alert('Please fill all required fields');
   }
 }
+
+$(function() {
+    $('[data-validate]').blur(function() {
+        $this = $(this);
+        $.get($this.data('validate'), {
+            student_id: $this.val()
+        }).success(function() {
+            $this.removeClass('field_with_errors');
+        }).error(function() {
+            $this.addClass('field_with_errors');
+        });
+    });
+});
+
+$("#input_email").blur(function() 
+{
+ var emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; 
+ var emailaddress = $("#input_email").val();
+ if(!emailReg.test(emailaddress)) 
+
+    $("#emailspan").html('<font color="#cc0000">Please enter valid email address</font>');  
+ else {
+  
+  $(".emaillist").replaceWith("<%= escape_javascript(render 'email') %>");
+  $("#emailspan").hide();
+}
+});
+
+$("#input_first_name").blur(function() 
+{
+var y = document.getElementById('input_first_name').value;
+ y = y.replace(/ /g,'');
+if (y == null || y == "") {
+
+    } else {
+      $(".firstname").replaceWith("<%= escape_javascript(render 'email') %>");
+    }
+});
+$("#input_last_name").blur(function() 
+{
+var y = document.getElementById('input_last_name').value;
+ y = y.replace(/ /g,'');
+if (y == null || y == "") {
+
+    } else {
+      $(".lastname").replaceWith("<%= escape_javascript(render 'email') %>");
+    }
+});
+$("#input_student_grade").blur(function() 
+{
+var y = document.getElementById('input_student_grade').value;
+ y = y.replace(/ /g,'');
+if (y == null || y == "") {
+
+    } else {
+      $(".grade").replaceWith("<%= escape_javascript(render 'email') %>");
+    }
+});
+
+$("#input_student_teacher").blur(function() 
+{
+var y = document.getElementById('input_student_teacher').value;
+ y = y.replace(/ /g,'');
+if (y == null || y == "") {
+
+    } else {
+      $(".teacher").replaceWith("<%= escape_javascript(render 'email') %>");
+    }
+});
 </script>
