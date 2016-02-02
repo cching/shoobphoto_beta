@@ -13,7 +13,7 @@ class StudentsController < ApplicationController
       @student = @students.last
       respond_to :js
     else
-      render :nothing => true
+      respond_to :js
     end
   end
 

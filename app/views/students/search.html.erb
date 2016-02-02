@@ -10,7 +10,7 @@ if you have any questions.</p>
   </div>
   <div class="col-sm-6 animated fadeInRight">
   <h3 class="info"><%= @school.name %></h3><hr>
-  <div class="info">Enter your student's information to purchase portraits.</div> <br />
+  <div class="info">Enter your student's information to purchase portraits.</div> 
 	<%= form_tag(student_find_path(@school.id), method: :get, :name => 'new_search_form', :id => "new_search_form") do %>
         <div id="required">
         <div class="requiredtext">
@@ -33,7 +33,7 @@ if you have any questions.</p>
         </div><br />
 
         <div class="input-group"><span class="input-group-addon grade" id="sizing-addon3">*</span>
-        <%= select_tag :grade, options_for_select(Student::Grades), class: "form-control", id: "input_student_grade" %>
+        <%= select_tag :grade, options_for_select(Student::Grades), class: "form-control", id: "input_student_grade", :prompt => "Student's Grade" %>
         </div><br/>
        
         <% if @school.school_type.id == 3 %>
@@ -100,7 +100,7 @@ function validateForm(){isValid = false;
 }
 
 $(function() {
-    $('[data-validate]').blur(function() {
+    $('[data-validate]').keyup(function(){
         $this = $(this);
         $.get($this.data('validate'), {
             student_id: $this.val()
@@ -112,59 +112,60 @@ $(function() {
     });
 });
 
-$("#input_email").blur(function() 
+$("#input_email").keyup(function() 
 {
  var emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; 
  var emailaddress = $("#input_email").val();
  if(!emailReg.test(emailaddress)) 
+        $(".emaillist").replaceWith("<%= escape_javascript(render :partial =>'bad', :locals => {:@ajaxclass => "emaillist"}) %>");
 
-    $("#emailspan").html('<font color="#cc0000">Please enter valid email address</font>');  
  else {
   
-  $(".emaillist").replaceWith("<%= escape_javascript(render 'email') %>");
-  $("#emailspan").hide();
+      $(".emaillist").replaceWith("<%= escape_javascript(render :partial =>'email', :locals => {:@ajaxclass => "emaillist"}) %>");
 }
 });
-
-$("#input_first_name").blur(function() 
+$("#input_first_name").keyup(function()
 {
 var y = document.getElementById('input_first_name').value;
  y = y.replace(/ /g,'');
 if (y == null || y == "") {
-
+      $(".firstname").replaceWith("<%= escape_javascript(render :partial =>'bad', :locals => {:@ajaxclass => "firstname"}) %>");
     } else {
-      $(".firstname").replaceWith("<%= escape_javascript(render 'email') %>");
+      $(".firstname").replaceWith("<%= escape_javascript(render :partial => 'email', :locals => {:@ajaxclass => "firstname"}) %>");
     }
 });
-$("#input_last_name").blur(function() 
+$("#input_last_name").keyup(function() 
 {
 var y = document.getElementById('input_last_name').value;
  y = y.replace(/ /g,'');
 if (y == null || y == "") {
+      $(".lastname").replaceWith("<%= escape_javascript(render :partial => 'bad', :locals => {:@ajaxclass => "lastname"}) %>");
 
     } else {
-      $(".lastname").replaceWith("<%= escape_javascript(render 'email') %>");
+      $(".lastname").replaceWith("<%= escape_javascript(render :partial => 'email', :locals => {:@ajaxclass => "lastname"}) %>");
     }
 });
-$("#input_student_grade").blur(function() 
+$("#input_student_grade").change(function() 
 {
 var y = document.getElementById('input_student_grade').value;
  y = y.replace(/ /g,'');
 if (y == null || y == "") {
+      $(".grade").replaceWith("<%= escape_javascript(render :partial => 'bad', :locals => {:@ajaxclass => "grade"}) %>");
 
     } else {
-      $(".grade").replaceWith("<%= escape_javascript(render 'email') %>");
+      $(".grade").replaceWith("<%= escape_javascript(render :partial => 'email', :locals => {:@ajaxclass => "grade"}) %>");
     }
 });
 
-$("#input_student_teacher").blur(function() 
+$("#input_student_teacher").keyup(function() 
 {
 var y = document.getElementById('input_student_teacher').value;
  y = y.replace(/ /g,'');
 if (y == null || y == "") {
+      $(".teacher").replaceWith("<%= escape_javascript(render :partial => 'bad', :locals => {:@ajaxclass => "teacher"}) %>");
 
     } else {
-      $(".teacher").replaceWith("<%= escape_javascript(render 'email') %>");
+      $(".teacher").replaceWith("<%= escape_javascript(render :partial => 'email', :locals => {:@ajaxclass => "teacher"}) %>");
     }
 });
 </script>
