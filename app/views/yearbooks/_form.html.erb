@@ -12,15 +12,15 @@
 		    <%= f.input :date, :as => :date_picker %>
 		    <%= f.input :quantity %>
 		    <%= f.input :amount, :label => "Amount Paid" %>
+
         <%= f.input :payment_type, collection: Yearbook::Payment, :label => "Payment Type", :include_blank => false %><br/>
+        <%= f.input :sold_by %>
+
         Notes
         <%= f.text_area :notes, :input_html => {:cols => 1, :style => "min-width:100%;"}, as: :text  %>
 		  </div>
 
       <%= f.input :student_id, :as => :hidden, :input_html => { :value => @student.id } %>
-
-		
-
 
       <div class="form-actions">
       <div class="modal-footer">
@@ -35,3 +35,4 @@
 <script type="text/javascript">
     $('.datetimepicker').datetimepicker();
 </script>
+

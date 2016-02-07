@@ -123,6 +123,6 @@ end
     end
 
     def yearbook_params
-      params.require(:yearbook).permit(:date, :quantity, :amount, :student_id, :notes, :payment_type)
+      params.require(:yearbook).permit(:date, :quantity, :amount, :student_id, :notes, :payment_type, :sold_by)
     end
 end

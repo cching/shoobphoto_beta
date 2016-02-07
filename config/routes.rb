@@ -67,7 +67,12 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'emailers/csv' => 'emailers#import', :via => 'POST', :as => 'import_emailer'
   namespace :admin do
     resources :dashboards
-    resources :schools
+    resources :schools do
+      collection do
+        get 'export'
+        get 'csv'
+      end
+    end
 
     resources :packages do
       collection do

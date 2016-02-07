@@ -32,11 +32,11 @@ def items
 
 
   def first_table
-    widths = [76,76,76,76,76,76,76]
+    widths = [67.5,67.5,67.5,67.5,67.5,67.5,67.5,67.5]
     width = 532
     cell_height = 20
 
-    table([["Student", "Grade", "Teacher", "Date", "Quantity", "Price", "Payment Type"]], :column_widths => widths)
+    table([["Student", "Grade", "Teacher", "Date", "Quantity", "Price", "Payment Type", "Sold By"]], :column_widths => widths)
 
     unless @students.nil?
     @students.map do |student|
@@ -49,7 +49,8 @@ def items
               make_cell(:content => "#{cart.created_at.strftime("%B %d, %Y")}"),
               make_cell(:content => "1"),
               make_cell(:content => "$#{'%.2f' % (o.option.price(student.school))}"),
-              make_cell(:content => "Shoob Online")
+              make_cell(:content => "Shoob Online"),
+              make_cell(:content => "")
               ]], :column_widths => widths)
             end
         end
@@ -69,7 +70,8 @@ def items
         make_cell(:content => "#{yearbook.created_at.strftime("%B %d, %Y")}"),
         make_cell(:content => "#{yearbook.quantity}"),
         make_cell(:content => "$#{@price}"),
-        make_cell(:content => "#{yearbook.payment_type}")
+        make_cell(:content => "#{yearbook.payment_type}"),
+        make_cell(:content => "#{yearbook.sold_by}")
       ]], :column_widths => widths)
      unless yearbook.notes.nil?
       table([[

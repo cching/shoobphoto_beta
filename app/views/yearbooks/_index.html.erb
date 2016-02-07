@@ -14,6 +14,7 @@
       <th>Quantity</th>
       <th>Price</th>
       <th>Payment Type</th>
+      <th>Sold by</th>
     </tr>
   </thead>
 
@@ -30,6 +31,7 @@
               <td>1</td>
               <td><%= number_to_currency(o.option.price(student.school), :unit => "$") %></td>
               <td>Shoob Online</td>
+              <td></td>
             <% end %>
       </tr>
         <% end %>
@@ -44,6 +46,8 @@
               <td><%= yearbook.quantity %></td>
               <td><%= number_to_currency(yearbook.amount, :unit => "$") %></td>
               <td><%= yearbook.payment_type %></td>
+              <td><%= yearbook.sold_by %></td>
+
         </tr>
         <% unless yearbook.notes.nil? %>
         <tr>

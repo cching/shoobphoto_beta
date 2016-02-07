@@ -21,6 +21,16 @@ class Admin::SchoolsController < ApplicationController
     @school = School.find(params[:id])
   end
 
+  def csv
+    export = SchoolExport.create
+      ExportSchool.perform_async(export.id)
+
+      redirect_to export_admin_schools_path, notice: "The new order CSV is currently being generated."
+  end
+
+  def export
+  end
+
   def new
     @school = School.new
     respond_with(@school)
