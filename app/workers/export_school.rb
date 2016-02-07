@@ -2,7 +2,7 @@ class ExportSchool
   include Sidekiq::Worker
   sidekiq_options queue: "package_import"
     def perform(id)
-      export = Export.find(id)
+      export = SchoolExport.find(id)
       require 'csv'
 
       csv_file = ''
