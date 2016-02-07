@@ -35,6 +35,6 @@ class ExportSchool
           file = s3.buckets['shoobphoto'].objects["csvs/#{key}"].write(:file => file_name)
           file.acl = :public_read
 
-          export.update(:file_path => key)
+          export.update(:file_file_name => key)
     end
 end

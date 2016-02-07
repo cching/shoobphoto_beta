@@ -1,6 +1,6 @@
 <%  bucket = AWS::S3::Bucket.new('shoobphoto') %>
 
-<% s3object = AWS::S3::S3Object.new(bucket, "csvs/#{SchoolExport.last.file_path}") %>
+<% s3object = AWS::S3::S3Object.new(bucket, "csvs/#{SchoolExport.last.file_file_name}") %>
       
 
 <% @image_url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true) %>
@@ -10,10 +10,10 @@
 
 <%= link_to 'Generate CSV file', csv_admin_schools_path %><br />
 
-<% if SchoolExport.last.file_path.nil? %>
+<% if SchoolExport.last.file_file_name.nil? %>
 <a href="#" download class="btn btn-disabled btn-primary">The CSV is still being processed. Please refresh in a few minutes.</a>
 <% else %>
-<a href="<%= @image_url %>" download class="btn btn-primary">Download <%= SchoolExport.last.file_path %></a>
+<a href="<%= @image_url %>" download class="btn btn-primary">Download <%= SchoolExport.last.file_file_name %></a>
 <% end %>
 </div>
 
