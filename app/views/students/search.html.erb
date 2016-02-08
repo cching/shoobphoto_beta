@@ -31,10 +31,12 @@ if you have any questions.</p>
         <div class="input-group"><span class="input-group-addon lastname" id="sizing-addon3">*</span>
         <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "form-control", id: "input_last_name" %>
         </div><br />
+        <% unless @school.school_type.id == 4 %>
 
         <div class="input-group"><span class="input-group-addon grade" id="sizing-addon3">*</span>
         <%= select_tag :grade, options_for_select(Student::Grades), class: "form-control", id: "input_student_grade", :prompt => "Student's Grade" %>
         </div><br/>
+        <% end %>
        
         <% if @school.school_type.id == 3 %>
         
