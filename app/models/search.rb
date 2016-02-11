@@ -6,7 +6,7 @@ class Search < ActiveRecord::Base
   
 private
   def find_orders
-    orders = Order.order(:id)
+    orders = Order.order("processed ASC")
 
     students = Student.where('lower(students.first_name) like ?', "%#{student_first_name.downcase}%") if student_first_name.present?
     students = students.where('lower(students.last_name) like ?', "%#{student_first_name.downcase}%") if student_last_name.present?
