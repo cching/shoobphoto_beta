@@ -60,8 +60,8 @@ class TemplatesController < ApplicationController
   end
 
   def new
-    @template = Template.new
-    respond_with(@template)
+    @template = Template.create(:name => "New template")
+    redirect_to edit_template_path(@template)
   end
 
   def edit
@@ -75,6 +75,7 @@ class TemplatesController < ApplicationController
 
   def update
     @template.update(template_params)
+    puts "@@@@@ #{@template.errors.full_messages}"
 
 
     if @template.types.where(:preview => true).any?
@@ -123,6 +124,6 @@ class TemplatesController < ApplicationController
     end
 
     def template_params
-      params[:template].permit(:name, :column_ids => [], fields_attributes: [:id, :x, :y, :height, :width, :align, :column, :template_id, :font, :font_id, :text_size, :spacing, :name, :_destroy, :color, :_destroy], pdfs_attributes: [:id, :name, :file, :_destroy, :template_id, types_attributes: [:id, :name, :_destroy, :preview, :school_ids => []]])
+      params[:template].permit(:name, :category_ids, :column_ids => [], fields_attributes: [:id, :x, :y, :height, :width, :align, :column, :template_id, :font, :font_id, :text_size, :spacing, :name, :_destroy, :color, :_destroy], pdfs_attributes: [:id, :name, :file, :_destroy, :template_id, types_attributes: [:id, :name, :_destroy, :preview, :school_ids => []]])
     end
 end
