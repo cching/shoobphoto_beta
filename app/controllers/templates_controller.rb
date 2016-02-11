@@ -77,7 +77,7 @@ class TemplatesController < ApplicationController
     @template.update(template_params)
     puts "@@@@@ #{@template.errors.full_messages}"
 
-
+    if @template.types.any?
     if @template.types.where(:preview => true).any?
       typeid = @template.types.where(:preview => true).last.id
     else
@@ -100,6 +100,7 @@ class TemplatesController < ApplicationController
           @export_data.file = file
         @export_data.save
       end
+    end
         
     
     redirect_to edit_template_path(@template.id)
