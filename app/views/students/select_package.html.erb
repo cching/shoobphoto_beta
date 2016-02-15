@@ -15,7 +15,7 @@
 						<% i = @senior_url.index(senior_url) %>
 						<% unless @senior_id[i] == "default" %>
 						<div class="col-sm-6" id="<%= @senior_url.index(senior_url) %>"><%= image_tag(senior_url, :class => 'img-rounded img-package')%><br/>
-								<%= link_to orders_add_image_path(opackage.id, @senior_id[i], :link => senior_url, :index => "#{i}"), remote: true do %>
+								<%= link_to orders_add_image_path(opackage.id, @senior_id[i], :pose => "#{i + 1}" , :index => "#{i}"), remote: true do %>
 								    <span id="check_<%= i%>"><span class="glyphicon glyphicon-unchecked"></span></span> Pose <%= i + 1 %>
 								<% end %>
 

@@ -13,7 +13,7 @@
 	<td>
 	<% @cart.order_packages.where(:student_id => student.id).each do |o| %>
 
-			<%= number_to_currency(o.option.price, :unit => "$") %>  - <%= o.package.name %> - <%= o.option.name %><br/>
+			<%= number_to_currency(o.option.price(@cart.students[params[:i].to_i].school.id), :unit => "$") %>  - <%= o.package.name %><%= ": Pose #{o.pose}" unless o.pose.nil? %> - <%= o.option.name %><br/>
 
 			<% o.extras.each do |extra| %>
 				<%= number_to_currency(extra.prices.first.try(:price), :unit => "$") %> - <%= extra.name %> <br/>

@@ -277,6 +277,8 @@ class StudentsController < ApplicationController
     @school = School.find(params[:school])
     @i = (params[:i].nil? || params[:i] == "") ?  0 : params[:i]
     @cart_id = (params[:cart].nil? || params[:cart] == "") ?  1 : params[:cart]
+    cookies[:user_email] = { :value => "#{params[:email]}", :expires => 5.years.from_now}
+
 
     if (params[:student_id].nil? || params[:student_id] == "")
 

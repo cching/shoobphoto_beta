@@ -17,9 +17,15 @@ if you have any questions.</p>
         * required input
         </div>
         <span id="emailspan"></span>
+        <% unless cookies[:user_email].nil? %>
+        <div class="input-group"><span class="input-group-addon emaillist ok" id="sizing-addon3"><span class="glyphicon glyphicon-ok"></span></span>
+        <%= text_field_tag :email, nil, placeholder: "Your email address", class: "form-control", id: "input_email", value: "#{cookies[:user_email]}" %>
+        </div>
+        <% else %>
         <div class="input-group"><span class="input-group-addon emaillist" id="sizing-addon3">*</span>
         <%= text_field_tag :email, nil, placeholder: "Your email address", class: "form-control", id: "input_email" %>
         </div>
+        <% end %>
         <br/>
         <%= text_field_tag :student_id, nil, placeholder: "Student's ID Number", class: "form-control", id: "input_student_id", :'data-validate' => "/students/findbyid/#{@school.id}" %><br/>
 

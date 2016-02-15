@@ -31,4 +31,7 @@
 <p>
 
   <%= @contact.message %>
+  <% if @contact.file.exists? %>
+  <%= link_to "Attachment", @contact.file.url %>
+  <% end %>
 </p>

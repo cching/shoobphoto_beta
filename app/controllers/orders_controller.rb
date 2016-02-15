@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
 			format.js
 		end 
 	end
- 
+  
 	def delete_package
 		@cart = Cart.find_by_cart_id(params[:cart_id])
 		@package = Package.find(params[:package])
@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
 
 	def add_image
 		@opackage = OrderPackage.find(params[:id])
-		@opackage.update(:url => params[:url])
+		@opackage.update(:url => params[:url], :pose => params[:pose])
 		@index = params[:index]
 
 		respond_to :js

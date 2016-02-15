@@ -95,6 +95,10 @@
 
   </div>
 
+  <% if params[:school_use] == "true" %>
+  <%= f.input :file %>
+  <% end %>
+
   <div class="form-actions">
     <%= f.button :submit, "Send" %>
   </div>

@@ -10,7 +10,8 @@
 					<% if op.url.nil? %>
 					<img src='<%= @image_url[index] %>', class="img-rounded img-package">
 					<% else %>
-					<%= image_tag(OrderPackage.image(op.id), class: "img-rounded img-package") %>
+					<%= image_tag(OrderPackage.image(op.id), class: "img-rounded img-package") %><br/>
+					<%= "Pose #{opackage.pose}" unless opackage.pose.nil? %>
 					<% end %>
 					<br/>
 					 <% if option.email_picture? %>
@@ -19,11 +20,11 @@
 	  			<% end %>
 			</div>
 			<div class="col-sm-2" id="review"> 
-			
+			 
 				<h3 class="text">
 					
 					<% if @cart.order_packages.where(:package_id => package.id).first.extras.any? %>
-						<% price = option.price %>
+						<% price = option.price(@cart.students[params[:i].to_i].school.id) %>
 						<% @cart.order_packages.where(:package_id => package.id).last.extras.each do |e| %>
 							<% unless e.prices.first.try(:price).nil? %>
 								<% price = price + e.prices.first.try(:price) %>
@@ -31,7 +32,7 @@
 						<% end %>
 						<div id="price_<%= option.id %>" price="<%= price %>"><%= number_to_currency(price, :unit => "$") %></div>
 					<% else %>
-						<div id="price_<%= option.id %>" price="<%= option.price %>"><%= number_to_currency(option.price, :unit => "$") %></div>
+						<div id="price_<%= option.id %>" price="<%= option.price %>"><%= number_to_currency(option.price(@cart.students[params[:i].to_i].school.id), :unit => "$") %></div>
 					<% end %>
 					
 					<% if package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).any? %>
