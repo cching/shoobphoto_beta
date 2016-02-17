@@ -4,7 +4,7 @@ class ExportListItemsController < ApplicationController
  require "open-uri"
 
   def clean_up
-    @first = params[:students]
+    @first = params[:students] 
   end
 
   def add_student
