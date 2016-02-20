@@ -26,22 +26,6 @@ class SchoolNotesController < ApplicationController
   def search
     @district = District.all.order(:name)
 
-    SchoolNote.all.each do |schoolnote|
-      if school = School.where("name like ?", "%#{schoolnote.name}%").first
-        school.update(:district_id => schoolnote.district_id, :city_id => schoolnote.city_id, :address => schoolnote.address, :phone => schoolnote.phone, :principal => schoolnote.principal, :secretary => schoolnote.secretary, :cdscode => schoolnote.cdscode, :visible => true)
-
-        schoolnote.notes.each do |note|
-          note.update(:school_id => school.id)
-        end
-      else
-        school = School.create(:name => schoolnote.name, :district_id => schoolnote.district_id, :city_id => schoolnote.city_id, :address => schoolnote.address, :phone => schoolnote.phone, :principal => schoolnote.principal, :secretary => schoolnote.secretary, :cdscode => schoolnote.cdscode, :visible => false)
-
-        schoolnote.notes.each do |note|
-          note.update(:school_id => school.id)
-        end
-      end
-    end
-
   end
 
   def school
