@@ -1,3 +1,3 @@
 class District < ActiveRecord::Base
-	has_many :school_notes
+	has_many :schools
 end

@@ -10,7 +10,7 @@ Secretary: <%= @school.secretary %><br/>
 
 <h4>Notes</h4>
 
-<%= form_for(@school) do |f| %>
+<%= form_for(@school, :url => updatenote_school_note_path(@school)) do |f| %>
 	<%= f.fields_for :notes do |builder| %>
 	  <%= render 'note_fields', f: builder %>
 	<% end %>

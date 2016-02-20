@@ -13,7 +13,38 @@
 
   <%= f.input :name %>
 
-    <%= f.input :ca_code %>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :ca_code %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.input :cdscode %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :address %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.input :phone %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :principal %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.input :secretary %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.association :district, collection: District.all.order(:name) %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.association :city, collection: City.all.order(:name) %>
+      </div>
+    </div>
 
 
   <%= f.association :school_type, as: :radio_buttons %>
