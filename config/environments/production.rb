@@ -105,7 +105,7 @@ Rails.application.config.middleware.use ExceptionNotification::Rack,
   :email => {
     :email_prefix => "[ERROR LOG] ",
     :sender_address => %{"Shoobphoto Notifier" <info@shoobphoto.com>},
-    :exception_recipients => %w{cching@live.com alex@shoobphoto.com}
+    :exception_recipients => %w{cching@live.com}
   }
 
   config.after_initialize do
