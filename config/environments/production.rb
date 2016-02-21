@@ -103,9 +103,9 @@ config.action_mailer.raise_delivery_errors = true
 
 Rails.application.config.middleware.use ExceptionNotification::Rack,
   :email => {
-    :email_prefix => "[PREFIX] ",
-    :sender_address => %{"notifier" <info@shoobphoto.com>},
-    :exception_recipients => %w{cfching95@gmail.com}
+    :email_prefix => "[ERROR LOG] ",
+    :sender_address => %{"Shoobphoto Notifier" <info@shoobphoto.com>},
+    :exception_recipients => %w{cching@live.com alex@shoobphoto.com}
   }
 
   config.after_initialize do
