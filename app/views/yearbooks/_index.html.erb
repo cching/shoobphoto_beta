@@ -19,6 +19,7 @@
   </thead>
 
   <tbody>
+
     <% unless @students.nil? %>
     <% @students.each do |student| %>
       <% student.carts.where(:purchased => true).each do |cart| %>
@@ -46,7 +47,7 @@
               <td><%= yearbook.quantity %></td>
               <td><%= number_to_currency(yearbook.amount, :unit => "$") %></td>
               <td><%= yearbook.payment_type %></td>
-              <td><%= yearbook.sold_by %></td>
+              <td><%= yearbook.user.try(:first_name) %> <%= yearbook.user.try(:last_name) %></td>
 
         </tr>
         <% unless yearbook.notes.nil? %>

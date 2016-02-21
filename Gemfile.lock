@@ -81,6 +81,9 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     erubis (2.7.0)
+    exception_notification (4.1.4)
+      actionmailer (~> 4.0)
+      activesupport (~> 4.0)
     execjs (2.6.0)
     hashery (2.1.1)
     hike (1.2.3)
@@ -242,6 +245,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   datetimepicker-rails!
   devise
+  exception_notification
   jbuilder (~> 2.0)
   jquery-minicolors-rails
   jquery-rails

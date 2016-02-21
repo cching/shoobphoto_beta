@@ -1,4 +1,4 @@
-class YearbooksController < ApplicationController
+ class YearbooksController < ApplicationController
   before_action :set_yearbook, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
@@ -47,6 +47,8 @@ class YearbooksController < ApplicationController
         end
       end
     end
+
+    @students = @students.uniq
   end
 
   def index

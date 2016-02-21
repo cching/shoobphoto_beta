@@ -260,10 +260,10 @@ class StudentsController < ApplicationController
 
     if params[:cart].to_i == 1 
       @student = @school.students.create(:first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :teacher => params[:teacher], :grade => params[:grade])
-      @cart = @student.carts.create(:email => params[:email], :school_id => @school.id, :cart_id => (0...8).map { (65 + rand(26)).chr }.join)
+      @cart = @student.carts.create(:id_supplied => params[:id_supplied], :email => params[:email], :school_id => @school.id, :cart_id => (0...8).map { (65 + rand(26)).chr }.join)
     else
       @cart = Cart.find_by_cart_id(params[:cart])
-      @student = @cart.students.create(:first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:teacher], :grade => params[:grade])
+      @student = @cart.students.create(:id_supplied => params[:id_supplied], :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:teacher], :grade => params[:grade])
 
     end
      
@@ -280,7 +280,7 @@ class StudentsController < ApplicationController
     cookies[:user_email] = { :value => "#{params[:email]}", :expires => 5.years.from_now}
 
 
-    if (params[:student_id].nil? || params[:student_id] == "")
+    if (params[:student_id].nil? || params[:student_id].strip == "")
 
       student = @school.students.where("lower(first_name) like ? and lower(last_name) like ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%")
 
@@ -299,7 +299,7 @@ class StudentsController < ApplicationController
       else
           respond_to do |format|
             format.js
-            format.html { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :grade => params[:grade], :email => params[:email]) }
+            format.html { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :grade => params[:grade], :email => params[:email], :id_supplied => false) }
           end
       end
 
@@ -310,7 +310,7 @@ class StudentsController < ApplicationController
       if student.count > 0
         @student = student.last
           if @cart_id.to_i == 1
-            @cart = @student.carts.create(:school_id => @school.id)
+            @cart = @student.carts.create(:school_id => @school.id, :email => params[:email])
             @cart.cart_id = (0...8).map { (65 + rand(26)).chr }.join
             @cart.save
           else
@@ -323,7 +323,7 @@ class StudentsController < ApplicationController
       else ## check for dob, then redirect if none found
           respond_to do |format|
             format.js
-            format.html { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :dob => @dob, :grade => params[:grade], :email => params[:email]) }
+            format.html { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :dob => @dob, :grade => params[:grade], :email => params[:email], :id_supplied => true) }
           end
       end
     end

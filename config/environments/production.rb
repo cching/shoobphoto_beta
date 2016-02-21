@@ -46,6 +46,15 @@ Rails.application.configure do
 
   config.force_ssl = true
 
+config.action_mailer.delivery_method = :sendmail
+# Defaults to:
+# config.action_mailer.sendmail_settings = {
+#   :location => '/usr/sbin/sendmail',
+#   :arguments => '-i -t'
+# }
+config.action_mailer.perform_deliveries = true
+config.action_mailer.raise_delivery_errors = true
+
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
@@ -91,6 +100,13 @@ Rails.application.configure do
     :secret_access_key => ENV['SECRET_KEY']
   }
 }
+
+Rails.application.config.middleware.use ExceptionNotification::Rack,
+  :email => {
+    :email_prefix => "[PREFIX] ",
+    :sender_address => %{"notifier" <info@shoobphoto.com>},
+    :exception_recipients => %w{cfching95@gmail.com}
+  }
 
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :production

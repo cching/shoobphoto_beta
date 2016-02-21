@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :export_lists
     validates_presence_of :first_name, :last_name, :school_id
 
-
+    has_many :yearbooks
 
 end
  
