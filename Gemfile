@@ -47,7 +47,7 @@ gem 'prawn','1.0.0.rc1'
 gem 'prawnto'
 
 gem 'rubyzip'
-gem 'exception_notification', '~> 4.1'
+gem 'exception_notification', github: 'joshco/exception_notification'
 #Background queue
 gem 'smarter_csv'
 

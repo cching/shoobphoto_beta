@@ -6,6 +6,14 @@ GIT
       railties (>= 3.1)
 
 GIT
+  remote: git://github.com/joshco/exception_notification.git
+  revision: a43a3c2b4d19648387480c2704165ce507214a29
+  specs:
+    exception_notification (4.1.0)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
+
+GIT
   remote: git://github.com/zpaulovics/datetimepicker-rails.git
   revision: 36d21cec5da7f5b214925804f60e63c61c747023
   branch: master
@@ -81,9 +89,6 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     erubis (2.7.0)
-    exception_notification (4.1.4)
-      actionmailer (~> 4.0)
-      activesupport (~> 4.0)
     execjs (2.6.0)
     hashery (2.1.1)
     hike (1.2.3)
@@ -244,7 +249,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   datetimepicker-rails!
   devise
-  exception_notification (~> 4.1)
+  exception_notification!
   jbuilder (~> 2.0)
   jquery-minicolors-rails
   jquery-rails
