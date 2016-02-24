@@ -41,14 +41,15 @@
 
   def index
     @school = current_user.school
-    YearbookCache.perform_async(@school.id)
 
     if @school.yearbook_ids.nil? && @school.student_ids.nil?
       @yearbooks = []
       @students = []
+
     else
-      @yearbooks = Yearbook.where(id: @school.yearbook_ids.split(","))  
-      @students = Student.where(id: @school.student_ids.split(","))  
+
+      @yearbooks = Yearbook.where(id: @school.yearbook_ids.split(","))  unless @school.yearbook_ids.nil?
+      @students = Student.where(id: @school.student_ids.split(","))  unless @school.student_ids.nil?
 
     end
     
