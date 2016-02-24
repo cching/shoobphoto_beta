@@ -1,4 +1,4 @@
-class UserImport
+class YearbookCache
  	include Sidekiq::Worker
  	sidekiq_options queue: "package_import"
 
