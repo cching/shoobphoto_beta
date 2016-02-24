@@ -7,17 +7,18 @@ class CorderExport
 
       csv_file = ''
 
-          csv_file << CSV.generate_line(Student.all.first.attributes.keys)
+          csv_file << CSV.generate_line(StudentImage.all.first.attributes.keys)
             school = School.find(49)
             school.students.each do |student|
+              student.student_images.each do |student_image|
 
               
 
      
-                csv_file << CSV.generate_line(student.attributes.values
+                csv_file << CSV.generate_line(student_image.attributes.values
 
               ) 
-            
+            end
           end
           
           file_name = Rails.root.join('tmp', "order_#{Time.now.day}-#{Time.now.month}-#{Time.now.year}_#{Time.now.hour}_#{Time.now.min}.csv");
