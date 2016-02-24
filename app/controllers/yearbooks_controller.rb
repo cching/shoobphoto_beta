@@ -27,12 +27,14 @@
     @school = School.find(params[:id])
     YearbookCache.perform_async(@school.id)
 
-    if @school.yearbook_ids.nil? && @school.student_ids.nil?
+    if @school.yearbook_cache.nil? && @school.student_cache.nil?
       @yearbooks = []
       @students = []
+
     else
-      @yearbooks = Yearbook.where(id: @school.yearbook_ids.split(","))  
-      @students = Student.where(id: @school.student_ids.split(","))  
+
+      @yearbooks = Yearbook.where(id: @school.yearbook_cache.split(","))  unless @school.yearbook_cache.nil?
+      @students = Student.where(id: @school.student_cache.split(","))  unless @school.student_cache.nil?
 
     end
 
@@ -41,15 +43,16 @@
 
   def index
     @school = current_user.school
+    YearbookCache.perform_async(@school.id)
 
-    if @school.yearbook_ids.nil? && @school.student_ids.nil?
+    if @school.yearbook_cache.nil? && @school.student_cache.nil?
       @yearbooks = []
       @students = []
 
     else
 
-      @yearbooks = Yearbook.where(id: @school.yearbook_ids.split(","))  unless @school.yearbook_ids.nil?
-      @students = Student.where(id: @school.student_ids.split(","))  unless @school.student_ids.nil?
+      @yearbooks = Yearbook.where(id: @school.yearbook_cache.split(","))  unless @school.yearbook_cache.nil?
+      @students = Student.where(id: @school.student_cache.split(","))  unless @school.student_cache.nil?
 
     end
     

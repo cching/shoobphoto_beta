@@ -18,7 +18,6 @@ class UserImport
 	          	
 	        
      	end #end chunk
-     	puts "@@@@@@@@@@@@ #{@user_id}"
  	end
 end
 

@@ -27,8 +27,8 @@ class YearbookCache
 	    end
 	    @students = @students.uniq
 	    @yearbooks = @yearbooks.uniq
-	   	@school.update(:student_ids => @students.map(&:inspect).join(', '))
-	   	@school.update(:yearbook_ids => @students.map(&:inspect).join(', '))
+	   	@school.update(:student_cache => @students.map(&:inspect).join(', '))
+	   	@school.update(:yearbook_cache => @students.map(&:inspect).join(', '))
  	end
 end
 
