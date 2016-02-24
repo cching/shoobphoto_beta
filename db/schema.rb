@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160221001253) do
+ActiveRecord::Schema.define(version: 20160224092858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -480,6 +480,8 @@ ActiveRecord::Schema.define(version: 20160221001253) do
     t.string   "secretary"
     t.string   "cdscode"
     t.boolean  "visible",        default: false
+    t.text     "student_ids"
+    t.text     "yearbook_ids"
   end
 
   create_table "searches", force: true do |t|

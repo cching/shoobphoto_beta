@@ -25,56 +25,33 @@
 
   def school_user
     @school = School.find(params[:id])
+    YearbookCache.perform_async(@school.id)
 
-    @yearbooks = []
-    @students = []
+    if @school.yearbook_ids.nil? && @school.student_ids.nil?
+      @yearbooks = []
+      @students = []
+    else
+      @yearbooks = Yearbook.where(id: @school.yearbook_ids.split(","))  
+      @students = Student.where(id: @school.student_ids.split(","))  
 
-    @school.students.each do |student|
-      if student.yearbooks.any?
-        student.yearbooks.each do |yearbook|
-          @yearbooks << yearbook
-        end
-      end
-      if student.carts.any?
-        student.carts.each do |cart|
-          if cart.purchased?
-            cart.order_packages.each do |order|
-              if order.package_id == 7
-                @students << student
-              end
-            end
-          end
-        end
-      end
     end
 
-    @students = @students.uniq
+    
   end
 
   def index
-    
     @school = current_user.school
-    @yearbooks = []
-    @students = []
+    YearbookCache.perform_async(@school.id)
 
-    @school.students.each do |student|
-      if student.yearbooks.any?
-        student.yearbooks.each do |yearbook|
-          @yearbooks << yearbook
-        end
-      end
-      if student.carts.any?
-        student.carts.each do |cart|
-          if cart.purchased?
-            cart.order_packages.each do |order|
-              if order.package_id == 7
-                @students << student
-              end
-            end
-          end
-        end
-      end
+    if @school.yearbook_ids.nil? && @school.student_ids.nil?
+      @yearbooks = []
+      @students = []
+    else
+      @yearbooks = Yearbook.where(id: @school.yearbook_ids.split(","))  
+      @students = Student.where(id: @school.student_ids.split(","))  
+
     end
+    
 
     respond_with(@yearbooks)
   end
