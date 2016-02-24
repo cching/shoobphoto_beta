@@ -10,7 +10,7 @@ class YearbookCache
   		@school.students.each do |student|
 	      if student.yearbooks.any?
 	        student.yearbooks.each do |yearbook|
-	          @yearbooks << yearbook
+	          @yearbooks << yearbook.id
 	        end 
 	      end
 	      if student.carts.any?
@@ -18,7 +18,7 @@ class YearbookCache
 	          if cart.purchased?
 	            cart.order_packages.each do |order|
 	              if order.package_id == 7
-	                @students << student
+	                @students << student.id
 	              end
 	            end
 	          end
