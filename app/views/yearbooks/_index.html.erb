@@ -3,6 +3,7 @@
 <% end %>
 <% if @school.yearbook_cache.nil? && @school.student_cache.nil? %>
 <h3>Your students are currently being loaded - this will only happen once. Please refresh in a minute or two.</h3>
+<% else %>
 <p><%= link_to "Download List (PDF)", yearbook_path(1, :yearbooks => @yearbooks.map(&:id), :students => @students.map(&:id), :school => @school, format: "pdf"), class: "btn btn-custom" %></p>
 <h3>Yearbooks for <%= @school.name %></h3>
 <hr>

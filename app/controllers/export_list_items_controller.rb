@@ -213,7 +213,7 @@ class ExportListItemsController < ApplicationController
  end
 
   def schools
-    @schools = School.all.order(:name)
+    @schools = School.where.not(school_type_id: nil).order(:name)
     respond_to :js
   end
 
