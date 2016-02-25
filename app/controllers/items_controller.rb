@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy, :search_term]
-
+  protect_from_forgery except: [:add, :preview]
   respond_to :html
 
   def index
