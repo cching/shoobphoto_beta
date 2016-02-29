@@ -74,8 +74,8 @@ class Order < ActiveRecord::Base
       response = GATEWAY.purchase(price_in_cents, credit_card)
       logger.debug "[gateway response] #{@clearance.inspect}"
       unless response.success?
-        logger.debug "[response error] #{@clearance.message}"
-        errors.add :base, @clearance.message
+        logger.debug "[response error] #{@clearance.try(:message)}"
+        errors.add :base, @clearance.try(:message)
       end
     else
       credit_card.errors.each do |key, msg|

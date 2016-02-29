@@ -282,8 +282,12 @@ class StudentsController < ApplicationController
 
     if (params[:student_id].nil? || params[:student_id].strip == "")
 
+      if params[:first_name].nil? || params[:last_name].nil?
+        student = []
+      else
       student = @school.students.where("lower(first_name) like ? and lower(last_name) like ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%")
-
+      
+      end
       if student.count > 0
         @student = student.last
 
@@ -299,7 +303,7 @@ class StudentsController < ApplicationController
       else
           respond_to do |format|
             format.js
-            format.html { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :grade => params[:grade], :email => params[:email], :id_supplied => false) }
+            format.html { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :grade => params[:grade], :email => params[:email], :id_supplied => "false") }
           end
       end
 
@@ -323,7 +327,7 @@ class StudentsController < ApplicationController
       else ## check for dob, then redirect if none found
           respond_to do |format|
             format.js
-            format.html { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :dob => @dob, :grade => params[:grade], :email => params[:email], :id_supplied => true) }
+            format.html { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :dob => @dob, :grade => params[:grade], :email => params[:email], :id_supplied => "true") }
           end
       end
     end
@@ -365,9 +369,14 @@ class StudentsController < ApplicationController
   end
 
   def search
+    unless params[:school].nil?
     @school = School.find(params[:school][:id])
+    else
+      @school = School.first
+    end
     @i = params[:i] unless params[:i].nil?
     @cart = params[:cart] unless params[:cart].nil?
+
   end
 
   # GET /students/1

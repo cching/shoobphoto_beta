@@ -14,7 +14,7 @@
           <% if current_user.try(:admin) %>
           <%= link_to "Edit", edit_item_path(@item.id) %>
           <% end %>
-          <% if @item.cart_items.where(:cart_id => @cart.id).any? %>
+          <% if @item.cart_items.where(:cart_id => @cart.try(:id)).any? %>
           <%= link_to "Remove", items_remove_path(@item, :cart_id => @cart.cart_id), remote: true, class: "btn btn-danger" %>
           <% else %>
           <%= link_to "Add to cart", items_add_path(@item, :cart_id => @cart.cart_id), remote: true, class: "btn btn-custom" %>
