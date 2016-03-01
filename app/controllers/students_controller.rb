@@ -260,11 +260,10 @@ class StudentsController < ApplicationController
 
     if params[:cart].to_i == 1 
       @student = @school.students.create(:first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :teacher => params[:teacher], :grade => params[:grade])
-      @cart = @student.carts.create(:id_supplied => params[:id_supplied], :email => params[:email], :school_id => @school.id, :cart_id => (0...8).map { (65 + rand(26)).chr }.join)
+      @cart = @student.carts.create(:email => params[:email], :school_id => @school.id, :cart_id => (0...8).map { (65 + rand(26)).chr }.join)
     else
       @cart = Cart.find_by_cart_id(params[:cart])
-      @student = @cart.students.create(:id_supplied => params[:id_supplied], :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:teacher], :grade => params[:grade])
-
+      @student = @cart.students.create( :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:teacher], :grade => params[:grade])
     end
      
 
