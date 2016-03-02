@@ -1,4 +1,6 @@
 <%= simple_form_for @cart, url: update_cart_path(@cart.cart_id) do |f| %>
+<%= token_tag %>
+
 <div class="animated fadeIn">
 	<% @opackages.each_with_index do |opackage, index| %>
 	<% package = opackage.package %>

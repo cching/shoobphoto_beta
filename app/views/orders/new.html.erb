@@ -1,4 +1,5 @@
 <%= form_for @order, :url => {:action => "confirm", class: "form-control"} do |f| %>
+<%= token_tag %>
 
 
 <%= errors_for(@order) %>
