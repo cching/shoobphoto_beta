@@ -263,6 +263,7 @@ class StudentsController < ApplicationController
       @cart = @student.carts.create(:email => params[:email], :school_id => @school.id, :cart_id => (0...8).map { (65 + rand(26)).chr }.join)
     else
       @cart = Cart.find_by_cart_id(params[:cart])
+      @cart.update(params[:id_supplied])
       @student = @cart.students.create( :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:teacher], :grade => params[:grade])
     end
      
