@@ -9,7 +9,7 @@ private
     orders = Order.order("processed ASC")
 
     students = Student.where('lower(students.first_name) like ?', "%#{student_first_name.downcase}%") if student_first_name.present?
-    students = students.where('lower(students.last_name) like ?', "%#{student_first_name.downcase}%") if student_last_name.present?
+    students = students.where('lower(students.last_name) like ?', "%#{student_last_name.downcase}%") if student_last_name.present?
     carts = CartStudent.where(student_id: students.pluck(:id)) if student_last_name.present? || student_first_name.present?
     orders = Order.where(cart_id: carts.pluck(:cart_id)) if student_last_name.present? || student_first_name.present?
     students = Student.where('students.school_id = ?', "#{school_id}") if school_id.present?
