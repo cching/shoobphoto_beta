@@ -201,7 +201,7 @@ class ExportListItemsController < ApplicationController
   send_data data.read, filename: "#{@student.last_name}_#{@student.first_name}.jpg", type: "image/jpeg", :x_sendfile => true
   
   else
-    render :nothing => true
+      redirect_to :back, alert: 'We are having trouble locating the image for this student. Please upload another image or contact us for help.' 
   end
   end
 
