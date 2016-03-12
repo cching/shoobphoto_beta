@@ -4,7 +4,7 @@ class StudentsController < ApplicationController
 
   def find_student
   end
-
+ 
   def findbyid
     @school = School.find(params[:school])
     @students = @school.students.where("student_id = ?", "#{params[:student_id].gsub(/\s+/, "")}").where(:id_only => true)

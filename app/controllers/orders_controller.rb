@@ -7,9 +7,9 @@ class OrdersController < ApplicationController
 		@cart = Cart.find_by_cart_id(params[:cart_id])
 		@package = Package.find(params[:package])
 		@student = Student.find(params[:student])
-		@cart.order_packages.create(:package_id => @package.id, :student_id => @student.id)
+		@cart.order_packages.create(:package_id => @package.id, :student_id => @student.id, :option_id => @package.options.all.order(:name).first.id)
 		@index = params[:index]
-		@url = params[:url]
+		@url = params[:url] 
 		respond_to do |format|
 			format.js
 		end 

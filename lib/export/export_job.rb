@@ -30,8 +30,6 @@ class ExportJob
   
   def cleanup
   
-
-    
     ExportData.where('created_at < ?', 1.day.ago).destroy_all
 
   end
