@@ -19,7 +19,7 @@ class StudentsController < ApplicationController
 
   def download
     @shoob_id = "#{params[:shoob_id].gsub(/\s+/, "").downcase}"
-    temp_id = @shoob_id
+    temp_id = "#{params[:shoob_id].gsub(/\s+/, "").downcase}"
     @student = Student.where("lower(shoob_id) = ?", "#{params[:shoob_id].gsub(/\s+/, "").downcase}").last
 
     if @student.nil?
