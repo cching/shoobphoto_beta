@@ -2,7 +2,9 @@
 <h3 align="center">We've had trouble finding the images for your student. Please try again <%= link_to "here", student_find_student_path %>.<br/> If trouble persists, please contact us. </h3>
 <% else%>
 <h3>Here are the images we've found for your purchase </h3>
-<hr>
+<hr> 
+<%= @shoob_id.to_s[4] == "2"  %>
+<%= @shoob_id.to_s[4] == "1"  %>
 
 	<% unless @reg.nil? %>
 	<div class="row">

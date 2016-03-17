@@ -18,7 +18,7 @@ class StudentsController < ApplicationController
   end
 
   def download
-    @shoob_id = params[:shoob_id].gsub(/\s+/, "").downcase
+    @shoob_id = "#{params[:shoob_id].gsub(/\s+/, "").downcase}"
     temp_id = @shoob_id
     @student = Student.where("lower(shoob_id) = ?", "#{params[:shoob_id].gsub(/\s+/, "").downcase}").last
 
@@ -32,11 +32,12 @@ class StudentsController < ApplicationController
       @student = Student.where("lower(shoob_id) = ?", "#{temp_id}").last
     end
 
-    if @shoob_id[4] == "1"
+    if @shoob_id.to_s[4] == "1"
       @package = @student.school.packages.where("lower(name) like ?", "%fall%").last unless @student.nil?
-    elsif @shoob_id[4] == "2"
+    elsif @shoob_id.to_s[4] == "2"
        @package = @student.school.packages.where("lower(name) like ?", "%spr%").last unless @student.nil?
-
+     else
+      @package = @student.school.packages.where("lower(name) like ?", "%fall%").last unless @student.nil?
     end
 
     bucket = AWS::S3::Bucket.new('shoobphoto')
