@@ -6,6 +6,8 @@ class Package < ActiveRecord::Base
 
   has_many :shippings
 
+  has_many :download_images
+
   has_many :prices
 
 	has_many :student_images
@@ -13,10 +15,10 @@ class Package < ActiveRecord::Base
 	has_many :school_packages, dependent: :destroy
 	has_many :schools, through: :school_packages
 
-  	has_many :student_proofs
+  has_many :student_proofs
 
-	 accepts_nested_attributes_for :options, allow_destroy: true
-  	accepts_nested_attributes_for :shippings, allow_destroy: true
+	accepts_nested_attributes_for :options, allow_destroy: true
+  accepts_nested_attributes_for :shippings, allow_destroy: true
 
 
   	has_attached_file :image,

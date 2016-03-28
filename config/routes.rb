@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
     collection do 
       get :schools
-      get :dashboard
+      get :dashboard 
     end
   end
 
@@ -66,7 +66,12 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'emailers/' => 'emailers#index', :via => 'GET', :as => 'emailer'
   match 'emailers/csv' => 'emailers#import', :via => 'POST', :as => 'import_emailer'
   namespace :admin do
-    resources :dashboards
+    resources :dashboards do
+        collection do
+          get :csv
+          post :import
+        end
+      end
     resources :schools do
       collection do
         get 'export'

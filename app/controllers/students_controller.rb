@@ -5,7 +5,7 @@ class StudentsController < ApplicationController
   def find_student
   end
  
-  def findbyid
+  def findbyid 
     @school = School.find(params[:school])
     @students = @school.students.where("student_id = ?", "#{params[:student_id].gsub(/\s+/, "")}").where(:id_only => true)
 
@@ -19,58 +19,9 @@ class StudentsController < ApplicationController
 
   def download
     @shoob_id = "#{params[:shoob_id].gsub(/\s+/, "").downcase}"
-    temp_id = "#{params[:shoob_id].gsub(/\s+/, "").downcase}"
-    @student = Student.where("lower(shoob_id) = ?", "#{params[:shoob_id].gsub(/\s+/, "").downcase}").last
-
-    if @student.nil?
-      temp_id[4] = "1"
-      @student = Student.where("lower(shoob_id) = ?", "#{temp_id}").last
-    end
-
-    if @student.nil?
-      temp_id[4] = "2"
-      @student = Student.where("lower(shoob_id) = ?", "#{temp_id}").last
-    end
-
-    if @shoob_id.to_s[4] == "1"
-      @package = @student.school.packages.where("lower(name) like ?", "%fall%").last unless @student.nil?
-    elsif @shoob_id.to_s[4] == "2"
-       @package = @student.school.packages.where("lower(name) like ?", "%spr%").last unless @student.nil?
-     else
-      @package = @student.school.packages.where("lower(name) like ?", "%fall%").last unless @student.nil?
-    end
-
-    bucket = AWS::S3::Bucket.new('shoobphoto')
-    unless @student.nil?
-    image = @student.student_images.where(:package_id => @package.id).last
-      unless image.nil?
-        unless image.image_file_name.nil? 
-
-          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
-            @reg = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-          elsif AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
-            @reg = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-          end
-
-          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}-dl.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}-dl.jpg")
-            @dl = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-          elsif AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}-dl.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
-            @dl = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-          end
-          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}-nw.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}-nw.jpg")
-            @nw = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-          elsif AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}-nw.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}-nw.jpg")
-            @nw = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-          end
-        end
-      end 
-    end
+    @download_images = DownloadImage.where("lower(shoob_id) = ?", "#{@shoob_id}")
+    @student = @download_image.student
+    
   end
 
   def download_image

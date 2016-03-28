@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224102511) do
+ActiveRecord::Schema.define(version: 20160328051758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,6 +131,21 @@ ActiveRecord::Schema.define(version: 20160224102511) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "last",       default: false
+  end
+
+  create_table "download_images", force: true do |t|
+    t.integer  "package_id"
+    t.integer  "student_id"
+    t.string   "folder"
+    t.string   "url"
+    t.string   "shoob_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "year"
   end
 
   create_table "export_data", force: true do |t|

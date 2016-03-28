@@ -1,41 +1,18 @@
-<% if @dl.nil? && @nw.nil? && @reg.nil? %>
+<% unless @download_images.nil? %>
 <h3 align="center">We've had trouble finding the images for your student. Please try again <%= link_to "here", student_find_student_path %>.<br/> If trouble persists, please contact us. </h3>
 <% else%>
 <h3>Here are the images we've found for your purchase </h3>
 <hr> 
 
-	<% unless @reg.nil? %>
+<% @download_images.each do |image| %>
 	<div class="row">
 		<div class="col-sm-5">
-		<%= image_tag(@reg, class: "img-rounded img-med") %>
+		<%= image_tag(image.image.url, class: "img-rounded img-med") %>
 		</div>
 		<div class="col-sm-1"></div>
 		<div class="col-sm-6">
 			<%= link_to "Download Image", student_push_image_path(@student.id, :url => @reg), class: "btn btn-primary" %>
 		</div>
 	</div><br/>
-	<% end %>
-	<% unless @dl.nil? %>
-	<div class="row">
-		<div class="col-sm-5">
-		<%= image_tag(@dl, class: "img-rounded img-med") %>
-		</div>
-		<div class="col-sm-1"></div>
-		<div class="col-sm-6">
-			<%= link_to "Download Image", student_push_image_path(@student.id, :url => @dl), class: "btn btn-primary" %>
-		</div>
-	</div><br/>
-	<% end %>
-
-	<% unless @nw.nil? %>
-	<div class="row">
-		<div class="col-sm-5">
-		<%= image_tag(@nw, class: "img-rounded img-med") %>
-		</div>
-		<div class="col-sm-1"></div>
-		<div class="col-sm-6">
-			<%= link_to "Download Image", student_push_image_path(@student.id, :url => @nw), class: "btn btn-primary" %>
-		</div>
-	</div><br/>
-	<% end %>
+<% end %>
 <% end %> 

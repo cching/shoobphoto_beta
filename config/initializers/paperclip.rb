@@ -9,3 +9,7 @@ Paperclip::Attachment.default_options[:s3_credentials] =
 Paperclip.interpolates :folder do |attachment, style|
   attachment.instance.folder
 end
+
+Paperclip.interpolates :url do |attachment, style|
+  attachment.instance.url
+end

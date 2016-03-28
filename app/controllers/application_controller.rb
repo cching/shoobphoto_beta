@@ -4,13 +4,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
 
   before_filter :set_nav_links
+
   	def after_sign_in_path_for(resource)
   		if current_user.try(:admin)
         admin_dashboards_path
       elsif current_user.try(:parent)
         yearbooks_path
       else
-        export_students_path
+        
       end
 	end
 

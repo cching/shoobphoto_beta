@@ -17,6 +17,7 @@ class Student < ActiveRecord::Base
   has_many :users, through: :user_students
 
   has_many :yearbooks
+  has_many :download_images
 
   has_many :export_list_students
   has_many :export_lists, through: :export_list_students

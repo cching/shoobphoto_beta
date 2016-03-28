@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  package_id: 1
+  student_id: 1
+  folder: MyString
+  url: MyString
+  shoob_id: MyString
+
+two:
+  package_id: 1
+  student_id: 1
+  folder: MyString
+  url: MyString
+  shoob_id: MyString
