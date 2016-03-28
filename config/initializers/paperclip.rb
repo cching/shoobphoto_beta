@@ -11,5 +11,5 @@ Paperclip.interpolates :folder do |attachment, style|
 end
 
 Paperclip.interpolates :url do |attachment, style|
-  attachment.instance.url
+  attachment.instance.image_file_name
 end

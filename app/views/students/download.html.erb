@@ -1,18 +1,22 @@
-<% unless @download_images.nil? %>
+<% if @download_images.nil? %>
 <h3 align="center">We've had trouble finding the images for your student. Please try again <%= link_to "here", student_find_student_path %>.<br/> If trouble persists, please contact us. </h3>
 <% else%>
 <h3>Here are the images we've found for your purchase </h3>
 <hr> 
 
-<% @download_images.each do |image| %>
-	<div class="row">
-		<div class="col-sm-5">
+<% @download_images.group_by(&:year).each do |year, images| %>
+<div class="row">
+<% images.each do |image| %>
+	
+		<div class="col-sm-3" align="center">
+			<h3><%= image.package.name %> <%= image.year %></h3>
 		<%= image_tag(image.image.url, class: "img-rounded img-med") %>
+		<br/><br/>
+		
+			<%= link_to "Download Image", student_push_image_path(@student.id, :url => image.image.url), class: "btn btn-primary" %>
 		</div>
-		<div class="col-sm-1"></div>
-		<div class="col-sm-6">
-			<%= link_to "Download Image", student_push_image_path(@student.id, :url => @reg), class: "btn btn-primary" %>
-		</div>
-	</div><br/>
+	
+<% end %>
+</div><br/>
 <% end %>
 <% end %> 
