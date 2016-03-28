@@ -6,7 +6,7 @@ class DownloadImport
   		@school = School.find(school_id)
 
       	chunk.each do |h|
-      		students = @school.students.where(:student_id => "#{h["st_stu_id"]}")
+      		students = @school.students.where(:student_id => h["st_stu_id"].to_s)
       		package = Package.find_by_slug(h["pricelist"])
 	    	if students.any?
 	           students.last.download_images.create(:shoob_id => h["id"], :package_id => package.try(:id), :year => h["year"], :folder => ["folder"], :url => ["st_id"])
