@@ -3,7 +3,7 @@ class DownloadImport
  	sidekiq_options queue: "package_import"
 
   	def perform(chunk, school_id)
-  		@school = School.find(school_id)
+  		@school = School.last
 
       	chunk.each do |h|
       		students = @school.students.where(:student_id => h["st_stu_id"])
