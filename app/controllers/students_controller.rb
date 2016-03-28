@@ -20,7 +20,7 @@ class StudentsController < ApplicationController
   def download
     @shoob_id = "#{params[:shoob_id].gsub(/\s+/, "").downcase}"
     @download_images = DownloadImage.where("lower(shoob_id) = ?", "#{@shoob_id}")
-    @student = @download_image.student
+    @student = @download_images.student
     
   end
 

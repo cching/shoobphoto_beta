@@ -9,7 +9,8 @@ class DownloadImport
       		students = @school.students.find_by_student_id("#{h["st_stu_id"]}")
       		package = Package.find_by_slug(h["pricelist"])
 	    	unless students.nil?
-	           students.download_images.create(:shoob_id => h["id"], :package_id => package.try(:id), :year => h["year"], :folder => h["folder"], :url => h["st_id"])
+	           i = students.download_images.create(:shoob_id => h["id"], :package_id => package.try(:id), :year => h["year"], :folder => h["folder"], :url => h["st_id"])
+	           i.update(:image_file_name => i.url.downcase)
 	         end	          	
 	        
      	end #end chunk
