@@ -10310,846 +10310,1043 @@ return jQuery;
 /*
  * jQuery MiniColors: A tiny color picker built on jQuery
  *
- * Copyright Cory LaViska for A Beautiful Site, LLC. (http://www.abeautifulsite.net/)
+ * Copyright: Cory LaViska for A Beautiful Site, LLC: http://www.abeautifulsite.net/
  *
- * Licensed under the MIT license: http://opensource.org/licenses/MIT
+ * Contribute: https://github.com/claviska/jquery-minicolors
+ *
+ * @license: http://opensource.org/licenses/MIT
  *
  */
 
-if(jQuery) (function($) {
-
-	// Defaults
-	$.minicolors = {
-		defaults: {
-			animationSpeed: 50,
-			animationEasing: 'swing',
-			change: null,
-			changeDelay: 0,
-			control: 'hue',
-			defaultValue: '',
-			hide: null,
-			hideSpeed: 100,
-			inline: false,
-			letterCase: 'lowercase',
-			opacity: false,
-			position: 'bottom left',
-			show: null,
-			showSpeed: 100,
-			theme: 'default'
-		}
-	};
-
-	// Public methods
-	$.extend($.fn, {
-		minicolors: function(method, data) {
-
-			switch(method) {
-
-				// Destroy the control
-				case 'destroy':
-					$(this).each( function() {
-						destroy($(this));
-					});
-					return $(this);
-
-				// Hide the color picker
-				case 'hide':
-					hide();
-					return $(this);
-
-				// Get/set opacity
-				case 'opacity':
-					// Getter
-					if( data === undefined ) {
-						// Getter
-						return $(this).attr('data-opacity');
-					} else {
-						// Setter
-						$(this).each( function() {
-							updateFromInput($(this).attr('data-opacity', data));
-						});
-					}
-					return $(this);
-
-				// Get an RGB(A) object based on the current color/opacity
-				case 'rgbObject':
-					return rgbObject($(this), method === 'rgbaObject');
-
-				// Get an RGB(A) string based on the current color/opacity
-				case 'rgbString':
-				case 'rgbaString':
-					return rgbString($(this), method === 'rgbaString');
-
-				// Get/set settings on the fly
-				case 'settings':
-					if( data === undefined ) {
-						return $(this).data('minicolors-settings');
-					} else {
-						// Setter
-						$(this).each( function() {
-							var settings = $(this).data('minicolors-settings') || {};
-							destroy($(this));
-							$(this).minicolors($.extend(true, settings, data));
-						});
-					}
-					return $(this);
-
-				// Show the color picker
-				case 'show':
-					show( $(this).eq(0) );
-					return $(this);
-
-				// Get/set the hex color value
-				case 'value':
-					if( data === undefined ) {
-						// Getter
-						return $(this).val();
-					} else {
-						// Setter
-						$(this).each( function() {
-							updateFromInput($(this).val(data));
-						});
-					}
-					return $(this);
-
-				// Initializes the control
-				default:
-					if( method !== 'create' ) data = method;
-					$(this).each( function() {
-						init($(this), data);
-					});
-					return $(this);
-
-			}
-
-		}
-	});
-
-	// Initialize input elements
-	function init(input, settings) {
-
-		var minicolors = $('<div class="minicolors" />'),
-			defaults = $.minicolors.defaults;
-
-		// Do nothing if already initialized
-		if( input.data('minicolors-initialized') ) return;
-
-		// Handle settings
-		settings = $.extend(true, {}, defaults, settings);
-
-		// The wrapper
-		minicolors
-			.addClass('minicolors-theme-' + settings.theme)
-			.toggleClass('minicolors-with-opacity', settings.opacity);
-
-		// Custom positioning
-		if( settings.position !== undefined ) {
-			$.each(settings.position.split(' '), function() {
-				minicolors.addClass('minicolors-position-' + this);
-			});
-		}
-
-		// The input
-		input
-			.addClass('minicolors-input')
-			.data('minicolors-initialized', false)
-			.data('minicolors-settings', settings)
-			.prop('size', 7)
-			.wrap(minicolors)
-			.after(
-				'<div class="minicolors-panel minicolors-slider-' + settings.control + '">' +
-					'<div class="minicolors-slider">' +
-						'<div class="minicolors-picker"></div>' +
-					'</div>' +
-					'<div class="minicolors-opacity-slider">' +
-						'<div class="minicolors-picker"></div>' +
-					'</div>' +
-					'<div class="minicolors-grid">' +
-						'<div class="minicolors-grid-inner"></div>' +
-						'<div class="minicolors-picker"><div></div></div>' +
-					'</div>' +
-				'</div>'
-			);
-
-		// The swatch
-		if( !settings.inline ) {
-			input.after('<span class="minicolors-swatch"><span class="minicolors-swatch-color"></span></span>');
-			input.next('.minicolors-swatch').on('click', function(event) {
-				event.preventDefault();
-				input.focus();
-			});
-		}
-
-		// Prevent text selection in IE
-		input.parent().find('.minicolors-panel').on('selectstart', function() { return false; }).end();
-
-		// Inline controls
-		if( settings.inline ) input.parent().addClass('minicolors-inline');
-
-		updateFromInput(input, false);
-
-		input.data('minicolors-initialized', true);
-
-	}
-
-	// Returns the input back to its original state
-	function destroy(input) {
-
-		var minicolors = input.parent();
-
-		// Revert the input element
-		input
-			.removeData('minicolors-initialized')
-			.removeData('minicolors-settings')
-			.removeProp('size')
-			.removeClass('minicolors-input');
-
-		// Remove the wrap and destroy whatever remains
-		minicolors.before(input).remove();
-
-	}
-
-	// Shows the specified dropdown panel
-	function show(input) {
-
-		var minicolors = input.parent(),
-			panel = minicolors.find('.minicolors-panel'),
-			settings = input.data('minicolors-settings');
-
-		// Do nothing if uninitialized, disabled, inline, or already open
-		if( !input.data('minicolors-initialized') ||
-			input.prop('disabled') ||
-			minicolors.hasClass('minicolors-inline') ||
-			minicolors.hasClass('minicolors-focus')
-		) return;
-
-		hide();
-
-		minicolors.addClass('minicolors-focus');
-		panel
-			.stop(true, true)
-			.fadeIn(settings.showSpeed, function() {
-				if( settings.show ) settings.show.call(input.get(0));
-			});
-
-	}
-
-	// Hides all dropdown panels
-	function hide() {
-
-		$('.minicolors-focus').each( function() {
-
-			var minicolors = $(this),
-				input = minicolors.find('.minicolors-input'),
-				panel = minicolors.find('.minicolors-panel'),
-				settings = input.data('minicolors-settings');
-
-			panel.fadeOut(settings.hideSpeed, function() {
-				if( settings.hide ) settings.hide.call(input.get(0));
-				minicolors.removeClass('minicolors-focus');
-			});
-
-		});
-	}
-
-	// Moves the selected picker
-	function move(target, event, animate) {
-
-		var input = target.parents('.minicolors').find('.minicolors-input'),
-			settings = input.data('minicolors-settings'),
-			picker = target.find('[class$=-picker]'),
-			offsetX = target.offset().left,
-			offsetY = target.offset().top,
-			x = Math.round(event.pageX - offsetX),
-			y = Math.round(event.pageY - offsetY),
-			duration = animate ? settings.animationSpeed : 0,
-			wx, wy, r, phi;
-
-		// Touch support
-		if( event.originalEvent.changedTouches ) {
-			x = event.originalEvent.changedTouches[0].pageX - offsetX;
-			y = event.originalEvent.changedTouches[0].pageY - offsetY;
-		}
-
-		// Constrain picker to its container
-		if( x < 0 ) x = 0;
-		if( y < 0 ) y = 0;
-		if( x > target.width() ) x = target.width();
-		if( y > target.height() ) y = target.height();
-
-		// Constrain color wheel values to the wheel
-		if( target.parent().is('.minicolors-slider-wheel') && picker.parent().is('.minicolors-grid') ) {
-			wx = 75 - x;
-			wy = 75 - y;
-			r = Math.sqrt(wx * wx + wy * wy);
-			phi = Math.atan2(wy, wx);
-			if( phi < 0 ) phi += Math.PI * 2;
-			if( r > 75 ) {
-				r = 75;
-				x = 75 - (75 * Math.cos(phi));
-				y = 75 - (75 * Math.sin(phi));
-			}
-			x = Math.round(x);
-			y = Math.round(y);
-		}
-
-		// Move the picker
-		if( target.is('.minicolors-grid') ) {
-			picker
-				.stop(true)
-				.animate({
-					top: y + 'px',
-					left: x + 'px'
-				}, duration, settings.animationEasing, function() {
-					updateFromControl(input, target);
-				});
-		} else {
-			picker
-				.stop(true)
-				.animate({
-					top: y + 'px'
-				}, duration, settings.animationEasing, function() {
-					updateFromControl(input, target);
-				});
-		}
-
-	}
-
-	// Sets the input based on the color picker values
-	function updateFromControl(input, target) {
-
-		function getCoords(picker, container) {
-
-			var left, top;
-			if( !picker.length || !container ) return null;
-			left = picker.offset().left;
-			top = picker.offset().top;
-
-			return {
-				x: left - container.offset().left + (picker.outerWidth() / 2),
-				y: top - container.offset().top + (picker.outerHeight() / 2)
-			};
-
-		}
-
-		var hue, saturation, brightness, x, y, r, phi,
-
-			hex = input.val(),
-			opacity = input.attr('data-opacity'),
-
-			// Helpful references
-			minicolors = input.parent(),
-			settings = input.data('minicolors-settings'),
-			swatch = minicolors.find('.minicolors-swatch'),
-
-			// Panel objects
-			grid = minicolors.find('.minicolors-grid'),
-			slider = minicolors.find('.minicolors-slider'),
-			opacitySlider = minicolors.find('.minicolors-opacity-slider'),
-
-			// Picker objects
-			gridPicker = grid.find('[class$=-picker]'),
-			sliderPicker = slider.find('[class$=-picker]'),
-			opacityPicker = opacitySlider.find('[class$=-picker]'),
-
-			// Picker positions
-			gridPos = getCoords(gridPicker, grid),
-			sliderPos = getCoords(sliderPicker, slider),
-			opacityPos = getCoords(opacityPicker, opacitySlider);
-
-		// Handle colors
-		if( target.is('.minicolors-grid, .minicolors-slider') ) {
-
-			// Determine HSB values
-			switch(settings.control) {
-
-				case 'wheel':
-					// Calculate hue, saturation, and brightness
-					x = (grid.width() / 2) - gridPos.x;
-					y = (grid.height() / 2) - gridPos.y;
-					r = Math.sqrt(x * x + y * y);
-					phi = Math.atan2(y, x);
-					if( phi < 0 ) phi += Math.PI * 2;
-					if( r > 75 ) {
-						r = 75;
-						gridPos.x = 69 - (75 * Math.cos(phi));
-						gridPos.y = 69 - (75 * Math.sin(phi));
-					}
-					saturation = keepWithin(r / 0.75, 0, 100);
-					hue = keepWithin(phi * 180 / Math.PI, 0, 360);
-					brightness = keepWithin(100 - Math.floor(sliderPos.y * (100 / slider.height())), 0, 100);
-					hex = hsb2hex({
-						h: hue,
-						s: saturation,
-						b: brightness
-					});
-
-					// Update UI
-					slider.css('backgroundColor', hsb2hex({ h: hue, s: saturation, b: 100 }));
-					break;
-
-				case 'saturation':
-					// Calculate hue, saturation, and brightness
-					hue = keepWithin(parseInt(gridPos.x * (360 / grid.width()), 10), 0, 360);
-					saturation = keepWithin(100 - Math.floor(sliderPos.y * (100 / slider.height())), 0, 100);
-					brightness = keepWithin(100 - Math.floor(gridPos.y * (100 / grid.height())), 0, 100);
-					hex = hsb2hex({
-						h: hue,
-						s: saturation,
-						b: brightness
-					});
-
-					// Update UI
-					slider.css('backgroundColor', hsb2hex({ h: hue, s: 100, b: brightness }));
-					minicolors.find('.minicolors-grid-inner').css('opacity', saturation / 100);
-					break;
-
-				case 'brightness':
-					// Calculate hue, saturation, and brightness
-					hue = keepWithin(parseInt(gridPos.x * (360 / grid.width()), 10), 0, 360);
-					saturation = keepWithin(100 - Math.floor(gridPos.y * (100 / grid.height())), 0, 100);
-					brightness = keepWithin(100 - Math.floor(sliderPos.y * (100 / slider.height())), 0, 100);
-					hex = hsb2hex({
-						h: hue,
-						s: saturation,
-						b: brightness
-					});
-
-					// Update UI
-					slider.css('backgroundColor', hsb2hex({ h: hue, s: saturation, b: 100 }));
-					minicolors.find('.minicolors-grid-inner').css('opacity', 1 - (brightness / 100));
-					break;
-
-				default:
-					// Calculate hue, saturation, and brightness
-					hue = keepWithin(360 - parseInt(sliderPos.y * (360 / slider.height()), 10), 0, 360);
-					saturation = keepWithin(Math.floor(gridPos.x * (100 / grid.width())), 0, 100);
-					brightness = keepWithin(100 - Math.floor(gridPos.y * (100 / grid.height())), 0, 100);
-					hex = hsb2hex({
-						h: hue,
-						s: saturation,
-						b: brightness
-					});
-
-					// Update UI
-					grid.css('backgroundColor', hsb2hex({ h: hue, s: 100, b: 100 }));
-					break;
-
-			}
-
-			// Adjust case
-			input.val( convertCase(hex, settings.letterCase) );
-
-		}
-
-		// Handle opacity
-		if( target.is('.minicolors-opacity-slider') ) {
-			if( settings.opacity ) {
-				opacity = parseFloat(1 - (opacityPos.y / opacitySlider.height())).toFixed(2);
-			} else {
-				opacity = 1;
-			}
-			if( settings.opacity ) input.attr('data-opacity', opacity);
-		}
-
-		// Set swatch color
-		swatch.find('SPAN').css({
-			backgroundColor: hex,
-			opacity: opacity
-		});
-
-		// Handle change event
-		doChange(input, hex, opacity);
-
-	}
-
-	// Sets the color picker values from the input
-	function updateFromInput(input, preserveInputValue) {
-
-		var hex,
-			hsb,
-			opacity,
-			x, y, r, phi,
-
-			// Helpful references
-			minicolors = input.parent(),
-			settings = input.data('minicolors-settings'),
-			swatch = minicolors.find('.minicolors-swatch'),
-
-			// Panel objects
-			grid = minicolors.find('.minicolors-grid'),
-			slider = minicolors.find('.minicolors-slider'),
-			opacitySlider = minicolors.find('.minicolors-opacity-slider'),
-
-			// Picker objects
-			gridPicker = grid.find('[class$=-picker]'),
-			sliderPicker = slider.find('[class$=-picker]'),
-			opacityPicker = opacitySlider.find('[class$=-picker]');
-
-		// Determine hex/HSB values
-		hex = convertCase(parseHex(input.val(), true), settings.letterCase);
-		if( !hex ){
-			hex = convertCase(parseHex(settings.defaultValue, true), settings.letterCase);
-		}
-		hsb = hex2hsb(hex);
-
-		// Update input value
-		if( !preserveInputValue ) input.val(hex);
-
-		// Determine opacity value
-		if( settings.opacity ) {
-			// Get from data-opacity attribute and keep within 0-1 range
-			opacity = input.attr('data-opacity') === '' ? 1 : keepWithin(parseFloat(input.attr('data-opacity')).toFixed(2), 0, 1);
-			if( isNaN(opacity) ) opacity = 1;
-			input.attr('data-opacity', opacity);
-			swatch.find('SPAN').css('opacity', opacity);
-
-			// Set opacity picker position
-			y = keepWithin(opacitySlider.height() - (opacitySlider.height() * opacity), 0, opacitySlider.height());
-			opacityPicker.css('top', y + 'px');
-		}
-
-		// Update swatch
-		swatch.find('SPAN').css('backgroundColor', hex);
-
-		// Determine picker locations
-		switch(settings.control) {
-
-			case 'wheel':
-				// Set grid position
-				r = keepWithin(Math.ceil(hsb.s * 0.75), 0, grid.height() / 2);
-				phi = hsb.h * Math.PI / 180;
-				x = keepWithin(75 - Math.cos(phi) * r, 0, grid.width());
-				y = keepWithin(75 - Math.sin(phi) * r, 0, grid.height());
-				gridPicker.css({
-					top: y + 'px',
-					left: x + 'px'
-				});
-
-				// Set slider position
-				y = 150 - (hsb.b / (100 / grid.height()));
-				if( hex === '' ) y = 0;
-				sliderPicker.css('top', y + 'px');
-
-				// Update panel color
-				slider.css('backgroundColor', hsb2hex({ h: hsb.h, s: hsb.s, b: 100 }));
-				break;
-
-			case 'saturation':
-				// Set grid position
-				x = keepWithin((5 * hsb.h) / 12, 0, 150);
-				y = keepWithin(grid.height() - Math.ceil(hsb.b / (100 / grid.height())), 0, grid.height());
-				gridPicker.css({
-					top: y + 'px',
-					left: x + 'px'
-				});
-
-				// Set slider position
-				y = keepWithin(slider.height() - (hsb.s * (slider.height() / 100)), 0, slider.height());
-				sliderPicker.css('top', y + 'px');
-
-				// Update UI
-				slider.css('backgroundColor', hsb2hex({ h: hsb.h, s: 100, b: hsb.b }));
-				minicolors.find('.minicolors-grid-inner').css('opacity', hsb.s / 100);
-				break;
-
-			case 'brightness':
-				// Set grid position
-				x = keepWithin((5 * hsb.h) / 12, 0, 150);
-				y = keepWithin(grid.height() - Math.ceil(hsb.s / (100 / grid.height())), 0, grid.height());
-				gridPicker.css({
-					top: y + 'px',
-					left: x + 'px'
-				});
-
-				// Set slider position
-				y = keepWithin(slider.height() - (hsb.b * (slider.height() / 100)), 0, slider.height());
-				sliderPicker.css('top', y + 'px');
-
-				// Update UI
-				slider.css('backgroundColor', hsb2hex({ h: hsb.h, s: hsb.s, b: 100 }));
-				minicolors.find('.minicolors-grid-inner').css('opacity', 1 - (hsb.b / 100));
-				break;
-
-			default:
-				// Set grid position
-				x = keepWithin(Math.ceil(hsb.s / (100 / grid.width())), 0, grid.width());
-				y = keepWithin(grid.height() - Math.ceil(hsb.b / (100 / grid.height())), 0, grid.height());
-				gridPicker.css({
-					top: y + 'px',
-					left: x + 'px'
-				});
-
-				// Set slider position
-				y = keepWithin(slider.height() - (hsb.h / (360 / slider.height())), 0, slider.height());
-				sliderPicker.css('top', y + 'px');
-
-				// Update panel color
-				grid.css('backgroundColor', hsb2hex({ h: hsb.h, s: 100, b: 100 }));
-				break;
-
-		}
-
-		// Fire change event, but only if minicolors is fully initialized
-		if( input.data('minicolors-initialized') ) {
-			doChange(input, hex, opacity);
-		}
-
-	}
-
-	// Runs the change and changeDelay callbacks
-	function doChange(input, hex, opacity) {
-
-		var settings = input.data('minicolors-settings'),
-			lastChange = input.data('minicolors-lastChange');
-
-		// Only run if it actually changed
-		if( !lastChange || lastChange.hex !== hex || lastChange.opacity !== opacity ) {
-
-			// Remember last-changed value
-			input.data('minicolors-lastChange', {
-				hex: hex,
-				opacity: opacity
-			});
-
-			// Fire change event
-			if( settings.change ) {
-				if( settings.changeDelay ) {
-					// Call after a delay
-					clearTimeout(input.data('minicolors-changeTimeout'));
-					input.data('minicolors-changeTimeout', setTimeout( function() {
-						settings.change.call(input.get(0), hex, opacity);
-					}, settings.changeDelay));
-				} else {
-					// Call immediately
-					settings.change.call(input.get(0), hex, opacity);
-				}
-			}
-			input.trigger('change').trigger('input');
-		}
-
-	}
-
-	// Generates an RGB(A) object based on the input's value
-	function rgbObject(input) {
-		var hex = parseHex($(input).val(), true),
-			rgb = hex2rgb(hex),
-			opacity = $(input).attr('data-opacity');
-		if( !rgb ) return null;
-		if( opacity !== undefined ) $.extend(rgb, { a: parseFloat(opacity) });
-		return rgb;
-	}
-
-	// Genearates an RGB(A) string based on the input's value
-	function rgbString(input, alpha) {
-		var hex = parseHex($(input).val(), true),
-			rgb = hex2rgb(hex),
-			opacity = $(input).attr('data-opacity');
-		if( !rgb ) return null;
-		if( opacity === undefined ) opacity = 1;
-		if( alpha ) {
-			return 'rgba(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ', ' + parseFloat(opacity) + ')';
-		} else {
-			return 'rgb(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ')';
-		}
-	}
-
-	// Converts to the letter case specified in settings
-	function convertCase(string, letterCase) {
-		return letterCase === 'uppercase' ? string.toUpperCase() : string.toLowerCase();
-	}
-
-	// Parses a string and returns a valid hex string when possible
-	function parseHex(string, expand) {
-		string = string.replace(/[^A-F0-9]/ig, '');
-		if( string.length !== 3 && string.length !== 6 ) return '';
-		if( string.length === 3 && expand ) {
-			string = string[0] + string[0] + string[1] + string[1] + string[2] + string[2];
-		}
-		return '#' + string;
-	}
-
-	// Keeps value within min and max
-	function keepWithin(value, min, max) {
-		if( value < min ) value = min;
-		if( value > max ) value = max;
-		return value;
-	}
-
-	// Converts an HSB object to an RGB object
-	function hsb2rgb(hsb) {
-		var rgb = {};
-		var h = Math.round(hsb.h);
-		var s = Math.round(hsb.s * 255 / 100);
-		var v = Math.round(hsb.b * 255 / 100);
-		if(s === 0) {
-			rgb.r = rgb.g = rgb.b = v;
-		} else {
-			var t1 = v;
-			var t2 = (255 - s) * v / 255;
-			var t3 = (t1 - t2) * (h % 60) / 60;
-			if( h === 360 ) h = 0;
-			if( h < 60 ) { rgb.r = t1; rgb.b = t2; rgb.g = t2 + t3; }
-			else if( h < 120 ) {rgb.g = t1; rgb.b = t2; rgb.r = t1 - t3; }
-			else if( h < 180 ) {rgb.g = t1; rgb.r = t2; rgb.b = t2 + t3; }
-			else if( h < 240 ) {rgb.b = t1; rgb.r = t2; rgb.g = t1 - t3; }
-			else if( h < 300 ) {rgb.b = t1; rgb.g = t2; rgb.r = t2 + t3; }
-			else if( h < 360 ) {rgb.r = t1; rgb.g = t2; rgb.b = t1 - t3; }
-			else { rgb.r = 0; rgb.g = 0; rgb.b = 0; }
-		}
-		return {
-			r: Math.round(rgb.r),
-			g: Math.round(rgb.g),
-			b: Math.round(rgb.b)
-		};
-	}
-
-	// Converts an RGB object to a hex string
-	function rgb2hex(rgb) {
-		var hex = [
-			rgb.r.toString(16),
-			rgb.g.toString(16),
-			rgb.b.toString(16)
-		];
-		$.each(hex, function(nr, val) {
-			if (val.length === 1) hex[nr] = '0' + val;
-		});
-		return '#' + hex.join('');
-	}
-
-	// Converts an HSB object to a hex string
-	function hsb2hex(hsb) {
-		return rgb2hex(hsb2rgb(hsb));
-	}
-
-	// Converts a hex string to an HSB object
-	function hex2hsb(hex) {
-		var hsb = rgb2hsb(hex2rgb(hex));
-		if( hsb.s === 0 ) hsb.h = 360;
-		return hsb;
-	}
-
-	// Converts an RGB object to an HSB object
-	function rgb2hsb(rgb) {
-		var hsb = { h: 0, s: 0, b: 0 };
-		var min = Math.min(rgb.r, rgb.g, rgb.b);
-		var max = Math.max(rgb.r, rgb.g, rgb.b);
-		var delta = max - min;
-		hsb.b = max;
-		hsb.s = max !== 0 ? 255 * delta / max : 0;
-		if( hsb.s !== 0 ) {
-			if( rgb.r === max ) {
-				hsb.h = (rgb.g - rgb.b) / delta;
-			} else if( rgb.g === max ) {
-				hsb.h = 2 + (rgb.b - rgb.r) / delta;
-			} else {
-				hsb.h = 4 + (rgb.r - rgb.g) / delta;
-			}
-		} else {
-			hsb.h = -1;
-		}
-		hsb.h *= 60;
-		if( hsb.h < 0 ) {
-			hsb.h += 360;
-		}
-		hsb.s *= 100/255;
-		hsb.b *= 100/255;
-		return hsb;
-	}
-
-	// Converts a hex string to an RGB object
-	function hex2rgb(hex) {
-		hex = parseInt(((hex.indexOf('#') > -1) ? hex.substring(1) : hex), 16);
-		return {
-			r: hex >> 16,
-			g: (hex & 0x00FF00) >> 8,
-			b: (hex & 0x0000FF)
-		};
-	}
-
-	// Handle events
-	$(document)
-		// Hide on clicks outside of the control
-		.on('mousedown.minicolors touchstart.minicolors', function(event) {
-			if( !$(event.target).parents().add(event.target).hasClass('minicolors') ) {
-				hide();
-			}
-		})
-		// Start moving
-		.on('mousedown.minicolors touchstart.minicolors', '.minicolors-grid, .minicolors-slider, .minicolors-opacity-slider', function(event) {
-			var target = $(this);
-			event.preventDefault();
-			$(document).data('minicolors-target', target);
-			move(target, event, true);
-		})
-		// Move pickers
-		.on('mousemove.minicolors touchmove.minicolors', function(event) {
-			var target = $(document).data('minicolors-target');
-			if( target ) move(target, event);
-		})
-		// Stop moving
-		.on('mouseup.minicolors touchend.minicolors', function() {
-			$(this).removeData('minicolors-target');
-		})
-		// Show panel when swatch is clicked
-		.on('mousedown.minicolors touchstart.minicolors', '.minicolors-swatch', function(event) {
-			var input = $(this).parent().find('.minicolors-input');
-			event.preventDefault();
-			show(input);
-		})
-		// Show on focus
-		.on('focus.minicolors', '.minicolors-input', function() {
-			var input = $(this);
-			if( !input.data('minicolors-initialized') ) return;
-			show(input);
-		})
-		// Fix hex on blur
-		.on('blur.minicolors', '.minicolors-input', function() {
-			var input = $(this),
-				settings = input.data('minicolors-settings');
-			if( !input.data('minicolors-initialized') ) return;
-
-			// Parse Hex
-			input.val(parseHex(input.val(), true));
-
-			// Is it blank?
-			if( input.val() === '' ) input.val(parseHex(settings.defaultValue, true));
-
-			// Adjust case
-			input.val( convertCase(input.val(), settings.letterCase) );
-
-		})
-		// Handle keypresses
-		.on('keydown.minicolors', '.minicolors-input', function(event) {
-			var input = $(this);
-			if( !input.data('minicolors-initialized') ) return;
-			switch(event.keyCode) {
-				case 9: // tab
-					hide();
-					break;
-				case 13: // enter
-				case 27: // esc
-					hide();
-					input.blur();
-					break;
-			}
-		})
-		// Update on keyup
-		.on('keyup.minicolors', '.minicolors-input', function() {
-			var input = $(this);
-			if( !input.data('minicolors-initialized') ) return;
-			updateFromInput(input, true);
-		})
-		// Update on paste
-		.on('paste.minicolors', '.minicolors-input', function() {
-			var input = $(this);
-			if( !input.data('minicolors-initialized') ) return;
-			setTimeout( function() {
-				updateFromInput(input, true);
-			}, 1);
-		});
-
-})(jQuery);
+(function (factory) {
+    /* jshint ignore:start */
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        // Node/CommonJS
+        module.exports = factory(require('jquery'));
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+    /* jshint ignore:end */
+}(function ($) {
+
+    'use strict';
+
+    // Defaults
+    $.minicolors = {
+        defaults: {
+            animationSpeed: 50,
+            animationEasing: 'swing',
+            change: null,
+            changeDelay: 0,
+            control: 'hue',
+            dataUris: true,
+            defaultValue: '',
+            format: 'hex',
+            hide: null,
+            hideSpeed: 100,
+            inline: false,
+            keywords: '',
+            letterCase: 'lowercase',
+            opacity: false,
+            position: 'bottom left',
+            show: null,
+            showSpeed: 100,
+            theme: 'default'
+        }
+    };
+
+    // Public methods
+    $.extend($.fn, {
+        minicolors: function(method, data) {
+
+            switch(method) {
+
+                // Destroy the control
+                case 'destroy':
+                    $(this).each( function() {
+                        destroy($(this));
+                    });
+                    return $(this);
+
+                // Hide the color picker
+                case 'hide':
+                    hide();
+                    return $(this);
+
+                // Get/set opacity
+                case 'opacity':
+                    // Getter
+                    if( data === undefined ) {
+                        // Getter
+                        return $(this).attr('data-opacity');
+                    } else {
+                        // Setter
+                        $(this).each( function() {
+                            updateFromInput($(this).attr('data-opacity', data));
+                        });
+                    }
+                    return $(this);
+
+                // Get an RGB(A) object based on the current color/opacity
+                case 'rgbObject':
+                    return rgbObject($(this), method === 'rgbaObject');
+
+                // Get an RGB(A) string based on the current color/opacity
+                case 'rgbString':
+                case 'rgbaString':
+                    return rgbString($(this), method === 'rgbaString');
+
+                // Get/set settings on the fly
+                case 'settings':
+                    if( data === undefined ) {
+                        return $(this).data('minicolors-settings');
+                    } else {
+                        // Setter
+                        $(this).each( function() {
+                            var settings = $(this).data('minicolors-settings') || {};
+                            destroy($(this));
+                            $(this).minicolors($.extend(true, settings, data));
+                        });
+                    }
+                    return $(this);
+
+                // Show the color picker
+                case 'show':
+                    show( $(this).eq(0) );
+                    return $(this);
+
+                // Get/set the hex color value
+                case 'value':
+                    if( data === undefined ) {
+                        // Getter
+                        return $(this).val();
+                    } else {
+                        // Setter
+                        $(this).each( function() {
+                            if( typeof(data) === 'object' ) {
+                                if( data.opacity ) {
+                                    $(this).attr('data-opacity', keepWithin(data.opacity, 0, 1));
+                                }
+                                if( data.color ) {
+                                    $(this).val(data.color);
+                                }
+                            } else {
+                                $(this).val(data);
+                            }
+                            updateFromInput($(this));
+                        });
+                    }
+                    return $(this);
+
+                // Initializes the control
+                default:
+                    if( method !== 'create' ) data = method;
+                    $(this).each( function() {
+                        init($(this), data);
+                    });
+                    return $(this);
+
+            }
+
+        }
+    });
+
+    // Initialize input elements
+    function init(input, settings) {
+
+        var minicolors = $('<div class="minicolors" />'),
+            defaults = $.minicolors.defaults,
+            opacity = input.attr('data-opacity'),
+            size;
+
+        // Do nothing if already initialized
+        if( input.data('minicolors-initialized') ) return;
+
+        // Handle settings
+        settings = $.extend(true, {}, defaults, settings);
+
+        // The wrapper
+        minicolors
+            .addClass('minicolors-theme-' + settings.theme)
+            .toggleClass('minicolors-with-opacity', settings.opacity)
+            .toggleClass('minicolors-no-data-uris', settings.dataUris !== true);
+
+        // Custom positioning
+        if( settings.position !== undefined ) {
+            $.each(settings.position.split(' '), function() {
+                minicolors.addClass('minicolors-position-' + this);
+            });
+        }
+
+        // Input size
+        if( settings.format === 'rgb' ) {
+            size = settings.opacity ? '25' : '20';
+        } else {
+            size = settings.keywords ? '11' : '7';
+        }
+
+        // The input
+        input
+            .addClass('minicolors-input')
+            .data('minicolors-initialized', false)
+            .data('minicolors-settings', settings)
+            .prop('size', size)
+            .wrap(minicolors)
+            .after(
+                '<div class="minicolors-panel minicolors-slider-' + settings.control + '">' +
+                    '<div class="minicolors-slider minicolors-sprite">' +
+                        '<div class="minicolors-picker"></div>' +
+                    '</div>' +
+                    '<div class="minicolors-opacity-slider minicolors-sprite">' +
+                        '<div class="minicolors-picker"></div>' +
+                    '</div>' +
+                    '<div class="minicolors-grid minicolors-sprite">' +
+                        '<div class="minicolors-grid-inner"></div>' +
+                        '<div class="minicolors-picker"><div></div></div>' +
+                    '</div>' +
+                '</div>'
+            );
+
+        // The swatch
+        if( !settings.inline ) {
+            input.after('<span class="minicolors-swatch minicolors-sprite"><span class="minicolors-swatch-color"></span></span>');
+            input.next('.minicolors-swatch').on('click', function(event) {
+                event.preventDefault();
+                input.focus();
+            });
+        }
+
+        // Prevent text selection in IE
+        input.parent().find('.minicolors-panel').on('selectstart', function() { return false; }).end();
+
+        // Inline controls
+        if( settings.inline ) input.parent().addClass('minicolors-inline');
+
+        updateFromInput(input, false);
+
+        input.data('minicolors-initialized', true);
+
+    }
+
+    // Returns the input back to its original state
+    function destroy(input) {
+
+        var minicolors = input.parent();
+
+        // Revert the input element
+        input
+            .removeData('minicolors-initialized')
+            .removeData('minicolors-settings')
+            .removeProp('size')
+            .removeClass('minicolors-input');
+
+        // Remove the wrap and destroy whatever remains
+        minicolors.before(input).remove();
+
+    }
+
+    // Shows the specified dropdown panel
+    function show(input) {
+
+        var minicolors = input.parent(),
+            panel = minicolors.find('.minicolors-panel'),
+            settings = input.data('minicolors-settings');
+
+        // Do nothing if uninitialized, disabled, inline, or already open
+        if( !input.data('minicolors-initialized') ||
+            input.prop('disabled') ||
+            minicolors.hasClass('minicolors-inline') ||
+            minicolors.hasClass('minicolors-focus')
+        ) return;
+
+        hide();
+
+        minicolors.addClass('minicolors-focus');
+        panel
+            .stop(true, true)
+            .fadeIn(settings.showSpeed, function() {
+                if( settings.show ) settings.show.call(input.get(0));
+            });
+
+    }
+
+    // Hides all dropdown panels
+    function hide() {
+
+        $('.minicolors-focus').each( function() {
+
+            var minicolors = $(this),
+                input = minicolors.find('.minicolors-input'),
+                panel = minicolors.find('.minicolors-panel'),
+                settings = input.data('minicolors-settings');
+
+            panel.fadeOut(settings.hideSpeed, function() {
+                if( settings.hide ) settings.hide.call(input.get(0));
+                minicolors.removeClass('minicolors-focus');
+            });
+
+        });
+    }
+
+    // Moves the selected picker
+    function move(target, event, animate) {
+
+        var input = target.parents('.minicolors').find('.minicolors-input'),
+            settings = input.data('minicolors-settings'),
+            picker = target.find('[class$=-picker]'),
+            offsetX = target.offset().left,
+            offsetY = target.offset().top,
+            x = Math.round(event.pageX - offsetX),
+            y = Math.round(event.pageY - offsetY),
+            duration = animate ? settings.animationSpeed : 0,
+            wx, wy, r, phi;
+
+        // Touch support
+        if( event.originalEvent.changedTouches ) {
+            x = event.originalEvent.changedTouches[0].pageX - offsetX;
+            y = event.originalEvent.changedTouches[0].pageY - offsetY;
+        }
+
+        // Constrain picker to its container
+        if( x < 0 ) x = 0;
+        if( y < 0 ) y = 0;
+        if( x > target.width() ) x = target.width();
+        if( y > target.height() ) y = target.height();
+
+        // Constrain color wheel values to the wheel
+        if( target.parent().is('.minicolors-slider-wheel') && picker.parent().is('.minicolors-grid') ) {
+            wx = 75 - x;
+            wy = 75 - y;
+            r = Math.sqrt(wx * wx + wy * wy);
+            phi = Math.atan2(wy, wx);
+            if( phi < 0 ) phi += Math.PI * 2;
+            if( r > 75 ) {
+                r = 75;
+                x = 75 - (75 * Math.cos(phi));
+                y = 75 - (75 * Math.sin(phi));
+            }
+            x = Math.round(x);
+            y = Math.round(y);
+        }
+
+        // Move the picker
+        if( target.is('.minicolors-grid') ) {
+            picker
+                .stop(true)
+                .animate({
+                    top: y + 'px',
+                    left: x + 'px'
+                }, duration, settings.animationEasing, function() {
+                    updateFromControl(input, target);
+                });
+        } else {
+            picker
+                .stop(true)
+                .animate({
+                    top: y + 'px'
+                }, duration, settings.animationEasing, function() {
+                    updateFromControl(input, target);
+                });
+        }
+
+    }
+
+    // Sets the input based on the color picker values
+    function updateFromControl(input, target) {
+
+        function getCoords(picker, container) {
+
+            var left, top;
+            if( !picker.length || !container ) return null;
+            left = picker.offset().left;
+            top = picker.offset().top;
+
+            return {
+                x: left - container.offset().left + (picker.outerWidth() / 2),
+                y: top - container.offset().top + (picker.outerHeight() / 2)
+            };
+
+        }
+
+        var hue, saturation, brightness, x, y, r, phi,
+
+            hex = input.val(),
+            opacity = input.attr('data-opacity'),
+            value,
+
+            // Helpful references
+            minicolors = input.parent(),
+            settings = input.data('minicolors-settings'),
+            swatch = minicolors.find('.minicolors-swatch'),
+
+            // Panel objects
+            grid = minicolors.find('.minicolors-grid'),
+            slider = minicolors.find('.minicolors-slider'),
+            opacitySlider = minicolors.find('.minicolors-opacity-slider'),
+
+            // Picker objects
+            gridPicker = grid.find('[class$=-picker]'),
+            sliderPicker = slider.find('[class$=-picker]'),
+            opacityPicker = opacitySlider.find('[class$=-picker]'),
+
+            // Picker positions
+            gridPos = getCoords(gridPicker, grid),
+            sliderPos = getCoords(sliderPicker, slider),
+            opacityPos = getCoords(opacityPicker, opacitySlider);
+
+        // Handle colors
+        if( target.is('.minicolors-grid, .minicolors-slider, .minicolors-opacity-slider') ) {
+
+            // Determine HSB values
+            switch(settings.control) {
+
+                case 'wheel':
+                    // Calculate hue, saturation, and brightness
+                    x = (grid.width() / 2) - gridPos.x;
+                    y = (grid.height() / 2) - gridPos.y;
+                    r = Math.sqrt(x * x + y * y);
+                    phi = Math.atan2(y, x);
+                    if( phi < 0 ) phi += Math.PI * 2;
+                    if( r > 75 ) {
+                        r = 75;
+                        gridPos.x = 69 - (75 * Math.cos(phi));
+                        gridPos.y = 69 - (75 * Math.sin(phi));
+                    }
+                    saturation = keepWithin(r / 0.75, 0, 100);
+                    hue = keepWithin(phi * 180 / Math.PI, 0, 360);
+                    brightness = keepWithin(100 - Math.floor(sliderPos.y * (100 / slider.height())), 0, 100);
+                    hex = hsb2hex({
+                        h: hue,
+                        s: saturation,
+                        b: brightness
+                    });
+
+                    // Update UI
+                    slider.css('backgroundColor', hsb2hex({ h: hue, s: saturation, b: 100 }));
+                    break;
+
+                case 'saturation':
+                    // Calculate hue, saturation, and brightness
+                    hue = keepWithin(parseInt(gridPos.x * (360 / grid.width()), 10), 0, 360);
+                    saturation = keepWithin(100 - Math.floor(sliderPos.y * (100 / slider.height())), 0, 100);
+                    brightness = keepWithin(100 - Math.floor(gridPos.y * (100 / grid.height())), 0, 100);
+                    hex = hsb2hex({
+                        h: hue,
+                        s: saturation,
+                        b: brightness
+                    });
+
+                    // Update UI
+                    slider.css('backgroundColor', hsb2hex({ h: hue, s: 100, b: brightness }));
+                    minicolors.find('.minicolors-grid-inner').css('opacity', saturation / 100);
+                    break;
+
+                case 'brightness':
+                    // Calculate hue, saturation, and brightness
+                    hue = keepWithin(parseInt(gridPos.x * (360 / grid.width()), 10), 0, 360);
+                    saturation = keepWithin(100 - Math.floor(gridPos.y * (100 / grid.height())), 0, 100);
+                    brightness = keepWithin(100 - Math.floor(sliderPos.y * (100 / slider.height())), 0, 100);
+                    hex = hsb2hex({
+                        h: hue,
+                        s: saturation,
+                        b: brightness
+                    });
+
+                    // Update UI
+                    slider.css('backgroundColor', hsb2hex({ h: hue, s: saturation, b: 100 }));
+                    minicolors.find('.minicolors-grid-inner').css('opacity', 1 - (brightness / 100));
+                    break;
+
+                default:
+                    // Calculate hue, saturation, and brightness
+                    hue = keepWithin(360 - parseInt(sliderPos.y * (360 / slider.height()), 10), 0, 360);
+                    saturation = keepWithin(Math.floor(gridPos.x * (100 / grid.width())), 0, 100);
+                    brightness = keepWithin(100 - Math.floor(gridPos.y * (100 / grid.height())), 0, 100);
+                    hex = hsb2hex({
+                        h: hue,
+                        s: saturation,
+                        b: brightness
+                    });
+
+                    // Update UI
+                    grid.css('backgroundColor', hsb2hex({ h: hue, s: 100, b: 100 }));
+                    break;
+
+            }
+
+            // Handle opacity
+            if( settings.opacity ) {
+                opacity = parseFloat(1 - (opacityPos.y / opacitySlider.height())).toFixed(2);
+            } else {
+                opacity = 1;
+            }
+            if( settings.opacity ) input.attr('data-opacity', opacity);
+
+            // Set color string
+            if( settings.format === 'rgb' ) {
+                // Returns RGB(A) string
+                var rgb = hex2rgb(hex),
+                    opacity = input.attr('data-opacity') === '' ? 1 : keepWithin( parseFloat( input.attr('data-opacity') ).toFixed(2), 0, 1 );
+                if( isNaN( opacity ) || !settings.opacity ) opacity = 1;
+
+                if( input.minicolors('rgbObject').a <= 1 && rgb && settings.opacity) {
+                    // Set RGBA string if alpha
+                    value = 'rgba(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ', ' + parseFloat( opacity ) + ')';
+                } else {
+                    // Set RGB string (alpha = 1)
+                    value = 'rgb(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ')';
+                }
+            } else {
+                // Returns hex color
+                value = convertCase( hex, settings.letterCase );
+            }
+
+            // Update value from picker
+            input.val( value );
+        }
+
+        // Set swatch color
+        swatch.find('span').css({
+            backgroundColor: hex,
+            opacity: opacity
+        });
+
+        // Handle change event
+        doChange(input, value, opacity);
+
+    }
+
+    // Sets the color picker values from the input
+    function updateFromInput(input, preserveInputValue) {
+
+        var hex,
+            hsb,
+            opacity,
+            keywords,
+            alpha,
+            value,
+            x, y, r, phi,
+
+            // Helpful references
+            minicolors = input.parent(),
+            settings = input.data('minicolors-settings'),
+            swatch = minicolors.find('.minicolors-swatch'),
+
+            // Panel objects
+            grid = minicolors.find('.minicolors-grid'),
+            slider = minicolors.find('.minicolors-slider'),
+            opacitySlider = minicolors.find('.minicolors-opacity-slider'),
+
+            // Picker objects
+            gridPicker = grid.find('[class$=-picker]'),
+            sliderPicker = slider.find('[class$=-picker]'),
+            opacityPicker = opacitySlider.find('[class$=-picker]');
+
+        // Determine hex/HSB values
+        if( isRgb(input.val()) ) {
+            // If input value is a rgb(a) string, convert it to hex color and update opacity
+            hex = rgbString2hex(input.val());
+            alpha = keepWithin(parseFloat(getAlpha(input.val())).toFixed(2), 0, 1);
+            if( alpha ) {
+                input.attr('data-opacity', alpha);
+            }
+        } else {
+            hex = convertCase(parseHex(input.val(), true), settings.letterCase);
+        }
+
+        if( !hex ){
+            hex = convertCase(parseInput(settings.defaultValue, true), settings.letterCase);
+        }
+        hsb = hex2hsb(hex);
+
+        // Get array of lowercase keywords
+        keywords = !settings.keywords ? [] : $.map(settings.keywords.split(','), function(a) {
+            return $.trim(a.toLowerCase());
+        });
+
+        // Set color string
+        if( input.val() !== '' && $.inArray(input.val().toLowerCase(), keywords) > -1 ) {
+            value = convertCase(input.val());
+        } else {
+            value = isRgb(input.val()) ? parseRgb(input.val()) : hex;
+        }
+
+        // Update input value
+        if( !preserveInputValue ) input.val(value);
+
+        // Determine opacity value
+        if( settings.opacity ) {
+            // Get from data-opacity attribute and keep within 0-1 range
+            opacity = input.attr('data-opacity') === '' ? 1 : keepWithin(parseFloat(input.attr('data-opacity')).toFixed(2), 0, 1);
+            if( isNaN(opacity) ) opacity = 1;
+            input.attr('data-opacity', opacity);
+            swatch.find('span').css('opacity', opacity);
+
+            // Set opacity picker position
+            y = keepWithin(opacitySlider.height() - (opacitySlider.height() * opacity), 0, opacitySlider.height());
+            opacityPicker.css('top', y + 'px');
+        }
+
+        // Set opacity to zero if input value is transparent
+        if( input.val().toLowerCase() === 'transparent' ) {
+            swatch.find('span').css('opacity', 0);
+        }
+
+        // Update swatch
+        swatch.find('span').css('backgroundColor', hex);
+
+        // Determine picker locations
+        switch(settings.control) {
+
+            case 'wheel':
+                // Set grid position
+                r = keepWithin(Math.ceil(hsb.s * 0.75), 0, grid.height() / 2);
+                phi = hsb.h * Math.PI / 180;
+                x = keepWithin(75 - Math.cos(phi) * r, 0, grid.width());
+                y = keepWithin(75 - Math.sin(phi) * r, 0, grid.height());
+                gridPicker.css({
+                    top: y + 'px',
+                    left: x + 'px'
+                });
+
+                // Set slider position
+                y = 150 - (hsb.b / (100 / grid.height()));
+                if( hex === '' ) y = 0;
+                sliderPicker.css('top', y + 'px');
+
+                // Update panel color
+                slider.css('backgroundColor', hsb2hex({ h: hsb.h, s: hsb.s, b: 100 }));
+                break;
+
+            case 'saturation':
+                // Set grid position
+                x = keepWithin((5 * hsb.h) / 12, 0, 150);
+                y = keepWithin(grid.height() - Math.ceil(hsb.b / (100 / grid.height())), 0, grid.height());
+                gridPicker.css({
+                    top: y + 'px',
+                    left: x + 'px'
+                });
+
+                // Set slider position
+                y = keepWithin(slider.height() - (hsb.s * (slider.height() / 100)), 0, slider.height());
+                sliderPicker.css('top', y + 'px');
+
+                // Update UI
+                slider.css('backgroundColor', hsb2hex({ h: hsb.h, s: 100, b: hsb.b }));
+                minicolors.find('.minicolors-grid-inner').css('opacity', hsb.s / 100);
+                break;
+
+            case 'brightness':
+                // Set grid position
+                x = keepWithin((5 * hsb.h) / 12, 0, 150);
+                y = keepWithin(grid.height() - Math.ceil(hsb.s / (100 / grid.height())), 0, grid.height());
+                gridPicker.css({
+                    top: y + 'px',
+                    left: x + 'px'
+                });
+
+                // Set slider position
+                y = keepWithin(slider.height() - (hsb.b * (slider.height() / 100)), 0, slider.height());
+                sliderPicker.css('top', y + 'px');
+
+                // Update UI
+                slider.css('backgroundColor', hsb2hex({ h: hsb.h, s: hsb.s, b: 100 }));
+                minicolors.find('.minicolors-grid-inner').css('opacity', 1 - (hsb.b / 100));
+                break;
+
+            default:
+                // Set grid position
+                x = keepWithin(Math.ceil(hsb.s / (100 / grid.width())), 0, grid.width());
+                y = keepWithin(grid.height() - Math.ceil(hsb.b / (100 / grid.height())), 0, grid.height());
+                gridPicker.css({
+                    top: y + 'px',
+                    left: x + 'px'
+                });
+
+                // Set slider position
+                y = keepWithin(slider.height() - (hsb.h / (360 / slider.height())), 0, slider.height());
+                sliderPicker.css('top', y + 'px');
+
+                // Update panel color
+                grid.css('backgroundColor', hsb2hex({ h: hsb.h, s: 100, b: 100 }));
+                break;
+
+        }
+
+        // Fire change event, but only if minicolors is fully initialized
+        if( input.data('minicolors-initialized') ) {
+            doChange(input, value, opacity);
+        }
+
+    }
+
+    // Runs the change and changeDelay callbacks
+    function doChange(input, value, opacity) {
+
+        var settings = input.data('minicolors-settings'),
+            lastChange = input.data('minicolors-lastChange');
+
+        // Only run if it actually changed
+        if( !lastChange || lastChange.value !== value || lastChange.opacity !== opacity ) {
+
+            // Remember last-changed value
+            input.data('minicolors-lastChange', {
+                value: value,
+                opacity: opacity
+            });
+
+            // Fire change event
+            if( settings.change ) {
+                if( settings.changeDelay ) {
+                    // Call after a delay
+                    clearTimeout(input.data('minicolors-changeTimeout'));
+                    input.data('minicolors-changeTimeout', setTimeout( function() {
+                        settings.change.call(input.get(0), value, opacity);
+                    }, settings.changeDelay));
+                } else {
+                    // Call immediately
+                    settings.change.call(input.get(0), value, opacity);
+                }
+            }
+            input.trigger('change').trigger('input');
+        }
+
+    }
+
+    // Generates an RGB(A) object based on the input's value
+    function rgbObject(input) {
+        var hex = parseHex($(input).val(), true),
+            rgb = hex2rgb(hex),
+            opacity = $(input).attr('data-opacity');
+        if( !rgb ) return null;
+        if( opacity !== undefined ) $.extend(rgb, { a: parseFloat(opacity) });
+        return rgb;
+    }
+
+    // Generates an RGB(A) string based on the input's value
+    function rgbString(input, alpha) {
+        var hex = parseHex($(input).val(), true),
+            rgb = hex2rgb(hex),
+            opacity = $(input).attr('data-opacity');
+        if( !rgb ) return null;
+        if( opacity === undefined ) opacity = 1;
+        if( alpha ) {
+            return 'rgba(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ', ' + parseFloat(opacity) + ')';
+        } else {
+            return 'rgb(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ')';
+        }
+    }
+
+    // Converts to the letter case specified in settings
+    function convertCase(string, letterCase) {
+        return letterCase === 'uppercase' ? string.toUpperCase() : string.toLowerCase();
+    }
+
+    // Parses a string and returns a valid hex string when possible
+    function parseHex(string, expand) {
+        string = string.replace(/^#/g, '');
+        if( !string.match(/^[A-F0-9]{3,6}/ig) ) return '';
+        if( string.length !== 3 && string.length !== 6 ) return '';
+        if( string.length === 3 && expand ) {
+            string = string[0] + string[0] + string[1] + string[1] + string[2] + string[2];
+        }
+        return '#' + string;
+    }
+
+    // Parses a string and returns a valid RGB(A) string when possible
+    function parseRgb(string, obj) {
+
+        var values = string.replace(/[^\d,.]/g, ''),
+            rgba = values.split(','),
+            output;
+
+        rgba[0] = keepWithin(parseInt(rgba[0], 10), 0, 255);
+        rgba[1] = keepWithin(parseInt(rgba[1], 10), 0, 255);
+        rgba[2] = keepWithin(parseInt(rgba[2], 10), 0, 255);
+        if( rgba[3] ) {
+            rgba[3] = keepWithin(parseFloat(rgba[3], 10), 0, 1);
+        }
+
+        // Return RGBA object
+        if( obj ) {
+            return {
+                r: rgba[0],
+                g: rgba[1],
+                b: rgba[2],
+                a: rgba[3] ? rgba[3] : null
+            };
+        }
+
+        // Return RGBA string
+        if( typeof(rgba[3]) !== 'undefined' && rgba[3] <= 1 ) {
+            return 'rgba(' + rgba[0] + ', ' + rgba[1] + ', ' + rgba[2] + ', ' + rgba[3] + ')';
+        } else {
+            return 'rgb(' + rgba[0] + ', ' + rgba[1] + ', ' + rgba[2] + ')';
+        }
+
+    }
+
+    // Parses a string and returns a valid color string when possible
+    function parseInput(string, expand) {
+        if( isRgb(string) ) {
+            // Returns a valid rgb(a) string
+            return parseRgb(string);
+        } else {
+            return parseHex(string, expand);
+        }
+    }
+
+    // Keeps value within min and max
+    function keepWithin(value, min, max) {
+        if( value < min ) value = min;
+        if( value > max ) value = max;
+        return value;
+    }
+
+    // Checks if a string is a valid RGB(A) string
+    function isRgb(string) {
+        var rgb = string.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+        return (rgb && rgb.length === 4) ? true : false;
+    }
+
+    // Function to get alpha from a RGB(A) string
+    function getAlpha(rgba) {
+        var rgba = rgba.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+(\.\d{1,2})?|\.\d{1,2})[\s+]?/i);
+        return (rgba && rgba.length === 6) ? rgba[4] : '1';
+    }
+
+   // Converts an HSB object to an RGB object
+    function hsb2rgb(hsb) {
+        var rgb = {};
+        var h = Math.round(hsb.h);
+        var s = Math.round(hsb.s * 255 / 100);
+        var v = Math.round(hsb.b * 255 / 100);
+        if(s === 0) {
+            rgb.r = rgb.g = rgb.b = v;
+        } else {
+            var t1 = v;
+            var t2 = (255 - s) * v / 255;
+            var t3 = (t1 - t2) * (h % 60) / 60;
+            if( h === 360 ) h = 0;
+            if( h < 60 ) { rgb.r = t1; rgb.b = t2; rgb.g = t2 + t3; }
+            else if( h < 120 ) {rgb.g = t1; rgb.b = t2; rgb.r = t1 - t3; }
+            else if( h < 180 ) {rgb.g = t1; rgb.r = t2; rgb.b = t2 + t3; }
+            else if( h < 240 ) {rgb.b = t1; rgb.r = t2; rgb.g = t1 - t3; }
+            else if( h < 300 ) {rgb.b = t1; rgb.g = t2; rgb.r = t2 + t3; }
+            else if( h < 360 ) {rgb.r = t1; rgb.g = t2; rgb.b = t1 - t3; }
+            else { rgb.r = 0; rgb.g = 0; rgb.b = 0; }
+        }
+        return {
+            r: Math.round(rgb.r),
+            g: Math.round(rgb.g),
+            b: Math.round(rgb.b)
+        };
+    }
+
+    // Converts an RGB string to a hex string
+    function rgbString2hex(rgb){
+        rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+        return (rgb && rgb.length === 4) ? '#' +
+        ('0' + parseInt(rgb[1],10).toString(16)).slice(-2) +
+        ('0' + parseInt(rgb[2],10).toString(16)).slice(-2) +
+        ('0' + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
+    }
+
+    // Converts an RGB object to a hex string
+    function rgb2hex(rgb) {
+        var hex = [
+            rgb.r.toString(16),
+            rgb.g.toString(16),
+            rgb.b.toString(16)
+        ];
+        $.each(hex, function(nr, val) {
+            if (val.length === 1) hex[nr] = '0' + val;
+        });
+        return '#' + hex.join('');
+    }
+
+    // Converts an HSB object to a hex string
+    function hsb2hex(hsb) {
+        return rgb2hex(hsb2rgb(hsb));
+    }
+
+    // Converts a hex string to an HSB object
+    function hex2hsb(hex) {
+        var hsb = rgb2hsb(hex2rgb(hex));
+        if( hsb.s === 0 ) hsb.h = 360;
+        return hsb;
+    }
+
+    // Converts an RGB object to an HSB object
+    function rgb2hsb(rgb) {
+        var hsb = { h: 0, s: 0, b: 0 };
+        var min = Math.min(rgb.r, rgb.g, rgb.b);
+        var max = Math.max(rgb.r, rgb.g, rgb.b);
+        var delta = max - min;
+        hsb.b = max;
+        hsb.s = max !== 0 ? 255 * delta / max : 0;
+        if( hsb.s !== 0 ) {
+            if( rgb.r === max ) {
+                hsb.h = (rgb.g - rgb.b) / delta;
+            } else if( rgb.g === max ) {
+                hsb.h = 2 + (rgb.b - rgb.r) / delta;
+            } else {
+                hsb.h = 4 + (rgb.r - rgb.g) / delta;
+            }
+        } else {
+            hsb.h = -1;
+        }
+        hsb.h *= 60;
+        if( hsb.h < 0 ) {
+            hsb.h += 360;
+        }
+        hsb.s *= 100/255;
+        hsb.b *= 100/255;
+        return hsb;
+    }
+
+    // Converts a hex string to an RGB object
+    function hex2rgb(hex) {
+        hex = parseInt(((hex.indexOf('#') > -1) ? hex.substring(1) : hex), 16);
+        return {
+            /* jshint ignore:start */
+            r: hex >> 16,
+            g: (hex & 0x00FF00) >> 8,
+            b: (hex & 0x0000FF)
+            /* jshint ignore:end */
+        };
+    }
+
+    // Handle events
+    $(document)
+        // Hide on clicks outside of the control
+        .on('mousedown.minicolors touchstart.minicolors', function(event) {
+            if( !$(event.target).parents().add(event.target).hasClass('minicolors') ) {
+                hide();
+            }
+        })
+        // Start moving
+        .on('mousedown.minicolors touchstart.minicolors', '.minicolors-grid, .minicolors-slider, .minicolors-opacity-slider', function(event) {
+            var target = $(this);
+            event.preventDefault();
+            $(document).data('minicolors-target', target);
+            move(target, event, true);
+        })
+        // Move pickers
+        .on('mousemove.minicolors touchmove.minicolors', function(event) {
+            var target = $(document).data('minicolors-target');
+            if( target ) move(target, event);
+        })
+        // Stop moving
+        .on('mouseup.minicolors touchend.minicolors', function() {
+            $(this).removeData('minicolors-target');
+        })
+        // Show panel when swatch is clicked
+        .on('mousedown.minicolors touchstart.minicolors', '.minicolors-swatch', function(event) {
+            var input = $(this).parent().find('.minicolors-input');
+            event.preventDefault();
+            show(input);
+        })
+        // Show on focus
+        .on('focus.minicolors', '.minicolors-input', function() {
+            var input = $(this);
+            if( !input.data('minicolors-initialized') ) return;
+            show(input);
+        })
+        // Update value on blur
+        .on('blur.minicolors', '.minicolors-input', function() {
+            var input = $(this),
+                settings = input.data('minicolors-settings'),
+                keywords,
+                hex,
+                rgba,
+                swatchOpacity,
+                value;
+
+            if( !input.data('minicolors-initialized') ) return;
+
+            // Get array of lowercase keywords
+            keywords = !settings.keywords ? [] : $.map(settings.keywords.split(','), function(a) {
+                return $.trim(a.toLowerCase());
+            });
+
+            // Set color string
+            if( input.val() !== '' && $.inArray(input.val().toLowerCase(), keywords) > -1 ) {
+                value = input.val();
+            } else {
+                // Get RGBA values for easy conversion
+                if( isRgb(input.val()) ) {
+                    rgba = parseRgb(input.val(), true);
+                } else {
+                    hex = parseHex(input.val(), true);
+                    rgba = hex ? hex2rgb(hex) : null;
+                }
+
+                // Convert to format
+                if( rgba === null ) {
+                    value = settings.defaultValue;
+                } else if( settings.format === 'rgb' ) {
+                    value = settings.opacity ?
+                        parseRgb('rgba(' + rgba.r + ',' + rgba.g + ',' + rgba.b + ',' + input.attr('data-opacity') + ')') :
+                        parseRgb('rgb(' + rgba.r + ',' + rgba.g + ',' + rgba.b + ')');
+                } else {
+                    value = rgb2hex(rgba);
+                }
+            }
+
+            // Update swatch opacity
+            swatchOpacity = settings.opacity ? input.attr('data-opacity') : 1;
+            if( value.toLowerCase() === 'transparent' ) swatchOpacity = 0;
+            input
+                .closest('.minicolors')
+                .find('.minicolors-swatch > span')
+                .css('opacity', swatchOpacity);
+
+            // Set input value
+            input.val(value);
+
+            // Is it blank?
+            if( input.val() === '' ) input.val(parseInput(settings.defaultValue, true));
+
+            // Adjust case
+            input.val( convertCase(input.val(), settings.letterCase) );
+
+        })
+        // Handle keypresses
+        .on('keydown.minicolors', '.minicolors-input', function(event) {
+            var input = $(this);
+            if( !input.data('minicolors-initialized') ) return;
+            switch(event.keyCode) {
+                case 9: // tab
+                    hide();
+                    break;
+                case 13: // enter
+                case 27: // esc
+                    hide();
+                    input.blur();
+                    break;
+            }
+        })
+        // Update on keyup
+        .on('keyup.minicolors', '.minicolors-input', function() {
+            var input = $(this);
+            if( !input.data('minicolors-initialized') ) return;
+            updateFromInput(input, true);
+        })
+        // Update on paste
+        .on('paste.minicolors', '.minicolors-input', function() {
+            var input = $(this);
+            if( !input.data('minicolors-initialized') ) return;
+            setTimeout( function() {
+                updateFromInput(input, true);
+            }, 1);
+        });
+
+}));
 $(function() {
   $('[data-minicolors]').each(function(i, elem) {
     var input = $(this);
@@ -12737,12 +12934,12 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
 
 }).call(this);
 //! moment.js
-//! version : 2.10.6
+//! version : 2.11.0
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
 
-(function (global, factory) {
+;(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
     global.moment = factory()
@@ -12859,39 +13056,45 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         return m;
     }
 
+    function isUndefined(input) {
+        return input === void 0;
+    }
+
+    // Plugins that add properties should also add the key here (null value),
+    // so we can properly clone ourselves.
     var momentProperties = utils_hooks__hooks.momentProperties = [];
 
     function copyConfig(to, from) {
         var i, prop, val;
 
-        if (typeof from._isAMomentObject !== 'undefined') {
+        if (!isUndefined(from._isAMomentObject)) {
             to._isAMomentObject = from._isAMomentObject;
         }
-        if (typeof from._i !== 'undefined') {
+        if (!isUndefined(from._i)) {
             to._i = from._i;
         }
-        if (typeof from._f !== 'undefined') {
+        if (!isUndefined(from._f)) {
             to._f = from._f;
         }
-        if (typeof from._l !== 'undefined') {
+        if (!isUndefined(from._l)) {
             to._l = from._l;
         }
-        if (typeof from._strict !== 'undefined') {
+        if (!isUndefined(from._strict)) {
             to._strict = from._strict;
         }
-        if (typeof from._tzm !== 'undefined') {
+        if (!isUndefined(from._tzm)) {
             to._tzm = from._tzm;
         }
-        if (typeof from._isUTC !== 'undefined') {
+        if (!isUndefined(from._isUTC)) {
             to._isUTC = from._isUTC;
         }
-        if (typeof from._offset !== 'undefined') {
+        if (!isUndefined(from._offset)) {
             to._offset = from._offset;
         }
-        if (typeof from._pf !== 'undefined') {
+        if (!isUndefined(from._pf)) {
             to._pf = getParsingFlags(from);
         }
-        if (typeof from._locale !== 'undefined') {
+        if (!isUndefined(from._locale)) {
             to._locale = from._locale;
         }
 
@@ -12899,7 +13102,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
             for (i in momentProperties) {
                 prop = momentProperties[i];
                 val = from[prop];
-                if (typeof val !== 'undefined') {
+                if (!isUndefined(val)) {
                     to[prop] = val;
                 }
             }
@@ -12946,6 +13149,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         return value;
     }
 
+    // compare two arrays, return the number of differences
     function compareArrays(array1, array2, dontConvert) {
         var len = Math.min(array1.length, array2.length),
             lengthDiff = Math.abs(array1.length - array2.length),
@@ -12963,6 +13167,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     function Locale() {
     }
 
+    // internal storage for locale config files
     var locales = {};
     var globalLocale;
 
@@ -13000,7 +13205,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     function loadLocale(name) {
         var oldLocale = null;
         // TODO: Find a better way to register and load all the locales in Node
-        if (!locales[name] && typeof module !== 'undefined' &&
+        if (!locales[name] && !isUndefined(module) &&
                 module && module.exports) {
             try {
                 oldLocale = globalLocale._abbr;
@@ -13019,7 +13224,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     function locale_locales__getSetGlobalLocale (key, values) {
         var data;
         if (key) {
-            if (typeof values === 'undefined') {
+            if (isUndefined(values)) {
                 data = locale_locales__getLocale(key);
             }
             else {
@@ -13104,6 +13309,10 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         return normalizedInput;
     }
 
+    function isFunction(input) {
+        return input instanceof Function || Object.prototype.toString.call(input) === '[object Function]';
+    }
+
     function makeGetSet (unit, keepTime) {
         return function (value) {
             if (value != null) {
@@ -13117,11 +13326,14 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     }
 
     function get_set__get (mom, unit) {
-        return mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]();
+        return mom.isValid() ?
+            mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]() : NaN;
     }
 
     function get_set__set (mom, unit, value) {
-        return mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
+        if (mom.isValid()) {
+            mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
+        }
     }
 
     // MOMENTS
@@ -13134,7 +13346,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
             }
         } else {
             units = normalizeUnits(units);
-            if (typeof this[units] === 'function') {
+            if (isFunction(this[units])) {
                 return this[units](value);
             }
         }
@@ -13149,7 +13361,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
             Math.pow(10, Math.max(0, zerosToFill)).toString().substr(1) + absNumber;
     }
 
-    var formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
+    var formattingTokens = /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
 
     var localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g;
 
@@ -13245,6 +13457,8 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     var match4         = /\d{4}/;         //    0000 - 9999
     var match6         = /[+-]?\d{6}/;    // -999999 - 999999
     var match1to2      = /\d\d?/;         //       0 - 99
+    var match3to4      = /\d\d\d\d?/;     //     999 - 9999
+    var match5to6      = /\d\d\d\d\d\d?/; //   99999 - 999999
     var match1to3      = /\d{1,3}/;       //       0 - 999
     var match1to4      = /\d{1,4}/;       //       0 - 9999
     var match1to6      = /[+-]?\d{1,6}/;  // -999999 - 999999
@@ -13253,20 +13467,16 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     var matchSigned    = /[+-]?\d+/;      //    -inf - inf
 
     var matchOffset    = /Z|[+-]\d\d:?\d\d/gi; // +00:00 -00:00 +0000 -0000 or Z
+    var matchShortOffset = /Z|[+-]\d\d(?::?\d\d)?/gi; // +00 -00 +00:00 -00:00 +0000 -0000 or Z
 
     var matchTimestamp = /[+-]?\d+(\.\d{1,3})?/; // 123456789 123456789.123
 
     // any word (or two) characters or numbers including two/three word month in arabic.
-    var matchWord = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i;
+    // includes scottish gaelic two word and hyphenated months
+    var matchWord = /[0-9]*(a[mn]\s?)?['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\-]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i;
+
 
     var regexes = {};
-
-    function isFunction (sth) {
-        // https://github.com/moment/moment/issues/2325
-        return typeof sth === 'function' &&
-            Object.prototype.toString.call(sth) === '[object Function]';
-    }
-
 
     function addRegexToken (token, regex, strictRegex) {
         regexes[token] = isFunction(regex) ? regex : function (isStrict) {
@@ -13326,6 +13536,8 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     var MINUTE = 4;
     var SECOND = 5;
     var MILLISECOND = 6;
+    var WEEK = 7;
+    var WEEKDAY = 8;
 
     function daysInMonth(year, month) {
         return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
@@ -13372,14 +13584,17 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
 
     // LOCALES
 
+    var MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s+)+MMMM?/;
     var defaultLocaleMonths = 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_');
-    function localeMonths (m) {
-        return this._months[m.month()];
+    function localeMonths (m, format) {
+        return isArray(this._months) ? this._months[m.month()] :
+            this._months[MONTHS_IN_FORMAT.test(format) ? 'format' : 'standalone'][m.month()];
     }
 
-    var defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_');
-    function localeMonthsShort (m) {
-        return this._monthsShort[m.month()];
+    var defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sept_Oct_Nov_Dec'.split('_');
+    function localeMonthsShort (m, format) {
+        return isArray(this._monthsShort) ? this._monthsShort[m.month()] :
+            this._monthsShort[MONTHS_IN_FORMAT.test(format) ? 'format' : 'standalone'][m.month()];
     }
 
     function localeMonthsParse (monthName, format, strict) {
@@ -13417,6 +13632,11 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
 
     function setMonth (mom, value) {
         var dayOfMonth;
+
+        if (!mom.isValid()) {
+            // No op
+            return mom;
+        }
 
         // TODO: Move this out of here!
         if (typeof value === 'string') {
@@ -13463,6 +13683,12 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
             if (getParsingFlags(m)._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) {
                 overflow = DATE;
             }
+            if (getParsingFlags(m)._overflowWeeks && overflow === -1) {
+                overflow = WEEK;
+            }
+            if (getParsingFlags(m)._overflowWeekday && overflow === -1) {
+                overflow = WEEKDAY;
+            }
 
             getParsingFlags(m).overflow = overflow;
         }
@@ -13471,7 +13697,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     }
 
     function warn(msg) {
-        if (utils_hooks__hooks.suppressDeprecationWarnings === false && typeof console !== 'undefined' && console.warn) {
+        if (utils_hooks__hooks.suppressDeprecationWarnings === false && !isUndefined(console) && console.warn) {
             console.warn('Deprecation warning: ' + msg);
         }
     }
@@ -13481,7 +13707,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
 
         return extend(function () {
             if (firstTime) {
-                warn(msg + '\n' + (new Error()).stack);
+                warn(msg + '\nArguments: ' + Array.prototype.slice.call(arguments).join(', ') + '\n' + (new Error()).stack);
                 firstTime = false;
             }
             return fn.apply(this, arguments);
@@ -13499,22 +13725,39 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
 
     utils_hooks__hooks.suppressDeprecationWarnings = false;
 
-    var from_string__isoRegex = /^\s*(?:[+-]\d{6}|\d{4})-(?:(\d\d-\d\d)|(W\d\d$)|(W\d\d-\d)|(\d\d\d))((T| )(\d\d(:\d\d(:\d\d(\.\d+)?)?)?)?([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
+    // iso 8601 regex
+    // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
+    var extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?/;
+    var basicIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?/;
+
+    var tzRegex = /Z|[+-]\d\d(?::?\d\d)?/;
 
     var isoDates = [
-        ['YYYYYY-MM-DD', /[+-]\d{6}-\d{2}-\d{2}/],
-        ['YYYY-MM-DD', /\d{4}-\d{2}-\d{2}/],
-        ['GGGG-[W]WW-E', /\d{4}-W\d{2}-\d/],
-        ['GGGG-[W]WW', /\d{4}-W\d{2}/],
-        ['YYYY-DDD', /\d{4}-\d{3}/]
+        ['YYYYYY-MM-DD', /[+-]\d{6}-\d\d-\d\d/],
+        ['YYYY-MM-DD', /\d{4}-\d\d-\d\d/],
+        ['GGGG-[W]WW-E', /\d{4}-W\d\d-\d/],
+        ['GGGG-[W]WW', /\d{4}-W\d\d/, false],
+        ['YYYY-DDD', /\d{4}-\d{3}/],
+        ['YYYY-MM', /\d{4}-\d\d/, false],
+        ['YYYYYYMMDD', /[+-]\d{10}/],
+        ['YYYYMMDD', /\d{8}/],
+        // YYYYMM is NOT allowed by the standard
+        ['GGGG[W]WWE', /\d{4}W\d{3}/],
+        ['GGGG[W]WW', /\d{4}W\d{2}/, false],
+        ['YYYYDDD', /\d{7}/]
     ];
 
     // iso time formats and regexes
     var isoTimes = [
-        ['HH:mm:ss.SSSS', /(T| )\d\d:\d\d:\d\d\.\d+/],
-        ['HH:mm:ss', /(T| )\d\d:\d\d:\d\d/],
-        ['HH:mm', /(T| )\d\d:\d\d/],
-        ['HH', /(T| )\d\d/]
+        ['HH:mm:ss.SSSS', /\d\d:\d\d:\d\d\.\d+/],
+        ['HH:mm:ss,SSSS', /\d\d:\d\d:\d\d,\d+/],
+        ['HH:mm:ss', /\d\d:\d\d:\d\d/],
+        ['HH:mm', /\d\d:\d\d/],
+        ['HHmmss.SSSS', /\d\d\d\d\d\d\.\d+/],
+        ['HHmmss,SSSS', /\d\d\d\d\d\d,\d+/],
+        ['HHmmss', /\d\d\d\d\d\d/],
+        ['HHmm', /\d\d\d\d/],
+        ['HH', /\d\d/]
     ];
 
     var aspNetJsonRegex = /^\/?Date\((\-?\d+)/i;
@@ -13523,26 +13766,49 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     function configFromISO(config) {
         var i, l,
             string = config._i,
-            match = from_string__isoRegex.exec(string);
+            match = extendedIsoRegex.exec(string) || basicIsoRegex.exec(string),
+            allowTime, dateFormat, timeFormat, tzFormat;
 
         if (match) {
             getParsingFlags(config).iso = true;
+
             for (i = 0, l = isoDates.length; i < l; i++) {
-                if (isoDates[i][1].exec(string)) {
-                    config._f = isoDates[i][0];
+                if (isoDates[i][1].exec(match[1])) {
+                    dateFormat = isoDates[i][0];
+                    allowTime = isoDates[i][2] !== false;
                     break;
                 }
             }
-            for (i = 0, l = isoTimes.length; i < l; i++) {
-                if (isoTimes[i][1].exec(string)) {
-                    // match[6] should be 'T' or space
-                    config._f += (match[6] || ' ') + isoTimes[i][0];
-                    break;
+            if (dateFormat == null) {
+                config._isValid = false;
+                return;
+            }
+            if (match[3]) {
+                for (i = 0, l = isoTimes.length; i < l; i++) {
+                    if (isoTimes[i][1].exec(match[3])) {
+                        // match[2] should be 'T' or space
+                        timeFormat = (match[2] || ' ') + isoTimes[i][0];
+                        break;
+                    }
+                }
+                if (timeFormat == null) {
+                    config._isValid = false;
+                    return;
                 }
             }
-            if (string.match(matchOffset)) {
-                config._f += 'Z';
+            if (!allowTime && timeFormat != null) {
+                config._isValid = false;
+                return;
             }
+            if (match[4]) {
+                if (tzRegex.exec(match[4])) {
+                    tzFormat = 'Z';
+                } else {
+                    config._isValid = false;
+                    return;
+                }
+            }
+            config._f = dateFormat + (timeFormat || '') + (tzFormat || '');
             configFromStringAndFormat(config);
         } else {
             config._isValid = false;
@@ -13580,8 +13846,8 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         //http://stackoverflow.com/questions/181348/instantiating-a-javascript-object-by-calling-prototype-constructor-apply
         var date = new Date(y, m, d, h, M, s, ms);
 
-        //the date constructor doesn't accept years < 1970
-        if (y < 1970) {
+        //the date constructor remaps years 0-99 to 1900-1999
+        if (y < 100 && y >= 0 && isFinite(date.getFullYear())) {
             date.setFullYear(y);
         }
         return date;
@@ -13589,11 +13855,15 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
 
     function createUTCDate (y) {
         var date = new Date(Date.UTC.apply(null, arguments));
-        if (y < 1970) {
+
+        //the Date.UTC function remaps years 0-99 to 1900-1999
+        if (y < 100 && y >= 0 && isFinite(date.getUTCFullYear())) {
             date.setUTCFullYear(y);
         }
         return date;
     }
+
+    // FORMATTING
 
     addFormatToken(0, ['YY', 2], 0, function () {
         return this.year() % 100;
@@ -13647,124 +13917,66 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         return isLeapYear(this.year());
     }
 
-    addFormatToken('w', ['ww', 2], 'wo', 'week');
-    addFormatToken('W', ['WW', 2], 'Wo', 'isoWeek');
+    // start-of-first-week - start-of-year
+    function firstWeekOffset(year, dow, doy) {
+        var // first-week day -- which january is always in the first week (4 for iso, 1 for other)
+            fwd = 7 + dow - doy,
+            // first-week day local weekday -- which local weekday is fwd
+            fwdlw = (7 + createUTCDate(year, 0, fwd).getUTCDay() - dow) % 7;
 
-    // ALIASES
-
-    addUnitAlias('week', 'w');
-    addUnitAlias('isoWeek', 'W');
-
-    // PARSING
-
-    addRegexToken('w',  match1to2);
-    addRegexToken('ww', match1to2, match2);
-    addRegexToken('W',  match1to2);
-    addRegexToken('WW', match1to2, match2);
-
-    addWeekParseToken(['w', 'ww', 'W', 'WW'], function (input, week, config, token) {
-        week[token.substr(0, 1)] = toInt(input);
-    });
-
-    // HELPERS
-
-    // firstDayOfWeek       0 = sun, 6 = sat
-    //                      the day of the week that starts the week
-    //                      (usually sunday or monday)
-    // firstDayOfWeekOfYear 0 = sun, 6 = sat
-    //                      the first week is the week that contains the first
-    //                      of this day of the week
-    //                      (eg. ISO weeks use thursday (4))
-    function weekOfYear(mom, firstDayOfWeek, firstDayOfWeekOfYear) {
-        var end = firstDayOfWeekOfYear - firstDayOfWeek,
-            daysToDayOfWeek = firstDayOfWeekOfYear - mom.day(),
-            adjustedMoment;
-
-
-        if (daysToDayOfWeek > end) {
-            daysToDayOfWeek -= 7;
-        }
-
-        if (daysToDayOfWeek < end - 7) {
-            daysToDayOfWeek += 7;
-        }
-
-        adjustedMoment = local__createLocal(mom).add(daysToDayOfWeek, 'd');
-        return {
-            week: Math.ceil(adjustedMoment.dayOfYear() / 7),
-            year: adjustedMoment.year()
-        };
+        return -fwdlw + fwd - 1;
     }
-
-    // LOCALES
-
-    function localeWeek (mom) {
-        return weekOfYear(mom, this._week.dow, this._week.doy).week;
-    }
-
-    var defaultLocaleWeek = {
-        dow : 0, // Sunday is the first day of the week.
-        doy : 6  // The week that contains Jan 1st is the first week of the year.
-    };
-
-    function localeFirstDayOfWeek () {
-        return this._week.dow;
-    }
-
-    function localeFirstDayOfYear () {
-        return this._week.doy;
-    }
-
-    // MOMENTS
-
-    function getSetWeek (input) {
-        var week = this.localeData().week(this);
-        return input == null ? week : this.add((input - week) * 7, 'd');
-    }
-
-    function getSetISOWeek (input) {
-        var week = weekOfYear(this, 1, 4).week;
-        return input == null ? week : this.add((input - week) * 7, 'd');
-    }
-
-    addFormatToken('DDD', ['DDDD', 3], 'DDDo', 'dayOfYear');
-
-    // ALIASES
-
-    addUnitAlias('dayOfYear', 'DDD');
-
-    // PARSING
-
-    addRegexToken('DDD',  match1to3);
-    addRegexToken('DDDD', match3);
-    addParseToken(['DDD', 'DDDD'], function (input, array, config) {
-        config._dayOfYear = toInt(input);
-    });
-
-    // HELPERS
 
     //http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
-    function dayOfYearFromWeeks(year, week, weekday, firstDayOfWeekOfYear, firstDayOfWeek) {
-        var week1Jan = 6 + firstDayOfWeek - firstDayOfWeekOfYear, janX = createUTCDate(year, 0, 1 + week1Jan), d = janX.getUTCDay(), dayOfYear;
-        if (d < firstDayOfWeek) {
-            d += 7;
+    function dayOfYearFromWeeks(year, week, weekday, dow, doy) {
+        var localWeekday = (7 + weekday - dow) % 7,
+            weekOffset = firstWeekOffset(year, dow, doy),
+            dayOfYear = 1 + 7 * (week - 1) + localWeekday + weekOffset,
+            resYear, resDayOfYear;
+
+        if (dayOfYear <= 0) {
+            resYear = year - 1;
+            resDayOfYear = daysInYear(resYear) + dayOfYear;
+        } else if (dayOfYear > daysInYear(year)) {
+            resYear = year + 1;
+            resDayOfYear = dayOfYear - daysInYear(year);
+        } else {
+            resYear = year;
+            resDayOfYear = dayOfYear;
         }
 
-        weekday = weekday != null ? 1 * weekday : firstDayOfWeek;
-
-        dayOfYear = 1 + week1Jan + 7 * (week - 1) - d + weekday;
-
         return {
-            year: dayOfYear > 0 ? year : year - 1,
-            dayOfYear: dayOfYear > 0 ?  dayOfYear : daysInYear(year - 1) + dayOfYear
+            year: resYear,
+            dayOfYear: resDayOfYear
         };
     }
 
-    // MOMENTS
+    function weekOfYear(mom, dow, doy) {
+        var weekOffset = firstWeekOffset(mom.year(), dow, doy),
+            week = Math.floor((mom.dayOfYear() - weekOffset - 1) / 7) + 1,
+            resWeek, resYear;
 
-    function getSetDayOfYear (input) {
-        var dayOfYear = Math.round((this.clone().startOf('day') - this.clone().startOf('year')) / 864e5) + 1;
-        return input == null ? dayOfYear : this.add((input - dayOfYear), 'd');
+        if (week < 1) {
+            resYear = mom.year() - 1;
+            resWeek = week + weeksInYear(resYear, dow, doy);
+        } else if (week > weeksInYear(mom.year(), dow, doy)) {
+            resWeek = week - weeksInYear(mom.year(), dow, doy);
+            resYear = mom.year() + 1;
+        } else {
+            resYear = mom.year();
+            resWeek = week;
+        }
+
+        return {
+            week: resWeek,
+            year: resYear
+        };
+    }
+
+    function weeksInYear(year, dow, doy) {
+        var weekOffset = firstWeekOffset(year, dow, doy),
+            weekOffsetNext = firstWeekOffset(year + 1, dow, doy);
+        return (daysInYear(year) - weekOffset + weekOffsetNext) / 7;
     }
 
     // Pick the first defined of two or three arguments.
@@ -13779,11 +13991,12 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     }
 
     function currentDateArray(config) {
-        var now = new Date();
+        // hooks is actually the exported moment object
+        var nowValue = new Date(utils_hooks__hooks.now());
         if (config._useUTC) {
-            return [now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()];
+            return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
         }
-        return [now.getFullYear(), now.getMonth(), now.getDate()];
+        return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
     }
 
     // convert an array to a date.
@@ -13853,7 +14066,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     }
 
     function dayOfYearFromWeekInfo(config) {
-        var w, weekYear, week, weekday, dow, doy, temp;
+        var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow;
 
         w = config._w;
         if (w.GG != null || w.W != null || w.E != null) {
@@ -13867,6 +14080,9 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
             weekYear = defaults(w.GG, config._a[YEAR], weekOfYear(local__createLocal(), 1, 4).year);
             week = defaults(w.W, 1);
             weekday = defaults(w.E, 1);
+            if (weekday < 1 || weekday > 7) {
+                weekdayOverflow = true;
+            }
         } else {
             dow = config._locale._week.dow;
             doy = config._locale._week.doy;
@@ -13877,23 +14093,32 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
             if (w.d != null) {
                 // weekday -- low day numbers are considered next week
                 weekday = w.d;
-                if (weekday < dow) {
-                    ++week;
+                if (weekday < 0 || weekday > 6) {
+                    weekdayOverflow = true;
                 }
             } else if (w.e != null) {
                 // local weekday -- counting starts from begining of week
                 weekday = w.e + dow;
+                if (w.e < 0 || w.e > 6) {
+                    weekdayOverflow = true;
+                }
             } else {
                 // default to begining of week
                 weekday = dow;
             }
         }
-        temp = dayOfYearFromWeeks(weekYear, week, weekday, doy, dow);
-
-        config._a[YEAR] = temp.year;
-        config._dayOfYear = temp.dayOfYear;
+        if (week < 1 || week > weeksInYear(weekYear, dow, doy)) {
+            getParsingFlags(config)._overflowWeeks = true;
+        } else if (weekdayOverflow != null) {
+            getParsingFlags(config)._overflowWeekday = true;
+        } else {
+            temp = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy);
+            config._a[YEAR] = temp.year;
+            config._dayOfYear = temp.dayOfYear;
+        }
     }
 
+    // constant that refers to the ISO standard
     utils_hooks__hooks.ISO_8601 = function () {};
 
     // date from string and format string
@@ -13986,6 +14211,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         }
     }
 
+    // date from string and array of format strings
     function configFromStringAndArray(config) {
         var tempConfig,
             bestMoment,
@@ -14036,7 +14262,9 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         }
 
         var i = normalizeObjectUnits(config._i);
-        config._a = [i.year, i.month, i.day || i.date, i.hour, i.minute, i.second, i.millisecond];
+        config._a = map([i.year, i.month, i.day || i.date, i.hour, i.minute, i.second, i.millisecond], function (obj) {
+            return obj && parseInt(obj, 10);
+        });
 
         configFromArray(config);
     }
@@ -14078,13 +14306,17 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
             configFromInput(config);
         }
 
+        if (!valid__isValid(config)) {
+            config._d = null;
+        }
+
         return config;
     }
 
     function configFromInput(config) {
         var input = config._i;
         if (input === undefined) {
-            config._d = new Date();
+            config._d = new Date(utils_hooks__hooks.now());
         } else if (isDate(input)) {
             config._d = new Date(+input);
         } else if (typeof input === 'string') {
@@ -14131,7 +14363,11 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
          'moment().min is deprecated, use moment.min instead. https://github.com/moment/moment/issues/1548',
          function () {
              var other = local__createLocal.apply(null, arguments);
-             return other < this ? this : other;
+             if (this.isValid() && other.isValid()) {
+                 return other < this ? this : other;
+             } else {
+                 return valid__createInvalid();
+             }
          }
      );
 
@@ -14139,7 +14375,11 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         'moment().max is deprecated, use moment.max instead. https://github.com/moment/moment/issues/1548',
         function () {
             var other = local__createLocal.apply(null, arguments);
-            return other > this ? this : other;
+            if (this.isValid() && other.isValid()) {
+                return other > this ? this : other;
+            } else {
+                return valid__createInvalid();
+            }
         }
     );
 
@@ -14177,6 +14417,10 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
 
         return pickBy('isAfter', args);
     }
+
+    var now = Date.now || function () {
+        return +(new Date());
+    };
 
     function Duration (duration) {
         var normalizedInput = normalizeObjectUnits(duration),
@@ -14217,6 +14461,8 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         return obj instanceof Duration;
     }
 
+    // FORMATTING
+
     function offset (token, separator) {
         addFormatToken(token, 0, 0, function () {
             var offset = this.utcOffset();
@@ -14234,11 +14480,11 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
 
     // PARSING
 
-    addRegexToken('Z',  matchOffset);
-    addRegexToken('ZZ', matchOffset);
+    addRegexToken('Z',  matchShortOffset);
+    addRegexToken('ZZ', matchShortOffset);
     addParseToken(['Z', 'ZZ'], function (input, array, config) {
         config._useUTC = true;
-        config._tzm = offsetFromString(input);
+        config._tzm = offsetFromString(matchShortOffset, input);
     });
 
     // HELPERS
@@ -14248,8 +14494,8 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     // '-1530'  > ['-15', '30']
     var chunkOffset = /([\+\-]|\d\d)/gi;
 
-    function offsetFromString(string) {
-        var matches = ((string || '').match(matchOffset) || []);
+    function offsetFromString(matcher, string) {
+        var matches = ((string || '').match(matcher) || []);
         var chunk   = matches[matches.length - 1] || [];
         var parts   = (chunk + '').match(chunkOffset) || ['-', 0, 0];
         var minutes = +(parts[1] * 60) + toInt(parts[2]);
@@ -14299,11 +14545,13 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     function getSetOffset (input, keepLocalTime) {
         var offset = this._offset || 0,
             localAdjust;
+        if (!this.isValid()) {
+            return input != null ? this : NaN;
+        }
         if (input != null) {
             if (typeof input === 'string') {
-                input = offsetFromString(input);
-            }
-            if (Math.abs(input) < 16) {
+                input = offsetFromString(matchShortOffset, input);
+            } else if (Math.abs(input) < 16) {
                 input = input * 60;
             }
             if (!this._isUTC && keepLocalTime) {
@@ -14363,12 +14611,15 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         if (this._tzm) {
             this.utcOffset(this._tzm);
         } else if (typeof this._i === 'string') {
-            this.utcOffset(offsetFromString(this._i));
+            this.utcOffset(offsetFromString(matchOffset, this._i));
         }
         return this;
     }
 
     function hasAlignedHourOffset (input) {
+        if (!this.isValid()) {
+            return false;
+        }
         input = input ? local__createLocal(input).utcOffset() : 0;
 
         return (this.utcOffset() - input) % 60 === 0;
@@ -14382,7 +14633,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     }
 
     function isDaylightSavingTimeShifted () {
-        if (typeof this._isDSTShifted !== 'undefined') {
+        if (!isUndefined(this._isDSTShifted)) {
             return this._isDSTShifted;
         }
 
@@ -14403,22 +14654,23 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     }
 
     function isLocal () {
-        return !this._isUTC;
+        return this.isValid() ? !this._isUTC : false;
     }
 
     function isUtcOffset () {
-        return this._isUTC;
+        return this.isValid() ? this._isUTC : false;
     }
 
     function isUtc () {
-        return this._isUTC && this._offset === 0;
+        return this.isValid() ? this._isUTC && this._offset === 0 : false;
     }
 
-    var aspNetRegex = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?)?/;
+    // ASP.NET json date format regex
+    var aspNetRegex = /(\-)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?)?/;
 
     // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
     // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
-    var create__isoRegex = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/;
+    var isoRegex = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/;
 
     function create__createDuration (input, key) {
         var duration = input,
@@ -14451,7 +14703,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
                 s  : toInt(match[SECOND])      * sign,
                 ms : toInt(match[MILLISECOND]) * sign
             };
-        } else if (!!(match = create__isoRegex.exec(input))) {
+        } else if (!!(match = isoRegex.exec(input))) {
             sign = (match[1] === '-') ? -1 : 1;
             duration = {
                 y : parseIso(match[2], sign),
@@ -14508,6 +14760,10 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
 
     function momentsDifference(base, other) {
         var res;
+        if (!(base.isValid() && other.isValid())) {
+            return {milliseconds: 0, months: 0};
+        }
+
         other = cloneWithOffset(other, base);
         if (base.isBefore(other)) {
             res = positiveMomentsDifference(base, other);
@@ -14520,6 +14776,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         return res;
     }
 
+    // TODO: remove 'name' arg after deprecation is removed
     function createAdder(direction, name) {
         return function (val, period) {
             var dur, tmp;
@@ -14540,6 +14797,12 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         var milliseconds = duration._milliseconds,
             days = duration._days,
             months = duration._months;
+
+        if (!mom.isValid()) {
+            // No op
+            return;
+        }
+
         updateOffset = updateOffset == null ? true : updateOffset;
 
         if (milliseconds) {
@@ -14571,7 +14834,10 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
                 diff < 1 ? 'sameDay' :
                 diff < 2 ? 'nextDay' :
                 diff < 7 ? 'nextWeek' : 'sameElse';
-        return this.format(formats && formats[format] || this.localeData().calendar(format, this, local__createLocal(now)));
+
+        var output = formats && (isFunction(formats[format]) ? formats[format]() : formats[format]);
+
+        return this.format(output || this.localeData().calendar(format, this, local__createLocal(now)));
     }
 
     function clone () {
@@ -14579,26 +14845,28 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     }
 
     function isAfter (input, units) {
-        var inputMs;
-        units = normalizeUnits(typeof units !== 'undefined' ? units : 'millisecond');
+        var localInput = isMoment(input) ? input : local__createLocal(input);
+        if (!(this.isValid() && localInput.isValid())) {
+            return false;
+        }
+        units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
         if (units === 'millisecond') {
-            input = isMoment(input) ? input : local__createLocal(input);
-            return +this > +input;
+            return +this > +localInput;
         } else {
-            inputMs = isMoment(input) ? +input : +local__createLocal(input);
-            return inputMs < +this.clone().startOf(units);
+            return +localInput < +this.clone().startOf(units);
         }
     }
 
     function isBefore (input, units) {
-        var inputMs;
-        units = normalizeUnits(typeof units !== 'undefined' ? units : 'millisecond');
+        var localInput = isMoment(input) ? input : local__createLocal(input);
+        if (!(this.isValid() && localInput.isValid())) {
+            return false;
+        }
+        units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
         if (units === 'millisecond') {
-            input = isMoment(input) ? input : local__createLocal(input);
-            return +this < +input;
+            return +this < +localInput;
         } else {
-            inputMs = isMoment(input) ? +input : +local__createLocal(input);
-            return +this.clone().endOf(units) < inputMs;
+            return +this.clone().endOf(units) < +localInput;
         }
     }
 
@@ -14607,21 +14875,44 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     }
 
     function isSame (input, units) {
-        var inputMs;
+        var localInput = isMoment(input) ? input : local__createLocal(input),
+            inputMs;
+        if (!(this.isValid() && localInput.isValid())) {
+            return false;
+        }
         units = normalizeUnits(units || 'millisecond');
         if (units === 'millisecond') {
-            input = isMoment(input) ? input : local__createLocal(input);
-            return +this === +input;
+            return +this === +localInput;
         } else {
-            inputMs = +local__createLocal(input);
+            inputMs = +localInput;
             return +(this.clone().startOf(units)) <= inputMs && inputMs <= +(this.clone().endOf(units));
         }
     }
 
+    function isSameOrAfter (input, units) {
+        return this.isSame(input, units) || this.isAfter(input,units);
+    }
+
+    function isSameOrBefore (input, units) {
+        return this.isSame(input, units) || this.isBefore(input,units);
+    }
+
     function diff (input, units, asFloat) {
-        var that = cloneWithOffset(input, this),
-            zoneDelta = (that.utcOffset() - this.utcOffset()) * 6e4,
+        var that,
+            zoneDelta,
             delta, output;
+
+        if (!this.isValid()) {
+            return NaN;
+        }
+
+        that = cloneWithOffset(input, this);
+
+        if (!that.isValid()) {
+            return NaN;
+        }
+
+        zoneDelta = (that.utcOffset() - this.utcOffset()) * 6e4;
 
         units = normalizeUnits(units);
 
@@ -14673,7 +14964,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     function moment_format__toISOString () {
         var m = this.clone().utc();
         if (0 < m.year() && m.year() <= 9999) {
-            if ('function' === typeof Date.prototype.toISOString) {
+            if (isFunction(Date.prototype.toISOString)) {
                 // native implementation is ~50x faster, use it when we can
                 return this.toDate().toISOString();
             } else {
@@ -14690,10 +14981,13 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     }
 
     function from (time, withoutSuffix) {
-        if (!this.isValid()) {
+        if (this.isValid() &&
+                ((isMoment(time) && time.isValid()) ||
+                 local__createLocal(time).isValid())) {
+            return create__createDuration({to: this, from: time}).locale(this.locale()).humanize(!withoutSuffix);
+        } else {
             return this.localeData().invalidDate();
         }
-        return create__createDuration({to: this, from: time}).locale(this.locale()).humanize(!withoutSuffix);
     }
 
     function fromNow (withoutSuffix) {
@@ -14701,16 +14995,22 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     }
 
     function to (time, withoutSuffix) {
-        if (!this.isValid()) {
+        if (this.isValid() &&
+                ((isMoment(time) && time.isValid()) ||
+                 local__createLocal(time).isValid())) {
+            return create__createDuration({from: this, to: time}).locale(this.locale()).humanize(!withoutSuffix);
+        } else {
             return this.localeData().invalidDate();
         }
-        return create__createDuration({from: this, to: time}).locale(this.locale()).humanize(!withoutSuffix);
     }
 
     function toNow (withoutSuffix) {
         return this.to(local__createLocal(), withoutSuffix);
     }
 
+    // If passed a locale key, it will set the locale for this
+    // instance.  Otherwise, it will return the locale configuration
+    // variables for this instance.
     function locale (key) {
         var newLocaleData;
 
@@ -14821,6 +15121,11 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         };
     }
 
+    function toJSON () {
+        // JSON.stringify(new Date(NaN)) === 'null'
+        return this.isValid() ? this.toISOString() : 'null';
+    }
+
     function moment_valid__isValid () {
         return valid__isValid(this);
     }
@@ -14832,6 +15137,18 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     function invalidAt () {
         return getParsingFlags(this).overflow;
     }
+
+    function creationData() {
+        return {
+            input: this._i,
+            format: this._f,
+            locale: this._locale,
+            isUTC: this._isUTC,
+            strict: this._strict
+        };
+    }
+
+    // FORMATTING
 
     addFormatToken(0, ['gg', 2], 0, function () {
         return this.weekYear() % 100;
@@ -14874,22 +15191,20 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         week[token] = utils_hooks__hooks.parseTwoDigitYear(input);
     });
 
-    // HELPERS
-
-    function weeksInYear(year, dow, doy) {
-        return weekOfYear(local__createLocal([year, 11, 31 + dow - doy]), dow, doy).week;
-    }
-
     // MOMENTS
 
     function getSetWeekYear (input) {
-        var year = weekOfYear(this, this.localeData()._week.dow, this.localeData()._week.doy).year;
-        return input == null ? year : this.add((input - year), 'y');
+        return getSetWeekYearHelper.call(this,
+                input,
+                this.week(),
+                this.weekday(),
+                this.localeData()._week.dow,
+                this.localeData()._week.doy);
     }
 
     function getSetISOWeekYear (input) {
-        var year = weekOfYear(this, 1, 4).year;
-        return input == null ? year : this.add((input - year), 'y');
+        return getSetWeekYearHelper.call(this,
+                input, this.isoWeek(), this.isoWeekday(), 1, 4);
     }
 
     function getISOWeeksInYear () {
@@ -14901,7 +15216,33 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         return weeksInYear(this.year(), weekInfo.dow, weekInfo.doy);
     }
 
-    addFormatToken('Q', 0, 0, 'quarter');
+    function getSetWeekYearHelper(input, week, weekday, dow, doy) {
+        var weeksTarget;
+        if (input == null) {
+            return weekOfYear(this, dow, doy).year;
+        } else {
+            weeksTarget = weeksInYear(input, dow, doy);
+            if (week > weeksTarget) {
+                week = weeksTarget;
+            }
+            return setWeekAll.call(this, input, week, weekday, dow, doy);
+        }
+    }
+
+    function setWeekAll(weekYear, week, weekday, dow, doy) {
+        var dayOfYearData = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy),
+            date = createUTCDate(dayOfYearData.year, 0, dayOfYearData.dayOfYear);
+
+        // console.log("got", weekYear, week, weekday, "set", date.toISOString());
+        this.year(date.getUTCFullYear());
+        this.month(date.getUTCMonth());
+        this.date(date.getUTCDate());
+        return this;
+    }
+
+    // FORMATTING
+
+    addFormatToken('Q', 0, 'Qo', 'quarter');
 
     // ALIASES
 
@@ -14919,6 +15260,62 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     function getSetQuarter (input) {
         return input == null ? Math.ceil((this.month() + 1) / 3) : this.month((input - 1) * 3 + this.month() % 3);
     }
+
+    // FORMATTING
+
+    addFormatToken('w', ['ww', 2], 'wo', 'week');
+    addFormatToken('W', ['WW', 2], 'Wo', 'isoWeek');
+
+    // ALIASES
+
+    addUnitAlias('week', 'w');
+    addUnitAlias('isoWeek', 'W');
+
+    // PARSING
+
+    addRegexToken('w',  match1to2);
+    addRegexToken('ww', match1to2, match2);
+    addRegexToken('W',  match1to2);
+    addRegexToken('WW', match1to2, match2);
+
+    addWeekParseToken(['w', 'ww', 'W', 'WW'], function (input, week, config, token) {
+        week[token.substr(0, 1)] = toInt(input);
+    });
+
+    // HELPERS
+
+    // LOCALES
+
+    function localeWeek (mom) {
+        return weekOfYear(mom, this._week.dow, this._week.doy).week;
+    }
+
+    var defaultLocaleWeek = {
+        dow : 0, // Sunday is the first day of the week.
+        doy : 6  // The week that contains Jan 1st is the first week of the year.
+    };
+
+    function localeFirstDayOfWeek () {
+        return this._week.dow;
+    }
+
+    function localeFirstDayOfYear () {
+        return this._week.doy;
+    }
+
+    // MOMENTS
+
+    function getSetWeek (input) {
+        var week = this.localeData().week(this);
+        return input == null ? week : this.add((input - week) * 7, 'd');
+    }
+
+    function getSetISOWeek (input) {
+        var week = weekOfYear(this, 1, 4).week;
+        return input == null ? week : this.add((input - week) * 7, 'd');
+    }
+
+    // FORMATTING
 
     addFormatToken('D', ['DD', 2], 'Do', 'date');
 
@@ -14942,6 +15339,8 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     // MOMENTS
 
     var getSetDayOfMonth = makeGetSet('Date', true);
+
+    // FORMATTING
 
     addFormatToken('d', 0, 'do', 'day');
 
@@ -14975,8 +15374,8 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     addRegexToken('ddd',  matchWord);
     addRegexToken('dddd', matchWord);
 
-    addWeekParseToken(['dd', 'ddd', 'dddd'], function (input, week, config) {
-        var weekday = config._locale.weekdaysParse(input);
+    addWeekParseToken(['dd', 'ddd', 'dddd'], function (input, week, config, token) {
+        var weekday = config._locale.weekdaysParse(input, token, config._strict);
         // if we didn't get a weekday name, mark the date as invalid
         if (weekday != null) {
             week.d = weekday;
@@ -15011,8 +15410,9 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     // LOCALES
 
     var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
-    function localeWeekdays (m) {
-        return this._weekdays[m.day()];
+    function localeWeekdays (m, format) {
+        return isArray(this._weekdays) ? this._weekdays[m.day()] :
+            this._weekdays[this._weekdays.isFormat.test(format) ? 'format' : 'standalone'][m.day()];
     }
 
     var defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_');
@@ -15025,20 +15425,37 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         return this._weekdaysMin[m.day()];
     }
 
-    function localeWeekdaysParse (weekdayName) {
+    function localeWeekdaysParse (weekdayName, format, strict) {
         var i, mom, regex;
 
-        this._weekdaysParse = this._weekdaysParse || [];
+        if (!this._weekdaysParse) {
+            this._weekdaysParse = [];
+            this._minWeekdaysParse = [];
+            this._shortWeekdaysParse = [];
+            this._fullWeekdaysParse = [];
+        }
 
         for (i = 0; i < 7; i++) {
             // make the regex if we don't have it already
+
+            mom = local__createLocal([2000, 1]).day(i);
+            if (strict && !this._fullWeekdaysParse[i]) {
+                this._fullWeekdaysParse[i] = new RegExp('^' + this.weekdays(mom, '').replace('.', '\.?') + '$', 'i');
+                this._shortWeekdaysParse[i] = new RegExp('^' + this.weekdaysShort(mom, '').replace('.', '\.?') + '$', 'i');
+                this._minWeekdaysParse[i] = new RegExp('^' + this.weekdaysMin(mom, '').replace('.', '\.?') + '$', 'i');
+            }
             if (!this._weekdaysParse[i]) {
-                mom = local__createLocal([2000, 1]).day(i);
                 regex = '^' + this.weekdays(mom, '') + '|^' + this.weekdaysShort(mom, '') + '|^' + this.weekdaysMin(mom, '');
                 this._weekdaysParse[i] = new RegExp(regex.replace('.', ''), 'i');
             }
             // test the regex
-            if (this._weekdaysParse[i].test(weekdayName)) {
+            if (strict && format === 'dddd' && this._fullWeekdaysParse[i].test(weekdayName)) {
+                return i;
+            } else if (strict && format === 'ddd' && this._shortWeekdaysParse[i].test(weekdayName)) {
+                return i;
+            } else if (strict && format === 'dd' && this._minWeekdaysParse[i].test(weekdayName)) {
+                return i;
+            } else if (!strict && this._weekdaysParse[i].test(weekdayName)) {
                 return i;
             }
         }
@@ -15047,6 +15464,9 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     // MOMENTS
 
     function getSetDayOfWeek (input) {
+        if (!this.isValid()) {
+            return input != null ? this : NaN;
+        }
         var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
         if (input != null) {
             input = parseWeekday(input, this.localeData());
@@ -15057,20 +15477,73 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     }
 
     function getSetLocaleDayOfWeek (input) {
+        if (!this.isValid()) {
+            return input != null ? this : NaN;
+        }
         var weekday = (this.day() + 7 - this.localeData()._week.dow) % 7;
         return input == null ? weekday : this.add(input - weekday, 'd');
     }
 
     function getSetISODayOfWeek (input) {
+        if (!this.isValid()) {
+            return input != null ? this : NaN;
+        }
         // behaves the same as moment#day except
         // as a getter, returns 7 instead of 0 (1-7 range instead of 0-6)
         // as a setter, sunday should belong to the previous week.
         return input == null ? this.day() || 7 : this.day(this.day() % 7 ? input : input - 7);
     }
 
-    addFormatToken('H', ['HH', 2], 0, 'hour');
-    addFormatToken('h', ['hh', 2], 0, function () {
+    // FORMATTING
+
+    addFormatToken('DDD', ['DDDD', 3], 'DDDo', 'dayOfYear');
+
+    // ALIASES
+
+    addUnitAlias('dayOfYear', 'DDD');
+
+    // PARSING
+
+    addRegexToken('DDD',  match1to3);
+    addRegexToken('DDDD', match3);
+    addParseToken(['DDD', 'DDDD'], function (input, array, config) {
+        config._dayOfYear = toInt(input);
+    });
+
+    // HELPERS
+
+    // MOMENTS
+
+    function getSetDayOfYear (input) {
+        var dayOfYear = Math.round((this.clone().startOf('day') - this.clone().startOf('year')) / 864e5) + 1;
+        return input == null ? dayOfYear : this.add((input - dayOfYear), 'd');
+    }
+
+    // FORMATTING
+
+    function hFormat() {
         return this.hours() % 12 || 12;
+    }
+
+    addFormatToken('H', ['HH', 2], 0, 'hour');
+    addFormatToken('h', ['hh', 2], 0, hFormat);
+
+    addFormatToken('hmm', 0, 0, function () {
+        return '' + hFormat.apply(this) + zeroFill(this.minutes(), 2);
+    });
+
+    addFormatToken('hmmss', 0, 0, function () {
+        return '' + hFormat.apply(this) + zeroFill(this.minutes(), 2) +
+            zeroFill(this.seconds(), 2);
+    });
+
+    addFormatToken('Hmm', 0, 0, function () {
+        return '' + this.hours() + zeroFill(this.minutes(), 2);
+    });
+
+    addFormatToken('Hmmss', 0, 0, function () {
+        return '' + this.hours() + zeroFill(this.minutes(), 2) +
+            zeroFill(this.seconds(), 2);
     });
 
     function meridiem (token, lowercase) {
@@ -15099,6 +15572,11 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     addRegexToken('HH', match1to2, match2);
     addRegexToken('hh', match1to2, match2);
 
+    addRegexToken('hmm', match3to4);
+    addRegexToken('hmmss', match5to6);
+    addRegexToken('Hmm', match3to4);
+    addRegexToken('Hmmss', match5to6);
+
     addParseToken(['H', 'HH'], HOUR);
     addParseToken(['a', 'A'], function (input, array, config) {
         config._isPm = config._locale.isPM(input);
@@ -15107,6 +15585,32 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     addParseToken(['h', 'hh'], function (input, array, config) {
         array[HOUR] = toInt(input);
         getParsingFlags(config).bigHour = true;
+    });
+    addParseToken('hmm', function (input, array, config) {
+        var pos = input.length - 2;
+        array[HOUR] = toInt(input.substr(0, pos));
+        array[MINUTE] = toInt(input.substr(pos));
+        getParsingFlags(config).bigHour = true;
+    });
+    addParseToken('hmmss', function (input, array, config) {
+        var pos1 = input.length - 4;
+        var pos2 = input.length - 2;
+        array[HOUR] = toInt(input.substr(0, pos1));
+        array[MINUTE] = toInt(input.substr(pos1, 2));
+        array[SECOND] = toInt(input.substr(pos2));
+        getParsingFlags(config).bigHour = true;
+    });
+    addParseToken('Hmm', function (input, array, config) {
+        var pos = input.length - 2;
+        array[HOUR] = toInt(input.substr(0, pos));
+        array[MINUTE] = toInt(input.substr(pos));
+    });
+    addParseToken('Hmmss', function (input, array, config) {
+        var pos1 = input.length - 4;
+        var pos2 = input.length - 2;
+        array[HOUR] = toInt(input.substr(0, pos1));
+        array[MINUTE] = toInt(input.substr(pos1, 2));
+        array[SECOND] = toInt(input.substr(pos2));
     });
 
     // LOCALES
@@ -15135,6 +15639,8 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     // this rule.
     var getSetHour = makeGetSet('Hours', true);
 
+    // FORMATTING
+
     addFormatToken('m', ['mm', 2], 0, 'minute');
 
     // ALIASES
@@ -15151,6 +15657,8 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
 
     var getSetMinute = makeGetSet('Minutes', false);
 
+    // FORMATTING
+
     addFormatToken('s', ['ss', 2], 0, 'second');
 
     // ALIASES
@@ -15166,6 +15674,8 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     // MOMENTS
 
     var getSetSecond = makeGetSet('Seconds', false);
+
+    // FORMATTING
 
     addFormatToken('S', 0, 0, function () {
         return ~~(this.millisecond() / 100);
@@ -15222,6 +15732,8 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
 
     var getSetMillisecond = makeGetSet('Milliseconds', false);
 
+    // FORMATTING
+
     addFormatToken('z',  0, 0, 'zoneAbbr');
     addFormatToken('zz', 0, 0, 'zoneName');
 
@@ -15237,40 +15749,43 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
 
     var momentPrototype__proto = Moment.prototype;
 
-    momentPrototype__proto.add          = add_subtract__add;
-    momentPrototype__proto.calendar     = moment_calendar__calendar;
-    momentPrototype__proto.clone        = clone;
-    momentPrototype__proto.diff         = diff;
-    momentPrototype__proto.endOf        = endOf;
-    momentPrototype__proto.format       = format;
-    momentPrototype__proto.from         = from;
-    momentPrototype__proto.fromNow      = fromNow;
-    momentPrototype__proto.to           = to;
-    momentPrototype__proto.toNow        = toNow;
-    momentPrototype__proto.get          = getSet;
-    momentPrototype__proto.invalidAt    = invalidAt;
-    momentPrototype__proto.isAfter      = isAfter;
-    momentPrototype__proto.isBefore     = isBefore;
-    momentPrototype__proto.isBetween    = isBetween;
-    momentPrototype__proto.isSame       = isSame;
-    momentPrototype__proto.isValid      = moment_valid__isValid;
-    momentPrototype__proto.lang         = lang;
-    momentPrototype__proto.locale       = locale;
-    momentPrototype__proto.localeData   = localeData;
-    momentPrototype__proto.max          = prototypeMax;
-    momentPrototype__proto.min          = prototypeMin;
-    momentPrototype__proto.parsingFlags = parsingFlags;
-    momentPrototype__proto.set          = getSet;
-    momentPrototype__proto.startOf      = startOf;
-    momentPrototype__proto.subtract     = add_subtract__subtract;
-    momentPrototype__proto.toArray      = toArray;
-    momentPrototype__proto.toObject     = toObject;
-    momentPrototype__proto.toDate       = toDate;
-    momentPrototype__proto.toISOString  = moment_format__toISOString;
-    momentPrototype__proto.toJSON       = moment_format__toISOString;
-    momentPrototype__proto.toString     = toString;
-    momentPrototype__proto.unix         = unix;
-    momentPrototype__proto.valueOf      = to_type__valueOf;
+    momentPrototype__proto.add               = add_subtract__add;
+    momentPrototype__proto.calendar          = moment_calendar__calendar;
+    momentPrototype__proto.clone             = clone;
+    momentPrototype__proto.diff              = diff;
+    momentPrototype__proto.endOf             = endOf;
+    momentPrototype__proto.format            = format;
+    momentPrototype__proto.from              = from;
+    momentPrototype__proto.fromNow           = fromNow;
+    momentPrototype__proto.to                = to;
+    momentPrototype__proto.toNow             = toNow;
+    momentPrototype__proto.get               = getSet;
+    momentPrototype__proto.invalidAt         = invalidAt;
+    momentPrototype__proto.isAfter           = isAfter;
+    momentPrototype__proto.isBefore          = isBefore;
+    momentPrototype__proto.isBetween         = isBetween;
+    momentPrototype__proto.isSame            = isSame;
+    momentPrototype__proto.isSameOrAfter     = isSameOrAfter;
+    momentPrototype__proto.isSameOrBefore    = isSameOrBefore;
+    momentPrototype__proto.isValid           = moment_valid__isValid;
+    momentPrototype__proto.lang              = lang;
+    momentPrototype__proto.locale            = locale;
+    momentPrototype__proto.localeData        = localeData;
+    momentPrototype__proto.max               = prototypeMax;
+    momentPrototype__proto.min               = prototypeMin;
+    momentPrototype__proto.parsingFlags      = parsingFlags;
+    momentPrototype__proto.set               = getSet;
+    momentPrototype__proto.startOf           = startOf;
+    momentPrototype__proto.subtract          = add_subtract__subtract;
+    momentPrototype__proto.toArray           = toArray;
+    momentPrototype__proto.toObject          = toObject;
+    momentPrototype__proto.toDate            = toDate;
+    momentPrototype__proto.toISOString       = moment_format__toISOString;
+    momentPrototype__proto.toJSON            = toJSON;
+    momentPrototype__proto.toString          = toString;
+    momentPrototype__proto.unix              = unix;
+    momentPrototype__proto.valueOf           = to_type__valueOf;
+    momentPrototype__proto.creationData      = creationData;
 
     // Year
     momentPrototype__proto.year       = getSetYear;
@@ -15356,7 +15871,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
 
     function locale_calendar__calendar (key, mom, now) {
         var output = this._calendar[key];
-        return typeof output === 'function' ? output.call(mom, now) : output;
+        return isFunction(output) ? output.call(mom, now) : output;
     }
 
     var defaultLongDateFormat = {
@@ -15418,21 +15933,21 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
 
     function relative__relativeTime (number, withoutSuffix, string, isFuture) {
         var output = this._relativeTime[string];
-        return (typeof output === 'function') ?
+        return (isFunction(output)) ?
             output(number, withoutSuffix, string, isFuture) :
             output.replace(/%d/i, number);
     }
 
     function pastFuture (diff, output) {
         var format = this._relativeTime[diff > 0 ? 'future' : 'past'];
-        return typeof format === 'function' ? format(output) : format.replace(/%s/i, output);
+        return isFunction(format) ? format(output) : format.replace(/%s/i, output);
     }
 
     function locale_set__set (config) {
         var prop, i;
         for (i in config) {
             prop = config[i];
-            if (typeof prop === 'function') {
+            if (isFunction(prop)) {
                 this[i] = prop;
             } else {
                 this['_' + i] = prop;
@@ -15535,6 +16050,9 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     }
 
     locale_locales__getSetGlobalLocale('en', {
+        monthsParse : [/^jan/i, /^feb/i, /^mar/i, /^apr/i, /^may/i, /^jun/i, /^jul/i, /^aug/i, /^sep/i, /^oct/i, /^nov/i, /^dec/i],
+        longMonthsParse : [/^january$/i, /^february$/i, /^march$/i, /^april$/i, /^may$/i, /^june$/i, /^july$/i, /^august$/i, /^september$/i, /^october$/i, /^november$/i, /^december$/i],
+        shortMonthsParse : [/^jan$/i, /^feb$/i, /^mar$/i, /^apr$/i, /^may$/i, /^jun$/i, /^jul$/i, /^aug/i, /^sept?$/i, /^oct$/i, /^nov$/i, /^dec$/i],
         ordinalParse: /\d{1,2}(th|st|nd|rd)/,
         ordinal : function (number) {
             var b = number % 10,
@@ -15754,15 +16272,15 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
         var years    = round(duration.as('y'));
 
         var a = seconds < thresholds.s && ['s', seconds]  ||
-                minutes === 1          && ['m']           ||
+                minutes <= 1           && ['m']           ||
                 minutes < thresholds.m && ['mm', minutes] ||
-                hours   === 1          && ['h']           ||
+                hours   <= 1           && ['h']           ||
                 hours   < thresholds.h && ['hh', hours]   ||
-                days    === 1          && ['d']           ||
+                days    <= 1           && ['d']           ||
                 days    < thresholds.d && ['dd', days]    ||
-                months  === 1          && ['M']           ||
+                months  <= 1           && ['M']           ||
                 months  < thresholds.M && ['MM', months]  ||
-                years   === 1          && ['y']           || ['yy', years];
+                years   <= 1           && ['y']           || ['yy', years];
 
         a[2] = withoutSuffix;
         a[3] = +posNegDuration > 0;
@@ -15883,6 +16401,8 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
 
     // Side effect imports
 
+    // FORMATTING
+
     addFormatToken('X', 0, 0, 'unix');
     addFormatToken('x', 0, 0, 'valueOf');
 
@@ -15900,13 +16420,14 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     // Side effect imports
 
 
-    utils_hooks__hooks.version = '2.10.6';
+    utils_hooks__hooks.version = '2.11.0';
 
     setHookCallback(local__createLocal);
 
     utils_hooks__hooks.fn                    = momentPrototype;
     utils_hooks__hooks.min                   = min;
     utils_hooks__hooks.max                   = max;
+    utils_hooks__hooks.now                   = now;
     utils_hooks__hooks.utc                   = create_utc__createUTC;
     utils_hooks__hooks.unix                  = moment__createUnix;
     utils_hooks__hooks.months                = lists__listMonths;
@@ -15925,6 +16446,7 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
     utils_hooks__hooks.weekdaysShort         = lists__listWeekdaysShort;
     utils_hooks__hooks.normalizeUnits        = normalizeUnits;
     utils_hooks__hooks.relativeTimeThreshold = duration_humanize__getSetRelativeTimeThreshold;
+    utils_hooks__hooks.prototype             = momentPrototype;
 
     var _moment = utils_hooks__hooks;
 
