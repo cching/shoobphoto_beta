@@ -18,7 +18,7 @@ class Admin::DashboardsController < ApplicationController
 	file = File.open(params[:file].tempfile, "r:ISO-8859-1")
 
     chunk = SmarterCSV.process(file, {:chunk_size => 500, row_sep: :auto}) do |chunk|
-     	DownloadImport.perform_async(chunk, params[:school])
+     	DownloadImport.perform_async(chunk, params[:school][:id])
     end
     file.close
   		redirect_to admin_dashboards_path, notice: "Download images are currently being imported."
