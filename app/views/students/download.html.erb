@@ -1,22 +1,36 @@
-<% if @download_images.nil? %>
-<h3 align="center">We've had trouble finding the images for your student. Please try again <%= link_to "here", student_find_student_path %>.<br/> If trouble persists, please contact us. </h3>
+<% unless defined? @student %>
+<h3 align="center">We've had trouble finding the images for your student with <strong><%= @shoob_id.upcase %></strong>. Please try again <%= link_to "here", student_find_student_path %>.<br/> If trouble persists, please contact us. </h3>
 <% else%>
-<h3>Here are the images we've found for your purchase </h3>
+<h3>Here is the images we've found for your purchase: </h3>
 <hr> 
 
-<% @download_images.group_by(&:year).each do |year, images| %>
 <div class="row">
-<% images.each do |image| %>
 	
 		<div class="col-sm-3" align="center">
-			<h3><%= image.package.name %> <%= image.year %></h3>
-		<%= image_tag(image.image.url, class: "img-rounded img-med") %>
+			<strong><%= @found_image.package.name %> <%= @found_image.year %></strong>
+		<%= image_tag(@found_image.image.url, class: "img-rounded img-med") %>
 		<br/><br/>
 		
-			<%= link_to "Download Image", student_push_image_path(@student.id, :url => image.image.url), class: "btn btn-primary" %>
+			<%= link_to "Download Image", student_push_image_path(@student.id, :url => @found_image.image.url), class: "btn btn-primary" %>
 		</div>
 	
+</div>
+
+<% unless @images.nil? %>
+	<h3>We've also found other images for your student, which are available for purchase (coming soon) </h3>
+	<hr> 
+
+	<div class="row">
+		<% @images.each do |image| %>
+			<div class="col-sm-3" align="center">
+				<strong><%= image.package.name %> <%= image.year %></strong>
+			<%= image_tag(image.image.url, class: "img-rounded img-med") %>
+
+			</div>
+		<% end %>
+		
+	</div>
 <% end %>
-</div><br/>
-<% end %>
+
 <% end %> 
+
