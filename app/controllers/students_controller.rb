@@ -29,8 +29,16 @@ class StudentsController < ApplicationController
     unless @found_image.nil?
       @student = @found_image.student
       @ids = @student.download_images.pluck(:id)
+      id = @ids - [@found_image.id]
+      @images = DownloadImage.where(id: id)
+
+      @images.each do |image|
+        if @images.where(:package_id => image.package.id).where(:year => image.year).count > 1
+          @ids = @ids - [@images.where(:package_id => image.package.id).where(:year => image.year).last.id]
+        end
+      end
       @images = DownloadImage.find(@ids - [@found_image.id]).sort_by {|x| x.year}.reverse
-          end
+    end
   end
 
   def download_image
