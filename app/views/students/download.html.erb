@@ -13,16 +13,15 @@
 		
 			<%= link_to "Download Image", student_push_image_path(@student.id, :url => @found_image.image.url), class: "btn btn-primary" %>
 		</div>
-	
 </div>
 
 <% unless @images.nil? %>
-	<h3>We've also found other images for your student, which are available for purchase (coming soon) </h3>
+ 	<h3>We've also found other images for your student, which are available for purchase (coming soon) </h3>
 	<hr> 
-
 	<div class="row">
 		<% @images.each do |image| %>
 			<div class="col-sm-3" align="center">
+				<%= image.id %>
 				<strong><%= image.package.name %> <%= image.year %></strong>
 			<%= image_tag(image.image.url, class: "img-rounded img-med") %>
 
