@@ -29,8 +29,8 @@ class StudentsController < ApplicationController
     unless @found_image.nil?
       @student = @found_image.student
       @ids = @student.download_images.pluck(:id)
-      id = @ids - [@found_image.id]
-      @images = DownloadImage.where(id: id)
+      @ids = @ids - [@found_image.id]
+      @images = DownloadImage.where(id: @ids)
 
       @images.each do |image|
         if @images.where(:package_id => image.package.id).where(:year => image.year).count > 1
