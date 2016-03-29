@@ -21,7 +21,6 @@
 	<div class="row">
 		<% @images.each do |image| %>
 			<div class="col-sm-3" align="center">
-				<%= image.id %>
 				<strong><%= image.package.name %> <%= image.year %></strong>
 			<%= image_tag(image.image.url, class: "img-rounded img-med") %>
 
