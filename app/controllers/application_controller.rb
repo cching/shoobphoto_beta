@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
       elsif current_user.try(:parent)
         yearbooks_path
       else
-        
+        export_students_path
       end
 	end
 
