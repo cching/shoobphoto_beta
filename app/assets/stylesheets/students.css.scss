@@ -8,6 +8,65 @@
 	overflow-x:hidden;
 }
 
+.btn-custom2 {
+	-webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  color: #ffffff;
+  font-size: 19px;
+  background: #0061A2;
+  padding: 10px 30px 10px 30px;
+  border: solid #000000 0px;
+  text-decoration: none;
+  color:#fff;
+}
+
+.btn-custom2:hover {
+color:#000000;
+}
+
+.blue {
+	color:#0061A2;
+}
+
+.image_text {
+	font-size:14px;
+	margin-top:5px;
+	margin-bottom:10px;
+}
+
+#scrolltable {
+	height:70vh;
+	overflow-y:auto;
+	background-color:#ECECEC;
+	padding-left:40px;
+	padding-top:20px;
+}
+
+#png1 {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:0;
+}
+.inner {
+
+ }
+
+.img-proof {
+	max-width:100%;
+}
+
+#png2 {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:1;
+}
+.wide {
+	width:100%;
+	height:200px;
+}
 
 #studenttable {
 	height:65vh;

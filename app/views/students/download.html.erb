@@ -1,34 +1,55 @@
 <% unless defined? @student %>
 <h3 align="center">We've had trouble finding the images for your student with <strong><%= @shoob_id.upcase %></strong>. Please try again <%= link_to "here", student_find_student_path %>.<br/> If trouble persists, please contact us. </h3>
 <% else%>
-<h3>Here is the images we've found for your purchase: </h3>
-<hr> 
-
 <div class="row">
+	<div class="col-sm-4" align="center">
+			<h3 class="blue">Click below to begin your <br/>image download.</h3>
+					
+				<%= image_tag(@found_image.image.url, class: "img-rounded img-med") %>
+				<br/><strong class="image_text"><%= @found_image.package.name %> <%= @found_image.year %></strong><br/>
+				
+					<%= link_to "Download Image", student_push_image_path(@student.id, :url => @found_image.image.url), class: "btn-custom2" %>
 	
-		<div class="col-sm-3" align="center">
-			<strong><%= @found_image.package.name %> <%= @found_image.year %></strong>
-		<%= image_tag(@found_image.image.url, class: "img-rounded img-med") %>
-		<br/><br/>
-		
-			<%= link_to "Download Image", student_push_image_path(@student.id, :url => @found_image.image.url), class: "btn btn-primary" %>
-		</div>
+	</div>
+
+	<div class="col-sm-8">
+	<div id="scrolltable">
+		<div class="inner" align="center">
+			<span class="blue">
+			<strong>Download digital images from previous school years!</strong><br/>
+			Click an image below to view pricing and packages.</span><br/><br/>
+
+		<% unless @images.nil? %>
+
+			
+				<% @images.each_slice(3) do |images| %>
+				<div class="row">
+				<div class="col-sm-1"></div>
+				<% images.each do |image| %>
+					<div class="col-sm-3" align="center">
+						
+						<div style="position: relative;" class='wide'>
+
+						<%= image_tag(image.image.url, class: "img-proof", id: "png1") %>
+						<%= image_tag('watermark.png', class: "img-proof", id: "png2") %><br/>
+
+					</div>
+					<strong class="image_text"><%= image.package.name %> <%= image.year %></strong><br/>
+					<%= link_to "Select", download_cart_path(@student.id, :cart_id => params[:cart_id], :image => image.id), class: "btn-custom2", remote: true %>
+					</div>	
+				<% end %>
+				<div class="col-sm-1"></div>
+				</div>
+				<% end %>
+				
+			
+		<% end %>
+	</div>
+	</div>
+</div>
 </div>
 
-<% unless @images.nil? %>
- 	<h3>We've also found other images for your student, which are available for purchase (coming soon) </h3>
-	<hr> 
-	<div class="row">
-		<% @images.each do |image| %>
-			<div class="col-sm-3" align="center">
-				<strong><%= image.package.name %> <%= image.year %></strong>
-			<%= image_tag(image.image.url, class: "img-rounded img-med") %>
-
-			</div>
-		<% end %>
-		
-	</div>
 <% end %>
 
-<% end %> 
+
 

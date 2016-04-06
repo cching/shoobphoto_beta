@@ -11,6 +11,8 @@ gem 'activemerchant'
 gem "rails_12factor", group: :production
 gem 'aws-sdk', '~> 1.6.0'
 gem "paperclip", "~> 4.3"
+gem 'paperclip-watermark'
+
 
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets

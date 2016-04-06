@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328051758) do
+ActiveRecord::Schema.define(version: 20160406074725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,6 +146,10 @@ ActiveRecord::Schema.define(version: 20160328051758) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.string   "year"
+    t.string   "watermark_file_name"
+    t.string   "watermark_content_type"
+    t.integer  "watermark_file_size"
+    t.datetime "watermark_updated_at"
   end
 
   create_table "export_data", force: true do |t|

@@ -1,0 +1,130 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div class="modal-title orange" id="myModalLabel">
+
+
+        </div>
+      </div>
+      <div class="modal-body" align="center">
+        
+
+<div class="animated fadeIn">
+
+  <%= form_for(@cart, url: student_update_path(@cart.cart_id, @cart.students.count - 1), :html => {class: "form-horizontal"}) do |f| %>
+  <% @opackages.each_with_index do |opackage, index| %>
+  <% package = opackage.package %>
+  <div class="row">
+    <div class="col-sm-4" align="center"> 
+      <h3><%= package.name %></h3>
+      <% if package.multiple %>
+        <% if @senior_url.try(:length) > 1 %>
+        
+          <% @senior_url.each_slice(2) do |slice| %>
+          <div class="row">
+            <% slice.each do |senior_url| %>
+            <% i = @senior_url.index(senior_url) %>
+            <% unless @senior_id[i] == "default" %>
+            <div class="col-sm-6" id="<%= @senior_url.index(senior_url) %>"><%= image_tag(senior_url, :class => 'img-rounded img-package')%><br/>
+                <%= link_to orders_add_image_path(opackage.id, @senior_id[i], :pose => "#{i + 1}" , :index => "#{i}"), remote: true do %>
+                    <span id="check_<%= i%>"><span class="glyphicon glyphicon-unchecked"></span></span> Pose <%= i + 1 %>
+                <% end %>
+
+            </div>
+            <% end %>
+            <% end %>
+          </div>
+          <% end %>
+        <% else %>
+          <%= image_tag(@senior_url[0], class: "img-rounded img-package") %>
+        <% end %>
+      <% else %>
+      <%= image_tag(@dimage.image.url, class: "img-proof", id: "png1") %>
+            <%= image_tag('watermark.png', class: "img-proof", id: "png2") %>
+      <% end %>
+    </div><br />
+    <div class="col-sm-8">
+      <% if (defined? @senior_url) %>
+      <h3>Please select the <%= "pose and" if (@senior_url.try(:length) > 1 && package.id == 6) %> package you wish to purchase.</h3>
+      <% else %>
+      <h3>Please select the package you wish to purchase.</h3>
+      <% end %>
+    <span id="package_<%= package.id %>">
+        <%= f.fields_for :order_packages, OrderPackage.where(:package_id => package.id).where(:student_id => @student.id).where(:cart_id => @cart.id) do |s| %>
+
+          <%= s.collection_select :option_id, package.options.order(:name), :id, :name, {prompt: false}, {class: "form-control", :onchange => 'test(this.dataset.package, this.value)', :id => :id, data: { :package => "#{package.id}"}} %>
+
+        <% end %>
+        <div align="center">
+        <%= image_tag(package.banner, class: "img-rounded img-cust") if package.banner? %>
+        </div>
+        <br />
+
+        <div class="row">
+        <%= package.options.order(:name).each_slice(3) do |slice| %>
+          <div class="row buff">
+            <% slice.each do |option| %>
+              <div class="col-sm-4 <%= 'selectedbackground' if package.order_packages.where(:cart_id => @cart.id).where(:student_id => @student.id).pluck(:option_id).include?(option.id) %>" id="option_<%= option.id %>">
+                <%= link_to "#{option.name} - #{number_to_currency(option.price(@student.school), :unit => "$")}", '#', :onClick => 'select_option(this.id, this.dataset.package)', :id => "#{option.id}", data: { :package => "#{package.id}"} %>
+                <ul>
+                  <% option.image_types.each do |type| %>
+                    <li><%= type.name %>
+                    </li>
+                  <% end %> 
+                </ul>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </span>
+      </div>
+  </div><br/>
+  <hr>
+  <% end %>
+
+<div class="row">
+  <div class="col-sm-2" align="left">
+
+
+  </div>
+  <div class="col-sm-8"></div>
+  <div class="col-sm-2" align="right">
+    <%= button_tag(type: 'submit', class: "btn btn-custom") do %>
+        Continue <span class="glyphicon glyphicon-chevron-right"></span> 
+    <% end %>
+
+  </div>
+</div>
+
+<% end %>
+<br />
+
+<script>
+
+
+function select_option(i, packagei) {
+    $('#package_' + packagei + ' > select > option[value="' + i + '"]').attr("selected", "selected");
+    $('#package_' + packagei + '>.row>.row>.col-sm-4.selectedbackground').removeClass('selectedbackground animated fadeIn');
+
+    $('#option_' + i + '').addClass('selectedbackground animated fadeIn');
+    event.preventDefault();
+}
+function test(packagei, i) {
+  $('#package_' + packagei + '>.row>.row>.col-sm-4.selectedbackground').removeClass('selectedbackground animated fadeIn');
+
+    $('#option_' + i + '').addClass('selectedbackground animated fadeIn');
+    event.preventDefault();
+}
+
+</script>
+
+
+
+
+ 
+
+    </div>
+  </div>
+</div>
