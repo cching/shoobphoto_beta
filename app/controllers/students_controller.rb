@@ -10,7 +10,7 @@ class StudentsController < ApplicationController
     @dimage = DownloadImage.find(params[:image])
     @student = Student.find(params[:id])
     @cart.order_packages = []
-    @cart.order_packages.create(:package_id => @dimage.package_id, :student_id => @student.id)
+    @cart.order_packages.create(:package_id => 253, :student_id => @student.id, :download_image_id => @dimage.id)
     @opackages = @cart.order_packages.where(:student_id => @student.id).order(:id)
     @image_url = []
 

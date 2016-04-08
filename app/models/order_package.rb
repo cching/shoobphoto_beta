@@ -5,6 +5,7 @@ class OrderPackage < ActiveRecord::Base
 	belongs_to :student
 	has_many :order_package_extras, dependent: :destroy
 	has_many :extras, through: :order_package_extras
+	belongs_to :download_image
 
 	before_destroy :check_for_orders
 

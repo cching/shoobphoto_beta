@@ -3,6 +3,16 @@ class OrdersController < ApplicationController
 
 	before_action :require_admin, only: [:index, :processed, :unprocessed]
 
+	def download
+		@order = Order.find(params[:id])
+
+		if @order.cart.order_packages.map(&:download_image_id).any? && @order.cart.order_packages.map(&:option_id).include?(254)
+			@images = @order.cart.order_packages.where.not(download_image_id: nil).all
+		else
+			redirect_to root_path
+		end
+	end
+
 	def create_package
 		@cart = Cart.find_by_cart_id(params[:cart_id])
 		@package = Package.find(params[:package])
@@ -82,7 +92,12 @@ end
 	    	@cart.cart_type = "school_pictures"
 	    	@cart.save
 	    	OrderMailer.receipt(@order).deliver
-	    	redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt."
+
+	    	if @order.cart.order_packages.map(&:download_image_id).any? && @order.cart.order_packages.map(&:option_id).include?(254)
+	    		redirect_to order_download_path(@order.id), notice: "Your order has been successfully placed! We've emailed you a copy of your receipt. Here's your copy of the digital image."
+	    	else
+	    		redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt."
+	    	end
 	    else
 	    	respond_to do |format|
 	    	format.html { render 'new', :price => @order.price }

@@ -1,0 +1,10 @@
+<% @images.each do |image| %>
+<div class="row">
+	<div class="col-sm-1">
+	</div>
+	<div class="col-sm-11">
+		<%= image_tag(image.download_image.image.url, class: "img-rounded img-med") %><br/><br/>
+		<%= link_to "Download Image", student_push_image_path(image.student.id, :url => image.download_image.image.url), class: "btn-custom2" %>
+	</div>
+</div>
+<% end %>

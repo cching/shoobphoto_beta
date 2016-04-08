@@ -10,7 +10,20 @@
 			<div class="col-sm-4" align="center"> 
 			<strong><%= package.name %></strong><br />
 					<% if op.url.nil? %>
+					<% if op.download_image_id.nil? %>
 					<img src='<%= @image_url[index] %>', class="img-rounded img-package">
+					<% else %>
+					<div align="center">
+					<div class="row">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-8">
+					<%= image_tag(op.download_image.image.url, class: "img-rounded img-package", id: "png1") %>
+					<%= image_tag('watermark.png', class: "img-rounded img-package", id: "png2") %><br/><br/><br/>
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+				</div>
+					<% end %>
 					<% else %>
 					<%= image_tag(OrderPackage.image(op.id), class: "img-rounded img-package") %><br/>
 					<%= "Pose #{opackage.pose}" unless opackage.pose.nil? %>

@@ -138,6 +138,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'export/remove/:id' => 'export_list_items#remove', :via => 'GET', :as => 'export_list_remove'
   match 'export/zip/:school/:package' => 'export_list_items#zip', :via => 'GET', :as => 'export_list_zip'
   match 'orders/add_image/:id/:url' => 'orders#add_image', :via => 'GET', :as => 'orders_add_image'
+  match 'orders/:id/download' => 'orders#download', :via => 'GET', :as => 'order_download'
   match 'export/batch/:school_id' => 'export_list_items#batch', :via => 'GET', :as => 'export_batch'
   match 'export/students' => 'export_list_items#students', :via => 'GET', :as => 'export_students'
   
@@ -155,7 +156,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'export/students/create/:school/:package' => 'export_list_items#create', :via => 'POST', :as => 'export_create'
   match 'export/waiting/:id/:package' => 'export_list_items#waiting', :via => 'GET', :as => 'export_waiting'
   match 'download' => 'students#find_student', :via => 'GET', :as => 'student_find_student'
-  match 'download/images' => 'students#download', :via => 'GET', :as => 'student_download'
+  match 'download/images/:shoob_id/:cart_id' => 'students#download', :via => 'GET', :as => 'student_download'
   match 'download/download_image/:student/' => 'students#download_image', :via => 'GET', :as => 'student_push_image'
   match 'students' => 'students#schools', :via => 'GET', :as => 'student_schools'
   match 'students/cart/:id' => 'students#cart', :via => 'GET', :as => 'student_cart'
@@ -231,7 +232,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-
+ 
   # Example resource route with options:
   #   resources :products do
   #     member do
