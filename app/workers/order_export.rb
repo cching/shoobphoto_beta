@@ -15,10 +15,9 @@ class OrderExport
                 @string2 = ""
 
                 @year = ""
-              if order.cart.order_packages.where(:student_id => student.id).last.any? 
-                 unless order.cart.order_packages.where(:student_id => student.id).last.download_image.nil?
-                    @year = order.cart.order_packages.where(:student_id => student.id).last.download_image.year
-                  end
+              
+              if order.cart.order_packages.where(:student_id => student.id).where.not(download_image_id: nil).any?
+                 @year = "#{order.cart.order_packages.where(:student_id => student.id).where.not(download_image_id: nil).first.download_image.package.name}, #{order.cart.order_packages.where(:student_id => student.id).where.not(download_image_id: nil).first.download_image.year}"
               end
 
               if order.cart.order_packages.where(:student_id => student.id).count > 1
