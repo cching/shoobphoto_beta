@@ -14,6 +14,13 @@ class OrderExport
                 @string1 = ""
                 @string2 = ""
 
+                @year = ""
+              if order.cart.order_packages.where(:student_id => student.id).last.any? 
+                 unless order.cart.order_packages.where(:student_id => student.id).last.download_image.nil?
+                    @year = order.cart.order_packages.where(:student_id => student.id).last.download_image.year
+                  end
+              end
+
               if order.cart.order_packages.where(:student_id => student.id).count > 1
 
                 @string = order.cart.order_packages.where(:student_id => student.id).collect { |w| w.package.slug }.join(", ")
@@ -51,9 +58,7 @@ class OrderExport
               end
               end
 
-              unless order.cart.order_packages.where(:student_id => student.id).last.download_image.nil?
-                @year = order.cart.order_packages.where(:student_id => student.id).last.download_image.year
-              end
+
               
               csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{Order.price(order.id, student.id)}"] +
                 ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.teacher}"] + ["#{student.student_id}"] + ["#{student.grade}"] + ["#{student.school.name}"] + ["#{student.dob}"] + 
