@@ -110,12 +110,12 @@ class StudentsController < ApplicationController
       @images = DownloadImage.where(id: @ids)
 
       @images.each do |image|
-        if @images.where(:package_id => image.package.id).where(:year => image.year).count > 1
-          @ids = @ids - [@images.where(:package_id => image.package.id).where(:year => image.year).last.id]
+        if @images.where(:folder => image.folder).where(:year => image.year).count > 1
+          @ids = @ids - [@images.where(:folder => image.folder).where(:year => image.year).last.id]
         end
 
-        if @images.where(:package_id => @found_image.package.id).where(:year => @found_image.year).count > 0
-          @ids = @ids - [@images.where(:package_id => @found_image.package.id).where(:year => @found_image.year).first.id]
+        if @images.where(:folder => @found_image.folder).where(:year => @found_image.year).count > 0
+          @ids = @ids - [@images.where(:folder => @found_image.folder).where(:year => @found_image.year).first.id]
         end
 
       end

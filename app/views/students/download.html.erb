@@ -6,7 +6,7 @@
 			<h3 class="blue">Click below to begin your <br/>image download.</h3>
 					
 				<%= image_tag(@found_image.image.url, class: "img-rounded img-med") %>
-				<br/><strong class="image_text"><%= @found_image.package.name %> <%= @found_image.year %></strong><br/>
+				<br/><strong class="image_text"><%= DownloadImage.package_name(@found_image.id) %></strong><br/>
 				
 					<%= link_to "Download Image", student_push_image_path(@student.id, :url => @found_image.image.url), class: "btn-custom2" %>
 	
@@ -34,7 +34,7 @@
 						<%= image_tag('watermark.png', class: "img-proof", id: "png2") %><br/>
 
 					</div>
-					<strong class="image_text"><%= image.package.name %> <%= image.year %></strong><br/>
+					<strong class="image_text"><%= DownloadImage.package_name(image.id) %></strong><br/>
 					<%= link_to "Select", download_cart_path(@student.id, :cart_id => params[:cart_id], :image => image.id), class: "btn-custom2", remote: true %>
 					</div>	
 				<% end %>
