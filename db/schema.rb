@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408064336) do
+ActiveRecord::Schema.define(version: 20160419081726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20160408064336) do
     t.integer  "school_id"
     t.boolean  "id_supplied", default: true
     t.string   "email"
+    t.string   "shoob_id"
   end
 
   create_table "categories", force: true do |t|
