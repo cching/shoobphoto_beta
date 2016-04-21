@@ -9,7 +9,8 @@ class OrderPackage < ActiveRecord::Base
 
 	before_destroy :check_for_orders
 
-	validates :package_id, uniqueness: {:scope => [:student_id, :cart_id]}
+	validates :package_id, uniqueness: {:scope => [:student_id, :cart_id]}, :unless => Proc.new { |a| a.package_id == 253}
+	validates :package_id, uniqueness: {:scope => [:student_id, :cart_id, :download_image_id]}, :if => Proc.new { |a| a.package_id == 253}
 
 	accepts_nested_attributes_for :option
 	accepts_nested_attributes_for :extras

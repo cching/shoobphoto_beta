@@ -41,7 +41,11 @@
  </table>
 <div class="row">
 <div class="col-sm-3" align="left">
- <%= link_to "Add more students to your order", student_schools_path(:cart_id => @cart.cart_id, :i => @cart.students.count), class: "btn btn-primary" %>
+	<% if @cart.order_packages.pluck(:package_id).include?(253) %>
+		<%= link_to "Add more images to your order", student_download_path(@cart.shoob_id, @cart.cart_id), class: "btn btn-primary" %>
+	<% else %>
+		 <%= link_to "Add more students to your order", student_schools_path(:cart_id => @cart.cart_id, :i => @cart.students.count), class: "btn btn-primary" %>
+	<% end %>
  </div>
  <div class="col-sm-6">
  </div>

@@ -9,60 +9,14 @@ class StudentsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @dimage = DownloadImage.find(params[:image])
     @student = Student.find(params[:id])
-    @cart.order_packages = []
     @cart.order_packages.create(:package_id => 253, :student_id => @student.id, :download_image_id => @dimage.id)
     @opackages = @cart.order_packages.where(:student_id => @student.id).order(:id)
     @image_url = []
 
-    bucket = AWS::S3::Bucket.new('shoobphoto')
+    @ids = @opackages.pluck(:download_image_id)
 
-    @opackages.each do |opackage|
-      package = opackage.package
-      image = package.student_images.where(:student_id => @student.id).last
-      
-      if package.id == 6
-      @senior_url = []
-      @senior_id = []
-        unless image.nil? || @cart.id_supplied == false
-          
-          for attribute in ['url', 'url1', 'url2', 'url3', 'url4']
-            unless image.attributes[attribute].nil? || image.attributes[attribute] == ""
-              if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].upcase}.jpg").exists?
-                s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].upcase}.jpg")
-              else
-                s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].downcase}.jpg")
-              end
-              @senior_id << "#{image.attributes[attribute]}"
-            else
-              s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}") #do default image in col later
-               @senior_id << "default"
-            end
-             @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-            
-          end
-        else
-          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
-          @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-          @senior_id << "default"
-        end
-      end
 
-      unless image.nil?
-        unless image.image_file_name.nil? || @cart.id_supplied == false || image.image_file_name == ""
-          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
-          else
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
-          end
-        else
-          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{image.package.id}/#{image.package.image_file_name}") #do default image in col later
-        end
-      else
-          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
-      end
-
-      @image_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-    end 
+    
   end
 
   def create_cart
@@ -76,7 +30,7 @@ class StudentsController < ApplicationController
     end
     unless @found_image.nil?
       @student = @found_image.student
-      @cart = @student.carts.create(:cart_id => (0...8).map { (65 + rand(26)).chr }.join, :id_supplied => false, :school_id => @student.school.id)
+      @cart = @student.carts.create(:cart_id => (0...8).map { (65 + rand(26)).chr }.join, :id_supplied => false, :school_id => @student.school.id, :shoob_id => @shoob_id)
       redirect_to student_download_path(:shoob_id => @shoob_id, :cart_id => @cart.cart_id)
     else
       redirect_to :back, alert: "We've had trouble finding your images with ID #{@shoob_id}. Please contact us if you have trouble finding your images."
@@ -191,6 +145,8 @@ class StudentsController < ApplicationController
     @opackages = @cart.order_packages.where(:student_id => @student.id).order(:id)
     @image_url = []
 
+
+
     bucket = AWS::S3::Bucket.new('shoobphoto')
 
     @opackages.each do |opackage|
@@ -211,10 +167,6 @@ class StudentsController < ApplicationController
       end
       @image_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
     end 
-  end
-
-  def lessonbuilder
-    redirect_to "www.lessonbuilder.shoobphoto.com"
   end
 
   def update
@@ -244,6 +196,8 @@ class StudentsController < ApplicationController
         format.html { redirect_to student_review_path(:id => @cart.cart_id, :i => @cart.students.count - 1) }
     end
   end
+
+
 
   def select_package
     @cart = Cart.find_by_cart_id(params[:id])

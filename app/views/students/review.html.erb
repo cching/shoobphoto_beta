@@ -4,8 +4,14 @@
 <div class="animated fadeIn">
 	<% @opackages.each_with_index do |opackage, index| %>
 	<% package = opackage.package %>
+	<% if package.id == 253 %>
+	<% @ids = @opackages.pluck(:download_image_id) %>
+	<% option = @cart.order_packages.where(:package_id => package.id).where(:download_image_id => @ids[index]).last.option %>
+	<% op = @cart.order_packages.where(:option_id => option.id).last %>
+	<% else %>
 	<% option = @cart.order_packages.where(:package_id => package.id).last.option %>
 	<% op = @cart.order_packages.where(:option_id => option.id).last %>
+	<% end%>
 		<div class="row">
 			<div class="col-sm-4" align="center"> 
 			<strong><%= package.name %></strong><br />
@@ -135,9 +141,10 @@
 	<div class="row">
 		<div class="col-sm-2" align="left">
 		<% if @cart.order_packages.pluck(:package_id).include?(253) %>
-
+		<% @text = "Continue" %>
 		<% else %>
 		<%= link_to "Add additional images", student_packages_path(@cart.cart_id, @cart.students.count - 1), class: "btn btn-custom" %>
+		<% @text = "Finalize your order" %>
 		<% end %>
 
 		</div>
@@ -149,7 +156,8 @@
 		<div class="col-sm-2">
 
 
-		<%= f.submit "Finalize your order", class: "btn btn-primary" %>
+		
+		<%= f.submit "#{@text}", class: "btn btn-primary" %>
 
 		</div>
 	</div>
