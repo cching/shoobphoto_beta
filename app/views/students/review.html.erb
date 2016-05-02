@@ -1,4 +1,4 @@
-<%= simple_form_for @cart, url: update_cart_path(@cart.cart_id) do |f| %>
+<%= simple_form_for @cart, url: update_cart_path(@cart.cart_id, @i) do |f| %>
 <%= token_tag %>
 
 <div class="animated fadeIn">
@@ -11,20 +11,35 @@
 	<% else %>
 	<% option = @cart.order_packages.where(:package_id => package.id).last.option %>
 	<% op = @cart.order_packages.where(:option_id => option.id).last %>
-	<% end%>
+	<% end %>
 		<div class="row">
 			<div class="col-sm-4" align="center"> 
-			<strong><%= package.name %></strong><br />
+			
 					<% if op.url.nil? %>
 					<% if op.download_image_id.nil? %>
-					<img src='<%= @image_url[index] %>', class="img-rounded img-package">
+					<strong><%= package.name %></strong><br />
+					<div class="row">
+							<div class="col-sm-4"></div>
+							<div class="col-sm-4">
+								<img src='<%= @image_url[index] %>', class="img-rounded img-package" id="png1">
+								<%= image_tag('watermark.png', class: "img-rounded img-package", id: "png2") %><br/><br/><br/>
+							</div>
+							<div class="col-sm-4"></div>
+					</div>
 					<% else %>
-					<div align="center">
+					<div align="center"><br/><br/>
+						<strong><%= DownloadImage.package_name(opackage.download_image.id) %></strong>
 					<div class="row">
 						<div class="col-sm-2"></div>
 						<div class="col-sm-8">
-					<%= image_tag(op.download_image.image.url, class: "img-rounded img-package", id: "png1") %>
-					<%= image_tag('watermark.png', class: "img-rounded img-package", id: "png2") %><br/><br/><br/>
+						<div class="row">
+							<div class="col-sm-3"></div>
+							<div class="col-sm-6">
+								<%= image_tag(opackage.download_image.image.url, class: "img-rounded img-package", id: "png1") %>
+								<%= image_tag('watermark.png', class: "img-rounded img-package", id: "png2") %><br/><br/><br/>
+							</div>
+							<div class="col-sm-3"></div>
+						</div>
 				</div>
 				<div class="col-sm-2"></div>
 			</div>
@@ -144,7 +159,7 @@
 		<% @text = "Continue" %>
 		<% else %>
 		<%= link_to "Add additional images", student_packages_path(@cart.cart_id, @cart.students.count - 1), class: "btn btn-custom" %>
-		<% @text = "Finalize your order" %>
+		<% @text = "Continue" %>
 		<% end %>
 
 		</div>

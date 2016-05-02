@@ -22,7 +22,7 @@ class Order < ActiveRecord::Base
   end
 
   validates_presence_of :first_name, :last_name, :phone, :email, :address, :city, :state, :zip_code, :card_type, :card_expires_on, :price
-  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+  validates_format_of :email, :with => /@/
   validates_length_of :phone, :minimum => 7, :too_short => 'must be at least 7 numbers'
   
   attr_accessor :card_number, :card_verification, :clearance

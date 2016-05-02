@@ -5,18 +5,27 @@ class StudentsController < ApplicationController
   def find_student
   end
 
+  def remove_package
+    @cart = Cart.find_by_cart_id(params[:id])
+    @cart.order_packages.where(:download_image_id => params[:did]).last.delete
+    @i = params[:did]
+
+    @opackages = @cart.order_packages.pluck(:download_image_id)
+
+  end
+
   def purchase
+    @i = params[:i]
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @dimage = DownloadImage.find(params[:image])
     @student = Student.find(params[:id])
     @cart.order_packages.create(:package_id => 253, :student_id => @student.id, :download_image_id => @dimage.id)
-    @opackages = @cart.order_packages.where(:student_id => @student.id).order(:id)
+    @cart.order_packages.last.update(:option_id => Package.find(253).options.first.id)
+    @opackages = @cart.order_packages.where(:student_id => @student.id).where.not(:download_image_id => nil).order(:id)
     @image_url = []
 
-    @ids = @opackages.pluck(:download_image_id)
+    @ids = @opackages.pluck(:download_image_id).compact
 
-
-    
   end
 
   def create_cart
@@ -109,6 +118,26 @@ class StudentsController < ApplicationController
        @cart.update(:price => @price)
   end
 
+  def previous_images
+    @i = params[:i]
+
+    @cart = Cart.find_by_cart_id(params[:id])
+    @student = @cart.students[params[:i].to_i]
+
+      @ids = @student.download_images.pluck(:id) 
+      @images = DownloadImage.where(id: @ids)
+
+      @images.each do |image|
+        if @images.where(:folder => image.folder).where(:year => image.year).count > 1
+          @ids = @ids - [@images.where(:folder => image.folder).where(:year => image.year).first.id]
+          @images = DownloadImage.where(id: @ids)
+        end
+
+
+      end
+      @images = DownloadImage.find(@ids).sort_by {|x| x.year}.reverse
+  end
+
   def update_cart
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @student = @cart.students[@cart.students.count - 1]
@@ -134,12 +163,21 @@ class StudentsController < ApplicationController
       end
     end
   end
-  
-    redirect_to student_final_path(@cart.cart_id, @cart.students.count - 1)
+
+    if @cart.order_packages.pluck(:package_id).include?(253)
+      redirect_to student_final_path(@cart.cart_id, @cart.students.count - 1)
+    else
+      if @cart.students[params[:i].to_i].download_images.any?
+        redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
+      else
+        redirect_to student_final_path(@cart.cart_id, @cart.students.count - 1)
+      end
+    end
   end
 
   def review
     @cart = Cart.find_by_cart_id(params[:id])
+    @i = params[:i]
 
     @student = @cart.students[params[:i].to_i]
     @opackages = @cart.order_packages.where(:student_id => @student.id).order(:id)
@@ -332,7 +370,7 @@ class StudentsController < ApplicationController
       end
 
     else
-      student = @school.students.where("lower(first_name) like ? and lower(last_name) like ? and student_id = ? and id_only = ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%", "#{params[:student_id]}", "true")
+      student = @school.students.where("lower(first_name) like ? and lower(last_name) like ? and student_id = ? and id_only = ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%", "#{params[:student_id].gsub(/\s+/, "")}", "true")
        
     
       if student.count > 0

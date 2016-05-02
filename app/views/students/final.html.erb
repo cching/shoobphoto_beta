@@ -13,7 +13,11 @@
 	<td>
 	<% @cart.order_packages.where(:student_id => student.id).each do |o| %>
 
-			<%= number_to_currency(o.option.price(@cart.students[params[:i].to_i].school.id), :unit => "$") %>  - <%= o.package.name %><%= ": Pose #{o.pose}" unless o.pose.nil? %> - <%= o.option.name %><br/>
+			<%= number_to_currency(o.option.price(@cart.students[params[:i].to_i].school.id), :unit => "$") %>  - <%= o.package.name %><%= ": Pose #{o.pose}" unless o.pose.nil? %> - <%= o.option.name %>
+			<% if o.package.id == 253 %>
+			- <%= DownloadImage.package_name(o.download_image_id) %>
+			<% end %>
+			<br/>
 
 			<% o.extras.each do |extra| %>
 				<%= number_to_currency(extra.prices.first.try(:price), :unit => "$") %> - <%= extra.name %> <br/>
@@ -41,11 +45,8 @@
  </table>
 <div class="row">
 <div class="col-sm-3" align="left">
-	<% if @cart.order_packages.pluck(:package_id).include?(253) %>
-		<%= link_to "Add more images to your order", student_download_path(@cart.shoob_id, @cart.cart_id), class: "btn btn-primary" %>
-	<% else %>
+
 		 <%= link_to "Add more students to your order", student_schools_path(:cart_id => @cart.cart_id, :i => @cart.students.count), class: "btn btn-primary" %>
-	<% end %>
  </div>
  <div class="col-sm-6">
  </div>

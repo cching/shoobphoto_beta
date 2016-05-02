@@ -93,7 +93,7 @@ end
 	    	@cart.save
 	    	OrderMailer.receipt(@order).deliver
 
-	    	if @order.cart.order_packages.map(&:download_image_id).any? && @order.cart.order_packages.map(&:option_id).include?(254)
+	    	if @order.cart.order_packages.map{|x| x.option.download}.any?
 	    		redirect_to order_download_path(@order.id), notice: "Your order has been successfully placed! We've emailed you a copy of your receipt. Here's your copy of the digital image."
 	    	else
 	    		redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt."

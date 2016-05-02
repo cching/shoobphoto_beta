@@ -1,0 +1,46 @@
+<div class="row">
+	<div class="col-sm-2"></div>
+
+	<div class="col-sm-8">
+	<div id="scrolltable">
+		<div class="inner" align="center">
+			<span class="blue">
+			<strong>Download digital images from previous school years!</strong><br/>
+			Click an image below to view pricing and packages.</span><br/><br/>
+
+		<% unless @images.nil? %>
+
+			
+				<% @images.each_slice(3) do |images| %>
+				<div class="row">
+				<div class="col-sm-1"></div>
+				<% images.each do |image| %>
+					<div class="col-sm-3" align="center">
+						
+						<div style="position: relative;" class='wide'>
+
+						<%= image_tag(image.image.url, class: "img-proof", id: "png1") %>
+						<%= image_tag('watermark.png', class: "img-proof", id: "png2") %><br/>
+
+					</div>
+					<strong class="image_text"><%= DownloadImage.package_name(image.id) %></strong><br/>
+					<%= link_to "Select", download_cart_path(@student.id, :cart_id => params[:id], :image => image.id, :i => @i), class: "btn-custom2", remote: true %>
+					</div>	
+				<% end %>
+				<div class="col-sm-1"></div>
+				</div>
+				<br/>
+				<% end %>
+				
+			
+		<% end %>
+	</div>
+	</div>
+</div>
+<div class="col-sm-2"></div>
+</div>
+<br/>
+<div class="row">
+	<div class="col-sm-9"></div>
+	<div class="col-sm-3" align="left"><%= link_to "Continue", student_final_path(@cart.cart_id, @cart.students.count - 1), class: "btn btn-custom" %></div>
+</div>

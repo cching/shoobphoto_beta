@@ -5,7 +5,7 @@
         <div class="modal-title orange" id="myModalLabel">
 
 
-        </div> 
+        </div>  
       </div>
       <div class="modal-body" align="center" id="margin">
         
@@ -15,7 +15,7 @@
   <%= form_for(@cart, url: student_update_path(@cart.cart_id, @cart.students.count - 1), :html => {class: "form-horizontal"}) do |f| %>
   <% @opackages.each_with_index do |opackage, i| %>
   <% package = opackage.package %>
-  <div class="row">
+  <div class="row" id="<%= @ids[i] %>">
     <div class="col-sm-4" align="center"> 
       <h3><%= package.name %></h3>
       
@@ -38,7 +38,7 @@
         <%= package.options.order(:name).each_slice(3) do |slice| %>
           <div class="row buff">
             <% slice.each do |option| %>
-              <div class="col-sm-4 <%= 'selectedbackground' if package.order_packages.where(:cart_id => @cart.id).where(:student_id => @student.id).where(:download_image_id => @ids[i]).last.option_id == option.id %>" id="option_<%= option.id %>_<%= @ids[i] %>">
+              <div class="col-sm-4 <%= 'selectedbackground' if package.order_packages.where(:cart_id => @cart.id).where(:student_id => @student.id).where(:download_image_id => @ids[i]).last.try(:option_id) == option.id %>" id="option_<%= option.id %>_<%= @ids[i] %>">
                 <%= link_to "#{option.name} - #{number_to_currency(option.price(@student.school), :unit => "$")}", '#', :onClick => 'select_option(this.id, this.dataset.package)', :id => "#{option.id}", data: { :package => "#{@ids[i]}"} %>
                 <ul>
                   <% option.image_types.each do |type| %>
@@ -53,6 +53,11 @@
       </div>
     </span>
       </div>
+      <div align="right">
+      <%= link_to remove_package_path(@cart.cart_id, @i, DownloadImage.find(@ids[i]).id), remote: true, class: "btn btn-danger" do %>
+        Remove from cart 
+    <% end %>
+  </div>
   </div><br/>
   <% end %>
   <hr>
@@ -60,7 +65,10 @@
 <div class="row">
   <div class="col-sm-2" align="left">
 
-
+    <%= button_tag(type: 'button', class: "btn btn-custom", :data => {:dismiss => "modal"}) do %>
+       <span class="glyphicon glyphicon-chevron-left"></span>  Add another image from the previous years 
+    <% end %>
+    
   </div>
   <div class="col-sm-8"></div>
   <div class="col-sm-2" align="right">

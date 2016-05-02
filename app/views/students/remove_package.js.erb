@@ -1,0 +1,10 @@
+$("#<%= @i %>").hide('EaseOutCubic');
+
+setTimeout(function() {
+  $("#<%= @i %>").remove();
+}, 1000);
+
+<% unless @opackages.any? %>
+
+	$("#myModal").modal('hide');
+<% end %>

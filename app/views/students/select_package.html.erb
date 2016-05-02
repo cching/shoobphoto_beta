@@ -5,7 +5,7 @@
 	<% package = opackage.package %>
 	<div class="row">
 		<div class="col-sm-4" align="center">	
-			<h3><%= package.name %></h3>
+			<strong><%= package.name %></strong>
 			<% if package.multiple %>
 				<% if @senior_url.try(:length) > 1 %>
 				
@@ -28,7 +28,14 @@
 					<%= image_tag(@senior_url[0], class: "img-rounded img-package") %>
 				<% end %>
 			<% else %>
-			<%= image_tag(@image_url[index], class: "img-rounded img-package") %>
+			<div class="row">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+			<%= image_tag(@image_url[index], class: "img-rounded img-package", id: "png1") %>
+			<%= image_tag('watermark.png', class: "img-rounded img-package", id: "png2") %><br/><br/><br/>
+			</div>
+			<div class="col-sm-4"></div>
+			</div>
 			<% end %>
 		</div><br />
 		<div class="col-sm-8">
@@ -73,9 +80,7 @@
 
 <div class="row">
 	<div class="col-sm-2" align="left">
-		<%= link_to student_packages_path(@cart.cart_id, @cart.students.count - 1), { class: "btn btn-custom", method: :get } do %>
-      		 Add additional images
-		<% end %>
+
 
 	</div>
 	<div class="col-sm-8"></div>
