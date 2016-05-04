@@ -35,7 +35,7 @@
 
 					</div>
 					<strong class="image_text"><%= DownloadImage.package_name(image.id) %></strong><br/>
-					<%= link_to "Select", download_cart_path(@student.id, :cart_id => params[:cart_id], :image => image.id), class: "btn-custom2", remote: true %>
+					<%= link_to "Select", download_cart_path(@student.id, :cart_id => params[:cart_id], :image => image.id, :i => 0), class: "btn-custom2", remote: true %>
 					</div>	
 				<% end %>
 				<div class="col-sm-1"></div>

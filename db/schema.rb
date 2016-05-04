@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160502075140) do
+ActiveRecord::Schema.define(version: 20160504070644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -304,6 +304,12 @@ ActiveRecord::Schema.define(version: 20160502075140) do
     t.integer  "main_file_size"
     t.datetime "main_updated_at"
     t.integer  "subcategory_id"
+  end
+
+  create_table "missings", force: true do |t|
+    t.string   "file_path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "nav_links", force: true do |t|

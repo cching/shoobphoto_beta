@@ -24,4 +24,12 @@ class Admin::DashboardsController < ApplicationController
   		redirect_to admin_dashboards_path, notice: "Download images are currently being imported."
 	end
 
+	def missing
+		export = Export.create
+		MissingExport.perform_async(export.id)
+		redirect_to :back, notice: "The CSV of missing images is being generated. This may take a while..."
+	end
+
+
+
 end

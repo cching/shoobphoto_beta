@@ -70,6 +70,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
         collection do
           get :csv
           post :import
+          get :missing
         end
       end
     resources :schools do

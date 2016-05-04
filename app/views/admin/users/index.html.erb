@@ -30,7 +30,7 @@
 			<%= user.email %>
 		</td>
 		<td>
-			<%= user.school.name %>
+			<%= user.school.try(:name) %>
 		</td>
 		<td>
 			<%= user.current_sign_in_at %>
