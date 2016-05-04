@@ -5,7 +5,7 @@
 
 <% @image_url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true) %>
 
-<%= link_to 'Generate the latest CSV File of Missing Images', csv_admin_dashboards_path %><br />
+<%= link_to 'Generate the latest CSV File of Missing Images', missing_admin_dashboards_path %><br />
 
 <% if Missing.last.file_path.nil? %>
 <a href="#" download class="btn btn-disabled btn-primary">The CSV is still being processed. Please refresh in a few minutes.</a>
