@@ -8,7 +8,7 @@ class MissingExport
       csv_file = ''
 
           csv_file << CSV.generate_line(['Shoob ID'] + ['Missing URL'] + ['Student ID'] + ['Student First Name'] + ['Student Last Name'] + ['School CA Code'] + ['School Name'])
-            DownloadImage.each do |image|
+            DownloadImage.all.each do |image|
 
             unless image.image.exists?
                 csv_file << CSV.generate_line(["#{image.shoob_id}"] + ["#{image.image.url}"] + ["#{image.student.student_id}"] + ["#{image.student.first_name}"] + ["#{image.student.last_name}"] + ["#{image.student.school.ca_code}"] + ["#{image.student.school.name}"] 
