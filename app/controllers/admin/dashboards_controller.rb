@@ -27,7 +27,7 @@ class Admin::DashboardsController < ApplicationController
 	def missing
 		export = Export.create
 		MissingExport.perform_async(export.id)
-		redirect_to :back, notice: "The CSV of missing images is being generated. This may take a while..."
+		redirect_to admin_dashboards_path, notice: "The CSV of missing images is being generated. This may take a while..."
 	end
 
 
