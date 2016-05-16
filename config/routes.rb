@@ -3,6 +3,15 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  resources :webcams do
+    collection do 
+      get 'capture'
+      post 'capture'
+      post 'save_image'
+    end
+  end
+
+
   resources :yearbooks do
     member do
       get :buy

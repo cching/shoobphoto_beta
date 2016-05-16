@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Application Name</title>
+  <%= javascript_include_tag "http://www.google-analytics.com/ga.js"%>
+  <%= javascript_include_tag "http://code.jquery.com/jquery-1.4.2.min.js"%>
+  <%= javascript_include_tag "jquery.webcam"%>
+  <script>
+      !window.jQuery && document.write('<script src="jquery-1.4.3.min.js"><\/script>');
+  </script>
+  <%= csrf_meta_tag %>
+</head>
+<body> 
+  <%= yield %>
+</body>
+</html>

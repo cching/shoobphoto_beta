@@ -9,6 +9,10 @@ class ListExport
       school = export_list.user.school
       package = school.packages.where("name like ?", "%Fall%").last
 
+      if package.nil?
+        package = school.packages.first
+      end
+
       bucket = AWS::S3::Bucket.new('shoobphoto')
       t = Tempfile.new("my-temp-filename-#{Time.now}")
       Zip::OutputStream.open(t.path) do |z|
