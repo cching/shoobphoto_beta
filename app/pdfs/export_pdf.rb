@@ -119,7 +119,7 @@ class ExportPdf < Prawn::Document
         if @export_data.students.map(&:webcam).include?(1)
           @export_data.students.map { |student| urls[student.image.url] = true }
         else
-          @export_data.students.map { |student| urls[student.student_images.where(:package_id => @package.id).last.image.url] = true 
+          @export_data.students.map { |student| urls[student.student_images.where(:package_id => @package.id).last.image.url] = true }
         end
       elsif @export_data.columns.include? 'image_if_present'
         @export_data.students.map do |student|
