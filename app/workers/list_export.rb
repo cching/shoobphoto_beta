@@ -18,7 +18,7 @@ class ListExport
       Zip::OutputStream.open(t.path) do |z|
             
           csv_file << CSV.generate_line(['Student ID'] + ['First Name'] + ['Last Name'] + ['Grade'] + ['Teacher'] + ['Image'])
-            export_list.user.students.each do |student|
+            export_list.students.each do |student|
               if package.student_images.where(:student_id => student.id).any?
                 @string = "#{package.student_images.where(:student_id => student.id).last.image.url}"
 
