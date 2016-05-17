@@ -13,6 +13,7 @@ Bundler.require(*Rails.groups)
 
 module Shoobphoto
   class Application < Rails::Application
+		config.autoload_paths += %W(#{config.root}/app/middlewares)
 
     config.filter_parameters += [:password, :card_number, :card_verification]
     config.autoload_paths << "#{config.root}/lib/export"

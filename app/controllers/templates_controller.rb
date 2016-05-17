@@ -75,7 +75,6 @@ class TemplatesController < ApplicationController
 
   def update
     @template.update(template_params)
-    puts "@@@@@ #{@template.errors.full_messages}"
 
     if @template.types.any?
     if @template.types.where(:preview => true).any?

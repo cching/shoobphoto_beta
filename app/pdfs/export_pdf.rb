@@ -116,7 +116,11 @@ class ExportPdf < Prawn::Document
       urls = { @export_data.pdf.file.url => true }
       @export_data.template.fonts.map { |font| urls[font.file.url] = true }
       if @export_data.columns.include? 'image'
-        @export_data.students.map { |student| urls[student.student_images.where(:package_id => @package.id).last.image.url] = true }
+        if @export_data.students.map(&:webcam).include?(1)
+          @export_data.students.map { |student| urls[student.image.url] = true }
+        else
+          @export_data.students.map { |student| urls[student.student_images.where(:package_id => @package.id).last.image.url] = true 
+        end
       elsif @export_data.columns.include? 'image_if_present'
         @export_data.students.map do |student|
           if student.student_images.where(:package_id => @package.id).last.image?

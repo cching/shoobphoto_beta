@@ -1,15 +1,22 @@
 class WebcamsController < ApplicationController
-require 'base64'
+  helper :headshot
     def capture
       # do something
-      render :layout => "webcam"
     end
 
-    def save_image
-      image = params[:capture][:image]
-      File.open("#{Rails.root}/public/path_you_want_to_image/image_name.png", 'wb') do |f|
-        f.write(Base64.decode64(image))
-      end
-      # Or use paperclip to save image for a model instead!!
+    def select
+      @types = Type.all.order(:name)
+      @school = current_user.school
     end
+
+    def student
+    end
+
+    def newstudent
+      sleep 4
+      @image = current_user.students.where(:webcam => true).last.image.url
+      respond_to :js
+    end
+
+    
 end

@@ -5,7 +5,7 @@
 <ul>
       <% @nav_links.each do |nav_link| %>
         <li<%= request.fullpath.split('/')[1] == nav_link.slug ? " class=current" : '' %>>
-          <%= link_to nav_link.title, nav_link.path %>
+          <%= link_to raw(nav_link.title), nav_link.path %>
         </li>
       <% end %>
       </ul>

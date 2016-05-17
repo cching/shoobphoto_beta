@@ -1,0 +1,82 @@
+<%= form_tag(student_webcams_path, method: :get, :name => 'new_search_form', :id => "") do |f| %>
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Edit Student</h4>
+      </div>
+      <div class="modal-body centered">
+<div id="studenttable">
+<div class="row">
+	<div class="col-sm-3">
+    <%= image_tag("#{@image}", class: "img-rounded img-med") unless @image.nil? %><br/><br/>
+
+	</div> 
+	<div class="col-sm-9">
+        <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "form-control", id: "input_first_name" %><br/>
+        <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "form-control", id: "input_first_name" %><br/>
+        <%= text_field_tag :student_id, nil, placeholder: "Student's ID", class: "form-control", id: "input_first_name" %><br/>
+        <%= text_field_tag :teacher, nil, placeholder: "Student's Teacher", class: "form-control", id: "input_first_name" %><br/>
+
+Grade:
+<%= select_tag :grade, options_for_select(Student::Grades), class: "form-control", id: "input_student_grade", :prompt => "Student's Grade" %>
+<br/>
+
+
+
+<hr>
+<div class="row">
+  <div class="col-sm-6">
+      <%= text_field_tag :data1, nil, placeholder: "Data 2", class: "form-control", id: "input_first_name" %>
+
+  </div>
+<div class="col-sm-6">
+<%= text_field_tag :data2, nil, placeholder: "Data 2", class: "form-control", id: "input_first_name" %>
+
+  </div> 
+   </div>
+
+<div class="row">
+  <div class="col-sm-6">
+    <%= text_field_tag :data3, nil, placeholder: "Data 3", class: "form-control", id: "input_first_name" %>
+
+  </div>
+  <div class="col-sm-6">
+    <%= text_field_tag :data4, nil, placeholder: "Data 4", class: "form-control", id: "input_first_name" %>
+
+  </div>
+  </div>
+
+<br/>
+</div>
+
+
+</div>
+</div>
+
+
+
+    </div>
+  </div>
+</div>
+
+<% end %>
+
+<script>
+
+
+$('[data-toggle="popover"]').popover();
+
+$('body').on('click', function (e) {
+    $('[data-toggle="popover"]').each(function () {
+        //the 'is' for buttons that trigger popups
+        //the 'has' for icons within a button that triggers a popup
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            $(this).popover('hide');
+        }
+    });
+});
+
+</script>

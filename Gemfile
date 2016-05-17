@@ -42,6 +42,9 @@ gem 'will_paginate', '~> 3.0.6'
 gem 'roo'
 
 gem 'simple_form'
+gem 'headshot'
+
+
 
 gem 'awesome_nested_set'
 

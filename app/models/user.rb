@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
     validates_presence_of :first_name, :last_name, :school_id
 
     has_many :yearbooks
+    has_many :headshot_photos, :as => :capturable
+
+
+
 
 end
  

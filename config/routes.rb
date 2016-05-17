@@ -3,14 +3,16 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  post "headshot/capture" => 'headshot#capture', :as => :headshot_capture
   resources :webcams do
     collection do 
-      get 'capture'
-      post 'capture'
       post 'save_image'
+      get 'select'
+      post 'student'
+      get 'newstudent'
     end
   end
-
+match 'webcams/capture/:id/' => 'webcams#capture', :via => 'GET', :as => 'capture'
 
   resources :yearbooks do
     member do

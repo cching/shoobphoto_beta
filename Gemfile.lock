@@ -91,6 +91,7 @@ GEM
     erubis (2.7.0)
     execjs (2.6.0)
     hashery (2.1.1)
+    headshot (0.1.6)
     hike (1.2.3)
     httparty (0.13.7)
       json (~> 1.8)
@@ -254,6 +255,7 @@ DEPENDENCIES
   datetimepicker-rails!
   devise
   exception_notification!
+  headshot
   jbuilder (~> 2.0)
   jquery-easing-rails
   jquery-minicolors-rails
