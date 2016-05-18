@@ -49,7 +49,7 @@ class WebcamsController < ApplicationController
     end
 
     def refresh
-      @image = File.join("/headshots", "#{current_user.students.where(:webcam => true).last.image_file_name}")
+      @image = current_user.students.where(:webcam => true).last.image.url
       respond_to :js
 
     end
