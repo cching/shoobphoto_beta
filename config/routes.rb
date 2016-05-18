@@ -8,11 +8,14 @@ Rails.application.routes.draw do
     collection do 
       post 'save_image'
       get 'select'
-      post 'student'
+      get 'update_student'
       get 'newstudent'
+      get 'capture'
     end
   end
-match 'webcams/capture/:id/' => 'webcams#capture', :via => 'GET', :as => 'capture'
+match 'webcams/capture/webcams/refresh' => 'webcams#refresh', :via => 'GET', :as => 'refresh'
+match 'webcams/types/:id' => 'webcams#types', :via => 'GET', :as => 'types'
+match 'webcams/waiting/:id' => 'webcams#waiting', :via => 'GET', :as => 'waiting'
 
   resources :yearbooks do
     member do

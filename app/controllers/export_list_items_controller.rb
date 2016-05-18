@@ -301,7 +301,7 @@ class ExportListItemsController < ApplicationController
       pdf = ExportPdf.new(@export_data, params[:package])
       send_data pdf.render, filename: "id_#{@export_data.id}",
                             type: "application/pdf",
-                            disposition: "inline"
+                            disposition: "inline" 
     end
   end
 

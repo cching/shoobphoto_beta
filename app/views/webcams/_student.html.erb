@@ -1,4 +1,5 @@
-<%= form_tag(student_webcams_path, method: :get, :name => 'new_search_form', :id => "") do |f| %>
+<div id="update">
+<%= form_tag(update_student_webcams_path, method: :get, remote: true, :name => 'new_search_form', :id => "") do |f| %>
 
 
 <div class="modal-dialog">
@@ -11,10 +12,16 @@
 <div id="studenttable">
 <div class="row">
 	<div class="col-sm-3">
-    <%= image_tag("#{@image}", class: "img-rounded img-med") unless @image.nil? %><br/><br/>
+    <div id="image">
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+        </div>
+      </div>
+    </div>
 
 	</div> 
 	<div class="col-sm-9">
+    <%= hidden_field_tag :package_id, :value => "#{params[:package_id]}" %>
         <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "form-control", id: "input_first_name" %><br/>
         <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "form-control", id: "input_first_name" %><br/>
         <%= text_field_tag :student_id, nil, placeholder: "Student's ID", class: "form-control", id: "input_first_name" %><br/>
@@ -37,7 +44,7 @@ Grade:
 
   </div> 
    </div>
-
+<br/>
 <div class="row">
   <div class="col-sm-6">
     <%= text_field_tag :data3, nil, placeholder: "Data 3", class: "form-control", id: "input_first_name" %>
@@ -59,7 +66,15 @@ Grade:
 
 
     </div>
+    <div class="form-actions">
+      <div class="modal-footer">
+        <%= submit_tag "Continue", class: "btn btn-custom" %>
+
+      </div>   
+      </div>   
   </div>
+
+  
 </div>
 
 <% end %>
@@ -79,4 +94,18 @@ $('body').on('click', function (e) {
     });
 });
 
+$(document).ready(function () {
+    // will call refreshPartial every 3 seconds
+    setInterval(refreshPartial, 3000)
+
+});
+
+// calls action refreshing the partial
+function refreshPartial() {
+  $.ajax({
+    url: "webcams/refresh"
+ })
+}
+
 </script>
+</div>

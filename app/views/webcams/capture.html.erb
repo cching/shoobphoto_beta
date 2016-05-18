@@ -10,7 +10,7 @@
 <script>
 $("#capture").click(function() {
   $.ajax({
-      url: "/webcams/newstudent",
+      url: "/webcams/newstudent?package_id=<%= params[:id] %>",
       type: "GET",
       success: function (data) { 
           // append data to your page

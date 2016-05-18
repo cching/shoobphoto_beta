@@ -1,4 +1,4 @@
-class ExportPdf < Prawn::Document
+class WebcamExport < Prawn::Document
   require 'prawn'
     
     def initialize(export_data, package_id)
@@ -39,7 +39,7 @@ class ExportPdf < Prawn::Document
 
             # Handle image inserts.
             if ExportJob.image_columns.include? field.column.column_type
-              if url = student.student_images.where(:package_id => @package.id).last.image.url
+              if url = student.image.url
                 self.image open(Thread.current[:export_files][url]),
                   at: [field.x, field.y],
                   width: field.width,
@@ -109,6 +109,7 @@ class ExportPdf < Prawn::Document
     # After the export is done with all the files, empty the thread variable.
     def dump_files
       Thread.current[:export_files] = nil
+      @export_data.students.destroy_all
     end
 
     # The urls of each file associated with this export.
@@ -116,12 +117,11 @@ class ExportPdf < Prawn::Document
       urls = { @export_data.pdf.file.url => true }
       @export_data.template.fonts.map { |font| urls[font.file.url] = true }
       if @export_data.columns.include? 'image'
-        @export_data.students.map { |student| urls[student.student_images.where(:package_id => @package.id).last.image.url] = true }
+        @export_data.students.map { |student| urls[student.image.url] = true }
       elsif @export_data.columns.include? 'image_if_present'
         @export_data.students.map do |student|
-          if student.student_images.where(:package_id => @package.id).last.image?
-            urls[student.student_images.where(:package_id => @package.id).last.image.url] = true
-          end
+            urls[student.image.url] = true
+          
         end
       end
       urls.keys

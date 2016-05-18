@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 
   def headshot_post_save(file_path)
     @headshot_photo = HeadshotPhoto.last
-    @headshot_photo.update(:user_id => current_user.id)
+    @headshot_photo.update(:user_id => current_user.id, :image_file_name => file_path)
     student = current_user.students.create(:webcam => true, :school_id => current_user.school.id)
     student.image = File.new(file_path)
     student.save

@@ -5,24 +5,6 @@
         <h4 class="modal-title" id="myModalLabel">Select Template</h4>
       </div>
       <div class="modal-body centered">
-<div id="table">
-  <div class="row">
-  <div class="col-sm-3"></div>
-  <div class="col-sm-6">
-
-    <% if current_user.try(:admin) %>
-        <% @types.each do |type| %>
-            <%= link_to type.name, capture_path(type.id), :target => "_blank", class: "btn btn-custom btn-centered", id: "submit" %><br/>
-        <% end %>
-    <% else %>
-        <% @school.types.each do |type| %>
-            <%= link_to type.name, capture_path(type.id), :target => "_blank", class: "btn btn-custom btn-centered", id: "submit" %><br/>
-        <% end %>
-    <% end %>
-      </div>
-  <div class="col-sm-3"></div>
-</div>
-</div>
 
   
 
