@@ -49,7 +49,10 @@ class WebcamsController < ApplicationController
     end
 
     def refresh
-      @image = current_user.students.where(:webcam => true).last.image.url
+      @image = current_user.students.where(:webcam => true).last
+      unless @image.image.nil?
+        @image = @image.image.url
+      end
       respond_to :js
 
     end
