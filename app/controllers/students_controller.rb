@@ -19,8 +19,8 @@ class StudentsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @dimage = DownloadImage.find(params[:image])
     @student = Student.find(params[:id])
-    @cart.order_packages.create(:package_id => 253, :student_id => @student.id, :download_image_id => @dimage.id)
-    @cart.order_packages.last.update(:option_id => Package.find(253).options.first.id)
+    @cart.order_packages.create(:package_id => @dimage.package_id, :student_id => @student.id, :download_image_id => @dimage.id)
+    @cart.order_packages.last.update(:option_id => Package.find(@dimage.package_id).options.first.id)
     @opackages = @cart.order_packages.where(:student_id => @student.id).where.not(:download_image_id => nil).order(:id)
     @image_url = []
 

@@ -11,12 +11,11 @@ class DownloadImport
 	    		package = Package.find_by_slug("#{h["pricelist"]}")
 	    		if students.download_images.where(:folder => h["folder"]).any?
 	    			i = students.download_images.where(:folder => h["folder"]).last
-	    			i.update(:shoob_id => h["id"], :package_id => package.try(:id), :year => h["year"], :url => h["st_id"])
+	    			i.update(:shoob_id => h["id"], :package_id => package.try(:id), :year => h["year"], :url => h["st_id"].downcase)
 	    		else
-		           i = students.download_images.create(:shoob_id => h["id"], :package_id => package.try(:id), :year => h["year"], :folder => h["folder"], :url => h["st_id"])
+		           i = students.download_images.create(:shoob_id => h["id"], :package_id => package.try(:id), :year => h["year"], :folder => h["folder"], :url => h["st_id"].downcase)
 		           
 		        end
-		        i.update(:image_file_name => i.url.downcase)
 	         end	          	
 	        
      	end #end chunk
