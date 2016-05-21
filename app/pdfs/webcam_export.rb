@@ -69,7 +69,10 @@ class WebcamExport < Prawn::Document
                 overflow: :shrink_to_fit, character_spacing: field.spacing
             end
 
+            student.delete
+
           end
+
 
         end
 
@@ -109,7 +112,6 @@ class WebcamExport < Prawn::Document
     # After the export is done with all the files, empty the thread variable.
     def dump_files
       Thread.current[:export_files] = nil
-      @export_data.students.destroy_all
     end
 
     # The urls of each file associated with this export.
