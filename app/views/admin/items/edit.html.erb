@@ -1,0 +1,26 @@
+<h1>Editing item</h1>
+<h3>Search terms:</h3>
+
+<div id="searchterm">
+<%= form_tag(search_term_item_path(@item.id), method: :get, remote: true) do %>
+<%= text_field_tag :search_term, nil, placeholder: "Search term", class: "form-control", id: "term" %><br/>
+
+<%= submit_tag "Add" %>
+<% end %>
+</div>
+<ul>
+<% @item.searchterms.each do |term| %>
+<li><%= term.name %></li>
+<% end %>
+</ul>
+<ul id="added">
+</ul>
+<br/>
+<hr>
+<%= render 'form' %>
+
+
+<br/><br/>
+<%= link_to 'Delete Item', item_path(@item.id),
+            :confirm => 'Are you sure?', :method => :delete %>
+

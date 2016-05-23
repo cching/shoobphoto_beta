@@ -1,0 +1,65 @@
+<% unless @cart.nil? %>
+<div class="modal-dialog" id="lesson_resources">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div class="modal-title orange" id="myModalLabel">
+          <div class="row">
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-7">
+          <h4><%= @item.number %>: <%= @item.name %> - <%= free(@item.price) ? "Free" : "#{number_to_currency(@item.price, :unit => "$")}" %> <%= "per page" if @item.per_page? %>
+</h4>
+        </div>
+        <div class="col-sm-4" id="<%= @item.id %>">
+          <% if current_user.try(:admin) %>
+          <%= link_to "Edit", edit_item_path(@item.id) %>
+          <% end %>
+          <% if @item.cart_items.where(:cart_id => @cart.try(:id)).any? %>
+          <%= link_to "Remove", items_remove_path(@item, :cart_id => @cart.cart_id), remote: true, class: "btn btn-danger" %>
+          <% else %>
+          <%= link_to "Add to cart", items_add_path(@item, :cart_id => @cart.cart_id), remote: true, class: "btn btn-custom" %>
+        <% end %>
+        </div>
+      </div>
+
+        </div>
+      </div>
+      <div class="modal-body" align="center">
+        <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-2">
+          <%= link_to items_previous_path(@item.id, @cart.id, :subcat_id => @subcat_id), remote: true, class: "btn btn-custom" do %>
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        <% end %>
+      </div>
+      <div class="col-sm-2">
+              <%= link_to items_next_path(@item.id, @cart.id, :subcat_id => @subcat_id), remote: true, class: "btn btn-custom" do %>
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        <% end %>
+      </div>
+      <div class="col-sm-4"></div>
+    </div><br/>
+      <%= image_tag(@item.main.url, class: "img img-rounded img-responsive") %>
+
+<br/>
+<br/>
+
+
+<div class="dropdown">
+
+
+
+
+      </div>
+      <div class="form-actions">
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-custom" data-dismiss="modal">Close</button>
+      </div>   
+      </div>   
+
+    </div>
+  </div>
+</div>
+<% end %>

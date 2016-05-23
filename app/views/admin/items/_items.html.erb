@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-sm-8">
+<% unless @subcat.nil? %>
+<div class="grey small header" id="header"><%= link_to "Catalog Items", admin_items_all_path, remote: true %> > <strong><%= @subcat.category.name %></strong> > <%= @subcat.name.titleize %></div>
+<h4><%= @subcat.name.titleize %></h4>
+<% else %>
+<div class="grey small header" id="header">Catalog Items</div>
+<% end %>
+</div>
+<div class="col-sm-4">
+
+
+</div>
+
+ 
+</div>
+
+
+<hr>
+<div id="itemtable" class="animated fadeIn">
+
+  <table class="table table-striped">
+    <thead>
+      <td>
+        Item Number
+      </td>
+      <td>
+        Item Name
+      </td>
+
+      <td>
+        Price
+      </td>
+      <td>
+         
+      </td>
+    </thead>
+    <% @items.each do |item| %>
+    <tr>
+      <td>
+          <%= item.number %>
+        </td>
+        <td>
+          <%= item.name %>
+        </td>
+
+        <td>
+          <%= item.price %>
+        </td>
+        <td>
+          <%= link_to "Edit", edit_admin_item_path(item.id) %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+
+</div>

@@ -1,0 +1,34 @@
+<%= simple_form_for([:admin, @item]) do |f| %>
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.input :name, as: :string %>
+    <%= f.input :number, label: "Item Number" %>
+
+    <%= f.input :price %>
+    <%= f.input :per_page, label: "Price per page?" %>
+
+
+    <%= f.input :main, as: :file %>
+    <%= image_tag(@item.main.url) if @item.main?%>
+    <%= f.input :thumb, as: :file %>
+    <%= image_tag(@item.thumb.url) if @item.thumb? %><br/>
+
+    <%= f.association :subcategory, collection: Subcategory.all.order(:name) %>
+
+
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

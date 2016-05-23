@@ -94,6 +94,17 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
       end
     end
 
+    resources :items do
+      member do
+        get 'search_term'
+      end
+      collection do 
+        get :all 
+        get :filter
+        get :search
+      end
+    end
+
     resources :packages do
       collection do
         get :carts
@@ -116,6 +127,9 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
         post :import
       end
     end
+    match 'items/all/' => 'items#all', :via => 'GET', :as => 'items_all'
+    match 'items/filter/:subcat' => 'items#filter', :via => 'GET', :as => 'items_filter'
+
     match 'users/import/' => 'users#import', :via => 'POST', :as => 'users_import'
 
     match 'packages/:id/csv' => 'packages#csv', :via => 'GET', :as => 'csv_packages'
@@ -213,6 +227,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'items/cart/:cart_id/update_items' => 'items#update_items', :via => 'patch', :as => 'update_items'
   match 'items/add/:id/' => 'items#add', :via => 'GET', :as => 'items_add'
   match 'items/filter/:cart/:subcat' => 'items#filter', :via => 'GET', :as => 'items_filter'
+
   match 'items/all/:cart/' => 'items#all', :via => 'GET', :as => 'items_all'
   match 'items/search/:cart/' => 'items#search', :via => 'GET', :as => 'items_search'
   match 'items/remove/:id/' => 'items#remove', :via => 'GET', :as => 'items_remove'

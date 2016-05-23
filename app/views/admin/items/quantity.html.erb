@@ -1,0 +1,53 @@
+<%= simple_form_for(@cart, :url => update_items_path) do |f| %>
+
+<div class="row">
+<div class="col-sm-6">
+Name
+</div>
+<div class="col-sm-3">
+Quantity
+</div>
+<div class="col-sm-1"></div>
+<div class="col-sm-2">
+Price
+</div>
+</div><hr>
+<% @cart.items.each do |item| %>
+<div class="row">
+<div class="col-sm-6">
+	<%= item.number %>: <%= item.name %>
+</div>
+<div class="col-sm-3">
+	<%= f.simple_fields_for :cart_items, item.cart_items.where(:item_id => item.id).last do |c| %>
+		<%= c.input :quantity, :label => false, input_html: { min: '0', step: 'any', :maxlength => 1, :size => 4, :onBlur => 'updateTotalFunction(this.id, this.value, this.dataset.price)', :id => "#{item.id}", data: { :price => "#{item.price}"} }, label: false %>
+	<% end %>
+</div>
+<div class="col-sm-1"></div>
+
+<div class="col-sm-2">
+<div id="item_<%= item.id %>" class="item"  onload="loadFunction(this.dataset.id, this.dataset.price, this.dataset.quantity)" data-id="#{item.id}" data-price="#{item.price}" data-quantity="#{@cart.item_forms.where(:item_id => item.id).last.quantity}">
+      <div class=<%= 'free' if item.price == 0%>><%= number_to_currency(item.price, :unit => "$") %> <%= 'per page' if item.per_page? %></div>
+
+	</div>
+</div>
+</div>
+<% end %>
+
+<div align="right"><%= f.submit "Continue", class: "btn btn-primary" %></div>
+<% end %>
+
+<script>
+
+
+
+function updateTotalFunction(id, value, price) {
+var str2 = "item_";
+var res = str2.concat(id);
+
+var tot = price * value;
+tot = tot.toFixed(2) 
+
+document.getElementById(res).innerHTML = '$' + tot;
+
+}
+</script>
