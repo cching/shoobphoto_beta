@@ -24,9 +24,10 @@
   <tbody>
 
     <% unless @students.nil? %>
-    <% @students.each do |student| %>
+    <% @students.each_with_index do |student, i| %>
       <% student.carts.where(:purchased => true).each do |cart| %>
       <tr>
+            <% unless @looped.include? student.id %>
             <% cart.order_packages.where(:package_id => 7).where(:student_id => student.id).each do |o| %>
               <td><%= student.first_name %> <%= student.last_name %></td>
               <td><%= student.grade %></td>
@@ -36,6 +37,9 @@
               <td><%= number_to_currency(o.option.price(student.school), :unit => "$") %></td>
               <td>Shoob Online</td>
               <td></td>
+
+              <% @looped << student.id %>
+            <% end %>
             <% end %>
       </tr>
         <% end %>

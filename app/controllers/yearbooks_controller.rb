@@ -25,7 +25,6 @@
 
   def school_user
     @school = School.find(params[:id])
-    YearbookCache.perform_async(@school.id)
 
     if @school.yearbook_cache.nil? && @school.student_cache.nil?
       @yearbooks = []
@@ -35,15 +34,16 @@
 
       @yearbooks = Yearbook.where(id: @school.yearbook_cache.split(","))  unless @school.yearbook_cache.nil?
       @students = Student.where(id: @school.student_cache.split(","))  unless @school.student_cache.nil?
-
+      @looped = []
     end
-
-    
+    respond_to do |format|
+      format.html
+      format.csv { send_data Yearbook.to_csv(@yearbooks, @students, @looped)}
+    end
   end
 
   def index
     @school = current_user.school
-    YearbookCache.perform_async(@school.id)
 
     if @school.yearbook_cache.nil? && @school.student_cache.nil?
       @yearbooks = []
@@ -53,7 +53,7 @@
 
       @yearbooks = Yearbook.where(id: @school.yearbook_cache.split(","))  unless @school.yearbook_cache.nil?
       @students = Student.where(id: @school.student_cache.split(","))  unless @school.student_cache.nil?
-
+      @looped = []
     end
     
 
