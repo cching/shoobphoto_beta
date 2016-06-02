@@ -11,6 +11,7 @@ class OrderExport
 
             Order.all.where.not(processed: true).order(:id).each do |order|
               order.cart.students.each do |student|
+
                 @string1 = ""
                 @string2 = ""
 
@@ -30,42 +31,35 @@ class OrderExport
                 end
               end
 
-              unless order.cart.order_packages.where(:student_id => student.id).count == 0
 
-              if order.cart.order_packages.where(:student_id => student.id).count > 1
-
-                @string2 = []
+                @string2 = ""
 
                 order.cart.order_packages.where(:student_id => student.id).each do |opackage|
-                  if opackage.package.id == 1
-                    @string2 << "#{opackage.option.name[0]}"
-                  else
-                    @string2 << "#{opackage.option.name[-1]}"
-                  end
+                  opackage.options.each_with_index do |option, i|
+                    if i + 1 == opackage.options.count
+                      if opackage.package.id == 1
+                        @string2 = @string2 + "#{option.name[0]}; "
+                      else
+                        @string2 = @string2 +  "#{option.name[-1]}; "
+                      end
+                    else
+                      if opackage.package.id == 1
+                        @string2 = @string2 +  "#{option.name[0]}, "
+                      else
+                        @string2 = @string2 +  "#{option.name[-1]}, "
+                      end
+                    end
+                  end   
                 end
 
-                @string2 = @string2.join(", ")
-              else
-                @string2 = ""
-                order.cart.order_packages.where(:student_id => student.id).each do |opackage|
-                  if opackage.package.id == 1
-                    @string2 = @string2 + "#{opackage.option.name[0]}"
-                  else
-                    @string2 = @string2 + "#{opackage.option.name[-1]}"
-                  end
-                end         
-              end
-              end
-
-
-              
               csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{Order.price(order.id, student.id)}"] +
-                ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.teacher}"] + ["#{student.student_id}"] + ["#{student.grade}"] + ["#{student.school.name}"]  + 
-                
-              
-             [@string] + [@string2] + [Package.concat(order.id, student.id)] + [order.cart.school.try(:ca_code)] + [order.cart.order_packages.where(:student_id => student.id).last.try(:url)] + [@year]
-                
+                ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.teacher}"] + ["#{student.student_id}"] + ["#{student.grade}"] + ["#{student.school.name}"]  +     
+                [@string] + [@string2] + [Package.concat(order.id, student.id)] + [order.cart.school.try(:ca_code)] + [order.cart.order_packages.where(:student_id => student.id).last.try(:url)] + [@year]
+              ) 
 
+              csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{Order.price(order.id, student.id)}"] +
+                ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.teacher}"] + ["#{student.student_id}"] + ["#{student.grade}"] + ["#{student.school.name}"]  +     
+                [@string] + [@string2] + [Package.concat(order.id, student.id)] + [order.cart.school.try(:ca_code)] + [order.cart.order_packages.where(:student_id => student.id).last.try(:url)] + [@year]
               ) 
             
           end

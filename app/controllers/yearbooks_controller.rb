@@ -46,9 +46,11 @@
             @students.each_with_index do |student, i| 
               student.carts.where(:purchased => true).each do |cart| 
                 unless @looped.include? student.id 
-                  cart.order_packages.where(:package_id => 7).where(:student_id => student.id).each do |o|  
-                    csv << [student.first_name + student.last_name, student.grade, student.teacher,cart.created_at.strftime("%B %d, %Y"), 1, o.option.price(student.school), 'Shoob Online', '']
-                    @looped << student.id
+                  cart.order_packages.where(:package_id => 7).where(:student_id => student.id).each do |o| 
+                    o.options.each do |option| 
+                      csv << [student.first_name + student.last_name, student.grade, student.teacher,cart.created_at.strftime("%B %d, %Y"), 1, option.price(student.school), 'Shoob Online', '']
+                      @looped << student.id
+                    end
                   end
                 end 
               end
@@ -93,9 +95,11 @@
             @students.each_with_index do |student, i| 
               student.carts.where(:purchased => true).each do |cart| 
                 unless @looped.include? student.id 
-                  cart.order_packages.where(:package_id => 7).where(:student_id => student.id).each do |o|  
-                    csv << [student.first_name + student.last_name, student.grade, student.teacher,cart.created_at.strftime("%B %d, %Y"), 1, o.option.price(student.school), 'Shoob Online', '']
-                    @looped << student.id
+                  cart.order_packages.where(:package_id => 7).where(:student_id => student.id).each do |o| 
+                    o.options.each do |option| 
+                      csv << [student.first_name + student.last_name, student.grade, student.teacher,cart.created_at.strftime("%B %d, %Y"), 1, option.price(student.school), 'Shoob Online', '']
+                      @looped << student.id
+                    end
                   end
                 end 
               end

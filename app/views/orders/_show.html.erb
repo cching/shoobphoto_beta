@@ -16,6 +16,7 @@
   Teacher: <%= student.try(:teacher) %>
  
   <% @order.cart.order_packages.where(:student_id => student.id).each do |o| %>
+  <% o.options.each do |option| %>
   <div class="row">
       <div class="col-sm-6">
       <strong><%= o.package.name %></strong><br />
@@ -23,32 +24,25 @@
       <img src='<%= @image_url[index] %>', class="img-rounded img-package">
       </div>
       <div class="col-sm-6">
-        <strong><%= o.option.name %> - (<%= number_to_currency(o.option.price, :unit => "$") %>)</strong>
+        <strong><%= option.name %> - (<%= number_to_currency(option.price, :unit => "$") %>)</strong>
           <ul>
-            <% o.option.image_types.each do |type| %>
+            <% option.image_types.each do |type| %>
               <li><%= type.name %>
               </li>
             <% end %>
           </ul>
-
-          <%= number_to_currency(o.option.price, :unit => "$") %>  - <%= o.package.name %> - <%= o.option.name %><br/>
 
       <% o.extras.each do |extra| %>
         <%= number_to_currency(extra.prices.first.try(:price), :unit => "$") %> - <%= extra.name %> <br/>
       <% end %>
       <hr>
           </div>
-          </div>
-
+      </div>
+      <% end %>
       
   <% end %>
  
  <% end %>
-
-
-
-
-      
 
       <div class="row">
         <div class="col-sm-6"></div>

@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
 	def download
 		@order = Order.find(params[:id])
 
-		if @order.cart.order_packages.map(&:download_image_id).any? && @order.cart.order_packages.map(&:option_id).include?(254)
+		if @order.cart.order_packages.map(&:download_image_id).any? && @order.cart.order_packages.map{ |o| o.options.map {|x| x.download }}.any? 
 			@images = @order.cart.order_packages.where.not(download_image_id: nil).all
 		else
 			redirect_to root_path
@@ -55,9 +55,9 @@ class OrdersController < ApplicationController
 
 
 	    @cart.order_packages.each do |package|
-	  
-	    	@price = package.option.price(package.student.school.id) + @price
-	 		
+	    	package.options.each do |option|
+	    		@price = option.price(package.student.school.id) + @price
+	 		end
 	    end
 
 	    @cart.order_packages.each do |opackage|
@@ -93,8 +93,8 @@ end
 	    	@cart.save
 	    	OrderMailer.receipt(@order).deliver
 
-	    	if @order.cart.order_packages.map{|x| x.option.download}.any?
-	    		redirect_to order_download_path(@order.id), notice: "Your order has been successfully placed! We've emailed you a copy of your receipt. Here's your copy of the digital image."
+	    	if @order.cart.order_packages.map{ |x| x.options.map {|o| o.download}}.any?
+	    		redirect_to order_download_path(@order.id), notice: "Your order has been successfully placed! We've emailed you a copy of your receipt. "
 	    	else
 	    		redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt."
 	    	end

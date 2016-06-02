@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518011131) do
+ActiveRecord::Schema.define(version: 20160530092223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -347,6 +347,13 @@ ActiveRecord::Schema.define(version: 20160518011131) do
     t.integer  "school_id"
   end
 
+  create_table "option_carts", force: true do |t|
+    t.integer  "order_package_id"
+    t.integer  "option_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "option_packages", force: true do |t|
     t.integer  "option_id"
     t.integer  "package_id"
@@ -369,6 +376,7 @@ ActiveRecord::Schema.define(version: 20160518011131) do
     t.integer  "extra_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "option_id"
   end
 
   create_table "order_packages", force: true do |t|

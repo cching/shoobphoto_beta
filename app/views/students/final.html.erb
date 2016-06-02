@@ -12,24 +12,32 @@
 	</td>
 	<td>
 	<% @cart.order_packages.where(:student_id => student.id).each do |o| %>
+		<% o.options.each do |option| %>
 
-			<%= number_to_currency(o.option.price(@cart.students[params[:i].to_i].school.id), :unit => "$") %>  - <%= o.package.name %><%= ": Pose #{o.pose}" unless o.pose.nil? %> - <%= o.option.name %>
+			<%= number_to_currency(option.price(@cart.students[params[:i].to_i].school.id), :unit => "$") %>  - <strong><%= o.package.name %><%= ": Pose #{o.pose}" unless o.pose.nil? %> - <%= option.name %></strong>
 			<% if o.package.id == 253 %>
 			- <%= DownloadImage.package_name(o.download_image_id) %>
 			<% end %>
 			<br/>
+			<div class="row">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-11">
+					<% o.order_package_extras.where(:option_id => option.id).each do |e| %>
+						<% extra = e.extra %>
+						<%= number_to_currency(extra.prices.first.try(:price), :unit => "$") %> - <%= extra.name %> <br/>
+					<% end %>
+				</div>
+			</div>
 
-			<% o.extras.each do |extra| %>
-				<%= number_to_currency(extra.prices.first.try(:price), :unit => "$") %> - <%= extra.name %> <br/>
-			<% end %>
-
-			<% if o.package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).any? %>
+				<% if o.package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).any? %>
 					+ <%= number_to_currency(o.package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).first.price, :unit => "$") %> shipping
 					<% elsif o.package.shippings.where(:school_id => nil).any? %>
 					+ <%= number_to_currency(o.package.shippings.where(:school_id => nil).first.price, :unit => "$") %> shipping
-					<% end %>
+				<% end %>
+
 
 			<hr>
+		<% end %>
  	<% end %>
  	</td>
  	 </tr>

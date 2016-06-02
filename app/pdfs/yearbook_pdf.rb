@@ -17,14 +17,15 @@ def items
     @students.map do |student|
        student.carts.where(:purchased => true).map do |cart| 
             cart.order_packages.where(:package_id => 7).where(:student_id => student.id).map do |o| 
+              o.options.each do |option|
             [{ content: "#{student.first_name} #{student.last_name}", width: 50, border_bottom_color: '000000', border_top_color: 'ffffff'},
               { content: "#{student.grade}", width: 50, border_bottom_color: '000000', border_top_color: 'ffffff'},
               { content: "#{student.teacher}", width: 50, border_bottom_color: '000000', border_top_color: 'ffffff'},
               { content: "#{cart.created_at}", width: 50, border_bottom_color: '000000', border_top_color: 'ffffff'},
               { content: "1", width: 50, border_bottom_color: '000000', border_top_color: 'ffffff'},
-              { content: "#{o.option.price(student.school)}", width: 50, border_bottom_color: '000000', border_top_color: 'ffffff'}
+              { content: "#{option.price(student.school)}", width: 50, border_bottom_color: '000000', border_top_color: 'ffffff'}
              ]
-
+           end
             end
         end 
     end
@@ -42,16 +43,18 @@ def items
     @students.map do |student|
        student.carts.where(:purchased => true).map do |cart| 
             cart.order_packages.where(:package_id => 7).where(:student_id => student.id).map do |o| 
+              o.options.each do |option|
               table([[
               make_cell(:content => "#{student.first_name} #{student.last_name}"),
               make_cell(:content => "#{student.grade}"),
               make_cell(:content => "#{student.teacher}"),
               make_cell(:content => "#{cart.created_at.strftime("%B %d, %Y")}"),
               make_cell(:content => "1"),
-              make_cell(:content => "$#{'%.2f' % (o.option.price(student.school))}"),
+              make_cell(:content => "$#{'%.2f' % (option.price(student.school))}"),
               make_cell(:content => "Shoob Online"),
               make_cell(:content => "")
               ]], :column_widths => widths)
+            end
             end
         end
     end

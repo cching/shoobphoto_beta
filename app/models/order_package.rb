@@ -1,10 +1,11 @@
 class OrderPackage < ActiveRecord::Base
 	belongs_to :cart
 	belongs_to :package
-	belongs_to :option
 	belongs_to :student
 	has_many :order_package_extras, dependent: :destroy
 	has_many :extras, through: :order_package_extras
+	has_many :option_carts, dependent: :destroy
+	has_many :options, through: :option_carts
 	belongs_to :download_image
 
 	before_destroy :check_for_orders
@@ -12,7 +13,6 @@ class OrderPackage < ActiveRecord::Base
 	validates :package_id, uniqueness: {:scope => [:student_id, :cart_id]}, :unless => Proc.new { |a| a.package_id == 253}
 	validates :package_id, uniqueness: {:scope => [:student_id, :cart_id, :download_image_id]}, :if => Proc.new { |a| a.package_id == 253}
 
-	accepts_nested_attributes_for :option
 	accepts_nested_attributes_for :extras
 
 	def self.image id

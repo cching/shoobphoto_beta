@@ -45,13 +45,15 @@
   </td>
   <td>
   <% @cart.order_packages.where(:student_id => student.id).each do |o| %>
+  <% o.options.each do |option| %>
 
-      <%= number_to_currency(o.option.price, :unit => "$") %>  - <%= o.package.name %> - <%= o.option.name %><br/>
+      <%= number_to_currency(option.price, :unit => "$") %>  - <%= option.package.name %> - <%= option.name %><br/>
 
       <% o.extras.each do |extra| %>
         <%= number_to_currency(extra.prices.first.try(:price), :unit => "$") %> - <%= extra.name %> <br/>
       <% end %>
       <hr>
+  <% end %>
   <% end %>
   </td>
    </tr>

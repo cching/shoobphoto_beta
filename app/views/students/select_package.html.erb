@@ -3,7 +3,7 @@
 	<%= form_for(@cart, url: student_update_path(@cart.cart_id, @cart.students.count - 1), :html => {class: "form-horizontal"}) do |f| %>
 	<% @opackages.each_with_index do |opackage, index| %>
 	<% package = opackage.package %>
-	<div class="row">
+	<div class="row"> 
 		<div class="col-sm-4" align="center">	
 			<strong><%= package.name %></strong>
 			<% if package.multiple %>
@@ -24,7 +24,7 @@
 						<% end %>
 					</div>
 					<% end %>
-				<% else %>
+				<% else %><br/>
 					<%= image_tag(@senior_url[0], class: "img-rounded img-package") %>
 				<% end %>
 			<% else %>
@@ -37,39 +37,48 @@
 			<div class="col-sm-4"></div>
 			</div>
 			<% end %>
-		</div><br />
+		</div>
 		<div class="col-sm-8">
 			<% if (defined? @senior_url) %>
 			<h3>Please select the <%= "pose and" if (@senior_url.try(:length) > 1 && package.id == 6) %> package you wish to purchase.</h3>
 			<% else %>
-			<h3>Please select the package you wish to purchase.</h3>
+			<h3>Please select the package you wish to purchase.</h3><hr>
 			<% end %>
 		<span id="package_<%= package.id %>">
-	  		<%= f.fields_for :order_packages, OrderPackage.where(:package_id => package.id).where(:student_id => @student.id).where(:cart_id => @cart.id) do |s| %>
 
-	  			<%= s.collection_select :option_id, package.options.order(:name), :id, :name, {prompt: false}, {class: "form-control", :onchange => 'test(this.dataset.package, this.value)', :id => :id, data: { :package => "#{package.id}"}} %>
-
-	  		<% end %>
 	  		<div align="center">
 	  		<%= image_tag(package.banner, class: "img-rounded img-cust") if package.banner? %>
 	  		</div>
-	  		<br />
 
 	  		<div class="row">
 				<%= package.options.order(:name).each_slice(3) do |slice| %>
 					<div class="row buff">
 						<% slice.each do |option| %>
-							<div class="col-sm-4 <%= 'selectedbackground' if package.order_packages.where(:cart_id => @cart.id).where(:student_id => @student.id).pluck(:option_id).include?(option.id) %>" id="option_<%= option.id %>">
-								<%= link_to "#{option.name} - #{number_to_currency(option.price(@student.school), :unit => "$")}", '#', :onClick => 'select_option(this.id, this.dataset.package)', :id => "#{option.id}", data: { :package => "#{package.id}"} %>
-								<ul>
+							<div class="col-sm-4 <%= 'selectedbackground' if opackage.options.include? option %>" id="option_<%= option.id %>">
+								<strong><%= "#{option.name} - #{number_to_currency(option.price(@student.school), :unit => "$")}" %></strong>
+								<ul class="options">
 									<% option.image_types.each do |type| %>
-										<li><%= type.name %>
+										<li>
+											<%= type.name %>
 										</li>
 									<% end %> 
 								</ul>
 							</div>
 						<% end %>
 					</div>
+					<div class="row buff">
+					<% slice.each do |option| %>
+					
+						<div class="col-sm-4" id="button_<%= option.id %>" align="center">
+							<% if opackage.options.include? option %>
+								<%= link_to "Remove", remove_option_path(opackage.id, option.id), class: "btn btn-danger", remote: true %>
+							<% else %>
+								<%= link_to "Add to Cart", add_option_path(opackage.id, option.id), class: "btn btn-custom", remote: true %>
+							<% end %>
+						</div>
+					<% end %>
+					</div><br/>
+					
 				<% end %>
 			</div>
 		</span>
@@ -84,9 +93,13 @@
 
 	</div>
 	<div class="col-sm-8"></div>
-	<div class="col-sm-2" align="right">
-		<%= button_tag(type: 'submit', class: "btn btn-custom") do %>
-  			Continue <span class="glyphicon glyphicon-chevron-right"></span> 
+	<div class="col-sm-2" align="right" id="continue">
+		<% unless @bool.include? false %>
+			<%= button_tag(type: 'submit', class: "btn btn-custom") do %>
+  				Continue <span class="glyphicon glyphicon-chevron-right"></span> 
+			<% end %>
+		<% else %>
+			  <button class="btn btn-default" disabled>Please select a package for <br/> each portrait before continuing</button>
 		<% end %>
 
 	</div>
@@ -94,22 +107,3 @@
 
 <% end %>
 <br />
-
-<script>
-
-
-function select_option(i, packagei) {
-    $('#package_' + packagei + ' > select > option[value="' + i + '"]').attr("selected", "selected");
-    $('#package_' + packagei + '>.row>.row>.col-sm-4.selectedbackground').removeClass('selectedbackground animated fadeIn');
-
-    $('#option_' + i + '').addClass('selectedbackground animated fadeIn');
-    event.preventDefault();
-}
-function test(packagei, i) {
-	$('#package_' + packagei + '>.row>.row>.col-sm-4.selectedbackground').removeClass('selectedbackground animated fadeIn');
-
-    $('#option_' + i + '').addClass('selectedbackground animated fadeIn');
-    event.preventDefault();
-}
-
-</script>

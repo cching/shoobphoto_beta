@@ -13,7 +13,7 @@ class Admin::SchoolsController < ApplicationController
   end
 
   def index
-    @schools = School.all.order(:name)
+    @schools = School.where.not(school_type: nil).order(:name)
     respond_with(@schools)
   end
 

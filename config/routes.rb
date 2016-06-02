@@ -137,6 +137,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
     match 'packages/:id/email' => 'packages#email_csv', :via => 'GET', :as => 'email_csv'
     match 'packages/:id/email' => 'packages#email_import', :via => 'POST', :as => 'email_import'
     match 'students/' => 'students#index', :via => 'GET', :as => 'students'
+
     match 'students/csv' => 'students#csv', :via => 'GET', :as => 'csv_students'
     match 'students/csv' => 'students#import', :via => 'POST', :as => 'import_students'
     match 'students/where_empty_by_school' => 'students#where_empty', :via => ['POST', 'GET'], :as => 'where_empty_students'
@@ -170,7 +171,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'orders/:id/download' => 'orders#download', :via => 'GET', :as => 'order_download'
   match 'export/batch/:school_id' => 'export_list_items#batch', :via => 'GET', :as => 'export_batch'
   match 'export/students' => 'export_list_items#students', :via => 'GET', :as => 'export_students'
-  
+  match 'students/add_option/:order_package_id/:option_id' => 'students#add_option', :via => 'GET', :as => 'add_option'
+  match 'students/remove_option/:order_package_id/:option_id' => 'students#remove_option', :via => 'GET', :as => 'remove_option'
   match 'export/users' => 'export_list_items#users', :via => 'GET', :as => 'export_users'
   match 'export/schools' => 'export_list_items#schools', :via => 'GET', :as => 'export_schools'
   match 'export/school_user/:id' => 'export_list_items#school_user', :via => 'GET', :as => 'export_user_school'

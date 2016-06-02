@@ -3,20 +3,18 @@
 
 <div class="animated fadeIn">
 	<% @opackages.each_with_index do |opackage, index| %>
-	<% package = opackage.package %>
-	<% if package.id == 253 %>
-	<% @ids = @opackages.pluck(:download_image_id) %>
-	<% option = @cart.order_packages.where(:package_id => package.id).where(:download_image_id => @ids[index]).last.option %>
-	<% op = @cart.order_packages.where(:option_id => option.id).last %>
-	<% else %>
-	<% option = @cart.order_packages.where(:package_id => package.id).last.option %>
-	<% op = @cart.order_packages.where(:option_id => option.id).last %>
-	<% end %>
+	<% opackage.options.each do |option| %> 
+		<% package = opackage.package %>
+
+		<% if package.id == 253 %>
+			<% @ids = @opackages.pluck(:download_image_id) %>
+		<% end %>
+
 		<div class="row">
 			<div class="col-sm-4" align="center"> 
 			
-					<% if op.url.nil? %>
-					<% if op.download_image_id.nil? %>
+					<% if opackage.url.nil? %>
+					<% if opackage.download_image_id.nil? %>
 					<strong><%= package.name %></strong><br />
 					<div class="row">
 							<div class="col-sm-4"></div>
@@ -46,50 +44,53 @@
 				</div>
 					<% end %>
 					<% else %>
-					<%= image_tag(OrderPackage.image(op.id), class: "img-rounded img-package") %><br/>
+					<%= image_tag(OrderPackage.image(opackage.id), class: "img-rounded img-package") %><br/>
 					<%= "Pose #{opackage.pose}" unless opackage.pose.nil? %>
 					<% end %>
 					<br/>
-					 <% if option.email_picture? %>
-	  			<%= label_tag :email_picture, "Send a digital copy of this portrait to your email" %>
-	  			<%= check_box_tag "order_package[#{op.id}][email_picture]", 1, :checked => true %>
-	  			<% end %>
 			</div>
-			<div class="col-sm-2" id="review"> 
-			 
-				<h3 class="text">
-					
-					<% if @cart.order_packages.where(:package_id => package.id).first.extras.any? %>
-						<% price = option.price(@cart.students[params[:i].to_i].school.id) %>
-						<% @cart.order_packages.where(:package_id => package.id).last.extras.each do |e| %>
-							<% unless e.prices.first.try(:price).nil? %>
-								<% price = price + e.prices.first.try(:price) %>
-							<% end %>
-						<% end %>
-						<div id="price_<%= option.id %>" price="<%= price %>"><%= number_to_currency(price, :unit => "$") %></div>
-					<% else %>
-						<div id="price_<%= option.id %>" price="<%= option.price %>"><%= number_to_currency(option.price(@cart.students[params[:i].to_i].school.id), :unit => "$") %></div>
-					<% end %>
-					
-					<% if package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).any? %>
-					+ <%= number_to_currency(package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).first.price, :unit => "$") %> shipping
-					<% elsif package.shippings.where(:school_id => nil).any? %>
-					+ <%= number_to_currency(package.shippings.where(:school_id => nil).first.price, :unit => "$") %> shipping
-					<% end %>
-				</h3>
-			</div>
-
-			<div class="col-sm-6 bubble" id="imgtag">
-				 <strong><%= option.name %></strong>
-				<ul>
-					<% option.image_types.each do |image| %>
-						<li><%= image.name %></li>
-				 	<% end %>
-				</ul>
+			<div class="col-sm-8">
+								<div class="col-sm-9 bubble" id="imgtag">
+					<div class="row">
+						<div class="col-sm-8">
+						 <strong><%= option.name %></strong>
+						<ul>
+							<% option.image_types.each do |image| %>
+								<li><%= image.name %></li>
+						 	<% end %>
+						</ul>
+					</div>
+					<div class="col-sm-4">
+						<div class="col-sm-2" id="review"> 
+								<h3 class="text">
+									
+									<% if @cart.order_packages.where(:package_id => package.id).first.extras.any? %>
+										<% price = option.price(@cart.students[params[:i].to_i].school.id) %>
+										<% @cart.order_packages.where(:package_id => package.id).last.extras.each do |e| %>
+											<% unless e.prices.first.try(:price).nil? %>
+												<% price = price + e.prices.first.try(:price) %>
+											<% end %>
+										<% end %>
+										<div id="price_<%= option.id %>" price="<%= price %>"><%= number_to_currency(price, :unit => "$") %></div>
+									<% else %>
+										<div id="price_<%= option.id %>" price="<%= option.price %>"><%= number_to_currency(option.price(@cart.students[params[:i].to_i].school.id), :unit => "$") %></div>
+									<% end %>
+									
+									<% if package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).any? %>
+									+ <%= number_to_currency(package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).first.price, :unit => "$") %> shipping
+									<% elsif package.shippings.where(:school_id => nil).any? %>
+									+ <%= number_to_currency(package.shippings.where(:school_id => nil).first.price, :unit => "$") %> shipping
+									<% end %>
+								</h3>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<% op = @cart.order_packages.where(:option_id => option.id).last %>
-			
+		
+
+
 		<% unless option.extra_types.nil? %>
 		<div class="row">
 			<div class="col-sm-2">
@@ -98,7 +99,6 @@
 
 			<div id="form_<%= option.id %>" class="col-sm-10">
 			    <% option.extra_types.each do |extra_type| %>
-			    	
 			        <h4 class=""><%= extra_type.name %></h4>
 			      	<% if extra_type.multiple || extra_type.options.count == 1 %>
 			        	<% extra_type.extras.each_slice(6) do |slice| %>
@@ -106,15 +106,15 @@
 			        	<% slice.each do |extra| %>
 			        	<div class="col-sm-2">
 			          		<div class="check_box sixth">
-			            	<label for="<%= "order_package_#{op.id}_extra_ids_#{extra_type.id}" %>">
+			            	<label for="<%= "order_package_#{opackage.id}_extra_ids_#{extra_type.id}" %>">
 			              	<%= image_tag extra.image.url(:thumb), :class => 'twelfth' if extra.image? %>
               				<%= extra.name %> - <%= number_to_currency(extra.prices.first.try(:price), :show_zero => false) %>
 			            	</label> &nbsp;
-			            	<%= check_box_tag "order_package[#{op.id}][extra_ids][#{extra_type.id}][]", extra.id %>
+			            	<%= check_box_tag "order_package[#{opackage.id}][extra_ids][#{extra_type.id}][option_id][#{option.id}][]", extra.id %>
 			          		</div>
 			          		</div>
-			          		<% end %>
-			          		</div>
+			          	<% end %>
+			          	</div>
 			        	<% end %>
 					<% else %>
 				        <% extra_type.extras.each_slice(4) do |slice| %>
@@ -122,19 +122,19 @@
 			        	<% slice.each do |extra| %>
 			        	<div class="col-sm-3">
 				          	<div class="check_box sixth">
-				            <label for="<%= "order_package_#{op.id}_extra_ids_#{extra_type.id}_#{extra.id}" %>">
+				            <label for="<%= "order_package_#{opackage.id}_extra_ids_#{extra_type.id}_#{extra.id}" %>">
 				            <%= image_tag extra.image.url(:thumb), :class => 'twelfth' if extra.image? %>
 	              			<%= extra.name %> - <%= number_to_currency(extra.prices.first.try(:price), :show_zero => false) %>
 				            </label> &nbsp;
-					        <% if op.extras.pluck(:id).include?(extra.id) %>
-					        <span class="<%= option.id %>" id="<%= option.price %>" price="<%= extra.prices.first.try(:price) %>">
-					            <%= check_box_tag "order_package[#{op.id}][extra_ids][#{extra_type.id}][]", extra.id, {:checked=>true}  %>
-					        </span>
-					        	<% else %>
-					        	<span class="<%= option.id %>" id="<%= option.price %>" price="<%= extra.prices.first.try(:price) %>">
-					            <%= check_box_tag "order_package[#{op.id}][extra_ids][#{extra_type.id}][]", extra.id  %>
-					            </span>
-					        <% end %>
+						        <% if opackage.order_package_extras.where(:option_id => option.id).pluck(:extra_id).include?(extra.id) %>
+						        <span class="<%= option.id %>" id="<%= option.price %>" price="<%= extra.prices.first.try(:price) %>">
+						            <%= check_box_tag "order_package[#{opackage.id}][extra_ids][#{extra_type.id}][option_id][#{option.id}][]", extra.id, {:checked=>true}  %>
+						        </span>
+						        	<% else %>
+						        	<span class="<%= option.id %>" id="<%= option.price %>" price="<%= extra.prices.first.try(:price) %>">
+						            <%= check_box_tag "order_package[#{opackage.id}][extra_ids][#{extra_type.id}][option_id][#{option.id}][]", extra.id  %>
+						            </span>
+						        <% end %>
 			          		</div>
 			          		</div>
 			        	<% end %>
@@ -144,17 +144,16 @@
 			     
 				<% end %>
 			  </div>
-
 	 	</div>
-	 	<% end %>	
-	 	
+	 	<% end %><br/><hr>	
+	 	<% end %>
 		
 		<br />
 	<% end %>
 <br />
 
 	<div class="row">
-		<div class="col-sm-2" align="left">
+		<div class="col-sm-2" align="right">
 		<% if @cart.order_packages.pluck(:package_id).include?(253) %>
 		<% @text = "Continue" %>
 		<% else %>
@@ -176,7 +175,6 @@
 
 		</div>
 	</div>
-</div>
 
 <br />
 

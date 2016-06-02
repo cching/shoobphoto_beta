@@ -5,7 +5,8 @@ class Option < ActiveRecord::Base
 	has_many :extra_assignments, dependent: :destroy
 	has_many :extra_types, through: :extra_assignments
 
-	has_many :order_packages, :dependent => :destroy
+	has_many :option_carts, dependent: :destroy
+	has_many :order_packages, through: :option_carts
 
 	accepts_nested_attributes_for :image_types, allow_destroy: true
 

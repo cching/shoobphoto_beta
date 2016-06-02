@@ -45,7 +45,7 @@
 
 
 
-  <%= f.association :schools, as: :check_boxes, collection: School.all.order(:name) %>
+  <%= f.association :schools, as: :check_boxes, collection: School.where.not(school_type: nil).order(:name) %>
 
   </fieldset>
 <br />

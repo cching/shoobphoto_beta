@@ -5,6 +5,38 @@ class StudentsController < ApplicationController
   def find_student
   end
 
+  def add_option
+    @op = OrderPackage.find(params[:order_package_id])
+    @option = Option.find(params[:option_id])
+    @bool =[]
+
+    @op.options << @option
+    @op.cart.order_packages.each do |opackage|
+      if opackage.options.any?
+        @bool << true
+      else
+        @bool << false
+      end
+    end
+  end
+
+  def remove_option
+    @op = OrderPackage.find(params[:order_package_id])
+    @option = Option.find(params[:option_id])
+    @bool = []
+
+    @op.options.delete(@option)
+
+    @op.cart.order_packages.each do |opackage|
+      if opackage.options.any?
+        @bool << true
+      else
+        @bool << false
+      end
+    end
+
+  end
+
   def remove_package
     @cart = Cart.find_by_cart_id(params[:id])
     @cart.order_packages.where(:download_image_id => params[:did]).last.delete
@@ -105,7 +137,9 @@ class StudentsController < ApplicationController
     @student = @cart.students[params[:i].to_i]
     @price = 0
       @cart.order_packages.each do |package|
-       @price = package.option.price(@student.school.id) + @price
+        package.options.each do |option|
+           @price = option.price(@student.school.id) + @price
+        end
       end
 
       @cart.order_packages.each do |opackage|
@@ -155,9 +189,15 @@ class StudentsController < ApplicationController
       o = OrderPackage.find(order_package.to_param)
       unless value[:extra_ids].nil?
       value[:extra_ids].each do |extra_id, value|
-        value.each do |value|
-        oextra = o.order_package_extras.create(:order_package_id => o.id)  
-        oextra.update(:extra_id => value.to_param)
+        puts "first-loop: value of extra_id #{extra_id} #{value}"
+        value[:option_id].each do |option_id, value|
+          puts "second-loop: value of option_id #{option_id} #{value}"
+
+            
+            value.each do |value|
+              oextra = o.order_package_extras.create(:order_package_id => o.id)  
+            oextra.update(:extra_id => value.to_param, :option_id => option_id)
+            end
         end
       end
       end
@@ -219,10 +259,11 @@ class StudentsController < ApplicationController
 
     @price = 0
 
-    @cart.update(cart_params)
 
     @cart.order_packages.where(:student_id => @student.id).each do |package|
-     @price = package.option.price(@student.school.id) + @price
+     package.options.each do |option|
+      @price = option.price(@student.school.id) + @price
+     end
     end
 
     @cart.order_packages.where(:student_id => @student.id).each do |opackage|
@@ -248,6 +289,16 @@ class StudentsController < ApplicationController
     @student = @cart.students[params[:i].to_i]
     @opackages = @cart.order_packages.where(:student_id => @student.id).order(:id)
     @image_url = []
+
+    @bool = []
+
+    @cart.order_packages.each do |opackage|
+      if opackage.options.any?
+        @bool << true
+      else
+        @bool << false
+      end
+    end
 
     bucket = AWS::S3::Bucket.new('shoobphoto')
 

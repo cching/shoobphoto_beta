@@ -1,0 +1,3 @@
+$("#button_<%= @option.id %>").html("<%= escape_javascript(render 'add') %>");
+$("#option_<%= @option.id %>").addClass("selectedbackground");
+$("#continue").html("<%= escape_javascript(render 'continue') %>")
