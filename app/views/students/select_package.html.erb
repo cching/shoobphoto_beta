@@ -7,7 +7,7 @@
 		<div class="col-sm-4" align="center">	
 			<strong><%= package.name %></strong>
 			<% if package.multiple %>
-				<% if @senior_url.try(:length) > 1 %>
+				<% if @senior_url.try(:length) > 1 && opackage.package.id == 6 %>
 				
 					<% @senior_url.each_slice(2) do |slice| %>
 					<div class="row">
@@ -27,7 +27,7 @@
 						<% end %>
 					</div>
 					<% end %>
-				<% elsif @grad_url.try(:length) > 1 %>
+				<% elsif @grad_url.try(:length) > 1 && opackage.package.id == 5 %>
 				<% @grad_url.each_slice(2) do |slice| %>
 					<div class="row">
 						<% slice.each do |grad_url| %>
