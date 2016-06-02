@@ -306,7 +306,7 @@ class StudentsController < ApplicationController
       package = opackage.package
       image = package.student_images.where(:student_id => @student.id).last
       
-      if package.id == 6
+      if package.id == 6 || package.id == 5
       @senior_url = []
       @senior_id = []
         unless image.nil? || @cart.id_supplied == false
