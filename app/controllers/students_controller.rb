@@ -299,12 +299,13 @@ class StudentsController < ApplicationController
     end
 
     bucket = AWS::S3::Bucket.new('shoobphoto')
+    @senior_url = []
 
     @opackages.each do |opackage|
       package = opackage.package
       image = package.student_images.where(:student_id => @student.id).last
       
-      if package.id == 6 || package.id == 5
+      if package.id == 6 
       @senior_url = []
       @senior_id = []
         unless image.nil? || @cart.id_supplied == false
@@ -328,6 +329,33 @@ class StudentsController < ApplicationController
           s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
           @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
           @senior_id << "default"
+        end
+      end
+
+      if package.id == 5
+      @grad_url = []
+      @grad_id = []
+        unless image.nil? || @cart.id_supplied == false
+          
+          for attribute in ['url', 'url1', 'url2', 'url3', 'url4']
+            unless image.attributes[attribute].nil? || image.attributes[attribute] == ""
+              if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].upcase}.jpg").exists?
+                s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].upcase}.jpg")
+              else
+                s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].downcase}.jpg")
+              end
+              @grad_id << "#{image.attributes[attribute]}"
+            else
+              s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}") #do default image in col later
+               @grad_id << "default"
+            end
+             @grad_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+            
+          end
+        else
+          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
+          @grad_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+          @grad_id << "default"
         end
       end
 
