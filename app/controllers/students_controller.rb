@@ -229,8 +229,6 @@ class StudentsController < ApplicationController
     @opackages = @cart.order_packages.where(:student_id => @student.id).order(:id)
     @image_url = []
 
-
-
     bucket = AWS::S3::Bucket.new('shoobphoto')
 
     @opackages.each do |opackage|

@@ -18,7 +18,7 @@ class OrderPackage < ActiveRecord::Base
 	def self.image id
 		op = OrderPackage.find(id)
 		bucket = AWS::S3::Bucket.new('shoobphoto')
-		image = StudentImage.where(:student_id => op.student_id).where(:package_id => 6).last
+		image = StudentImage.where(:student_id => op.student_id).where(:package_id => op.package.id).last
 
 		if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{op.url.upcase}.jpg").exists?
             s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{op.url.upcase}.jpg")
