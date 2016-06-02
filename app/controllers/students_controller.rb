@@ -230,7 +230,7 @@ class StudentsController < ApplicationController
     @image_url = []
 
     bucket = AWS::S3::Bucket.new('shoobphoto')
-
+ 
     @opackages.each do |opackage|
       package = opackage.package
       image = package.student_images.where(:student_id => @student.id).last

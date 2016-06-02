@@ -25,7 +25,8 @@
 					</div>
 					<% end %>
 				<% else %><br/>
-					<%= image_tag(@senior_url[0], class: "img-rounded img-package") %>
+					<%= image_tag(@senior_url[0], class: "img-rounded img-package"), id: "png1" %>
+					<%= image_tag('watermark.png', class: "img-rounded img-package", id: "png2") %><br/><br/><br/>
 				<% end %>
 			<% else %>
 			<div class="row">
