@@ -5,6 +5,7 @@
 	<% @opackages.each_with_index do |opackage, index| %>
 	<% opackage.options.each do |option| %> 
 		<% package = opackage.package %>
+		<% image = package.student_images.where(:student_id => @student.id).last %>
 
 		<% if package.id == 253 %>
 			<% @ids = @opackages.pluck(:download_image_id) %>
@@ -19,8 +20,11 @@
 					<div class="row">
 							<div class="col-sm-4"></div>
 							<div class="col-sm-4">
-								<img src='<%= @image_url[index] %>', class="img-rounded img-package" id="png1">
-								<%= image_tag('watermark.png', class: "img-rounded img-package", id: "png2") %><br/><br/><br/>
+								<% unless image.nil? %>
+								<%= image_tag(image.watermark.url(:watermark), class: "img-rounded img-package") %>
+								<% else %>
+								<%= image_tag(package.image.url, class: "img-rounded img-package") %>
+								<% end %>
 							</div>
 							<div class="col-sm-4"></div>
 					</div>
@@ -44,7 +48,11 @@
 				</div>
 					<% end %>
 					<% else %>
-					<%= image_tag(OrderPackage.image(opackage.id), class: "img-rounded img-package") %><br/>
+					<% unless image.nil? %>
+								<%= image_tag(image.watermark.url(:watermark), class: "img-rounded img-package") %>
+								<% else %>
+								<%= image_tag(package.image.url, class: "img-rounded img-package") %>
+								<% end %><br/>
 					<%= "Pose #{opackage.pose}" unless opackage.pose.nil? %>
 					<% end %>
 					<br/>

@@ -13,3 +13,11 @@ end
 Paperclip.interpolates :url do |attachment, style|
   attachment.instance.image_file_name
 end
+
+Paperclip.interpolates :package_id do |attachment, style|
+  attachment.instance.package_id
+end
+
+Paperclip.interpolates :package_image_file_name do |attachment, style|
+  attachment.instance.package.image_file_name
+end

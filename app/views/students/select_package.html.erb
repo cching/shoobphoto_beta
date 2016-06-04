@@ -3,6 +3,8 @@
 	<%= form_for(@cart, url: student_update_path(@cart.cart_id, @cart.students.count - 1), :html => {class: "form-horizontal"}) do |f| %>
 	<% @opackages.each_with_index do |opackage, index| %>
 	<% package = opackage.package %>
+	<% image = package.student_images.where(:student_id => @student.id).last %>
+
 	<div class="row"> 
 		<div class="col-sm-4" align="center">	
 			<strong><%= package.name %></strong>
@@ -15,8 +17,7 @@
 						<% i = @senior_url.index(senior_url) %>
 						<% unless @senior_id[i] == "default" %>
 						<div class="col-sm-6" id="<%= @senior_url.index(senior_url) %>">
-							<%= image_tag(senior_url, :class => 'img-rounded img-package', id: "png1")%><br/>
-							<%= image_tag('watermark.png', class: "img-rounded img-package", id: "png2") %><br/><br/><br/><br/><br/>
+							<%= image_tag(senior_url, :class => 'img-rounded img-package') %><br/>
 
 								<%= link_to orders_add_image_path(opackage.id, @senior_id[i], :pose => "#{i + 1}" , :index => "#{i}"), remote: true do %>
 								    <span id="check_<%= i%>"><span class="glyphicon glyphicon-unchecked"></span></span> Pose <%= i + 1 %>
@@ -34,8 +35,7 @@
 						<% i = @grad_url.index(grad_url) %>
 						<% unless @grad_id[i] == "default" %>
 						<div class="col-sm-6" id="<%= @grad_url.index(grad_url) %>">
-							<%= image_tag(grad_url, :class => 'img-rounded img-package', id: "png1")%><br/>
-							<%= image_tag('watermark.png', class: "img-rounded img-package", id: "png2") %><br/><br/><br/><br/><br/>
+							<%= image_tag(grad_url, :class => 'img-rounded img-package' )%><br/>
 
 								<%= link_to orders_add_image_path(opackage.id, @grad_id[i], :pose => "#{i + 1}" , :index => "#{i}"), remote: true do %>
 								    <span id="check_<%= i%>"><span class="glyphicon glyphicon-unchecked"></span></span> Pose <%= i + 1 %>
@@ -47,15 +47,17 @@
 					</div>
 					<% end %>
 				<% else %><br/>
-					<%= image_tag(@senior_url[0], class: "img-rounded img-package", id: "png1") %>
-					<%= image_tag('watermark.png', class: "img-rounded img-package", id: "png2") %><br/><br/><br/>
+					<%= image_tag(opackage.package.image, class: "img-rounded img-package") %>
 				<% end %>
 			<% else %>
 			<div class="row">
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4">
-			<%= image_tag(@image_url[index], class: "img-rounded img-package", id: "png1") %>
-			<%= image_tag('watermark.png', class: "img-rounded img-package", id: "png2") %><br/><br/><br/>
+			<% unless image.nil? %>
+			<%= image_tag(image.watermark.url(:watermark), class: "img-rounded img-package") %>
+			<% else %>
+			<%= image_tag(package.image.url, class: "img-rounded img-package") %>
+			<% end %>
 			</div>
 			<div class="col-sm-4"></div>
 			</div>

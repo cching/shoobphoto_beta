@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160530092223) do
+ActiveRecord::Schema.define(version: 20160604031408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -596,7 +596,11 @@ ActiveRecord::Schema.define(version: 20160530092223) do
     t.string   "url3"
     t.string   "url4"
     t.string   "url1"
-    t.boolean  "downloaded",         default: false
+    t.boolean  "downloaded",             default: false
+    t.string   "watermark_file_name"
+    t.string   "watermark_content_type"
+    t.integer  "watermark_file_size"
+    t.datetime "watermark_updated_at"
   end
 
   create_table "student_proofs", force: true do |t|

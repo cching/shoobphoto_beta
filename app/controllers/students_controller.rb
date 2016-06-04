@@ -227,28 +227,7 @@ class StudentsController < ApplicationController
 
     @student = @cart.students[params[:i].to_i]
     @opackages = @cart.order_packages.where(:student_id => @student.id).order(:id)
-    @image_url = []
 
-    bucket = AWS::S3::Bucket.new('shoobphoto')
- 
-    @opackages.each do |opackage|
-      package = opackage.package
-      image = package.student_images.where(:student_id => @student.id).last
-      unless image.nil?
-        unless image.image_file_name.nil? || @cart.id_supplied == false || image.image_file_name == ""
-          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
-          else
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
-          end
-        else
-          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{image.package.id}/#{image.package.image_file_name}") #do default image in col later
-        end
-      else
-          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
-      end
-      @image_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-    end 
   end
 
   def update
@@ -286,7 +265,7 @@ class StudentsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:id])
     @student = @cart.students[params[:i].to_i]
     @opackages = @cart.order_packages.where(:student_id => @student.id).order(:id)
-    @image_url = []
+    @images = []
 
     @bool = []
 
@@ -300,11 +279,12 @@ class StudentsController < ApplicationController
 
     bucket = AWS::S3::Bucket.new('shoobphoto')
     @senior_url = []
+    @grad_url = []
 
     @opackages.each do |opackage|
       package = opackage.package
       image = package.student_images.where(:student_id => @student.id).last
-      
+
       if package.id == 6 
       @senior_url = []
       @senior_id = []
@@ -313,16 +293,29 @@ class StudentsController < ApplicationController
           for attribute in ['url', 'url1', 'url2', 'url3', 'url4']
             unless image.attributes[attribute].nil? || image.attributes[attribute] == ""
               if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].upcase}.jpg").exists?
-                s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].upcase}.jpg")
+                image.update(:"#{attribute}" => image.attributes[attribute].upcase)
               else
-                s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].downcase}.jpg")
+                image.update(:"#{attribute}" => image.attributes[attribute].downcase)
               end
               @senior_id << "#{image.attributes[attribute]}"
             else
-              s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}") #do default image in col later
                @senior_id << "default"
             end
-             @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+             if image.image.exists?
+                s3 = AWS::S3.new
+
+                bucket1 = s3.buckets["shoobphoto"]
+                bucket2 = s3.buckets["shoobphoto"]
+                obj1 = bucket1.objects["images/#{image.folder}/#{image.attributes[attribute]}.jpg"]
+                if obj1.exists?
+                obj2 = bucket2.objects["images/watermarks/#{image.id}/original/#{image.attributes[attribute]}.jpg"]
+
+                obj1.copy_to(obj2)
+                image.update(:watermark_file_name => image.attributes[attribute])
+                image.watermark.reprocess!
+                @senior_url << image.watermark.url(:watermark)
+              end
+              end
             
           end
         else
@@ -340,17 +333,29 @@ class StudentsController < ApplicationController
           for attribute in ['url', 'url1', 'url2', 'url3', 'url4']
             unless image.attributes[attribute].nil? || image.attributes[attribute] == ""
               if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].upcase}.jpg").exists?
-                s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].upcase}.jpg")
+                image.update(:"#{attribute}" => image.attributes[attribute].upcase)
               else
-                s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.attributes[attribute].downcase}.jpg")
+                image.update(:"#{attribute}" => image.attributes[attribute].downcase)
               end
               @grad_id << "#{image.attributes[attribute]}"
             else
-              s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}") #do default image in col later
                @grad_id << "default"
             end
-             @grad_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-            
+             if image.image.exists?
+                s3 = AWS::S3.new
+
+                bucket1 = s3.buckets["shoobphoto"]
+                bucket2 = s3.buckets["shoobphoto"]
+                obj1 = bucket1.objects["images/#{image.folder}/#{image.attributes[attribute]}.jpg"]
+                if obj1.exists?
+                  obj2 = bucket2.objects["images/watermarks/#{image.id}/original/#{image.attributes[attribute]}.jpg"]
+
+                  obj1.copy_to(obj2)
+                  image.update(:watermark_file_name => image.attributes[attribute])
+                  image.watermark.reprocess!
+                  @grad_url << image.watermark.url(:watermark)
+                end
+              end
           end
         else
           s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
@@ -362,18 +367,28 @@ class StudentsController < ApplicationController
       unless image.nil?
         unless image.image_file_name.nil? || @cart.id_supplied == false || image.image_file_name == ""
           if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
+            image.update(:image_file_name => image.image_file_name.upcase)
           else
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
+            image.update(:image_file_name => image.image_file_name.downcase)
           end
         else
-          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{image.package.id}/#{image.package.image_file_name}") #do default image in col later
+          image.update(:image_file_name => image.image_file_name) #do default image in col later
         end
-      else
-          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
-      end
+        if image.image.exists?
+          s3 = AWS::S3.new
 
-      @image_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+          bucket1 = s3.buckets["shoobphoto"]
+          bucket2 = s3.buckets["shoobphoto"]
+          obj1 = bucket1.objects["images/#{image.folder}/#{image.image_file_name}.jpg"]
+          if obj1.exists?
+          obj2 = bucket2.objects["images/watermarks/#{image.id}/original/#{image.image_file_name}.jpg"]
+
+          obj1.copy_to(obj2)
+          image.update(:watermark_file_name => image.image_file_name)
+          image.watermark.reprocess!
+          end
+        end
+      end
     end 
   end 
 
