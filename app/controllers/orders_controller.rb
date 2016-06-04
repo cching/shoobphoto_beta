@@ -41,6 +41,7 @@ class OrdersController < ApplicationController
 		@opackage = OrderPackage.find(params[:id])
 		@opackage.update(:url => params[:url], :pose => params[:pose])
 		@index = params[:index]
+		@type = params[:type]
 
 		respond_to :js
 	end

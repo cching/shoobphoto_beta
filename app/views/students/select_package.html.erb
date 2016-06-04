@@ -16,11 +16,11 @@
 						<% slice.each do |senior_url| %>
 						<% i = @senior_url.index(senior_url) %>
 						<% unless @senior_id[i] == "default" %>
-						<div class="col-sm-6" id="<%= @senior_url.index(senior_url) %>">
+						<div class="col-sm-6" id="senior_<%= @senior_url.index(senior_url) %>">
 							<%= image_tag(senior_url, :class => 'img-rounded img-package') %><br/>
 
-								<%= link_to orders_add_image_path(opackage.id, @senior_id[i], :pose => "#{i + 1}" , :index => "#{i}"), remote: true do %>
-								    <span id="check_<%= i%>"><span class="glyphicon glyphicon-unchecked"></span></span> Pose <%= i + 1 %>
+								<%= link_to orders_add_image_path(opackage.id, @senior_id[i], :pose => "#{i + 1}" , :index => "#{i}", :type => "senior"), remote: true do %>
+								    <span id="check_senior_<%= i%>"><span class="glyphicon glyphicon-unchecked"></span></span> Pose <%= i + 1 %>
 								<% end %>
 
 						</div>
@@ -34,11 +34,11 @@
 						<% slice.each do |grad_url| %>
 						<% i = @grad_url.index(grad_url) %>
 						<% unless @grad_id[i] == "default" %>
-						<div class="col-sm-6" id="<%= @grad_url.index(grad_url) %>">
+						<div class="col-sm-6" id="grad_<%= @grad_url.index(grad_url) %>">
 							<%= image_tag(grad_url, :class => 'img-rounded img-package' )%><br/>
 
-								<%= link_to orders_add_image_path(opackage.id, @grad_id[i], :pose => "#{i + 1}" , :index => "#{i}"), remote: true do %>
-								    <span id="check_<%= i%>"><span class="glyphicon glyphicon-unchecked"></span></span> Pose <%= i + 1 %>
+								<%= link_to orders_add_image_path(opackage.id, @grad_id[i], :pose => "#{i + 1}" , :index => "#{i}", :type => "grad"), remote: true do %>
+								    <span id="check_grad_<%= i%>"><span class="glyphicon glyphicon-unchecked"></span></span> Pose <%= i + 1 %>
 								<% end %>
 
 						</div>

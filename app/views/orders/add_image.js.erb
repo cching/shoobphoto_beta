@@ -2,13 +2,14 @@ $('#0 img').removeClass('animated fadeIn img-package-custom');
 $('#1 img').removeClass('animated fadeIn img-package-custom');
 $('#2 img').removeClass('animated fadeIn img-package-custom');
 $('#3 img').removeClass('animated fadeIn img-package-custom');
+$('#4 img').removeClass('animated fadeIn img-package-custom');
 
 
-$('.checkboxesonpage').each(function(i, obj) {
-    $('.checkboxesonpage').html('<%= escape_javascript(render(:partial => 'unchecked')) %>');
+$('.checkboxesonpage_<%= @type %>').each(function(i, obj) {
+    $('.checkboxesonpage_<%= @type %>').html('<%= escape_javascript(render(:partial => 'unchecked')) %>');
 
 });
 
-$('#<%= @index %> img').addClass('animated fadeIn img-package-custom img-package');
-$('#check_<%= @index %>').html('<%= escape_javascript(render(:partial => 'check')) %>');
+$('#<%= @type %>_<%= @index %> img').addClass('animated fadeIn img-package-custom img-package');
+$('#check_<%= @type %>_<%= @index %>').html('<%= escape_javascript(render(:partial => 'check')) %>');
 
