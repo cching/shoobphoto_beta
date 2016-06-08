@@ -94,7 +94,8 @@ end
 	    	@cart.save
 	    	OrderMailer.receipt(@order).deliver
 
-
+	    		redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt."
+	    	
 	    else
 	    	respond_to do |format|
 	    	format.html { render 'new', :price => @order.price }
