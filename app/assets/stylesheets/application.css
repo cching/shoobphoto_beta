@@ -50,3 +50,8 @@ footer {
 }
 
   textarea { width: 100%; border: 1px solid #333; padding: 4px; }
+
+@font-face {
+  font-family: "Avenir";
+  src: url(/assets/AvenirNextLTPro-DemiCn.otf) format("truetype");
+}

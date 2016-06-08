@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shoob Photography<%= request.fullpath.split('/').map(&:titleize).join(' - ') %></title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+  <%= javascript_tag do %>
+      jQuery(document).ajaxSend(function(e, xhr, options) {
+       var token = jQuery("meta[name='csrf-token']").attr("content");
+        xhr.setRequestHeader("X-CSRF-Token", token);
+      });
+    <% end %>
+  <%= favicon_link_tag 'favicon.ico' %>
+<div class="animated fadeInDown notice" id="notice">
+<% if notice %>
+	  <p class="alert alert-success" align="center"><%= notice %></p>
+	<% end %>
+	<% if alert %>
+	  <p class="alert alert-danger" align="center"><%= alert %></p>
+	<% end %>
+	</div>
+</head>
+<body>
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div id="modal-window"></div>
+	</div>	
+	
+
+		<%= yield %>
+
+</body>
+
+</html>

@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   before_action :set_params_id, only: [:show, :edit, :update, :destroy]
+  layout "fullwidth"
 
   respond_to :html
 

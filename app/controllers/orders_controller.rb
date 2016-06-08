@@ -94,11 +94,7 @@ end
 	    	@cart.save
 	    	OrderMailer.receipt(@order).deliver
 
-	    	if @order.cart.order_packages.map{ |x| x.options.map {|o| o.download}}.any?
-	    		redirect_to order_download_path(@order.id), notice: "Your order has been successfully placed! We've emailed you a copy of your receipt. "
-	    	else
-	    		redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt."
-	    	end
+
 	    else
 	    	respond_to do |format|
 	    	format.html { render 'new', :price => @order.price }
