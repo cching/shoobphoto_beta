@@ -220,7 +220,6 @@ class StudentsController < ApplicationController
     unless params[:extra_ids].nil?
     params[:extra_ids].each do |extra_id, value| 
       value.each do |value|
-        puts "@@@@@@@@@@ #{@option.id}"
         oextra = @op.order_package_extras.create(:option_id => @option.id)  
         oextra.update(:extra_id => value.to_param)
       end
