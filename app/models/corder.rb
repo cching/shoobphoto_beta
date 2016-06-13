@@ -20,6 +20,7 @@ class Corder < ActiveRecord::Base
   
   attr_accessor :card_number, :card_verification, :clearance
   
+  before_create :send_purchase, :if => :free?
 
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
