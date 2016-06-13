@@ -8,6 +8,7 @@ class CorderExport
       csv_file = ''
 
           csv_file << CSV.generate_line(Corder.all.first.attributes.keys[0..12].map{|column| column} + Corder.all.first.attributes.keys[14..21].map{|column| column}  + ['School'] + ['Price'] + ['Items'] + ['Processed'])
+            Corder.all.each do |order|
 
               
               
@@ -22,7 +23,7 @@ class CorderExport
 
               ) 
             
-          
+          end
           
           file_name = Rails.root.join('tmp', "order_#{Time.now.day}-#{Time.now.month}-#{Time.now.year}_#{Time.now.hour}_#{Time.now.min}.csv");
 
