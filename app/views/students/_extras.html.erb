@@ -1,0 +1,71 @@
+<%= simple_form_for @cart, url: add_options_path(@cart.cart_id, @i, @op.id, @option.id), remote: true do |f| %>
+
+<div class="modal-dialog" id="lesson_resources">
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><%= @option.package.name %>: <%= @option.name %></h4>
+      </div>
+      <div class="modal-body centered">
+      	<div id="form_<%= @option.id %>">
+			    <% @option.extra_types.each do |extra_type| %>
+			        <h4 class=""><%= extra_type.name %></h4>
+			      	<% if extra_type.multiple || extra_type.options.count == 1 %>
+			        	<% extra_type.extras.each_slice(5) do |slice| %>
+			        	<div class="row">
+			        	<% slice.each do |extra| %>
+			        	<div class="col-sm-2">
+			          		<div class="check_box sixth">
+			            	<label for="<%= "order_package_#{@op.id}_extra_ids_#{extra_type.id}" %>">
+			              	<%= image_tag extra.image.url(:thumb), :class => 'twelfth' if extra.image? %>
+              				<%= extra.name %> - <%= number_to_currency(extra.prices.first.try(:price), :show_zero => false) %>
+			            	</label> &nbsp;
+			            	<%= check_box_tag "extra_ids[#{extra_type.id}][]", extra.id %>
+			          		</div>
+			          		</div>
+			          	<% end %>
+			          	</div>
+			        	<% end %>
+					<% else %>
+				        <% extra_type.extras.each_slice(4) do |slice| %>
+				        <div class="row">
+			        	<% slice.each do |extra| %>
+			        	<div class="col-sm-3">
+				          	<div class="check_box sixth">
+				            
+						        <% if @op.order_package_extras.where(:option_id => @option.id).pluck(:extra_id).include?(extra.id) %>
+						        <span class="<%= @option.id %>" id="<%= @option.price %>" price="<%= extra.prices.first.try(:price) %>">
+						            <%= check_box_tag "extra_ids[#{extra_type.id}][]", extra.id, {:checked=>true}  %>
+						        </span>
+						        	<% else %>
+						        	<span class="<%= @option.id %>" id="<%= @option.price %>" price="<%= extra.prices.first.try(:price) %>">
+						            <%= check_box_tag "extra_ids[#{extra_type.id}][]", extra.id  %>
+						            </span>
+						        <% end %>
+						        <label for="<%= "order_package_#{@op.id}_extra_ids_#{extra_type.id}_#{extra.id}" %>">
+				            <%= image_tag extra.image.url(:thumb), :class => 'twelfth' if extra.image? %>
+	              			<%= number_to_currency(extra.prices.first.try(:price), :show_zero => false) %>-<%= extra.name %>
+				            </label> &nbsp;
+			          		</div>
+			          		</div>
+			        	<% end %>
+			        	</div>
+			        	<% end %>
+			        <% end %><br/>
+			     <hr>
+				<% end %>
+							  </div>
+
+</div>
+
+      <div class="form-actions">
+      <div class="modal-footer">
+      	<%= submit_tag "Add to Cart", class: "btn btn-custom" %>
+
+      </div>   
+      </div>   
+    
+  </div>
+
+</div>
+<% end %>

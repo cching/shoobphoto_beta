@@ -19,9 +19,17 @@
   <% o.options.each do |option| %>
   <div class="row">
       <div class="col-sm-6">
-      <strong><%= o.package.name %></strong><br />
+      <strong><%= o.package.name %> 
+      <% if o.package.id == 253 %>
+      - <%= DownloadImage.package_name(o.download_image_id) %>
+      <% end %></strong><br />
+      <% image = o.package.student_images.where(:student_id => student.id).last %>
       
-      <img src='<%= @image_url[index] %>', class="img-rounded img-package">
+      <% unless image.nil? %> 
+      <%= image_tag(image.url, class: "img-rounded img-package") %>
+      <% else %>
+      <%= image_tag(o.package.image.url, class: "img-rounded img-package") %>
+      <% end %>
       </div>
       <div class="col-sm-6">
         <strong><%= option.name %> - (<%= number_to_currency(option.price, :unit => "$") %>)</strong>

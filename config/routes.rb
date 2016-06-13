@@ -219,6 +219,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'catalog_orders/:id/processed' => 'corders#processed', :via => 'GET', :as => 'corders_processed'
   match 'catalog_orders/:id/unprocessed' => 'corders#unprocessed', :via => 'GET', :as => 'corders_unprocessed'
   match 'students/cart/:cart_id/update_cart/:i' => 'students#update_cart', :via => 'PATCH', :as => 'update_cart'
+  match 'students/cart/:cart_id/add_options/:i/:op_id/:option_id' => 'students#add_options', :via => 'PATCH', :as => 'add_options'
   match 'students/cart/:id/:i/update_download' => 'students#update_download', :via => 'PATCH', :as => 'update_download'
   match 'catalog' => 'items#index', :via => 'GET', :as => 'catalog'
   match 'items/cart/:cart_id' => 'items#cart', :via => 'GET', :as => 'items_cart'

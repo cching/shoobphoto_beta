@@ -1,3 +1,8 @@
 $("#button_<%= @option.id %>").html("<%= escape_javascript(render 'add') %>");
 $("#option_<%= @option.id %>").addClass("selectedbackground");
 $("#continue").html("<%= escape_javascript(render 'continue') %>")
+
+<% if @option.extra_types.map { |et| et.extras.any?}.any? %>
+	$('#myModal').modal('show');
+	$("#modal-window").html("<%= escape_javascript(render 'extras') %>");
+<% end %>

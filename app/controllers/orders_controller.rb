@@ -39,10 +39,14 @@ class OrdersController < ApplicationController
 
 	def add_image
 		@opackage = OrderPackage.find(params[:id])
-		@opackage.update(:url => params[:url], :pose => params[:pose])
 		@index = params[:index]
 		@type = params[:type]
 
+		if @type == "senior"
+			@opackage.update(:url => params[:url], :pose => params[:pose])
+		else
+			@opackage.update(:grad => params[:url], :pose => params[:pose])
+		end
 		respond_to :js
 	end
 

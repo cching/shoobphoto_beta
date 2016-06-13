@@ -34,7 +34,7 @@
 						<% slice.each do |grad_url| %>
 						<% i = @grad_url.index(grad_url) %>
 						<% unless @grad_id[i] == "default" %>
-						<div class="col-sm-6" id="grad_<%= @grad_url.index(grad_url) %>">
+						<div class="col-sm-6" id="grad_<%= @grad_url.index(grad_url) %>"> 
 							<%= image_tag(grad_url, :class => 'img-rounded img-package' )%><br/>
 
 								<%= link_to orders_add_image_path(opackage.id, @grad_id[i], :pose => "#{i + 1}" , :index => "#{i}", :type => "grad"), remote: true do %>
@@ -96,9 +96,9 @@
 					
 						<div class="col-sm-4" id="button_<%= option.id %>" align="center">
 							<% if opackage.options.include? option %>
-								<%= link_to "Remove", remove_option_path(opackage.id, option.id), class: "btn btn-danger", remote: true %>
+								<%= link_to "Remove", remove_option_path(opackage.id, option.id, :i => @i), class: "btn btn-danger", remote: true %>
 							<% else %>
-								<%= link_to "Add to Cart", add_option_path(opackage.id, option.id), class: "btn btn-custom", remote: true %>
+								<%= link_to "Add to Cart", add_option_path(opackage.id, option.id, :i => @i), class: "btn btn-custom", remote: true %>
 							<% end %>
 						</div>
 					<% end %>

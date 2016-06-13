@@ -7,8 +7,7 @@ class CorderExport
 
       csv_file = ''
 
-          csv_file << CSV.generate_line(Corder.all.first.attributes.keys[0..12].map{|column| column} + Corder.all.first.attributes.keys[14..21].map{|column| column}  + ['School'] + ['Price'] + ['Items'])
-            Corder.where(:processed => false).each do |order|
+          csv_file << CSV.generate_line(Corder.all.first.attributes.keys[0..12].map{|column| column} + Corder.all.first.attributes.keys[14..21].map{|column| column}  + ['School'] + ['Price'] + ['Items'] + ['Processed'])
 
               
               
@@ -19,11 +18,11 @@ class CorderExport
                 @string = @string + "#{item.number}, #{item.name}, #{citem.quantity}; "
               end
      
-                csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{order.schools}"] + ["#{order.price.to_i}"] + [@string]
+                csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{order.schools}"] + ["#{order.price.to_i}"] + [@string] + ["#{order.processed}"]
 
               ) 
             
-          end
+          
           
           file_name = Rails.root.join('tmp', "order_#{Time.now.day}-#{Time.now.month}-#{Time.now.year}_#{Time.now.hour}_#{Time.now.min}.csv");
 

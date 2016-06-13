@@ -12,74 +12,66 @@
 
 <div class="animated fadeIn">
 
-  <%= form_for(@cart, url: student_update_path(@cart.cart_id, @cart.students.count - 1), :html => {class: "form-horizontal"}) do |f| %>
-  <% @opackages.each_with_index do |opackage, i| %>
-  <% package = opackage.package %>
-  <div class="row" id="<%= @ids[i] %>">
+
+  <div class="row" id="<%= @dimage.id %>">
     <div class="col-sm-4" align="center"> 
-      <h3><%= package.name %></h3>
+      <h3>test</h3>
       
-      <%= image_tag(DownloadImage.find(@ids[i]).image.url, class: "img-proof", id: "png1") %>
+      <%= image_tag(DownloadImage.find(@dimage.id).image.url, class: "img-proof", id: "png1") %>
             <%= image_tag('watermark.png', class: "img-proof", id: "png2") %>
     </div><br />
     <div class="col-sm-8">
 
-      <h3>Please select the package you wish to purchase.</h3>
-    <span id="package_<%= @ids[i] %>">
-        <%= f.fields_for :order_packages, OrderPackage.where(:package_id => package.id).where(:student_id => @student.id).where(:cart_id => @cart.id).where(:download_image_id => @ids[i]) do |s| %>
-
-          <%= s.collection_select :option_id, package.options.order(:name), :id, :name, {prompt: false}, {class: "form-control", :onchange => 'test(this.dataset.package, this.value)', :id => :id, data: { :package => "#{@ids[i]}"}} %>
-
-        <% end %>
-
-        <br />
-
-        <div class="row">
-        <%= package.options.order(:name).each_slice(3) do |slice| %>
+      <%= @package.options.order(:name).each_slice(3) do |slice| %>
           <div class="row buff">
             <% slice.each do |option| %>
-              <div class="col-sm-4 <%= 'selectedbackground' if package.order_packages.where(:cart_id => @cart.id).where(:student_id => @student.id).where(:download_image_id => @ids[i]).last.try(:option_id) == option.id %>" id="option_<%= option.id %>_<%= @ids[i] %>">
-                <%= link_to "#{option.name} - #{number_to_currency(option.price(@student.school), :unit => "$")}", '#', :onClick => 'select_option(this.id, this.dataset.package)', :id => "#{option.id}", data: { :package => "#{@ids[i]}"} %>
-                <ul>
+              <div class="col-sm-4 <%= 'selectedbackground' if @opackage.options.include? option %>" id="option_<%= option.id %>">
+                <strong><%= "#{option.name} - #{number_to_currency(option.price(@student.school), :unit => "$")}" %></strong>
+                <ul class="options">
                   <% option.image_types.each do |type| %>
-                    <li><%= type.name %>
+                    <li>
+                      <%= type.name %>
                     </li>
                   <% end %> 
                 </ul>
               </div>
             <% end %>
           </div>
+          <div class="row buff">
+          <% slice.each do |option| %>
+          
+            <div class="col-sm-4" id="button_<%= option.id %>" align="center">
+              <% if @opackage.options.include? option %>
+                <%= link_to "Remove", remove_option_path(@opackage.id, option.id, :i => @i), class: "btn btn-danger", remote: true %>
+              <% else %>
+                <%= link_to "Add to Cart", add_option_path(@opackage.id, option.id, :i => @i), class: "btn btn-custom", remote: true %>
+              <% end %>
+            </div>
+          <% end %>
+          </div><br/>
+          
         <% end %>
       </div>
-    </span>
-      </div>
-      <div align="right">
-      <%= link_to remove_package_path(@cart.cart_id, @i, DownloadImage.find(@ids[i]).id), remote: true, class: "btn btn-danger" do %>
-        Remove from cart 
-    <% end %>
+
   </div>
   </div><br/>
-  <% end %>
   <hr>
 
 <div class="row">
   <div class="col-sm-2" align="left">
 
-    <%= button_tag(type: 'button', class: "btn btn-custom", :data => {:dismiss => "modal"}) do %>
-       <span class="glyphicon glyphicon-chevron-left"></span>  Add another image from the previous years 
-    <% end %>
+    
     
   </div>
   <div class="col-sm-8"></div>
   <div class="col-sm-2" align="right">
-    <%= button_tag(type: 'submit', class: "btn btn-custom") do %>
-        Continue <span class="glyphicon glyphicon-chevron-right"></span> 
+<%= button_tag(type: 'button', class: "btn btn-custom", :data => {:dismiss => "modal"}) do %>
+       Continue
     <% end %>
 
   </div>
 </div>
 
-<% end %>
 <br />
 
 <script>
