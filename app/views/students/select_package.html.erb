@@ -6,11 +6,10 @@
 	<% image = package.student_images.where(:student_id => @student.id).last %>
 
 	<div class="row"> 
-		<div class="col-sm-4" align="center">	
+		<div class="col-sm-4" align="center">	 
 			<strong><%= package.name %></strong>
 			<% if package.multiple %>
-				<% if @senior_url.try(:length) > 1 && opackage.package.id == 6 %>
-				
+				<% if @senior_url.try(:length) > 0 && opackage.package.id == 6 %>
 					<% @senior_url.each_slice(2) do |slice| %>
 					<div class="row">
 						<% slice.each do |senior_url| %>
@@ -24,11 +23,11 @@
 								<% end %>
 
 						</div>
+						<% end %> 
 						<% end %>
-						<% end %>
-					</div>
+					</div> 
 					<% end %>
-				<% elsif @grad_url.try(:length) > 1 && opackage.package.id == 5 %>
+				<% elsif @grad_url.try(:length) > 0 && opackage.package.id == 5 %>
 				<% @grad_url.each_slice(2) do |slice| %>
 					<div class="row">
 						<% slice.each do |grad_url| %>
@@ -88,7 +87,7 @@
 										</li>
 									<% end %> 
 								</ul>
-							</div>
+							</div> 
 						<% end %>
 					</div>
 					<div class="row buff">

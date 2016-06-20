@@ -19,3 +19,5 @@ class Cart < ActiveRecord::Base
   		cart_id
 	end
 end
+
+

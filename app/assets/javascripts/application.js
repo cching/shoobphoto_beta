@@ -15,6 +15,7 @@
 //= require jquery.minicolors.simple_form
 //= require jquery.webcam
 //= require jquery_ujs
+//= require jquery-ui
 //= require jquery.easing
 //= require jquery.remotipart
 //= require bootstrap.min
@@ -22,6 +23,7 @@
 //= require moment
 //= require bootstrap-datetimepicker
 //= require pickers
+//= require stickyfill
 //= require_tree .
 
 

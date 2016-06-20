@@ -8,5 +8,4 @@ class Yearbook < ActiveRecord::Base
     ['Credit Card', 'credit card']
   ]
 
-
 end

@@ -1,0 +1,13 @@
+
+<% if @id == "fivebyseven" %>
+	<div class="row" id="nopadding">
+		<div class="col-sm-6" id="nopadding">
+			<%= image_tag(@image, class: "img-formatted") %>
+		</div>
+		<div class="col-sm-6" id="nopadding">
+			<%= image_tag(@image, class: "img-formatted") %>
+		</div>
+	</div>
+<% else %>
+	<%= image_tag(@image, class: "img-formatted") %>
+<% end %>

@@ -12,7 +12,6 @@
     <%= f.input :name %>
   </div>
 
-
 <div class="row">
   <div class="col-sm-4">
 <h3>Fields</h3>
@@ -25,9 +24,11 @@
   <%= label_tag dom_id(column), column.name %><br>
 </div>
 <div id="form_<%= column.id %>" <%= "hidden" unless @template.columns.include?(column) %>>
+  <div id="top"></div>
   <% if Field.where(:column_id => column.id).where(:template_id => @template.id).any? %>
   <%= f.simple_fields_for :fields, Field.where(:column_id => column.id).where(:template_id => @template.id).last do |builder| %>
     <%= render 'field_fields', f: builder %>
+    <%=
   <% end %>
   <% else %>
   <%= f.simple_fields_for :fields, @template.fields.create(:column_id => column.id, :column_name => column.column_type) do |builder| %>

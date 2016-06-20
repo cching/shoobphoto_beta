@@ -203,6 +203,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'orders/delete_package' => 'orders#delete_package', :via => 'GET', :as => 'order_delete_package'
   match 'students/packages/:id/select/:i' => 'students#select_package', :via => 'GET', :as => 'student_select_package'
   match 'students/:id/calculate' => 'students#calculate', :via => 'GET', :as => 'student_calculate'
+  match 'students/:cart_id/senior_portraits/:i' => 'students#senior_portraits', :via => 'GET', :as => 'senior_portraits'
+  match 'students/:cart_id/update_senior_portraits/:i/:index/' => 'students#update_senior_portraits', :via => 'GET', :as => 'update_senior_portraits'
   match 'students/:id/update/:i' => 'students#update', :via => 'PATCH', :as => 'student_update'
   match 'students/:id/previous_images/:i' => 'students#previous_images', :via => 'GET', :as => 'previous_images'
   match 'students/:id/remove_package/:i/:did' => 'students#remove_package', :via => 'GET', :as => 'remove_package'
