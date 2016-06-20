@@ -10,7 +10,8 @@ class DownloadImport
 	    	unless students.nil?
 	    		package = Package.find_by_slug("#{h["pricelist"]}")
 	    		unless h["st_id"].nil?
-			        i = students.download_images.create(:shoob_id => h["id"], :package_id => package.try(:id), :year => h["year"], :folder => h["folder"], :url => h["st_id"].downcase)     
+	    			year = h["folder"][-4..-1]
+			        i = students.download_images.create(:shoob_id => h["id"], :package_id => package.try(:id), :year => year, :folder => h["folder"], :url => h["st_id"].downcase)     
 		    	end
 	         end	          	
 	        

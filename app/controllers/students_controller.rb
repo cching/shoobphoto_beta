@@ -369,7 +369,7 @@ class StudentsController < ApplicationController
       package = opackage.package
       image = package.student_images.where(:student_id => @student.id).last
 
-      if package.id == 6
+      if package.id == 6 && image.present?
         @senior_url = []
         @senior_id = []
         unless @cart.id_supplied == false
@@ -392,7 +392,7 @@ class StudentsController < ApplicationController
           @senior_id << "default"
         end
       end
-      if package.id == 5 
+      if package.id == 5  && image.present?
         @grad_url = []
         @grad_id = []
         unless @cart.id_supplied == false
