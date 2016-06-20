@@ -5,8 +5,9 @@ class RenderWatermark
       student = Student.find(student_id)
       school = student.school
       bucket = AWS::S3::Bucket.new('shoobphoto')
-      bucket1 = s3.buckets["shoobphoto"]
       s3 = AWS::S3.new
+      bucket1 = s3.buckets["shoobphoto"]
+      
 
       school.packages.each do |package|
         images = student.student_images.where(:package_id => package.id)
