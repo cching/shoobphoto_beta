@@ -233,7 +233,7 @@ class StudentsController < ApplicationController
       @images = DownloadImage.where(id: @ids)
 
       @images.each do |image|
-        image.update(:image_file_name => image.try(:url))
+        image.update(:image_file_name => image.try(:url).downcase)
         if @images.where(:folder => image.folder).where(:year => image.year).count > 1
           @ids = @ids - [@images.where(:folder => image.folder).where(:year => image.year).first.id]
           @images = DownloadImage.where(id: @ids)
