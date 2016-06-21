@@ -49,7 +49,28 @@ class StudentsController < ApplicationController
               @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
               @senior_id << "default"
             end # end unless
+            @ids = @student.download_images.pluck(:id) 
+            if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%fall%").any?
+              @ids = @ids - @student.download_images.where(:folder => "fall2015").pluck(:id)
+            end
+
+            if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%spring%").any?
+              @ids = @ids - @student.download_images.where(:folder => "spring2016").pluck(:id)
+            end
+
+            if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%senior%").any?
+              @ids = @ids - @student.download_images.where(:folder => "seniors2016").pluck(:id)
+            end
+              
+            @images = DownloadImage.where(id: @ids)
          
+        unless @senior_url.try(:length) > 0
+          if @images.any? && @cart.id_supplied?
+            redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
+          else
+            redirect_to student_final_path(@cart.cart_id, @cart.students.count - 1)
+          end
+        end
          # have redirect here to final if no senior images exist. add redirect on previous page
   end
 
@@ -350,10 +371,11 @@ class StudentsController < ApplicationController
       end
       @images = DownloadImage.find(@ids)
 
-      if @images.any? && @cart.id_supplied?
+
+      if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%senior%").any? && current_user.try(:admin) && @cart.id_supplied?
+        redirect_to senior_portraits_path(@cart.cart_id, params[:i])
+      elsif @images.any? && @cart.id_supplied?
         redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
-      #elsif @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%senior%").any?
-        #redirect_to senior_portraits_path(@cart.cart_id, params[:i])
       else
         redirect_to student_final_path(@cart.cart_id, @cart.students.count - 1)
       end

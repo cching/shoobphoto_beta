@@ -1,6 +1,6 @@
 
 <div class="row">
-	<div class="col-sm-3" id="sidebar" align="center">
+	<div class="col-sm-3" align="center">
 		<strong>Please drag the senior poses below into your package's sheets</strong><hr>
 		<% @senior_url.each do |senior_url| %>
 					<% i = @senior_url.index(senior_url) %>
@@ -34,11 +34,18 @@
 	</div>
 </div>
 
+<div align="right">
+	<% if @images.any? && @cart.id_supplied? %>
+     	<%= link_to "Continue", previous_images_path(@cart.cart_id, @cart.students.count - 1), class: "btn btn-custom" %>
+    <% else %>
+        <%= link_to "Continue", student_final_path(@cart.cart_id, @cart.students.count - 1), class: "btn btn-custom" %>
+     <%  end %>
+</div>
+
 
 
 <script>
-var sidebar = document.getElementById('sidebar');
-Stickyfill.add(sidebar);
+
 
 $(function() {
     $( ".draggable" ).draggable({helper : 'clone' });
