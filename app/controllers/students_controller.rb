@@ -348,7 +348,7 @@ class StudentsController < ApplicationController
 
 
       end
-      @images = DownloadImage.find(@ids).sort_by {|x| x.year}.reverse
+      @images = DownloadImage.find(@ids)
 
       if @images.any? && @cart.id_supplied?
         redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
