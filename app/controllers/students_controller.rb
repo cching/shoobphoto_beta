@@ -42,8 +42,6 @@ class StudentsController < ApplicationController
                 else
                    @senior_id << "default"
                 end
-
-                
                 
               end
             else
@@ -229,17 +227,38 @@ class StudentsController < ApplicationController
     if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%spring%").any?
       @ids = @ids - @student.download_images.where(:folder => "spring2016").pluck(:id)
     end
+
+    if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%senior%").any?
+      @ids = @ids - @student.download_images.where(:folder => "seniors2016").pluck(:id)
+    end
       
       @images = DownloadImage.where(id: @ids)
 
       @images.each do |image|
-        image.update(:image_file_name => image.try(:url).downcase)
-        if @images.where(:folder => image.folder).where(:year => image.year).count > 1
-          @ids = @ids - [@images.where(:folder => image.folder).where(:year => image.year).first.id]
-          @images = DownloadImage.where(id: @ids)
+        if image.image_file_name.nil?
+          image.update(:image_file_name => image.try(:url).downcase)
+        end
+        if image.year.nil?
+          image.update(:year => image.folder[-4..-1])
         end
 
+        if image.folder.include? "senior"
+          for attribute in ['url', 'url1', 'url2', 'url3', 'url4']
+            while @images.where(:url => attribute).count > 1
+              @ids = @ids - [@images.where(:url => attribute).first.id]
+              @images = DownloadImage.where(id: @ids)
+            end
+            unless image.image.exists?
+              image.update(:image_file_name => image.image_file_name.downcase)
+            end
 
+          end
+        else
+          while @images.where(:folder => image.folder).where(:year => image.year).count > 1
+            @ids = @ids - [@images.where(:folder => image.folder).where(:year => image.year).first.id]
+            @images = DownloadImage.where(id: @ids)
+          end
+        end
       end
       @images = DownloadImage.find(@ids).sort_by {|x| x.year}.reverse
   end
@@ -248,9 +267,7 @@ class StudentsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @student = @cart.students[@cart.students.count - 1]
      
-
-
-      if @cart.students[params[:i].to_i].download_images.any?
+      if @cart.students[params[:i].to_i].download_images.any? && @cart.id_supplied?
         redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
       else
         redirect_to student_final_path(@cart.cart_id, @cart.students.count - 1)
@@ -333,7 +350,7 @@ class StudentsController < ApplicationController
       end
       @images = DownloadImage.find(@ids).sort_by {|x| x.year}.reverse
 
-      if @images.any?
+      if @images.any? && @cart.id_supplied?
         redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
       #elsif @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%senior%").any?
         #redirect_to senior_portraits_path(@cart.cart_id, params[:i])
@@ -381,8 +398,7 @@ class StudentsController < ApplicationController
                 @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
                 @senior_id << "#{image.attributes[attribute]}"
               else
-                s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
-                @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+
                 @senior_id << "default"
               end
             end
@@ -411,8 +427,7 @@ class StudentsController < ApplicationController
             end
           end
         else
-          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
-          @grad_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+
           @grad_id << "default"
         end
       end
@@ -424,7 +439,6 @@ class StudentsController < ApplicationController
     @student = @cart.students[params[:i].to_i]
     @packages = @student.school.packages.order(:id)
     @image_url = []
-
 
     bucket = AWS::S3::Bucket.new('shoobphoto')
 

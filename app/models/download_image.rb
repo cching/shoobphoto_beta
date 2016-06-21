@@ -9,13 +9,26 @@ class DownloadImage < ActiveRecord::Base
                      :preserve_files => true
   	validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
+  has_attached_file :watermark,
+    :processors => [:watermark],
+                    :styles => { 
+                                 :thumb => '150x150>', 
+                                 :original => "800>",
+                                 :watermark => { :geometry => '800>', :watermark_path => "#{Rails.root}/public/images/watermark.png" } 
+                               },
+                    :url => ':s3_domain_url',
+                    :path => "/images/watermarks/download_images/:id/:style/:filename.jpg",
+                    :default_url => "https://shoobphoto.s3.amazonaws.com/images/package_types/:package_id/:package_image_file_name",
+                     :preserve_files => true
+    validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+
 
   	def self.package_name(id)
   		folder = DownloadImage.find(id).folder
   		name = folder.match(/([A-Za-z]+)(\d+)/)
   		@out = "#{name[1].humanize} #{name[2]} Portraits"
 
-  		return @out
+  		return @out 
 
   	end
   end

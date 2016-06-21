@@ -16,12 +16,6 @@ class StudentImage < ActiveRecord::Base
   	validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
     has_attached_file :watermark,
-    :url => ':s3_domain_url',
-    :path => "/images/watermarks/:id/:style/:filename.jpg",
-                     :preserve_files => true
-    validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
-
-    has_attached_file :watermark,
     :processors => [:watermark],
                     :styles => { 
                                  :thumb => '150x150>', 
