@@ -68,7 +68,7 @@ class RenderWatermark
       end
 
       @ids = student.download_images.pluck(:id) 
-
+      @images = DownloadImage.where(id: @ids)
       @images.each do |image|
         if image.image_file_name.nil?
           image.update(:image_file_name => image.try(:url).downcase)
@@ -96,7 +96,7 @@ class RenderWatermark
         end
       end
       @images = DownloadImage.find(@ids).sort_by {|x| x.year}.reverse
-
+      
       @images.each do |image|
         unless image.image_file_name.nil? || image.image_file_name == ""
               if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name}.jpg").exists?
