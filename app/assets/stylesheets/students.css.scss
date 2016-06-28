@@ -10,7 +10,7 @@
 .image_container {
   position: absolute;
   left: 0;
-  top: 0;
+  top: 10px;
 
 }
 #text {
@@ -18,9 +18,22 @@
   position: absolute;
   color: white;
   font-size: 19px;
-  top:130px;
-  left:5px;
+  top:10px;
+  left:4px;
   
+}
+
+.small_text {
+position:absolute;
+	font-size:10px;
+	top:0px;
+  	left:8px;
+}
+
+.small_text_info {
+	font-size:10px;
+text-align:center;
+padding-bottom:1px;
 }
 
 .leftimage {
@@ -29,6 +42,15 @@
 .rightimage {
 	padding-left:1px;
 }
+
+.leftimage td > * {
+    vertical-align : middle;
+}
+
+.rightimage td > * {
+    vertical-align : middle;
+}
+
 #itemtable {
 	height:100vh;
 	overflow-y:auto;
@@ -93,6 +115,7 @@ col {
 	display: block;
     margin-left: auto;
     margin-right: auto;
+    vertical-align: middle;
 }
 #wallets img {
 	max-height:100%;
@@ -147,11 +170,13 @@ padding-top:7px;
 	z-index:-1;
 }
 
+
 #fivebyseven.inner {
 	background-color:#FBFBFB;
 	height:100%;
 	width:100%;
 	border:1px solid black;
+	vertical-align: middle;
 }
 
 #sixteenbytwenty.col-md-2 {

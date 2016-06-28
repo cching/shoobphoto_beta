@@ -54,6 +54,28 @@
       <% end %>
       <hr>
   <% end %>
+
+  <% if o.try(:extra_poses) != 0 %>
+        + $<%= o.extra_poses*25 %>.00 (Extra Pose)
+        <% end %>
+
+        <% if o.sheets.any? %><br/><br/>
+        <ul>
+
+          <% ImageType.find(o.sheets.pluck(:image_type_id).uniq).each do |image_type| %>
+          <% o.sheets.where(:image_type_id => image_type.id).each do |sheet| %>
+          <li><%= image_type.name %>: <%= sheet.senior_image.url.downcase %></li>
+          <% end %>
+          <% end %>
+        </ul>
+
+        <% unless o.senior_image_id.nil? %>
+          <ul>
+            <li>Yearbook Pose: <%= SeniorImage.find(o.senior_image_id).url.downcase %></li>
+          </ul>
+        <% end %>
+        <% end %>
+
   <% end %>
   </td>
    </tr>

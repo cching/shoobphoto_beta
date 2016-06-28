@@ -12,7 +12,7 @@
 <% else %>
 
 	$('#myModal').modal('show');
-	$("#modal-window").html("<%= escape_javascript(render 'add_pose', :locals => {:opackage => @opackage}) %>");
+	$("#modal-window").html("<%= escape_javascript(render 'add_pose', :locals => {:opackage => @opackage, :senior_image => @senior_image, :index => @index, :image_type => @image_type, :opackage => @opackage}) %>");
 <% end %>
 
 <% @senior_image.student_image.senior_images.each do |senior_image| %>
@@ -23,4 +23,4 @@ $(".text_<%= senior_image.id %>").html("Selected");
 $("#<%= senior_image.id %>").addClass("img-package-custom"); 
 
 <% end %>
-<% end %>
+<% end %> 

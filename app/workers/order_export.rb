@@ -39,12 +39,16 @@ class OrderExport
                     if i + 1 == opackage.options.count
                       if opackage.package.id == 1
                         @string2 = @string2 + "#{option.name[0]}; "
+                        if opackage.package.id == 6
+                        @string2 = @string2 + "#{option.name[8]}; "
                       else
                         @string2 = @string2 +  "#{option.name[-1]}; "
                       end
                     else
                       if opackage.package.id == 1
                         @string2 = @string2 +  "#{option.name[0]}, "
+                        if opackage.package.id == 6
+                        @string2 = @string2 +  "#{option.name[8]}, "
                       else
                         @string2 = @string2 +  "#{option.name[-1]}, "
                       end

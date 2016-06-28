@@ -6,9 +6,14 @@ class StudentsController < ApplicationController
   end
 
   def add_pose
-    @orderpackage = OrderPackage.find(params[:order_package])
-
-    OrderPackage.increment_counter(:extra_poses, @orderpackage.id)
+    @senior_image = SeniorImage.find(params[:url].to_i)
+    @image = @senior_image.watermark.url(:watermark)
+    @index = params[:index]
+    @image_type = ImageType.find(params[:image_type])
+    @opackage = OrderPackage.find(params[:opackage])
+    @type = ImageType.classname(@image_type.id)
+    
+    OrderPackage.increment_counter(:extra_poses, @opackage.id)
 
   end
 
@@ -21,7 +26,7 @@ class StudentsController < ApplicationController
     @type = ImageType.classname(@image_type.id)
 
     respond_to do |format|
-      format.js
+      format.js 
     end
   end
 
