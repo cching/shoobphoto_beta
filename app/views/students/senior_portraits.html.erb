@@ -73,7 +73,8 @@
 
 
 $(function() {
-    $( ".draggable" ).draggable({helper : 'clone' });
+    $( ".draggable" ).draggable({helper : 'clone', revert: 'invalid',
+    appendTo: 'body' });
     $( ".droppable" ).droppable({
       drop: function( event, ui ) {
       	var classes = $(this).attr("class").split(/\s/);
