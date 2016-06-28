@@ -19,7 +19,7 @@ class PackageImport
 		           	student.update(:student_id => h["student_id"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :teacher => h["teacher"], :shoob_id => h["shoob_id"], :id_only => true)
 		          end
 
-		          if h["rec_type"] == master
+		          if h["rec_type"] == 'master'
 		          	image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :folder => "seniors2017", :grade => h["grade"], :url => h["url"])
 		            image.index_file_name = "#{image.image_file_name}-index"
 		            image.save
