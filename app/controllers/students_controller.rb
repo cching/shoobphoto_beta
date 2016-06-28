@@ -14,7 +14,7 @@ class StudentsController < ApplicationController
 
   def update_senior_portraits
     @senior_image = SeniorImage.find(params[:url].to_i)
-    @image = @senior_image.image.url
+    @image = @senior_image.watermark.url(:watermark)
     @index = params[:index]
     @image_type = ImageType.find(params[:image_type])
     @opackage = OrderPackage.find(params[:opackage])
@@ -27,7 +27,7 @@ class StudentsController < ApplicationController
 
   def yearbook
     @senior_image = SeniorImage.find(params[:url].to_i)
-    @image = @senior_image.image.url
+    @image = @senior_image.watermark.url(:watermark)
     @opackage = OrderPackage.find(params[:opackage])
     @opackage.update(:senior_image_id => @senior_image.id)
     @type = "yearbook"

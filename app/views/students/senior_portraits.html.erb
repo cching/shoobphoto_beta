@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-sm-4" id="">
+	<div class="col-sm-4" id="senior_table">
 		<h3>Your Package:</h3>
 
 		<% option = @opackage.options.first %>
@@ -17,7 +17,7 @@
 			<% slice.each do |senior_image| %>
 			<div class="col-sm-6" id="image_container">
 
-								<%= link_to image_tag(senior_image.image.url, :class => "img-rounded img-package image_#{senior_image.id} draggable image_container", :id => "#{senior_image.id}"), student_preview_image_path(:image => senior_image.image.url), remote: true %><br/>
+								<%= link_to image_tag(senior_image.watermark.url(:watermark), :class => "img-rounded img-package image_#{senior_image.id} draggable image_container", :id => "#{senior_image.id}"), student_preview_image_path(:image => senior_image.watermark.url(:watermark)), remote: true %><br/>
 
 								<p id="text" class="text_<%= senior_image.id %>"></p>
 			</div>

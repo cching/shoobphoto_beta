@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160628132709) do
+ActiveRecord::Schema.define(version: 20160628140418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -400,7 +400,7 @@ ActiveRecord::Schema.define(version: 20160628132709) do
     t.string   "pose"
     t.integer  "download_image_id"
     t.string   "grad"
-    t.integer  "extra_poses"
+    t.integer  "extra_poses",       default: 0
     t.integer  "senior_image_id"
   end
 
