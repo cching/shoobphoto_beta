@@ -21,3 +21,7 @@ end
 Paperclip.interpolates :package_image_file_name do |attachment, style|
   attachment.instance.package.image_file_name
 end
+
+Paperclip.interpolates :student_image_folder do |attachment, style|
+  attachment.instance.student_image.folder
+end

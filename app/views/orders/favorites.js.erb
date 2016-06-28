@@ -1,0 +1,1 @@
+$('#orderpackage_<%= @opackage.id %>').html('<%= escape_javascript(render(:partial => 'students/student_images', :locals => {:opackage => @opackage, :package => @package})) %>');

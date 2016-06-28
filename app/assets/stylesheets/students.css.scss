@@ -2,13 +2,84 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#image_container {
+
+  position: relative;
+  margin-bottom: 160px;
+}
+.image_container {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+}
+#text {
+  z-index: 10000;
+  position: absolute;
+  color: white;
+  font-size: 19px;
+  top:130px;
+  left:5px;
+  
+}
+
+.leftimage {
+	padding-right:1px;
+}
+.rightimage {
+	padding-left:1px;
+}
 #itemtable {
 	height:100vh;
 	overflow-y:auto;
 	overflow-x:hidden;
 }
 
+#imagetable {
+	height:70vh;
+	overflow-y:auto;
+	overflow-x:hidden;
+}
 
+#senior_table {
+	height:80vh;
+	overflow-y:auto;
+	overflow-x:hidden;
+}
+
+.senior_portrait img {
+	max-width:100%;
+}
+
+
+.package_table {
+	width:100%;
+	overflow-x: auto;
+}
+
+
+.currency {
+	font-size:16px;
+	padding-bottom:10px;
+}
+
+.listing {
+	font-size:16px;
+	padding-top:1px;
+	padding-bottom:1px;
+	display: block;
+}
+
+.nopadding{
+    padding-left: 0px !important;
+    padding-right:0px !important;    
+    margin-right:0px !important;    
+    margin-right:0px !important;    
+}
+
+col {
+    width:200px;
+}
 #sixteenbytwenty img {
 	max-height:100%;
 	max-width:100%;
@@ -23,6 +94,16 @@
     margin-left: auto;
     margin-right: auto;
 }
+#wallets img {
+	max-height:100%;
+	max-width:100%;
+	display: block;
+    padding-left: 0px !important;
+    padding-right:0px !important;    
+    margin-right:0px !important;    
+    margin-right:0px !important;  
+}
+
 #eightbyten img {
 	max-height:100%;
 	max-width:100%;
@@ -38,7 +119,7 @@
     margin-right: auto;
 }
 #eightbyten.col-md-2 {
-	height:120px;
+	height:101px;
 	padding-bottom: 10px;
 	z-index:-1;
 }
@@ -46,7 +127,7 @@
 #eightbyten.inner {
 	background-color:#FBFBFB;
 	height:100%;
-	width:65%;
+	width:75%;
 	border:1px solid black; 
 }
 
@@ -55,15 +136,13 @@ padding-top:7px;
 
 }
 
-
-
 #nopadding.row {
 	height:100%;
 
 }
 
 #fivebyseven.col-md-2 {
-	height:90px;
+	height:70px;
 	padding-bottom: 10px;
 	z-index:-1;
 }
@@ -71,12 +150,12 @@ padding-top:7px;
 #fivebyseven.inner {
 	background-color:#FBFBFB;
 	height:100%;
-	width:80%;
+	width:100%;
 	border:1px solid black;
 }
 
 #sixteenbytwenty.col-md-2 {
-	height:140px;
+	height:131px;
 	padding-bottom: 10px;
 	z-index:-1;
 }
@@ -84,11 +163,17 @@ padding-top:7px;
 #sixteenbytwenty.inner {
 	background-color:#FBFBFB;
 	height:100%;
-	width:90%;
+	width:100%;
 	border:1px solid black;
 }
 #elevenbyfourteen.col-md-2 {
-	height:130px;
+	height:131px;
+	padding-bottom: 10px;
+	z-index:-1;
+}
+
+#wallets.col-md-2 {
+	height:70px;
 	padding-bottom: 10px;
 	z-index:-1;
 }
@@ -96,9 +181,17 @@ padding-top:7px;
 #elevenbyfourteen.inner {
 	background-color:#FBFBFB;
 	height:100%;
-	width:60%;
+	width:100%;
 	border:1px solid black;
 }
+
+#wallets.inner {
+	background-color:#FBFBFB;
+	height:100%;
+	width:100%;
+	border:1px solid black;
+}
+
 
 
 
@@ -129,6 +222,77 @@ ul.options {
 
 .btn-custom2:hover {
 color:#000000;
+}
+
+.btn-custom4 {
+	-webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  color: #000;
+  font-size: 14px;
+  background: #000;
+  padding: 6px 22px 6px 22px;
+  border: solid #000000 0px;
+  text-decoration: none;
+  color:#fff;
+}
+
+.btn-custom4:hover {
+background-color:#829595;
+color:#fff;
+}
+
+.btn-custom3 {
+	-webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  color: #ffffff;
+  font-size: 19px;
+  background: #E74C3C;
+  padding: 10px 30px 10px 30px;
+  border: solid #000000 0px;
+  text-decoration: none;
+  color:#fff;
+}
+
+.btn-custom3:hover {
+color:#000000;
+}
+
+.btn-custom-danger {
+	-webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  color: #ffffff;
+  font-size: 13px;
+  display: inline;
+  background: #E74C3C;
+  padding: 7px 20px 7px 20px;
+  border: solid #000000 0px;
+  text-decoration: none;
+  color:#fff;
+}
+
+.btn-custom-danger:hover {
+color:#fff;
+}
+
+.btn-custom-continue {
+	-webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  color: #ffffff;
+  font-size: 13px;
+  display: inline;
+  background: #0061A2;
+  padding: 7px 20px 7px 20px;
+  border: solid #000000 0px;
+  text-decoration: none;
+  color:#fff;
+}
+
+.btn-custom-continue:hover {
+color:#fff;
 }
 
 .blue {
@@ -228,7 +392,7 @@ color:#878787;
 	max-width:125px;
 	max-height:250px;
 	padding-top:5px;
-	box-shadow: 10px 10px 5px #888888;
+	box-shadow: 10px 10px 5px #BDBDBD;
 }
 
 #row {

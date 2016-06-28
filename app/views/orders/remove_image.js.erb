@@ -1,0 +1,1 @@
+$('#<%= @type %>_<%= @index %>').html('<%= link_to image_tag(@url, :class => 'img-rounded img-package animated fadeIn'), orders_add_image_path(@opackage.id, @index, :url => "#{@url}", :type => "senior"), remote: true %>');

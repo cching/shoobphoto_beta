@@ -5,14 +5,102 @@ class StudentsController < ApplicationController
   def find_student
   end
 
+  def add_pose
+    @orderpackage = OrderPackage.find(params[:order_package])
+
+    OrderPackage.increment_counter(:extra_poses, @orderpackage.id)
+
+  end
+
   def update_senior_portraits
-    @image = params[:url]
+    @senior_image = SeniorImage.find(params[:url].to_i)
+    @image = @senior_image.image.url
     @index = params[:index]
-    @id = params[:i]
+    @image_type = ImageType.find(params[:image_type])
+    @opackage = OrderPackage.find(params[:opackage])
+    @type = ImageType.classname(@image_type.id)
 
     respond_to do |format|
       format.js
     end
+  end
+
+  def yearbook
+    @senior_image = SeniorImage.find(params[:url].to_i)
+    @image = @senior_image.image.url
+    @opackage = OrderPackage.find(params[:opackage])
+    @opackage.update(:senior_image_id => @senior_image.id)
+    @type = "yearbook"
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def select
+    @cart = Cart.find_by_cart_id(params[:cart_id])
+    @student = @cart.students[params[:i].to_i]
+
+    orderpackage = @cart.order_packages.where(:package_id => 6).last
+    orderpackage.options = []
+    orderpackage.sheets = []
+    orderpackage.update(:extra_poses => 0)
+    orderpackage.options << Option.find(params[:option])
+
+    @price = 0
+
+
+    @cart.order_packages.each do |package|
+     package.options.each do |option|
+      @price = option.price(@student.school.id) + @price
+     end
+    end
+
+    @cart.order_packages.each do |opackage|
+      package = opackage.package
+      if package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).any?
+      @price = @price + package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).first.price
+      elsif package.shippings.where(:school_id => nil).any?
+      @price = @price + package.shippings.where(:school_id => nil).first.price
+      
+      end
+    end
+
+    @cart.update(:price => @price)
+
+    @ids = @student.download_images.pluck(:id) 
+
+    if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%fall%").any?
+      @ids = @ids - @student.download_images.where(:folder => "fall2015").pluck(:id)
+    end
+
+    if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%spring%").any?
+      @ids = @ids - @student.download_images.where(:folder => "spring2016").pluck(:id)
+    end
+      
+      @images = DownloadImage.where(id: @ids)
+
+      @images.each do |image|
+        if @images.where(:folder => image.folder).where(:year => image.year).count > 1
+          @ids = @ids - [@images.where(:folder => image.folder).where(:year => image.year).first.id]
+          @images = DownloadImage.where(id: @ids)
+        end
+
+
+      end
+      @images = DownloadImage.find(@ids)
+
+
+      if @cart.order_packages.where(:student_id => @student.id).pluck(:package_id).include?(6) && @cart.id_supplied?
+        redirect_to senior_portraits_path(@cart.cart_id, params[:i])
+      elsif @images.any? && @cart.id_supplied?
+        redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
+      else
+        redirect_to student_final_path(@cart.cart_id, @cart.students.count - 1)
+      end 
+  end
+
+  def preview_image
+    @image = params[:image]
   end
 
   def senior_portraits
@@ -21,34 +109,23 @@ class StudentsController < ApplicationController
     @i = params[:i]
     bucket = AWS::S3::Bucket.new('shoobphoto')
       @opackage = @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%senior%").last
-      image = @opackage.package.student_images.where(:student_id => @student.id).last
+      @image = @opackage.package.student_images.where(:student_id => @student.id).last
 
-          @senior_url = []
-          @senior_id = []
-            unless image.nil? || @cart.id_supplied == false
-              
-              for attribute in ['url', 'url1', 'url2', 'url3', 'url4']
-                unless image.attributes[attribute].nil? || image.attributes[attribute] == ""
+    bucket = AWS::S3::Bucket.new('shoobphoto')
 
-                  @senior_id << "#{image.attributes[attribute]}"
+    @package = @opackage.package
+        image = @package.student_images.where(:student_id => @opackage.student.id).last
 
-                  s3object = AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{image.attributes[attribute]}.jpg")
+        if @package.id == 6 && image.present? && @cart.id_supplied?
+          @boolean = false
+          image.senior_images.each do |senior_image|
+            if senior_image.image.exists?
+            @boolean = true
+            break
+            end 
+          end
+        end
 
-                    if s3object.exists?
-
-                        @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-            
-                  end
-                else
-                   @senior_id << "default"
-                end
-                
-              end
-            else
-              s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
-              @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-              @senior_id << "default"
-            end # end unless
             @ids = @student.download_images.pluck(:id) 
             if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%fall%").any?
               @ids = @ids - @student.download_images.where(:folder => "fall2015").pluck(:id)
@@ -64,7 +141,7 @@ class StudentsController < ApplicationController
               
             @images = DownloadImage.where(id: @ids)
          
-        unless @senior_url.try(:length) > 0
+        unless @boolean = true
           if @images.any? && @cart.id_supplied?
             redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
           else
@@ -98,6 +175,7 @@ class StudentsController < ApplicationController
     @bool = []
 
     @op.options.delete(@option)
+    @op.order_package_extras.where(:option_id => @option.id).destroy_all
 
     @op.cart.order_packages.each do |opackage|
       if opackage.options.any?
@@ -213,6 +291,9 @@ class StudentsController < ApplicationController
     @student = @cart.students[params[:i].to_i]
     @price = 0
       @cart.order_packages.each do |package|
+        unless package.extra_poses.nil?
+        @price = @price + package.extra_poses*25
+        end
         package.options.each do |option|
            @price = option.price(@student.school.id) + @price
         end
@@ -303,7 +384,6 @@ class StudentsController < ApplicationController
     @option = Option.find(params[:option_id])
     @op = OrderPackage.find(params[:op_id])
     
-    @op.extras = []
     unless params[:extra_ids].nil?
     params[:extra_ids].each do |extra_id, value| 
       value.each do |value|
@@ -413,12 +493,12 @@ class StudentsController < ApplicationController
         @senior_url = []
         @senior_id = []
         unless @cart.id_supplied == false
-          for attribute in ['url', 'url1', 'url2', 'url3', 'url4']
-            unless image.attributes[attribute].nil? || image.attributes[attribute] == ""
-              if AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{image.attributes[attribute]}.jpg").exists?
-                s3object = AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{image.attributes[attribute]}.jpg")
+          image.senior_images.each do |senior_image|
+            unless senior_image.url.nil? || senior_image.url == ""
+              if AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{senior_image.url}.jpg").exists?
+                s3object = AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{senior_image.url}.jpg")
                 @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-                @senior_id << "#{image.attributes[attribute]}"
+                @senior_id << "#{senior_image.id}"
               else
 
                 @senior_id << "default"

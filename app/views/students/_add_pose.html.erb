@@ -1,0 +1,33 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="myModalLabel">
+
+
+        </div>  
+      </div>
+      <div class="modal-body" align="center" id="margin">
+        <h3>A $25 fee is required per additional pose added to your package.<h3>
+          <h3>Continue?<h3>
+
+<div class="row">
+  <div class="col-sm-2" align="left">
+
+    <%= button_tag(type: 'button', class: "btn-custom-danger", :data => {:dismiss => "modal"}) do %>
+       No, remove the extra pose.
+    <% end %>
+
+    
+  </div>
+  <div class="col-sm-8"></div>
+  <div class="col-sm-2" align="right">
+
+    <%= link_to "Yes, add pose.", add_pose_path(@opackage.id), class: "btn-custom-continue", remote: true %>
+
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+

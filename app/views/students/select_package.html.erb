@@ -1,132 +1,148 @@
 <div class="animated fadeIn">
 
-	<%= form_for(@cart, url: student_update_path(@cart.cart_id, @cart.students.count - 1), :html => {class: "form-horizontal"}) do |f| %>
-	<% @opackages.each_with_index do |opackage, index| %>
-	<% package = opackage.package %>
+
+
+	<% if @opackages.pluck(:package_id).include? 6 %>
+	<% package = Package.find(6) %>
 	<% image = package.student_images.where(:student_id => @student.id).last %>
-
-	<div class="row"> 
-		<div class="col-sm-4" align="center">	 
-			<strong><%= package.name %></strong>
-			<% if package.multiple %>
-				<% if @senior_url.try(:length) > 0 && opackage.package.id == 6 %>
-					<% @senior_url.each_slice(2) do |slice| %>
-					<div class="row">
-						<% slice.each do |senior_url| %>
-						<% i = @senior_url.index(senior_url) %>
-						<% unless @senior_id[i] == "default" %>
-						<div class="col-sm-6" id="senior_<%= @senior_url.index(senior_url) %>">
-							<%= image_tag(senior_url, :class => 'img-rounded img-package') %><br/>
-
-								<%= link_to orders_add_image_path(opackage.id, @senior_id[i], :pose => "#{i + 1}" , :index => "#{i}", :type => "senior"), remote: true do %>
-								    <span id="check_senior_<%= i%>"><span class="glyphicon glyphicon-unchecked"></span></span> Pose <%= i + 1 %>
-								<% end %>
-						</div>
-						<% end %> 
-						<% end %>
-					</div> 
-					<% end %>
-				<% elsif @grad_url.try(:length) > 0 && opackage.package.id == 5 %>
-				<% @grad_url.each_slice(2) do |slice| %>
-					<div class="row">
-						<% slice.each do |grad_url| %>
-						<% i = @grad_url.index(grad_url) %>
-						<% unless @grad_id[i] == "default" %>
-						<div class="col-sm-6" id="grad_<%= @grad_url.index(grad_url) %>"> 
-							<%= image_tag(grad_url, :class => 'img-rounded img-package' )%><br/>
-
-								<%= link_to orders_add_image_path(opackage.id, @grad_id[i], :pose => "#{i + 1}" , :index => "#{i}", :type => "grad"), remote: true do %>
-								    <span id="check_grad_<%= i%>"><span class="glyphicon glyphicon-unchecked"></span></span> Pose <%= i + 1 %>
-								<% end %>
-
-						</div>
-						<% end %>
-						<% end %>
-					</div>
-					<% end %>
-				<% else %><br/>
-					<%= image_tag(opackage.package.image, class: "img-rounded img-package") %>
+	<% opackage = @cart.order_packages.where(:package_id => 6).last %>
+	<div class="row">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-4" align="center"  id="senior_table">
+			<% if @cart.id_supplied? %>
+			<h3>Preview Your Poses: (click to enlarge)</h3>
+			<% image.senior_images.each_slice(2) do |slice| %>
+			<div class="row" align="center">
+				<% slice.each do |senior_image| %>
+					<div class="col-sm-6"><%= link_to image_tag(senior_image.image.url, :class => "img img-package"), student_preview_image_path(:image => senior_image.image.url), remote: true %></div>
 				<% end %>
-			<% else %>
-			<div class="row">
-			<div class="col-sm-4"></div>
-			<div class="col-sm-4">
-			<% unless image.nil? %>
-			<%= image_tag(image.watermark.url(:watermark), class: "img-rounded img-package") %>
-			<% else %>
-			<%= image_tag(package.image.url, class: "img-rounded img-package") %>
+			</div><br/>
 			<% end %>
-			</div>
-			<div class="col-sm-4"></div>
-			</div>
 			<% end %>
 		</div>
-		<div class="col-sm-8">
-			<% if (defined? @senior_url) %>
-			<h3>Please select the <%= "pose and" if (@senior_url.try(:length) > 1 && package.id == 6) %> package you wish to purchase.</h3>
-			<% else %>
-			<h3>Please select the package you wish to purchase.</h3><hr>
+		<div class="col-sm-1"></div>
+		<div class="col-sm-6"  id="senior_table">
+			<h3>Choose Your Package</h3>
+			<% package.options.order(:name).each do |option| %>
+			<div class="row">
+				<div class="col-sm-2"><%= link_to "Select", student_select_path(@cart.cart_id, @cart.students.count - 1, :option => option.id), class: "btn-custom4" %></div>
+				<div class="col-sm-10">
+
+									<strong><%= option.name %> (<%= "#{option.poses} #{'Pose'.pluralize(option.poses)}"%>)</strong><br/><span class="currency"><%= "#{number_to_currency(option.price(@student.school), :unit => "$")}" %></span><br/>
+										<% option.image_types.each do |type| %>
+											
+												<span class="listing"><%= type.name %></span>
+											
+										<% end %> 
+				</div>
+			</div><br/>
 			<% end %>
-		<span id="package_<%= package.id %>">
+		</div>
+	</div>
+	<% else %>
+	<%= form_for(@cart, url: student_update_path(@cart.cart_id, @cart.students.count - 1), :html => {class: "form-horizontal"}) do |f| %>
+	<h3>Please select your packages:</h3><hr>
 
-	  		<div align="center">
-	  		<%= image_tag(package.banner, class: "img-rounded img-cust") if package.banner? %>
-	  		</div>
+	<% @opackages.each_with_index do |opackage, index| %>
+		<% package = opackage.package %>
+		<% image = package.student_images.where(:student_id => @student.id).last %>
+		<div class="row">
+			<div class="col-sm-2" align="center">
+				<strong><%= package.name %></strong><br/>
+				<% unless image.nil? || (@senior_url.try(:length) > 0 && package.id == 6) %>
+					<%= image_tag(image.watermark.url(:watermark), class: "img-rounded img-package") %>
 
-	  		<div class="row">
-				<%= package.options.order(:name).each_slice(3) do |slice| %>
-					<div class="row buff">
-						<% slice.each do |option| %>
-							<div class="col-sm-4 <%= 'selectedbackground' if opackage.options.include? option %>" id="option_<%= option.id %>">
-								<strong><%= "#{option.name} - #{number_to_currency(option.price(@student.school), :unit => "$")}" %></strong>
-								<ul class="options">
-									<% option.image_types.each do |type| %>
-										<li>
-											<%= type.name %>
-										</li>
-									<% end %> 
-								</ul>
-							</div> 
-						<% end %>
-					</div>
-					<div class="row buff">
-					<% slice.each do |option| %>
-					
-						<div class="col-sm-4" id="button_<%= option.id %>" align="center">
-							<% if opackage.options.include? option %>
-								<%= link_to "Remove", remove_option_path(opackage.id, option.id, :i => @i), class: "btn btn-danger", remote: true %>
-							<% else %>
-								<%= link_to "Add to Cart", add_option_path(opackage.id, option.id, :i => @i), class: "btn btn-custom", remote: true %>
-							<% end %>
-						</div>
-					<% end %>
-					</div><br/>
-					
 				<% end %>
+
 			</div>
-		</span>
-	  	</div>
-	</div><br/>
-	<hr>
+			<div class="col-sm-10"><br/>
+				<div id="package_<%= package.id %>" class="outer">
+			  		<div align="center">
+			  			<%= image_tag(package.banner, class: "img-rounded img-cust") if package.banner? %>
+			  		</div>
+			  	<div class="inner">
+			  		<table>
+			  			<tr>
+							<% package.options.order(:name).each do |option| %>
+								<td class="nowrap <%= 'selectedbackground' if opackage.options.include? option %>" id="option_<%= option.id %>">
+									<strong><%= option.name %> <br/><%= "#{number_to_currency(option.price(@student.school), :unit => "$")}" %></strong>
+									<ul class="options">
+										<% option.image_types.each do |type| %>
+											<li>
+												<%= type.name %>
+											</li>
+										<% end %> 
+									</ul>
+								</td>
+							<% end %>
+						</tr>
+						<tr>
+							<% package.options.order(:name).each do |option| %>
+								<td id="button_<%= option.id %>" align="center">
+									<% if opackage.options.include? option %>
+										<%= link_to "Remove", remove_option_path(opackage.id, option.id, :i => @i), class: "btn-custom3", remote: true %>
+									<% else %>
+										<%= link_to "Add to Cart", add_option_path(opackage.id, option.id, :i => @i), class: "btn-custom2", remote: true %>
+									<% end %>
+								</td>
+							<% end %>
+						</tr>
+					</table>
+				</div>
+				</div>
+			</div>
+		</div><br/>
+
+
+
+		<hr>
 	<% end %>
 
-<div class="row">
-	<div class="col-sm-2" align="left">
+	<div class="row">
+		<div class="col-sm-2" align="left">
 
-
-	</div>
-	<div class="col-sm-8"></div>
-	<div class="col-sm-2" align="right" id="continue">
-		<% unless @bool.include? false %>
-			<%= button_tag(type: 'submit', class: "btn btn-custom") do %>
-  				Continue <span class="glyphicon glyphicon-chevron-right"></span> 
+		</div>
+		<div class="col-sm-8"></div>
+		<div class="col-sm-2" align="right" id="continue">
+			<% unless @bool.include? false %>
+				<%= button_tag(type: 'submit', class: "btn-custom2") do %>
+	  				Continue <span class="glyphicon glyphicon-chevron-right"></span> 
+				<% end %>
+			<% else %>
+				  <button class="btn btn-default" disabled>Please select a package for <br/> each portrait before continuing</button>
 			<% end %>
-		<% else %>
-			  <button class="btn btn-default" disabled>Please select a package for <br/> each portrait before continuing</button>
-		<% end %>
 
+		</div>
 	</div>
-</div>
-
 <% end %>
-<br />
+<% end %>
+
+
+<style>
+table {
+  table-layout: fixed; 
+  width: 100%;
+  *margin-left: -100px;/*ie7*/
+}
+td, th {
+  vertical-align: top;
+  border-top: 1px solid #ccc;
+  padding:10px;
+  width:250px;
+}
+tr:hover td {
+  background-color: transparent;
+  }
+th {
+  position:absolute;
+  *position: relative; /*ie7*/
+  left:0; 
+  width:100px;
+}
+.outer {position:relative}
+.inner {
+  overflow-x:scroll;
+  overflow-y:visible;
+  width:1000px; 
+}
+</style>

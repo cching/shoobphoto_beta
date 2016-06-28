@@ -1,0 +1,48 @@
+		<div class="outer">	
+		<div class="inner"> 
+			
+			<% if package.multiple %>
+				<% if @senior_url.try(:length) > 0 && opackage.package.id == 6 %>
+				<strong>Please select your favorite images.</strong>
+				<table>
+			  		<tr>
+					<% @senior_url.each do |senior_url| %>
+						<% i = @senior_url.index(senior_url) %>
+						<% unless @senior_id[i] == "default" %>
+						<td id="senior_<%= @senior_id[i] %>">
+							<% if opackage.favorites.pluck(:senior_image_id).include? @senior_id[i].to_i %>
+							<%= link_to image_tag(senior_url, :class => 'img-rounded img-package img-package-custom'), orders_remove_image_path(opackage.id, @senior_id[i], :url => "#{senior_url}" , :type => "senior"), remote: true %>
+							<% else %>
+							<%= link_to image_tag(senior_url, :class => 'img-rounded img-package'), orders_add_image_path(opackage.id, @senior_id[i], :url => "#{senior_url}" , :type => "senior"), remote: true %>
+							<% end %>
+						</td>
+						<% end %> 
+					<% end %>
+					</tr>
+				</table><br/>
+				<div align="center"><%= link_to "Show Favorites", orders_favorites_path(opackage.id), remote: true, class: "btn-custom2" %> <%= link_to "Show All", orders_show_all_path(opackage.id), remote: true, class: "btn-custom2" %>
+				</div>
+					<% elsif @grad_url.try(:length) > 0 && opackage.package.id == 5 %>
+				<% @grad_url.each_slice(2) do |slice| %>
+					<div class="row">
+						<% slice.each do |grad_url| %>
+						<% i = @grad_url.index(grad_url) %>
+						<% unless @grad_id[i] == "default" %>
+						<div class="col-sm-6" id="grad_<%= @grad_url.index(grad_url) %>"> 
+							<%= image_tag(grad_url, :class => 'img-rounded img-package' )%><br/>
+
+								<%= link_to orders_add_image_path(opackage.id, @grad_id[i], :pose => "#{i + 1}" , :index => "#{i}", :type => "grad"), remote: true do %>
+								    <span id="check_grad_<%= i%>"><span class="glyphicon glyphicon-unchecked"></span></span> Pose <%= i + 1 %>
+								<% end %>
+
+						</div>
+						<% end %>
+						<% end %>
+					</div>
+					<% end %>
+					<% end %>
+
+
+			<% end %>
+		</div>
+	</div>

@@ -4,22 +4,36 @@ class ImageType < ActiveRecord::Base
 	def self.count id
 		image_type = ImageType.find(id)
 
-		return image_type.name.gsub(/[\s+)(]/,"")[0,1].to_i
+		if image_type.name.include? "5x7"
+			return image_type.name.gsub(/[\s+)(]/,"")[0,1].to_i/2
+		elsif image_type.name.include? "Wallets"
+			return image_type.name.gsub(/[\s+)(]/,"")[0,2].to_i/8
+		else
+			return image_type.name.gsub(/[\s+)(]/,"")[0,1].to_i
+		end
+		
 	end
 
 	def self.name_out id
 		image_type = ImageType.find(id)
 
 		s = image_type.name.gsub(/[\s+)(]/,"")
+		
+		if s.include? "Wallets"
+			return "Wallets"
+		else
 		s.slice!(0)
 		return s
+		end
+		
 	end
 
 	def self.classname id
 		image_type = ImageType.find(id)
 
 		s = image_type.name.gsub(/[\s+)(]/,"")
-		s.slice!(0)
+		
+			s.slice!(0)
 		
 
 		if s == "8x10"
@@ -30,6 +44,8 @@ class ImageType < ActiveRecord::Base
 			return "elevenbyfourteen"
 		elsif s == "16x20"
 			return "sixteenbytwenty"
+		elsif s.include? "Wallet"
+			return "wallets"
 		end
 	end
 

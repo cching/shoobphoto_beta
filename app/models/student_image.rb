@@ -2,6 +2,8 @@ class StudentImage < ActiveRecord::Base
 	belongs_to :student
 	belongs_to :package
 
+  has_many :senior_images
+
 	has_attached_file :image,
   	:url => ':s3_domain_url',
   	:path => '/images/:folder/:filename.jpg',

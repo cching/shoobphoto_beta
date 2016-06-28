@@ -35,6 +35,10 @@
 					+ <%= number_to_currency(o.package.shippings.where(:school_id => nil).first.price, :unit => "$") %> shipping
 				<% end %>
 
+				<% if o.try(:extra_poses) != 0 %>
+				+ $<%= o.extra_poses*25 %>.00 (Extra Pose)
+				<% end %>
+
 
 			<hr>
 		<% end %>

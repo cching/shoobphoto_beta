@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160609232759) do
+ActiveRecord::Schema.define(version: 20160628132709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -240,6 +240,14 @@ ActiveRecord::Schema.define(version: 20160609232759) do
     t.string   "quantity"
   end
 
+  create_table "favorites", force: true do |t|
+    t.integer  "order_package_id"
+    t.integer  "package_id"
+    t.integer  "senior_image_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "fields", force: true do |t|
     t.integer  "x"
     t.integer  "y"
@@ -369,6 +377,7 @@ ActiveRecord::Schema.define(version: 20160609232759) do
     t.string   "slug"
     t.boolean  "email_picture", default: false
     t.boolean  "download"
+    t.integer  "poses"
   end
 
   create_table "order_package_extras", force: true do |t|
@@ -391,6 +400,8 @@ ActiveRecord::Schema.define(version: 20160609232759) do
     t.string   "pose"
     t.integer  "download_image_id"
     t.string   "grad"
+    t.integer  "extra_poses"
+    t.integer  "senior_image_id"
   end
 
   create_table "orders", force: true do |t|
@@ -565,6 +576,31 @@ ActiveRecord::Schema.define(version: 20160609232759) do
 
   create_table "searchterms", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "senior_images", force: true do |t|
+    t.integer  "student_image_id"
+    t.string   "url"
+    t.integer  "index"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "watermark_file_name"
+    t.string   "watermark_content_type"
+    t.integer  "watermark_file_size"
+    t.datetime "watermark_updated_at"
+  end
+
+  create_table "sheets", force: true do |t|
+    t.integer  "senior_image_id"
+    t.integer  "order_package_id"
+    t.integer  "image_type_id"
+    t.integer  "index"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

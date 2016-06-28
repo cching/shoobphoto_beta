@@ -22,7 +22,7 @@ match 'webcams/waiting/:id' => 'webcams#waiting', :via => 'GET', :as => 'waiting
       get :buy
       get :school_user
     end
-    collection do 
+    collection do  
       get :schools
       get :dashboard 
     end
@@ -160,14 +160,17 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'export/remove_student/:student_id' => 'export_list_items#remove_student', :via => 'GET', :as => 'export_remove_student'
 
   match 'export/select_all' => 'export_list_items#select_all', :via => 'GET', :as => 'export_select_all'
-  match 'export/deselect_all' => 'export_list_items#deselect_all', :via => 'GET', :as => 'export_deselect_all'
+  match 'export/deselect_all' => 'export_list_items#deselect_all', :via => 'GET', :as => 'export_deselect_all' 
 
 
   match 'export/clean_up' => 'export_list_items#clean_up', :via => 'GET', :as => 'export_clean_up'
 
   match 'export/remove/:id' => 'export_list_items#remove', :via => 'GET', :as => 'export_list_remove'
   match 'export/zip/:school/:package' => 'export_list_items#zip', :via => 'GET', :as => 'export_list_zip'
-  match 'orders/add_image/:id/:url' => 'orders#add_image', :via => 'GET', :as => 'orders_add_image'
+  match 'orders/add_image/:id/:index' => 'orders#add_image', :via => 'GET', :as => 'orders_add_image'
+  match 'orders/remove_image/:id/:index' => 'orders#remove_image', :via => 'GET', :as => 'orders_remove_image'
+  match 'orders/show_all/:id/' => 'orders#show_all', :via => 'GET', :as => 'orders_show_all'
+  match 'orders/favorites/:id/' => 'orders#favorites', :via => 'GET', :as => 'orders_favorites'
   match 'orders/:id/download' => 'orders#download', :via => 'GET', :as => 'order_download'
   match 'export/batch/:school_id' => 'export_list_items#batch', :via => 'GET', :as => 'export_batch'
   match 'export/students' => 'export_list_items#students', :via => 'GET', :as => 'export_students'
@@ -204,7 +207,10 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'students/packages/:id/select/:i' => 'students#select_package', :via => 'GET', :as => 'student_select_package'
   match 'students/:id/calculate' => 'students#calculate', :via => 'GET', :as => 'student_calculate'
   match 'students/:cart_id/senior_portraits/:i' => 'students#senior_portraits', :via => 'GET', :as => 'senior_portraits'
-  match 'students/:cart_id/update_senior_portraits/:i/:index/' => 'students#update_senior_portraits', :via => 'GET', :as => 'update_senior_portraits'
+  match 'students/:cart_id/update_senior_portraits/:image_type/:index/:opackage' => 'students#update_senior_portraits', :via => 'GET', :as => 'update_senior_portraits'
+  match 'students/yearbook/:opackage' => 'students#yearbook', :via => 'GET', :as => 'student_yearbook'
+  match 'students/add_pose/:order_package' => 'students#add_pose', :via => 'GET', :as => 'add_pose'
+
   match 'students/:id/update/:i' => 'students#update', :via => 'PATCH', :as => 'student_update'
   match 'students/:id/previous_images/:i' => 'students#previous_images', :via => 'GET', :as => 'previous_images'
   match 'students/:id/remove_package/:i/:did' => 'students#remove_package', :via => 'GET', :as => 'remove_package'
@@ -221,6 +227,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'catalog_orders/:id/processed' => 'corders#processed', :via => 'GET', :as => 'corders_processed'
   match 'catalog_orders/:id/unprocessed' => 'corders#unprocessed', :via => 'GET', :as => 'corders_unprocessed'
   match 'students/cart/:cart_id/update_cart/:i' => 'students#update_cart', :via => 'PATCH', :as => 'update_cart'
+  match 'students/cart/:cart_id/select/:i' => 'students#select', :via => 'GET', :as => 'student_select'
+  match 'students/preview_image' => 'students#preview_image', :via => 'GET', :as => 'student_preview_image'
   match 'students/cart/:cart_id/add_options/:i/:op_id/:option_id' => 'students#add_options', :via => 'PATCH', :as => 'add_options'
   match 'students/cart/:id/:i/update_download' => 'students#update_download', :via => 'PATCH', :as => 'update_download'
   match 'catalog' => 'items#index', :via => 'GET', :as => 'catalog'

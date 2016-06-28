@@ -41,13 +41,75 @@ class OrdersController < ApplicationController
 		@opackage = OrderPackage.find(params[:id])
 		@index = params[:index]
 		@type = params[:type]
-
+		@url = params[:url]
+ 
 		if @type == "senior"
-			@opackage.update(:url => params[:url], :pose => params[:pose])
+			@opackage.favorites.create(:senior_image_id => @index) unless @opackage.favorites.pluck(:senior_image_id).include? @index
+		else
+			@opackage.update(:grad => params[:url], :pose => params[:pose])
+		end
+	end
+
+	def remove_image
+		@opackage = OrderPackage.find(params[:id])
+		@index = params[:index]
+		@type = params[:type]
+		@url = params[:url]
+ 
+		if @type == "senior"
+			@opackage.favorites.where(:senior_image_id => @index).last.delete 
 		else
 			@opackage.update(:grad => params[:url], :pose => params[:pose])
 		end
 		respond_to :js
+	end
+
+	def show_all
+		@opackage = OrderPackage.find(params[:id])
+		@favorites = @opackage.favorites
+		bucket = AWS::S3::Bucket.new('shoobphoto')
+
+		@package = @opackage.package
+      	image = @package.student_images.where(:student_id => @opackage.student.id).last
+
+      	if @package.id == 6 && image.present?
+        @senior_url = []
+        @senior_id = []
+          image.senior_images.each do |senior_image|
+            unless senior_image.url.nil? || senior_image.url == ""
+              if AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{senior_image.url}.jpg").exists?
+                s3object = AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{senior_image.url}.jpg")
+                @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+                @senior_id << "#{senior_image.id}"
+               end
+       		end
+    	 end
+	   end
+	end
+
+	def favorites
+		@opackage = OrderPackage.find(params[:id])
+		@favorites = @opackage.favorites
+		bucket = AWS::S3::Bucket.new('shoobphoto')
+
+		@package = @opackage.package
+      	image = @package.student_images.where(:student_id => @opackage.student.id).last
+
+      	if @package.id == 6 && image.present?
+        @senior_url = []
+        @senior_id = []
+          SeniorImage.find(@favorites.pluck(:senior_image_id)).each do |senior_image|
+            unless senior_image.url.nil? || senior_image.url == ""
+              if AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{senior_image.url}.jpg").exists?
+                s3object = AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{senior_image.url}.jpg")
+                @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
+                @senior_id << "#{senior_image.id}"
+               end
+       		end
+    	 
+	   end
+	end
+
 	end
 
 	def new
@@ -60,6 +122,9 @@ class OrdersController < ApplicationController
 
 
 	    @cart.order_packages.each do |package|
+	    	unless package.extra_poses.nil?
+	    	@price = @price + package.extra_poses*25
+	    	end
 	    	package.options.each do |option|
 	    		@price = option.price(package.student.school.id) + @price
 	 		end

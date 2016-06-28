@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  senior_image_id: 1
+  order_package_id: 1
+  type: 
+  index: 1
+
+two:
+  senior_image_id: 1
+  order_package_id: 1
+  type: 
+  index: 1

@@ -1,47 +1,72 @@
-
 <div class="row">
-	<div class="col-sm-3" align="center">
-		<strong>Please drag the senior poses below into your package's sheets</strong><hr>
-		<% @senior_url.each do |senior_url| %>
-					<% i = @senior_url.index(senior_url) %>
-						<% unless @senior_id[i] == "default" %>
+	<div class="col-sm-4" id="">
+		<h3>Your Package:</h3>
 
-								<%= image_tag(senior_url, :class => "img-rounded img-package image_#{i} draggable", :id => "#{@senior_url[i]}") %><br/>
-								<strong><%= "Pose #{i + 1}" %></strong><br/>
-						<% end %>
+		<% option = @opackage.options.first %>
+		<strong><%= option.name %> (<%= "#{option.poses} #{'Pose'.pluralize(option.poses)}"%>)</strong><br/><span class="currency"><%= "#{number_to_currency(option.price(@student.school), :unit => "$")}" %></span><br/>
+										<% option.image_types.each do |type| %>
+											
+												<span class="listing"><%= type.name %></span>
+											
+										<% end %> 
+
+		<h3>Your Poses: (click to enlarge)</h3>
+		
+		<% @image.senior_images.each_slice(2) do |slice| %>
+		<div class="row">
+			<% slice.each do |senior_image| %>
+			<div class="col-sm-6" id="image_container">
+
+								<%= link_to image_tag(senior_image.image.url, :class => "img-rounded img-package image_#{senior_image.id} draggable image_container", :id => "#{senior_image.id}"), student_preview_image_path(:image => senior_image.image.url), remote: true %><br/>
+
+								<p id="text" class="text_<%= senior_image.id %>"></p>
+			</div>
+			<% end %>
+		</div>
 		<% end %>
 	</div>
-	<div class="col-sm-9">
+	<div class="col-sm-8" id="senior_table">
 	<% @opackage.options.each do |option| %>
-	<h4><%= option.name %></h4>
-	<hr  style="z-index: 3">
+	<h3>Create Your Package:</h3>
+	Drag a pose from the sidebar (left) to each sheet <br/> to create your package.
+	<hr style="z-index: 3">
 
 		<% option.image_types.each do |image_type| %>
-		<% if image_type.name.include? "x" %>
-			<strong style="z-index: 3"><%= ImageType.name_out(image_type.id) %></strong>
+			<strong style="z-index: 3"><%= image_type.name %></strong>
 			<div class="row">
 				<% (ImageType.count(image_type.id)).times do |i| %>
 					<div class="col-md-2" id="<%= ImageType.classname(image_type.id) %>">
-						<div class="<%= image_type.id %>_<%= i %> inner droppable" id="<%= ImageType.classname(image_type.id) %>">
+						<div class="<%= @opackage.id %> <%= image_type.id %> <%= i + 1 %> inner droppable <%= image_type.id %>_<%= i + 1 %>" id="<%= ImageType.classname(image_type.id) %>">
 						</div>
 					</div>
 				<% end %>
 			</div>
 		<hr  style="z-index: 3">
 		<% end %>
-		<% end %>
+		<strong style="z-index: 3">Yearbook Pose</strong>
+		<div class="row">
+					<div class="col-md-2" id="elevenbyfourteen">
+						<div class="yearbook <%= @opackage.id %> inner droppable" id="elevenbyfourteen">
+						</div>
+					</div>
+			</div>
+		<hr  style="z-index: 3">
+
 	<% end %>
 	</div>
-</div>
-
-<div align="right">
+</div><br/>
+<div class="row">
+	<div class="col-sm-6" align="left">
+		<%= link_to "Back", student_select_package_path(@cart.cart_id, @cart.students.count - 1), class: " btn-custom2" %>
+	</div>
+<div class="col-sm-6" align="right">
 	<% if @images.any? && @cart.id_supplied? %>
-     	<%= link_to "Continue", previous_images_path(@cart.cart_id, @cart.students.count - 1), class: "btn btn-custom" %>
+     	<%= link_to "Add to Cart", previous_images_path(@cart.cart_id, @cart.students.count - 1), class: "btn-custom2" %>
     <% else %>
-        <%= link_to "Continue", student_final_path(@cart.cart_id, @cart.students.count - 1), class: "btn btn-custom" %>
+        <%= link_to "Add to Cart", student_final_path(@cart.cart_id, @cart.students.count - 1), class: "btn-custom2" %>
      <%  end %>
 </div>
-
+</div>
 
 
 <script>
@@ -52,8 +77,14 @@ $(function() {
     $( ".droppable" ).droppable({
       drop: function( event, ui ) {
       	var classes = $(this).attr("class").split(/\s/);
-        $.get('/students/<%= @cart.cart_id%>/update_senior_portraits/' + $(this).attr("id") + '/' + classes[0] + '?url=' + ui.draggable.attr("id")).success(function(data) { } )
+      	if (classes[0] == 'yearbook') {
+        	$.get('/students/yearbook/' + classes[1] + '?url=' + ui.draggable.attr("id")).success(function(data) { } )
+        } else { 
+		    
+		    $.get('/students/<%= @cart.cart_id%>/update_senior_portraits/' + classes[1] + '/' + classes[2] + '/' + classes[0] + '?url=' + ui.draggable.attr("id")).success(function(data) { } )
+		}
       }
     });
   });
 </script>
+

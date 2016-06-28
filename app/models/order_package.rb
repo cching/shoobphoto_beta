@@ -7,6 +7,8 @@ class OrderPackage < ActiveRecord::Base
 	has_many :option_carts, dependent: :destroy
 	has_many :options, through: :option_carts
 	belongs_to :download_image
+	has_many :favorites
+	has_many :sheets
 
 	before_destroy :check_for_orders
 

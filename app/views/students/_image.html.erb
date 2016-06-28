@@ -1,13 +1,47 @@
+<% if @type == "fivebyseven" %>
+			<table>
+				<tr>
+					<td class="leftimage">
+						<%= image_tag(@image, class: "img-formatted") %> 
+					</td>
+					<td class="rightimage">
+						<%= image_tag(@image, class: "img-formatted") %> 
+					</td>
+				</tr>
+			</table>
+	
 
-<% if @id == "fivebyseven" %>
-	<div class="row" id="nopadding">
-		<div class="col-sm-6" id="nopadding">
-			<%= image_tag(@image, class: "img-formatted") %>
-		</div>
-		<div class="col-sm-6" id="nopadding">
-			<%= image_tag(@image, class: "img-formatted") %>
-		</div>
-	</div>
+<% elsif @type == "wallets" %>
+		<table>
+				<tr>
+					<td class="leftimage">
+						<%= image_tag(@image, class: "img-formatted") %> 
+					</td>
+					<td class="leftimage">
+						<%= image_tag(@image, class: "img-formatted") %> 
+					</td>
+					<td class="leftimage">
+						<%= image_tag(@image, class: "img-formatted") %> 
+					</td>
+					<td class="leftimage">
+						<%= image_tag(@image, class: "img-formatted") %> 
+					</td>
+				</tr>
+				<tr>
+					<td class="leftimage">
+						<%= image_tag(@image, class: "img-formatted") %> 
+					</td>
+					<td class="leftimage">
+						<%= image_tag(@image, class: "img-formatted") %> 
+					</td>
+					<td class="leftimage">
+						<%= image_tag(@image, class: "img-formatted") %> 
+					</td>
+					<td class="leftimage">
+						<%= image_tag(@image, class: "img-formatted") %> 
+					</td>
+				</tr>
+		</table>
 <% else %>
 	<%= image_tag(@image, class: "img-formatted") %>
 <% end %>
