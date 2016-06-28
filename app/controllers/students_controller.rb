@@ -146,7 +146,7 @@ class StudentsController < ApplicationController
               
             @images = DownloadImage.where(id: @ids)
          
-        unless @boolean = true
+        unless @boolean == true
           if @images.any? && @cart.id_supplied?
             redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
           else
