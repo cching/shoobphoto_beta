@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-sm-4" id="senior_table">
+	<div class="col-xs-5" id="senior_table">
 		<h3>Your Package:</h3>
 
 		<% option = @opackage.options.first %>
@@ -15,7 +15,7 @@
 		<% @image.senior_images.each_slice(2) do |slice| %>
 		<div class="row">
 			<% slice.each do |senior_image| %>
-			<div class="col-sm-6" id="image_container">
+			<div class="col-xs-6" id="image_container">
 				<span class="small_text"><%= senior_image.url.downcase %></span>
 								<%= link_to image_tag(senior_image.watermark.url(:watermark), :class => "img-rounded img-package image_#{senior_image.id} draggable image_container", :id => "#{senior_image.id}"), student_preview_image_path(:image => senior_image.watermark.url(:watermark)), remote: true %>
 								<br/>
@@ -27,7 +27,7 @@
 		</div>
 		<% end %>
 	</div>
-	<div class="col-sm-8" id="senior_table">
+	<div class="col-xs-7" id="senior_table">
 	<% @opackage.options.each do |option| %>
 	<h3>Create Your Package:</h3>
 	Drag a pose from the sidebar (left) to each sheet <br/> to create your package.
@@ -37,7 +37,7 @@
 			<strong style="z-index: 3"><%= image_type.name %></strong>
 			<div class="row">
 				<% (ImageType.count(image_type.id)).times do |i| %>
-					<div class="col-md-2" id="<%= ImageType.classname(image_type.id) %>">
+					<div class="col-xs-2" id="<%= ImageType.classname(image_type.id) %>">
 						<div class="<%= @opackage.id %> <%= image_type.id %> <%= i + 1 %> inner droppable <%= image_type.id %>_<%= i + 1 %>" id="<%= ImageType.classname(image_type.id) %>">
 						</div>
 					</div>
@@ -47,7 +47,7 @@
 		<% end %>
 		<strong style="z-index: 3">Yearbook Pose</strong>
 		<div class="row">
-					<div class="col-md-2" id="elevenbyfourteen">
+					<div class="col-xs-2" id="elevenbyfourteen">
 						<div class="yearbook <%= @opackage.id %> inner droppable" id="elevenbyfourteen">
 						</div>
 					</div>
@@ -58,10 +58,10 @@
 	</div>
 </div><br/>
 <div class="row">
-	<div class="col-sm-6" align="left">
+	<div class="col-xs-6" align="left">
 		<%= link_to "Back", student_select_package_path(@cart.cart_id, @cart.students.count - 1), class: " btn-custom2" %>
 	</div>
-<div class="col-sm-6" align="right">
+<div class="col-xs-6" align="right">
 	<% if @images.any? && @cart.id_supplied? %>
      	<%= link_to "Add to Cart", previous_images_path(@cart.cart_id, @cart.students.count - 1), class: "btn-custom2" %>
     <% else %>
