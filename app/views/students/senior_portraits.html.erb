@@ -37,7 +37,7 @@
 			<strong style="z-index: 3"><%= image_type.name %></strong>
 			<div class="row">
 				<% (ImageType.count(image_type.id)).times do |i| %>
-					<div class="col-xs-2" id="<%= ImageType.classname(image_type.id) %>">
+					<div class="col-xs-3" id="<%= ImageType.classname(image_type.id) %>">
 						<div class="<%= @opackage.id %> <%= image_type.id %> <%= i + 1 %> inner droppable <%= image_type.id %>_<%= i + 1 %>" id="<%= ImageType.classname(image_type.id) %>">
 						</div>
 					</div>
@@ -47,7 +47,7 @@
 		<% end %>
 		<strong style="z-index: 3">Yearbook Pose</strong>
 		<div class="row">
-					<div class="col-xs-2" id="elevenbyfourteen">
+					<div class="col-xs-3" id="elevenbyfourteen">
 						<div class="yearbook <%= @opackage.id %> inner droppable" id="elevenbyfourteen">
 						</div>
 					</div>
