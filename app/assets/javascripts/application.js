@@ -18,6 +18,7 @@
 //= require jquery-ui
 //= require jquery.easing
 //= require jquery.remotipart
+//= require jquery.ui.touch-punch
 //= require bootstrap.min
 //= require turbolinks
 //= require moment
