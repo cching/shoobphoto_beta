@@ -28,7 +28,7 @@
   <% if Field.where(:column_id => column.id).where(:template_id => @template.id).any? %>
   <%= f.simple_fields_for :fields, Field.where(:column_id => column.id).where(:template_id => @template.id).last do |builder| %>
     <%= render 'field_fields', f: builder %>
-    <%=
+  
   <% end %>
   <% else %>
   <%= f.simple_fields_for :fields, @template.fields.create(:column_id => column.id, :column_name => column.column_type) do |builder| %>

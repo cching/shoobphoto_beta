@@ -8,6 +8,9 @@ class Cart < ActiveRecord::Base
 	has_many :cart_items, dependent: :destroy
 	has_many :items, through: :cart_items
 
+	has_many :cart_teams, dependent: :destroy
+	has_many :teams, through: :cart_teams
+
 	has_many :orders
 	has_many :corders
 
