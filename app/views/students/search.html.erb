@@ -42,10 +42,6 @@ if you have any questions.</p>
         <div class="input-group"><span class="input-group-addon grade" id="sizing-addon3">*</span>
         <%= select_tag :grade, options_for_select(Student::Grades), class: "form-control", id: "input_student_grade", :prompt => "Student's Grade" %>
         </div><br/>
-
-        <% else %>
-             <div class="input-group"><span class="input-group-addon studentteam" id="sizing-addon3">*</span>
-        <%= text_field_tag :team_name, nil, placeholder: "Student's Team Name", class: "form-control", id: "input_student_team" %>
         <% end %>
        
         <% if @school.school_type.id == 3 %>
@@ -91,11 +87,6 @@ function validateForm(){isValid = false;
       }
 
     var y = document.getElementById('input_last_name').value;
-    if (y == null || y == "") {
-        isValid = false;
-    }
-
-    var y = document.getElementById('input_student_team').value;
     if (y == null || y == "") {
         isValid = false;
     }
@@ -149,16 +140,6 @@ if (y == null || y == "") {
       $(".firstname").replaceWith("<%= escape_javascript(render :partial =>'bad', :locals => {:@ajaxclass => "firstname"}) %>");
     } else {
       $(".firstname").replaceWith("<%= escape_javascript(render :partial => 'email', :locals => {:@ajaxclass => "firstname"}) %>");
-    }
-});
-$("#input_student_team").keyup(function()
-{
-var y = document.getElementById('input_student_team').value;
- y = y.replace(/ /g,'');
-if (y == null || y == "") {
-      $(".studentteam").replaceWith("<%= escape_javascript(render :partial =>'bad', :locals => {:@ajaxclass => "studentteam"}) %>");
-    } else {
-      $(".studentteam").replaceWith("<%= escape_javascript(render :partial => 'email', :locals => {:@ajaxclass => "studentteam"}) %>");
     }
 });
 $("#input_last_name").keyup(function() 
