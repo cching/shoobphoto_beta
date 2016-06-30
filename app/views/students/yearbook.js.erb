@@ -1,1 +1,1 @@
-$(".yearbook").html("<%= escape_javascript(render 'image') %>"); 
+$(".yearbook").html("<%= escape_javascript(render partial: 'image', :locals => {:type_class => @type, :image => @image}) %>"); 

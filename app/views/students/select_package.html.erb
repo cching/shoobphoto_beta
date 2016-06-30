@@ -27,7 +27,7 @@
 			<h3>Choose Your Package</h3>
 			<% package.options.order(:name).each do |option| %>
 			<div class="row">
-				<div class="col-sm-3"><%= link_to "Select", student_select_path(@cart.cart_id, @cart.students.count - 1, :option => option.id), class: "btn-custom4" %></div>
+				<div class="col-sm-3"><%= link_to "Select", student_select_path(@cart.cart_id, @cart.students.count - 1, :option => option.id), class: "btn-custom4 btn-loading" %></div>
 				<div class="col-sm-9">
 
 									<strong><%= option.name %> (<%= "#{option.poses} #{'Pose'.pluralize(option.poses)}"%>)</strong><br/><span class="currency"><%= "#{number_to_currency(option.price(@student.school), :unit => "$")}" %></span><br/>

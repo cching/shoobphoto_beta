@@ -36,7 +36,7 @@
 				<% end %>
 
 				<% if o.try(:extra_poses) != 0 %>
-				+ $<%= o.extra_poses*25 %>.00 (Extra Pose)
+				+ $<%= o.try(extra_poses)*25 %>.00 (Extra Pose)
 				<% end %>
 
 				<% if o.sheets.any? %><br/><br/>
@@ -44,16 +44,16 @@
 
 					<% ImageType.find(o.sheets.pluck(:image_type_id).uniq).each do |image_type| %>
 					<% o.sheets.where(:image_type_id => image_type.id).each do |sheet| %>
-					<li><%= image_type.name %>: <%= sheet.senior_image.url.downcase %></li>
+					<li>(<%= ImageType.count_types(image_type.id) %>) <%= ImageType.name_out(image_type.id) %>: <%= sheet.senior_image.url.downcase[-4..-1] %></li>
 					<% end %>
 					<% end %>
 				</ul>
 
 				<% unless o.senior_image_id.nil? %>
 					<ul>
-						<li>Yearbook Pose: <%= SeniorImage.find(o.senior_image_id).url.downcase %></li>
+						<li>Yearbook Pose: <%= SeniorImage.find(o.senior_image_id).url.downcase[-4..-1] %></li>
 					</ul>
-				<% end %>
+				<% end %> 
 				<% end %>
 
 
@@ -75,11 +75,11 @@
 <div class="row">
 <div class="col-sm-3" align="left">
 
-		 <%= link_to "Add more students to your order", student_schools_path(:cart_id => @cart.cart_id, :i => @cart.students.count), class: "btn btn-primary" %>
+		 <%= link_to "Add more students to your order", student_schools_path(:cart_id => @cart.cart_id, :i => @cart.students.count), class: "btn-custom4" %>
  </div>
  <div class="col-sm-6">
  </div>
  <div class="col-sm-3" align="right">
- <%= link_to "Checkout", new_order_path(@cart.cart_id), class: "btn btn-primary" %>
+ <%= link_to "Checkout", new_order_path(@cart.cart_id), class: "btn-custom4" %>
  </div>
  </div>

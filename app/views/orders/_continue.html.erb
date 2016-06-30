@@ -3,8 +3,8 @@
 
 <div class="next" align="right">
 
-<%= button_to student_select_package_path(@cart.cart_id, @cart.students.count - 1), { class: "btn btn-custom batchlink", method: :get } do %>
-      Select Packages <span class="glyphicon glyphicon-ok"></span>
+<%= button_to student_select_package_path(@cart.cart_id, @cart.students.count - 1), { class: "btn-custom4 batchlink", method: :get } do %>
+      Select Packages
 <% end %>
 
 </div>
@@ -18,4 +18,4 @@ $(".batchlink").on("click", function() {
   $('#myModal').modal('show');
   $("#myModal").html("<%= escape_javascript(render partial: 'students/loading') %>"); 
 });
-</script>
+</script> 

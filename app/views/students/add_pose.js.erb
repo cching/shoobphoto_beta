@@ -1,13 +1,13 @@
 $('#myModal').modal('hide');
 
 	<% if @opackage.sheets.where(:index => @index.to_i).where(:senior_image_id => @senior_image.id).where(:image_type_id => @image_type.id).any? %>
-		$(".<%= @image_type.id %>_<%= @index %>").html("<%= escape_javascript(render 'image') %>"); 
+		$(".<%= @image_type.id %>_<%= @index %>").html("<%= escape_javascript(render partial: 'image', :locals => {:type_class => @type, :image => @image}) %>"); 
 	<% elsif @opackage.sheets.where(:index => @index.to_i).where(:image_type_id => @image_type.id).any? %>
 		<% @opackage.sheets.where(:index => @index.to_i).where(:image_type_id => @image_type.id).last.update(:senior_image_id => @senior_image.id) %>
-	$(".<%= @image_type.id %>_<%= @index %>").html("<%= escape_javascript(render 'image') %>"); 
+	$(".<%= @image_type.id %>_<%= @index %>").html("<%= escape_javascript(render partial: 'image', :locals => {:type_class => @type, :image => @image}) %>"); 
 	<% else %>
 		<% @opackage.sheets.create(:senior_image_id => @senior_image.id, :index => @index.to_i, :image_type_id => @image_type.id) %>
-		$(".<%= @image_type.id %>_<%= @index %>").html("<%= escape_javascript(render 'image') %>"); 
+		$(".<%= @image_type.id %>_<%= @index %>").html("<%= escape_javascript(render partial: 'image', :locals => {:type_class => @type, :image => @image}) %>"); 
 	<% end %>
 
 

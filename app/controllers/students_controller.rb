@@ -7,7 +7,7 @@ class StudentsController < ApplicationController
 
   def add_pose
     @senior_image = SeniorImage.find(params[:url].to_i)
-    @image = @senior_image.watermark.url(:watermark)
+    @image = @senior_image.watermark.url(:watermark) 
     @index = params[:index]
     @image_type = ImageType.find(params[:image_type])
     @opackage = OrderPackage.find(params[:opackage])
@@ -114,7 +114,7 @@ class StudentsController < ApplicationController
     @i = params[:i]
     bucket = AWS::S3::Bucket.new('shoobphoto')
       @opackage = @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%senior%").last
-      @image = @opackage.package.student_images.where(:student_id => @student.id).last
+      @s_image = @opackage.package.student_images.where(:student_id => @student.id).last
 
     bucket = AWS::S3::Bucket.new('shoobphoto')
 
