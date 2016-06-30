@@ -36,7 +36,7 @@
 				<% end %>
 
 				<% if o.try(:extra_poses) != 0 %>
-				+ $<%= o.try(extra_poses)*25 %>.00 (Extra Pose)
+				+ $<%= o.try(:extra_poses)*25 %>.00 (Extra Pose)
 				<% end %>
 
 				<% if o.sheets.any? %><br/><br/>
