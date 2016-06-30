@@ -41,7 +41,17 @@ class OrderExport
                 @string2 = ""
 
                 order.cart.order_packages.where(:student_id => student.id).each do |opackage|
-                  
+                  @extra_poses = @extra_poses + "#{opackage.try(:extra_poses)}; "
+                  @yearbook_pose = @yearbook_pose + "#{opackage.try(:yearbook_poses)}; "
+
+                  if opackge.package.id == 6 && opackage.sheets.any?
+                    ImageType.find(opackage.sheets.pluck(:image_type_id).uniq).each do |image_type|
+                      opackage.sheets.where(:image_type_id => image_type.id).each do |sheet|
+                        @sheet = @sheet + "(#{ImageType.count_types(image_type.id)}) #{ImageType.name_out(image_type.id)}:  sheet.senior_image.url.downcase,"
+                      end
+                    end
+                    @sheet = @sheet + "; "
+                  end
 
                   opackage.options.each_with_index do |option, i|
                     if i + 1 == opackage.options.count
