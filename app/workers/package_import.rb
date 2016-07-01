@@ -23,7 +23,7 @@ unless h["student_id"].nil?
 		          end
 
 		          if h["rec_type"] == 'master'
-		          	image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :folder => "seniors2017", :grade => h["grade"], :url => h["url"])
+		          	image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"])
 		            image.index_file_name = "#{image.image_file_name}-index"
 		            image.save
 		          else
@@ -31,7 +31,7 @@ unless h["student_id"].nil?
 		          	images = student.student_images.where(:package_id => 6)
 
 		          	unless images.any?
-		          		image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :folder => "seniors2017", :grade => h["grade"], :url => h["url"])
+		          		image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"])
 		            	image.index_file_name = "#{image.image_file_name}-index"
 		            	image.save
 		            else

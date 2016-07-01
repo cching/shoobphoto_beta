@@ -7,6 +7,9 @@ class ExportListItemsController < ApplicationController
     @first = params[:students] 
   end
 
+  def award_table
+  end
+
   def add_student
     @student = Student.find(params[:student_id])
     current_user.students << @student
