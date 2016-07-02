@@ -50,11 +50,7 @@ unless h["student_id"].nil?
 		        	end
 
 		        	if senior_image.image.exists?
-		        		obj1 = bucket.objects["images/#{image.folder}/#{image.image_file_name}.jpg"]
-		                  obj2 = bucket.objects["images/watermarks/seniors/#{senior_image.id}/original/#{senior_image.image_file_name}.jpg"]
-		                  obj1.copy_to(obj2)
-		                  senior_image.update(:watermark_file_name => image.image_file_name)
-		                  senior_image.watermark.reprocess!
+		        		
 		        	end
 
 
