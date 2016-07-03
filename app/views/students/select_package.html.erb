@@ -55,8 +55,7 @@
 			<div class="col-sm-2" align="center">
 				<strong><%= package.name %></strong><br/>
 				<% unless image.nil? || (@senior_url.try(:length) > 0 && package.id == 6) %>
-					<%= image_tag(image.watermark.url(:watermark), class: "img-rounded img-package") %>
-
+				<%= link_to image_tag(image.watermark.url(:watermark), :class => "img-rounded img-package"), student_preview_image_path(:image => image.watermark.url(:watermark)), remote: true %>
 				<% end %>
 
 			</div>

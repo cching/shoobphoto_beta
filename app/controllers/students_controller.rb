@@ -484,7 +484,7 @@ class StudentsController < ApplicationController
       else
         @bool << false
       end
-    end
+    end 
 
     bucket = AWS::S3::Bucket.new('shoobphoto')
     @senior_url = []
@@ -502,50 +502,7 @@ class StudentsController < ApplicationController
       end
     end
 
-      if package.id == 6 && image.present?
-        @senior_url = []
-        @senior_id = []
-        unless @cart.id_supplied == false
-          image.senior_images.each do |senior_image|
-            unless senior_image.url.nil? || senior_image.url == ""
-              if AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{senior_image.url}.jpg").exists?
-                s3object = AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{senior_image.url}.jpg")
-                @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-                @senior_id << "#{senior_image.id}"
-              else
-
-                @senior_id << "default"
-              end
-            end
-          end
-        else
-          s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
-          @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-          @senior_id << "default"
-        end
-      end
-      if package.id == 5  && image.present?
-        @grad_url = []
-        @grad_id = []
-        unless @cart.id_supplied == false
-          for attribute in ['url', 'url1', 'url2', 'url3', 'url4']
-            unless image.attributes[attribute].nil? || image.attributes[attribute] == ""
-              if AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{image.attributes[attribute]}.jpg").exists?
-                s3object = AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{image.attributes[attribute]}.jpg")
-                @grad_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-                @grad_id << "#{image.attributes[attribute]}"
-              else
-                s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}")
-                @grad_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-                @grad_id << "default"
-              end
-            end
-          end
-        else
-
-          @grad_id << "default"
-        end
-      end
+    
     end
   end 
 

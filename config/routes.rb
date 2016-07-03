@@ -152,7 +152,6 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
 
   match 'download/cart/:id' => 'students#purchase', :via => 'GET', :as => 'download_cart'
 
-
   match 'export/search/:id' => 'export_list_items#searches', :via => [:get, :post], :as => 'export_searches'
   match 'export/clear/' => 'export_list_items#clear_students', :via => 'GET', :as => 'export_clear_students'
 
