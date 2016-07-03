@@ -494,11 +494,13 @@ class StudentsController < ApplicationController
     @opackages.each do |opackage|
       package = opackage.package
       image = package.student_images.where(:student_id => @student.id).last
+      if image.senior_images.any?
       image.senior_images.each do |s_image|
       while image.senior_images.where(:image_file_name => s_image.image_file_name).count > 1
         image.senior_images.where(:image_file_name => s_image.image_file_name).first.delete
       end
       end
+    end
 
       if package.id == 6 && image.present?
         @senior_url = []
