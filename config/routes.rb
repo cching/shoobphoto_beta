@@ -94,6 +94,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
       end
     end
 
+    resources :addons
+
     resources :items do
       member do
         get 'search_term'
@@ -209,6 +211,11 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'students/:cart_id/update_senior_portraits/:image_type/:index/:opackage' => 'students#update_senior_portraits', :via => 'GET', :as => 'update_senior_portraits'
   match 'students/yearbook/:opackage' => 'students#yearbook', :via => 'GET', :as => 'student_yearbook'
   match 'students/add_pose/:url/:index/:image_type/:opackage' => 'students#add_pose', :via => 'GET', :as => 'add_pose' 
+
+  match 'students/view_addons/:order_package' => 'students#view_addons', :via => 'GET', :as => 'view_addons'
+  match 'students/view_package/:order_package' => 'students#view_package', :via => 'GET', :as => 'view_package'
+  match 'students/add_addon/:order_package/:addon' => 'students#add_addon', :via => 'GET', :as => 'add_addon'
+  match 'students/remove_addon/:order_package/:addon' => 'students#remove_addon', :via => 'GET', :as => 'remove_addon'
 
   match 'students/:id/update/:i' => 'students#update', :via => 'PATCH', :as => 'student_update'
   match 'students/:id/previous_images/:i' => 'students#previous_images', :via => 'GET', :as => 'previous_images'

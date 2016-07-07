@@ -1,0 +1,24 @@
+<h1>Listing addons</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @addons.each do |addon| %>
+      <tr>
+        <td><%= addon.name %></td>
+        <td><%= link_to 'Show', admin_addon_path(addon.id) %></td>
+        <td><%= link_to 'Edit', edit_admin_addon_path(addon) %></td>
+        <td><%= link_to 'Destroy', admin_addon_path(addon.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Addon', new_admin_addon_path %>

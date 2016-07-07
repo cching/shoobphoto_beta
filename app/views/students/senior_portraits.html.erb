@@ -9,61 +9,25 @@
 												<span class="listing"><%= type.name %></span>
 											
 										<% end %> 
-
 		<h3>Your Poses: (click to enlarge)</h3>
-		
 		<% @s_image.senior_images.each_slice(2) do |slice| %>
 		<div class="row">
 			<% slice.each do |senior_image| %>
-			<% if senior_image.watermark.exists? %>
-			<div class="col-xs-6" id="image_container">
-				<span class="small_text"><%= senior_image.url.downcase %></span>
-								<%= link_to image_tag(senior_image.watermark.url(:watermark), :class => "img-rounded img-package image_#{senior_image.id} draggable image_container #{'img-package-custom' if @opackage.sheets.pluck(:senior_image_id).uniq.include?(senior_image.id)}", :id => "#{senior_image.id}"), student_preview_image_path(:image => senior_image.watermark.url(:watermark)), remote: true %>
-								<br/>
+				<% if senior_image.watermark.exists? %>
+				<div class="col-xs-6" id="image_container">
+					<span class="small_text"><%= senior_image.url.downcase %></span>
+						<%= link_to image_tag(senior_image.watermark.url(:watermark), :class => "img-rounded img-package image_#{senior_image.id} draggable image_container #{'img-package-custom' if @opackage.sheets.pluck(:senior_image_id).uniq.include?(senior_image.id)}", :id => "#{senior_image.id}"), student_preview_image_path(:image => senior_image.watermark.url(:watermark)), remote: true %><br/>
 
-								<p id="text" class="text_<%= senior_image.id %>"><%= "Selected" if @opackage.sheets.pluck(:senior_image_id).uniq.include?(senior_image.id) %></p>
-
-			</div>
-			<% end %>
+					<p id="text" class="text_<%= senior_image.id %>"><%= "Selected" if @opackage.sheets.pluck(:senior_image_id).uniq.include?(senior_image.id) %></p>
+				</div>
+				<% end %>
 			<% end %>
 		</div>
 		<% end %>
 	</div>
-	<div class="col-xs-7" id="senior_table">
-	<% @opackage.options.each do |option| %>
-	<h3>Create Your Package:</h3>
-	Drag a pose from the sidebar (left) to each sheet <br/> to create your package.
-	<hr style="z-index: 3">
-
-		<% option.image_types.each do |image_type| %>
-			<strong style="z-index: 3"><%= image_type.name %></strong>
-			<div class="row">
-				<% (ImageType.count(image_type.id)).times do |i| %>
-					<div class="col-xs-3" id="<%= ImageType.classname(image_type.id) %>">
-						<div class="<%= @opackage.id %> <%= image_type.id %> <%= i + 1 %> inner droppable <%= image_type.id %>_<%= i + 1 %>" id="<%= ImageType.classname(image_type.id) %>">
-							<% if @opackage.sheets.where(:index => i + 1).where(:image_type_id => image_type.id).any? %>
-							<%= render partial: 'image', :locals => { :type_class => ImageType.classname(image_type.id), :image => @opackage.sheets.where(:index => i + 1).where(:image_type_id => image_type.id).last.senior_image.watermark.url(:watermark) } %>
-							<% end %>
-						</div>
-					</div>
-				<% end %>
-			</div>
-		<hr  style="z-index: 3">
-		<% end %>
-		<strong style="z-index: 3">Yearbook Pose</strong>
-		<div class="row">
-					<div class="col-xs-3" id="elevenbyfourteen">
-						<div class="yearbook <%= @opackage.id %> inner droppable" id="elevenbyfourteen">
-							<% unless @opackage.try(:senior_image_id).nil? %>
-							<%= render partial: 'image', :locals => { :type_class => "elevenbyfourteen", :image => SeniorImage.find(@opackage.senior_image_id).watermark.url(:watermark) } %>
-							<% end %>
-						</div>
-					</div>
-			</div>
-		<hr  style="z-index: 3">
-
-	<% end %>
-	</div>
+	<span id="senior_images">
+		<%= render 'senior_images' %>
+	</span>
 </div><br/>
 <div class="row">
 	<div class="col-xs-6" align="left">

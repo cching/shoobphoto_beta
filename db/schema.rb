@@ -11,11 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630211019) do
+ActiveRecord::Schema.define(version: 20160707070750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_stat_statements"
+
+  create_table "addons", force: true do |t|
+    t.string   "name"
+    t.decimal  "price_with"
+    t.decimal  "price_without"
+    t.boolean  "popup"
+    t.integer  "image_count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "banners", force: true do |t|
     t.datetime "created_at"
@@ -385,6 +395,7 @@ ActiveRecord::Schema.define(version: 20160630211019) do
     t.boolean  "email_picture", default: false
     t.boolean  "download"
     t.integer  "poses"
+    t.boolean  "without",       default: false
   end
 
   create_table "order_package_extras", force: true do |t|

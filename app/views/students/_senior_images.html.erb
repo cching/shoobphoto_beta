@@ -1,0 +1,42 @@
+<div class="col-xs-7 animated fadeIn" id="senior_table">
+	<% @opackage.options.each do |option| %>
+	<div class="row">
+		<div class="col-xs-6">
+			<h3>Create Your Package:</h3>
+		</div>
+		<div class="col-xs-6" align="right">
+			<% if current_user.try(:admin) %><h3><%= link_to "View Add-ons", view_addons_path(@opackage.id), class: "btn-custom4", remote: true %></h3><% end %>
+		</div>
+	</div>
+	Drag a pose from the sidebar (left) to each sheet <br/> to create your package.
+	<hr style="z-index: 3">
+
+		<% option.image_types.each do |image_type| %>
+			<strong style="z-index: 3"><%= image_type.name %></strong>
+			<div class="row">
+				<% (ImageType.count(image_type.id)).times do |i| %>
+					<div class="col-xs-3" id="<%= ImageType.classname(image_type.id) %>">
+						<div class="<%= @opackage.id %> <%= image_type.id %> <%= i + 1 %> inner droppable <%= image_type.id %>_<%= i + 1 %>" id="<%= ImageType.classname(image_type.id) %>">
+							<% if @opackage.sheets.where(:index => i + 1).where(:image_type_id => image_type.id).any? %>
+							<%= render partial: 'image', :locals => { :type_class => ImageType.classname(image_type.id), :image => @opackage.sheets.where(:index => i + 1).where(:image_type_id => image_type.id).last.senior_image.watermark.url(:watermark) } %>
+							<% end %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		<hr  style="z-index: 3">
+		<% end %>
+		<strong style="z-index: 3">Yearbook Pose</strong>
+		<div class="row">
+					<div class="col-xs-3" id="elevenbyfourteen">
+						<div class="yearbook <%= @opackage.id %> inner droppable" id="elevenbyfourteen">
+							<% unless @opackage.try(:senior_image_id).nil? %>
+							<%= render partial: 'image', :locals => { :type_class => "elevenbyfourteen", :image => SeniorImage.find(@opackage.senior_image_id).watermark.url(:watermark) } %>
+							<% end %>
+						</div>
+					</div>
+			</div>
+		<hr  style="z-index: 3">
+
+	<% end %>
+	</div>

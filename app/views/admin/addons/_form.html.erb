@@ -1,0 +1,15 @@
+<%= simple_form_for([:admin, @addon]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  	<%= f.input :name %>
+  	<%= f.input :price_with %>
+  	<%= f.input :price_without %>
+  	<%= f.input :image_count %>
+  	<%= f.input :popup %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

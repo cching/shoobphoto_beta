@@ -75,6 +75,6 @@ require 'smarter_csv'
   private
 
     def package_params
-      params.require(:package).permit(:name, :image, :banner, :folder, :schools, :options, :multiple, :slug, :default_url, :default_folder, shippings_attributes: [:id, :price, :school_id, :_destroy], options_attributes: [:id, :price, :name, :poses, :download, :_destroy, image_types_attributes: [:id, :_destroy, :name], prices_attributes: [:id, :price, :enddate, :begin, :school_id, :_destroy]], :school_ids => [])
+      params.require(:package).permit(:name, :image, :banner, :folder, :schools, :options, :multiple, :slug, :default_url, :default_folder, shippings_attributes: [:id, :price, :school_id, :_destroy], options_attributes: [:id, :price, :name, :poses, :without, :download, :_destroy, image_types_attributes: [:id, :_destroy, :name], prices_attributes: [:id, :price, :enddate, :begin, :school_id, :_destroy]], :school_ids => [])
     end
 end

@@ -22,7 +22,7 @@ class OrderExport
                 @sheet = ""
               
               if order.cart.order_packages.where(:student_id => student.id).where.not(download_image_id: nil).any?
-                 @year = "#{order.cart.order_packages.where(:student_id => student.id).where.not(download_image_id: nil).map{ |o| o.download_image.image.url }.join(",")}"
+                 @year = "#{order.cart.order_packages.where(:student_id => student.id).where.not(download_image_id: nil).map{ |o| o.download_image.image.url if o.download_image.image.exists?}.join(",")}"
               end
 
 

@@ -17,6 +17,23 @@ class StudentsController < ApplicationController
 
   end
 
+  def view_addons
+    @opackage = OrderPackage.find(params[:order_package])
+  end
+
+  def view_package
+    @opackage = OrderPackage.find(params[:order_package])
+  end
+
+  def add_addon
+    @opackage = OrderPackage.find(params[:order_package])
+    @addon = Addon.find(params[:addon])
+  end
+
+  def remove_addon
+    @addon = Addon.find(params[:addon])
+  end
+
   def update_senior_portraits
     @senior_image = SeniorImage.find(params[:url].to_i)
     @image = @senior_image.watermark.url(:watermark)

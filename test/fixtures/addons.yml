@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  price_with: 1
+  price_without: 1
+  image_required: false
+
+two:
+  name: MyString
+  price_with: 1
+  price_without: 1
+  image_required: false

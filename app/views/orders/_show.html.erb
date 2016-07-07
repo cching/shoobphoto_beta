@@ -43,10 +43,29 @@
       <% o.extras.each do |extra| %>
         <%= number_to_currency(extra.prices.first.try(:price), :unit => "$") %> - <%= extra.name %> <br/>
       <% end %>
+
+      <% if o.sheets.any? %><br/><br/>
+        <ul>
+
+          <% ImageType.find(o.sheets.pluck(:image_type_id).uniq).each do |image_type| %>
+          <% o.sheets.where(:image_type_id => image_type.id).each do |sheet| %>
+          <li>(<%= ImageType.count_types(image_type.id) %>) <%= ImageType.name_out(image_type.id) %>: <strong><%= sheet.senior_image.url.downcase %></strong></li>
+          <% end %>
+          <% end %>
+        </ul>
+
+        <% unless o.senior_image_id.nil? %>
+          <ul>
+            <li>Yearbook Pose: <strong><%= SeniorImage.find(o.senior_image_id).url.downcase %></strong></li>
+          </ul>
+        <% end %> 
+        <% end %>
       <hr>
           </div>
       </div>
       <% end %>
+
+
       
   <% end %>
  
