@@ -42,7 +42,7 @@ class Admin::AddonsController < ApplicationController
   def update
     respond_to do |format|
       if @addon.update(addon_params)
-        format.html { redirect_to @addon, notice: 'Addon was successfully updated.' }
+        format.html { redirect_to admin_addons_path, notice: 'Addon was successfully updated.' }
         format.json { render :show, status: :ok, location: @addon }
       else
         format.html { render :edit }
@@ -69,7 +69,7 @@ class Admin::AddonsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def addon_params
-      params.require(:addon).permit(:name, :image_count, :price_with, :price_without, :id, :popup)
+      params.require(:addon).permit(:name, :image_count, :price_with, :price_without, :id, :css_name)
 
     end
 end

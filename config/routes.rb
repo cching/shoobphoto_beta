@@ -19,7 +19,7 @@ match 'webcams/waiting/:id' => 'webcams#waiting', :via => 'GET', :as => 'waiting
 
   resources :yearbooks do
     member do
-      get :buy
+      get :buy 
       get :school_user
     end
     collection do  
@@ -209,6 +209,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'students/:id/calculate' => 'students#calculate', :via => 'GET', :as => 'student_calculate'
   match 'students/:cart_id/senior_portraits/:i' => 'students#senior_portraits', :via => 'GET', :as => 'senior_portraits'
   match 'students/:cart_id/update_senior_portraits/:image_type/:index/:opackage' => 'students#update_senior_portraits', :via => 'GET', :as => 'update_senior_portraits'
+  match 'students/add_addon_pose/:addon_sheet/:index/:senior_image_id' => 'students#add_addon_pose', :via => 'GET', :as => 'add_addon_pose'
   match 'students/yearbook/:opackage' => 'students#yearbook', :via => 'GET', :as => 'student_yearbook'
   match 'students/add_pose/:url/:index/:image_type/:opackage' => 'students#add_pose', :via => 'GET', :as => 'add_pose' 
 

@@ -1,0 +1,1 @@
+$(".<%= @sheet.id %>").html("<%= escape_javascript(render partial: 'image', :locals => {:type_class => @sheet.addon.css_name, :image => @image}) %>"); 

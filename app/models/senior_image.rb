@@ -2,6 +2,7 @@ class SeniorImage < ActiveRecord::Base
 	belongs_to :student_image
 	has_many :favorites
 	has_many :sheets
+  has_many :addon_sheets
 
 	has_attached_file :image,
   	:url => ':s3_domain_url',

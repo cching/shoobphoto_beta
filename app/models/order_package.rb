@@ -9,6 +9,7 @@ class OrderPackage < ActiveRecord::Base
 	belongs_to :download_image
 	has_many :favorites
 	has_many :sheets
+	has_many :addon_sheets
 
 	before_destroy :check_for_orders
 

@@ -17,21 +17,40 @@ class StudentsController < ApplicationController
 
   end
 
+  def add_addon_pose
+    @sheet = AddonSheet.find(params[:addon_sheet])
+    @senior_image = SeniorImage.find(params[:senior_image_id])
+    @sheet.update(:index => params[:index], :senior_image_id => @senior_image.id)
+    @image = @senior_image.watermark.url(:watermark)
+  end
+
   def view_addons
     @opackage = OrderPackage.find(params[:order_package])
+    @cart = @opackage.cart
   end
 
   def view_package
     @opackage = OrderPackage.find(params[:order_package])
+    @cart = @opackage.cart
   end
 
   def add_addon
     @opackage = OrderPackage.find(params[:order_package])
+    @cart = @opackage.cart
     @addon = Addon.find(params[:addon])
+
+    unless @opackage.addon_sheets.pluck(:addon_id).include? @addon.id
+      @addon.image_count.times do |i|
+        @opackage.addon_sheets.create(:addon_id => @addon.id, :index => i + 1)
+      end
+    end
+
   end
 
   def remove_addon
     @addon = Addon.find(params[:addon])
+    @opackage = OrderPackage.find(params[:order_package])
+    @opackage.addon_sheets.where(:addon_id => @addon.id).destroy_all
   end
 
   def update_senior_portraits
