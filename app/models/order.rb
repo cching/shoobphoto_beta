@@ -65,13 +65,19 @@ class Order < ActiveRecord::Base
       :city => city,
       :state => state,
       :zip => zip_code,
-      :country => 'US'
+      :country => 'US',
+      :phone => phone
     }
+  end
+
+
+  def options
+     {:address => {}, :billing_address => purchase_address}
   end
   
   def send_purchase
     if credit_card.valid?
-      response = GATEWAY.purchase(price_in_cents, credit_card)
+      response = GATEWAY.purchase(price_in_cents, credit_card, options)
       logger.debug "[gateway response] #{@clearance.inspect}"
       unless response.success?
         logger.debug "[response error] #{@clearance.try(:message)}"
