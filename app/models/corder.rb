@@ -43,7 +43,7 @@ class Corder < ActiveRecord::Base
   end
 
   def options
-     {:address => {}, :billing_address => purchase_address, :invoice => id}
+     {:address => {}, :billing_address => purchase_address, :invoice => Corder.last.id + 1}
   end
   
   def send_purchase
