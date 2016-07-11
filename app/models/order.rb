@@ -72,7 +72,7 @@ class Order < ActiveRecord::Base
 
 
   def options
-     {:address => {}, :billing_address => purchase_address}
+     {:address => {}, :billing_address => purchase_address, :invoice => id}
   end
   
   def send_purchase

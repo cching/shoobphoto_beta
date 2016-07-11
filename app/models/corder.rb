@@ -41,10 +41,14 @@ class Corder < ActiveRecord::Base
       :country => 'US'
     }
   end
+
+  def options
+     {:address => {}, :billing_address => purchase_address, :invoice => id}
+  end
   
   def send_purchase
     if credit_card.valid?
-      response = GATEWAY.purchase(price_in_cents, credit_card)
+      response = GATEWAY.purchase(price_in_cents, credit_card, options)
       logger.debug "[gateway response] #{@clearance.inspect}"
       unless response.success?
         logger.debug "[response error] #{@clearance.message}"
