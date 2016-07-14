@@ -50,12 +50,16 @@
 
 	<% @opackages.each_with_index do |opackage, index| %>
 		<% package = opackage.package %>
-		<% image = package.student_images.where(:student_id => @student.id).last %>
+		<% image = package.student_images.where(:student_id => @student.id).where.not(:folder => "fall2015").last %>
 		<div class="row">
 			<div class="col-sm-2" align="center">
 				<strong><%= package.name %></strong><br/>
 				<% unless image.nil? || (@senior_url.try(:length) > 0 && package.id == 6) %>
 				<%= link_to image_tag(image.watermark.url(:watermark), :class => "img-rounded img-package"), student_preview_image_path(:image => image.watermark.url(:watermark)), remote: true %>
+				<% else %>
+				<% unless (@senior_url.try(:length) > 0 && package.id == 6) %>
+				<%= image_tag(package.image.url) %>
+				<% end %>
 				<% end %>
 
 			</div>

@@ -17,7 +17,6 @@ Receipt
     <%= "#{@order.address} #{@order.city}, #{@order.state} #{@order.zip_code}" %>
 
     Paid with:
-    <%= "#{@order.card_type.humanize}" %>
 
     Total:
     <%= number_to_currency @order.price %>

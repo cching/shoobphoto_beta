@@ -341,6 +341,17 @@ class StudentsController < ApplicationController
       end
 
       @cart.order_packages.each do |opackage|
+
+        opackage.options.each do |option|
+          opackage.addon_sheets.each do |addon|
+          if option.without? 
+          @price = @price + addon.addon.price_without
+          else 
+          @price = @price + addon.addon.price_with
+          end
+          end
+        end
+
         if opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).any?
         @price = @price + opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).first.price
         elsif opackage.package.shippings.where(:school_id => nil).any?
@@ -529,7 +540,7 @@ class StudentsController < ApplicationController
 
     @opackages.each do |opackage|
       package = opackage.package
-      image = package.student_images.where(:student_id => @student.id).last
+      image = package.student_images.where(:student_id => @student.id).where.not(:folder => "fall2015").last
       unless image.nil?
       if image.senior_images.any?
       image.senior_images.each do |s_image|

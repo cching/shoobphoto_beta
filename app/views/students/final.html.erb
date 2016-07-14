@@ -55,6 +55,18 @@
 					</ul>
 				<% end %> 
 				<% end %>
+				<ul>
+				<% o.addon_sheets.each do |addon| %>
+				<li>
+					<% if option.without? %>
+					<%= number_to_currency(addon.addon.price_without, :unit => "$") %>
+					<% else %>
+					<%= number_to_currency(addon.addon.price_with, :unit => "$") %> - 
+					<% end %> 
+					<%= addon.addon.name %>: <strong><%= addon.senior_image.url.downcase %></strong>
+				</li>
+				<% end %>
+				</ul>
 
 
 			<hr>

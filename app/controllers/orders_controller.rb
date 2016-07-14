@@ -131,6 +131,15 @@ class OrdersController < ApplicationController
 	    end
 
 	    @cart.order_packages.each do |opackage|
+	    	opackage.options.each do |option|
+          opackage.addon_sheets.each do |addon|
+          if option.without? 
+          @price = @price + addon.addon.price_without
+          else 
+          @price = @price + addon.addon.price_with
+          end
+          end
+        end
 	      if opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).any?
 	      @price = @price + opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).first.price
 	  	  elsif opackage.package.shippings.where(:school_id => nil).any?
@@ -166,8 +175,9 @@ end
 	    		redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt."
 	    	
 	    else
+	    	@order.price == 0 ? @free = true : @free = false
 	    	respond_to do |format|
-	    	format.html { render 'new', :price => @order.price }
+	    	format.html { render 'new', :price => @order.price, :free => @free}
         	format.json { render json: @order.errors, status: :unprocessable_entity }
         	@order.errors.each do |order|
         		puts "#{order}"
