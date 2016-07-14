@@ -32,7 +32,6 @@
 			</div>
 		<hr  style="z-index: 3">
 
-		<% if current_user.try(:admin) %>
 			<% Addon.all.each_with_index do |addon| %>
 				<div class="row">
 					<div class="col-xs-2" id="add_<%= addon.id %>">
@@ -53,7 +52,6 @@
 				</div><br>
 				<span id="<%= addon.id %>"></span>
 			<% end %>
-		<% end %>
 
 	<% end %>
 	</div>

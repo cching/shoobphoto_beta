@@ -175,9 +175,8 @@ end
 	    		redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt."
 	    	
 	    else
-	    	@order.price == 0 ? @free = true : @free = false
 	    	respond_to do |format|
-	    	format.html { render 'new', :price => @order.price, :free => @free}
+	    	format.html { render 'new', :price => @order.price}
         	format.json { render json: @order.errors, status: :unprocessable_entity }
         	@order.errors.each do |order|
         		puts "#{order}"
