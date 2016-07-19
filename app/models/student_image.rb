@@ -29,4 +29,4 @@ class StudentImage < ActiveRecord::Base
                     :default_url => "https://shoobphoto.s3.amazonaws.com/images/package_types/:package_id/:package_image_file_name",
                      :preserve_files => true
     validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
-end
+end 

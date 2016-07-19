@@ -5,7 +5,7 @@
     <%= f.input :name %>
     <div class="row">
     <div class="col-sm-6">
-    <%= f.association :options, as: :check_boxes, :label_method => lambda { |option| "#{option.package.name} | #{option.slug}" } %>
+    <%= f.association :options, as: :check_boxes, :label_method => lambda { |option| "#{option.package.name}: #{option.package.slug} | #{option.slug}" } %>
     </div>
     <div class="col-sm-6">
     <%= f.association :extras, as: :check_boxes %>
