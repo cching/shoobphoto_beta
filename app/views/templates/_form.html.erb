@@ -1,4 +1,4 @@
-<%= simple_form_for(@template, :html => { :multipart => true } ) do |f| %>
+<%= simple_form_for(@template, :remote => true, :html => { :multipart => true }, :input_html => {:id => "template_form"} ) do |f| %>
   <%= f.error_notification %>
   <% if @template.errors.any? %>
   <ul>
@@ -85,4 +85,12 @@ $('.column_input').click(function(){
         $('#form_' + id).hide();
     }
 });
+$(".multiple_select").select2();
+
+$(".field_field").blur(function() {
+  $(".edit_template").submit();
+  $("#preview").html("Loading...");
+
+});
+
 </script>

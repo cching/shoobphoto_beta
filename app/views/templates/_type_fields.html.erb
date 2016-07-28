@@ -1,8 +1,6 @@
 <%= f.input :name %>
 
-<%= f.association :schools, collection: School.all.where.not(school_type_id: nil).order(:name) %><br/>
-<%= f.check_box :preview %>
-  <%= f.label :preview, "Preview this type" %><br/>
+<%= f.association :schools, collection: School.all.where.not(school_type_id: nil).order(:name), input_html: { class: 'multiple_select'} %><br/>
 
 <%= f.check_box :_destroy %>
   <%= f.label :_destroy, "Remove Type" %>

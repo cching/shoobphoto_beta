@@ -3,7 +3,7 @@
   X
 </div>
   <div class="col-sm-9">
-<%= f.input :x, label: false %>
+<%= f.input :x, label: false, :input_html => {:class => "field_field"} %>
 </div>
 </div>
 <div class="row">
@@ -11,7 +11,7 @@
   Y
 </div>
   <div class="col-sm-9">
-<%= f.input :y, label: false %>
+<%= f.input :y, label: false, :input_html => {:class => "field_field"} %>
 </div>
 </div>
 
@@ -20,7 +20,7 @@
   Width
 </div>
   <div class="col-sm-9">
-<%= f.input :width, label: false %>
+<%= f.input :width, label: false, :input_html => {:class => "field_field"} %>
 </div>
 </div>
 
@@ -29,7 +29,7 @@
   Height
 </div>
   <div class="col-sm-9">
-<%= f.input :height, label: false %>
+<%= f.input :height, label: false, :input_html => {:class => "field_field"} %>
 </div>
 </div>
 
@@ -38,7 +38,7 @@
   Text size
 </div>
   <div class="col-sm-9">
-<%= f.input :text_size, label: false %>
+<%= f.input :text_size, label: false, :input_html => {:class => "field_field"} %>
 </div>
 </div>
 <div class="row">
@@ -46,7 +46,7 @@
   Spacing
 </div>
   <div class="col-sm-9">
-<%= f.input :spacing, label: false %>
+<%= f.input :spacing, label: false, :input_html => {:class => "field_field"} %>
 </div>
 </div>
 
@@ -55,7 +55,7 @@
   Color
 </div>
   <div class="col-sm-9">
-<%= f.input :color, label: false, as: :minicolors, input_html: {data: {
+<%= f.input :color, label: false, as: :minicolors, input_html: {class: "field_field",data: {
           minicolors: {theme: :bootstrap, position: :right}}} %>
 </div>
 </div>
@@ -66,7 +66,7 @@
   Align
 </div>
   <div class="col-sm-9">
-<%= f.input :align, label: false, :collection => Field.align_options, :include_blank => false  %>
+<%= f.input :align, label: false, :collection => Field.align_options, :include_blank => false, :input_html => {:class => "field_field"}  %>
 </div>
 </div>
 
@@ -75,7 +75,7 @@
   Font
 </div>
   <div class="col-sm-9">
-<%= f.association :font, label: false, :include_blank => false %>
+<%= f.association :font, label: false, :include_blank => false, :input_html => {:class => "field_field"} %>
 </div>
 </div>
 
