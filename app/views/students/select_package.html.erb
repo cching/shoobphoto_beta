@@ -96,3 +96,13 @@
 	<% end %>
 </div>
 <% end %>
+
+<script>
+$('.btn-loading').button();
+
+$(document).ready(function(){
+  $('.btn-loading').click(function() {
+    $(this).button('loading');
+  });
+});
+</script>
