@@ -112,13 +112,13 @@
 			<% end %>
 			<% end %> 
 
-			<% if @cart.order_packages.first.package.shippings.any? %>
+			<% if @cart.order_packages.where.not(package_id: nil).first.package.shippings.any? %>
 			<div class="row">
 				<div class="col-xs-6 subtotal">
 					SHIPPING
 				</div>
 				<div class="col-xs-6 subtotal" align="right">
-					<%= number_to_currency(@cart.order_packages.first.package.shippings.first.price, :show_zero => false) %>
+					<%= number_to_currency(@cart.order_packages.where.not(package_id: nil).first.package.shippings.first.price, :show_zero => false) %>
 				</div>
 			</div>
 			<% end %>

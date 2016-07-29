@@ -27,7 +27,11 @@ class StudentsController < ApplicationController
 
     @opackage.options << @option
 
-    @image = @student.student_images.where(:package_id => @option.package.id).where.not(folder: "fall2015").last
+    @image = @student.student_images.where(:package_id => @option.package.id).where.not(folder: "fall2015").last 
+
+    unless @option.extra_types.any? 
+      redirect_to student_update_path(@cart.cart_id, @cart.students.count - 1)
+    end
 
   end
 

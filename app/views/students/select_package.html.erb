@@ -83,11 +83,8 @@
 				$<%= option.price.floor %>
 				</div>
 				<div class="col-xs-9 padding-top">
-					<% if option.extra_types.any? %>
 						<%= link_to "Add to Cart", student_addons_path(@cart.cart_id, @i, option.id), class: "btn-#{i} btn-loading" %>
-					<% else %>
-						<%= link_to "Add to Cart", student_update_path(@cart.cart_id, @cart.students.count - 1), class: "btn-#{i}  btn-loading" %>
-					<% end %>
+			
 				</div>
 			</div>
 		</div>
