@@ -27,7 +27,7 @@ class StudentsController < ApplicationController
 
     @opackage.options << @option
 
-    @image = @student.student_images.where(:package_id => @option.package.id).last
+    @image = @student.student_images.where(:package_id => @option.package.id).where.not(folder: "fall2015").last
 
   end
 
@@ -592,7 +592,7 @@ class StudentsController < ApplicationController
     @student = @cart.students[params[:i].to_i]
     @package = Package.find(params[:package]) 
 
-    @image = @student.student_images.where(:package_id => @package.id).last
+    @image = @student.student_images.where(:package_id => @package.id).where.not(folder: "fall2015").last
 
     
   end 

@@ -32,7 +32,11 @@
 			<% else %>
 				<%= link_to "Employee Login", new_user_session_path %><br/>
 			<% end%>
-		</div>
+
+			<% if current_user.try(:admin) %>
+			<%= link_to "Dashboard", admin_dashboards_path %><br/>
+			<% end %>
+ 		</div>
 	</div>
 </div>
 
