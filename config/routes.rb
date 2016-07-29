@@ -46,11 +46,10 @@ end
 
 match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'note'
 
-  resources :contacts do
-    collection do
-      get :scheduling
-    end
-  end
+  resources :contacts 
+
+  match 'scheduling' => 'contacts#scheduling', :via => 'GET', :as => 'scheduling'
+
  
   match 'contact' => 'contacts#new', :via => 'GET'
 
