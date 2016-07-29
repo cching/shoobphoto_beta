@@ -8,6 +8,9 @@ layout 'fullwidth'
     respond_with(@contacts)
   end
 
+  def scheduling
+  end
+
   def show
     respond_with(@contact)
   end
