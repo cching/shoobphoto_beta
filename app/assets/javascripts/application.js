@@ -38,11 +38,6 @@ $(document).ready(function(){
   });
 });
 
-$(".btn-loading").on("click", function() {
-  $('#myModal').modal('show');
-  $("#modal-window").html("<%= escape_javascript(render partial: 'loading') %>"); 
-});
-
 
 $(function() {
   $("#students_list").on("click", ".pagination a", function(){
