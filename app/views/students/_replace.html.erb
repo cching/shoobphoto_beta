@@ -52,16 +52,6 @@
       }
     
 
-    var y = document.getElementById('input_student_id').value;
-    if (y == null || y == "") {
-        isValid = false;
-        var d = document.getElementById("input_student_id");
-        d.className += " error_field";
-        } else {
-
-      document.getElementById("input_student_id").className = "";
-      document.getElementById("input_student_id").className = "enjoy-css";
-      }
 
 
     <% if @school.school_type.id == 3 %>

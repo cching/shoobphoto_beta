@@ -24,8 +24,6 @@
 //= require moment
 //= require bootstrap-datetimepicker
 //= require select2-full
-//= require toucheffects
-//= require modernizr.custom
 //= require pickers
 //= require stickyfill
 //= require_tree .

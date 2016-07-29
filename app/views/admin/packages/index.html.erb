@@ -11,6 +11,7 @@
     <% @packages.each do |package| %>
       <tr>
         <td><%= package.name %> - <%= package.slug %>  </td>
+        <td><%= link_to 'Copy Package', copy_admin_package_path(package), :data => {:confirm => 'Copy this package?'} %> | </td>
         <td><%= link_to 'Edit', edit_admin_package_path(package) %> | </td>
         <td><%= link_to 'Destroy', admin_package_path(package), method: :delete, data: { confirm: 'Are you sure?' } %> | </td>
         <td><%= link_to 'Upload Student Packages', admin_csv_packages_path(package), class: "btn btn-primary" %></td>

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       get 'select'
       get 'update_student'
       get 'newstudent'
-      get 'capture'
+      get 'capture' 
     end
   end
 match 'webcams/capture/webcams/refresh' => 'webcams#refresh', :via => 'GET', :as => 'refresh'
@@ -111,6 +111,9 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
       collection do
         get :carts
         get :export_carts
+      end
+      member do
+        get :copy
       end
     end
     resources :pages 

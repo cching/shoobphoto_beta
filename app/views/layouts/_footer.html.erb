@@ -26,6 +26,9 @@
 		<div class="col-xs-2 gold_text" align="left">
 			<%= link_to "About Us", new_contact_path %><br/>
 			<%= link_to "Privacy Policy", contacts_path %><br/>
+			<% if current_user.try(:admin) %>
+			<%= link_to "Dashboard", admin_dashboards_path %><br/>
+			<% end %>
 
 			<% if current_user %>
 				<%= link_to "Logout", destroy_user_session_path, method: :delete %><br/>
@@ -33,9 +36,7 @@
 				<%= link_to "Employee Login", new_user_session_path %><br/>
 			<% end%>
 
-			<% if current_user.try(:admin) %>
-			<%= link_to "Dashboard", admin_dashboards_path %><br/>
-			<% end %>
+			
  		</div>
 	</div>
 </div>

@@ -11,6 +11,41 @@ require 'smarter_csv'
     end
   end
 
+  def copy
+    @package = Package.find(params[:id])
+    @package1 = @package.dup
+
+    @package1.save
+    @package1.image = @package.image
+    @package1.save
+
+
+    
+    @package.shippings.each do |shipping|
+        s = shipping.dup
+        s.update(:package_id => @package1.id)
+    end
+
+    @package.options.each do |option|
+      o = option.dup
+      o.update(:package_id => @package1.id)
+
+      option.prices.each do |price|
+        p = price.dup
+        p.update(:option_id => o.id)
+      end
+
+      option.image_types.each do |type|
+        t = type.dup
+        t.update(:option_id => o.id)
+      end
+    end
+
+    
+    redirect_to edit_admin_package_path(@package1.id)
+
+  end
+
   def index
     @packages = Package.all.order(:name)
   end
