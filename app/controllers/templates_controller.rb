@@ -8,7 +8,7 @@ class TemplatesController < ApplicationController
     fields = @template.columns.all.map {|column| column.fields.where(:template_id => @template.id).last.id }
     @template.fields.each do |field|
       unless fields.include? field.id
-        field.delete
+        field.delete 
       end
     end
     
@@ -76,33 +76,28 @@ class TemplatesController < ApplicationController
   def update
     @template.update(template_params)
 
-    if @template.types.any?
-    if @template.types.where(:preview => true).any?
-      typeid = @template.types.where(:preview => true).last.id
-    else
-      typeid = @template.types.last.id 
-    end
+      @template.pdfs.each do |pdf|
 
-    @export_data = @template.export_datas.new(( {}).merge({
-      kind: 'print',
-      type_id: typeid,
-      user_id: current_user.id
-    }))
+        type = pdf.types.first
 
-    @export_data.export_data_students.new(:student_id => 129932)
-    @export_data.save
+      @export_data = @template.export_datas.new(( {}).merge({
+        kind: 'print',
+        type_id: type.id,
+        user_id: current_user.id
+      }))
+
+      @export_data.export_data_students.new(:student_id => 129932)
+      @export_data.save
 
 
-    file_name = ["export-file-#{@export_data.id}", ".pdf"]
-      Tempfile.open(file_name) do |file|
-          DownloadPdf.new(@export_data, 8, file.path).generate
-          @export_data.file = file
-        @export_data.save
+      file_name = ["export-file-#{@export_data.id}", ".pdf"]
+        Tempfile.open(file_name) do |file|
+            DownloadPdf.new(@export_data, 8, file.path).generate
+            @export_data.file = file
+          @export_data.save
+        end
       end
-    end
-        
-    
-    redirect_to edit_template_path(@template.id)
+      
   end
 
   def destroy

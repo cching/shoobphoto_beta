@@ -17,6 +17,9 @@
  *= require component
  *= require animate
  *= require bootstrap-datetimepicker.min
+ *= require select2
+ *= require select2-bootstrap
+ *= require flatui
  *= require_self
  */
 
@@ -35,14 +38,16 @@ html {
 }
 
 body {
+    padding: 0px;
     margin: 0 0 100px; /* bottom = footer height */
 }
 
 footer {
+    background-color: #5392c8 !important;
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 100px;
+    height: 150px;
     width: 100%;
     overflow:hidden;
     margin-top:0px;
@@ -54,4 +59,8 @@ footer {
 @font-face {
   font-family: "Avenir";
   src: url(/assets/AvenirNextLTPro-DemiCn.otf) format("truetype");
+}
+
+.container-full {
+    overflow-x:hidden;
 }

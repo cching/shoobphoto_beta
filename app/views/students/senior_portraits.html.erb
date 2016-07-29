@@ -1,4 +1,5 @@
-<div class="row">
+<br/><br/><div class="row">
+	<div class="col-xs-1"></div>
 	<div class="col-xs-5" id="senior_table">
 		<h3>Your Package:</h3>
 
@@ -24,21 +25,23 @@
 			<% end %>
 		</div>
 		<% end %>
-	</div>
+	</div> 
 	<span id="senior_images">
 		<%= render 'senior_images' %>
 	</span>
 </div><br/>
 <div class="row">
-	<div class="col-xs-6" align="left">
-		<%= link_to "Back", student_select_package_path(@cart.cart_id, @cart.students.count - 1), class: " btn-custom4" %>
+	<div class="col-xs-1"></div>
+	<div class="col-xs-5" align="left">
+		<%= link_to "Back", student_select_package_path(@cart.cart_id, @cart.students.count - 1, 6), class: " btn-custom4" %>
 	</div>
-<div class="col-xs-6" align="right">
+	<div class="col-xs-5" align="right">
 	<% if @images.any? && @cart.id_supplied? %>
      	<%= link_to "Add to Cart", previous_images_path(@cart.cart_id, @cart.students.count - 1), class: "btn-custom4" %>
     <% else %>
         <%= link_to "Add to Cart", student_final_path(@cart.cart_id, @cart.students.count - 1), class: "btn-custom4" %>
      <%  end %>
+     <div class="col-xs-1"></div>
 </div>
 </div>
 

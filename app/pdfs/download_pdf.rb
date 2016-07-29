@@ -24,7 +24,7 @@ class DownloadPdf < Prawn::Document
             normal: font.file.url
           })
         end
-
+ 
         # Cache pdf.
         @pdf = Thread.current[:export_files][@export_data.pdf.file.url]
 

@@ -1,0 +1,98 @@
+<div class="animated fadeIn">
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+  </ol>
+
+  <div class="carousel-inner" role="listbox">
+
+   <!-- First image on the slide, URL to image goes in img src -->
+   
+    <!-- First Image-->
+    <div class="item active">
+      <a href="/items"><img src="/assets/slider_mockup.jpg" alt="help"  onload="onResize()"></a>
+    </div>
+
+    <!-- Second image -->
+    <div class="item">
+           <a href="/students"><img src="/assets/seniors_slider.jpg" alt="seniors"></a>
+    </div>
+
+    <!-- Third image -->
+
+
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<br/>
+<div class="row" id="bottom_images">
+<div class="col-sm-4">
+<a href="/students"><img src="assets/Purchase_PicsYearbook.jpg"></a>
+</div>
+<div class="col-sm-4">
+<a href="/items"><img src="assets/catalog.jpg"></a>
+
+</div>
+<div class="col-sm-4">
+<a href="/download"><img src="assets/Download_DigitalImage.jpg"></a>
+
+</div>
+</div>
+</div>
+
+<style>
+.carousel-inner {
+   margin-bottom:50px;
+}
+.carousel-indicators {
+  bottom:-40px;
+}
+
+.carousel-indicators li {
+  background-color: #000;
+}
+
+.carousel-indicators .active {
+  background-color: #000;
+}
+
+.item img {
+  min-width:100%;
+}
+
+.carousel-inner {
+  max-width:100%;
+}
+
+.carousel {
+  padding-left:0px;
+  margin-left:0px;
+  max-width:100%;
+}
+
+
+</style>
+
+<script>
+window.onresize = onResize;
+
+function onResize(e){
+    var img = var img = document.images.myImage;
+    if ( img.width > img.height )
+        img.width = window.innerWidth
+    else
+        img.height = window.innerHeight;
+}
+</script>

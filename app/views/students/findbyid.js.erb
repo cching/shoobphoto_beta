@@ -1,2 +1,6 @@
-$("#replace").html("<%= escape_javascript(render 'replace') %>");
+$("#gradedropdown").select2("trigger", "select", {
+    data: { id: "<%= @student.grade %>" }
+});
 
+ $('#student_first_name').val("<%= @student.first_name %>");
+ $('#student_last_name').val("<%= @student.last_name %>");

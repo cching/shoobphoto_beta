@@ -28,9 +28,15 @@
 	  <div id="modal-window"></div>
 	</div>	
 	
-
+	<%= render 'layouts/header' %>
+	<div class="container-full">
 		<%= yield %>
+	</div>
 
+	<br /><br/>
+	<footer>
+		<%= render 'layouts/footer' %>
+	</footer>
 </body>
 
 </html>

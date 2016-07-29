@@ -1,179 +1,205 @@
-<div class="row">
-  <div class="col-sm-6 animated fadeInLeft"><br/><br/>
-  <div id="image"><%= image_tag("image_left.jpg", class: "img-rounded img-large") %></div><br/><br/>
-<p class="small-font">
-  For security reasons, no preview is available unless the Student ID is entered.<br/>
-Student ID can usually be found on ID cards and report cards.<br/>
-Orders may be placed without Student ID but previews will not be shown.<br/>
-Please call Shoob Photography at 209 567-0748 or email info@shoobphoto.com<br/>
-if you have any questions.</p>
+<%= form_tag(student_find_path, method: :get, :name => 'new_search_form', :id => "new_search_form") do %>
+<div class="row animated fadeIn">
+  <div class="col-xs-7"> 
+    <%= image_tag("search.png", class: "image-width") %>
   </div>
-  <div class="col-sm-6 animated fadeInRight">
-  <h3 class="info"><%= @school.name %></h3><hr>
-  <div class="info">Enter your student's information to purchase portraits.</div> 
-	<%= form_tag(student_find_path(@school.id), method: :get, :name => 'new_search_form', :id => "new_search_form") do %>
-        <div id="required">
-        <div class="requiredtext">
-        * required input
-        </div>
-        <span id="emailspan"></span>
+  <div class="col-xs-4">
+    <br/>
+    <div class="blue"><strong>Enter your student's information below.</strong></div>
+        <span class="search_input">SCHOOL OR SPORT</span>
+        <select name="school[school_id]" id="dropdown" class="enjoy-css">
+            <% School.all.order(:name).where.not(school_type_id: nil).each do |school| %>
+                <option value="<%= school.id %>"><%= school.name.titleize %></option>
+            <% end %>
+        </select>
+
         <% unless cookies[:user_email].nil? %>
-        <div class="input-group"><span class="input-group-addon emaillist ok" id="sizing-addon3"><span class="glyphicon glyphicon-ok"></span></span>
-        <%= text_field_tag :email, nil, placeholder: "Your email address", class: "form-control", id: "input_email", value: "#{cookies[:user_email]}" %>
-        </div>
-        <% else %>
-        <div class="input-group"><span class="input-group-addon emaillist" id="sizing-addon3">*</span>
-        <%= text_field_tag :email, nil, placeholder: "Your email address", class: "form-control", id: "input_email" %>
-        </div>
-        <% end %>
-        <br/>
-        <%= text_field_tag :student_id, nil, placeholder: "Student's ID Number", class: "form-control", id: "input_student_id", :'data-validate' => "/students/findbyid/#{@school.id}" %><br/>
 
-        <span id="replace">
- 
-        <div class="input-group"><span class="input-group-addon firstname" id="sizing-addon3">*</span>
-        <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "form-control", id: "input_first_name" %>
-        </div><br/>
-        <div class="input-group"><span class="input-group-addon lastname" id="sizing-addon3">*</span>
-        <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "form-control", id: "input_last_name" %>
-        </div><br />
-        <% unless @school.school_type.id == 4 %>
-
-        <div class="input-group"><span class="input-group-addon grade" id="sizing-addon3">*</span>
-        <%= select_tag :grade, options_for_select(Student::Grades), class: "form-control", id: "input_student_grade", :prompt => "Student's Grade" %>
-        </div><br/>
-        <% end %>
-       
-        <% if @school.school_type.id == 3 %>
+        <%= text_field_tag :email, nil, placeholder: "Your email address", class: "enjoy-css", id: "input_email", value: "#{cookies[:user_email]}" %>
         
+        <% else %>
+        <%= text_field_tag :email, nil, placeholder: "Your email address", class: "enjoy-css", id: "input_email" %>
+        <% end %><br/>
 
-        <div class="input-group"><span class="input-group-addon teacher" id="sizing-addon3">*</span>
-        <%= text_field_tag :student_teacher, nil, placeholder: "Student's Teacher", class: "form-control", id: "input_student_teacher" %>
-        </div><br/>
+        <div class="row">
+          <div class="col-xs-8">
+        <%= text_field_tag :student_id, nil, placeholder: "Student's ID Number", class: "enjoy-css2", id: "input_student_id" %>
+          </div>
+          <div class="col-xs-4" id="student_grade">
+            <%= select_tag :grade, options_for_select(Student::Grades), id: "gradedropdown" %>
 
-        <% end %>
+          </div>
+          </div>
+
+ 
+        <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "enjoy-css", id: "student_first_name" %>
+
+        <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "enjoy-css", id: "student_last_name" %>
+       
+        
+        <span class="teacher" hidden>
+        <%= text_field_tag :student_teacher, nil, placeholder: "Student's Teacher", class: "enjoy-css", id: "input_student_teacher" %>
+        </span>
+        <span class="dob">
+          DATE OF BIRTH
+        </span>
+        <div class="row">
+        <div class="col-xs-4">
+          <%= select_month(0, {:prompt => "Month"}, 
+ 
+                       {:field_name => 'month', :id => 'date_month'}) %>
+        </div>
+        <div class="col-xs-3">
+          <%= select_day(0, {:prompt => "Day"}, 
+ 
+                       {:field_name => 'day', :id => 'date_day'}) %>
+        </div>
+        <div class="col-xs-3">
+          <%= select_year(0, {:prompt => "Year", 
+                        :start_year => DateTime.now.year, 
+                        :end_year => DateTime.now.year - 115}, 
+                       {:field_name => 'year', :id => 'date_year'}) %>
+        </div>
       </div>
+        
+        <div class="row">
+        <div class="col-xs-8"></div>
+          <div class="col-xs-4" id="button_script">
+            <input class="btn-blue" name="commit" value="Continue" onclick="return validateForm()" readonly>
+          </div>
+        </div>
 
         <%= hidden_field_tag "cart", @cart %>
         <%= hidden_field_tag "i", @i %>
         </div>
+      </div>
         
-    <div class="submit" id="submit">
-           <input class="btn btn-custom4" name="commit" value="Continue" onclick="return validateForm()" readonly>
-    </div>
-
-	<% end %>
-  </div>
-</div>
-
+    
+  <% end %>
+  
 <script>
+$("#input_student_id").keyup(function() 
+{
+$.get('/students/findbyid/' + $("#dropdown").select2("val") + '?student_id=' + $("#input_student_id").val()).success(function(data) { } )
+});
+
+$("#dropdown").change(function() {
+$.get('/students/showteacher/' + $("#dropdown").select2("val")).success(function(data) { } )
+
+});
+
+$(document).ready(function() { 
+  $( "#dropdown" ).select2({
+    theme: "bootstrap",
+    width: '105%',
+    height: '20px',
+});
+
+  
+  $("#gradedropdown").select2({
+    theme: "bootstrap",
+    width: '117%',
+    minimumResultsForSearch: Infinity
+  });
+
+  $("#date_year").select2({
+    theme: "bootstrap",
+    width: '117%',
+    minimumResultsForSearch: Infinity
+  });
+
+  $("#date_month").select2({
+    theme: "bootstrap",
+    width: '117%',
+    minimumResultsForSearch: Infinity
+  });
+
+  $("#date_day").select2({
+    theme: "bootstrap",
+    width: '117%',
+    minimumResultsForSearch: Infinity
+  });
+
+
+  $('.select2-selection').css('border-radius','0px')
+  $('.select2-selection').css('border','2px solid #9D9D9D')
+  $('.select2-selection').css('font','normal 16px/normal "Trebuchet MS", Helvetica, sans-serif')
+  $('.select2-selection').css('margin-bottom','20px') 
+  $('.select2-selection').css('padding-top','9px')
+  $('.select2-selection').css('height','44px')
+  $('.select2-container').children().css('border-radius','0px')
+
+ });
+
 function validateForm(){isValid = false;
   var isValid = true;
 
-  var x = document.getElementById('input_first_name').value;
+  var x = document.getElementById('student_first_name').value;
     if (x == null || x == "") {
         isValid = false;
-    }
+        var d = document.getElementById("student_first_name");
+        d.className += " error_field";
+      } else {
+
+      document.getElementById("student_first_name").className = "";
+      document.getElementById("student_first_name").className = "enjoy-css";
+      }
+    
 
     var z = document.getElementById('input_email').value;
     if (z == null || z == "") {
         isValid = false;
-    }
+        var d = document.getElementById("input_email");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_email").className = "";
+      document.getElementById("input_email").className = "enjoy-css";
+      }
+    
 
     var emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; 
 
       if(!emailReg.test(z)) {
         isValid = false;
+        var d = document.getElementById("input_email");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_email").className = "";
+      document.getElementById("input_email").className = "enjoy-css";
+      }
+      
+
+    var y = document.getElementById('student_last_name').value;
+    if (y == null || y == "") {
+        isValid = false;
+        var d = document.getElementById("student_last_name");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("student_last_name").className = "";
+      document.getElementById("student_last_name").className = "enjoy-css";
+      }
+    
+
+    var y = document.getElementById('input_student_id').value;
+    if (y == null || y == "") {
+        isValid = false;
+        var d = document.getElementById("input_student_id");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_student_id").className = "";
+      document.getElementById("input_student_id").className = "enjoy-css";
       }
 
-    var y = document.getElementById('input_last_name').value;
-    if (y == null || y == "") {
-        isValid = false;
-    }
 
-
-    <% if @school.school_type.id == 3 %>
-      var y = document.getElementById('input_student_teacher').value;
-    if (y == null || y == "") {
-        isValid = false;
-    }
-    <% end %>
 
   if(isValid){
     document.getElementById('new_search_form').submit();
   }
-  else {
-    alert('Please fill all required fields');
-  }
+
 }
-
-$(function() {
-    $('[data-validate]').keyup(function(){
-        $this = $(this);
-        $.get($this.data('validate'), {
-            student_id: $this.val()
-        }).success(function() {
-            $this.removeClass('field_with_errors');
-        }).error(function() {
-            $this.addClass('field_with_errors');
-        });
-    });
-});
-
-$("#input_email").keyup(function() 
-{
- var emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; 
- var emailaddress = $("#input_email").val();
- if(!emailReg.test(emailaddress)) 
-        $(".emaillist").replaceWith("<%= escape_javascript(render :partial =>'bad', :locals => {:@ajaxclass => "emaillist"}) %>");
-
- else {
-  
-      $(".emaillist").replaceWith("<%= escape_javascript(render :partial =>'email', :locals => {:@ajaxclass => "emaillist"}) %>");
-}
-});
-$("#input_first_name").keyup(function()
-{
-var y = document.getElementById('input_first_name').value;
- y = y.replace(/ /g,'');
-if (y == null || y == "") {
-      $(".firstname").replaceWith("<%= escape_javascript(render :partial =>'bad', :locals => {:@ajaxclass => "firstname"}) %>");
-    } else {
-      $(".firstname").replaceWith("<%= escape_javascript(render :partial => 'email', :locals => {:@ajaxclass => "firstname"}) %>");
-    }
-});
-$("#input_last_name").keyup(function() 
-{
-var y = document.getElementById('input_last_name').value;
- y = y.replace(/ /g,'');
-if (y == null || y == "") {
-      $(".lastname").replaceWith("<%= escape_javascript(render :partial => 'bad', :locals => {:@ajaxclass => "lastname"}) %>");
-
-    } else {
-      $(".lastname").replaceWith("<%= escape_javascript(render :partial => 'email', :locals => {:@ajaxclass => "lastname"}) %>");
-    }
-});
-$("#input_student_grade").change(function() 
-{
-var y = document.getElementById('input_student_grade').value;
- y = y.replace(/ /g,'');
-if (y == null || y == "") {
-      $(".grade").replaceWith("<%= escape_javascript(render :partial => 'bad', :locals => {:@ajaxclass => "grade"}) %>");
-
-    } else {
-      $(".grade").replaceWith("<%= escape_javascript(render :partial => 'email', :locals => {:@ajaxclass => "grade"}) %>");
-    }
-});
-
-$("#input_student_teacher").keyup(function() 
-{
-var y = document.getElementById('input_student_teacher').value;
- y = y.replace(/ /g,'');
-if (y == null || y == "") {
-      $(".teacher").replaceWith("<%= escape_javascript(render :partial => 'bad', :locals => {:@ajaxclass => "teacher"}) %>");
-
-    } else {
-      $(".teacher").replaceWith("<%= escape_javascript(render :partial => 'email', :locals => {:@ajaxclass => "teacher"}) %>");
-    }
-});
 </script>
+

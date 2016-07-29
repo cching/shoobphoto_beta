@@ -13,6 +13,7 @@ gem 'aws-sdk', '~> 1.6.0'
 gem "paperclip", "~> 4.3"
 gem 'paperclip-watermark'
 gem 'touchpunch-rails'
+gem 'to_words'
 
 
 gem 'sass-rails', '~> 4.0.3'
@@ -47,6 +48,9 @@ gem 'roo'
 gem 'simple_form'
 gem 'headshot'
 gem "rmagick", "2.13.3", :require => "RMagick"
+gem "select2-rails"
+
+
 
 
 

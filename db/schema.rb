@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160714082452) do
+ActiveRecord::Schema.define(version: 20160728231643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -452,11 +452,15 @@ ActiveRecord::Schema.define(version: 20160714082452) do
     t.string   "shipping_city"
     t.string   "shipping_zip"
     t.string   "shipping_state"
-    t.boolean  "processed",        default: false
+    t.boolean  "processed",           default: false
     t.text     "notes"
     t.integer  "school_id"
-    t.boolean  "posted",           default: false
-    t.boolean  "free",             default: false
+    t.boolean  "posted",              default: false
+    t.boolean  "free",                default: false
+    t.string   "shipping_first_name"
+    t.string   "shipping_last_name"
+    t.string   "address2"
+    t.string   "shipping_address2"
   end
 
   create_table "packages", force: true do |t|

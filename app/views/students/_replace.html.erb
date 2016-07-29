@@ -1,30 +1,86 @@
-<div class="animated fadeIn">
-<div class="input-group"><span class="input-group-addon ok animated pulse" id="sizing-addon3"><span class="glyphicon glyphicon-ok"></span>
-</span>
-        <%= text_field_tag :first_name, @student.first_name, placeholder: "Student's First Name", class: "form-control", id: "input_first_name" %>
-        </div><br/>
-        <div class="input-group"><span class="input-group-addon ok animated pulse" id="sizing-addon3"><span class="glyphicon glyphicon-ok"></span>
-</span></span>
-        <%= text_field_tag :last_name, @student.last_name, placeholder: "Student's Last Name", class: "form-control", id: "input_last_name" %>
-        </div><br />
+<input class="btn-blue" name="commit" value="Continue" onclick="return validateForm1()" readonly>
+ <script>
+ function validateForm1(){isValid = false;
+  var isValid = true;
 
-        <div class="input-group"><span class="input-group-addon ok animated pulse" id="sizing-addon3"><span class="glyphicon glyphicon-ok"></span>
-</span></span>
-        <%= select_tag :grade, options_for_select(Student::Grades, :selected => @student.grade), class: "form-control", id: "input_student_grade" %>
-        </div><br/>
-       
-        <% if @school.school_type.id == 3 %>
-        
-        <% if @student.teacher.nil? %>
-        <div class="input-group"><span class="input-group-addon" id="sizing-addon3">*</span>
-        <%= text_field_tag :student_teacher, nil, placeholder: "Student's Teacher", class: "form-control", id: "input_student_teacher" %>
-        </div>
-        <% else %>
-        <div class="input-group"><span class="input-group-addon ok animated pulse" id="sizing-addon3"><span class="glyphicon glyphicon-ok"></span>
-        </span></span>
-        <%= text_field_tag :student_teacher, @student.teacher, placeholder: "Student's Teacher", class: "form-control", id: "input_student_teacher" %>
-        </div>
-        <% end %><br/>
+  var x = document.getElementById('student_first_name').value;
+    if (x == null || x == "") {
+        isValid = false;
+        var d = document.getElementById("student_first_name");
+        d.className += " error_field";
+      } else {
 
-        <% end %>
-</div>
+      document.getElementById("student_first_name").className = "";
+      document.getElementById("student_first_name").className = "enjoy-css";
+      }
+    
+
+    var z = document.getElementById('input_email').value;
+    if (z == null || z == "") {
+        isValid = false;
+        var d = document.getElementById("input_email");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_email").className = "";
+      document.getElementById("input_email").className = "enjoy-css";
+      }
+    
+
+    var emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; 
+
+      if(!emailReg.test(z)) {
+        isValid = false;
+        var d = document.getElementById("input_email");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_email").className = "";
+      document.getElementById("input_email").className = "enjoy-css";
+      }
+      
+
+    var y = document.getElementById('student_last_name').value;
+    if (y == null || y == "") {
+        isValid = false;
+        var d = document.getElementById("student_last_name");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("student_last_name").className = "";
+      document.getElementById("student_last_name").className = "enjoy-css";
+      }
+    
+
+    var y = document.getElementById('input_student_id').value;
+    if (y == null || y == "") {
+        isValid = false;
+        var d = document.getElementById("input_student_id");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_student_id").className = "";
+      document.getElementById("input_student_id").className = "enjoy-css";
+      }
+
+
+    <% if @school.school_type.id == 3 %>
+      var y = document.getElementById('input_student_teacher').value;
+    if (y == null || y == "") {
+        isValid = false;
+    	var d = document.getElementById("input_student_teacher");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_student_teacher").className = "";
+      document.getElementById("input_student_teacher").className = "enjoy-css";
+      }
+    <% end %>
+
+  if(isValid){
+    document.getElementById('new_search_form').submit();
+  }
+
+}
+
+</script>

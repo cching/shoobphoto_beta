@@ -1,36 +1,8 @@
-<div id="alert"></div>
-<h3 align="center">Please select the type of portraits you wish to order.</h3>
-
-<div class="row animated fadeInUp" id="row">
+<div class="animated fadeInUp">
+<% @packages.each_with_index do |package, index| %>
 	
-	<table id="package_list" align="center" class="table">
-	<tr>
-	<% @packages.each_with_index do |package, index| %>
-		<td>
-		<h3><%= package.try(:name) %></h3>
-		<div id="<%= index %>" %>
-		<% unless @cart.order_packages.where(:package_id => package.id).where(:student_id => @student.id).any? %>
-			<img src='<%= @image_url[index] %>', class="img-rounded img-package"><br /><br /> 
-					<%= link_to "Select", order_create_package_path(:cart_id => @cart.cart_id, :package => package.id, :url => @image_url[index], :index => index, :student => @student.id), class: "btn-custom4", remote: true %> <br />
-		<% else %>
-			<img src='<%= @image_url[index] %>', class="img-rounded img-package-custom"><br /><br />
-					<%= link_to "Remove", order_delete_package_path(:cart_id => @cart.cart_id, :package => package.id, :url => @image_url[index], :index => index, :student => @student.id), class: "btn-custom5", remote: true %> <br />
-		<% end %><br />
-		</div>
-		</td>
+						<div class="center-row animated fadeInUp">
+							<%= link_to image_tag(package.image.url), student_select_package_path(@cart.cart_id, @cart.students.count - 1, package.id), class: "package_selection" %>
+						</div>
 	<% end %>
-	</tr>
- 
-	</table>
-
-	<hr />
-
 </div>
-				
-
-<div id="continue" class="animated fadeInUp">
-	<%= render 'orders/continue' %>
-
-</div>
-
-

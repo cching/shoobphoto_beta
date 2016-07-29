@@ -1,8 +1,59 @@
 class StudentsController < ApplicationController
   require 'aws-sdk'
+  layout 'fullwidth'
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
-  def find_student
+  def find_student 
+  end
+
+  def showteacher
+    @school = School.find(params[:school])
+  end
+
+
+  def addons
+    @cart = Cart.find_by_cart_id(params[:cart])
+    @i = params[:i]
+    @student = @cart.students[params[:i].to_i]
+    @option = Option.find(params[:option])
+    array = @option.package.options.map(&:id)
+    @index = array.index(@option.id)
+
+    if @cart.order_packages.where(:package_id => @option.package_id).any?
+      @opackage = @cart.order_packages.where(:package_id => @option.package_id).last
+    else
+      @opackage = @cart.order_packages.create(:package_id => @option.package.id, :student_id => @student.id)
+    end
+
+    @opackage.options << @option
+
+    @image = @student.student_images.where(:package_id => @option.package.id).last
+
+  end
+
+  def create_addons
+    @opackage = OrderPackage.find(params[:opackage])
+    @extra = Extra.find(params[:extra])
+    @opackage.extras << @extra
+
+    @price = 0
+
+    @price = @opackage.options.last.price + @price
+    @opackage.extras.each do |extra|
+    @price = extra.prices.first.try(:price) + @price
+    end
+  end
+
+  def delete_addon
+    @opackage = OrderPackage.find(params[:opackage])
+    @extra = Extra.find(params[:extra])
+    @opackage.extras.delete(@extra)
+    @price = 0
+
+    @price = @opackage.options.last.price + @price
+    @opackage.extras.each do |extra|
+    @price = extra.prices.first.try(:price) + @price
+    end
   end
 
   def add_pose
@@ -81,32 +132,18 @@ class StudentsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @student = @cart.students[params[:i].to_i]
 
-    orderpackage = @cart.order_packages.where(:package_id => 6).last
-    orderpackage.options = []
-    orderpackage.sheets = []
-    orderpackage.update(:extra_poses => 0)
-    orderpackage.options << Option.find(params[:option])
-
-    @price = 0
-
-
-    @cart.order_packages.each do |package|
-     package.options.each do |option|
-      @price = option.price(@student.school.id) + @price
-     end
+    if @cart.order_packages.where(:package_id => 6).any?
+      @opackage = @cart.order_packages.where(:package_id => 6).last
+    else
+      puts "rendered @@@@@@@@@@"
+      @opackage = @cart.order_packages.create(:package_id => 6, :student_id => @student.id)
     end
 
-    @cart.order_packages.each do |opackage|
-      package = opackage.package
-      if package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).any?
-      @price = @price + package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).first.price
-      elsif package.shippings.where(:school_id => nil).any?
-      @price = @price + package.shippings.where(:school_id => nil).first.price
-      
-      end
-    end
+    @opackage.options = []
+    @opackage.sheets = []
+    @opackage.update(:extra_poses => 0)
+    @opackage.options << Option.find(params[:option])
 
-    @cart.update(:price => @price)
 
     @ids = @student.download_images.pluck(:id) 
 
@@ -141,15 +178,16 @@ class StudentsController < ApplicationController
   end
 
   def preview_image
-    @image = params[:image]
+    @image = params[:image] 
   end
 
   def senior_portraits
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @student = @cart.students[params[:i].to_i]
     @i = params[:i]
-    bucket = AWS::S3::Bucket.new('shoobphoto')
-      @opackage = @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%senior%").last
+
+    @opackage = @cart.order_packages.where(:package_id => 6).last
+
       @s_image = @opackage.package.student_images.where(:student_id => @student.id).last
 
     bucket = AWS::S3::Bucket.new('shoobphoto')
@@ -211,20 +249,52 @@ class StudentsController < ApplicationController
 
   def remove_option
     @op = OrderPackage.find(params[:order_package_id])
-    @i = params[:i]
     @option = Option.find(params[:option_id])
-    @bool = []
+    @cart = @op.cart
+    @student = @cart.students[params[:i].to_i]
 
     @op.options.delete(@option)
     @op.order_package_extras.where(:option_id => @option.id).destroy_all
 
-    @op.cart.order_packages.each do |opackage|
-      if opackage.options.any?
-        @bool << true
-      else
-        @bool << false
-      end
+    unless @op.options.any?
+      @op.delete
     end
+
+    @price = 0
+      @cart.order_packages.each do |package|
+        unless package.extra_poses.nil?
+        @price = @price + package.extra_poses*25
+        end
+        package.options.each do |option|
+           @price = option.price(@student.school.id) + @price
+        end
+      end
+
+      @op.cart.order_packages.each do |opackage|
+
+        opackage.options.each do |option|
+          opackage.addon_sheets.each do |addon|
+          if option.without? 
+          @price = @price + addon.addon.price_without
+          else 
+          @price = @price + addon.addon.price_with
+          end
+          end
+        end
+
+        if opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).any?
+        @price = @price + opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).first.price
+        elsif opackage.package.shippings.where(:school_id => nil).any?
+        @price = @price + opackage.package.shippings.where(:school_id => nil).first.price
+        end
+        opackage.extras.each do |e|
+        unless e.prices.first.try(:price).nil?
+        @price = @price + e.prices.first.price
+        end
+      end 
+      end
+
+       @cart.update(:price => @price)
   end
 
   def remove_package
@@ -520,58 +590,17 @@ class StudentsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:id])
     @i = params[:i]
     @student = @cart.students[params[:i].to_i]
-    @opackages = @cart.order_packages.where(:student_id => @student.id).order(:id)
-    @images = [] 
+    @package = Package.find(params[:package]) 
 
-    @bool = []
-
-    @cart.order_packages.each do |opackage|
-      if opackage.options.any?
-        @bool << true
-      else
-        @bool << false
-      end
-    end 
-
-    bucket = AWS::S3::Bucket.new('shoobphoto')
-    @senior_url = []
-    @grad_url = []
-
-
-    @opackages.each do |opackage|
-      package = opackage.package
-      image = package.student_images.where(:student_id => @student.id).where.not(:folder => "fall2015").last
-      unless image.nil?
-      if image.senior_images.any?
-      image.senior_images.each do |s_image|
-      while image.senior_images.where(:image_file_name => s_image.image_file_name).count > 1
-        image.senior_images.where(:image_file_name => s_image.image_file_name).first.delete
-      end
-      end
-    end
-    end
+    @image = @student.student_images.where(:package_id => @package.id).last
 
     
-    end
   end 
 
   def packages
     @cart = Cart.find_by_cart_id(params[:id])
     @student = @cart.students[params[:i].to_i]
     @packages = @student.school.packages.order(:id)
-    @image_url = []
-
-    bucket = AWS::S3::Bucket.new('shoobphoto')
-
-    @packages.each do |package|
-
-      s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{package.id}/#{package.image_file_name}") #do default image in col later
-      
-
-      @image_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
-
-    end
-
 
   end
 
@@ -596,7 +625,7 @@ class StudentsController < ApplicationController
 
 
   def find
-    @school = School.find(params[:school])
+    @school = School.find(params[:school][:school_id])
     @i = (params[:i].nil? || params[:i] == "") ?  0 : params[:i]
     @cart_id = (params[:cart].nil? || params[:cart] == "") ?  1 : params[:cart]
     cookies[:user_email] = { :value => "#{params[:email]}", :expires => 5.years.from_now}
@@ -604,12 +633,8 @@ class StudentsController < ApplicationController
 
     if (params[:student_id].nil? || params[:student_id].strip == "")
 
-      if params[:first_name].nil? || params[:last_name].nil?
-        student = []
-      else
       student = @school.students.where("lower(first_name) like ? and lower(last_name) like ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%")
       
-      end
       if student.count > 0
         @student = student.last
 
@@ -631,8 +656,6 @@ class StudentsController < ApplicationController
 
     else
       student = @school.students.where("lower(first_name) like ? and lower(last_name) like ? and student_id = ? and id_only = ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%", "#{params[:student_id].gsub(/\s+/, "")}", "true")
-       
-    
       if student.count > 0
         @student = student.last
           if @cart_id.to_i == 1
@@ -691,11 +714,7 @@ class StudentsController < ApplicationController
   end
 
   def search
-    unless params[:school].nil?
-    @school = School.find(params[:school][:id])
-    else
-      @school = School.first
-    end
+
     @i = params[:i] unless params[:i].nil?
     @cart = params[:cart] unless params[:cart].nil?
 

@@ -1,0 +1,7 @@
+<% if @school.school_type_id == 3 %>
+	$(".teacher").show()
+<% else %>
+	$(".teacher").hide()
+<% end %>  
+
+$("#button_script").html("<%= escape_javascript(render 'replace') %>");

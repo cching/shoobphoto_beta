@@ -1,0 +1,5 @@
+$("#button_<%= @extra.extra_type.id %>_<%= @extra.id %>").html("<%= escape_javascript(render 'select') %>");
+
+$("#<%= @extra.extra_type.id %>_<%= @extra.id %>").removeClass("highlighted")
+
+$(".price").html("Subtotal: <%= number_to_currency(@price, :show_zero => false) %>")

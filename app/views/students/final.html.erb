@@ -1,97 +1,146 @@
-<h3>Cart:</h3>
+<br/><br/><br/>
 
-<table class="table">
-	<tr>
-		<td>Student's name</td>
-		<td>Package</td>
-	</tr>
-<% @cart.students.each do |student| %>
-	<tr>
-	<td>
-	<%= student.first_name %> <%= student.last_name %>
-	</td>
-	<td>
-	<% @cart.order_packages.where(:student_id => student.id).each do |o| %>
-		<% o.options.each do |option| %>
+<div class="row animated fadeIn">
+	<div class="col-xs-1"></div>
+	<div class="col-xs-5">
+	
+				<% @cart.order_packages.each do |opackage| %>
+					<% opackage.options.each do |option| %>
+					<span class="<%= opackage.id %>_<%= option.id %>">
+					<div class="row" id="outer_row">
+						<div class="col-xs-3">
+			
+							<% image = @student.student_images.where(:package_id => opackage.package.id).last %>
+							<% unless @image.nil? %>
+							<% if @cart.id_supplied? %>
+								<%= image_tag(image.watermark.url(:watermark), class: "review_image") %>
+							<% end %>
+							<% else %>
+								<%= image_tag(opackage.package.image.url, class: "review_image") %>
+							<% end %>
+						</div>
 
-			<%= number_to_currency(option.price(@cart.students[params[:i].to_i].school.id), :unit => "$") %>  - <strong><%= o.package.name %><%= ": Pose #{o.pose}" unless o.pose.nil? %> - <%= option.name %></strong>
-			<% if o.package.id == 253 %>
-			- <%= DownloadImage.package_name(o.download_image_id) %>
-			<% end %>
-			<br/>
-			<div class="row">
-				<div class="col-sm-1"></div> 
-				<div class="col-sm-11">
-					<% o.order_package_extras.where(:option_id => option.id).each do |e| %>
-						<% extra = e.extra %>
-						<%= number_to_currency(extra.prices.first.try(:price), :unit => "$") %> - <%= extra.name %> <br/>
+						<div class="col-xs-9 package_blue" %>
+							<div class="row">
+								<div class="col-xs-6 white_col" align="left">
+									<strong><%= option.name %></strong>
+								</div>
+								<div class="col-xs-6 white_col" align="right">
+									<%= number_to_currency(option.price, :show_zero => false) %>
+								</div>
+							</div>   
+
+							<% if 2 >= option.package.options.map(&:id).index(option.id) %>
+							<p class="yellow_text2">
+							INCLUDES <strong>FREE</strong> DIGITAL IMAGE
+							</p>
+							<% end %>
+							<% option.image_types.each_slice(2) do |slice| %>
+							<div class="row">
+								<% slice.each do |type| %>
+									<div class="col-xs-6 image_type"><%= type.name %></div>
+								<% end %>
+							</div>
+							<% end %>
+						</div>
+
+					</div>
+
+					<% if opackage.extras.any? %>
+					<div class="row">
+						<div class="col-xs-3"></div>
+						<div class="col-xs-9 package_orange">
+							<div class="row">
+								<div class="col-xs-6 white_col" align="left">
+									<strong>Addons</strong>
+								</div>
+								<div class="col-xs-6 white_col" align="right">
+									<% price = 0 %>
+									<% opackage.extras.each do |extra| %>
+									<% unless extra.prices.first.try(:price).nil? %>
+        							<% price = price + extra.prices.first.price %>
+       								<% end %>
+									<% end %>
+									<%= number_to_currency(price, :show_zero => false) %>
+								</div>
+							</div>  
+							<% opackage.extras.each do |extra| %>
+							<span class="image_type"><%= extra.name %></span><br/>
+							<% end %>
+
+						</div>
+					</div><br/>
+				</span>
 					<% end %>
+				<% end %>
+			<% end %>
+		
+	</div>
+
+	<div class="col-xs-6 space_left">
+		<div class="row">
+			<div class="col-xs-6 cart_title">
+				Cart
+			</div>
+			<div class="col-xs-6 ">
+
+			</div>
+		</div>
+		<div class="cart_box">
+			<% @cart.order_packages.each do |opackage| %>
+			<% opackage.options.each do |option| %>
+			<span class="<%= opackage.id %>_<%= option.id %>">
+			<div class="row gray_text_cart">
+				<div class="col-xs-6">
+					<%= opackage.package.name %>: <%= option.name %>
+				</div>
+				<div class="col-xs-6 gray_text_cart" align="right"><%= link_to "Remove", remove_option_path(opackage.id, option.id, @cart.students.count - 1), class: "btn-4", remote: true, data: { confirm: 'Are you sure?' } %> &nbsp; <%= number_to_currency(option.price, :show_zero => false) %></div>
+			</div>
+			<% opackage.extras.each do |extra| %>
+			<div class="row">
+				<div class="col-xs-1"></div>
+				<div class="col-xs-9 gray_text_cart">
+					<%= extra.name %>
+				</div>
+				<div class="col-xs-2 gray_text_cart" align="right">
+					<%= number_to_currency(extra.prices.first.price, :show_zero => false) %>
 				</div>
 			</div>
-
-				<% if o.package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).any? %>
-					+ <%= number_to_currency(o.package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).first.price, :unit => "$") %> shipping
-					<% elsif o.package.shippings.where(:school_id => nil).any? %>
-					+ <%= number_to_currency(o.package.shippings.where(:school_id => nil).first.price, :unit => "$") %> shipping
-				<% end %>
-
-				<% if o.try(:extra_poses) != 0 && o.try(:extra_poses) != nil%>
-				+ $<%= o.try(:extra_poses)*25 %>.00 (Extra Pose)
-				<% end %>
-
-				<% if o.sheets.any? %><br/><br/>
-				<ul>
-
-					<% ImageType.find(o.sheets.pluck(:image_type_id).uniq).each do |image_type| %>
-					<% o.sheets.where(:image_type_id => image_type.id).each do |sheet| %>
-					<li>(<%= ImageType.count_types(image_type.id) %>) <%= ImageType.name_out(image_type.id) %>: <strong><%= sheet.senior_image.url.downcase %></strong></li>
-					<% end %>
-					<% end %>
-				</ul>
-
-				<% unless o.senior_image_id.nil? %>
-					<ul>
-						<li>Yearbook Pose: <strong><%= SeniorImage.find(o.senior_image_id).url.downcase %></strong></li>
-					</ul>
-				<% end %> 
-				<% end %>
-				<ul>
-				<% o.addon_sheets.each do |addon| %>
-				<li>
-					<% if option.without? %>
-					<%= number_to_currency(addon.addon.price_without, :unit => "$") %>
-					<% else %>
-					<%= number_to_currency(addon.addon.price_with, :unit => "$") %> - 
-					<% end %> 
-					<%= addon.addon.name %>: <strong><%= addon.senior_image.url.downcase %></strong>
-				</li>
-				<% end %>
-				</ul>
-
-
+			<% end %>
 			<hr>
-		<% end %>
- 	<% end %>
- 	</td>
- 	 </tr>
- <% end %>
+			</span>
+			<% end %>
+			<% end %> 
 
-<tr>
-	<td>
-	</td>
-	<td>
-	 <h3><%= number_to_currency(@cart.price, :unit => "$") %> </h3>
-	 </td>
-	 </tr>
- </table>
-<div class="row">
-<div class="col-sm-3" align="left">
+			<% if @cart.order_packages.first.package.shippings.any? %>
+			<div class="row">
+				<div class="col-xs-6 subtotal">
+					SHIPPING
+				</div>
+				<div class="col-xs-6 subtotal" align="right">
+					<%= number_to_currency(@cart.order_packages.first.package.shippings.first.price, :show_zero => false) %>
+				</div>
+			</div>
+			<% end %>
 
-		 <%= link_to "Add more students to your order", student_schools_path(:cart_id => @cart.cart_id, :i => @cart.students.count), class: "btn-custom4" %>
- </div>
- <div class="col-sm-6">
- </div>
- <div class="col-sm-3" align="right">
- <%= link_to "Checkout", new_order_path(@cart.cart_id), class: "btn-custom4" %>
- </div>
- </div>
+			<div class="row">
+				<div class="col-xs-6 subtotal">
+					<strong>Total</strong>
+				</div>
+				<div class="col-xs-6 subtotal" align="right">
+					<%= number_to_currency(@cart.price, :show_zero => false) %>
+				</div>
+			</div>
+		</div>
+		<br/>
+		<div class="row">
+			<div class="col-xs-8">
+				<%= link_to "Continue Shopping", student_packages_path(@cart.cart_id, @cart.students.count - 1), class: "btn-blue" %>
+			</div>
+			<div class="col-xs-2" align="right">
+				<%= link_to "Checkout", new_order_path(@cart.cart_id), class: "btn-blue" %>
+			</div>
+			<div class="col-xs-2"></div>
+		</div>
+	</div>
+</div>

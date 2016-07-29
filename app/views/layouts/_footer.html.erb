@@ -1,14 +1,38 @@
 <div class="footer">
-4640 Spyres Way, Suite 1. Modesto, CA | 209.567.0748 | info@shoobphoto.com <br/>
-<a href="http://privacypolicy.herokuapp.com/" class="privacypolicy">Privacy Policy</a>
-<br />
+	<div class="row">
+		<div class="col-xs-1"></div>
+		<div class="col-xs-2 small_footer">
+			<%= image_tag("logo_bottom.png", class: "bottom_logo") %><br/>
+			In addition to quality school photography, we also provide FREE support materials and resources to schools.
+		</div>
+		<div class="col-xs-2 small_footer"><br/>
+			<strong>WHERE WE ARE:</strong><br/>
+			4640 Spyres Way, Ste. 1<br/>
+			Modesto, CA 95356
+			<br/><br/>
+			<strong>OUR HOURS:</strong>
+			Mon - Fri 9 am to 5 pm <br/>
+			Sat - Sun: Closed
+		</div>
+		<div class="col-xs-2 small_footer"><br/>
+			<strong>CONTACT US:</strong><br/>
+			(209) 567-0748<br/>
+			<i>For Parents</i> - <br/>
+			<span style="padding-left:7px">info@shoobphoto.com</span><br/>
+			<i>For Schools</i> - <br/>
+			<span style="padding-left:7px">projects@shoobphoto.com</span>
+		</div>
+		<div class="col-xs-3"></div>
+		<div class="col-xs-2 gold_text" align="left">
+			<%= link_to "About Us", new_contact_path %><br/>
+			<%= link_to "Privacy Policy", contacts_path %><br/>
 
-<% if current_user %>
-
-  <%= link_to "Dashboard", admin_dashboards_path %> | <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= link_to "ShoobPhoto Login", new_user_session_path %>
-<% end %>
+			<% if current_user %>
+				<%= link_to "Logout", destroy_user_session_path, method: :delete %><br/>
+			<% else %>
+				<%= link_to "Employee Login", new_user_session_path %><br/>
+			<% end%>
+		</div>
+	</div>
 </div>
 
-<br /><br />

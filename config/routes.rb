@@ -150,6 +150,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   end
 
   devise_for :users
+  get "students/autocomplete/:query" => "students#autocomplete"
+
   match 'download/create_cart/' => 'students#create_cart', :via => 'GET', :as => 'download_create_cart'
 
   match 'download/cart/:id' => 'students#purchase', :via => 'GET', :as => 'download_cart'
@@ -176,7 +178,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'export/batch/:school_id' => 'export_list_items#batch', :via => 'GET', :as => 'export_batch'
   match 'export/students' => 'export_list_items#students', :via => 'GET', :as => 'export_students'
   match 'students/add_option/:order_package_id/:option_id' => 'students#add_option', :via => 'GET', :as => 'add_option'
-  match 'students/remove_option/:order_package_id/:option_id' => 'students#remove_option', :via => 'GET', :as => 'remove_option'
+  match 'students/remove_option/:order_package_id/:option_id/:i' => 'students#remove_option', :via => 'GET', :as => 'remove_option'
   match 'export/users' => 'export_list_items#users', :via => 'GET', :as => 'export_users'
   match 'export/schools' => 'export_list_items#schools', :via => 'GET', :as => 'export_schools'
   match 'export/school_user/:id' => 'export_list_items#school_user', :via => 'GET', :as => 'export_user_school'
@@ -197,15 +199,19 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'students/cart/:id' => 'students#cart', :via => 'GET', :as => 'student_cart'
   match 'students/duplicate/:school' => 'students#duplicate', :via => 'GET', :as => 'student_duplicate'
   match 'students/findbyid/:school' => 'students#findbyid', :via => 'GET', :as => 'student_findbyid'
+  match 'students/showteacher/:school' => 'students#showteacher', :via => 'GET', :as => 'student_showteacher'
 
   match 'students/input/:school/:cart/:i' => 'students#input', :via => 'GET', :as => 'student_input'
+  match 'students/addons/:cart/:i/:option' => 'students#addons', :via => 'GET', :as => 'student_addons'
+  match 'students/create_addon/:opackage/:extra' => 'students#create_addons', :via => 'GET', :as => 'create_addon'
+  match 'students/delete_addon/:opackage/:extra' => 'students#delete_addon', :via => 'GET', :as => 'delete_addon'
   match 'students/school_find/' => 'students#school_find', :via => 'GET', :as => 'student_school_find'
   match 'students/search' => 'students#search', :via => 'GET', :as => 'student_search'
   match 'students/packages/:id/:i' => 'students#packages', :via => 'GET', :as => 'student_packages'
-  match 'students/find/:school' => 'students#find', :via => 'GET', :as => 'student_find'
+  match 'students/find/' => 'students#find', :via => 'GET', :as => 'student_find'
   match 'orders/create_package' => 'orders#create_package', :via => 'GET', :as => 'order_create_package'
   match 'orders/delete_package' => 'orders#delete_package', :via => 'GET', :as => 'order_delete_package'
-  match 'students/packages/:id/select/:i' => 'students#select_package', :via => 'GET', :as => 'student_select_package'
+  match 'students/packages/:id/select/:i/:package' => 'students#select_package', :via => 'GET', :as => 'student_select_package'
   match 'students/:id/calculate' => 'students#calculate', :via => 'GET', :as => 'student_calculate'
   match 'students/:cart_id/senior_portraits/:i' => 'students#senior_portraits', :via => 'GET', :as => 'senior_portraits'
   match 'students/:cart_id/update_senior_portraits/:image_type/:index/:opackage' => 'students#update_senior_portraits', :via => 'GET', :as => 'update_senior_portraits'
@@ -218,7 +224,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'students/add_addon/:order_package/:addon' => 'students#add_addon', :via => 'GET', :as => 'add_addon'
   match 'students/remove_addon/:order_package/:addon' => 'students#remove_addon', :via => 'GET', :as => 'remove_addon'
 
-  match 'students/:id/update/:i' => 'students#update', :via => 'PATCH', :as => 'student_update'
+  match 'students/:id/update/:i' => 'students#update', :via => 'GET', :as => 'student_update'
   match 'students/:id/previous_images/:i' => 'students#previous_images', :via => 'GET', :as => 'previous_images'
   match 'students/:id/remove_package/:i/:did' => 'students#remove_package', :via => 'GET', :as => 'remove_package'
   match 'students/packages/:id/review/:i' => 'students#review', :via => 'GET', :as => 'student_review'
@@ -267,7 +273,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'corders/:id/export' => 'corders#export', :via => 'GET', :as => 'corder_export'
   resources :searches
 
-  root :to => 'pages#show', :page => 'home'
+  root :to => 'pages#home'
 
   match '*page' => 'pages#show', :constraints => proc {|request| Page.paths.include? request.fullpath }, :via => "get"
 

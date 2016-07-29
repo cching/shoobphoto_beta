@@ -1,13 +1,38 @@
-<div align="center">
-<%= link_to image_tag("logo.jpg", :class => 'header'), root_path %> 
-</div>
-<div id="navcontainer">
-<ul>
-      <% @nav_links.each do |nav_link| %>
-        <li<%= request.fullpath.split('/')[1] == nav_link.slug ? " class=current" : '' %>>
-          <%= link_to raw(nav_link.title), nav_link.path %>
-        </li>
-      <% end %>
-      </ul>
-</div>
-<br />
+<div id="content"><%= link_to image_tag("logo_main.png", class: "ribbon"), root_url %></div>
+
+<nav class="navbar navbar-default" id="blue">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    	<div class="row">
+    		<div class="col-xs-4"></div>
+    		<div class="col-xs-6">
+              <ul class="nav navbar-nav">
+                <li><%= link_to "ORDER ONLINE", student_search_path(:i => nil, :cart => nil)%></li>
+                <li><%= link_to "SCHOOL RESOURCES", '/school_support' %></li>
+                <li><%= link_to "ABOUT US", new_contact_path %></li>
+                </ul>
+            </div>
+            <div class="col-xs-2" align="right">
+                <ul class="nav navbar-nav">
+
+                <li class="gold"> 
+                    <% if current_user %>
+                    <%= link_to export_students_path do %>
+                    <span class="glyphicon glyphicon-user" style="color:white"></span> &nbsp; STUDENTS
+                    <% end %>
+                    <% else %>
+                    <%= link_to new_user_session_path do %>
+                    <span class="glyphicon glyphicon-user" style="color:white"></span> &nbsp; LOGIN
+                    <% end %>
+                    <% end %>
+                </li>
+
+        
+            </ul>
+
+    		</div>
+    	</div>
+      
+        </div>
+  </div><!-- /.container-fluid -->
+</nav>

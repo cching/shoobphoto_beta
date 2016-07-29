@@ -21,8 +21,8 @@ class Package < ActiveRecord::Base
   accepts_nested_attributes_for :shippings, allow_destroy: true
 
 
-  	has_attached_file :image,
-  	:styles => { :medium => "300x300>", :thumb => "100x100>" },
+  	has_attached_file :image, 
+  	:styles => { :original => "800>" },
   	:url => ':s3_domain_url',
   	:path => '/images/package_types/:id/:filename'
   	  	validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/

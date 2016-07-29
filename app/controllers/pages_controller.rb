@@ -9,6 +9,10 @@ class PagesController < ApplicationController
     @links = NavLink.roots.find_by_slug(@page.root.slug).try(:children)
   end
 
+  def home
+      render :layout => 'fullwidth'
+    end
+
   private
     def set_params_id
       params[:id] ||= Page.find_by_slug(params[:page].split('/')[-1]).id
@@ -17,4 +21,6 @@ class PagesController < ApplicationController
     def page_params
       params.require(:page).permit(:title, :body, :slug, :lft, :rgt, :parent_id)
     end
+
+
 end

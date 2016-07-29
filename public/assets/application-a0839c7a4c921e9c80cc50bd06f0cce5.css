@@ -18,6 +18,44 @@ html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:1
 pull-left {
   float: left;
 }
+
+/* line 22, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/contacts.css.scss */
+.vertical-line {
+  padding-top: 15px;
+  border-bottom: 2px solid #000;
+}
+
+/* line 27, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/contacts.css.scss */
+.darkblue {
+  color: #396599;
+}
+
+/* line 31, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/contacts.css.scss */
+.maxwidth {
+  max-width: 100%;
+}
+
+/* line 34, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/contacts.css.scss */
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
+
+/* line 39, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/contacts.css.scss */
+.text_gray {
+  color: #BDBDBD;
+}
+
+/* line 43, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/contacts.css.scss */
+.bottom_logo {
+  max-width: 100%;
+}
+
+/* line 47, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/contacts.css.scss */
+.small_footer {
+  font-size: 9px;
+  text-align: left;
+}
 /* line 7, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/corders.css.scss */
 input, label {
   display: inline;
@@ -454,28 +492,268 @@ p.noline {
     width: 100%;
   }
 
-  /* line 15, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  /* line 16, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .gold_text a {
+    color: #ffd700 !important;
+    font-weight: normal !important;
+    font-size: 12px;
+    text-align: left;
+  }
+
+  /* line 23, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .gold_text a:hover {
+    color: #fff !important;
+    font-weight: normal !important;
+  }
+
+  /* line 28, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  #notice p {
+    margin-bottom: 0px;
+  }
+
+  /* line 32, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .review_image {
+    max-width: 100%;
+  }
+
+  /* line 36, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .package_selection {
+    max-height: 350px;
+  }
+
+  /* line 41, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .center-row img {
+    display: block;
+    float: left;
+    margin-right: 10px;
+    padding-top: 100px;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+    filter: blur(0);
+    -webkit-filter: blur(0);
+    -moz-filter: blur(0);
+    -o-filter: blur(0);
+    -ms-filter: blur(0);
+    -ms-filter: blur(0px);
+    max-width: 150px;
+  }
+
+  /* line 61, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .center-row img:hover {
+    -moz-transform: scale(1);
+    -webkit-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: url(#blur1);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='0');
+  }
+
+  /* line 77, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .center-row {
+    padding-left: 20px;
+    width: 1000px;
+    margin: 0 auto;
+  }
+
+  /* line 84, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .navbar-nav a {
+    color: #fff !important;
+    font-weight: normal !important;
+  }
+
+  /* line 89, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .navbar-nav a:hover {
+    color: #adadad !important;
+    font-weight: normal !important;
+  }
+
+  /* line 94, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .gold a {
+    color: #ffd700 !important;
+    font-weight: normal !important;
+  }
+
+  /* line 99, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .gold a:hover {
+    color: #fff !important;
+    font-weight: normal !important;
+  }
+
+  /* line 104, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .image-width {
+    max-width: 100%;
+  }
+
+  /* line 108, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  select2-container.select2-container--bootstrap {
+    margin-bottom: 20px;
+  }
+
+  /* line 111, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .search_input {
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-left: 3px;
+  }
+
+  /* line 117, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .dob {
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-left: 3px;
+    margin-top: 0px;
+    text-decoration: underline;
+  }
+
+  /* line 125, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .error_field {
+    display: inline-block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    width: 100%;
+    height: 20px;
+    padding: 10px;
+    border: 2px solid #FF4C4C !important;
+    font: normal 16px/normal "Trebuchet MS", Helvetica, sans-serif;
+    color: #606060;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: #fcfcfc;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    margin-bottom: 20px;
+  }
+
+  /* line 149, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  input[type='text'].error_field:focus {
+    width: 100%;
+    height: 20px;
+    padding: 10px;
+    border: 2px solid #FF0000 !important;
+  }
+
+  /* line 157, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .enjoy-css {
+    display: inline-block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    width: 100%;
+    height: 20px;
+    padding: 10px;
+    border: 2px solid #9D9D9D;
+    font: normal 16px/normal "Trebuchet MS", Helvetica, sans-serif;
+    color: #606060;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: #fcfcfc;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    margin-bottom: 20px;
+  }
+
+  /* line 181, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  input[type='text'].enjoy-css:focus {
+    width: 100%;
+    height: 20px;
+    padding: 10px;
+    border: 2px solid #000;
+  }
+
+  /* line 189, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  .enjoy-css2 {
+    display: inline-block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    width: 100%;
+    height: 20px;
+    padding: 10px;
+    border: 2px solid #9D9D9D;
+    font: normal 16px/normal "Trebuchet MS", Helvetica, sans-serif;
+    color: #606060;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: #fcfcfc;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    margin-bottom: 20px;
+  }
+
+  /* line 213, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  input[type='text'].enjoy-css2:focus {
+    width: 100%;
+    height: 20px;
+    padding: 10px;
+    border: 2px solid #000;
+  }
+
+  /* line 220, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
   .one-third-col {
     max-width: 33%;
     display: inline-block;
     margin-right: 10px;
   }
 
-  /* line 21, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  /* line 229, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
   .header {
     max-height: 125px;
   }
 
-  /* line 24, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  /* line 232, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
   .two-third-col {
     max-width: 60%;
     display: inline-block;
   }
 
-  /* line 29, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+  /* line 237, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
   #page.img {
     max-width: 100%;
   }
+}
+/* line 243, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+#blue.navbar-default {
+  background-color: #5392c8;
+  border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+/* line 251, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+#content {
+  position: relative;
+  background-color: #000;
+}
+
+/* line 257, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/pages.css.scss */
+.ribbon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  max-height: 100px;
+  background-color: #396599;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 /* line 1, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .btn-custom {
@@ -750,10 +1028,17 @@ ul.navigation li.current a {
 /* line 247, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .footer {
   text-align: center;
-  color: #878787;
+  color: #fff;
   padding-top: 20px;
   font-size: 12px;
   letter-spacing: 1.4px;
+  padding-bottom: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+/* line 257, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
+.footer a {
+  color: #fff;
 }
 /* line 6, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/schools.css.scss */
 .duplicate td {
@@ -765,14 +1050,260 @@ ul.navigation li.current a {
   margin-bottom: 160px;
 }
 
-/* line 10, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 11, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.package_blue {
+  background-color: #5392c8;
+}
+
+/* line 16, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.package_orange {
+  background-color: #FF8300;
+  padding-bottom: 40px;
+}
+
+/* line 22, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.shipping_info {
+  color: #6B6B6B;
+  padding-left: 20px;
+}
+
+/* line 27, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.cart_box {
+  border: 1px solid #6B6B6B;
+  margin-right: 15%;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* line 35, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.label_header {
+  color: #6B6B6B;
+  font-size: 13px;
+}
+
+/* line 40, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.cart_title {
+  font-size: 2vw;
+  color: #6B6B6B;
+  font-weight: bold;
+}
+
+/* line 46, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.subtotal {
+  color: #0EBFE9;
+  font-size: 1.4vw;
+  padding-top: 5px;
+}
+
+/* line 52, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.space_left {
+  padding-left: 60px;
+}
+
+/* line 56, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.gray_text_cart {
+  color: #6B6B6B;
+  font-size: 1.3vw;
+}
+
+/* line 61, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.image_type {
+  color: #fff;
+  font-size: 1.2vw;
+}
+
+/* line 65, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.white_col {
+  color: #fff;
+  padding-top: 10px;
+  font-size: 2vw;
+}
+
+/* line 71, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+#outer_row.row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+}
+
+/* line 79, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+#outer_row.row > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
+/* line 84, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.addons_header {
+  font-size: 30px;
+  color: #FFB732;
+}
+
+/* line 89, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.highlighted {
+  background-color: #FFCC6F;
+}
+
+/* line 93, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.highlighted:hover {
+  background-color: #FFCC6F;
+}
+
+/* line 97, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .image_container {
   position: absolute;
   left: 0;
   top: 10px;
 }
 
-/* line 16, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 104, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.addon_box {
+  border: #909DAC solid 2px;
+  width: 80%;
+  height: 270px;
+  overflow-y: auto;
+  margin: 20 20 20 20px;
+}
+
+/* line 112, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.addon_table td {
+  font-size: 15px;
+  color: #000;
+}
+
+/* line 117, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.addon_table {
+  padding-top: 20px;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+/* line 124, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.padding-top {
+  padding-top: 15x;
+  padding-left: 25px;
+}
+
+/* line 129, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-0 {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-size: 14px;
+  background: #4c74a3;
+  padding: 5px 8px 5px 8px;
+  border: solid #fff 1px;
+  text-decoration: none;
+  text-align: center;
+  color: #fff;
+}
+
+/* line 143, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-0:hover {
+  background-color: #396599;
+  color: #fff;
+}
+
+/* line 148, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-0:focus {
+  outline: none;
+}
+
+/* line 152, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-3 {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-size: 14px;
+  background: #fff;
+  padding: 5px 8px 5px 8px;
+  border: solid #909DAC 1px;
+  text-decoration: none;
+  text-align: center;
+  color: #909DAC;
+}
+
+/* line 166, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-3:hover {
+  background-color: #C7CED5;
+  color: #fff;
+}
+
+/* line 171, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-3:focus {
+  outline: none;
+}
+
+/* line 175, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-4 {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-size: 14px;
+  background: #fff;
+  padding: 5px 8px 5px 8px;
+  border: solid #909DAC 1px;
+  text-decoration: none;
+  text-align: center;
+  color: #909DAC;
+}
+
+/* line 189, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-4:hover {
+  background-color: #C7CED5;
+  color: #fff;
+}
+
+/* line 194, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-4:focus {
+  outline: none;
+}
+
+/* line 198, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-deselect {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-size: 14px;
+  background: #FFB732;
+  padding: 5px 8px 5px 8px;
+  text-decoration: none;
+  text-align: center;
+  color: #fff;
+}
+
+/* line 211, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-deselect:hover {
+  background-color: #FFBE46;
+  color: #fff;
+}
+
+/* line 216, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-deselect:focus {
+  outline: none;
+}
+
+/* line 220, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.horizontalLine {
+  border-bottom: thick solid #fff;
+}
+
+/* line 224, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.bottom {
+  position: absolute;
+  bottom: 2px;
+}
+
+/* line 229, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.bottom_text {
+  font-size: 25px !important;
+}
+
+/* line 233, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #text {
   z-index: 1000;
   position: absolute;
@@ -782,7 +1313,190 @@ ul.navigation li.current a {
   left: 4px;
 }
 
-/* line 27, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 243, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.white_text {
+  color: #fff;
+  font-size: 4vw;
+  font-weight: bold;
+}
+
+/* line 250, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.gray_text {
+  color: #909DAC;
+  font-size: 4vw;
+  font-weight: bold;
+}
+
+/* line 257, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+p.yellow_text {
+  color: #ffd700;
+  padding-top: 40px;
+  font-size: 1vw;
+  line-height: 15px !important;
+}
+
+/* line 264, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+p.yellow_text2 {
+  color: #ffd700;
+  font-size: 1vw;
+}
+
+/* line 270, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.package_box {
+  height: 45vh;
+  padding-right: 30px;
+}
+
+/* line 275, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.zero {
+  background-color: #396599;
+  height: 29%;
+  padding-left: 15px;
+  padding-top: 0px;
+}
+
+/* line 282, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.zero_content {
+  background-color: #4c74a3;
+  height: 71%;
+  padding-left: 15px;
+  color: #fff;
+  position: relative;
+}
+
+/* line 290, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.scrollbox {
+  height: 100%;
+  overflow-y: auto !important;
+  padding-top: 10px;
+}
+
+/* line 296, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.one {
+  background-color: #16B4E5;
+  height: 29%;
+  padding-left: 15px;
+  padding-top: 0px;
+}
+
+/* line 303, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.one_content {
+  background-color: #00c4ff;
+  height: 71%;
+  padding-left: 15px;
+  color: #fff;
+}
+
+/* line 310, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-1 {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-size: 14px;
+  background: #00c4ff;
+  padding: 5px 8px 5px 8px;
+  border: solid #fff 1px;
+  text-decoration: none;
+  text-align: center;
+  color: #fff;
+}
+
+/* line 324, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-1:hover {
+  background-color: #16B4E5;
+  color: #fff;
+}
+
+/* line 329, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-1:focus {
+  outline: none;
+}
+
+/* line 333, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.two {
+  background-color: #909DAC;
+  height: 29%;
+  padding-left: 15px;
+  padding-top: 0px;
+}
+
+/* line 340, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.two_content {
+  background-color: #9BA6B4;
+  height: 71%;
+  padding-left: 15px;
+  color: #fff;
+}
+
+/* line 347, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-2 {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-size: 14px;
+  background: #9BA6B4;
+  padding: 5px 8px 5px 8px;
+  border: solid #fff 1px;
+  text-decoration: none;
+  text-align: center;
+  color: #fff;
+}
+
+/* line 361, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-2:hover {
+  background-color: #909DAC;
+  color: #fff;
+}
+
+/* line 366, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-2:focus {
+  outline: none;
+}
+
+/* line 370, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.three {
+  background-color: #fff;
+}
+
+/* line 374, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.three_content {
+  border: #909DAC solid 2px;
+  height: 71%;
+  padding-left: 15px;
+  color: #909DAC;
+  position: relative;
+}
+
+/* line 383, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.four {
+  background-color: #fff;
+}
+
+/* line 387, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.four_content {
+  border: #909DAC solid 2px;
+  height: 71%;
+  padding-left: 15px;
+  color: #909DAC;
+  position: relative;
+}
+
+/* line 396, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+#select_package {
+  padding-top: 150px;
+  height: 60vh;
+}
+
+/* line 401, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.select_package_image {
+  padding-top: 40px;
+  padding-right: 20px;
+  padding-left: 40px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* line 412, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .small_text {
   position: absolute;
   font-size: 10px;
@@ -790,74 +1504,74 @@ ul.navigation li.current a {
   left: 8px;
 }
 
-/* line 34, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 419, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .small_text_info {
   font-size: 10px;
   text-align: center;
   padding-bottom: 1px;
 }
 
-/* line 40, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 425, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .leftimage {
   padding-right: 1px;
 }
 
-/* line 43, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 428, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .rightimage {
   padding-left: 1px;
 }
 
-/* line 47, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 432, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .leftimage td > * {
   vertical-align: middle;
 }
 
-/* line 51, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 436, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .rightimage td > * {
   vertical-align: middle;
 }
 
-/* line 55, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 440, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #itemtable {
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-/* line 61, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 446, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #imagetable {
   height: 70vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-/* line 67, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 452, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #senior_table {
   height: 80vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-/* line 73, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 458, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .senior_portrait img {
   max-width: 100%;
   z-index: 10000001;
   max-height: 40vh;
 }
 
-/* line 80, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 465, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .package_table {
   width: 100%;
   overflow-x: auto;
 }
 
-/* line 86, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 471, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .currency {
   font-size: 16px;
   padding-bottom: 10px;
 }
 
-/* line 91, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 476, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .listing {
   font-size: 16px;
   padding-top: 1px;
@@ -865,7 +1579,7 @@ ul.navigation li.current a {
   display: block;
 }
 
-/* line 98, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 483, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .nopadding {
   padding-left: 0px !important;
   padding-right: 0px !important;
@@ -873,12 +1587,12 @@ ul.navigation li.current a {
   margin-right: 0px !important;
 }
 
-/* line 105, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 490, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 col {
   width: 200px;
 }
 
-/* line 108, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 493, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #sixteenbytwenty img {
   max-height: 100%;
   max-width: 100%;
@@ -887,7 +1601,7 @@ col {
   margin-right: auto;
 }
 
-/* line 115, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 500, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #fivebyseven img {
   max-height: 100%;
   max-width: 100%;
@@ -897,7 +1611,7 @@ col {
   vertical-align: middle;
 }
 
-/* line 123, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 508, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #wallets img {
   max-height: 100%;
   max-width: 100%;
@@ -908,7 +1622,7 @@ col {
   margin-right: 0px !important;
 }
 
-/* line 133, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 518, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #eightbyten img {
   max-height: 100%;
   max-width: 100%;
@@ -917,7 +1631,7 @@ col {
   margin-right: auto;
 }
 
-/* line 140, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 525, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #elevenbyfourteen img {
   max-height: 100%;
   max-width: 100%;
@@ -926,14 +1640,14 @@ col {
   margin-right: auto;
 }
 
-/* line 147, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 532, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #eightbyten.col-xs-3 {
   height: 9.6vw;
   padding-bottom: 10px;
   z-index: -1;
 }
 
-/* line 153, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 538, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #eightbyten.inner {
   background-color: #FBFBFB;
   height: 100%;
@@ -941,24 +1655,24 @@ col {
   border: 1px solid black;
 }
 
-/* line 160, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 545, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #nopadding.col-sm-6 {
   padding-top: 7px;
 }
 
-/* line 165, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 550, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #nopadding.row {
   height: 100%;
 }
 
-/* line 170, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 555, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #fivebyseven.col-xs-3 {
   height: 6.5vw;
   padding-bottom: 10px;
   z-index: -1;
 }
 
-/* line 177, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 562, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #fivebyseven.inner {
   background-color: #FBFBFB;
   height: 100%;
@@ -967,14 +1681,14 @@ col {
   vertical-align: middle;
 }
 
-/* line 185, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 570, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #sixteenbytwenty.col-xs-3 {
   height: 131px;
   padding-bottom: 10px;
   z-index: -1;
 }
 
-/* line 191, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 576, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #sixteenbytwenty.inner {
   background-color: #FBFBFB;
   height: 100%;
@@ -982,21 +1696,21 @@ col {
   border: 1px solid black;
 }
 
-/* line 197, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 582, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #elevenbyfourteen.col-xs-3 {
   height: 7.4vw;
   padding-bottom: 10px;
   z-index: -1;
 }
 
-/* line 203, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 588, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #wallets.col-xs-3 {
   height: 6.5vw;
   padding-bottom: 10px;
   z-index: -1;
 }
 
-/* line 209, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 594, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #elevenbyfourteen.inner {
   background-color: #FBFBFB;
   height: 100%;
@@ -1004,7 +1718,7 @@ col {
   border: 1px solid black;
 }
 
-/* line 216, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 601, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #wallets.inner {
   background-color: #FBFBFB;
   height: 100%;
@@ -1012,13 +1726,13 @@ col {
   border: 1px solid black;
 }
 
-/* line 226, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 611, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 ul.options {
   padding-top: 0;
   padding-bototm: 0;
 }
 
-/* line 231, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 616, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #margin.modal-body {
   margin-top: 10px;
   margin-left: 30px;
@@ -1026,7 +1740,33 @@ ul.options {
   padding-bottom: 10px;
 }
 
-/* line 238, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 623, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-blue {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  color: #5392c8;
+  font-size: 14px;
+  background: #5392c8;
+  padding: 5px 8px 5px 8px;
+  border: solid #000000 0px;
+  text-decoration: none;
+  text-align: center;
+  color: #fff;
+}
+
+/* line 637, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-blue:hover {
+  background-color: #396599;
+  color: #fff;
+}
+
+/* line 642, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+.btn-blue:focus {
+  outline: none;
+}
+
+/* line 647, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .btn-custom2 {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -1040,12 +1780,12 @@ ul.options {
   color: #fff;
 }
 
-/* line 251, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 660, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .btn-custom2:hover {
   color: #000000;
 }
 
-/* line 255, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 664, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .btn-custom4 {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -1059,18 +1799,18 @@ ul.options {
   color: #fff;
 }
 
-/* line 268, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 677, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .btn-custom4:hover {
   background-color: #829595;
   color: #fff;
 }
 
-/* line 273, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 682, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .btn-custom4:focus {
   outline: none;
 }
 
-/* line 278, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 687, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .btn-custom5 {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -1084,18 +1824,18 @@ ul.options {
   color: #fff;
 }
 
-/* line 291, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 700, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .btn-custom5:hover {
   background-color: #ea6153;
   color: #fff;
 }
 
-/* line 296, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 705, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .btn-custom5:focus {
   outline: none;
 }
 
-/* line 300, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 709, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .btn-custom3 {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -1109,12 +1849,12 @@ ul.options {
   color: #fff;
 }
 
-/* line 313, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 722, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .btn-custom3:hover {
   color: #000000;
 }
 
-/* line 317, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 726, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .btn-custom-danger {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -1129,12 +1869,12 @@ ul.options {
   color: #fff;
 }
 
-/* line 331, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 740, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .btn-custom-danger:hover {
   color: #fff;
 }
 
-/* line 335, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 744, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .btn-custom-continue {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -1149,24 +1889,24 @@ ul.options {
   color: #fff;
 }
 
-/* line 349, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 758, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .btn-custom-continue:hover {
   color: #fff;
 }
 
-/* line 353, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 762, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .blue {
   color: #0061A2;
 }
 
-/* line 357, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 766, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .image_text {
   font-size: 14px;
   margin-top: 5px;
   margin-bottom: 10px;
 }
 
-/* line 363, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 772, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #scrolltable {
   height: 70vh;
   overflow-y: auto;
@@ -1175,7 +1915,7 @@ ul.options {
   padding-top: 20px;
 }
 
-/* line 371, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 780, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #png1 {
   position: absolute;
   top: 0;
@@ -1183,12 +1923,12 @@ ul.options {
   z-index: 0;
 }
 
-/* line 381, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 790, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .img-proof {
   max-width: 100%;
 }
 
-/* line 385, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 794, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #png2 {
   position: absolute;
   top: 0;
@@ -1196,32 +1936,32 @@ ul.options {
   z-index: 1;
 }
 
-/* line 391, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 800, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .wide {
   width: 100%;
   height: 200px;
 }
 
-/* line 396, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 805, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #studenttable {
   height: 65vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-/* line 402, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 811, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 p.small-font {
   font-size: 70%;
   color: #878787;
 }
 
-/* line 407, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 816, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .selectedbackground {
   border-radius: 25px;
   background: #D3D3D3;
 }
 
-/* line 412, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 823, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .requiredtext {
   font-size: 12px;
   text-align: right;
@@ -1229,25 +1969,25 @@ p.small-font {
   padding-top: 4px;
 }
 
-/* line 419, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 830, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .missing {
   color: red;
   font-weight: bold;
 }
 
-/* line 424, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 835, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #sizing-addon3.input-group-addon {
   background-color: #FF0000;
   border-color: #FF0000;
 }
 
-/* line 428, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 839, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #sizing-addon3.input-group-addon.ok {
   background-color: #1ABC9C;
   border-color: #1ABC9C;
 }
 
-/* line 433, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 844, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .img-package {
   max-width: 125px;
   max-height: 250px;
@@ -1255,13 +1995,13 @@ p.small-font {
   z-index: 1000;
 }
 
-/* line 441, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 852, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #package_list td {
   padding-right: 30px;
   padding-left: 30px;
 }
 
-/* line 446, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 857, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .img-package-custom {
   max-width: 125px;
   max-height: 250px;
@@ -1269,13 +2009,13 @@ p.small-font {
   box-shadow: 10px 10px 5px #BDBDBD;
 }
 
-/* line 453, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 864, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #row {
   text-align: center;
   align: center;
 }
 
-/* line 458, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 869, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .text {
   display: block;
   width: 0;
@@ -1284,7 +2024,7 @@ p.small-font {
   text-align: center;
 }
 
-/* line 468, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 879, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .bubble {
   align: "left";
   position: relative;
@@ -1298,7 +2038,7 @@ p.small-font {
   border: #3cb0fd solid 5px;
 }
 
-/* line 482, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 893, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .bubble:after {
   content: '';
   position: absolute;
@@ -1312,7 +2052,7 @@ p.small-font {
   top: 82px;
 }
 
-/* line 496, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 907, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .bubble:before {
   content: '';
   position: absolute;
@@ -1326,13 +2066,13 @@ p.small-font {
   top: 80px;
 }
 
-/* line 511, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 922, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .radiobutton {
   padding-right: 0;
   margin-right: 0;
 }
 
-/* line 516, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 927, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #review img {
   max-height: 200px;
   max-width: 300px;
@@ -1343,13 +2083,13 @@ p.small-font {
   background-color: #1ABC9C;
 }
 
-/* line 527, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 938, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #imgtag img {
   max-height: 400px;
   max-width: 100%;
 }
 
-/* line 534, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 945, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .table-package {
   height: 70vh;
   overflow-y: auto;
@@ -1357,13 +2097,13 @@ p.small-font {
   padding-left: 10px;
 }
 
-/* line 541, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 952, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .image {
   max-height: 250px;
   max-width: 250px;
 }
 
-/* line 546, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 957, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .image-small {
   max-height: 100px;
   max-width: 250px;
@@ -1377,13 +2117,13 @@ p.small-font {
   padding-bottom: 10px;
 }
 
-/* line 559, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 970, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .package_image {
   max-width: 90%;
   padding-bottom: 10px;
 }
 
-/* line 564, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 975, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .school_header {
   margin-left: auto;
   margin-right: auto;
@@ -1401,12 +2141,12 @@ p.small-font {
   box-shadow: 2px 2px 4px #888;
 }
 
-/* line 581, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 992, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .section {
   background-color: #ECECEC;
 }
 
-/* line 587, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 998, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .school_header:after {
   content: ' ';
   position: absolute;
@@ -1418,7 +2158,7 @@ p.small-font {
   border-color: #34495E transparent transparent #34495E;
 }
 
-/* line 598, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1009, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #search {
   margin-left: auto;
   margin-right: auto;
@@ -1442,7 +2182,7 @@ p.small-font {
   padding-left: 50px;
 }
 
-/* line 621, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1032, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 #submit.submit {
   padding-top: 40px;
   text-align: right;
@@ -1458,75 +2198,75 @@ p.small-font {
 
 /* Made with http://icomoon.io/app */
 /* General style */
-/* line 638, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1049, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .grid-gallery ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-/* line 644, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1055, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .grid-gallery figure {
   margin: 0;
 }
 
-/* line 648, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1059, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .grid-gallery figure img {
   display: block;
   width: 100%;
 }
 
-/* line 653, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1064, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .grid-gallery figcaption h3 {
   margin: 0;
   padding: 0 0 0.5em;
 }
 
-/* line 658, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1069, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .grid-gallery figcaption p {
   margin: 0;
 }
 
 /* Grid style */
-/* line 663, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1074, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .grid-wrap {
   max-width: 69em;
   margin: 0 auto;
   padding: 0 1em 1.875em;
 }
 
-/* line 669, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1080, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .grid {
   margin: 0 auto;
 }
 
-/* line 673, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1084, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .grid li {
   width: 25%;
   float: left;
   cursor: pointer;
 }
 
-/* line 679, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1090, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .grid figure {
   padding: 15px;
   -webkit-transition: opacity 0.2s;
   transition: opacity 0.2s;
 }
 
-/* line 685, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1096, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .grid li:hover figure {
   opacity: 0.7;
 }
 
-/* line 689, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1100, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .grid figcaption {
   background: #e4e4e4;
   padding: 25px;
 }
 
 /* Slideshow style */
-/* line 695, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1106, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .slideshow {
   position: fixed;
   background: rgba(0, 0, 0, 0.6);
@@ -1544,7 +2284,7 @@ p.small-font {
   transition: opacity 0.5s, visibility 0s 0.5s;
 }
 
-/* line 712, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1123, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .slideshow-open .slideshow {
   opacity: 1;
   visibility: visible;
@@ -1552,7 +2292,7 @@ p.small-font {
   transition: opacity 0.5s;
 }
 
-/* line 719, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1130, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .slideshow ul {
   width: 100%;
   height: 100%;
@@ -1564,19 +2304,19 @@ p.small-font {
   transition: transform 0.5s;
 }
 
-/* line 730, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1141, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .slideshow ul.animatable li {
   -webkit-transition: -webkit-transform 0.5s;
   transition: transform 0.5s;
 }
 
-/* line 735, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1146, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .slideshow-open .slideshow ul {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
 
-/* line 740, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1151, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .slideshow li {
   width: 660px;
   height: 560px;
@@ -1587,12 +2327,12 @@ p.small-font {
   visibility: hidden;
 }
 
-/* line 750, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1161, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .slideshow li.show {
   visibility: visible;
 }
 
-/* line 754, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1165, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .slideshow li:after {
   content: '';
   position: absolute;
@@ -1605,7 +2345,7 @@ p.small-font {
   transition: opacity 0.3s;
 }
 
-/* line 766, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1177, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .slideshow li.current:after {
   visibility: hidden;
   opacity: 0;
@@ -1613,7 +2353,7 @@ p.small-font {
   transition: opacity 0.3s, visibility 0s 0.3s;
 }
 
-/* line 773, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1184, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .slideshow figure {
   width: 100%;
   height: 100%;
@@ -1622,19 +2362,19 @@ p.small-font {
   overflow: hidden;
 }
 
-/* line 781, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1192, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .slideshow figcaption {
   padding-bottom: 20px;
 }
 
-/* line 785, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1196, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .slideshow figcaption h3 {
   font-weight: 300;
   font-size: 200%;
 }
 
 /* Navigation */
-/* line 791, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1202, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .slideshow nav span {
   position: fixed;
   z-index: 1000;
@@ -1645,7 +2385,7 @@ p.small-font {
   font-size: 2.2em;
 }
 
-/* line 802, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1213, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .slideshow nav span.nav-prev,
 .slideshow nav span.nav-next {
   top: 50%;
@@ -1653,12 +2393,12 @@ p.small-font {
   transform: translateY(-50%);
 }
 
-/* line 808, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1219, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .slideshow nav span.nav-next {
   right: 0;
 }
 
-/* line 812, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1223, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .slideshow nav span.nav-close {
   top: 0;
   right: 0;
@@ -1666,7 +2406,7 @@ p.small-font {
   color: #31373a;
 }
 
-/* line 820, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1231, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .icon:before,
 .icon:after {
   font-family: 'fontawesome';
@@ -1680,23 +2420,23 @@ p.small-font {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 832, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1243, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 span.nav-prev:before {
   content: "\e601";
 }
 
-/* line 836, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1247, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 span.nav-next:before {
   content: "\e600";
 }
 
-/* line 840, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1251, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 span.nav-close:before {
   content: "\e602";
 }
 
 /* Info on arrow key navigation */
-/* line 845, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1256, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .info-keys {
   position: fixed;
   top: 10px;
@@ -1710,7 +2450,7 @@ span.nav-close:before {
   text-align: center;
 }
 
-/* line 859, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1270, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .info-keys:before,
 .info-keys:after {
   position: absolute;
@@ -1723,13 +2463,13 @@ span.nav-close:before {
   font-size: 12px;
 }
 
-/* line 870, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1281, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .info-keys:before {
   left: 10px;
   content: "\e603";
 }
 
-/* line 875, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+/* line 1286, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .info-keys:after {
   right: 10px;
   content: "\e604";
@@ -1738,12 +2478,12 @@ span.nav-close:before {
 /* Example media queries (reduce number of columns and change slideshow layout) */
 @media screen and (max-width: 60em) {
   /* responsive columns; see "Element sizing" on http://masonry.desandro.com/options.html */
-  /* line 884, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+  /* line 1295, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
   .grid li {
     width: 33.3%;
   }
 
-  /* line 888, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+  /* line 1299, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
   .slideshow li {
     width: 100%;
     height: 100%;
@@ -1752,33 +2492,33 @@ span.nav-close:before {
     margin: 0;
   }
 
-  /* line 896, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+  /* line 1307, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
   .slideshow li figure img {
     width: auto;
     margin: 0 auto;
     max-width: 100%;
   }
 
-  /* line 903, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+  /* line 1314, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
   .slideshow nav span,
   .slideshow nav span.nav-close {
     font-size: 1.8em;
     padding: 0.3em;
   }
 
-  /* line 908, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+  /* line 1319, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
   .info-keys {
     display: none;
   }
 }
 @media screen and (max-width: 35em) {
-  /* line 915, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+  /* line 1326, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
   .grid li {
     width: 50%;
   }
 }
 @media screen and (max-width: 24em) {
-  /* line 921, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
+  /* line 1332, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
   .grid li {
     width: 100%;
   }
@@ -6010,6 +6750,1296 @@ Copyright (c) 2015 Daniel Eden
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+.select2-container {
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 0;
+  position: relative;
+  vertical-align: middle; }
+  .select2-container .select2-selection--single {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 28px;
+    user-select: none;
+    -webkit-user-select: none; }
+    .select2-container .select2-selection--single .select2-selection__rendered {
+      display: block;
+      padding-left: 8px;
+      padding-right: 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
+    .select2-container .select2-selection--single .select2-selection__clear {
+      position: relative; }
+  .select2-container[dir="rtl"] .select2-selection--single .select2-selection__rendered {
+    padding-right: 8px;
+    padding-left: 20px; }
+  .select2-container .select2-selection--multiple {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    min-height: 32px;
+    user-select: none;
+    -webkit-user-select: none; }
+    .select2-container .select2-selection--multiple .select2-selection__rendered {
+      display: inline-block;
+      overflow: hidden;
+      padding-left: 8px;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
+  .select2-container .select2-search--inline {
+    float: left; }
+    .select2-container .select2-search--inline .select2-search__field {
+      box-sizing: border-box;
+      border: none;
+      font-size: 100%;
+      margin-top: 5px;
+      padding: 0; }
+      .select2-container .select2-search--inline .select2-search__field::-webkit-search-cancel-button {
+        -webkit-appearance: none; }
+
+.select2-dropdown {
+  background-color: white;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  left: -100000px;
+  width: 100%;
+  z-index: 1051; }
+
+.select2-results {
+  display: block; }
+
+.select2-results__options {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+.select2-results__option {
+  padding: 6px;
+  user-select: none;
+  -webkit-user-select: none; }
+  .select2-results__option[aria-selected] {
+    cursor: pointer; }
+
+.select2-container--open .select2-dropdown {
+  left: 0; }
+
+.select2-container--open .select2-dropdown--above {
+  border-bottom: none;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0; }
+
+.select2-container--open .select2-dropdown--below {
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0; }
+
+.select2-search--dropdown {
+  display: block;
+  padding: 4px; }
+  .select2-search--dropdown .select2-search__field {
+    padding: 4px;
+    width: 100%;
+    box-sizing: border-box; }
+    .select2-search--dropdown .select2-search__field::-webkit-search-cancel-button {
+      -webkit-appearance: none; }
+  .select2-search--dropdown.select2-search--hide {
+    display: none; }
+
+.select2-close-mask {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  min-height: 100%;
+  min-width: 100%;
+  height: auto;
+  width: auto;
+  opacity: 0;
+  z-index: 99;
+  background-color: #fff;
+  filter: alpha(opacity=0); }
+
+.select2-hidden-accessible {
+  border: 0 !important;
+  clip: rect(0 0 0 0) !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important; }
+
+.select2-container--default .select2-selection--single {
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-radius: 4px; }
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 28px; }
+  .select2-container--default .select2-selection--single .select2-selection__clear {
+    cursor: pointer;
+    float: right;
+    font-weight: bold; }
+  .select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #999; }
+  .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 26px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 20px; }
+    .select2-container--default .select2-selection--single .select2-selection__arrow b {
+      border-color: #888 transparent transparent transparent;
+      border-style: solid;
+      border-width: 5px 4px 0 4px;
+      height: 0;
+      left: 50%;
+      margin-left: -4px;
+      margin-top: -2px;
+      position: absolute;
+      top: 50%;
+      width: 0; }
+
+.select2-container--default[dir="rtl"] .select2-selection--single .select2-selection__clear {
+  float: left; }
+
+.select2-container--default[dir="rtl"] .select2-selection--single .select2-selection__arrow {
+  left: 1px;
+  right: auto; }
+
+.select2-container--default.select2-container--disabled .select2-selection--single {
+  background-color: #eee;
+  cursor: default; }
+  .select2-container--default.select2-container--disabled .select2-selection--single .select2-selection__clear {
+    display: none; }
+
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+  border-color: transparent transparent #888 transparent;
+  border-width: 0 4px 5px 4px; }
+
+.select2-container--default .select2-selection--multiple {
+  background-color: white;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  cursor: text; }
+  .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    box-sizing: border-box;
+    list-style: none;
+    margin: 0;
+    padding: 0 5px;
+    width: 100%; }
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+      list-style: none; }
+  .select2-container--default .select2-selection--multiple .select2-selection__placeholder {
+    color: #999;
+    margin-top: 5px;
+    float: left; }
+  .select2-container--default .select2-selection--multiple .select2-selection__clear {
+    cursor: pointer;
+    float: right;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-right: 10px; }
+  .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #e4e4e4;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    cursor: default;
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 0 5px; }
+  .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #999;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    margin-right: 2px; }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+      color: #333; }
+
+.select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__choice, .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__placeholder, .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-search--inline {
+  float: right; }
+
+.select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__choice {
+  margin-left: 5px;
+  margin-right: auto; }
+
+.select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__choice__remove {
+  margin-left: 2px;
+  margin-right: auto; }
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+  border: solid black 1px;
+  outline: 0; }
+
+.select2-container--default.select2-container--disabled .select2-selection--multiple {
+  background-color: #eee;
+  cursor: default; }
+
+.select2-container--default.select2-container--disabled .select2-selection__choice__remove {
+  display: none; }
+
+.select2-container--default.select2-container--open.select2-container--above .select2-selection--single, .select2-container--default.select2-container--open.select2-container--above .select2-selection--multiple {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0; }
+
+.select2-container--default.select2-container--open.select2-container--below .select2-selection--single, .select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0; }
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+  border: 1px solid #aaa; }
+
+.select2-container--default .select2-search--inline .select2-search__field {
+  background: transparent;
+  border: none;
+  outline: 0;
+  box-shadow: none;
+  -webkit-appearance: textfield; }
+
+.select2-container--default .select2-results > .select2-results__options {
+  max-height: 200px;
+  overflow-y: auto; }
+
+.select2-container--default .select2-results__option[role=group] {
+  padding: 0; }
+
+.select2-container--default .select2-results__option[aria-disabled=true] {
+  color: #999; }
+
+.select2-container--default .select2-results__option[aria-selected=true] {
+  background-color: #ddd; }
+
+.select2-container--default .select2-results__option .select2-results__option {
+  padding-left: 1em; }
+  .select2-container--default .select2-results__option .select2-results__option .select2-results__group {
+    padding-left: 0; }
+  .select2-container--default .select2-results__option .select2-results__option .select2-results__option {
+    margin-left: -1em;
+    padding-left: 2em; }
+    .select2-container--default .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+      margin-left: -2em;
+      padding-left: 3em; }
+      .select2-container--default .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+        margin-left: -3em;
+        padding-left: 4em; }
+        .select2-container--default .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+          margin-left: -4em;
+          padding-left: 5em; }
+          .select2-container--default .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+            margin-left: -5em;
+            padding-left: 6em; }
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: #5897fb;
+  color: white; }
+
+.select2-container--default .select2-results__group {
+  cursor: default;
+  display: block;
+  padding: 6px; }
+
+.select2-container--classic .select2-selection--single {
+  background-color: #f7f7f7;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  outline: 0;
+  background-image: -webkit-linear-gradient(top, white 50%, #eeeeee 100%);
+  background-image: -o-linear-gradient(top, white 50%, #eeeeee 100%);
+  background-image: linear-gradient(to bottom, white 50%, #eeeeee 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFEEEEEE', GradientType=0); }
+  .select2-container--classic .select2-selection--single:focus {
+    border: 1px solid #5897fb; }
+  .select2-container--classic .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 28px; }
+  .select2-container--classic .select2-selection--single .select2-selection__clear {
+    cursor: pointer;
+    float: right;
+    font-weight: bold;
+    margin-right: 10px; }
+  .select2-container--classic .select2-selection--single .select2-selection__placeholder {
+    color: #999; }
+  .select2-container--classic .select2-selection--single .select2-selection__arrow {
+    background-color: #ddd;
+    border: none;
+    border-left: 1px solid #aaa;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    height: 26px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 20px;
+    background-image: -webkit-linear-gradient(top, #eeeeee 50%, #cccccc 100%);
+    background-image: -o-linear-gradient(top, #eeeeee 50%, #cccccc 100%);
+    background-image: linear-gradient(to bottom, #eeeeee 50%, #cccccc 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFEEEEEE', endColorstr='#FFCCCCCC', GradientType=0); }
+    .select2-container--classic .select2-selection--single .select2-selection__arrow b {
+      border-color: #888 transparent transparent transparent;
+      border-style: solid;
+      border-width: 5px 4px 0 4px;
+      height: 0;
+      left: 50%;
+      margin-left: -4px;
+      margin-top: -2px;
+      position: absolute;
+      top: 50%;
+      width: 0; }
+
+.select2-container--classic[dir="rtl"] .select2-selection--single .select2-selection__clear {
+  float: left; }
+
+.select2-container--classic[dir="rtl"] .select2-selection--single .select2-selection__arrow {
+  border: none;
+  border-right: 1px solid #aaa;
+  border-radius: 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  left: 1px;
+  right: auto; }
+
+.select2-container--classic.select2-container--open .select2-selection--single {
+  border: 1px solid #5897fb; }
+  .select2-container--classic.select2-container--open .select2-selection--single .select2-selection__arrow {
+    background: transparent;
+    border: none; }
+    .select2-container--classic.select2-container--open .select2-selection--single .select2-selection__arrow b {
+      border-color: transparent transparent #888 transparent;
+      border-width: 0 4px 5px 4px; }
+
+.select2-container--classic.select2-container--open.select2-container--above .select2-selection--single {
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-image: -webkit-linear-gradient(top, white 0%, #eeeeee 50%);
+  background-image: -o-linear-gradient(top, white 0%, #eeeeee 50%);
+  background-image: linear-gradient(to bottom, white 0%, #eeeeee 50%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFEEEEEE', GradientType=0); }
+
+.select2-container--classic.select2-container--open.select2-container--below .select2-selection--single {
+  border-bottom: none;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background-image: -webkit-linear-gradient(top, #eeeeee 50%, white 100%);
+  background-image: -o-linear-gradient(top, #eeeeee 50%, white 100%);
+  background-image: linear-gradient(to bottom, #eeeeee 50%, white 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFEEEEEE', endColorstr='#FFFFFFFF', GradientType=0); }
+
+.select2-container--classic .select2-selection--multiple {
+  background-color: white;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  cursor: text;
+  outline: 0; }
+  .select2-container--classic .select2-selection--multiple:focus {
+    border: 1px solid #5897fb; }
+  .select2-container--classic .select2-selection--multiple .select2-selection__rendered {
+    list-style: none;
+    margin: 0;
+    padding: 0 5px; }
+  .select2-container--classic .select2-selection--multiple .select2-selection__clear {
+    display: none; }
+  .select2-container--classic .select2-selection--multiple .select2-selection__choice {
+    background-color: #e4e4e4;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    cursor: default;
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 0 5px; }
+  .select2-container--classic .select2-selection--multiple .select2-selection__choice__remove {
+    color: #888;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    margin-right: 2px; }
+    .select2-container--classic .select2-selection--multiple .select2-selection__choice__remove:hover {
+      color: #555; }
+
+.select2-container--classic[dir="rtl"] .select2-selection--multiple .select2-selection__choice {
+  float: right; }
+
+.select2-container--classic[dir="rtl"] .select2-selection--multiple .select2-selection__choice {
+  margin-left: 5px;
+  margin-right: auto; }
+
+.select2-container--classic[dir="rtl"] .select2-selection--multiple .select2-selection__choice__remove {
+  margin-left: 2px;
+  margin-right: auto; }
+
+.select2-container--classic.select2-container--open .select2-selection--multiple {
+  border: 1px solid #5897fb; }
+
+.select2-container--classic.select2-container--open.select2-container--above .select2-selection--multiple {
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0; }
+
+.select2-container--classic.select2-container--open.select2-container--below .select2-selection--multiple {
+  border-bottom: none;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0; }
+
+.select2-container--classic .select2-search--dropdown .select2-search__field {
+  border: 1px solid #aaa;
+  outline: 0; }
+
+.select2-container--classic .select2-search--inline .select2-search__field {
+  outline: 0;
+  box-shadow: none; }
+
+.select2-container--classic .select2-dropdown {
+  background-color: white;
+  border: 1px solid transparent; }
+
+.select2-container--classic .select2-dropdown--above {
+  border-bottom: none; }
+
+.select2-container--classic .select2-dropdown--below {
+  border-top: none; }
+
+.select2-container--classic .select2-results > .select2-results__options {
+  max-height: 200px;
+  overflow-y: auto; }
+
+.select2-container--classic .select2-results__option[role=group] {
+  padding: 0; }
+
+.select2-container--classic .select2-results__option[aria-disabled=true] {
+  color: grey; }
+
+.select2-container--classic .select2-results__option--highlighted[aria-selected] {
+  background-color: #3875d7;
+  color: white; }
+
+.select2-container--classic .select2-results__group {
+  cursor: default;
+  display: block;
+  padding: 6px; }
+
+.select2-container--classic.select2-container--open .select2-dropdown {
+  border-color: #5897fb; }
+/*! Select2 Bootstrap Theme v0.1.0-beta.7 | MIT License | github.com/select2/select2-bootstrap-theme */
+
+.select2-container--bootstrap {
+  display: block;
+  /*------------------------------------*\
+          #COMMON STYLES
+  \*------------------------------------*/
+  /**
+   * Search field in the Select2 dropdown.
+   */
+  /**
+   * No outline for all search fields - in the dropdown
+   * and inline in multi Select2s.
+   */
+  /**
+   * Adjust Select2's choices hover and selected styles to match
+   * Bootstrap 3's default dropdown styles.
+   *
+   * @see http://getbootstrap.com/components/#dropdowns
+   */
+  /**
+   * Clear the selection.
+   */
+  /**
+   * Address disabled Select2 styles.
+   *
+   * @see https://select2.github.io/examples.html#disabled
+   * @see http://getbootstrap.com/css/#forms-control-disabled
+   */
+  /*------------------------------------*\
+          #DROPDOWN
+  \*------------------------------------*/
+  /**
+   * Dropdown border color and box-shadow.
+   */
+  /**
+   * Limit the dropdown height.
+   */
+  /*------------------------------------*\
+          #SINGLE SELECT2
+  \*------------------------------------*/
+  /*------------------------------------*\
+      #MULTIPLE SELECT2
+  \*------------------------------------*/
+  /**
+   * Address Bootstrap control sizing classes
+   *
+   * 1. Reset Bootstrap defaults.
+   * 2. Adjust the dropdown arrow button icon position.
+   *
+   * @see http://getbootstrap.com/css/#forms-control-sizes
+   */
+  /* 1 */
+  /*------------------------------------*\
+      #RTL SUPPORT
+  \*------------------------------------*/
+}
+.select2-container--bootstrap .select2-selection {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #555555;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  outline: 0;
+}
+.select2-container--bootstrap .select2-selection.form-control {
+  border-radius: 4px;
+}
+.select2-container--bootstrap .select2-search--dropdown .select2-search__field {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #555555;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+.select2-container--bootstrap .select2-search__field {
+  outline: 0;
+  /* Firefox 18- */
+  /**
+   * Firefox 19+
+   *
+   * @see http://stackoverflow.com/questions/24236240/color-for-styled-placeholder-text-is-muted-in-firefox
+   */
+}
+.select2-container--bootstrap .select2-search__field::-webkit-input-placeholder {
+  color: #999;
+}
+.select2-container--bootstrap .select2-search__field:-moz-placeholder {
+  color: #999;
+}
+.select2-container--bootstrap .select2-search__field::-moz-placeholder {
+  color: #999;
+  opacity: 1;
+}
+.select2-container--bootstrap .select2-search__field:-ms-input-placeholder {
+  color: #999;
+}
+.select2-container--bootstrap .select2-results__option {
+  /**
+   * Disabled results.
+   *
+   * @see https://select2.github.io/examples.html#disabled-results
+   */
+  /**
+   * Hover state.
+   */
+  /**
+   * Selected state.
+   */
+}
+.select2-container--bootstrap .select2-results__option[role=group] {
+  padding: 0;
+}
+.select2-container--bootstrap .select2-results__option[aria-disabled=true] {
+  color: #777777;
+  cursor: not-allowed;
+}
+.select2-container--bootstrap .select2-results__option[aria-selected=true] {
+  background-color: #f5f5f5;
+  color: #262626;
+}
+.select2-container--bootstrap .select2-results__option--highlighted[aria-selected] {
+  background-color: #337ab7;
+  color: #fff;
+}
+.select2-container--bootstrap .select2-results__option .select2-results__option {
+  padding: 6px 12px;
+}
+.select2-container--bootstrap .select2-results__option .select2-results__option .select2-results__group {
+  padding-left: 0;
+}
+.select2-container--bootstrap .select2-results__option .select2-results__option .select2-results__option {
+  margin-left: -12px;
+  padding-left: 24px;
+}
+.select2-container--bootstrap .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+  margin-left: -24px;
+  padding-left: 36px;
+}
+.select2-container--bootstrap .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+  margin-left: -36px;
+  padding-left: 48px;
+}
+.select2-container--bootstrap .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+  margin-left: -48px;
+  padding-left: 60px;
+}
+.select2-container--bootstrap .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+  margin-left: -60px;
+  padding-left: 72px;
+}
+.select2-container--bootstrap .select2-results__group {
+  color: #777777;
+  display: block;
+  padding: 6px 12px;
+  font-size: 12px;
+  line-height: 1.428571429;
+  white-space: nowrap;
+}
+.select2-container--bootstrap.select2-container--focus .select2-selection, .select2-container--bootstrap.select2-container--open .select2-selection {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+  border-color: #66afe9;
+}
+.select2-container--bootstrap.select2-container--open {
+  /**
+   * Make the dropdown arrow point up while the dropdown is visible.
+   */
+  /**
+   * Handle border radii of the container when the dropdown is showing.
+   */
+}
+.select2-container--bootstrap.select2-container--open .select2-selection .select2-selection__arrow b {
+  border-color: transparent transparent #999 transparent;
+  border-width: 0 4px 4px 4px;
+}
+.select2-container--bootstrap.select2-container--open.select2-container--below .select2-selection {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-color: transparent;
+}
+.select2-container--bootstrap.select2-container--open.select2-container--above .select2-selection {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  border-top-color: transparent;
+}
+.select2-container--bootstrap .select2-selection__clear {
+  color: #999;
+  cursor: pointer;
+  float: right;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.select2-container--bootstrap .select2-selection__clear:hover {
+  color: #333;
+}
+.select2-container--bootstrap.select2-container--disabled .select2-selection {
+  border-color: #ccc;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.select2-container--bootstrap.select2-container--disabled .select2-selection,
+.select2-container--bootstrap.select2-container--disabled .select2-search__field {
+  cursor: not-allowed;
+}
+.select2-container--bootstrap.select2-container--disabled .select2-selection,
+.select2-container--bootstrap.select2-container--disabled .select2-selection--multiple .select2-selection__choice {
+  background-color: #eeeeee;
+}
+.select2-container--bootstrap.select2-container--disabled .select2-selection__clear,
+.select2-container--bootstrap.select2-container--disabled .select2-selection--multiple .select2-selection__choice__remove {
+  display: none;
+}
+.select2-container--bootstrap .select2-dropdown {
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  border-color: #66afe9;
+  overflow-x: hidden;
+  margin-top: -1px;
+}
+.select2-container--bootstrap .select2-dropdown--above {
+  margin-top: 1px;
+}
+.select2-container--bootstrap .select2-results > .select2-results__options {
+  max-height: 200px;
+  overflow-y: auto;
+}
+.select2-container--bootstrap .select2-selection--single {
+  height: 34px;
+  line-height: 1.428571429;
+  padding: 6px 24px 6px 12px;
+  /**
+   * Adjust the single Select2's dropdown arrow button appearance.
+   */
+}
+.select2-container--bootstrap .select2-selection--single .select2-selection__arrow {
+  position: absolute;
+  bottom: 0;
+  right: 12px;
+  top: 0;
+  width: 4px;
+}
+.select2-container--bootstrap .select2-selection--single .select2-selection__arrow b {
+  border-color: #999 transparent transparent transparent;
+  border-style: solid;
+  border-width: 4px 4px 0 4px;
+  height: 0;
+  left: 0;
+  margin-left: -4px;
+  margin-top: -2px;
+  position: absolute;
+  top: 50%;
+  width: 0;
+}
+.select2-container--bootstrap .select2-selection--single .select2-selection__rendered {
+  color: #555555;
+  padding: 0;
+}
+.select2-container--bootstrap .select2-selection--single .select2-selection__placeholder {
+  color: #999;
+}
+.select2-container--bootstrap .select2-selection--multiple {
+  min-height: 34px;
+  padding: 0;
+  height: auto;
+  /**
+   * Make Multi Select2's choices match Bootstrap 3's default button styles.
+   */
+  /**
+   * Minus 2px borders.
+   */
+  /**
+   * Clear the selection.
+   */
+}
+.select2-container--bootstrap .select2-selection--multiple .select2-selection__rendered {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  display: block;
+  line-height: 1.428571429;
+  list-style: none;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.select2-container--bootstrap .select2-selection--multiple .select2-selection__placeholder {
+  color: #999;
+  float: left;
+  margin-top: 5px;
+}
+.select2-container--bootstrap .select2-selection--multiple .select2-selection__choice {
+  color: #555555;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: default;
+  float: left;
+  margin: 5px 0 0 6px;
+  padding: 0 6px;
+}
+.select2-container--bootstrap .select2-selection--multiple .select2-search--inline .select2-search__field {
+  background: transparent;
+  padding: 0 12px;
+  height: 32px;
+  line-height: 1.428571429;
+  margin-top: 0;
+  min-width: 5em;
+}
+.select2-container--bootstrap .select2-selection--multiple .select2-selection__choice__remove {
+  color: #999;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: bold;
+  margin-right: 3px;
+}
+.select2-container--bootstrap .select2-selection--multiple .select2-selection__choice__remove:hover {
+  color: #333;
+}
+.select2-container--bootstrap .select2-selection--multiple .select2-selection__clear {
+  margin-top: 6px;
+}
+.select2-container--bootstrap .select2-selection--single.input-sm, .input-group-sm .select2-container--bootstrap .select2-selection--single, .form-group-sm .select2-container--bootstrap .select2-selection--single {
+  border-radius: 3px;
+  font-size: 12px;
+  height: 30px;
+  line-height: 1.5;
+  padding: 5px 22px 5px 10px;
+  /* 2 */
+}
+.select2-container--bootstrap .select2-selection--single.input-sm .select2-selection__arrow b, .input-group-sm .select2-container--bootstrap .select2-selection--single .select2-selection__arrow b, .form-group-sm .select2-container--bootstrap .select2-selection--single .select2-selection__arrow b {
+  margin-left: -5px;
+}
+.select2-container--bootstrap .select2-selection--multiple.input-sm, .input-group-sm .select2-container--bootstrap .select2-selection--multiple, .form-group-sm .select2-container--bootstrap .select2-selection--multiple {
+  min-height: 30px;
+  border-radius: 3px;
+}
+.select2-container--bootstrap .select2-selection--multiple.input-sm .select2-selection__choice, .input-group-sm .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice, .form-group-sm .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 4px 0 0 5px;
+  padding: 0 5px;
+}
+.select2-container--bootstrap .select2-selection--multiple.input-sm .select2-search--inline .select2-search__field, .input-group-sm .select2-container--bootstrap .select2-selection--multiple .select2-search--inline .select2-search__field, .form-group-sm .select2-container--bootstrap .select2-selection--multiple .select2-search--inline .select2-search__field {
+  padding: 0 10px;
+  font-size: 12px;
+  height: 28px;
+  line-height: 1.5;
+}
+.select2-container--bootstrap .select2-selection--multiple.input-sm .select2-selection__clear, .input-group-sm .select2-container--bootstrap .select2-selection--multiple .select2-selection__clear, .form-group-sm .select2-container--bootstrap .select2-selection--multiple .select2-selection__clear {
+  margin-top: 5px;
+}
+.select2-container--bootstrap .select2-selection--single.input-lg, .input-group-lg .select2-container--bootstrap .select2-selection--single, .form-group-lg .select2-container--bootstrap .select2-selection--single {
+  border-radius: 6px;
+  font-size: 18px;
+  height: 46px;
+  line-height: 1.3333333;
+  padding: 10px 31px 10px 16px;
+  /* 1 */
+}
+.select2-container--bootstrap .select2-selection--single.input-lg .select2-selection__arrow, .input-group-lg .select2-container--bootstrap .select2-selection--single .select2-selection__arrow, .form-group-lg .select2-container--bootstrap .select2-selection--single .select2-selection__arrow {
+  width: 5px;
+}
+.select2-container--bootstrap .select2-selection--single.input-lg .select2-selection__arrow b, .input-group-lg .select2-container--bootstrap .select2-selection--single .select2-selection__arrow b, .form-group-lg .select2-container--bootstrap .select2-selection--single .select2-selection__arrow b {
+  border-width: 5px 5px 0 5px;
+  margin-left: -5px;
+  margin-left: -10px;
+  margin-top: -2.5px;
+}
+.select2-container--bootstrap .select2-selection--multiple.input-lg, .input-group-lg .select2-container--bootstrap .select2-selection--multiple, .form-group-lg .select2-container--bootstrap .select2-selection--multiple {
+  min-height: 46px;
+  border-radius: 6px;
+}
+.select2-container--bootstrap .select2-selection--multiple.input-lg .select2-selection__choice, .input-group-lg .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice, .form-group-lg .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice {
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 4px;
+  margin: 9px 0 0 8px;
+  padding: 0 10px;
+}
+.select2-container--bootstrap .select2-selection--multiple.input-lg .select2-search--inline .select2-search__field, .input-group-lg .select2-container--bootstrap .select2-selection--multiple .select2-search--inline .select2-search__field, .form-group-lg .select2-container--bootstrap .select2-selection--multiple .select2-search--inline .select2-search__field {
+  padding: 0 16px;
+  font-size: 18px;
+  height: 44px;
+  line-height: 1.3333333;
+}
+.select2-container--bootstrap .select2-selection--multiple.input-lg .select2-selection__clear, .input-group-lg .select2-container--bootstrap .select2-selection--multiple .select2-selection__clear, .form-group-lg .select2-container--bootstrap .select2-selection--multiple .select2-selection__clear {
+  margin-top: 10px;
+}
+.select2-container--bootstrap .select2-selection.input-lg.select2-container--open .select2-selection--single {
+  /**
+   * Make the dropdown arrow point up while the dropdown is visible.
+   */
+}
+.select2-container--bootstrap .select2-selection.input-lg.select2-container--open .select2-selection--single .select2-selection__arrow b {
+  border-color: transparent transparent #999 transparent;
+  border-width: 0 5px 5px 5px;
+}
+.input-group-lg .select2-container--bootstrap .select2-selection.select2-container--open .select2-selection--single {
+  /**
+   * Make the dropdown arrow point up while the dropdown is visible.
+   */
+}
+.input-group-lg .select2-container--bootstrap .select2-selection.select2-container--open .select2-selection--single .select2-selection__arrow b {
+  border-color: transparent transparent #999 transparent;
+  border-width: 0 5px 5px 5px;
+}
+.select2-container--bootstrap[dir="rtl"] {
+  /**
+   * Single Select2
+   *
+   * 1. Makes sure that .select2-selection__placeholder is positioned
+   *    correctly.
+   */
+  /**
+   * Multiple Select2
+   */
+}
+.select2-container--bootstrap[dir="rtl"] .select2-selection--single {
+  padding-left: 24px;
+  padding-right: 12px;
+}
+.select2-container--bootstrap[dir="rtl"] .select2-selection--single .select2-selection__rendered {
+  padding-right: 0;
+  padding-left: 0;
+  text-align: right;
+  /* 1 */
+}
+.select2-container--bootstrap[dir="rtl"] .select2-selection--single .select2-selection__clear {
+  float: left;
+}
+.select2-container--bootstrap[dir="rtl"] .select2-selection--single .select2-selection__arrow {
+  left: 12px;
+  right: auto;
+}
+.select2-container--bootstrap[dir="rtl"] .select2-selection--single .select2-selection__arrow b {
+  margin-left: 0;
+}
+.select2-container--bootstrap[dir="rtl"] .select2-selection--multiple .select2-selection__choice,
+.select2-container--bootstrap[dir="rtl"] .select2-selection--multiple .select2-selection__placeholder {
+  float: right;
+}
+.select2-container--bootstrap[dir="rtl"] .select2-selection--multiple .select2-selection__choice {
+  margin-left: 0;
+  margin-right: 6px;
+}
+.select2-container--bootstrap[dir="rtl"] .select2-selection--multiple .select2-selection__choice__remove {
+  margin-left: 2px;
+  margin-right: auto;
+}
+
+/*------------------------------------*\
+    #ADDITIONAL GOODIES
+\*------------------------------------*/
+/**
+ * Address Bootstrap's validation states
+ *
+ * If a Select2 widget parent has one of Bootstrap's validation state modifier
+ * classes, adjust Select2's border colors and focus states accordingly.
+ * You may apply said classes to the Select2 dropdown (body > .select2-container)
+ * via JavaScript match Bootstraps' to make its styles match.
+ *
+ * @see http://getbootstrap.com/css/#forms-control-validation
+ */
+.has-warning .select2-dropdown,
+.has-warning .select2-selection {
+  border-color: #8a6d3b;
+}
+.has-warning .select2-container--focus .select2-selection,
+.has-warning .select2-container--open .select2-selection {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
+  border-color: #66512c;
+}
+.has-warning.select2-drop-active {
+  border-color: #66512c;
+}
+.has-warning.select2-drop-active.select2-drop.select2-drop-above {
+  border-top-color: #66512c;
+}
+
+.has-error .select2-dropdown,
+.has-error .select2-selection {
+  border-color: #a94442;
+}
+.has-error .select2-container--focus .select2-selection,
+.has-error .select2-container--open .select2-selection {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
+  border-color: #843534;
+}
+.has-error.select2-drop-active {
+  border-color: #843534;
+}
+.has-error.select2-drop-active.select2-drop.select2-drop-above {
+  border-top-color: #843534;
+}
+
+.has-success .select2-dropdown,
+.has-success .select2-selection {
+  border-color: #3c763d;
+}
+.has-success .select2-container--focus .select2-selection,
+.has-success .select2-container--open .select2-selection {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
+  border-color: #2b542c;
+}
+.has-success.select2-drop-active {
+  border-color: #2b542c;
+}
+.has-success.select2-drop-active.select2-drop.select2-drop-above {
+  border-top-color: #2b542c;
+}
+
+/**
+ * Select2 widgets in Bootstrap Input Groups
+ *
+ * When Select2 widgets are combined with other elements using Bootstraps
+ * "Input Group" component, we don't want specific edges of the Select2
+ * container to have a border-radius.
+ *
+ * Use .select2-bootstrap-prepend and .select2-bootstrap-append on
+ * a Bootstrap 3 .input-group to let the contained Select2 widget know which
+ * edges should not be rounded as they are directly followed by another element.
+ *
+ * @see http://getbootstrap.com/components/#input-groups
+ */
+/**
+ * Mimick Bootstraps .input-group .form-control styles.
+ *
+ * @see https://github.com/twbs/bootstrap/blob/master/less/input-groups.less
+ */
+.input-group .select2-container--bootstrap {
+  display: table;
+  table-layout: fixed;
+  position: relative;
+  z-index: 2;
+  float: left;
+  width: 100%;
+  margin-bottom: 0;
+  /**
+   * Adjust z-index like Bootstrap does to show the focus-box-shadow
+   * above appended buttons in .input-group and .form-group.
+   */
+}
+.input-group .select2-container--bootstrap.select2-container--open, .input-group .select2-container--bootstrap.select2-container--focus {
+  z-index: 3;
+}
+
+.input-group.select2-bootstrap-prepend .select2-container--bootstrap .select2-selection {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.input-group.select2-bootstrap-append .select2-container--bootstrap .select2-selection {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/**
+ * Adjust alignment of Bootstrap buttons in Bootstrap Input Groups to address
+ * Multi Select2's height which - depending on how many elements have been selected -
+ * may grow taller than its initial size.
+ *
+ * @see http://getbootstrap.com/components/#input-groups
+ */
+.select2-bootstrap-append .select2-container--bootstrap,
+.select2-bootstrap-append .input-group-btn,
+.select2-bootstrap-append .input-group-btn .btn,
+.select2-bootstrap-prepend .select2-container--bootstrap,
+.select2-bootstrap-prepend .input-group-btn,
+.select2-bootstrap-prepend .input-group-btn .btn {
+  vertical-align: top;
+}
+
+/**
+ * Temporary fix for https://github.com/select2/select2-bootstrap-theme/issues/9
+ *
+ * Provides `!important` for certain properties of the class applied to the
+ * original `<select>` element to hide it.
+ *
+ * @see https://github.com/select2/select2/pull/3301
+ * @see https://github.com/fk/select2/commit/31830c7b32cb3d8e1b12d5b434dee40a6e753ada
+ */
+.form-control.select2-hidden-accessible {
+  position: absolute !important;
+  width: 1px !important;
+}
+
+/**
+ * Display override for inline forms
+*/
+.form-inline .select2-container--bootstrap {
+  display: inline-block;
+}
+.select2-selection__rendered .select2-selection--single {
+  background: #fff;
+  border: 0px;
+  height: 34px;
+  border: 2px solid #9D9D9D;
+  width: 100%; 
+  margin-bottom:20px;}
+
+
+  .select2-container--flat .select2-selection--single .select2-selection__rendered {
+    color: #000;
+    line-height: 34px; }
+  .select2-container--flat .select2-selection--single .select2-selection__arrow {
+    height: 26px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 20px; }
+    .select2-container--flat .select2-selection--single .select2-selection__arrow b {
+      border-color: #000 transparent transparent transparent;
+      top: 60%;
+      border-style: solid;
+      border-width: 5px 4px 0 4px;
+      height: 0;
+      left: 50%;
+      margin-left: -4px;
+      margin-top: -2px;
+      position: absolute;
+      width: 0; }
+  .select2-container--flat .select2-selection--single .select2-selection__placeholder {
+    color: #000; }
+  .select2-container--flat .select2-selection--single .select2-selection__clear {
+    cursor: pointer;
+    float: right;
+    font-weight: bold; }
+
+/****** Multiple SCSS *******/
+.select2-container--flat .select2-selection--multiple {
+  border: 1px solid #000; }
+  .select2-container--flat .select2-selection--multiple .select2-selection__choice__remove:hover {
+    color: #000;
+    cursor: pointer; }
+  .select2-container--flat .select2-selection--multiple .select2-selection__rendered {
+    box-sizing: border-box;
+    list-style: none;
+    margin: 0;
+    padding: 0 5px;
+    width: 100%; }
+  .select2-container--flat .select2-selection--multiple .select2-selection__choice {
+    background-color: #fff;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 0px;
+    padding: 3px 5px;
+    cursor: default;
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px; }
+  .select2-container--flat .select2-selection--multiple .select2-selection__choice__remove {
+    color: #16a085;
+    margin-right: 6px;
+    margin-left: 6px;
+    float: right; }
+
+.select2-container--open .select2-dropdown--below,
+.select2-container--open .select2-dropdown--above {
+  background: #fff; }
+
+.select2-container--flat .select2-container--focus .select2-selection--multiple {
+  border: 1px solid #fff; }
+
+.select2-container--flat .select2-results__option--highlighted[aria-selected] {
+  background: #5392c8 !important;
+  color: #fff; }
+
+.select2-container--flat .select2-results__option[aria-selected=true] {
+  background: #5392c8;
+  color: #fff;
+  opacity: 0.8; }
+
+.select2-container--flat .select2-selection--single {
+  border-radius: 0px; }
+
+.select2-container--flat.select2-container--open .select2-selection__arrow b {
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg); }
+
+.select2-container--flat span.select2-search input {
+  height: 30px !important; }
+
+.select2-container .select2-choice {
+  border: 2px solid #5392c8;
+  height: 50px;
+  border-radius: 0px;
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  text-indent: 1px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background-image: none; }
+  .select2-container .select2-choice div {
+    border-left: 2px solid #dce4ec;
+    -webkit-border-radius: 0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0;
+    border-radius: 0 4px 4px 0;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box; }
+  .select2-container .select2-choice .select2-arrow {
+    border: 0px;
+    border-radius: 0px;
+    background: transparent;
+    background-image: none; }
+
+.select2-container *:focus {
+  outline: 0px; }
+
+.select2-container.select2-drop-above .select2-choice {
+  border-bottom-color: #dce4ec;
+  border-radius: 0px; }
+
+.select2-drop {
+  margin-top: -2px;
+  border: 2px solid #dce4ec;
+  border-top: 0;
+  border-radius: 0px !important;
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none; }
+  .select2-drop.select2-drop-above {
+    margin-top: 2px;
+    border-top: 2px solid #dce4ec;
+    border-bottom: 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    -moz-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none; }
+
+.select2-search {
+  margin-top: 3px; }
+  .select2-search input {
+    height: 26px;
+    border: 2px solid #dce4ec; }
+
+.select2-container-active .select2-choice,
+.select2-container-active .select2-choices {
+  border: 2px solid #dce4ec;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none; }
+
+.select2-dropdown-open .select2-choice {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-border-bottom-left-radius: 0;
+  -moz-border-radius-bottomleft: 0;
+  border-bottom-left-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+  -moz-border-radius-bottomright: 0;
+  border-bottom-right-radius: 0; }
+  .select2-dropdown-open .select2-choice .select2-choice div {
+    background: transparent;
+    border-left: none;
+    filter: none; }
+
+.select2-results {
+  padding: 0 0 0 0px;
+  margin: 4px 0px 0px 0; }
+  .select2-results .select2-highlighted {
+    background: #16a085;
+    color: #fff;
+    border-radius: 0px; }
+
+.select2-container-multi .select2-choices {
+  height: auto !important;
+  height: 1%;
+  border: 2px solid #dce4ec; }
+
+.select2-container-multi.select2-container-active .select2-choices {
+  border: 2px solid #dce4ec;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none; }
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -6022,6 +8052,9 @@ Copyright (c) 2015 Daniel Eden
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+
+
+
 
 
 
@@ -6048,14 +8081,16 @@ html {
 }
 
 body {
+    padding: 0px;
     margin: 0 0 100px; /* bottom = footer height */
 }
 
 footer {
+    background-color: #5392c8 !important;
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 100px;
+    height: 150px;
     width: 100%;
     overflow:hidden;
     margin-top:0px;
@@ -6067,4 +8102,8 @@ footer {
 @font-face {
   font-family: "Avenir";
   src: url(/assets/AvenirNextLTPro-DemiCn.otf) format("truetype");
+}
+
+.container-full {
+    overflow-x:hidden;
 }

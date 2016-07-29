@@ -1,4 +1,4 @@
-<div class="col-xs-7 animated fadeIn" id="senior_table">
+<div class="col-xs-6 animated fadeIn" id="senior_table">
 	<% @opackage.options.each do |option| %>
 		<h3>Create Your Package:</h3>
 	
@@ -32,26 +32,7 @@
 			</div>
 		<hr  style="z-index: 3">
 
-			<% Addon.all.each_with_index do |addon| %>
-				<div class="row">
-					<div class="col-xs-2" id="add_<%= addon.id %>">
-						<%= link_to "Add", add_addon_path(@opackage.id, addon.id), class: "btn-custom4", remote: true %>
-					</div>
-					<div class="col-xs-2">
-						<strong>
-							<% if @opackage.options.pluck(:without).include? false %>
-								<%= number_to_currency(addon.price_with, :unit => "$") %>
-							<% else %>
-								<%= number_to_currency(addon.price_without, :unit => "$") %>
-							<% end %>
-						</strong>
-					</div>
-					<div class="col-xs-7">
-						<strong> <%= addon.name %></strong>
-					</div>
-				</div><br>
-				<span id="<%= addon.id %>"></span>
-			<% end %>
+		
 
 	<% end %>
 	</div>

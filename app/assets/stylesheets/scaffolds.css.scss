@@ -246,9 +246,14 @@ ul.navigation {
 
 .footer {
   text-align:center;
-  color:#878787;
+  color:#fff;
   padding-top:20px;
   font-size:12px;
   letter-spacing: 1.4px;
+  padding-bottom:0px !important;
+  margin-bottom:0px !important; 
 }
 
+.footer a {
+  color:#fff;
+}

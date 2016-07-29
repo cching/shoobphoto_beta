@@ -1,5 +1,6 @@
-<div align="center"><%= image_tag('contact.jpg', class: "img img-rounded") %></div>
-
+<div class="row">
+  <div class="col-xs-2"></div>
+  <div class="col-xs-8">
 <%= simple_form_for(@contact) do |f| %>
   <%= f.error_notification %>
 
@@ -37,6 +38,9 @@
   Jobseeker
 <% end %>
 </div>
+
+
+
 </div>
 
 </div>
@@ -104,9 +108,15 @@
   </div>
 <% end %>
 
+</div>
+<div class="col-xs-2"></div>
+</div>
+
 <script type="text/javascript">
 $('#parent').click(function () {
     $('#student').show();
 });
+
+$(".multiple").select2();
 
 </script>

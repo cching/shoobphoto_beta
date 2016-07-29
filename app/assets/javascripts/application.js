@@ -23,6 +23,9 @@
 //= require turbolinks
 //= require moment
 //= require bootstrap-datetimepicker
+//= require select2-full
+//= require toucheffects
+//= require modernizr.custom
 //= require pickers
 //= require stickyfill
 //= require_tree .
@@ -35,6 +38,11 @@ $(document).ready(function(){
   $('.btn-loading').click(function() {
     $(this).button('loading');
   });
+});
+
+$(".btn-loading").on("click", function() {
+  $('#myModal').modal('show');
+  $("#modal-window").html("<%= escape_javascript(render partial: 'loading') %>"); 
 });
 
 
@@ -57,4 +65,7 @@ $(function() {
   return false;
 });
 });
+
+
+
 
