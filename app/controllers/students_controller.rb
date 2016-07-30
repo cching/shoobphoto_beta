@@ -352,9 +352,13 @@ class StudentsController < ApplicationController
   def findbyid 
     @school = School.find(params[:school])
     @students = @school.students.where("student_id = ?", "#{params[:student_id].gsub(/\s+/, "")}").where(:id_only => true)
-
+    @students_access = @school.students.where("access_code = ?", "#{params[:student_id].gsub(/\s+/, "")}").where(:id_only => true)
     if @students.any? && (params[:student_id].gsub(/\s+/, "") != "" && params[:student_id] != nil)
       @student = @students.last
+      RenderWatermark.perform_async(@student.id)
+      respond_to :js
+    elsif @students_access.any? && (params[:student_id].gsub(/\s+/, "") != "" && params[:student_id] != nil)
+      @student = @students_access.last
       RenderWatermark.perform_async(@student.id)
       respond_to :js
     else
