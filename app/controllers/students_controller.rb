@@ -19,11 +19,9 @@ class StudentsController < ApplicationController
     array = @option.package.options.map(&:id)
     @index = array.index(@option.id)
 
-    if @cart.order_packages.where(:package_id => @option.package_id).any?
-      @opackage = @cart.order_packages.where(:package_id => @option.package_id).last
-    else
-      @opackage = @cart.order_packages.create(:package_id => @option.package.id, :student_id => @student.id)
-    end
+
+    @opackage = @cart.order_packages.create(:package_id => @option.package.id, :student_id => @student.id)
+    
 
     @opackage.options << @option
 
@@ -139,7 +137,6 @@ class StudentsController < ApplicationController
     if @cart.order_packages.where(:package_id => 6).any?
       @opackage = @cart.order_packages.where(:package_id => 6).last
     else
-      puts "rendered @@@@@@@@@@"
       @opackage = @cart.order_packages.create(:package_id => 6, :student_id => @student.id)
     end
 
@@ -405,6 +402,11 @@ class StudentsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @student = @cart.students[params[:i].to_i]
     @price = 0
+    if @cart.order_packages.where.not(package_id: nil).first.package.shippings.any?
+
+          @price = @price + @cart.order_packages.where.not(package_id: nil).first.package.shippings.first.price
+       
+        end
       @cart.order_packages.each do |package|
         unless package.extra_poses.nil?
         @price = @price + package.extra_poses*25
@@ -426,11 +428,7 @@ class StudentsController < ApplicationController
           end
         end
 
-        if opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).any?
-        @price = @price + opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).first.price
-        elsif opackage.package.shippings.where(:school_id => nil).any?
-        @price = @price + opackage.package.shippings.where(:school_id => nil).first.price
-        end
+        
         opackage.extras.each do |e|
         unless e.prices.first.try(:price).nil?
         @price = @price + e.prices.first.price
@@ -439,6 +437,10 @@ class StudentsController < ApplicationController
       end
 
        @cart.update(:price => @price)
+
+       unless @cart.order_packages.any?
+        redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1)
+      end
   end
 
   def previous_images
@@ -543,14 +545,12 @@ class StudentsController < ApplicationController
      end
     end
 
-    @cart.order_packages.each do |opackage|
-      package = opackage.package
-      if package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).any?
-      @price = @price + package.shippings.where(:school_id => @cart.students[params[:i].to_i].school.id).first.price
-      elsif package.shippings.where(:school_id => nil).any?
-      @price = @price + package.shippings.where(:school_id => nil).first.price
-      
-      end
+
+
+    if @cart.order_packages.where.not(package_id: nil).first.package.shippings.any?
+
+      @price = @price + @cart.order_packages.where.not(package_id: nil).first.package.shippings.first.price
+       
     end
 
     @cart.update(:price => @price)
@@ -660,6 +660,8 @@ class StudentsController < ApplicationController
 
     else
       student = @school.students.where("lower(first_name) like ? and lower(last_name) like ? and student_id = ? and id_only = ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%", "#{params[:student_id].gsub(/\s+/, "")}", "true")
+      student_access = @school.students.where("lower(first_name) like ? and lower(last_name) like ? and access_code = ? and id_only = ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%", "#{params[:student_id].gsub(/\s+/, "")}", "true")
+
       if student.count > 0
         @student = student.last
           if @cart_id.to_i == 1
@@ -673,7 +675,21 @@ class StudentsController < ApplicationController
           respond_to do |format|
               format.html { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
           end
+      elsif student_access.count > 0
+        @student = student_access.last
+          if @cart_id.to_i == 1
+            @cart = @student.carts.create(:school_id => @school.id, :email => params[:email])
+            @cart.cart_id = (0...8).map { (65 + rand(26)).chr }.join
+            @cart.save
+          else
+            @cart = Cart.find_by_cart_id(params[:cart])
+            @cart.cart_students.create(:student_id => @student.id)
+          end
+          respond_to do |format|
+              format.html { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
+          end
       else ## check for dob, then redirect if none found
+
           respond_to do |format|
             format.js
             format.html { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :dob => @dob, :grade => params[:grade], :email => params[:email], :id_supplied => "true") }

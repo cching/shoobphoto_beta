@@ -130,6 +130,12 @@ class OrdersController < ApplicationController
 	 		end
 	    end
 
+	    if @cart.order_packages.where.not(package_id: nil).first.package.shippings.any?
+
+      @price = @price + @cart.order_packages.where.not(package_id: nil).first.package.shippings.first.price
+       
+    end
+
 	    @cart.order_packages.each do |opackage|
 	    	opackage.options.each do |option|
           opackage.addon_sheets.each do |addon|
@@ -140,11 +146,7 @@ class OrdersController < ApplicationController
           end
           end
         end
-	      if opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).any?
-	      @price = @price + opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).first.price
-	  	  elsif opackage.package.shippings.where(:school_id => nil).any?
-	      @price = @price + opackage.package.shippings.where(:school_id => nil).first.price
-	      end
+
 	    end
 
 		@cart.order_packages.each do |o|

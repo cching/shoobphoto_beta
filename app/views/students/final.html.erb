@@ -3,8 +3,9 @@
 <div class="row animated fadeIn">
 	<div class="col-xs-1"></div>
 	<div class="col-xs-5">
+
 	
-				<% @cart.order_packages.each do |opackage| %>
+				<% @cart.order_packages.where(:student_id => @student.id).each do |opackage| %>
 					<% opackage.options.each do |option| %>
 					<span class="<%= opackage.id %>_<%= option.id %>">
 					<div class="row" id="outer_row">
@@ -87,7 +88,10 @@
 			</div>
 		</div>
 		<div class="cart_box">
-			<% @cart.order_packages.each do |opackage| %>
+			<% @cart.students.each do |student| %>
+			<strong>Student: <%= student.first_name %> <%= student.last_name %></strong>
+
+			<% @cart.order_packages.where(:student_id => student.id).each do |opackage| %>
 			<% opackage.options.each do |option| %>
 			<span class="<%= opackage.id %>_<%= option.id %>">
 			<div class="row gray_text_cart">
@@ -109,6 +113,7 @@
 			<% end %>
 			<hr>
 			</span>
+			<% end %>
 			<% end %>
 			<% end %> 
 
@@ -136,6 +141,8 @@
 		<div class="row">
 			<div class="col-xs-8">
 				<%= link_to "Continue Shopping", student_packages_path(@cart.cart_id, @cart.students.count - 1), class: "btn-blue" %>
+				<br/>
+				<%= link_to "Add More Students to Your Order", student_search_path(:cart => @cart.cart_id, :i => @cart.students.count), class: "btn-blue" %>
 			</div>
 			<div class="col-xs-2" align="right">
 				<%= link_to "Checkout", new_order_path(@cart.cart_id), class: "btn-blue" %>

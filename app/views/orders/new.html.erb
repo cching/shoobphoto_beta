@@ -77,6 +77,8 @@
       </div>
     </div>
     <div class="cart_box">
+      <% @cart.students.each do |student| %>
+      <strong>Student: <%= student.first_name %> <%= student.last_name %></strong>
       <% @cart.order_packages.each do |opackage| %>
       <% opackage.options.each do |option| %>
       <span class="<%= opackage.id %>_<%= option.id %>">
@@ -89,16 +91,17 @@
       <% opackage.extras.each do |extra| %>
         <div class="row">
         <div class="col-xs-1"></div>
-        <div class="col-xs-9 gray_text_cart">
+        <div class="col-xs-8 gray_text_cart">
           <%= extra.name %>
         </div>
-        <div class="col-xs-2 gray_text_cart" align="right">
+        <div class="col-xs-3 gray_text_cart" align="right">
           <%= number_to_currency(extra.prices.first.price, :show_zero => false) %>
         </div>
       </div>
       <% end %>
       <hr>
       </span>
+      <% end %>
       <% end %>
       <% end %>
 
