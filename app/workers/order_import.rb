@@ -4,7 +4,9 @@ class OrderImport
     def perform(chunk)
       chunk.each do |h|
 
-        Zipcode.create(:zip_code => h["zip"])
+        order = Order.find(h["id"])
+        order.update(:processed => h["processed"])
+        order.save
               
           
       end
