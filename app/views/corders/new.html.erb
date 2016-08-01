@@ -210,7 +210,12 @@ Zip code
 
 </div>
 <div class="col-sm-2">
+  <% unless Zipcode.pluck(:zip_code).include? @cart.zip_code %>
+  <strong>Total: <%= number_to_currency (@order.price - 12)  %> + $12 shipping out of state</strong>
+  <% else %>
   <strong>Total: <%= number_to_currency @order.price %></strong>
+  <% end %>
+
 </div>
 <div class="col-sm-2">
   <%= f.submit 'Confirm purchase', class: "btn btn-custom btn-loading" %>

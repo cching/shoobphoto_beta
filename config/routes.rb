@@ -76,6 +76,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
 
   resources :items do
 
+
     member do
       get 'search_term'
     end
@@ -240,6 +241,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'students/cart/:cart_id/orders' => 'orders#confirm', :via => 'POST', :as => 'order_confirm'
   match 'students/cart/:cart_id/orders/new' => 'orders#new', :via => 'GET', :as => 'new_order'
   match 'items/:cart_id/orders' => 'corders#confirm', :via => 'POST', :as => 'corder_confirm'
+  match 'zip_code' => 'corders#zip_code', :via => 'get', :as => 'zip_code'
+  match 'create_cart' => 'corders#create_cart', :via => 'post', :as => 'create_cart'
   match 'items/:cart_id/orders/new' => 'corders#new', :via => 'GET', :as => 'new_corder'
   match 'catalog_orders' => 'corders#index', :via => 'GET', :as => 'corders'
   match 'catalog_orders/:id' => 'corders#show', :via => 'GET', :as => 'corder_show'

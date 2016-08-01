@@ -62,5 +62,11 @@
  </table>
 </p>
 
-<h3>Total: <%= number_to_currency @order.price %></h3>
+<h3>
+  <% unless Zipcode.pluck(:zip_code).include? @order.cart.zip_code %>
+  <strong>Total: <%= number_to_currency (@order.price - 12)  %> + $12 shipping out of state</strong>
+  <% else %>
+  <strong>Total: <%= number_to_currency @order.price %></strong>
+  <% end %>
+</h3>
 <br />

@@ -4,10 +4,11 @@ class ItemsController < ApplicationController
   respond_to :html
 
   def index
-    @cart = Cart.create(:cart_type => "catalog", :cart_id => (0...8).map { (65 + rand(26)).chr }.join)
+    @cart = Cart.create(:cart_type => "catalog", :cart_id => (0...8).map { (65 + rand(26)).chr }.join, :zip_code => params[:zip_code], :email => params[:email])
 
     redirect_to items_cart_path(@cart.cart_id)
   end
+
 
   def search_term
     if Searchterm.where("name like ?", "%#{params[:search_term]}%").any?
@@ -158,6 +159,10 @@ class ItemsController < ApplicationController
     @cart.items.each do |item|
       quantity = @cart.cart_items.where(:item_id => item.id).last.quantity
       @cart.price = @cart.price + (item.price*quantity)
+    end
+
+    unless Zipcode.pluck(:zip_code).include? @cart.zip_code
+      @cart.price = @cart.price + 12
     end
 
     @cart.save

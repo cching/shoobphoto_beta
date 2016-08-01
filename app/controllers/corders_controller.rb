@@ -16,6 +16,15 @@ class CordersController < ApplicationController
 
 end
 
+def zip_code
+end
+
+def create_cart
+    @cart = Cart.create(:cart_type => "catalog", :cart_id => (0...8).map { (65 + rand(26)).chr }.join, :zip_code => params[:zip_code], :email => params[:email])
+
+    redirect_to items_cart_path(@cart.cart_id)
+  end
+
 def import
   unless params[:file].nil?
     Corder.import(params[:file])
@@ -44,7 +53,7 @@ def export
     @corder = Corder.find(params[:id])
     @corder.processed = true
     @corder.save validate: false
-
+ 
     puts @corder.errors.first
 
     respond_to :js

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160730064144) do
+ActiveRecord::Schema.define(version: 20160801050620) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20160730064144) do
     t.boolean  "id_supplied", default: true
     t.string   "email"
     t.string   "shoob_id"
+    t.integer  "zip_code"
   end
 
   create_table "categories", force: true do |t|
@@ -794,6 +795,12 @@ ActiveRecord::Schema.define(version: 20160730064144) do
     t.string   "payment_type"
     t.string   "sold_by"
     t.integer  "user_id"
+  end
+
+  create_table "zipcodes", force: true do |t|
+    t.integer  "zip_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
