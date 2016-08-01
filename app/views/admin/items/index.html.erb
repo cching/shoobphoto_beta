@@ -5,6 +5,17 @@
 
 <% @image_url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true) %>
 
+<%= link_to 'Generate the latest CSV File of Items', order_export_path(Order.first.id) %><br />
+
+<% if Export.last.file_path.nil? %>
+<a href="#" download class="btn btn-disabled btn-primary">The CSV is still being processed. Please refresh in a few minutes.</a>
+<% else %>
+<a href="<%= @image_url %>" download class="btn btn-primary">Download <%= Export.last.file_path %></a>
+<% end %>
+      
+
+<% @image_url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true) %>
+
 <div class="row">
     <%= render 'categories' %>
     <div class="col-sm-1"></div>
