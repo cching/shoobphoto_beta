@@ -2,7 +2,7 @@
 <br/>
 <%= form_tag(create_cart_path, :id => "new_search_form") do %>
 	<%= text_field_tag :email, nil, placeholder: "Your email address", class: "enjoy-css", id: "input_email" %>
-	<%= text_field_tag :zip_code, nil, placeholder: "Your email address", class: "enjoy-css", id: "input_zip" %>
+	<%= text_field_tag :zip_code, nil, placeholder: "Your ZIP code", class: "enjoy-css", id: "input_zip" %>
 	<input class="btn-blue" name="commit" value="Continue" onclick="return validateForm()" readonly>
 <% end %>
 

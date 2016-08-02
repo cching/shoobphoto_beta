@@ -172,6 +172,14 @@ end
 	    	@cart.purchased = true
 	    	@cart.cart_type = "school_pictures"
 	    	@cart.save
+
+	    	#@cart.order_packages.each do |op|
+	    	#	if op.extras.pluck(:id).include? 74
+	    	#		op.extras.where(:id => 74).destroy_all
+	    	#		op.extras << Extra.find(43)
+	    	#		op.extras << Extra.find(42)
+	    	#	end
+	    	#end
 	    	OrderMailer.receipt(@order).deliver
 
 	    		redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt."
