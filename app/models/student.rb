@@ -72,6 +72,24 @@ end
     ['Senior', 12]
   ]
 
+  CorderGrades = [
+    ['None', 'none'],
+    ['Preschool', 'PS'],
+    ['Kindergarten', 'K'],
+    ['First Grade', 1],
+    ['Second Grade', 2],
+    ['Third Grade', 3],
+    ['Fourth Grade', 4],
+    ['Fifth Grade', 5],
+    ['Sixth Grade', 6],
+    ['Seventh Grade', 7],
+    ['Eighth Grade', 8],
+    ['Freshman', 9],
+    ['Sophomore', 10],
+    ['Junior', 11],
+    ['Senior', 12]
+  ]
+
   Operations = [
     ['Print', 'print'],
     ['Download', 'download'],

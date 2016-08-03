@@ -35,6 +35,15 @@ Phone number
 </div>
 </div>
 
+<div class="row">
+<div class="col-sm-2">
+Grade
+</div>
+<div class="col-sm-10">
+      <%= f.select :grade, options_for_select(Student::CorderGrades), id: "gradedropdown" %>
+
+</div>
+</div>
 <br />
 <div class="row">
 <div class="col-sm-2">
@@ -244,5 +253,23 @@ $('#shippingcity').val($('#billingcity').val());
 $(".btn-loading").on("click", function() {
   $('#myModal').modal('show');
   $("#modal-window").html("<%= escape_javascript(render partial: 'orders/loading') %>"); 
+});
+
+$(document).ready(function() { 
+
+  
+  $("#gradedropdown").select2({
+    theme: "bootstrap",
+    width: '117%',
+    minimumResultsForSearch: Infinity
+  });
+    $('.select2-selection').css('border-radius','0px')
+  $('.select2-selection').css('border','2px solid #9D9D9D')
+  $('.select2-selection').css('font','normal 16px/normal "Trebuchet MS", Helvetica, sans-serif')
+  $('.select2-selection').css('margin-bottom','20px') 
+  $('.select2-selection').css('padding-top','9px')
+  $('.select2-selection').css('height','44px')
+  $('.select2-container').children().css('border-radius','0px')
+
 });
 </script>
