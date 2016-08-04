@@ -18,7 +18,7 @@
 
     <%= f.text_field :shipping_city, class: "enjoy-css", id: "shipping_city" %>
     <span class="label_header">State</span>
-    <%= f.select :state, options_for_select(us_states),{}, id: "shipping_state" %>
+    <%= f.select :shipping_state, options_for_select(us_states),{}, id: "shipping_state" %>
 
     <span class="label_header">ZIP Code</span>
     <%= f.text_field :shipping_zip, class: "enjoy-css", id: "shipping_zip" %>
