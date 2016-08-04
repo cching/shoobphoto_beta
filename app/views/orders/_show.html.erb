@@ -88,7 +88,7 @@
         <h3>Shipping Information</h3>
         <%= @order.first_name %> <%= @order.last_name %><br />
         <%= @order.shipping_address %><br />
-        <%= @order.shipping_city %>, <%= @order.shipping_state.upcase %> <%= @order.shipping_zip %>
+        <%= @order.shipping_city %>, <%= @order.try(:shipping_state) %> <%= @order.shipping_zip %>
 
         </div>
         <div class="col-sm-6">

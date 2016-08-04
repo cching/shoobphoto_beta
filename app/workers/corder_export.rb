@@ -20,9 +20,12 @@ class CorderExport
                 @string1 = @string1 + "#{item.number}, #{item.name}, #{citem.quantity}; "
               end
 
+              if order.cart.items.count > 5
+
               order.cart.items[5..9].each do |item|
                 citem = order.cart.cart_items.where(:item_id => item.id).last
                 @string2 = @string2 + "#{item.number}, #{item.name}, #{citem.quantity}; "
+              end
               end
      
                 csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{order.schools}"] +["#{order.district}"] + ["#{order.price.to_i}"] + [@string1] + [@string2] + ["#{order.processed}"]
