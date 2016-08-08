@@ -8,7 +8,7 @@ class Auto
       	s3 = AWS::S3.new
       	chunk.each do |h|
       		unless h["ca_code"].nil?
-      		schools = School.where(:ca_code => h["ca_code"])
+      		schools = School.where(:ca_code => "#{h["ca_code"]}")
       		if schools.any?
       			school = schools.last
 	      	unless h["rec_type"].nil?
