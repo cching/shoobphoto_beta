@@ -84,11 +84,11 @@ class AutoImport
 				    end#end if no student id
 			    end  # end rectype
 			else #else packages
-				@auto.student_errors.create(:error_text => h, :error_description => "No package found with slug #{h["slug"]}")
+				@auto.student_errors.create(:error_text => "#{h}, :error_description => "No package found with slug #{h["slug"]}")
 			end # end if no packages found
 
 			else
-				@auto.student_errors.create(:error_text => h, :error_description => "No school found with CA code #{h["ca_code"]}")
+				@auto.student_errors.create(:error_text => "#{h}, :error_description => "No school found with CA code #{h["ca_code"]}")
 		        
 		    end #end if no schools found
 		end #end unless ca_code nil
