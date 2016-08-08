@@ -19,7 +19,7 @@ class AutosController < ApplicationController
       csv_file  = open(csv_path,'r')
 
       chunk = SmarterCSV.process(csv_file, {:chunk_size => 500, row_sep: :auto}) do |chunk|
-        AutoImport.perform_async(chunk, object, @auto)
+        AutoImport.perform_async(chunk, object, @auto.id)
       end
 
     end

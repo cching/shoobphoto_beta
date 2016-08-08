@@ -3,7 +3,7 @@ class AutoImport
  	sidekiq_options queue: "package_import"
 
   	def perform(chunk, s3_key, auto)
-   		@auto = auto
+   		@auto = Auto.find(auto)
    		bucket = AWS::S3::Bucket.new('shoobphoto')
       	s3 = AWS::S3.new
       	chunk.each do |h|
