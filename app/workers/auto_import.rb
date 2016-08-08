@@ -1,4 +1,4 @@
-class Auto
+class AutoImport
  	include Sidekiq::Worker
  	sidekiq_options queue: "package_import"
 
