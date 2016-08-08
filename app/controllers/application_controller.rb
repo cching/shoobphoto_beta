@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_nav_links
 
+
   	def after_sign_in_path_for(resource)
   		if current_user.try(:admin)
         admin_dashboards_path

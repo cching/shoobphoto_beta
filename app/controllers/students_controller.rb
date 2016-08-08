@@ -1,9 +1,27 @@
 class StudentsController < ApplicationController
   require 'aws-sdk'
   layout 'fullwidth'
+  include Mobylette::RespondToMobileRequests
+
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
   def find_student 
+  end
+
+  def auto_import
+    bucket = AWS::S3::Bucket.new('shoobphoto')
+    objects = bucket.objects.with_prefix('AutoCSV/output').collect(&:key).drop(1)
+
+    objects.each do |object|
+      csv_path  = "https://s3-us-west-1.amazonaws.com/shoobphoto/#{object}"
+
+      csv_file  = open(csv_path,'r')
+
+      chunk = SmarterCSV.process(csv_file, {:chunk_size => 500, row_sep: :auto}) do |chunk|
+        PackageImport.perform_async(chunk, s3_key)
+      end
+
+    end
   end
 
   def showteacher
@@ -29,6 +47,11 @@ class StudentsController < ApplicationController
 
     unless @option.extra_types.any? 
       redirect_to student_update_path(@cart.cart_id, @cart.students.count - 1)
+    end
+
+    respond_to do |format|
+      format.html   
+      format.mobile 
     end
 
   end
@@ -445,6 +468,11 @@ class StudentsController < ApplicationController
        unless @cart.order_packages.any?
         redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1)
       end
+
+    respond_to do |format|
+      format.html   
+      format.mobile 
+    end
   end
 
   def previous_images
@@ -602,6 +630,10 @@ class StudentsController < ApplicationController
 
     @image = @student.student_images.where(:package_id => @package.id).where.not(folder: "fall2015").last
 
+    respond_to do |format|
+      format.html   
+      format.mobile 
+    end
     
   end 
 
@@ -609,6 +641,11 @@ class StudentsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:id])
     @student = @cart.students[params[:i].to_i]
     @packages = @student.school.packages.order(:id)
+
+    respond_to do |format|
+      format.html   
+      format.mobile 
+    end
 
   end
 
@@ -654,10 +691,11 @@ class StudentsController < ApplicationController
         end
         respond_to do |format|
             format.html { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
+            format.mobile { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
         end
       else
           respond_to do |format|
-            format.js
+            format.mobile { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :grade => params[:grade], :email => params[:email], :id_supplied => "false") }
             format.html { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :grade => params[:grade], :email => params[:email], :id_supplied => "false") }
           end
       end
@@ -678,6 +716,7 @@ class StudentsController < ApplicationController
           end
           respond_to do |format|
               format.html { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
+              format.mobile { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
           end
       elsif student_access.count > 0
         @student = student_access.last
@@ -691,12 +730,14 @@ class StudentsController < ApplicationController
           end
           respond_to do |format|
               format.html { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
+              format.mobile { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
           end
       else ## check for dob, then redirect if none found
 
           respond_to do |format|
-            format.js
             format.html { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :dob => @dob, :grade => params[:grade], :email => params[:email], :id_supplied => "true") }
+            format.mobile { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :dob => @dob, :grade => params[:grade], :email => params[:email], :id_supplied => "true") }
+
           end
       end
     end
@@ -741,6 +782,11 @@ class StudentsController < ApplicationController
 
     @i = params[:i] unless params[:i].nil?
     @cart = params[:cart] unless params[:cart].nil?
+
+    respond_to do |format|
+      format.html   
+      format.mobile 
+    end
 
   end
 

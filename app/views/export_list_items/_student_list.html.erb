@@ -4,10 +4,15 @@
 
 <tr id="student_<%= student.id %>"  class="responsive-width">
 		<td style="padding-right:0px" style="padding-left:0px">
+			<% img = @image.student_images.where(:student_id => student.id) %>
+			<% if img.any? && img.last.try(:image).exists? %>
+				<%= image_tag("#{@image.student_images.where(:student_id => student.id).last.try(:image)}", class: "img-rounded img-index") %>
 
-			<%= image_tag("#{@image.student_images.where(:student_id => student.id).last.try(:image)}", class: "img-rounded img-index") %>
+			<% else %>
+				<%= image_tag("default-user.jpg", class: "img-rounded img-index") %>
 
-		</td>
+			<% end %>
+		</td> 
 		<td style="padding-right:0px" style="padding-left:0px">
 			<%= student.student_id %>
 		</td>
@@ -15,7 +20,7 @@
 			<%= student.first_name %> <%= student.last_name %>
 		</td>
 		<td style="padding-right:0px" style="padding-left:0px"> 
-			<%= student.teacher %>
+			<%= student.teacher %> 
 		</td>
 		<td style="padding-right:0px" style="padding-left:0px">
 			<%= student.grade %>

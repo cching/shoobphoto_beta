@@ -1,0 +1,52 @@
+
+@image = School.find(175).packages.where("name like ?", "%Fall%").last
+
+School.find(49).students.each do |student|
+simages = @image.student_images.where(:student_id => student.id)
+if simages.any?
+simage = simages.last
+unless simage.image_file_name.nil?
+unless simage.image.exists?
+simage.update(:image_file_name => simage.image_file_name.downcase)
+end
+unless simage.image.exists?
+simage.update(:image_file_name => simage.image_file_name.upcase)
+end
+end
+end
+end
+
+
+@image = School.find(175).packages.where("name like ?", "%Fall%").last
+
+School.find(175).students.each do |student|
+simages = @image.student_images.where(:student_id => student.id)
+if simages.any?
+simage = simages.last
+unless simage.image_file_name.nil?
+unless simage.image.exists?
+simage.update(:image_file_name => simage.image_file_name.downcase)
+end
+unless simage.image.exists?
+simage.update(:image_file_name => simage.image_file_name.upcase)
+end
+end
+end
+end
+
+@image = School.find(176).packages.where("name like ?", "%Fall%").last
+
+School.find(176).students.each do |student|
+simages = @image.student_images.where(:student_id => student.id)
+if simages.any?
+simage = simages.last
+unless simage.image_file_name.nil?
+unless simage.image.exists?
+simage.update(:image_file_name => simage.image_file_name.downcase)
+end
+unless simage.image.exists?
+simage.update(:image_file_name => simage.image_file_name.upcase)
+end
+end
+end
+end

@@ -5,7 +5,6 @@ Paperclip::Attachment.default_options[:s3_credentials] =
     :access_key_id => ENV['ACCESS_KEY'],
     :secret_access_key => ENV['SECRET_KEY'] }
 
-
 Paperclip.interpolates :folder do |attachment, style|
   attachment.instance.folder
 end

@@ -1,0 +1,197 @@
+<div class="mobile_container">
+  
+</div>
+
+<div class="mobile_form_container">
+<%= form_tag(student_find_path, method: :get, :name => 'new_search_form', :id => "new_search_form") do %>
+
+<div class="mobile_form_content">  
+    <br/>
+    <div class="blue" style="font-size:35px"><strong>Enter your student's information below.</strong></div>
+        <span class="search_input_mobile">SCHOOL OR SPORT</span>
+        <select name="school[school_id]" id="dropdown" class="enjoy-css_mobile">
+            <% School.all.order(:name).where.not(school_type_id: nil).each do |school| %>
+                <option value="<%= school.id %>"><%= school.name.titleize %></option>
+            <% end %>
+        </select>
+
+        <% unless cookies[:user_email].nil? %>
+
+        <%= text_field_tag :email, nil, placeholder: "Your email address", class: "enjoy-css_mobile", id: "input_email", value: "#{cookies[:user_email]}" %>
+        
+        <% else %>
+        <%= text_field_tag :email, nil, placeholder: "Your email address", class: "enjoy-css_mobile", id: "input_email" %>
+        <% end %><br/>
+
+        <div class="row">
+          <div class="col-xs-8">
+        <%= text_field_tag :student_id, nil, placeholder: "Student's ID or Access Code", class: "enjoy-css2_mobile", id: "input_student_id" %>
+          </div>
+          <div class="col-xs-4" id="student_grade">
+            <%= select_tag :grade, options_for_select(Student::Grades), id: "gradedropdown" %>
+
+            </div>
+          </div>
+          </div>
+
+ 
+        <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "enjoy-css_mobile", id: "student_first_name" %>
+
+        <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "enjoy-css_mobile", id: "student_last_name" %>
+       
+        
+        <span class="teacher" hidden>
+        <%= text_field_tag :student_teacher, nil, placeholder: "Student's Teacher", class: "enjoy-css_mobile", id: "input_student_teacher" %>
+        </span>
+        <span class="dob" style="font-size:27px">
+          DATE OF BIRTH
+        </span>
+        <div class="row">
+        <div class="col-xs-4">
+          <%= select_month(0, {:prompt => "Month"}, 
+ 
+                       {:field_name => 'month', :id => 'date_month'}) %>
+        </div>
+        <div class="col-xs-3">
+          <%= select_day(0, {:prompt => "Day"}, 
+ 
+                       {:field_name => 'day', :id => 'date_day'}) %>
+        </div>
+        <div class="col-xs-3">
+          <%= select_year(0, {:prompt => "Year", 
+                        :start_year => DateTime.now.year, 
+                        :end_year => DateTime.now.year - 115}, 
+                       {:field_name => 'year', :id => 'date_year'}) %>
+        </div>
+      </div>
+        <br/>
+        <div class="row">
+        <div class="col-xs-8"></div>
+          <div class="col-xs-4" id="button_script">
+            <input class="btn-blue_mobile" name="commit" value="Continue" onclick="return validateForm()" readonly>
+          </div>
+        </div>
+
+        <%= hidden_field_tag "cart", @cart %>
+        <%= hidden_field_tag "i", @i %>
+
+      </div>
+    
+  <% end %>
+
+<script>
+$("#input_student_id").keyup(function() 
+{
+$.get('/students/findbyid/' + $("#dropdown").select2("val") + '?student_id=' + $("#input_student_id").val()).success(function(data) { } )
+});
+
+$("#dropdown").change(function() {
+$.get('/students/showteacher/' + $("#dropdown").select2("val")).success(function(data) { } )
+
+});
+
+$(document).ready(function() { 
+  $( "#dropdown" ).select2({
+    theme: "bootstrap",
+    width: '105%',
+    height: '20px',
+});
+
+  
+  $("#gradedropdown").select2({
+    theme: "bootstrap",
+    width: '117%',
+    minimumResultsForSearch: Infinity
+  });
+
+  $("#date_year").select2({
+    theme: "bootstrap",
+    width: '117%',
+    minimumResultsForSearch: Infinity
+  });
+
+  $("#date_month").select2({
+    theme: "bootstrap",
+    width: '117%',
+    minimumResultsForSearch: Infinity
+  });
+
+  $("#date_day").select2({
+    theme: "bootstrap",
+    width: '117%',
+    minimumResultsForSearch: Infinity
+  });
+
+
+  $('.select2-selection').css('border-radius','0px')
+  $('.select2-selection').css('border','2px solid #9D9D9D')
+  $('.select2-selection').css('font','normal 27px/normal "Trebuchet MS", Helvetica, sans-serif')
+  $('.select2-selection').css('margin-bottom','20px') 
+  $('.select2-selection').css('padding-top','9px')
+  $('.select2-selection').css('height','59px')
+  $('.select2-container').children().css('border-radius','0px')
+
+ });
+
+function validateForm(){isValid = false;
+  var isValid = true;
+
+  var x = document.getElementById('student_first_name').value;
+    if (x == null || x == "") {
+        isValid = false;
+        var d = document.getElementById("student_first_name");
+        d.className += " error_field";
+      } else {
+
+      document.getElementById("student_first_name").className = "";
+      document.getElementById("student_first_name").className = "enjoy-css";
+      }
+    
+
+    var z = document.getElementById('input_email').value;
+    if (z == null || z == "") {
+        isValid = false;
+        var d = document.getElementById("input_email");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_email").className = "";
+      document.getElementById("input_email").className = "enjoy-css";
+      }
+    
+
+    var emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; 
+
+      if(!emailReg.test(z)) {
+        isValid = false;
+        var d = document.getElementById("input_email");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_email").className = "";
+      document.getElementById("input_email").className = "enjoy-css";
+      }
+      
+
+    var y = document.getElementById('student_last_name').value;
+    if (y == null || y == "") {
+        isValid = false;
+        var d = document.getElementById("student_last_name");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("student_last_name").className = "";
+      document.getElementById("student_last_name").className = "enjoy-css";
+      }
+    
+
+
+
+
+  if(isValid){
+    document.getElementById('new_search_form').submit();
+  }
+
+}
+</script>
+

@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require mobile
  *= require bootstrap.min
  *= require flat-ui.min
  *= require jquery.minicolors

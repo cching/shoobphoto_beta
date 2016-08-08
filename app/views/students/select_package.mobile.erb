@@ -1,0 +1,126 @@
+<div class="mobile_container">
+	
+</div>
+
+
+
+<% if @package.multiple? %>
+<br/><br/>
+	<% images = @package.student_images.where(:student_id => @student.id) %>
+
+	<div class="row">
+		<div class="col-sm-5" align="center"  id="senior_table">
+			<% if @cart.id_supplied? && images.any? %>
+			<% image = images.last %>
+			<h3>Preview Your Poses: (click to enlarge)</h3>
+			<% image.senior_images.each_slice(2) do |slice| %>
+			<div class="row" align="center">
+				<% slice.each do |senior_image| %>
+
+				<% if senior_image.watermark.exists? %>
+					<div class="col-sm-6">
+						<span class="small_text_info"><%= senior_image.url.downcase %></span><br/><%= link_to image_tag(senior_image.watermark.url(:watermark), :class => "img img-package"), student_preview_image_path(:image => senior_image.watermark.url(:watermark)), remote: true %>
+						</div>
+					<% end %>
+				<% end %>
+			</div><br/>
+			<% end %>
+			<% end %>
+		</div>
+		<div class="col-sm-1"></div>
+		<div class="col-sm-6"  id="senior_table">
+			<h3>Choose Your Package</h3>
+			<% @package.options.order(:name).each do |option| %>
+			<div class="row">
+				<div class="col-sm-3"><%= link_to "Select", student_select_path(@cart.cart_id, @cart.students.count - 1, :option => option.id, :package => @package.id), class: "btn-custom4 btn-loading" %></div>
+				<div class="col-sm-9">
+
+									<strong><%= option.name %> (<%= "#{option.poses} #{'Pose'.pluralize(option.poses)}"%>)</strong><br/><span class="currency"><%= "#{number_to_currency(option.price(@student.school), :unit => "$")}" %></span><br/>
+										<% option.image_types.each do |type| %>
+											
+												<span class="listing"><%= type.name %></span>
+											
+										<% end %> 
+				</div>
+			</div><br/>
+			<% end %>
+		</div>
+	</div>
+	<% else %>
+
+<div class="row animated fadeIn" id="select_package">
+	
+	<div class="mobile_proof_container">
+		
+	<div class="col-xs-2">
+		<% unless @image.nil? %>
+			<% if @cart.id_supplied? %>
+				<%= image_tag(@image.watermark.url(:watermark), class: "select_package_image") %>
+			<% else %>
+				<%= image_tag(@package.image.url, class: "select_package_image") %>
+			<% end %>
+		<% else %>
+			<%= image_tag(@package.image.url, class: "select_package_image") %>
+		<% end %>
+	</div>
+	
+	</div>
+	
+	<br/>
+	
+	<div class="mobile_package_container">
+	
+	<% @package.options.order(:name).each_with_index do |option, i| %>
+	<div class="col-xs-2">
+		<div class="package_box">
+		<div class="<%= i.to_words %>"> 
+			<div class="row">
+				<div class="col-xs-3">
+					<span class="<%= 2 >= i ? 'white_text' : 'gray_text'%>"><%= option.name[-1] %></span>
+				</div>
+				<div class="col-xs-9">
+					<% if 2 >= i %>
+					<p class="yellow_text">
+					INCLUDES <strong>FREE</strong> DIGITAL IMAGE
+					</p>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		<div class="<%= i.to_words %>_content">
+			<div class="scrollbox">
+			<% option.image_types.each do |type| %>
+
+				<%= type.name %><br/>
+											
+			<% end %>
+			</div>
+			<div class="row bottom">
+				<div class="col-xs-3 bottom_text">
+				$<%= option.price.floor %>
+				</div>
+				<div class="col-xs-9 padding-top">
+						<%= link_to "Add to Cart", student_addons_path(@cart.cart_id, @i, option.id), class: "btn-#{i} btn-loading" %>
+			
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	
+	</div>
+	
+	
+	<% end %>
+</div>
+<% end %>
+
+<script>
+$('.btn-loading').button();
+
+$(document).ready(function(){
+  $('.btn-loading').click(function() {
+    $(this).button('loading');
+  });
+});
+</script>

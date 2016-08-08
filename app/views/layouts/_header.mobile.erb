@@ -1,0 +1,38 @@
+<script>
+
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+</script>
+
+<div id="content"><%= link_to image_tag("logo_main.png", class: "ribbon_mobile"), root_url %></div>
+
+<div class="menu">
+  <div class="wrapper">
+  <div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">
+      <span class="glyphicon glyphicon-menu-hamburger" style="color:white"></span> &nbsp; MENU
+    </button>
+      <div id="myDropdown" class="dropdown-content">
+        <a href="/students/search">ORDER ONLINE</a>
+        <a href="/school_support">SCHOOL RESOURCES</a>
+        <a href="/contacts/new">ABOUT US</a>
+    </div>
+  </div>
+  </div>
+</div>
