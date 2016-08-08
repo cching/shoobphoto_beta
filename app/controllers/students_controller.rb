@@ -18,7 +18,7 @@ class StudentsController < ApplicationController
       csv_file  = open(csv_path,'r')
 
       chunk = SmarterCSV.process(csv_file, {:chunk_size => 500, row_sep: :auto}) do |chunk|
-        Auto.perform_async(chunk, csv_path)
+        Auto.perform_async(chunk, object)
       end
 
     end

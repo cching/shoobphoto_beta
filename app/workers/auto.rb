@@ -7,8 +7,8 @@ class Auto
    		bucket = AWS::S3::Bucket.new('shoobphoto')
       	s3 = AWS::S3.new
       	chunk.each do |h|
-      		unless h["CA_code"].nil?
-      		schools = School.where(:ca_code => h["CA_code"])
+      		unless h["ca_code"].nil?
+      		schools = School.where(:ca_code => h["ca_code"])
       		if schools.any?
       			school = schools.last
 	      	unless h["rec_type"].nil?
