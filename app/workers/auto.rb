@@ -11,17 +11,20 @@ class Auto
       		schools = School.where(:ca_code => "#{h["ca_code"]}")
       		if schools.any?
       			school = schools.last
-	      	unless h["rec_type"].nil?
+      			packages = school.packages.where("slug like ?", "%#{h["slug"]}%")
+      		if packages.any?
+      			package = packages.last
+	      	unless h["rec_type"].nil? || h["rec_type"] == ""
 		        
 			unless h["student_id"].nil?
 				students = school.students.where(:student_id => "#{h["student_id"]}")
 
 		          unless students.any?    
-		            student = school.students.new(:student_id => h["student_id"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :id_only => true, :access_code => h["accesscode"])
+		            student = school.students.new(:student_id => h["student_id"], :access_code => h["accesscode"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :id_only => true, :access_code => h["accesscode"])
 		            student.save
 		           else
 		           	student = students.last
-		           	student.update(:student_id => h["student_id"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :teacher => h["teacher"], :shoob_id => h["shoob_id"], :id_only => true, :access_code => h["accesscode"])
+		           	student.update(:student_id => h["student_id"], :access_code => h["accesscode"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :teacher => h["teacher"], :shoob_id => h["shoob_id"], :id_only => true, :access_code => h["accesscode"])
 		          end
 
 		          if h["rec_type"].downcase == 'master'
@@ -65,10 +68,10 @@ class Auto
 		        student = school.students.find_by_student_id("#{h["student_id"]}")
 
 			          unless student.present?     
-			            student = school.students.new(:student_id => h["student_id"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :teacher => h["teacher"], :shoob_id => h["shoob_id"], :id_only => true, :access_code => h["accesscode"])
+			            student = school.students.new(:student_id => h["student_id"], :access_code => h["accesscode"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :teacher => h["teacher"], :shoob_id => h["shoob_id"], :id_only => true, :access_code => h["accesscode"])
 			            student.save
 			           else
-			           	student.update(:student_id => h["student_id"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :teacher => h["teacher"], :shoob_id => h["shoob_id"], :id_only => true, :access_code => h["accesscode"])
+			           	student.update(:student_id => h["student_id"], :access_code => h["accesscode"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :teacher => h["teacher"], :shoob_id => h["shoob_id"], :id_only => true, :access_code => h["accesscode"])
 			          end
 
 			          image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"], :url2 => h["url2"], :url3 => h["url3"], :url4 => h["url4"], :url1 => h["url1"] )
@@ -79,6 +82,7 @@ class Auto
 			end
 		        
 		    end #end unless
+		end
 
      	end #end chunk loop
 
