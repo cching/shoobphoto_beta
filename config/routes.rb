@@ -256,6 +256,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'catalog' => 'items#index', :via => 'GET', :as => 'catalog'
   match 'items/cart/:cart_id' => 'items#cart', :via => 'GET', :as => 'items_cart'
   get "students/lessonbuilder" => redirect("http://lessonbuilder.shoobphoto.com")
+    match 'students/auto_import' => 'students#auto_import', :via => 'get', :as => 'auto_import'
+
 
 
   match 'items/cart/:cart_id/quantity' => 'items#quantity', :via => 'GET', :as => 'items_quantity'

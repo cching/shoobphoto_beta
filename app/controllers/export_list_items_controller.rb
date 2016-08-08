@@ -8,7 +8,7 @@ class ExportListItemsController < ApplicationController
   end
 
   def award_table
-  end
+  end 
 
   def add_student
     @student = Student.find(params[:student_id])

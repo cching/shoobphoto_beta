@@ -18,7 +18,7 @@ class StudentsController < ApplicationController
       csv_file  = open(csv_path,'r')
 
       chunk = SmarterCSV.process(csv_file, {:chunk_size => 500, row_sep: :auto}) do |chunk|
-        PackageImport.perform_async(chunk, s3_key)
+        PackageImport.perform_async(chunk, csv_path)
       end
 
     end
