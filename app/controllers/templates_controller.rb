@@ -78,7 +78,10 @@ class TemplatesController < ApplicationController
 
       @template.pdfs.each do |pdf|
 
-        type = pdf.types.first
+      types = pdf.types
+
+      if types.any?
+        type = types.first
 
       @export_data = @template.export_datas.new(( {}).merge({
         kind: 'print',
@@ -97,6 +100,7 @@ class TemplatesController < ApplicationController
           @export_data.save
         end
       end
+    end
       
   end
 
