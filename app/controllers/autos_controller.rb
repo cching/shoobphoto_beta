@@ -5,7 +5,7 @@ class AutosController < ApplicationController
 
   def start_auto
     @auto = Auto.create
-    redirect_to process_auto_auto_path(@auto.id)
+    
     bucket = AWS::S3::Bucket.new('shoobphoto')
     objects = bucket.objects.with_prefix('AutoCSV/output').collect(&:key).drop(1)
 
@@ -19,6 +19,7 @@ class AutosController < ApplicationController
       end
 
     end
+    redirect_to process_auto_auto_path(@auto.id)
   end
 
   def process_auto

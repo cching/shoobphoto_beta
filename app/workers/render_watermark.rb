@@ -13,6 +13,8 @@ class RenderWatermark
 
         if images.any?
           image = images.last
+
+          if image.watermark_file_name.nil?
           if package.multiple?
             for attribute in ['url', 'url1', 'url2', 'url3', 'url4']
               unless image.attributes[attribute].nil? || image.attributes[attribute] == ""
@@ -52,6 +54,7 @@ class RenderWatermark
               end
             end
           end # end if
+        end
         end
       end
     end
