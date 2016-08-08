@@ -68,15 +68,19 @@ class Auto
 		        student = school.students.find_by_student_id("#{h["student_id"]}")
 
 			          unless student.present?     
-			            student = school.students.new(:student_id => h["student_id"], :access_code => h["accesscode"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :teacher => h["teacher"], :shoob_id => h["shoob_id"], :id_only => true, :access_code => h["accesscode"])
+			            student = school.students.new(:student_id => h["student_id"], :access_code => h["accesscode"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :teacher => h["teacher"], :shoob_id => h["shoob_id"], :id_only => true)
 			            student.save
 			           else
-			           	student.update(:student_id => h["student_id"], :access_code => h["accesscode"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :teacher => h["teacher"], :shoob_id => h["shoob_id"], :id_only => true, :access_code => h["accesscode"])
+			           	student.update(:student_id => h["student_id"], :access_code => h["accesscode"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :teacher => h["teacher"], :shoob_id => h["shoob_id"], :id_only => true)
 			          end
 
-			          image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"], :url2 => h["url2"], :url3 => h["url3"], :url4 => h["url4"], :url1 => h["url1"] )
-			          image.index_file_name = "#{image.image_file_name}-index"
+			          image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :watermark_file_name => h["url"], :index_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"], :url2 => h["url2"], :url3 => h["url3"], :url4 => h["url4"], :url1 => h["url1"] )
 			          image.save
+
+			          obj1 = bucket.objects["images/processed_watermarks/#{image.folder}/#{image.image_file_name}.jpg"]
+		                  obj2 = bucket.objects["images/watermarks/#{image.id}/watermark/#{image.image_file_name}.jpg"]
+		                  obj1.copy_to(obj2)
+
 			        end
 			    end
 			end

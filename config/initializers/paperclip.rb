@@ -24,3 +24,7 @@ end
 Paperclip.interpolates :student_image_folder do |attachment, style|
   attachment.instance.student_image.folder
 end
+
+Paperclip.interpolates :watermark_file_name do |attachment, style|
+  attachment.instance.student_image.watermark_file_name
+end
