@@ -8,21 +8,6 @@ class StudentsController < ApplicationController
   def find_student 
   end
 
-  def auto_import
-    bucket = AWS::S3::Bucket.new('shoobphoto')
-    objects = bucket.objects.with_prefix('AutoCSV/output').collect(&:key).drop(1)
-
-    objects.each do |object|
-      csv_path  = "https://s3-us-west-1.amazonaws.com/shoobphoto/#{object}"
-
-      csv_file  = open(csv_path,'r')
-
-      chunk = SmarterCSV.process(csv_file, {:chunk_size => 500, row_sep: :auto}) do |chunk|
-        Auto.perform_async(chunk, object)
-      end
-
-    end
-  end
 
   def showteacher
     @school = School.find(params[:school])

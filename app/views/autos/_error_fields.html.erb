@@ -1,0 +1,27 @@
+<% if @auto.student_errors.any? %>
+<table>
+	<tr>
+		<td>
+			Error
+		</td>
+
+		<td>
+			Information
+		</td>
+	</tr>
+
+	<% @auto.student_errors.each do |error| %>
+	<tr>
+		<td>
+			<%= error.error_description %>
+		</td>
+
+		<td>
+			<%= error.error_text %>
+		</td>
+	</tr>
+	<% end %>
+</table>
+
+<% end %>
+

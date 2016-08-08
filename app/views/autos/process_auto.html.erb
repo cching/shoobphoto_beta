@@ -1,0 +1,15 @@
+Processing...<br/>
+
+<div id="error">
+<%= render 'error_fields' %>
+</div>
+
+<script>
+ $(document).ready(
+         function() {
+          setInterval(function() {
+            $("#error").html("<%= escape_javascript(render 'error_fields', :auto => @auto) %>");
+
+        }, 1000);
+    });
+</script>

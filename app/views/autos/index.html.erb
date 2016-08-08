@@ -1,0 +1,23 @@
+<h1>Listing autos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @autos.each do |auto| %>
+      <tr>
+        <td><%= link_to 'Show', auto %></td>
+        <td><%= link_to 'Edit', edit_auto_path(auto) %></td>
+        <td><%= link_to 'Destroy', auto, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Auto', new_auto_path %>

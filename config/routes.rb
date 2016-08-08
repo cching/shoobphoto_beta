@@ -3,6 +3,15 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  resources :autos do
+    collection do
+      get "start_auto"
+    end
+    member do
+      get "process_auto"
+    end
+  end
+
   post "headshot/capture" => 'headshot#capture', :as => :headshot_capture
   resources :webcams do
     collection do 
@@ -256,7 +265,6 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'catalog' => 'items#index', :via => 'GET', :as => 'catalog'
   match 'items/cart/:cart_id' => 'items#cart', :via => 'GET', :as => 'items_cart'
   get "students/lessonbuilder" => redirect("http://lessonbuilder.shoobphoto.com")
-    match 'students/auto_import' => 'students#auto_import', :via => 'get', :as => 'auto_import'
 
 
 
