@@ -33,7 +33,10 @@ class AutosController < ApplicationController
   end
 
   def show
-    respond_with(@auto)
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   def new

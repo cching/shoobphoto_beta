@@ -8,8 +8,9 @@ Processing...<br/>
  $(document).ready(
          function() {
           setInterval(function() {
-            $("#error").html("<%= escape_javascript(render 'error_fields', :auto => @auto) %>");
+           	$.get('/autos/' + <%= @auto.id %>).success(function(data) { } )
 
-        }, 1000);
+
+        }, 5000);
     });
 </script>

@@ -1,27 +1,20 @@
-<% if @auto.student_errors.any? %>
-<table>
-	<tr>
-		<td>
-			Error
-		</td>
-
-		<td>
-			Information
-		</td>
-	</tr>
-
+<div class="row">
+	<div class="col-xs-6">
+		<h3>Error</h3>
+	</div>
+	<div class="col-xs-6">
+		<h3>Information</h3>
+	</div>
+</div>
 	<% @auto.student_errors.each do |error| %>
-	<tr>
-		<td>
-			<%= error.error_description %>
-		</td>
-
-		<td>
+		<div class="row">
+			<div class="col-xs-6">
+				<%= error.error_description %>
+			</div>
+			<div class="col-xs-6">
 			<%= error.error_text %>
-		</td>
-	</tr>
-	<% end %>
-</table>
+		</div>
+	</div>
+	<% end%>
 
-<% end %>
-
+fasda
