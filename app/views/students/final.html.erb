@@ -59,7 +59,7 @@
 									<% price = 0 %>
 									<% opackage.extras.each do |extra| %>
 									<% unless extra.prices.first.try(:price).nil? %>
-        							<% price = price + extra.prices.first.price %>
+        							<% price = price + extra.prices.first.try(:price) %>
        								<% end %>
 									<% end %>
 									<%= number_to_currency(price, :show_zero => false) %>
@@ -107,7 +107,7 @@
 					<%= extra.name %>
 				</div>
 				<div class="col-xs-2 gray_text_cart" align="right">
-					<%= number_to_currency(extra.prices.first.price, :show_zero => false) %>
+					<%= number_to_currency(extra.prices.first.try(:price), :show_zero => false) %>
 				</div>
 			</div>
 			<% end %>

@@ -218,7 +218,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'students/showteacher/:school' => 'students#showteacher', :via => 'GET', :as => 'student_showteacher'
 
   match 'students/input/:school/:cart/:i' => 'students#input', :via => 'GET', :as => 'student_input'
-  match 'students/addons/:cart/:i/:option' => 'students#addons', :via => 'GET', :as => 'student_addons'
+  match 'students/addons/:cart/:i/:option/:op' => 'students#addons', :via => 'GET', :as => 'student_addons'
+  match 'students/add_package/:cart/:i/:option' => 'students#add_package', :via => 'GET', :as => 'add_package'
   match 'students/create_addon/:opackage/:extra' => 'students#create_addons', :via => 'GET', :as => 'create_addon'
   match 'students/delete_addon/:opackage/:extra' => 'students#delete_addon', :via => 'GET', :as => 'delete_addon'
   match 'students/school_find/' => 'students#school_find', :via => 'GET', :as => 'student_school_find'

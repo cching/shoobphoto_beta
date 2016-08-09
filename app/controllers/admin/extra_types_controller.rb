@@ -43,6 +43,6 @@ class Admin::ExtraTypesController < ApplicationController
     end
 
     def extra_type_params
-      params.require(:extra_type).permit(:name, :required, :multiple, options_attributes: [:id], extras_attributes: [:id], :option_ids => [], :extra_ids => [])
+      params.require(:extra_type).permit(:name, :required, :multiple, options_attributes: [:id], extras_attributes: [:name, :extra_type_id, :image, :quantity, prices_attributes: [:id, :price, :enddate, :begin, :school_id, :_destroy]], :option_ids => [], :extra_ids => [])
     end
 end

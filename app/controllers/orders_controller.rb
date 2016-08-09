@@ -115,6 +115,9 @@ class OrdersController < ApplicationController
 	def new
 		@cart = Cart.find_by_cart_id(params[:cart_id])
 
+		if @cart.order_packages.any?
+        
+
 		if @cart.cart_type == 'catalog'
 			@order = Order.new :price => @cart.price
 		else
@@ -132,7 +135,8 @@ class OrdersController < ApplicationController
 
 	    if @cart.order_packages.where.not(package_id: nil).first.package.shippings.any?
 
-      @price = @price + @cart.order_packages.where.not(package_id: nil).first.package.shippings.first.price
+      @price = @price + @cart.order_packages.where.not(package_id: nil).first.package.shippings.first.try(:price)
+
        
     end
 
@@ -160,7 +164,11 @@ class OrdersController < ApplicationController
    		 @cart.update(:price => @price)
 
 		@order = Order.new :price => @price
+
 	end
+	  else
+  	redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1), notice: "Please add a package to your cart before continuing."
+      end
 end
 
 	def confirm

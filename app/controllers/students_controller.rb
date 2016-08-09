@@ -13,6 +13,20 @@ class StudentsController < ApplicationController
     @school = School.find(params[:school])
   end
 
+  def add_package
+    @cart = Cart.find_by_cart_id(params[:cart])
+    @i = params[:i]
+    @student = @cart.students[params[:i].to_i]
+    @option = Option.find(params[:option])
+
+    @opackage = @cart.order_packages.create(:package_id => @option.package.id, :student_id => @student.id)
+    
+
+    @opackage.options << @option
+
+    redirect_to student_addons_path(@cart.cart_id, @i, @option.id, @opackage.id)
+  end
+
 
   def addons
     @cart = Cart.find_by_cart_id(params[:cart])
@@ -21,12 +35,8 @@ class StudentsController < ApplicationController
     @option = Option.find(params[:option])
     array = @option.package.options.map(&:id)
     @index = array.index(@option.id)
+    @opackage = OrderPackage.find(params[:op])
 
-
-    @opackage = @cart.order_packages.create(:package_id => @option.package.id, :student_id => @student.id)
-    
-
-    @opackage.options << @option
 
     @image = @student.student_images.where(:package_id => @option.package.id).where.not(folder: "fall2015").last 
 
@@ -416,7 +426,7 @@ class StudentsController < ApplicationController
     @price = 0
     if @cart.order_packages.where.not(package_id: nil).first.package.shippings.any?
 
-          @price = @price + @cart.order_packages.where.not(package_id: nil).first.package.shippings.first.price
+          @price = @price + @cart.order_packages.where.not(package_id: nil).first.package.shippings.first.try(:price)
        
         end
       @cart.order_packages.each do |package|

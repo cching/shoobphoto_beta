@@ -1,6 +1,6 @@
-<%= simple_form_for [:admin, @extra] do |f| %>
-  <%= f.error_notification %>
-
+<div class="row">
+  <div class="col-xs-1"></div>
+  <div class="col-xs-11">
   <div class="form-inputs">
     <%= f.input :name %>
 
@@ -18,8 +18,7 @@
   <%= link_to_add_fields "Add Prices", f, :prices %>
  </div>
  </div>
+</div>
+</div>
 
-  <div class="form-actions">
-    <%= f.button :submit %> 
-  </div>
-<% end %>
+

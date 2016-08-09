@@ -34,7 +34,7 @@
   <%= f.simple_fields_for :fields, @template.fields.create(:column_id => column.id, :column_name => column.column_type) do |builder| %>
     <%= render 'field_fields', f: builder %>
   <% end %>
-  <% end %>
+  <% end %> 
 
 </div>
 

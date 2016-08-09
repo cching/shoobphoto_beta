@@ -95,7 +95,7 @@
           <%= extra.name %>
         </div>
         <div class="col-xs-3 gray_text_cart" align="right">
-          <%= number_to_currency(extra.prices.first.price, :show_zero => false) %>
+          <%= number_to_currency(extra.prices.first.try(:price), :show_zero => false) %>
         </div>
       </div>
       <% end %>

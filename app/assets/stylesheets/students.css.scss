@@ -104,8 +104,7 @@
 .addon_box {
 	border: #909DAC solid 2px;
 	width:80%;
-	height:270px;
-	overflow-y:auto;
+
 	margin:20 20 20 20px;
 }
 
@@ -115,10 +114,11 @@
 }
 
 .addon_table {
-	padding-top: 20px;
-	margin-top:30px;
-	margin-left:30px;
-	margin-right:30px;
+
+}
+
+.addon_table table{
+	width: 100% !important;
 }
 
 .padding-top{
@@ -192,6 +192,29 @@ color:#fff;
 }
 
 .btn-4:focus {
+  outline: none;
+}
+
+.btn-5 {
+
+	-webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-size: 14px;
+  background: #fff;
+  padding: 5px 8px 5px 8px;
+  border: solid #909DAC 1px;
+  text-decoration: none;
+  text-align:center;
+  color:#909DAC;
+}
+
+.btn-5:hover {
+background-color:#C7CED5;
+color:#fff;
+}
+
+.btn-5:focus {
   outline: none;
 }
 
@@ -269,7 +292,11 @@ p.yellow_text2 {
 
 .package_box {
 	height: 45vh;
-	padding-right:30px;
+	padding-right:0px;
+	width:220px;
+	display: inline-block; 
+	position: relative;
+
 }
 
 .zero {
@@ -277,6 +304,13 @@ p.yellow_text2 {
 	height:29%;
 	padding-left:15px;
 	padding-top:0px;
+}
+
+#select_package.col-xs-2 {
+	padding-left:0px !important;
+	margin-left:0px !important;
+	margin-right:0px !important;
+	padding-right:0px !important;
 }
 
 .zero_content {
@@ -385,6 +419,18 @@ color:#fff;
 }
 
 .four_content {
+	border: #909DAC solid 2px;
+	height:71%;
+	padding-left:15px;
+	color:#909DAC;
+	position:relative;
+}
+
+.five {
+	background-color:#fff;
+}
+
+.five_content {
 	border: #909DAC solid 2px;
 	height:71%;
 	padding-left:15px;
