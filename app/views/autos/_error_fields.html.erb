@@ -1,3 +1,21 @@
+<% bucket = AWS::S3::Bucket.new('shoobphoto') %>
+ <% objects = bucket.objects.with_prefix('AutoCSV/output').collect(&:key).drop(1) %>
+
+<% if objects.any? %>
+<div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+  	Processing. Errors, if any, will appear below.
+</div>
+<% else %>
+<div class="alert alert-success" role="alert">
+  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+  Done.
+</div>
+<% end %>
+
+<% if @auto.student_errors.any? %>
 <div class="row">
 	<div class="col-xs-6">
 		<h3>Error</h3>
@@ -17,4 +35,20 @@
 	</div>
 	<% end%>
 
-fasda
+<% end %><br/>
+
+
+<% if objects.any? %>
+
+<script>
+ $(document).ready(
+         function() {
+          setInterval(function() {
+           	$.get('/autos/' + <%= @auto.id %>).success(function(data) { } )
+
+
+        }, 60000);
+    });
+</script>
+
+<% end %>

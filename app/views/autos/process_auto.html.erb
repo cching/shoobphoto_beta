@@ -1,16 +1,7 @@
-Processing...<br/>
+
+
 
 <div id="error">
 <%= render 'error_fields' %>
 </div>
 
-<script>
- $(document).ready(
-         function() {
-          setInterval(function() {
-           	$.get('/autos/' + <%= @auto.id %>).success(function(data) { } )
-
-
-        }, 5000);
-    });
-</script>
