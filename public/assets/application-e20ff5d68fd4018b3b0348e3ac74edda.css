@@ -526,41 +526,61 @@ p.yellow_text-mobile {
 }
 
 /* line 120, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+.img-mobile {
+  width: 100%;
+}
+
+/* line 124, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .extra_name {
   font-size: 45px;
   color: #7E7E7E;
 }
 
-/* line 125, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 129, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .search_input_mobile {
   font-size: 27px;
   letter-spacing: 1px;
   margin-left: 3px;
 }
 
-/* line 131, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 135, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_package {
   height: 10vh;
   border-bottom: 10px solid #fff;
 }
 
-/* line 137, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
-.mobile_package_select {
-  height: 15vh;
+/* line 141, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+.mobile_package_home {
+  height: 10vh;
+  border-bottom: 10px solid #fff;
 }
 
-/* line 143, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 147, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+.mobile_package_home p {
+  line-height: 9vh;
+  font-size: 40px;
+  color: #fff;
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* line 155, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+.mobile_package_select {
+  height: 17vh;
+}
+
+/* line 161, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 div.centered {
   text-align: center;
 }
 
-/* line 149, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 167, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 div.centered table {
   margin: 0 auto;
   text-align: left;
 }
 
-/* line 155, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 173, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_package_short {
   font-weigt: bold;
   font-size: 80px;
@@ -571,7 +591,7 @@ div.centered table {
   margin-bottom: 0px;
 }
 
-/* line 165, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 183, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_package_price {
   font-size: 80px;
   color: #ffd700;
@@ -581,13 +601,13 @@ div.centered table {
   margin-top: 0px;
 }
 
-/* line 175, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 193, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .type_name_mobile {
   font-size: 40px;
   color: #fff;
 }
 
-/* line 180, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 198, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_yellow_text {
   padding-top: 80px !important;
   font-size: 40px !important;
@@ -596,23 +616,23 @@ div.centered table {
   text-align: center !important;
 }
 
-/* line 188, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 206, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .odd_blue {
   background-color: #5392c8;
 }
 
-/* line 192, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 210, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .select_package_image_mobile {
   max-width: 35%;
   max-height: 30vh;
 }
 
-/* line 198, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 216, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .even_blue {
   background-color: #396599;
 }
 
-/* line 202, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 220, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_package p {
   line-height: 10vh;
   font-size: 50px;
@@ -621,7 +641,7 @@ div.centered table {
   text-align: center;
 }
 
-/* line 210, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 228, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_package_select p {
   line-height: 10vh;
   font-size: 50px;
@@ -630,7 +650,7 @@ div.centered table {
   text-align: center;
 }
 
-/* line 218, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 236, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .center_text {
   padding-top: 20vh;
   text-align: center;
@@ -640,7 +660,7 @@ div.centered table {
   color: #396599;
 }
 
-/* line 227, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 245, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .enjoy-css_mobile {
   display: inline-block;
   -webkit-box-sizing: content-box;
@@ -664,7 +684,7 @@ div.centered table {
   margin-bottom: 20px;
 }
 
-/* line 250, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 268, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .enjoy-css2_mobile {
   display: inline-block;
   -webkit-box-sizing: content-box;
@@ -688,7 +708,7 @@ div.centered table {
   margin-bottom: 20px;
 }
 
-/* line 273, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 291, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .error_field_mobile {
   display: inline-block;
   -webkit-box-sizing: content-box;
@@ -712,7 +732,7 @@ div.centered table {
   margin-bottom: 20px;
 }
 
-/* line 297, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 315, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 input[type='text'].enjoy-css_mobile:focus {
   width: 100%;
   height: 35px;
@@ -721,7 +741,7 @@ input[type='text'].enjoy-css_mobile:focus {
 }
 
 /*contacts/index*/
-/* line 307, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 325, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_privacy {
   width: 100%;
   font-size: 15px;
@@ -729,7 +749,7 @@ input[type='text'].enjoy-css_mobile:focus {
 }
 
 /*_footer*/
-/* line 316, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 334, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .footer_mobile {
   height: 140px;
   position: fixed;
@@ -738,18 +758,18 @@ input[type='text'].enjoy-css_mobile:focus {
   background-color: #5392c8;
 }
 
-/* line 324, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 342, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .bottom_logo_mobile {
   width: 50%;
   float: left;
 }
 
-/* line 329, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 347, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .image_mobile {
   width: 100%;
 }
 
-/* line 333, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 351, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .policy_mobile {
   position: absolute;
   padding: 8px;
@@ -763,14 +783,14 @@ input[type='text'].enjoy-css_mobile:focus {
   font-size: 20px;
 }
 
-/* line 346, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 364, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .gold_text_mobile a {
   font-size: 20px;
   color: #ffd700 !important;
   font-weight: normal !important;
 }
 
-/* line 352, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 370, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .col-xs-2_mobile {
   width: 30%;
   float: right;
@@ -778,7 +798,7 @@ input[type='text'].enjoy-css_mobile:focus {
 }
 
 /*_header*/
-/* line 360, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 378, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .ribbon_mobile {
   position: fixed;
   top: 0;
@@ -788,7 +808,7 @@ input[type='text'].enjoy-css_mobile:focus {
   width: 50%;
 }
 
-/* line 369, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 387, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .menu {
   z-index: 9999;
   float: right;
@@ -800,12 +820,12 @@ input[type='text'].enjoy-css_mobile:focus {
   background-color: #5392c8;
 }
 
-/* line 380, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 398, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .wrapper {
   text-align: center;
 }
 
-/* line 384, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 402, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .dropbtn {
   background-color: #5392c8;
   color: white;
@@ -815,18 +835,18 @@ input[type='text'].enjoy-css_mobile:focus {
   cursor: pointer;
 }
 
-/* line 393, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 411, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .dropbtn:active, .dropbtn:focus {
   background-color: #396599;
 }
 
-/* line 397, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 415, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .dropdown {
   position: relative;
   display: inline-block;
 }
 
-/* line 403, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 421, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .dropdown-content {
   display: none;
   position: absolute;
@@ -837,7 +857,7 @@ input[type='text'].enjoy-css_mobile:focus {
   right: 0;
 }
 
-/* line 413, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 431, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .dropdown-content a {
   color: white;
   padding: 12px 16px;
@@ -846,18 +866,18 @@ input[type='text'].enjoy-css_mobile:focus {
   display: block;
 }
 
-/* line 421, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 439, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .dropdown a:active {
   background-color: #396599;
 }
 
-/* line 423, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 441, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .show {
   display: block;
 }
 
 /*search*/
-/* line 427, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 445, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_container {
   position: absolute;
   margin: 100px 0px 0px 0px;
@@ -866,7 +886,7 @@ input[type='text'].enjoy-css_mobile:focus {
   background-color: #f9f9f9;
 }
 
-/* line 435, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 453, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_form_container {
   width: 80%;
   margin: 500px 10% 0% 0px;
@@ -875,14 +895,14 @@ input[type='text'].enjoy-css_mobile:focus {
   right: 0;
 }
 
-/* line 443, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 461, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_form_content {
   display: inline-block;
   text-align: left;
   width: 80%;
 }
 
-/* line 449, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 467, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .btn-blue_mobile {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -898,12 +918,12 @@ input[type='text'].enjoy-css_mobile:focus {
   font-size: 30px;
 }
 
-/* line 464, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 482, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile-cart-final {
   padding-left: 100px;
 }
 
-/* line 468, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 486, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .btn-blue_mobile2 {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -919,7 +939,7 @@ input[type='text'].enjoy-css_mobile:focus {
 }
 
 /*packages*/
-/* line 484, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 502, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_container {
   position: absolute;
   margin: 100px 0px 0px 0px;
@@ -933,13 +953,13 @@ input[type='text'].enjoy-css_mobile:focus {
   font-size: 45px;
 }
 
-/* line 497, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 515, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_selection {
   width: 100%;
 }
 
 /*package/select*/
-/* line 503, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 521, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_container {
   position: absolute;
   margin: 100px 0px 0px 0px;
@@ -948,7 +968,7 @@ input[type='text'].enjoy-css_mobile:focus {
   background-color: #f9f9f9;
 }
 
-/* line 511, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 529, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_proof_container {
   position: absolute;
   margin: 500px 0px 0px 0px;
@@ -957,20 +977,20 @@ input[type='text'].enjoy-css_mobile:focus {
   font-size: 20px;
 }
 
-/* line 519, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 537, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_package_container {
   width: 90%;
   height: 200px;
 }
 
-/* line 524, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 542, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_package_letter {
   width: 20%;
   float: left;
   text-align: center;
 }
 
-/* line 530, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 548, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_package_details {
   width: 80%;
   float: right;
@@ -978,7 +998,7 @@ input[type='text'].enjoy-css_mobile:focus {
 }
 
 /*addoons*/
-/* line 538, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 556, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_container {
   position: absolute;
   margin: 100px 0px 0px 0px;
@@ -987,13 +1007,13 @@ input[type='text'].enjoy-css_mobile:focus {
   background-color: #f9f9f9;
 }
 
-/* line 546, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 564, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_addon {
   margin: 575px 0px 0px 0px;
   width: 100%;
 }
 
-/* line 551, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 569, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_addon_left {
   width: 60%;
   float: left;
@@ -1003,7 +1023,7 @@ input[type='text'].enjoy-css_mobile:focus {
   font-weight: bold;
 }
 
-/* line 560, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 578, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_addon_right {
   width: 40%;
   float: right;
@@ -1011,14 +1031,14 @@ input[type='text'].enjoy-css_mobile:focus {
   font-size: 15px;
 }
 
-/* line 567, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 585, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_addon_table {
   width: 100%;
   border: 1px;
   border-color: #f9f9f9;
 }
 
-/* line 573, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 591, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .btn-blue_mobile {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -1035,7 +1055,7 @@ input[type='text'].enjoy-css_mobile:focus {
 }
 
 /*final*/
-/* line 590, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 608, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_container {
   position: absolute;
   margin: 100px 0px 0px 0px;
@@ -1047,7 +1067,7 @@ input[type='text'].enjoy-css_mobile:focus {
   font-size: 15px;
 }
 
-/* line 601, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+/* line 619, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .mobile_gallery {
   width: 100%;
   background-color: #f9f9f9;
@@ -3324,6 +3344,11 @@ span.nav-close:before {
   .grid li {
     width: 100%;
   }
+}
+/* line 6, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/templates.css.scss */
+.template_container {
+  margin-left: 20px;
+  margin-right: 20px;
 }
 /* line 5, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/yearbooks.css.scss */
 .btn-dash {

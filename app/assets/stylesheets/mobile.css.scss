@@ -116,6 +116,10 @@ color:#fff;
   height:20vh;
 }
 
+.img-mobile {
+  width:100%;
+}
+
 .extra_name {
   font-size:45px;
   color:#7E7E7E;
@@ -133,8 +137,22 @@ color:#fff;
 
 }
 
+.mobile_package_home {
+  height:10vh;
+  border-bottom: 10px solid #fff;
+
+}
+
+.mobile_package_home p {
+line-height:9vh;
+font-size:40px;
+color:#fff;
+vertical-align:middle;
+text-align:center;
+}
+
 .mobile_package_select {
-  height:15vh;
+  height:17vh;
 
 }
 

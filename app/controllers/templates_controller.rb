@@ -65,6 +65,7 @@ class TemplatesController < ApplicationController
   end
 
   def edit
+    render :layout => "fullwidth"
   end
 
   def create
@@ -91,7 +92,6 @@ class TemplatesController < ApplicationController
 
       @export_data.export_data_students.new(:student_id => 129932)
       @export_data.save
-
 
       file_name = ["export-file-#{@export_data.id}", ".pdf"]
         Tempfile.open(file_name) do |file|

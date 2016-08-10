@@ -1,3 +1,4 @@
+<div class="template_container">
 <%= simple_form_for(@template, :remote => true, :html => { :multipart => true }, :input_html => {:id => "template_form"} ) do |f| %>
   <%= f.error_notification %>
   <% if @template.errors.any? %>
@@ -13,18 +14,50 @@
   </div>
 
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-sm-9">
 <h3>Fields</h3>
-
+ 
   <%= hidden_field_tag "template[category_ids][]", nil %>
 
+<table class="table">
+  <tr>
+    <td>
+      Fields
+    </td>
+    <td>
+      X
+      </td>
+    <td>
+      Y
+      </td>
+    <td>
+      Width
+      </td>
+    <td>
+      Height
+      </td>
+    <td>
+      Text Size
+      </td>
+    <td>
+      Spacing
+      </td>
+    <td>
+      Color
+      </td>
+    <td>
+      Align
+      </td>
+    <td>
+      Font
+    </td>
+  </tr>
 <% Column.all.each do |column| %>
-<div id="column_input">
+<tr>
+  <td>
   <%= check_box_tag "template[column_ids][]", column.id, @template.column_ids.include?(column.id), id: dom_id(column), class: "column_input" %>
   <%= label_tag dom_id(column), column.name %><br>
-</div>
-<div id="form_<%= column.id %>" <%= "hidden" unless @template.columns.include?(column) %>>
-  <div id="top"></div>
+</td>
   <% if Field.where(:column_id => column.id).where(:template_id => @template.id).any? %>
   <%= f.simple_fields_for :fields, Field.where(:column_id => column.id).where(:template_id => @template.id).last do |builder| %>
     <%= render 'field_fields', f: builder %>
@@ -35,16 +68,16 @@
     <%= render 'field_fields', f: builder %>
   <% end %>
   <% end %> 
-
-</div>
+</tr>
 
   <% end %>
+</table>
   <div class="form-actions">
     <%= f.button :submit, "Save and Preview" %>
   </div>
 </div>
 
-<div class="col-sm-8">
+<div class="col-sm-3">
   <h3>Preview</h3>
 
   <div id="preview">
@@ -74,17 +107,9 @@
   <%= link_to_add_fields "Add PDF", f, :pdfs %>
   
 <% end %>
-
+</div>
 <script>
-$('.column_input').click(function(){
-    if($(this).is(':checked')){
-        id = $(this).val();
-        $('#form_' + id).show();
-    } else {
-        id = $(this).val();
-        $('#form_' + id).hide();
-    }
-});
+
 $(".multiple_select").select2();
 
 $(".field_field").blur(function() {

@@ -65,7 +65,7 @@
 	
 	<% i = 0 %>
 	<% @package.options.order(:name).each do |option| %>
-	<%= link_to add_package_path(@cart.cart_id, @i, option.id) do %>
+	<%= link_to add_package_path(@cart.cart_id, @i, option.id), :onclick => "clickAndDisable(this);" do %>
 	<div class="mobile_package_select animated fadeInUp <%= i.even? ? 'even_blue' : 'odd_blue'%>">
 			<div class="row">
 				<div class="col-xs-3" align="center">
@@ -103,4 +103,12 @@ $(document).ready(function(){
     $(this).button('loading');
   });
 });
+
+function clickAndDisable(link) {
+     // disable subsequent clicks
+     link.onclick = function(event) {
+        event.preventDefault();
+     }
+   }   
+
 </script>

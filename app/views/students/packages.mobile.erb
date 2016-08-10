@@ -17,7 +17,7 @@
 	<%= link_to student_select_package_path(@cart.cart_id, @cart.students.count - 1, package.id) do %>
 		<div class="mobile_package <%= index.even? ? 'even_blue' : 'odd_blue'%>">
 			<p><%= package.name.upcase %></p>
-		</div>
+		</div> 
 	<% end %>
 	<% end %>
 </div>

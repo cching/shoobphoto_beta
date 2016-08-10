@@ -2,7 +2,8 @@ class PagesController < ApplicationController
   before_action :set_params_id, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
-
+  include Mobylette::RespondToMobileRequests
+  layout 'fullwidth'
 
   def show
     @page = Page.find(params[:id])
@@ -10,7 +11,12 @@ class PagesController < ApplicationController
   end
 
   def home
-      render :layout => 'fullwidth'
+        
+
+      respond_to do |format|
+        format.html
+        format.mobile
+      end
     end
 
   private

@@ -1,82 +1,44 @@
-<div class="row">
-  <div class="col-sm-3">
-  X
-</div>
-  <div class="col-sm-9">
-<%= f.input :x, label: false, :input_html => {:class => "field_field"} %>
-</div>
-</div>
-<div class="row">
-  <div class="col-sm-3">
-  Y
-</div>
-  <div class="col-sm-9">
+<td>
+  <%= f.input :x, label: false, :input_html => {:class => "field_field"} %>
+</td>
+<td>
 <%= f.input :y, label: false, :input_html => {:class => "field_field"} %>
-</div>
-</div>
-
-<div class="row">
-  <div class="col-sm-3">
-  Width
-</div>
-  <div class="col-sm-9">
+</td>
+<td>
 <%= f.input :width, label: false, :input_html => {:class => "field_field"} %>
-</div>
-</div>
-
-<div class="row">
-  <div class="col-sm-3">
-  Height
-</div>
-  <div class="col-sm-9">
+</td>
+<td>
 <%= f.input :height, label: false, :input_html => {:class => "field_field"} %>
-</div>
-</div>
-
-<div class="row">
-  <div class="col-sm-3">
-  Text size
-</div>
-  <div class="col-sm-9">
+</td>
+<td>
 <%= f.input :text_size, label: false, :input_html => {:class => "field_field"} %>
-</div>
-</div>
-<div class="row">
-  <div class="col-sm-3">
-  Spacing
-</div>
-  <div class="col-sm-9">
+</td>
+<td>
 <%= f.input :spacing, label: false, :input_html => {:class => "field_field"} %>
-</div>
-</div>
-
-<div class="row">
-  <div class="col-sm-3">
-  Color
-</div>
-  <div class="col-sm-9">
+</td>
+<td>
 <%= f.input :color, label: false, as: :minicolors, input_html: {class: "field_field",data: {
           minicolors: {theme: :bootstrap, position: :right}}} %>
-</div>
-</div>
+</td>
+<td>
+<%= f.input :align, label: false, :collection => Field.align_options, input_html: { class: 'select_drop'} %>
+</td>
+<td>
+<%= f.association :font, label: false, input_html: { class: 'select_drop'} %>
+</td>
 
 
-<div class="row">
-  <div class="col-sm-3">
-  Align
-</div>
-  <div class="col-sm-9">
-<%= f.input :align, label: false, :collection => Field.align_options, :include_blank => false, :input_html => {:class => "field_field"}  %>
-</div>
-</div>
 
-<div class="row">
-  <div class="col-sm-3">
-  Font
-</div>
-  <div class="col-sm-9">
-<%= f.association :font, label: false, :include_blank => false, :input_html => {:class => "field_field"} %>
-</div>
-</div>
+<style>
+select.select_drop{
+max-width: 90px;
+    min-width: 90px;
+    width: 90px !important;  
+}
 
-
+div.form-group.select.optional.template_fields_align {
+  max-width: 90px;
+    min-width: 90px;
+    width: 900px !important;  
+}
+</style>
