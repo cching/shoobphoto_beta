@@ -19,6 +19,12 @@ class AutosController < ApplicationController
       end
 
     end
+
+    objects.each do |object|
+      obj = s3.buckets['shoobphoto'].objects[object] # no request made
+      obj.delete
+    end
+    
     redirect_to process_auto_auto_path(@auto.id)
   end
 

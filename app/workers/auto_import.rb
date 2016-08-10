@@ -95,8 +95,6 @@ class AutoImport
 
      	end #end chunk loop
 
-     	obj = s3.buckets['shoobphoto'].objects[s3_key] # no request made
-     	obj.delete
 
  	end #end def
 end #end class

@@ -1,17 +1,17 @@
-<input class="btn-blue" name="commit" value="Continue" onclick="return validateForm1()" readonly>
+<input class="<%= is_mobile_request? ? 'btn-blue_mobile' : 'btn-blue' %>" name="commit" value="Continue" onclick="return validateForm1()" readonly>
  <script>
- function validateForm1(){isValid = false;
+ function validateForm1(){isValid = false; 
   var isValid = true;
 
   var x = document.getElementById('student_first_name').value;
     if (x == null || x == "") {
         isValid = false;
         var d = document.getElementById("student_first_name");
-        d.className += " error_field";
+        d.className += " error_field_mobile";
       } else {
 
       document.getElementById("student_first_name").className = "";
-      document.getElementById("student_first_name").className = "enjoy-css";
+      document.getElementById("student_first_name").className = "enjoy-css_mobile";
       }
     
 
@@ -19,11 +19,11 @@
     if (z == null || z == "") {
         isValid = false;
         var d = document.getElementById("input_email");
-        d.className += " error_field";
+        d.className += " error_field_mobile";
         } else {
 
       document.getElementById("input_email").className = "";
-      document.getElementById("input_email").className = "enjoy-css";
+      document.getElementById("input_email").className = "enjoy-css_mobile";
       }
     
 
@@ -32,11 +32,11 @@
       if(!emailReg.test(z)) {
         isValid = false;
         var d = document.getElementById("input_email");
-        d.className += " error_field";
+        d.className += " error_field_mobile";
         } else {
 
       document.getElementById("input_email").className = "";
-      document.getElementById("input_email").className = "enjoy-css";
+      document.getElementById("input_email").className = "enjoy-css_mobile";
       }
       
 
@@ -44,11 +44,11 @@
     if (y == null || y == "") {
         isValid = false;
         var d = document.getElementById("student_last_name");
-        d.className += " error_field";
+        d.className += " error_field_mobile";
         } else {
 
       document.getElementById("student_last_name").className = "";
-      document.getElementById("student_last_name").className = "enjoy-css";
+      document.getElementById("student_last_name").className = "enjoy-css_mobile";
       }
     
 
@@ -59,11 +59,11 @@
     if (y == null || y == "") {
         isValid = false;
     	var d = document.getElementById("input_student_teacher");
-        d.className += " error_field";
+        d.className += " error_field_mobile";
         } else {
 
       document.getElementById("input_student_teacher").className = "";
-      document.getElementById("input_student_teacher").className = "enjoy-css";
+      document.getElementById("input_student_teacher").className = "enjoy-css_mobile";
       }
     <% end %>
 

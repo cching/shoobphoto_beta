@@ -1,16 +1,23 @@
-<div class="mobile_container">
-Select a category to view packages	
+<div class="package_container">
+	<div class="center_text">
+		Select a category to view packages.
+	</div>
 </div>
 
 <br/>
+<br/>
+<br/>
+<br/><br/>
+<br/>
+<br/>
+<br/>
 
-<div class="mobile_selection">
 <div class="animated fadeInUp">
 <% @packages.each_with_index do |package, index| %>
-	
-						<div class="center-row animated fadeInUp">
-							<%= link_to image_tag(package.image.url), student_select_package_path(@cart.cart_id, @cart.students.count - 1, package.id), class: "package_selection" %>
-						</div>
+	<%= link_to student_select_package_path(@cart.cart_id, @cart.students.count - 1, package.id) do %>
+		<div class="mobile_package <%= index.even? ? 'even_blue' : 'odd_blue'%>">
+			<p><%= package.name.upcase %></p>
+		</div>
 	<% end %>
-</div>
+	<% end %>
 </div>

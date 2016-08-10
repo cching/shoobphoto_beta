@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   require 'aws-sdk'
   layout 'fullwidth'
-  #include Mobylette::RespondToMobileRequests
+  include Mobylette::RespondToMobileRequests
 
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
@@ -459,6 +459,11 @@ class StudentsController < ApplicationController
 
        unless @cart.order_packages.any?
         redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1)
+      end
+
+      respond_to do |format|
+        format.html
+        format.mobile
       end
 
 

@@ -1,14 +1,14 @@
 <br/><br/><br/>
+<br/><br/><br/>
+<br/><br/><br/>
 
-<div class="row animated fadeIn">
-	<div class="col-xs-1"></div>
-	<div class="col-xs-5">
+<div class="animated fadeIn">
 
-	
 				<% @cart.order_packages.where(:student_id => @student.id).each do |opackage| %>
 					<% opackage.options.each do |option| %>
 					<span class="<%= opackage.id %>_<%= option.id %>">
 					<div class="row" id="outer_row">
+						<div class="col-xs-1"></div>
 						<div class="col-xs-3">
 			
 							<% image = @student.student_images.where(:package_id => opackage.package.id).where.not(folder: "fall2015").last %>
@@ -21,41 +21,41 @@
 							<% end %>
 						</div>
 
-						<div class="col-xs-9 package_blue" %>
+						<div class="col-xs-7 package_blue" %>
 							<div class="row">
-								<div class="col-xs-6 white_col" align="left">
+								<div class="col-xs-6 white_col-mobile" align="left">
 									<strong><%= option.name %></strong>
 								</div>
-								<div class="col-xs-6 white_col" align="right">
+								<div class="col-xs-6 white_col-mobile" align="right">
 									<%= number_to_currency(option.price, :show_zero => false) %>
 								</div>
 							</div>   
 
 							<% if 2 >= option.package.options.map(&:id).index(option.id) %>
-							<p class="yellow_text2">
-							INCLUDES <strong>FREE</strong> DIGITAL IMAGE
+							<p class="yellow_text-mobile">
+							<strong>FREE</strong> DIGITAL IMAGE
 							</p>
 							<% end %>
 							<% option.image_types.each_slice(2) do |slice| %>
 							<div class="row">
 								<% slice.each do |type| %>
-									<div class="col-xs-6 image_type"><%= type.name %></div>
+									<div class="col-xs-6 image_type-mobile"><%= type.name %></div>
 								<% end %>
 							</div>
 							<% end %>
 						</div>
-
+						<div class="col-xs-1"></div>
 					</div>
 
 					<% if opackage.extras.any? %>
 					<div class="row">
-						<div class="col-xs-3"></div>
-						<div class="col-xs-9 package_orange">
+						<div class="col-xs-4"></div>
+						<div class="col-xs-7 package_orange">
 							<div class="row">
-								<div class="col-xs-6 white_col" align="left">
+								<div class="col-xs-6 white_col-mobile" align="left">
 									<strong>Addons</strong>
 								</div>
-								<div class="col-xs-6 white_col" align="right">
+								<div class="col-xs-6 white_col-mobile" align="right">
 									<% price = 0 %>
 									<% opackage.extras.each do |extra| %>
 									<% unless extra.prices.first.try(:price).nil? %>
@@ -66,21 +66,22 @@
 								</div>
 							</div>  
 							<% opackage.extras.each do |extra| %>
-							<span class="image_type"><%= extra.name %></span><br/>
+							<span class="image_type-mobile"><%= extra.name %></span><br/>
 							<% end %>
 
 						</div>
+						<div class="col-xs-1"></div>
 					</div><br/>
 				</span>
 					<% end %>
 				<% end %>
 			<% end %>
 		
-	</div>
 
-	<div class="col-xs-6 space_left">
+
+	<div class="mobile-cart-final">
 		<div class="row">
-			<div class="col-xs-6 cart_title">
+			<div class="col-xs-6 cart_title-mobile">
 				Cart
 			</div>
 			<div class="col-xs-6 ">
@@ -89,24 +90,24 @@
 		</div>
 		<div class="cart_box">
 			<% @cart.students.each do |student| %>
-			<strong>Student: <%= student.first_name %> <%= student.last_name %></strong>
+			<strong style="font-size:40px;">Student: <%= student.first_name %> <%= student.last_name %></strong>
 
 			<% @cart.order_packages.where(:student_id => student.id).each do |opackage| %>
 			<% opackage.options.each do |option| %>
 			<span class="<%= opackage.id %>_<%= option.id %>">
-			<div class="row gray_text_cart">
+			<div class="row gray_text_cart-mobile">
 				<div class="col-xs-6">
 					<%= opackage.package.name %>: <%= option.name %>
 				</div>
-				<div class="col-xs-6 gray_text_cart" align="right"><%= link_to "Remove", remove_option_path(opackage.id, option.id, @cart.students.count - 1), class: "btn-4", remote: true, data: { confirm: 'Are you sure?' } %> &nbsp; <%= number_to_currency(option.price, :show_zero => false) %></div>
+				<div class="col-xs-6 gray_text_cart-mobile" align="right"><%= link_to "Remove", remove_option_path(opackage.id, option.id, @cart.students.count - 1), class: "btn-4-mobile", remote: true, data: { confirm: 'Are you sure?' } %> &nbsp; <%= number_to_currency(option.price, :show_zero => false) %></div>
 			</div>
 			<% opackage.extras.each do |extra| %>
 			<div class="row">
 				<div class="col-xs-1"></div>
-				<div class="col-xs-9 gray_text_cart">
+				<div class="col-xs-9 gray_text_cart-mobile">
 					<%= extra.name %>
 				</div>
-				<div class="col-xs-2 gray_text_cart" align="right">
+				<div class="col-xs-2 gray_text_cart-mobile" align="right">
 					<%= number_to_currency(extra.prices.first.price, :show_zero => false) %>
 				</div>
 			</div>
@@ -119,20 +120,20 @@
 
 			<% if @cart.order_packages.where.not(package_id: nil).first.package.shippings.any? %>
 			<div class="row">
-				<div class="col-xs-6 subtotal">
+				<div class="col-xs-6 subtotal-mobile">
 					SHIPPING
 				</div>
-				<div class="col-xs-6 subtotal" align="right">
+				<div class="col-xs-6 subtotal-mobile" align="right">
 					<%= number_to_currency(@cart.order_packages.where.not(package_id: nil).first.package.shippings.first.price, :show_zero => false) %>
 				</div>
 			</div>
 			<% end %>
 
 			<div class="row">
-				<div class="col-xs-6 subtotal">
+				<div class="col-xs-6 subtotal-mobile">
 					<strong>Total</strong>
 				</div>
-				<div class="col-xs-6 subtotal" align="right">
+				<div class="col-xs-6 subtotal-mobile" align="right">
 					<%= number_to_currency(@cart.price, :show_zero => false) %>
 				</div>
 			</div>
@@ -140,12 +141,12 @@
 		<br/>
 		<div class="row">
 			<div class="col-xs-8">
-				<%= link_to "Continue Shopping", student_packages_path(@cart.cart_id, @cart.students.count - 1), class: "btn-blue" %>
+				<%= link_to "Continue Shopping", student_packages_path(@cart.cart_id, @cart.students.count - 1), class: "btn-blue_mobile2" %>
 				<br/>
-				<%= link_to "Add More Students to Your Order", student_search_path(:cart => @cart.cart_id, :i => @cart.students.count), class: "btn-blue" %>
+				<%= link_to "Add Another Student", student_search_path(:cart => @cart.cart_id, :i => @cart.students.count), class: "btn-blue_mobile2" %>
 			</div>
 			<div class="col-xs-2" align="right">
-				<%= link_to "Checkout", new_order_path(@cart.cart_id), class: "btn-blue" %>
+				<%= link_to "Checkout", new_order_path(@cart.cart_id), class: "btn-blue_mobile2" %>
 			</div>
 			<div class="col-xs-2"></div>
 		</div>

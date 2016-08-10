@@ -1,13 +1,8 @@
-<div class="mobile_container">
-  
-</div>
-
-<div class="mobile_form_container">
+<%= image_tag("purchase_pics.jpg", class: "img-purchase") %>
 <%= form_tag(student_find_path, method: :get, :name => 'new_search_form', :id => "new_search_form") do %>
 
-<div class="mobile_form_content">  
-    <br/>
-    <div class="blue" style="font-size:35px"><strong>Enter your student's information below.</strong></div>
+    <div class="mobile-padding">
+    <div class="blue" style="font-size:35px" align="center"><strong>Enter your student's information below.</strong></div>
         <span class="search_input_mobile">SCHOOL OR SPORT</span>
         <select name="school[school_id]" id="dropdown" class="enjoy-css_mobile">
             <% School.all.order(:name).where.not(school_type_id: nil).each do |school| %>
@@ -32,7 +27,7 @@
 
             </div>
           </div>
-          </div>
+          
 
  
         <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "enjoy-css_mobile", id: "student_first_name" %>
@@ -76,7 +71,7 @@
         <%= hidden_field_tag "i", @i %>
 
       </div>
-    
+    </div>
   <% end %>
 
 <script>
@@ -93,32 +88,32 @@ $.get('/students/showteacher/' + $("#dropdown").select2("val")).success(function
 $(document).ready(function() { 
   $( "#dropdown" ).select2({
     theme: "bootstrap",
-    width: '105%',
+    width: '103%',
     height: '20px',
 });
 
   
   $("#gradedropdown").select2({
     theme: "bootstrap",
-    width: '117%',
+    width: '106%',
     minimumResultsForSearch: Infinity
   });
 
   $("#date_year").select2({
     theme: "bootstrap",
-    width: '117%',
+    width: '90%',
     minimumResultsForSearch: Infinity
   });
 
   $("#date_month").select2({
     theme: "bootstrap",
-    width: '117%',
+    width: '90%',
     minimumResultsForSearch: Infinity
   });
 
   $("#date_day").select2({
     theme: "bootstrap",
-    width: '117%',
+    width: '90%',
     minimumResultsForSearch: Infinity
   });
 
@@ -140,11 +135,11 @@ function validateForm(){isValid = false;
     if (x == null || x == "") {
         isValid = false;
         var d = document.getElementById("student_first_name");
-        d.className += " error_field";
+        d.className += " error_field_mobile";
       } else {
 
       document.getElementById("student_first_name").className = "";
-      document.getElementById("student_first_name").className = "enjoy-css";
+      document.getElementById("student_first_name").className = "enjoy-css_mobile";
       }
     
 
@@ -152,11 +147,11 @@ function validateForm(){isValid = false;
     if (z == null || z == "") {
         isValid = false;
         var d = document.getElementById("input_email");
-        d.className += " error_field";
+        d.className += " error_field_mobile";
         } else {
 
       document.getElementById("input_email").className = "";
-      document.getElementById("input_email").className = "enjoy-css";
+      document.getElementById("input_email").className = "enjoy-css_mobile";
       }
     
 
@@ -165,11 +160,11 @@ function validateForm(){isValid = false;
       if(!emailReg.test(z)) {
         isValid = false;
         var d = document.getElementById("input_email");
-        d.className += " error_field";
+        d.className += " error_field_mobile";
         } else {
 
       document.getElementById("input_email").className = "";
-      document.getElementById("input_email").className = "enjoy-css";
+      document.getElementById("input_email").className = "enjoy-css_mobile";
       }
       
 
@@ -177,11 +172,11 @@ function validateForm(){isValid = false;
     if (y == null || y == "") {
         isValid = false;
         var d = document.getElementById("student_last_name");
-        d.className += " error_field";
+        d.className += " error_field_mobile";
         } else {
 
       document.getElementById("student_last_name").className = "";
-      document.getElementById("student_last_name").className = "enjoy-css";
+      document.getElementById("student_last_name").className = "enjoy-css_mobile";
       }
     
 

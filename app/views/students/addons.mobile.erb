@@ -1,44 +1,56 @@
-<div class="mobile_container">
-	
-</div>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
 
-<br/><br/><br/>
 <div class="row animated fadeIn">
-	<div class="mobile_addon">
-		<span class="addons_header">
-			Select Addons
-			<div class="addon_box">
+	<div class="row">
+			<div class="col-xs-1"></div>
+				<div class="col-xs-6">
+					<span class="addons_header-mobile">
+					Select Addons
+					</span>
+				</div>
+	
+			<div class="col-xs-5">
+				<span class="price-mobile">Subtotal: <%= number_to_currency(@option.price, :show_zero => false) %></span>
+			</div>
+	
+		</div>
+		
+			<div class="addon_box centered">
 				<table class="table addon_table">
 					<% @option.extra_types.each do |extra_type| %>
 					<% extra_type.extras.each do |extra| %>
 			        	<tr id="<%= extra_type.id %>_<%= extra.id %>" class="<%= 'highlighted' if @opackage.extras.pluck(:id).include? extra.id %>">
 			        		<td>
-			        			<%= extra.name %>
+			        			<span class="extra_name"><%= extra.name %></span>
+			        			
 			        		</td>
 			        		<td id="button_<%= extra_type.id %>_<%= extra.id %>">
 			        			<% if @opackage.extras.pluck(:id).include? extra.id %> 
-			        				<%= link_to "Deselect", delete_addon_path(@opackage.id, extra.id), class: "btn-deselect", remote: true %>
+			        				<%= link_to "Deselect", delete_addon_path(@opackage.id, extra.id), class: "btn-deselect-mobile", remote: true %>
 			        			<% else %>
-			        				<%= link_to "Select", create_addon_path(@opackage.id, extra.id), class: "btn-4", remote: true %>
+			        				<%= link_to "Select", create_addon_path(@opackage.id, extra.id), class: "btn-4-mobile", remote: true %>
 			        			<% end %>
 			        		</td>
 			        		<td>
+			        			<span class="extra_name">
 			        			<%= number_to_currency(extra.prices.first.try(:price), :show_zero => false) %>
+			        			</span>
 			        		</td>
 			        	</tr>
 			        	<% end%>
 			        	<% end %>
 				</table>
 			</div>
-		</span><br/>
+		<br/>
 		<div class="row">
-			<div class="col-xs-5"></div>
-			<div class="col-xs-3">
-				<span class="price">Subtotal: <%= number_to_currency(@option.price, :show_zero => false) %></span>
-			</div>
-			<div class="col-xs-3">
-				<%= link_to "Continue", student_update_path(@cart.cart_id, @cart.students.count - 1), class: "btn-blue_mobile" %>
+			<div class="col-xs-8"></div>
+		
+			<div class="col-xs-4">
+				<%= link_to "Continue", student_update_path(@cart.cart_id, @cart.students.count - 1), class: "btn-blue_mobile2" %>
 			</div>
 		</div>
-	</div>
 </div>

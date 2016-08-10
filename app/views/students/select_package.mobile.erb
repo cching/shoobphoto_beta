@@ -1,6 +1,4 @@
-<div class="mobile_container">
-	
-</div>
+
 
 
 
@@ -48,69 +46,51 @@
 	</div>
 	<% else %>
 
-<div class="row animated fadeIn" id="select_package">
+<div class="animated fadeIn" id="mobile_package_selection">
 	
-	<div class="mobile_proof_container">
-		
-	<div class="col-xs-2">
+		<br/><br/><br/><br/><br/>
 		<% unless @image.nil? %>
 			<% if @cart.id_supplied? %>
-				<%= image_tag(@image.watermark.url(:watermark), class: "select_package_image") %>
+				<%= image_tag(@image.watermark.url(:watermark), class: "select_package_image_mobile") %>
 			<% else %>
-				<%= image_tag(@package.image.url, class: "select_package_image") %>
+				<%= image_tag(@package.image.url, class: "select_package_image_mobile") %>
 			<% end %>
 		<% else %>
-			<%= image_tag(@package.image.url, class: "select_package_image") %>
+			<%= image_tag(@package.image.url, class: "select_package_image_mobile") %>
 		<% end %>
-	</div>
 	
-	</div>
 	
 	<br/>
+	<p class="mobile_package_text">Select your package below.</p>
 	
-	<div class="mobile_package_container">
-	
-	<% @package.options.order(:name).each_with_index do |option, i| %>
-	<div class="col-xs-2">
-		<div class="package_box">
-		<div class="<%= i.to_words %>"> 
+	<% i = 0 %>
+	<% @package.options.order(:name).each do |option| %>
+	<%= link_to add_package_path(@cart.cart_id, @i, option.id) do %>
+	<div class="mobile_package_select animated fadeInUp <%= i.even? ? 'even_blue' : 'odd_blue'%>">
 			<div class="row">
-				<div class="col-xs-3">
-					<span class="<%= 2 >= i ? 'white_text' : 'gray_text'%>"><%= option.name[-1] %></span>
+				<div class="col-xs-3" align="center">
+					<span class="mobile_package_short"><%= option.name[-1] %></span>
+					<span class="mobile_package_price">$<%= option.price.floor %></span>
 				</div>
-				<div class="col-xs-9">
+				<div class="col-xs-1"></div>
+				<div class="col-xs-8" align="left">
 					<% if 2 >= i %>
-					<p class="yellow_text">
-					INCLUDES <strong>FREE</strong> DIGITAL IMAGE
-					</p>
-					<% end %>
-				</div>
-			</div>
-		</div>
-		<div class="<%= i.to_words %>_content">
-			<div class="scrollbox">
-			<% option.image_types.each do |type| %>
+					<span class="mobile_yellow_text">
+					<strong>FREE</strong> DIGITAL IMAGE 
+					</span>
+					<% end %><br/>
+					<span class="type_name_mobile"><%= option.image_types.map(&:name).join(", ") %></span>
 
-				<%= type.name %><br/>
-											
-			<% end %>
-			</div>
-			<div class="row bottom">
-				<div class="col-xs-3 bottom_text">
-				$<%= option.price.floor %>
-				</div>
-				<div class="col-xs-9 padding-top">
-						<%= link_to "Add to Cart", student_addons_path(@cart.cart_id, @i, option.id), class: "btn-#{i} btn-loading" %>
-			
 				</div>
 			</div>
 		</div>
-	</div>
-	</div>
+		<% end %>
 	
-	</div>
-	
-	
+					
+						<br/>
+			
+
+	<% i = i + 1 %>
 	<% end %>
 </div>
 <% end %>
