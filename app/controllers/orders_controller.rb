@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
 	before_filter :authenticate_user!, only: [:index, :processed, :unprocessed]
 
 	before_action :require_admin, only: [:index, :processed, :unprocessed]
+	include Mobylette::RespondToMobileRequests
 
 	def download
 		@order = Order.find(params[:id])
@@ -168,6 +169,11 @@ class OrdersController < ApplicationController
 	end
 	  else
   	redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1), notice: "Please add a package to your cart before continuing."
+      end
+
+      respond_to do |format|
+      	format.html
+      	format.mobile
       end
 end
 
