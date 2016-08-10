@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   require 'aws-sdk'
   layout 'fullwidth'
-  include Mobylette::RespondToMobileRequests
+  #include Mobylette::RespondToMobileRequests
 
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
@@ -44,10 +44,7 @@ class StudentsController < ApplicationController
       redirect_to student_update_path(@cart.cart_id, @cart.students.count - 1)
     end
 
-    respond_to do |format|
-      format.html   
-      format.mobile 
-    end
+
 
   end
 
@@ -464,10 +461,7 @@ class StudentsController < ApplicationController
         redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1)
       end
 
-    respond_to do |format|
-      format.html   
-      format.mobile 
-    end
+
   end
 
   def previous_images
@@ -605,9 +599,8 @@ class StudentsController < ApplicationController
       @images = DownloadImage.find(@ids)
 
 
-      if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%senior%").any? && current_user.try(:admin) && @cart.id_supplied?
-        redirect_to senior_portraits_path(@cart.cart_id, params[:i])
-      elsif @images.any? && @cart.id_supplied?
+
+      if @images.any? && @cart.id_supplied?
         redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
       else
         redirect_to student_final_path(@cart.cart_id, @cart.students.count - 1)
@@ -625,10 +618,7 @@ class StudentsController < ApplicationController
 
     @image = @student.student_images.where(:package_id => @package.id).where.not(folder: "fall2015").last
 
-    respond_to do |format|
-      format.html   
-      format.mobile 
-    end
+
     
   end 
 
@@ -637,10 +627,7 @@ class StudentsController < ApplicationController
     @student = @cart.students[params[:i].to_i]
     @packages = @student.school.packages.order(:id)
 
-    respond_to do |format|
-      format.html   
-      format.mobile 
-    end
+
 
   end
 
@@ -684,15 +671,19 @@ class StudentsController < ApplicationController
           @cart = Cart.find_by_cart_id(params[:cart])
           @cart.cart_students.create(:student_id => @student.id)
         end
+
         respond_to do |format|
             format.html { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
             format.mobile { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
         end
+ 
       else
-          respond_to do |format|
+
+        respond_to do |format|
             format.mobile { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :grade => params[:grade], :email => params[:email], :id_supplied => "false") }
             format.html { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :grade => params[:grade], :email => params[:email], :id_supplied => "false") }
           end
+  
       end
 
     else
