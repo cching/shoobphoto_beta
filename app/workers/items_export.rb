@@ -11,7 +11,7 @@ class ItemsExport
           Item.all.order(:id).each do |item|
 
 
-              csv_file << CSV.generate_line(["#{item.id}"] + ["#{item.name}"] + ["#{item.number}"] + ["#{item.price}"] + ["#{item.main.url}"]  + ["#{item.subcategory.name}"] + ["#{item.searchterms.map(&:name).join(", ")}"])
+              csv_file << CSV.generate_line(["#{item.id}"] + ["#{item.name}"] + ["#{item.number}"] + ["#{item.price}"] + ["#{item.main.url}"]  + ["#{item.subcategory.try(:name)}"] + ["#{item.searchterms.map(&:name).join(", ")}"])
 
             
           end
