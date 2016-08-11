@@ -147,7 +147,7 @@ Address
 <div class="col-sm-10">
       <%= f.text_field :address, class: "form-control", id: "billingaddress" %>
 </div>
-</div>
+</div> 
 <br />
 <div class="row">
 <div class="col-sm-2">
@@ -160,8 +160,7 @@ City
 State
 </div>
 <div class="col-sm-2">
-<%= f.text_field :state, class: "form-control", id: "billingstate" %>
-</div>
+<%= f.select :state, options_for_select(us_states),{}, id: "billingstate" %></div>
 <div class="col-sm-1">
 Zip code
 </div>
@@ -199,7 +198,7 @@ City
 State
 </div>
 <div class="col-sm-2">
-<%= f.text_field :shipping_state, class: "form-control", id: "shippingstate" %>
+<%= f.select :shipping_state, options_for_select(us_states),{}, id: "shippingstate" %>
 </div>
 <div class="col-sm-1">
 Zip code
@@ -256,7 +255,15 @@ $(".btn-loading").on("click", function() {
 });
 
 $(document).ready(function() { 
+  $("#shippingstate").select2({
+    theme: "bootstrap",
+    width: '104%',
+  });
 
+  $("#billingstate").select2({
+    theme: "bootstrap",
+    width: '104%',
+  });
   
   $("#gradedropdown").select2({
     theme: "bootstrap",
@@ -273,3 +280,4 @@ $(document).ready(function() {
 
 });
 </script>
+

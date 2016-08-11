@@ -11,8 +11,6 @@ class TemplatesController < ApplicationController
         field.delete 
       end
     end
-    
-
   end
 
   def copy

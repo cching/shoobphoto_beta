@@ -1,4 +1,4 @@
-<div class="template_container">
+<br/><br/><div class="template_container">
 <%= simple_form_for(@template, :remote => true, :html => { :multipart => true }, :input_html => {:id => "template_form"} ) do |f| %>
   <%= f.error_notification %>
   <% if @template.errors.any? %>
@@ -15,7 +15,7 @@
 
 <div class="row">
   <div class="col-sm-9">
-<h3>Fields</h3>
+<h3>Fields</h3> <a href="#" id="show_all">Show all</a> - <a href="#" id="hide_all">Hide unselected</a>
  
   <%= hidden_field_tag "template[category_ids][]", nil %>
 
@@ -52,8 +52,8 @@
       Font
     </td>
   </tr>
-<% Column.all.each do |column| %>
-<tr>
+<% Column.all.each_with_index do |column, index| %>
+<tr <%= "hidden" unless @template.columns.include? column %> id="column_template_<%= index %>">
   <td>
   <%= check_box_tag "template[column_ids][]", column.id, @template.column_ids.include?(column.id), id: dom_id(column), class: "column_input" %>
   <%= label_tag dom_id(column), column.name %><br>
@@ -65,6 +65,7 @@
   <% end %>
   <% else %>
   <%= f.simple_fields_for :fields, @template.fields.create(:column_id => column.id, :column_name => column.column_type) do |builder| %>
+
     <%= render 'field_fields', f: builder %>
   <% end %>
   <% end %> 
@@ -99,7 +100,7 @@
     </div>
   </div>
 
-
+  (Need to work on this - we'll need to be careful if there are multiple types per PDF as I'll probably only keep the first type belonging to a PDF when migrating over the data.)
     <%= f.simple_fields_for :pdfs do |builder| %>
     <%= render 'pdf_fields', f: builder %>
   <% end %>
@@ -117,5 +118,37 @@ $(".field_field").blur(function() {
   $("#preview").html("Loading...");
 
 });
+
+
+$('.column_input').change(function(){
+  $(".edit_template").submit();
+  $("#preview").html("Loading...");
+});
+
+
+$(document).ready(function() {
+  $('#show_all').click(function(event){
+         for(var i=0;i<=18;i++){
+
+           $("#column_template_"+i).show();     
+         
+           }
+    event.preventDefault(); // Prevent link from following its href
+  });
+
+  $('#hide_all').click(function(event){
+          <% Column.all.each_with_index do |column, index| %>
+          <% unless @template.columns.include? column %>
+           $("#column_template_<%= index %>").hide();    
+           <% end %> 
+          <% end %>
+         
+          
+    event.preventDefault(); // Prevent link from following its href
+  });
+
+});
+
+
 
 </script>

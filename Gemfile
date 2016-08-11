@@ -51,9 +51,6 @@ gem "rmagick", "2.13.3", :require => "RMagick"
 gem "select2-rails"
 
 
-
-
-
 gem 'awesome_nested_set'
 
 gem 'ransack'
