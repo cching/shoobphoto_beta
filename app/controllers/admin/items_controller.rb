@@ -10,11 +10,18 @@ class Admin::ItemsController < ApplicationController
     unless current_user.try(:admin)
       redirect_to root_path
     end
-  end
+  end 
 
   def index
     @items = Item.all.order(:number)
   end
+
+  def export
+    export = Export.create
+      ItemsExport.perform_async(export.id)
+
+      redirect_to admin_items_path, notice: "The new order CSV is currently being generated."
+    end
 
   def search_term
     if Searchterm.where("name like ?", "%#{params[:search_term]}%").any?

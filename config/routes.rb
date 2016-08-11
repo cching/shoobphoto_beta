@@ -117,6 +117,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
         get :all 
         get :filter
         get :search
+        get :export
       end
     end
 

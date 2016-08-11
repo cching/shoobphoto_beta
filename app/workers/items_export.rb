@@ -1,4 +1,4 @@
-class ItemExport
+class ItemsExport
   include Sidekiq::Worker
   sidekiq_options queue: "package_import"
     def perform(id)
@@ -7,11 +7,11 @@ class ItemExport
 
       csv_file = ''
 
-        csv_file << CSV.generate_line(['Database ID'] + ['Name'] +  ['Number'] + ['Price'] + ['Image URL'])
+        csv_file << CSV.generate_line(['Database ID'] + ['Name'] +  ['Number'] + ['Price'] + ['Image URL'] + ['Subcategory'] + ['Search terms'])
           Item.all.order(:id).each do |item|
 
 
-              csv_file << CSV.generate_line(["#{item.id}"] + ["#{item.name}"] + ["#{item.number}"] + ["#{item.price}"] + ["#{item.main.url}"] )
+              csv_file << CSV.generate_line(["#{item.id}"] + ["#{item.name}"] + ["#{item.number}"] + ["#{item.price}"] + ["#{item.main.url}"]  + ["#{item.subcategory.name}"] + ["#{item.searchterms.map(&:name).join(", ")}"])
 
             
           end
