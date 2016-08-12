@@ -3,6 +3,8 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  resources :awards
+
   resources :autos do
     collection do
       get "start_auto"
@@ -95,6 +97,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   namespace :admin do
     resources :dashboards do
         collection do
+          get :console
           get :csv
           post :import
           get :missing
@@ -181,6 +184,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
 
   match 'export/select_all' => 'export_list_items#select_all', :via => 'GET', :as => 'export_select_all'
   match 'export/deselect_all' => 'export_list_items#deselect_all', :via => 'GET', :as => 'export_deselect_all' 
+  match 'export/awards/:uniq_id' => 'export_list_items#awards', :via => 'GET', :as => 'export_awards' 
 
 
   match 'export/clean_up' => 'export_list_items#clean_up', :via => 'GET', :as => 'export_clean_up'

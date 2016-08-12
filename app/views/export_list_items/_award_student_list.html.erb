@@ -1,0 +1,63 @@
+<% if (defined? student) == nil %> 
+<% student = @student %>
+<% end %>
+
+<tr id="student_<%= student.id %>"  class="responsive-width">
+		<td style="padding-right:0px" style="padding-left:0px">
+			<% img = @image.student_images.where(:student_id => student.id) %>
+			<% if img.any? && img.last.try(:image).exists? %>
+				<%= image_tag("#{@image.student_images.where(:student_id => student.id).last.try(:image)}", class: "img-rounded img-index") %>
+
+			<% else %>
+				<%= image_tag("default-user.jpg", class: "img-rounded img-index") %>
+
+			<% end %>
+		</td> 
+		<td style="padding-right:0px" style="padding-left:0px">
+			<%= student.student_id %>
+		</td>
+		<td style="padding-right:0px" style="padding-left:0px">
+			<%= student.first_name %> <%= student.last_name %>
+		</td>
+		<td style="padding-right:0px" style="padding-left:0px"> 
+			<%= student.teacher %> 
+		</td>
+		<td style="padding-right:0px" style="padding-left:0px">
+			<%= student.grade %>
+		</td>
+
+		<td class="button" style="padding-right:0px" style="padding-left:0px"> 
+			<%= link_to "Edit", export_show_path(student.id, :image => @image.id), remote: true, class: "btn btn-custom responsive-width" %>
+
+		<% if @export_list.nil? %>
+		<td>
+			<div id="student_<%= student.id %>_check" class="student_check">
+			<% if current_user.user_students.where(:award_id => award.id).pluck(:student_id).include?(student.id) %>
+				<%= link_to export_remove_student_path(student.id, :award => award.id), remote: true do %>
+				    <span class="glyphicon glyphicon-check"></span>
+				<% end %>
+			<% else %>
+				<%= link_to export_add_student_path(student.id, :award => award.id), remote: true do %>
+				    <span class="glyphicon glyphicon-unchecked"></span>
+				<% end %>
+			<% end %>
+			</div>
+ 		 </td>
+		<% else %>
+		<% @export_list.awards.each do |award| %>
+		<td>
+			<div id="student_<%= student.id %>_<%= award.id %>_check" class="student_check">
+			<% if current_user.user_students.where(:award_id => award.id).pluck(:student_id).include?(student.id) %>
+				<%= link_to export_remove_student_path(student.id, :award => award.id), remote: true do %>
+				    <span class="glyphicon glyphicon-check"></span>
+				<% end %>
+			<% else %>
+				<%= link_to export_add_student_path(student.id, :award => award.id), remote: true do %>
+				    <span class="glyphicon glyphicon-unchecked"></span>
+				<% end %>
+			<% end %>
+			</div>
+ 		 </td>
+ 		 <% end %>
+ 		 <% end %>
+	</tr>

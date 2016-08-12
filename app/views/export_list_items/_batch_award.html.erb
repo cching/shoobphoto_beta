@@ -14,6 +14,7 @@
               <th><%= sort_link @search, :last_name, "Last Name",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
               <th><%= sort_link @search, :grade, "Grade",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
               <th><%= sort_link @search, :teacher, "Teacher",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
+              <th>Award</th>
           </thead>
           <tbody>
             <div class="display">
@@ -28,8 +29,7 @@
       <div class="modal-footer">
         <%= link_to "Clear List", export_clear_students_path, remote: true, class: "btn btn-danger", data: {confirm: "Are you sure?"} %>
         <button type="button" class="btn btn-default" data-dismiss="modal">Add More Students</button>
-        <%= link_to "Finish", new_export_list_path(:school => @school), remote: true, class: "btn btn-primary" %>
-
+        <%= link_to "Finish", new_export_list_path(:school => @school, :export_list => params[:export_list]), remote: true, class: "btn btn-primary" %>
       </div>   
       </div>   
 

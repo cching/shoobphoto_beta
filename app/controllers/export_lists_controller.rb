@@ -13,21 +13,19 @@ class ExportListsController < ApplicationController
   end
 
   def new
-    @export_list = ExportList.new
-    
-    respond_to do |format|
-      format.js
+    @export_list = ExportList.find(params[:export_list])
+
+    current_user.user_students.each do |ustudent|
+      @export_list.export_list_students.create(:student_id => ustudent.student_id, :award_id => ustudent.award_id)
     end
+    ListExport.perform_async(@export_list.id)
   end
 
   def edit
   end
 
   def create
-    @export_list = current_user.export_lists.new(export_list_params)
-    @export_list.save
-    @export_list.students << current_user.students
-    ListExport.perform_async(@export_list.id)
+    
   end
 
   def update

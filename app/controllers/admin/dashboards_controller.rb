@@ -14,6 +14,9 @@ class Admin::DashboardsController < ApplicationController
   	def csv
 	end
 
+	def console
+	end
+
 	def import
 	file = File.open(params[:file].tempfile, "r:ISO-8859-1")
 

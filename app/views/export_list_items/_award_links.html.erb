@@ -1,0 +1,20 @@
+<div class="row" id="batch_links">
+<div class="col-sm-6">
+	<%= link_to "Add New Student", export_new_path(@school.id, @image.id), remote: true, class: "btn btn-orange btn-centered" %>
+</div>
+<% unless current_user.teacher? %>
+<div class="col-sm-6">
+
+<%= link_to "Review Awards List", export_batch_path(@school.id, :operation => 'awards', :export_list => @export_list.id), remote: true, class: "btn btn-custom btn-centered batchlink" %><br/>
+</div>
+<% end %>
+
+</div>
+
+<script>
+$(".batchlink").on("click", function() {
+
+  $('#myModal').modal('show');
+  $("#myModal").html("<%= escape_javascript(render partial: 'loading_submit') %>"); 
+});
+</script>

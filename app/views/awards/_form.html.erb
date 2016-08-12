@@ -1,0 +1,47 @@
+<%= simple_form_for(@export_list, :url => {:controller => "awards", :action => "create"}) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <td></td>
+          <td><strong>Title</strong></td>
+          <td><strong>Abbrev.</strong></td>
+          <td><strong>Awarded For (optional)</strong></td>
+          <td><strong>Definition (optional)</strong></td>
+          <td><strong>Time Period</strong></td>
+          <td><strong>Award Date</strong></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sample</td>
+          <td>Student of the Month</td>
+          <td>SOM</td>
+          <td>Loyalty</td>
+          <td>Loyalty is the..</td>
+          <td>April 2016/First Trimester</td>
+          <td>09/30/2016</td>
+        </tr>
+        <%= f.simple_fields_for :awards do |builder| %>
+          <%= render 'award_fields', f: builder %>
+        <% end %>
+        
+          
+      </tbody>
+    </table>
+    
+            <%= link_to_add_fields "Add Award", f, :awards %>
+
+
+  </div> <br/><br/>
+
+  <div class="form-actions" align="right">
+    <%= f.button :submit, "Save and Continue" %>
+  </div>
+<% end %>
+
+

@@ -18,5 +18,8 @@
            <td>
             <%= student.teacher %>
           </td>
+          <td>
+            <%= student.user_students.where(:user_id => current_user.id).last.award.title %>
+          </td>
       </tr>
 <% end %>

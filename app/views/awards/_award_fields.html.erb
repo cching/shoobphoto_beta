@@ -1,0 +1,15 @@
+<tr>
+          <td>Award</td>
+          <td style="padding-left:20px;"><%= f.input :title, :input_html => {:style => "width:90%;"} %></td>
+          <td><%= f.input :abbreviation, :input_html => {:style => "width:90%;"} %></td>
+          <td><%= f.input :awarded_for, :input_html => {:style => "width:90%;"} %></td>
+          <td><%= f.input :definition, :input_html => {:style => "width:90%;"} %></td>
+          <td><%= f.input :time_period, :input_html => {:style => "width:90%;"} %></td>
+          <td><%= f.input :award_date, :as => :date_picker, :input_html => {:style => "width:90%;"} %></td>
+        </tr>
+
+<script type="text/javascript">
+    $('.datetimepicker').datetimepicker();
+</script>
+
+

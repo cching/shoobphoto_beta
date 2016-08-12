@@ -1,0 +1,37 @@
+<h1>Listing awards</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Abbreviation</th>
+      <th>Awarded for</th>
+      <th>Definition</th>
+      <th>Time period</th>
+      <th>Award date</th>
+      <th>Export list</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @awards.each do |award| %>
+      <tr>
+        <td><%= award.title %></td>
+        <td><%= award.abbreviation %></td>
+        <td><%= award.awarded_for %></td>
+        <td><%= award.definition %></td>
+        <td><%= award.time_period %></td>
+        <td><%= award.award_date %></td>
+        <td><%= award.export_list_id %></td>
+        <td><%= link_to 'Show', award %></td>
+        <td><%= link_to 'Edit', edit_award_path(award) %></td>
+        <td><%= link_to 'Destroy', award, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Award', new_award_path %>

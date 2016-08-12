@@ -7,17 +7,51 @@ class ExportListItemsController < ApplicationController
     @first = params[:students] 
   end
 
+  def awards
+    @export_list = ExportList.find_by_uniq_id(params[:uniq_id])
+    if current_user
+    @school = current_user.school
+      if current_user.teacher?
+        @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).paginate(:per_page => 25,:page => params[:page])
+        @students = @students.where(:user_id => current_user.id)
+      elsif current_user.parent?
+        redirect_to yearbooks_path
+      else
+      @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).paginate(:per_page => 25,:page => params[:page])
+      end
+
+    @image = @school.packages.where("name like ?", "%Fall%").last
+
+    if @image.nil?
+      @image = @school.packages.first
+    end
+  else
+    redirect_to new_user_session_path
+  end
+  end
+
   def award_table
   end 
 
   def add_student
     @student = Student.find(params[:student_id])
-    current_user.students << @student
+    unless params[:award].nil?
+      @award = params[:award]
+      @userstudent = current_user.user_students.create(:student_id => params[:student_id], :award_id => params[:award])
+    else
+      current_user.students << @student
+    end
   end
 
   def remove_student
     @student = Student.find(params[:student_id])
-    current_user.students.delete(@student)
+    if params[:award].nil?
+
+      current_user.students.delete(@student)
+    else
+      @award = params[:award]
+      @userstudent = current_user.user_students.where(:award_id => params[:award]).where(:student_id => @student.id).destroy_all
+    end
   end
 
   def select_all
@@ -87,7 +121,9 @@ class ExportListItemsController < ApplicationController
 
     if current_user.students.any?
     if @operation == 'awards'
-      redirect_to export_searches_path(params[:school_id]), format: 'js'
+      @export_list = params[:export_list]
+
+      redirect_to export_searches_path(params[:school_id], :export_list => @export_list), format: 'js'
     else
     bucket = AWS::S3::Bucket.new('shoobphoto')
     @school = School.find(params[:school_id])

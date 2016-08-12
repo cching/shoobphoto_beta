@@ -1,0 +1,66 @@
+<table class="table table-responsive">
+	<thead>
+		<tr>
+		<th style="padding-right:0px" style="padding-left:0px" class="responsive-th">
+		</th>
+		<th style="padding-right:0px" style="padding-left:0px" class="responsive-th">
+			 ID
+		</th>
+		<th style="padding-right:0px" style="padding-left:0px" class="responsive-th">
+			Name
+		</th>
+		<th style="padding-right:0px" style="padding-left:0px" class="responsive-th">
+			Teacher
+		</th>
+		<th style="padding-right:0px" style="padding-left:0px" class="responsive-th">
+			Grade
+		</th>
+
+		<th id="button" style="padding-right:0px" style="padding-left:0px" class="responsive-th">
+			Edit
+		</th>
+		<%  @export_list.awards.each do |award| %>
+		<th style="padding-right:0px" style="padding-left:0px" class="responsive-th select-all"> 
+			
+			<%= award.abbreviation %>
+		</th>
+		<% end %>
+	</tr>
+	</thead>
+	<tbody>
+		
+	<tr id="newstudentlist"></tr>
+
+<% @students.order(:last_name).each do |student| %>
+
+<%= render 'award_student_list', :student => student %>
+
+<% end %>
+
+</tbody>
+
+</table>
+
+<%= will_paginate @students %>
+
+
+<script>
+$('[data-toggle="popover"]').popover();
+
+$('body').on('click', function (e) {
+    $('[data-toggle="popover"]').each(function () {
+        //the 'is' for buttons that trigger popups
+        //the 'has' for icons within a button that triggers a popup
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            $(this).popover('hide');
+        }
+    });
+});
+
+
+$(".btn-submit").on("click", function() {
+
+  $('#myModal').modal('show');
+  $("#myModal").html("<%= escape_javascript(render partial: 'loading_submit') %>"); 
+});
+</script>
