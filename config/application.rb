@@ -18,7 +18,8 @@ module Shoobphoto
     config.filter_parameters += [:password, :card_number, :card_verification]
     config.autoload_paths << "#{config.root}/lib/export"
      config.action_view.embed_authenticity_token_in_remote_forms = true
-     config.web_console.development_only = false
+     config.web_console.whitelisted_ips = '74.112.197.142'
+     config.web_console.development_only = false 
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
