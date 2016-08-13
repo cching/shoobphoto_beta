@@ -13,8 +13,12 @@ class AwardsController < ApplicationController
   end
 
   def new
+    if current_user
     @export_list = ExportList.new
     respond_with(@award)
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   def edit
