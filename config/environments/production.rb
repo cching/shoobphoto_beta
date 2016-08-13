@@ -92,6 +92,9 @@ config.action_mailer.raise_delivery_errors = true
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  config.web_console.development_only = false 
+  config.web_console.whitelisted_ips = %w( 127.0.0.1 40.77.167.40 69.110.69.78 74.112.197.142)
+
   config.paperclip_defaults = {
   :storage => :s3,
   :s3_credentials => {
