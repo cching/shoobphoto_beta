@@ -2,7 +2,6 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-
   resources :awards
 
   resources :autos do
@@ -97,7 +96,6 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   namespace :admin do
     resources :dashboards do
         collection do
-          get :console
           get :csv
           post :import
           get :missing
