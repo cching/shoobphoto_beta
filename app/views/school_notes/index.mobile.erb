@@ -1,0 +1,56 @@
+<style>
+  
+.mobile_index_form {
+    width: 100%;
+    margin: 237px 0px 0px 0px;
+}
+
+.mobile_large_font {
+  font-size: 27px;
+}
+
+.btn-blue_mobile2 {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 5px;
+  color: #5392c8;
+  background: #1abc9c;
+  padding: 5px 8px 5px 8px;
+  border: solid #000000 0px;
+  text-decoration: none;
+  text-align:center;
+  color:#fff;
+  font-size: 30px;
+}    
+  
+</style>
+
+<div class="mobile_index_form">
+<h1>Notes</h1>
+
+<% @school_notes.each do |school| %>
+  <h4><%= school.name %></h4>
+  <hr>
+  <% school.notes.each do |note| %>
+  <div class="row">
+    
+      <div class="mobile_large_font"><i><%= note.created_at.to_time %></i></div>
+    
+    <div class="col-sm-8">
+      <div class="mobile_large_font"><%= note.note %></div>
+    </div>
+    <div class="col-sm-2">
+      <div class="mobile_large_font">Status: <%= note.complete? ? 'Completed' : 'Incomplete' %></div><br/>
+      <%= link_to "View", note_path(school.id, note.id), class: "btn-blue_mobile2" %>
+
+    </div>
+  </div><br/>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="mobile_large_font"><div class="col-sm-10"><strong>Response:</strong> <%= note.action %></div></div>
+  </div><br/>
+  <hr>
+  <% end %>
+
+<% end %>
+</div>

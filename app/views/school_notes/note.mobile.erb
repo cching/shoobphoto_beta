@@ -1,0 +1,69 @@
+<style>
+
+.mobile_response_form {
+    width: 100%;
+    margin: 237px 0px 0px 0px;
+}
+
+.mobile_date_container {
+  border-radius: 5px;
+  float: right;
+  width: 50%;
+}
+
+.mobile_note_container {
+  float: left;
+  width: 50%;
+}
+
+.mobile_check_container {
+  float: left;
+}
+
+</style>
+
+<div class="mobile_response_form">
+<h2><%= @school_note.name %></h2>
+<hr>
+<h3><%= @school_note.city.try(:name) %>: <%= @school_note.district.try(:name) %><br/>
+Address: <%= @school_note.address %><br/>
+Phone: <%= @school_note.phone %><br/>
+
+Principal: <%= @school_note.principal %><br/>
+Secretary: <%= @school_note.secretary %><br/>
+</h3>
+<hr>
+
+<h2>Notes</h2>
+
+<%= form_for(@school_note, :url => updatenote_school_note_path) do |f| %>
+
+<%= f.fields_for :notes, @note do |builder| %>
+
+<span style="font-size:25px">
+<div class="row">
+   <div class="mobile_date_container">
+      <i><%= @note.created_at.to_time %></i>
+    </div>
+    <div class="mobile_note_container">
+      <%= @note.note %>
+    </div>
+    <br/>
+    <br/>
+ <div class="mobile_check_container">
+      <h3>Completed? <%= builder.check_box :complete %></h3><br/>
+  </div>
+  </div><br/>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10"><strong>Response:</strong> <%= builder.text_area :action  %></div>
+  </div>
+  </span>
+  <br/>
+  <hr>
+  <% end %>
+
+  <br/>
+  <span style="font-size:30px"><%= f.submit "Save response" %></span>
+<% end %>
+</div>

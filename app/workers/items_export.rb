@@ -7,7 +7,7 @@ class ItemsExport
 
       csv_file = ''
 
-        csv_file << CSV.generate_line(['Database ID'] + ['Name'] +  ['Number'] + ['Price'] + ['Image URL'] + ['Subcategory'] + ['Search terms'])
+        csv_file << CSV.generate_line(['Database ID'] + ['Name'] +  ['Number'] + ['Price'] + ['Image URL'] + ['Subcategory'] + ['Search terms'] + ['Size'] + ['Product Type'])
           Item.all.order(:id).each do |item|
 
 

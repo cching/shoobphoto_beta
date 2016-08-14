@@ -14,6 +14,10 @@
     <b>Email:</b> <%= @order.email %>
   </div>
 
+  <div>
+    <b>Grade:</b> <%= @order.try(:grade) %>
+  </div>
+
 </div>
 <br />
 <% if @order.free %>

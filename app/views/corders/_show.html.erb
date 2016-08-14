@@ -7,7 +7,7 @@
       <div class="modal-body">
       <div id="table">
       <hr >
-School: <%= @order.schools %>, District: <%= @order.district %>
+School: <%= @order.schools %>, District: <%= @order.district %>, Grade: <%= @order.try(:grade) %>
 
 <table>
   <th>

@@ -1,0 +1,52 @@
+<style>
+    
+.mobile_district_form {
+    width: 100%;
+    text-align: center;
+    margin: 237px 0px 0px 0px;
+}
+    
+.btn-blue_mobile2 {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 5px;
+  color: #5392c8;
+  background: #1abc9c;
+  padding: 5px 8px 5px 8px;
+  border: solid #000000 0px;
+  text-decoration: none;
+  text-align:center;
+  color:#fff;
+  font-size: 30px;
+}    
+
+.btn-blue_mobile3 {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 5px;
+  color: #5392c8;
+  background: #1289cd;
+  padding: 5px 8px 5px 8px;
+  border: solid #000000 0px;
+  text-decoration: none;
+  text-align:center;
+  color:#fff;
+  font-size: 30px;
+}    
+
+.mobile_text {
+    font-size: 30px;
+}
+    
+</style>
+
+<div class="mobile_district_form" align="center">
+<h2 align="center">District:</h2>
+	<%= form_tag(district_school_notes_path, method: :get, :id => 'search_form', remote: true) do %>
+        <%= collection_select(:districts, :id, @district.all, :id, :name, {:prompt => false}, {:class => "form-control"}) %>
+     <h3><div class="mobile_text"><%= submit_tag "Continue", class: "btn-blue_mobile2"%> | <%= link_to "Use last district", last_school_notes_path, class: "btn-blue_mobile3", remote: true %></div></h3>
+    <% end %>
+</div><br />
+
+<div id="results">
+</div>

@@ -1,0 +1,20 @@
+<style>
+    
+.mobile_note_form2 {
+    font-size: 30px;
+}    
+
+.mobile_large {
+   font-size : 30px;
+}
+    
+</style>
+
+<div class="mobile_note_form2">
+<fieldset>
+	<%= f.date_select :created_at %><br/><br/>
+  <%= f.text_area :note %><br/>
+  <span class="mobile_large"><%= f.check_box :_destroy %>
+  <%= f.label :_destroy,  "Remove Note" %></span>
+</fieldset>
+</div>
