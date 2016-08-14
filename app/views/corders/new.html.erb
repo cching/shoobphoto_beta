@@ -76,33 +76,14 @@ You are a:
 </div>
 
   <div class="col-sm-2">
-  <%= f.label :parent, class: 'checkbox' do %>
-  <%= f.check_box :parent %>
-  Parent
-<% end %>
+
 </div>
 </div>
 
 </div>
 </div>
 <br/>
-<div class="row">
-<div class="col-sm-2">
-School
-</div>
-<div class="col-sm-10">
-      <%= f.text_field :schools, class: "form-control" %>
-</div>
-</div><br/>
 
-<div class="row">
-<div class="col-sm-2">
-District
-</div>
-<div class="col-sm-10">
-      <%= f.text_field :district, class: "form-control" %>
-</div>
-</div>
 
 <% if @free %>
 <div class="row">
@@ -207,7 +188,27 @@ Zip code
       <%= f.text_field :shipping_zip, class: "form-control", id: "shippingzip" %>
 
 </div>
-</div><br />
+</div>
+
+<div class="row">
+<div class="col-sm-2">
+School
+</div>
+<div class="col-sm-10">
+      <%= f.text_field :schools, class: "form-control" %>
+</div>
+</div><br/>
+
+<div class="row">
+<div class="col-sm-2">
+District
+</div>
+<div class="col-sm-10">
+      <%= f.text_field :district, class: "form-control" %>
+</div>
+</div>
+
+<br />
 
 <%= f.label :notes, "Extra notes" %>
 <%= f.text_field :notes, class: "form-control", :rows => "100" %>
