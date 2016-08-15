@@ -1,20 +1,14 @@
 <%= image_tag("purchase_pics.jpg", class: "img-purchase") %>
 <%= form_tag(student_find_path, method: :get, :name => 'new_search_form', :id => "new_search_form") do %>
 
-
-
     <div class="mobile-padding">
     <div class="blue" style="font-size:35px" align="center"><strong>Enter your student's information below.</strong></div>
         <span class="search_input_mobile">SCHOOL OR SPORT</span>
-        
-
-          <fieldset class="ui-field-contain">
-          <select name="school[school_id]" id="dropdown" class="enjoy-css_mobile">
+        <select name="school[school_id]" id="dropdown" class="enjoy-css_mobile">
             <% School.all.order(:name).where.not(school_type_id: nil).each do |school| %>
                 <option value="<%= school.id %>"><%= school.name.titleize %></option>
             <% end %>
         </select>
-        </fieldset>
 
         <% unless cookies[:user_email].nil? %>
 
@@ -25,10 +19,11 @@
         <% end %><br/>
 
         <div class="row">
-          <div class="col-xs-8">
-        <%= text_field_tag :student_id, nil, placeholder: "Student's ID or Access Code", class: "enjoy-css_mobile", id: "input_student_id" %>
+          <div class="col-xs-7">
+        <%= text_field_tag :student_id, nil, placeholder: "Student ID/Access Code", class: "enjoy-css_mobile", id: "input_student_id" %>
           </div>
-          <div class="col-xs-4" id="student_grade">
+          <div class="col-xs-1"></div>
+          <div class="col-xs-3" id="student_grade">
             <%= select_tag :grade, options_for_select(Student::Grades), id: "gradedropdown" %>
 
             </div>
@@ -92,12 +87,16 @@ $.get('/students/showteacher/' + $("#dropdown").select2("val")).success(function
 });
 
 $(document).ready(function() { 
-
+  $( "#dropdown" ).select2({
+    theme: "bootstrap",
+    width: '100%',
+    height: '50px'
+});
 
   
   $("#gradedropdown").select2({
     theme: "bootstrap",
-    width: '106%',
+    width: '140%',
     minimumResultsForSearch: Infinity
   });
 
@@ -122,11 +121,13 @@ $(document).ready(function() {
 
   $('.select2-selection').css('border-radius','0px')
   $('.select2-selection').css('border','2px solid #9D9D9D')
-  $('.select2-selection').css('font','normal 27px/normal "Trebuchet MS", Helvetica, sans-serif')
+  $('.select2-selection').css('font','normal 40px/normal "Trebuchet MS", Helvetica, sans-serif')
   $('.select2-selection').css('margin-bottom','20px') 
   $('.select2-selection').css('padding-top','9px')
-  $('.select2-selection').css('height','59px')
+  $('.select2-selection').css('height','79px')
   $('.select2-container').children().css('border-radius','0px')
+    $('.select2-container').children().css('font','normal 40px/normal "Trebuchet MS", Helvetica, sans-serif')
+
 
  });
 
