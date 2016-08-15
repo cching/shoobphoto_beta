@@ -1,11 +1,15 @@
-<div class="footer_mobile">
-	<div class="bottom_logo_mobile">
-		<%= image_tag("logo_bottom.png", class: "image_mobile") %>
-	</div>
-		<div class="col-xs-2_mobile gold_text_mobile" align="right">
-			<%= link_to "About Us", new_contact_path %><br/>
-			<%= link_to "Privacy Policy", contacts_path %>
-		</div>
+<div class="footer_mobile" align="center">
+	<%= link_to "About Us", new_contact_path %><br/>
+	<%= link_to "Order Online", student_search_path %><br/>
+	<a href="/school_resources">School Resources</a><br/>
+	<%= link_to "Order Online", student_search_path %><br/>
+	<%= link_to "Privacy Policy", contacts_path %><br/>
+	<% if current_user %>
+				<%= link_to "Logout", destroy_user_session_path, method: :delete %><br/>
+			<% else %>
+				<%= link_to "Employee Login", new_user_session_path %><br/>
+			<% end%>
+
 </div>
 
 

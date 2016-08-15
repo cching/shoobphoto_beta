@@ -3,17 +3,11 @@
 <nav class="navbar navbar-default" id="blue">
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    	<div class="row">
-    		<div class="col-xs-4"></div>
-    		<div class="col-xs-6">
-              <ul class="nav navbar-nav">
+              <ul class="nav navbar-nav" style="float:right;">
                 <li><%= link_to "ORDER ONLINE", student_search_path(:i => nil, :cart => nil)%></li>
                 <li><%= link_to "SCHOOL RESOURCES", '/school_support' %></li>
                 <li><%= link_to "ABOUT US", new_contact_path %></li>
-                </ul>
-            </div>
-            <div class="col-xs-2" align="right">
-                <ul class="nav navbar-nav">
+           
 
                 <li class="gold"> 
                     <% if current_user %>
@@ -23,19 +17,24 @@
                     <% else %>
                     <%= link_to new_user_session_path do %>
                     <span class="glyphicon glyphicon-user" style="color:white"></span> &nbsp; LOGIN
-                    <% end %>
+                    <% end %>    
+
                     <% end %>
                 </li>
+                <li class="gold" style="padding-top:11px;">
+                <div id="menu_open">
+                    <%= link_to menu_pages_path, remote: true do %>
+                    <span class="glyphicon glyphicon-menu-hamburger" style="color:white"></span> &nbsp; MENU
+                    <% end %>
+                    </div>  
+                </li>
+            </ul> 
 
-        
-            </ul>
-
-    		</div>
-    	</div>
       
         </div>
   </div><!-- /.container-fluid -->
 </nav>
+
 
 
 <style>

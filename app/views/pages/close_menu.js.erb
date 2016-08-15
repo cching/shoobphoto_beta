@@ -1,0 +1,15 @@
+
+
+
+setTimeout(function(){
+    $(".menu_list").removeClass("animated fadeIn");
+
+},100);
+
+setTimeout(function(){
+    $(".menu_list").addClass("animated fadeOut");
+
+
+},200);
+
+$("#menu_open").html("<%= escape_javascript(render 'menu_open') %>");

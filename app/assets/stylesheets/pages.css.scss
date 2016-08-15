@@ -65,6 +65,7 @@ width:100%;
 .navbar-nav a{
   color:#fff !important;
   font-weight:normal !important;
+  font-size:1.5vw !important;
 }
 
 .navbar-nav a:hover {
@@ -245,4 +246,30 @@ width: 100%;
   padding-left:40px;
   padding-right:40px;
 }
+
+.menu_list {
+  height:90%;
+  width:300px;
+  background-color:#396599;
+  position:absolute;
+  right:0px;
+  z-index:10000;
+}
+
+.menu_list a {
+  background-color:#5392c8;
+  width:300px !important;
+  height:15vh;
+  color:#fff;
+  padding-left:20px;
+  padding-right:20px;
+
+  font-size:2vw;
+  border: 1px solid #fff;
+}
+
+.menu_list a:hover {
+  color:#fff;
+}
+
 

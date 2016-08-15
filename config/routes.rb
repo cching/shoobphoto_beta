@@ -78,7 +78,12 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   mount Sidekiq::Web, at: "/sidekiq"
   
 
-  resources :pages
+  resources :pages do
+    collection do
+      get :menu
+      get :close_menu
+    end
+  end
 
   resources :student_images
 

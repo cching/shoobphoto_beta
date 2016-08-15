@@ -4,6 +4,7 @@
   <title>Shoob Photography<%= request.fullpath.split('/').map(&:titleize).join(' - ') %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  
   <%= csrf_meta_tags %>
 
   <%= javascript_tag do %>
@@ -26,7 +27,8 @@
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div id="modal-window"></div>
 	</div>	
-	<%= render 'layouts/header' %><br/><br/>
+	<%= render 'layouts/header' %>
+<br/><br/>
 	
 	<div class="container container-fluid">
 		<%= yield %>

@@ -10,6 +10,12 @@ class PagesController < ApplicationController
     @links = NavLink.roots.find_by_slug(@page.root.slug).try(:children)
   end
 
+  def menu
+  end
+
+  def close_menu
+  end
+
   def home
         
 

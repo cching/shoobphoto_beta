@@ -1,11 +1,12 @@
 <div class="animated fadeIn">
-<%= link_to image_tag("mobile_main.jpg", class: "img-mobile"), student_search_path  %>
+<%= link_to image_tag("mobile_home.jpg", class: "img-mobile"), student_search_path  %>
 
-<%= link_to student_find_student_path do %>
-<div class="mobile_package_home even_blue">
-      <p>DOWNLOAD DIGITAL IMAGES</p>
-    </div> 
-<% end %>
+<div class="row">
+	<div class="col-xs-6"><%= link_to image_tag("mobile_download.jpg"), student_find_student_path %></div>
+	<div class="col-xs-6"><%= link_to image_tag("mobile_yearbook.jpg"), student_search_path %></div>
+</div>
+
+
 
 <%= link_to image_tag("mobile_second.jpg", class: "img-mobile"), zip_code_path  %>
 

@@ -6,6 +6,10 @@ class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
   def find_student 
+    respond_to do |format|
+      format.mobile
+      format.html
+    end
   end
 
 
