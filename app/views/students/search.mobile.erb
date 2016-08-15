@@ -24,8 +24,9 @@
           </div>
           <div class="col-xs-1"></div>
           <div class="col-xs-3" id="student_grade">
+            <fieldset class="ui-field-contain">
             <%= select_tag :grade, options_for_select(Student::Grades), id: "gradedropdown" %>
-
+          </fieldset>
             </div>
           </div>
           
