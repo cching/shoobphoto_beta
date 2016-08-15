@@ -740,7 +740,7 @@ input[type='text'].enjoy-css_mobile:focus {
 /*_footer*/
 /* line 321, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
 .footer_mobile {
-  height: 280px;
+  height: 300px !important;
   width: 100%;
   background-color: #396599;
   padding-bottom: 0px;
@@ -8941,8 +8941,6 @@ html {
     position: relative;
     min-height: 100%;
 }
-
-
 
 
 
