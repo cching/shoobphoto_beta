@@ -1,7 +1,6 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  
 
   resources :awards
 
@@ -296,6 +295,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'orders/import' => 'orders#import', :via => 'POST', :as => "orders_import"
   match 'corders/import' => 'corders#import', :via => 'POST', :as => "corders_import"
   match 'corders/:id/export' => 'corders#export', :via => 'GET', :as => 'corder_export'
+  match 'payment_notifications' => 'payment_notifications#create', :via => 'GET', :as => 'payment_notifications'
   resources :searches
 
   root :to => 'pages#home'

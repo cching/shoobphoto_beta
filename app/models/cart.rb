@@ -17,18 +17,21 @@ class Cart < ActiveRecord::Base
 	accepts_nested_attributes_for :order_packages, allow_destroy: true
 	accepts_nested_attributes_for :cart_items, allow_destroy: true
 	belongs_to :school
+
+  has_many :payment_notifications
   	
 	def to_param
   		cart_id
 	end
  
-	def paypal_url(return_url)
+	def paypal_url(return_url, notify_url)
     values = {
       :business => "merchant@shoobphoto.com",
       :cmd => "_cart",
       :upload => 1,
       :return => return_url,
-      :invoice => cart_id
+      :invoice => cart_id,
+      :notify_url => notify_url
     }
     
     @index = 0
