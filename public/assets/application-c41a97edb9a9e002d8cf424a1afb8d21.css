@@ -1070,12 +1070,6 @@ input[type='text'].enjoy-css_mobile:focus {
   width: 100%;
   background-color: #f9f9f9;
 }
-
-/* line 620, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
-input.select2-search__field {
-  font-size: 40px !important;
-  height: 50px !important;
-}
 /* line 6, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/nav_links.css.scss */
 #navcontainer ul {
   margin: 0;
