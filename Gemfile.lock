@@ -136,6 +136,10 @@ GEM
       mimemagic (= 0.3.0)
     paperclip-watermark (1.0.0)
       paperclip (>= 2.3.8)
+    paypal-sdk-rest (1.4.9)
+      multi_json (~> 1.0)
+      uuidtools (~> 2.1)
+      xml-simple
     pdf-reader (1.3.3)
       Ascii85 (~> 1.0.0)
       afm (~> 0.2.0)
@@ -261,6 +265,7 @@ GEM
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
     will_paginate (3.0.7)
+    xml-simple (1.1.5)
 
 PLATFORMS
   ruby
@@ -283,6 +288,7 @@ DEPENDENCIES
   momentjs-rails (~> 2.9)!
   paperclip (~> 4.3)
   paperclip-watermark
+  paypal-sdk-rest
   pg
   prawn (= 1.0.0.rc1)
   prawnto

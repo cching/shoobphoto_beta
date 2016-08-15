@@ -1,1 +1,1 @@
-<%= link_to "Select", create_addon_path(@opackage.id, @extra.id), class: "btn-4-mobile", remote: true %>
+<%= link_to "Select", create_addon_path(@opackage.id, @extra.id), class: "btn-4#{'-mobile' if is_mobile_request?}", remote: true %>

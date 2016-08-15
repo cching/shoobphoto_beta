@@ -14,6 +14,7 @@ gem "paperclip", "~> 4.3"
 gem 'paperclip-watermark'
 gem 'touchpunch-rails'
 gem 'to_words'
+gem 'paypal-sdk-rest'
 
 
 gem 'sass-rails', '~> 4.0.3'

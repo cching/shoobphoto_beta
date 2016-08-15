@@ -201,6 +201,7 @@ end
 	    else
 	    	respond_to do |format|
 	    	format.html { render 'new', :price => @order.price}
+	    	format.mobile { render 'new', :price => @order.price}
         	format.json { render json: @order.errors, status: :unprocessable_entity }
         	@order.errors.each do |order|
         		puts "#{order}"

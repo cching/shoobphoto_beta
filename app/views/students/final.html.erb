@@ -1,6 +1,6 @@
 <br/><br/><br/>
 
-<div class="row animated fadeIn">
+<div class="row animated fadeIn"> 
 	<div class="col-xs-1"></div>
 	<div class="col-xs-5">
 
@@ -182,6 +182,10 @@
 			</div>
 			<div class="col-xs-2" align="right">
 				<%= link_to "Checkout", new_order_path(@cart.cart_id), class: "btn-blue" %>
+				<% if current_user.try(:admin) %>
+				<%= link_to "PayPal", @cart.paypal_url(root_url), class: "btn-blue" %>
+				<% end %>
+
 			</div>
 			<div class="col-xs-2"></div>
 		</div>

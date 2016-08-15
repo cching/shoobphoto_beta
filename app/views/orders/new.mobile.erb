@@ -5,8 +5,6 @@
 <%= form_for @order, :url => {:action => "confirm", class: "form-control"} do |f| %>
 
 <%= errors_for(@order) %>
-<div class="row">
-  <div class="col-xs-6">
     <span class="cart_title">Shipping Info: &nbsp;</span><span id="edit_shipping"></span><br/>
     <div id="shipping_info" class="animated fadeIn">
     
@@ -67,115 +65,11 @@
     </div>
 
     <div id="billing_hidden"></div>
-  </div>
 
+    <div id="button_continue">
+      <%= button_tag "Continue", type: 'button', onclick: "validateForm()", class: 'btn-blue' %>
 
-
-<div class="col-xs-6 space_left">
-    <div class="row">
-      <div class="col-xs-6 cart_title">
-        Cart
-      </div>
-      <div class="col-xs-6 subtotal">
-
-      </div>
     </div>
-    <div class="cart_box">
-      <% @cart.students.each do |student| %>
-      <strong>Student: <%= student.first_name %> <%= student.last_name %></strong>
-      <% @cart.order_packages.each do |opackage| %>
-      <% opackage.options.each do |option| %>
-      <span class="<%= opackage.id %>_<%= option.id %>">
-      <div class="row gray_text_cart">
-        <div class="col-xs-8">
-          <%= opackage.package.name %>: <%= option.name %>
-        </div>
-        <div class="col-xs-4 gray_text_cart" align="right"><%= number_to_currency(option.price, :show_zero => false) %>
-
-          <% if opackage.try(:extra_poses) != 0 && opackage.try(:extra_poses) != nil%><br/>
-         + Extra Pose: $<%= opackage.try(:extra_poses)*25 %>.00
-        <% end %>
-        </div>
-      </div>
-
-        
-
-        <% if opackage.sheets.any? %>
-        <ul>
-
-          <% ImageType.find(opackage.sheets.pluck(:image_type_id).uniq).each do |image_type| %>
-          <% opackage.sheets.where(:image_type_id => image_type.id).each do |sheet| %>
-          <li>(<%= ImageType.count_types(image_type.id) %>) <%= ImageType.name_out(image_type.id) %>: <strong><%= sheet.senior_image.url.downcase %></strong></li>
-          <% end %>
-          <% end %>
-        </ul>
-
-        <% unless opackage.senior_image_id.nil? %>
-          <ul>
-            <li>Yearbook Pose: <strong><%= SeniorImage.find(opackage.senior_image_id).url.downcase %></strong></li>
-          </ul>
-        <% end %> 
-        <% end %>
-        <ul>
-        <% opackage.addon_sheets.each do |addon| %>
-        <li>
-          <% if option.without? %>
-          <%= number_to_currency(addon.addon.price_without, :unit => "$") %>
-          <% else %>
-          <%= number_to_currency(addon.addon.price_with, :unit => "$") %> - 
-          <% end %> 
-          <%= addon.addon.name %>: <strong><%= addon.senior_image.url.downcase %></strong>
-        </li>
-        <% end %>
-        </ul>
-
-
-
-      <% opackage.extras.each do |extra| %>
-        <div class="row">
-        <div class="col-xs-1"></div>
-        <div class="col-xs-8 gray_text_cart">
-          <%= extra.name %>
-        </div>
-        <div class="col-xs-3 gray_text_cart" align="right">
-          <%= number_to_currency(extra.prices.first.try(:price), :show_zero => false) %>
-        </div>
-      </div>
-      <% end %>
-      <hr>
-      </span>
-      <% end %>
-      <% end %>
-      <% end %>
-
-      <% if @cart.order_packages.first.package.shippings.any? %>
-      <div class="row">
-        <div class="col-xs-6 subtotal">
-          SHIPPING
-        </div>
-        <div class="col-xs-6 subtotal" align="right">
-          <%= number_to_currency(@cart.order_packages.first.package.shippings.first.price, :show_zero => false) %>
-        </div>
-      </div>
-      <% end %>
-
-      <div class="row">
-        <div class="col-xs-6 subtotal">
-          <strong>Total</strong>
-        </div>
-        <div class="col-xs-6 subtotal" align="right">
-          <%= number_to_currency(@cart.price, :show_zero => false) %>
-        </div>
-      </div>
-    </div><br/>
-    <div class="row">
-      <div class="col-xs-8"></div>
-      <div class="col-xs-3" id="button_continue">
-        <%= button_tag "Continue", type: 'button', onclick: "validateForm()", class: 'btn-blue' %>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 <% end %>
