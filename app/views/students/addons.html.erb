@@ -14,6 +14,8 @@
 	</div>
 
 	<div class="col-xs-2"> 
+		<% unless request_device?(:ipad) %>
+
 		<div class="package_box">
 			<div class="<%= @index.to_words %>">
 				<div class="row">
@@ -38,6 +40,7 @@
 
 			</div>
 		</div>
+		<% end %>
 	</div>
 
 	<div class="col-xs-6">

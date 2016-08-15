@@ -2155,7 +2155,7 @@ p.yellow_text2 {
 /* line 393, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .scrollbox {
   height: 100%;
-  overflow-y: auto !important;
+  overflow-y: hidden !important;
   padding-top: 10px;
 }
 
