@@ -1,9 +1,14 @@
 <div class="menu_list animated fadeIn" align="center">
-<%= link_to "Purchase Pictures", student_find_student_path %><br/>
+	<%= link_to student_find_student_path do %>
+		<div class="mobile_package_home odd_blue">
+	      <p>Purchase Pictures</p>
+	    </div> 
+	<% end %>
+	<%= link_to "/school_support" do %>
+		<div class="mobile_package_home odd_blue">
+	      <p>School Support</p>
+	    </div> 
+	<% end %>
 
-<a href="school_support">School Support</a><br/>
 
-<%= link_to "Purchase Pictures", student_find_student_path %><br/>
-
-<%= link_to "Purchase Pictures", student_find_student_path %><br/>
 </div>
