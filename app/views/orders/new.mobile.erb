@@ -5,61 +5,61 @@
 <%= form_for @order, :url => {:action => "confirm", class: "form-control"} do |f| %>
 
 <%= errors_for(@order) %>
-    <span class="cart_title">Shipping Info: &nbsp;</span><span id="edit_shipping"></span><br/>
+    <span class="cart_title-mobile">Shipping Info: &nbsp;</span><span id="edit_shipping"></span><br/>
     <div id="shipping_info" class="animated fadeIn">
     
-    <span class="label_header">First Name</span> <br/>
-    <%= f.text_field :shipping_first_name, class: "enjoy-css", id: "shipping_first_name" %>
-    <span class="label_header">Last Name</span> <br/>
-    <%= f.text_field :shipping_last_name, class: "enjoy-css", id: "shipping_last_name" %>
-    <span class="label_header">Address</span>
-    <%= f.text_field :shipping_address, class: "enjoy-css", id: "shipping_address" %>
-    <%= f.text_field :shipping_address2, class: "enjoy-css", id: "shipping_address2" %>
+    <span class="label_header_mobile">First Name</span> <br/>
+    <%= f.text_field :shipping_first_name, class: "enjoy-css_mobile", id: "shipping_first_name" %>
+    <span class="label_header_mobile">Last Name</span> <br/>
+    <%= f.text_field :shipping_last_name, class: "enjoy-css_mobile", id: "shipping_last_name" %>
+    <span class="label_header_mobile">Address</span>
+    <%= f.text_field :shipping_address, class: "enjoy-css_mobile", id: "shipping_address" %>
+    <%= f.text_field :shipping_address2, class: "enjoy-css_mobile", id: "shipping_address2" %>
 
-    <span class="label_header">City</span>
+    <span class="label_header_mobile">City</span>
 
-    <%= f.text_field :shipping_city, class: "enjoy-css", id: "shipping_city" %>
-    <span class="label_header">State</span>
+    <%= f.text_field :shipping_city, class: "enjoy-css_mobile", id: "shipping_city" %>
+    <span class="label_header_mobile">State</span>
     <%= f.select :shipping_state, options_for_select(us_states),{}, id: "shipping_state" %>
 
-    <span class="label_header">ZIP Code</span>
-    <%= f.text_field :shipping_zip, class: "enjoy-css", id: "shipping_zip" %>
-    <span class="label_header">Phone</span>
-      <%= f.text_field :phone, class: "enjoy-css", id: "phone" %>
+    <span class="label_header_mobile">ZIP Code</span>
+    <%= f.text_field :shipping_zip, class: "enjoy-css_mobile", id: "shipping_zip" %>
+    <span class="label_header_mobile">Phone</span>
+      <%= f.text_field :phone, class: "enjoy-css_mobile", id: "phone" %>
       <%= f.hidden_field :email, :value => "#{@cart.email}" %>
     </div>
     <div id="shipping_hidden"></div>
-    <span class="cart_title billing_info_title" hidden>Billing Info: &nbsp;</span><span id="edit_billing"></span><br/>
+    <span class="cart_title-mobile billing_info_title" hidden>Billing Info: &nbsp;</span><span id="edit_billing"></span><br/>
     <div id="billing_info" hidden >
       
-      <span class="label_header">First Name</span> <br/>
-      <%= f.text_field :first_name, class: "enjoy-css", id: "billing_first_name" %>
-      <span class="label_header">Last Name</span> <br/>
-      <%= f.text_field :last_name, class: "enjoy-css", id: "billing_last_name" %>
-      <span class="label_header">Card Number</span> <br/>
-      <%= f.text_field :card_number, class: "enjoy-css", id: "card_number", :autocomplete => :off  %>
-      <span class="label_header">Card Type</span> <br/>
+      <span class="label_header_mobile">First Name</span> <br/>
+      <%= f.text_field :first_name, class: "enjoy-css_mobile", id: "billing_first_name" %>
+      <span class="label_header_mobile">Last Name</span> <br/>
+      <%= f.text_field :last_name, class: "enjoy-css_mobile", id: "billing_last_name" %>
+      <span class="label_header_mobile">Card Number</span> <br/>
+      <%= f.text_field :card_number, class: "enjoy-css_mobile", id: "card_number", :autocomplete => :off  %>
+      <span class="label_header_mobile">Card Type</span> <br/>
       <%= f.select :card_type, Order::CardTypes, id: "card_types" %>
-      <span class="label_header">Expiration Date</span> <br/>
+      <span class="label_header_mobile">Expiration Date</span> <br/>
 
       <%= f.date_select :card_expires_on, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true, id: "expiration_date" %>
 
 
-      <span class="label_header">Security Code (CVV)</span> <br/>
-      <%= f.text_field :card_verification, class: "enjoy-css", id: "card_verification" %>
+      <span class="label_header_mobile">Security Code (CVV)</span> <br/>
+      <%= f.text_field :card_verification, class: "enjoy-css_mobile", id: "card_verification" %>
   
-      <span class="label_header">Billing Address &nbsp; <label for="ship_to_billing_address"> <input type="checkbox" name="ship_to_billing_address" id="ship_to_billing_address" /> Check if the billing address is the same as your shipping address</span>
-      <%= f.text_field :address, class: "enjoy-css", id: "billing_address" %>
-      <%= f.text_field :address2, class: "enjoy-css", id: "billing_address2" %>
+      <span class="label_header_mobile">Billing Address &nbsp; <label for="ship_to_billing_address"> <input type="checkbox" name="ship_to_billing_address" id="ship_to_billing_address" /> Check if the billing address is the same as your shipping address</span>
+      <%= f.text_field :address, class: "enjoy-css_mobile", id: "billing_address" %>
+      <%= f.text_field :address2, class: "enjoy-css_mobile", id: "billing_address2" %>
 
-      <span class="label_header">City</span>
+      <span class="label_header_mobile">City</span>
 
-      <%= f.text_field :city, class: "enjoy-css", id: "billing_city" %>
-      <span class="label_header">State</span>
+      <%= f.text_field :city, class: "enjoy-css_mobile", id: "billing_city" %>
+      <span class="label_header_mobile">State</span>
       <%= f.select :state, options_for_select(us_states),{}, id: "billing_state" %>
 
-      <span class="label_header">ZIP Code</span>
-      <%= f.text_field :zip_code, class: "enjoy-css", id: "billing_zip" %>
+      <span class="label_header_mobile">ZIP Code</span>
+      <%= f.text_field :zip_code, class: "enjoy-css_mobile", id: "billing_zip" %>
 
       
     </div>
@@ -67,7 +67,7 @@
     <div id="billing_hidden"></div>
 
     <div id="button_continue">
-      <%= button_tag "Continue", type: 'button', onclick: "validateForm()", class: 'btn-blue' %>
+      <%= button_tag "Continue", type: 'button', onclick: "validateForm()", class: 'btn-blue_mobile' %>
 
     </div>
 
@@ -101,7 +101,7 @@ $("#billing_state").select2("trigger", "select", {
 $(document).ready(function() { 
   $("#shipping_state").select2({
     theme: "bootstrap",
-    width: '104%',
+    width: '100%',
   });
 
   $("#billing_state").select2({
@@ -128,14 +128,14 @@ $(document).ready(function() {
   });
 
 
-  $('.select2-selection').css('border-radius','0px')
+$('.select2-selection').css('border-radius','0px')
   $('.select2-selection').css('border','2px solid #9D9D9D')
-  $('.select2-selection').css('font','normal 16px/normal "Trebuchet MS", Helvetica, sans-serif')
-  $('.select2-selection').css('margin-bottom','20px')
+  $('.select2-selection').css('font','normal 40px/normal "Trebuchet MS", Helvetica, sans-serif')
+  $('.select2-selection').css('margin-bottom','20px') 
   $('.select2-selection').css('padding-top','9px')
-  $('.select2-selection').css('height','44px')
+  $('.select2-selection').css('height','79px')
   $('.select2-container').children().css('border-radius','0px')
-
+    $('.select2-container').children().css('font','normal 40px/normal "Trebuchet MS", Helvetica, sans-serif')
  });
 
 function validateForm(){isValid = false;
@@ -149,7 +149,7 @@ function validateForm(){isValid = false;
       } else {
 
       document.getElementById("shipping_first_name").className = "";
-      document.getElementById("shipping_first_name").className = "enjoy-css";
+      document.getElementById("shipping_first_name").className = "enjoy-css_mobile";
       }
     
 
@@ -161,7 +161,7 @@ function validateForm(){isValid = false;
         } else {
 
       document.getElementById("shipping_last_name").className = "";
-      document.getElementById("shipping_last_name").className = "enjoy-css";
+      document.getElementById("shipping_last_name").className = "enjoy-css_mobile";
       }
     
     var z = document.getElementById('shipping_address').value;
@@ -172,7 +172,7 @@ function validateForm(){isValid = false;
         } else {
 
       document.getElementById("shipping_address").className = "";
-      document.getElementById("shipping_address").className = "enjoy-css";
+      document.getElementById("shipping_address").className = "enjoy-css_mobile";
       }
 
       var z = document.getElementById('shipping_zip').value;
@@ -183,7 +183,7 @@ function validateForm(){isValid = false;
         } else {
 
       document.getElementById("shipping_zip").className = "";
-      document.getElementById("shipping_zip").className = "enjoy-css";
+      document.getElementById("shipping_zip").className = "enjoy-css_mobile";
       }
 
       var z = document.getElementById('phone').value;
@@ -194,7 +194,7 @@ function validateForm(){isValid = false;
         } else {
 
       document.getElementById("phone").className = "";
-      document.getElementById("phone").className = "enjoy-css";
+      document.getElementById("phone").className = "enjoy-css_mobile";
       }
 
       var z = document.getElementById('shipping_city').value;
@@ -205,7 +205,7 @@ function validateForm(){isValid = false;
         } else {
 
       document.getElementById("shipping_city").className = "";
-      document.getElementById("shipping_city").className = "enjoy-css";
+      document.getElementById("shipping_city").className = "enjoy-css_mobile";
       }
     
 
@@ -217,7 +217,7 @@ function validateForm(){isValid = false;
     $('#billing_info').show();
     $('.billing_info_title').show();
     $('#billing_info').addClass('animated fadeIn');
-    $("#button_continue").html("<%= escape_javascript(button_tag 'Continue', type: 'button', onclick: 'validateForm2()', class: 'btn-blue') %>");
+    $("#button_continue").html("<%= escape_javascript(button_tag 'Continue', type: 'button', onclick: 'validateForm2()', class: 'btn-blue_mobile') %>");
 
   }
 
@@ -245,7 +245,7 @@ function validateForm2(){isValid = false;
       } else {
 
       document.getElementById("billing_first_name").className = "";
-      document.getElementById("billing_first_name").className = "enjoy-css";
+      document.getElementById("billing_first_name").className = "enjoy-css_mobile";
       }
     
 
@@ -257,7 +257,7 @@ function validateForm2(){isValid = false;
         } else {
 
       document.getElementById("billing_last_name").className = "";
-      document.getElementById("billing_last_name").className = "enjoy-css";
+      document.getElementById("billing_last_name").className = "enjoy-css_mobile";
       }
     
     var z = document.getElementById('billing_address').value;
@@ -268,7 +268,7 @@ function validateForm2(){isValid = false;
         } else {
 
       document.getElementById("billing_address").className = "";
-      document.getElementById("billing_address").className = "enjoy-css";
+      document.getElementById("billing_address").className = "enjoy-css_mobile";
       }
 
       var z = document.getElementById('billing_zip').value;
@@ -279,7 +279,7 @@ function validateForm2(){isValid = false;
         } else {
 
       document.getElementById("billing_zip").className = "";
-      document.getElementById("billing_zip").className = "enjoy-css";
+      document.getElementById("billing_zip").className = "enjoy-css_mobile";
       }
 
       var z = document.getElementById('billing_city').value;
@@ -290,7 +290,7 @@ function validateForm2(){isValid = false;
         } else {
 
       document.getElementById("billing_city").className = "";
-      document.getElementById("billing_city").className = "enjoy-css";
+      document.getElementById("billing_city").className = "enjoy-css_mobile";
       }
 
       var z = document.getElementById('card_number').value;
@@ -301,7 +301,7 @@ function validateForm2(){isValid = false;
         } else {
 
       document.getElementById("card_number").className = "";
-      document.getElementById("card_number").className = "enjoy-css";
+      document.getElementById("card_number").className = "enjoy-css_mobile";
       }
 
       var z = document.getElementById('card_verification').value;
@@ -312,7 +312,7 @@ function validateForm2(){isValid = false;
         } else {
 
       document.getElementById("card_verification").className = "";
-      document.getElementById("card_verification").className = "enjoy-css";
+      document.getElementById("card_verification").className = "enjoy-css_mobile";
       }
     
 
@@ -321,7 +321,7 @@ function validateForm2(){isValid = false;
     $('#billing_info').hide();
     $('#edit_billing').html("<%= escape_javascript(button_tag 'Edit', type: 'button', onclick: 'editBilling()', class: 'btn-4') %>");
     $('#billing_hidden').html("<p class='shipping_info'>" + $('#billing_first_name').val() + " " + $('#billing_last_name').val() + "<br/>" + "Paid with: " + $('#order_card_type').val() + "<br/>" + $('#billing_address').val() + " " + $('#billing_address2').val() + "<br/>" + $('#billing_city').val() + ", " + $('#billing_state').val() + " " + $('#shipping_zip').val() + "</p>");
-    $("#button_continue").html("<%= escape_javascript(submit_tag 'Confirm purchase', class: 'btn-blue btn-loading') %>");
+    $("#button_continue").html("<%= escape_javascript(submit_tag 'Confirm purchase', class: 'btn-blue_mobile btn-loading') %>");
     $("#button_continue").addClass('loading');
   }
 

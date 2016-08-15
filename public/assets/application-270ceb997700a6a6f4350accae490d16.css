@@ -1070,6 +1070,11 @@ input[type='text'].enjoy-css_mobile:focus {
   width: 100%;
   background-color: #f9f9f9;
 }
+
+/* line 620, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/mobile.css.scss */
+.label_header_mobile {
+  font-size: 30px;
+}
 /* line 6, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/nav_links.css.scss */
 #navcontainer ul {
   margin: 0;
