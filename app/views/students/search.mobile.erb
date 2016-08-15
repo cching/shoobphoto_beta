@@ -1,4 +1,8 @@
-<%= image_tag("purchase_pics.jpg", class: "img-purchase") %>
+<br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/>
 <%= form_tag(student_find_path, method: :get, :name => 'new_search_form', :id => "new_search_form") do %>
 
     <div class="mobile-padding">
@@ -63,10 +67,11 @@
       </div>
         <br/>
         <div class="row">
-        <div class="col-xs-8"></div>
-          <div class="col-xs-4" id="button_script">
+          <div class="col-xs-4" id="button_script" align="left">
             <input class="btn-blue_mobile" name="commit" value="Continue" onclick="return validateForm()" readonly>
           </div>
+        <div class="col-xs-8"></div>
+          
         </div>
 
         <%= hidden_field_tag "cart", @cart %>
@@ -197,7 +202,9 @@ function validateForm(){isValid = false;
 <style>
 input.select2-search__field {
   font-size:40px !important;
-  height:50px !important;
+  height:55px !important;
 }
+
+
 </style>
 

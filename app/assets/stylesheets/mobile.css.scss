@@ -319,12 +319,17 @@ width: 95%;
 
 .footer_mobile {
 	height:300px;
-     position: relative;
      width: 100%;
 	background-color: #396599;
   padding-bottom:0px;
   margin-bottom:0px;
   margin-top:0px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    overflow:hidden;
+    margin-top:0px;
+    padding-top:0px;
 }
 
 .footer_mobile a {
@@ -375,7 +380,7 @@ width: 95%;
   left:0;
   z-index:10000;
   background-color:#396599;
-  width: 50%;
+  width: 40%;
 }
 
 .menu {
@@ -384,7 +389,7 @@ width: 95%;
   position: fixed;
   top: 0;
   right: 0;
-  width: 50%;
+  width: 60%;
   height: 100px;
   background-color: #5392c8;
 }
