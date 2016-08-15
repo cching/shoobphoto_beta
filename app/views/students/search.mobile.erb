@@ -1,14 +1,20 @@
 <%= image_tag("purchase_pics.jpg", class: "img-purchase") %>
 <%= form_tag(student_find_path, method: :get, :name => 'new_search_form', :id => "new_search_form") do %>
 
+
+
     <div class="mobile-padding">
     <div class="blue" style="font-size:35px" align="center"><strong>Enter your student's information below.</strong></div>
         <span class="search_input_mobile">SCHOOL OR SPORT</span>
-        <select name="school[school_id]" id="dropdown" class="enjoy-css_mobile">
+        
+
+          <fieldset class="ui-field-contain">
+          <select name="school[school_id]" id="dropdown" class="enjoy-css_mobile">
             <% School.all.order(:name).where.not(school_type_id: nil).each do |school| %>
                 <option value="<%= school.id %>"><%= school.name.titleize %></option>
             <% end %>
         </select>
+        </fieldset>
 
         <% unless cookies[:user_email].nil? %>
 
@@ -86,12 +92,7 @@ $.get('/students/showteacher/' + $("#dropdown").select2("val")).success(function
 });
 
 $(document).ready(function() { 
-  $( "#dropdown" ).select2({
-    theme: "bootstrap",
-    width: '103%',
-    height: '20px',
-    minimumResultsForSearch: -1
-});
+
 
   
   $("#gradedropdown").select2({
