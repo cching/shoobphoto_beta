@@ -38,10 +38,7 @@ html {
     min-height: 100%;
 }
 
-body {
-    padding: 0px;
-    margin: 0 0 100px; /* bottom = footer height */
-}
+
 
 footer {
     background-color: #5392c8 !important;

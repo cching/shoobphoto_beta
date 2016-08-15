@@ -310,10 +310,11 @@ width: 100%;
 
 .footer_mobile {
 	height:140px;
-     position: fixed;
-     bottom: 0;
+     position: relative;
      width: 100%;
 	background-color: #5392c8;
+  padding-bottom:0px;
+  margin-bottom:0px;
 }
 
 .bottom_logo_mobile {

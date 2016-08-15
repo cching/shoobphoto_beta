@@ -40,7 +40,7 @@ Phone number
 Grade
 </div>
 <div class="col-sm-10">
-      <%= f.select :grade, options_for_select(Student::CorderGrades), id: "gradedropdown" %>
+      <%= f.select :grade, options_for_select(Student::CorderGrades), :include_blank => true, id: "gradedropdown" %>
 
 </div>
 </div>
