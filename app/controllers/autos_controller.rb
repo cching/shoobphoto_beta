@@ -5,6 +5,7 @@ class AutosController < ApplicationController
 
   def start_auto
     @auto = Auto.create
+    s3 = AWS::S3.new
     
     bucket = AWS::S3::Bucket.new('shoobphoto')
     objects = bucket.objects.with_prefix('AutoCSV/output').collect(&:key).drop(1)
@@ -17,7 +18,7 @@ class AutosController < ApplicationController
       chunk = SmarterCSV.process(csv_file, {:chunk_size => 500, row_sep: :auto}) do |chunk|
         AutoImport.perform_async(chunk, object, @auto.id)
       end
-
+ 
     end
 
     objects.each do |object|
