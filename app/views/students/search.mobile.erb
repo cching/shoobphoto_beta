@@ -28,9 +28,9 @@
           </div>
           <div class="col-xs-1"></div>
           <div class="col-xs-3" id="student_grade">
-            <fieldset class="ui-field-contain">
-            <%= select_tag :grade, options_for_select(Student::Grades), id: "gradedropdown" %>
-          </fieldset>
+            <div class="ui-field-contain">
+            <%= select_tag :grade, options_for_select(Student::Grades), class: "enjoy-css_mobile" %>
+            </div>
             </div>
           </div>
           
@@ -96,8 +96,8 @@ $(document).ready(function() {
   $( "#dropdown" ).select2({
     theme: "bootstrap",
     width: '100%',
-    height: '50px'
-});
+    height: '500px'
+  });
 
   
   $("#gradedropdown").select2({
@@ -203,6 +203,16 @@ function validateForm(){isValid = false;
 input.select2-search__field {
   font-size:40px !important;
   height:55px !important;
+}
+
+.select2-container .select2-choice, .select2-result-label {
+  font-size: 1.5em;
+  height: 300px !important; 
+  overflow: auto;
+}
+
+.select2-arrow, .select2-chosen {
+  padding-top: 6px;
 }
 
 
