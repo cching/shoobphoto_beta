@@ -1,3 +1,49 @@
+<% if is_mobile_request? %>
+<style>
+	
+.mobile_district_form2 {
+    width: 100%;
+    text-align: center;
+}	
+
+.btn-blue_mobile2 {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 5px;
+  color: #5392c8;
+  background: #1abc9c;
+  padding: 5px 8px 5px 8px;
+  border: solid #000000 0px;
+  text-decoration: none;
+  text-align:center;
+  color:#fff;
+  font-size: 30px;
+}    
+	
+</style>
+<div class="mobile_district_form2">
+<h2 align="center">Which school?</h2>
+	<%= form_tag(school_school_notes_path, method: :get) do %>
+       <div class="field">
+	    <%= 
+	    collection_select(
+	    :school,
+	    :id,
+	    @schools.all, 
+	    :id, 
+	    :name,
+	    {:prompt => false}, {:class => "form-control"}) %>
+
+
+  </div>
+  	<div align="center">
+   <h3><div class="mobile_text"><%= submit_tag "Continue", class: "btn-blue_mobile2" %></div></h3>
+   </div>
+     <% end %>
+</div>
+
+
+<% else %>
 <div class="jumbotron animated fadeInUp">
 <h3 align="center">Which school?</h3>
 	<%= form_tag(school_school_notes_path, method: :get) do %>
@@ -19,3 +65,7 @@
      <% end %>
 </div>
 
+
+
+
+<% end %>

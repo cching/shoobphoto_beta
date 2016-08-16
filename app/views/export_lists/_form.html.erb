@@ -1,3 +1,4 @@
+<%= simple_form_for(@export_list, remote: true) do |f| %>
 
 <div class="modal-dialog" id="lesson_resources">
     <div class="modal-content">
@@ -6,37 +7,44 @@
         <h4 class="modal-title" id="myModalLabel">Student Awards List</h4>
       </div>
       <div class="modal-body centered">
-        <%= simple_form_for(@export_list, remote: true) do |f| %>
-  <%= f.error_notification %>
 
-  <div class="form-inputs" id="text">
-  	<%= f.input :name, :label => "Secretary's Name" %>
-  	<%= f.input :title, :label => "Award Title" %>
-    <div class="row">
-      <div class="col-sm-6">
-  	   <%= f.input :date, :label => "Award Date", :as => :date_picker %>
-      </div>
-      <div class="col-sm-6">
-  	   <%= f.input :delivery, :label => "Delivery Date", :as => :date_picker  %>
-      </div>
-    </div>
- 	  <%= f.input :data, :label => "Additional Data (GPA, Character Trait, etc)" %>
-    <%= f.input :school_id, :as => :hidden, :input_html => { :value => params[:school] } %>
 
-  </div>
+  <div class="form-inputs">
+    <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
+      <div class="row header_award" align="center">
+          <div class="col-xs-1"><strong></strong></div>
+          <div class="col-xs-2"><strong>Title</strong></div>
+          <div class="col-xs-1"><strong>Abbrev.</strong></div>
+          <div class="col-xs-2"><strong>Awarded For (optional)</strong></div>
+          <div class="col-xs-2"><strong>Definition (optional)</strong></div>
+          <div class="col-xs-2"><strong>Time Period</strong></div>
+          <div class="col-xs-2"><strong>Award Date</strong></div> 
+        </div>
+
+        
+        <%= f.simple_fields_for :awards do |builder| %>
+          <%= render 'award_fields', f: builder %>
+        <% end %>
+        
+    
+
+
+  </div> <br/><br/>
+
 
       <div class="form-actions">
       <div class="modal-footer">
-    <%= f.button :submit, "Export list", class: "btn-export" %>
+         <button type="button" class="btn btn-export" data-dismiss="modal">Close</button>
+    <%= f.button :submit, "Export list", class: "btn btn-blue btn-loading" %>
       </div>   
       </div>   
-      <% end %>
+      
 
     </div>
   </div>
 </div>
 
-
+<% end %>
 
 <script type="text/javascript">
     $('.datetimepicker').datetimepicker();
