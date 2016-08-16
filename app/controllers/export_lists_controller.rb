@@ -13,7 +13,7 @@ class ExportListsController < ApplicationController
   end
 
   def new
-    
+    @export_list = ExportList.find(params[:export_list])    
   end
 
   def edit
@@ -25,11 +25,14 @@ class ExportListsController < ApplicationController
 
   def update
     @export_list.update(export_list_params)
+    @export_list.update(:school_id => current_user.school_id)
 
     current_user.user_students.each do |ustudent|
       @export_list.export_list_students.create(:student_id => ustudent.student_id, :award_id => ustudent.award_id)
     end
     ListExport.perform_async(@export_list.id)
+
+    respond_to :js
   end
 
   def destroy

@@ -1,4 +1,6 @@
-<input class="<%= is_mobile_request? ? 'btn-blue_mobile' : 'btn-blue' %>" name="commit" value="Continue" onclick="return validateForm1()" readonly>
+<% if is_mobile_request? %>
+
+<input class="btn-blue_mobile" name="commit" value="Continue" onclick="return validateForm1()" readonly>
  <script>
  function validateForm1(){isValid = false; 
   var isValid = true;
@@ -74,3 +76,85 @@
 }
 
 </script>
+
+<% else %>
+
+
+<input class="btn-blue" name="commit" value="Continue" onclick="return validateForm1()" readonly>
+ <script>
+ function validateForm1(){isValid = false; 
+  var isValid = true;
+
+  var x = document.getElementById('student_first_name').value;
+    if (x == null || x == "") {
+        isValid = false;
+        var d = document.getElementById("student_first_name");
+        d.className += " error_field";
+      } else {
+
+      document.getElementById("student_first_name").className = "";
+      document.getElementById("student_first_name").className = "enjoy-css";
+      }
+    
+
+    var z = document.getElementById('input_email').value;
+    if (z == null || z == "") {
+        isValid = false;
+        var d = document.getElementById("input_email");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_email").className = "";
+      document.getElementById("input_email").className = "enjoy-css";
+      }
+    
+
+    var emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; 
+
+      if(!emailReg.test(z)) {
+        isValid = false;
+        var d = document.getElementById("input_email");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_email").className = "";
+      document.getElementById("input_email").className = "enjoy-css";
+      }
+      
+
+    var y = document.getElementById('student_last_name').value;
+    if (y == null || y == "") {
+        isValid = false;
+        var d = document.getElementById("student_last_name");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("student_last_name").className = "";
+      document.getElementById("student_last_name").className = "enjoy-css";
+      }
+    
+
+
+
+    <% if @school.school_type.id == 3 %>
+      var y = document.getElementById('input_student_teacher').value;
+    if (y == null || y == "") {
+        isValid = false;
+      var d = document.getElementById("input_student_teacher");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_student_teacher").className = "";
+      document.getElementById("input_student_teacher").className = "enjoy-css";
+      }
+    <% end %>
+
+  if(isValid){
+    document.getElementById('new_search_form').submit();
+  }
+
+}
+
+</script>
+
+<% end %>

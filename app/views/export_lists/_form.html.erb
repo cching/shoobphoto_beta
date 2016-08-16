@@ -8,7 +8,7 @@
       </div>
       <div class="modal-body centered">
 
-
+ <strong>Please edit or confirm your award information is correct.</strong><hr>
   <div class="form-inputs">
     <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
       <div class="row header_award" align="center">
@@ -29,13 +29,15 @@
     
 
 
-  </div> <br/><br/>
+  </div> <br/>
+
+  <%= f.input :data, :label => "Extra Notes" %>
 
 
       <div class="form-actions">
       <div class="modal-footer">
          <button type="button" class="btn btn-export" data-dismiss="modal">Close</button>
-    <%= f.button :submit, "Export list", class: "btn btn-blue btn-loading" %>
+    <%= f.button :submit, "Submit your export list", class: "btn btn-blue btn-loading" %>
       </div>   
       </div>   
       

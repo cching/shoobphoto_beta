@@ -1,22 +1,44 @@
 <h1>Shoob Photography - Award List</h1>
 <h3>Attached is a CSV file of the students</h3>
 <p>
-  Secretary's name: <%= @export.name %>
+  Secretary's name: <%= @export.user.first_name %> <%= @export.user.last_name %>
+
 </p>
 <p>
   School: <%= @export.school.name %>
-</p>
-<p>
-  Award title: <%= @export.title %>
-</p>
-
-<p>
-  Award date: <%= @export.date.strftime("%B %d, %Y") %>
-</p>
-<p>
-  Delivery date: <%= @export.delivery.strftime("%B %d, %Y") %>
 </p>
 
 <p>
   Additional data: <%= @export.data %>
 </p>
+<hr>
+
+<% @export.awards.each do |award| %>
+<p>
+  Award title: <%= award.title %>
+</p>
+
+<p>
+  Award abbreviation: <%= award.abbreviation %>
+</p>
+
+
+<p>
+  Awarded for: <%= award.awarded_for %>
+</p>
+
+<p>
+  Definition: <%= award.awarded_for %>
+</p>
+
+<p>
+  Time Period: <%= award.time_period %>
+</p>
+
+<p>
+  Award date: <%= award.award_date.strftime("%B %d, %Y") %>
+</p>
+<hr>
+
+<% end %>
+

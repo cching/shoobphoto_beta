@@ -4,7 +4,7 @@ class ListExport
     def perform(id)
       export_list = ExportList.find(id)
       require 'csv'
-
+ 
       csv_file = ''
       school = export_list.user.school
       package = school.packages.where("name like ?", "%Fall%").last
@@ -17,8 +17,11 @@ class ListExport
       t = Tempfile.new("my-temp-filename-#{Time.now}")
       Zip::OutputStream.open(t.path) do |z|
             
-          csv_file << CSV.generate_line(['Student ID'] + ['First Name'] + ['Last Name'] + ['Grade'] + ['Teacher'] + ['Image'])
-            export_list.students.each do |student|
+          csv_file << CSV.generate_line(['Student ID'] + ['First Name'] + ['Last Name'] + ['Grade'] + ['Teacher'] + ['Image'] + ['Award'])
+            export_list.awards.each do |award|
+               User.find(export_list.user_id).user_students.where(:award_id => award.id).each do |ustudent| 
+                student = ustudent.student
+
               if package.student_images.where(:student_id => student.id).any?
                 @string = "#{package.student_images.where(:student_id => student.id).last.image.url}"
 
@@ -36,11 +39,12 @@ class ListExport
                 @string = ""
               end ## end if
 
-                csv_file << CSV.generate_line(["#{student.student_id}"] + ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.grade}"] + ["#{student.teacher}"] + [@string]
+                csv_file << CSV.generate_line(["#{student.student_id}"] + ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.grade}"] + ["#{student.teacher}"] + [@string] + ["#{ustudent.award.abbreviation}"]
 
               ) 
              
           end ## end loop
+        end
           
       end ## end zip file
 

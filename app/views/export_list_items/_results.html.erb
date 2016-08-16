@@ -1,26 +1,30 @@
-<% @students.each do |student| %>
-       <tr id="student_<%= student.id %>">
-          <td id="button_<%=student.id %>">
-            <%= link_to "Remove", export_list_remove_path(student.id), remote: true, class: "btn btn-danger" %>
+<% ExportList.find(params[:export_list]).awards.each do |award| %>
+<% @award = award %>
+<%  current_user.user_students.where(:award_id => award.id).each do |student| %>
+       <tr id="student_<%= student.student.id %>_<%= award.id %>">
+          <td id="button_<%= student.student.id %>_<%= award.id %>">
+            <%= link_to "Remove", export_list_remove_path(student.student.id, :award => award.id), remote: true, class: "btn btn-danger" %>
           </td>
           <td>
-            <%= student.student_id %>
+            <%= student.student.student_id %> 
           </td>
            <td>
-            <%= student.first_name %>
+            <%= student.student.first_name %>
+          </td> 
+           <td>
+            <%= student.student.last_name %>
           </td>
            <td>
-            <%= student.last_name %>
+            <%= student.student.grade %> 
           </td>
            <td>
-            <%= student.grade %>
-          </td>
-           <td>
-            <%= student.teacher %>
+            <%= student.student.teacher %>
           </td>
           <td>
-
-            <%= student.user_students.where(:user_id => current_user.id).map{|x| x.award.try(:abbreviation)}.join(", ") %>
+ 
+            <%=  student.award.abbreviation %>
           </td>
       </tr>
+
+<% end %>
 <% end %>
