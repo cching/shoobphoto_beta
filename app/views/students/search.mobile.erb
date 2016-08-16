@@ -27,9 +27,9 @@
         <%= text_field_tag :student_id, nil, placeholder: "Student ID/Access Code", class: "enjoy-css_mobile", id: "input_student_id" %>
           </div>
           <div class="col-xs-1"></div>
-          <div class="col-xs-3" id="student_grade">
+          <div class="col-xs-4" id="student_grade">
             <div class="ui-field-contain">
-            <%= select_tag :grade, options_for_select(Student::Grades), class: "enjoy-css_mobile" %>
+            <%= select_tag :grade, options_for_select(Student::Grades), class: "enjoy-css_mobile_dropdown" %>
             </div>
             </div>
           </div>
@@ -48,21 +48,21 @@
           DATE OF BIRTH
         </span>
         <div class="row">
-        <div class="col-xs-4">
+        <div class="col-xs-4 ui-field-contain">
           <%= select_month(0, {:prompt => "Month"}, 
  
-                       {:field_name => 'month', :id => 'date_month'}) %>
+                       {:field_name => 'month', class: "enjoy-css_mobile_dropdown"}) %>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-3 ui-field-contain">
           <%= select_day(0, {:prompt => "Day"}, 
  
-                       {:field_name => 'day', :id => 'date_day'}) %>
+                       {:field_name => 'day', class: "enjoy-css_mobile_dropdown"}) %>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-3 ui-field-contain">
           <%= select_year(0, {:prompt => "Year", 
                         :start_year => DateTime.now.year, 
                         :end_year => DateTime.now.year - 115}, 
-                       {:field_name => 'year', :id => 'date_year'}) %>
+                       {:field_name => 'year', class: "enjoy-css_mobile_dropdown"}) %>
         </div>
       </div>
         <br/>
@@ -102,27 +102,10 @@ $(document).ready(function() {
   
   $("#gradedropdown").select2({
     theme: "bootstrap",
-    width: '140%',
+    width: '110%',
     minimumResultsForSearch: Infinity
   });
 
-  $("#date_year").select2({
-    theme: "bootstrap",
-    width: '90%',
-    minimumResultsForSearch: Infinity
-  });
-
-  $("#date_month").select2({
-    theme: "bootstrap",
-    width: '90%',
-    minimumResultsForSearch: Infinity
-  });
-
-  $("#date_day").select2({
-    theme: "bootstrap",
-    width: '90%',
-    minimumResultsForSearch: Infinity
-  });
 
 
   $('.select2-selection').css('border-radius','0px')
@@ -201,12 +184,12 @@ function validateForm(){isValid = false;
 
 <style>
 input.select2-search__field {
-  font-size:40px !important;
-  height:55px !important;
+  font-size:50px !important;
+  height:70px !important;
 }
 
 .select2-container .select2-choice, .select2-result-label {
-  font-size: 1.5em;
+  font-size: 2em;
   height: 300px !important; 
   overflow: auto;
 }

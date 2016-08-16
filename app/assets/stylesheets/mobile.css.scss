@@ -275,11 +275,14 @@ color:#396599;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   width: 95%;
-  font-size:27px;
+  font-size:45px;
   height: 35px;
-  padding: 10px;
+  padding-top:20px;
+  padding-bottom:20px;
+  padding-left:20px;
+  padding-right:20px;
   border: 2px solid #FF4C4C !important;
-  font: normal 16px/normal "Trebuchet MS", Helvetica, sans-serif;
+  font: normal 45px/normal "Trebuchet MS", Helvetica, sans-serif;
   color: rgba(96,96,96,1);
   -o-text-overflow: clip;
   text-overflow: clip;
@@ -300,10 +303,62 @@ width: 95%;
   padding-bottom:20px;
   padding-left:20px;
   padding-right:20px;
-  border: 2px solid #000;
+  border: 3px solid #000;
   font: normal 16px/normal "Trebuchet MS", Helvetica, sans-serif;
   font-size: 45px;
 
+}
+
+.enjoy-css_mobile_dropdown {
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box; 
+  width: 94%;
+  height: 55px;
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-left:10px;
+  padding-right:10px;
+  border: 2px solid #9D9D9D;
+  font: normal 13px/normal "Trebuchet MS", Helvetica, sans-serif;
+  font-size: 45px;
+  color: rgba(96,96,96,1);
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  background: rgba(252,252,252,1);
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  margin-bottom:20px;
+}
+
+#order_card_expires_on_2i, #order_card_expires_on_1i {
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box; 
+  width: 94%;
+  height: 55px;
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-left:10px;
+  padding-right:10px;
+  border: 2px solid #9D9D9D;
+  font: normal 13px/normal "Trebuchet MS", Helvetica, sans-serif;
+  font-size: 45px;
+  color: rgba(96,96,96,1);
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  background: rgba(252,252,252,1);
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  margin-bottom:20px;
 }
 
 /*contacts/index*/
