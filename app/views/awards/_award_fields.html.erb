@@ -1,15 +1,19 @@
-<tr>
-          <td>Award</td>
-          <td style="padding-left:20px;"><%= f.input :title, :input_html => {:style => "width:90%;"} %></td>
-          <td><%= f.input :abbreviation, :input_html => {:style => "width:90%;"} %></td>
-          <td><%= f.input :awarded_for, :input_html => {:style => "width:90%;"} %></td>
-          <td><%= f.input :definition, :input_html => {:style => "width:90%;"} %></td>
-          <td><%= f.input :time_period, :input_html => {:style => "width:90%;"} %></td>
-          <td><%= f.input :award_date, :as => :date_picker, :input_html => {:style => "width:90%;"} %></td>
-        </tr>
+
 
 <script type="text/javascript">
     $('.datetimepicker').datetimepicker();
 </script>
 
 
+<br/>
+
+<div class="row" align="center">
+
+          <div class="col-xs-1">Award</div>
+          <div class="col-xs-2"><%= f.input :title, :input_html => {:style => "width:90%;"}, label: false %></div>
+          <div class="col-xs-1"><%= f.input :abbreviation, :input_html => {:style => "width:90%;"}, label: false %></div>
+          <div class="col-xs-2"><%= f.input :awarded_for, :input_html => {:style => "width:90%;"}, label: false %></div>
+          <div class="col-xs-2"><%= f.input :definition, :input_html => {:style => "width:90%;"}, label: false %></div>
+          <div class="col-xs-2"><%= f.input :time_period, :input_html => {:style => "width:90%;"}, label: false %></div>
+          <div class="col-xs-2"><%= f.input :award_date, :as => :date_picker, :input_html => {:style => "width:90%;"}, label: false %></div>
+      </div>

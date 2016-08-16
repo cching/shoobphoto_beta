@@ -19,7 +19,8 @@
             <%= student.teacher %>
           </td>
           <td>
-            <%= student.user_students.where(:user_id => current_user.id).last.award.title %>
+
+            <%= student.user_students.where(:user_id => current_user.id).map{|x| x.award.try(:abbreviation)}.join(", ") %>
           </td>
       </tr>
 <% end %>

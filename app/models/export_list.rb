@@ -6,5 +6,6 @@ class ExportList < ActiveRecord::Base
 	belongs_to :school
 
 	has_many :awards, dependent: :destroy
-	accepts_nested_attributes_for :awards, allow_destroy: true
+	accepts_nested_attributes_for :awards, allow_destroy: true,
+    :reject_if => proc { |a| a['title'].blank? || a['abbreviation'].blank? }
 end

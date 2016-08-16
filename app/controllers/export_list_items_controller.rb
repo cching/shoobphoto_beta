@@ -28,6 +28,10 @@ class ExportListItemsController < ApplicationController
   else
     redirect_to new_user_session_path
   end
+
+  unless @export_list.awards.any?
+    redirect_to new_award_path, notice: "Please fill all requried fields"
+  end
   end
 
   def award_table
@@ -94,6 +98,7 @@ class ExportListItemsController < ApplicationController
 
   def clear_students
     @ids = current_user.students.pluck(:id)
+    @export_list = ExportList.find(params[:export_list])
     current_user.students = []
 
     respond_to :js
@@ -102,6 +107,7 @@ class ExportListItemsController < ApplicationController
   def searches
     @search = current_user.students.search(params[:q])
     @school = params[:id]
+    @export_list = ExportList.find(params[:export_list])
 
     if params[:q].nil?
       @students = @search.result.order(:teacher).order(:last_name)
@@ -386,6 +392,7 @@ class ExportListItemsController < ApplicationController
   end
   
   def clear
+
     current_user.export_list_items.delete_all
     render nothing: true
   end

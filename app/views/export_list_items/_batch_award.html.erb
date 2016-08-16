@@ -27,7 +27,7 @@
 
       <div class="form-actions">
       <div class="modal-footer">
-        <%= link_to "Clear List", export_clear_students_path, remote: true, class: "btn btn-danger", data: {confirm: "Are you sure?"} %>
+        <%= link_to "Clear List", export_clear_students_path(:export_list => @export_list.id), remote: true, class: "btn btn-danger", data: {confirm: "Are you sure?"} %>
         <button type="button" class="btn btn-default" data-dismiss="modal">Add More Students</button>
         <%= link_to "Finish", new_export_list_path(:school => @school, :export_list => params[:export_list]), remote: true, class: "btn btn-primary" %>
       </div>   
