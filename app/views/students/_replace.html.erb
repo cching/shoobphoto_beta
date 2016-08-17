@@ -15,6 +15,18 @@
       document.getElementById("student_first_name").className = "";
       document.getElementById("student_first_name").className = "enjoy-css_mobile";
       }
+
+      var x = document.getElementById('select_origin').value;
+    if (x == null || x == "") {
+        isValid = false;
+        var d = document.getElementById("select_origin");
+        d.className += " error_field_mobile";
+        $("#error_schools").html("<div style='color:red; font-size:20px;'>Please select a valid school from the list.</div>");
+      } else {
+
+      document.getElementById("select_origin").className = "";
+      document.getElementById("select_origin").className = "enjoy-css_mobile";
+      }
     
 
     var z = document.getElementById('input_email').value;

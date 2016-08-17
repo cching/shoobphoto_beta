@@ -355,7 +355,7 @@ function validateForm2(){isValid = false;
     if (z == null || z == "") {
         isValid = false;
         var d = document.getElementById("billing_last_name");
-        d.className += " error_field";
+        d.className += " error_field"; 
         } else {
 
       document.getElementById("billing_last_name").className = "";
@@ -423,15 +423,14 @@ function validateForm2(){isValid = false;
     $('#billing_info').hide();
     $('#edit_billing').html("<%= escape_javascript(button_tag 'Edit', type: 'button', onclick: 'editBilling()', class: 'btn-4') %>");
     $('#billing_hidden').html("<p class='shipping_info'>" + $('#billing_first_name').val() + " " + $('#billing_last_name').val() + "<br/>" + "Paid with: " + $('#order_card_type').val() + "<br/>" + $('#billing_address').val() + " " + $('#billing_address2').val() + "<br/>" + $('#billing_city').val() + ", " + $('#billing_state').val() + " " + $('#shipping_zip').val() + "</p>");
-    $("#button_continue").html("<%= escape_javascript(submit_tag 'Confirm purchase', class: 'btn-blue btn-loading', data: { 'loading-text' => 'Loading...' }) %>");
-    $("#button_continue").addClass('loading'); 
+    $("#button_continue").html("<%= escape_javascript(render 'finalize_order') %>");
   }
 
 }
 <% if @order.errors.any? %>
 $('#billing_info').show();
 $('.billing_info_title').show();
-$("#button_continue").html("<%= escape_javascript(submit_tag 'Confirm purchase', class: 'btn-blue loading') %>");
+$("#button_continue").html("<%= escape_javascript(render 'finalize_order') %>");
 <% end %>
 
 

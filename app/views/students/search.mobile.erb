@@ -86,10 +86,7 @@ $("#input_student_id").keyup(function()
 $.get('/students/findbyid/' + $("#dropdown").select2("val") + '?student_id=' + $("#input_student_id").val()).success(function(data) { } )
 });
 
-$("#dropdown").change(function() {
-$.get('/students/showteacher/' + $("#dropdown").select2("val")).success(function(data) { } )
 
-});
 
 $(document).ready(function() { 
   $( "#dropdown" ).select2({
@@ -230,6 +227,8 @@ input.select2-search__field {
             select: function(event, ui) {
  // place the person.given_name value into the textfield called 'select_origin'...
                 $('#select_origin').val(ui.item.name);
+                $.get('/students/showteacher/' + ui.item.id).success(function(data) { } )
+
  // and place the person.id into the hidden textfield called 'link_origin_id'. 
         $('#link_origin_id').val(ui.item.id);
                 return false;
