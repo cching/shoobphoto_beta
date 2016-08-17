@@ -69,8 +69,6 @@ GEM
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-multiselect-rails (0.9.9)
-      rails (>= 4.0.0)
     builder (3.2.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -276,7 +274,6 @@ DEPENDENCIES
   activemerchant
   awesome_nested_set
   aws-sdk (~> 1.6.0)
-  bootstrap-multiselect-rails
   coffee-rails (~> 4.0.0)
   datetimepicker-rails!
   devise

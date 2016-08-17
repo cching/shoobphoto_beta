@@ -27,6 +27,7 @@ match 'webcams/capture/webcams/refresh' => 'webcams#refresh', :via => 'GET', :as
 match 'webcams/types/:id' => 'webcams#types', :via => 'GET', :as => 'types'
 match 'webcams/waiting/:id' => 'webcams#waiting', :via => 'GET', :as => 'waiting'
 
+
   resources :yearbooks do
     member do
       get :buy 
@@ -192,6 +193,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
 
 
   match 'export/clean_up' => 'export_list_items#clean_up', :via => 'GET', :as => 'export_clean_up'
+
+   match 'students/typeahead' => 'students#typeahead', :via => 'GET', :as => 'typeahead'
 
   match 'export/remove/:id' => 'export_list_items#remove', :via => 'GET', :as => 'export_list_remove'
   match 'export/zip/:school/:package' => 'export_list_items#zip', :via => 'GET', :as => 'export_list_zip'

@@ -8,11 +8,10 @@
     <div class="mobile-padding">
     <div class="blue" style="font-size:35px" align="center"><strong>Enter your student's information below.</strong></div>
         <span class="search_input_mobile">SCHOOL OR SPORT</span>
-        <select name="school[school_id]" id="dropdown" class="enjoy-css_mobile">
-            <% School.all.order(:name).where.not(school_type_id: nil).each do |school| %>
-                <option value="<%= school.id %>"><%= school.name.titleize %></option>
-            <% end %>
-        </select>
+          <div id="error_schools"></div>
+
+        <input id="select_origin" class="enjoy-css_mobile" placeholder="Start typing..."/>
+      <input id="link_origin_id" name="school[school_id]" type="hidden"/>
 
         <% unless cookies[:user_email].nil? %>
 
@@ -133,6 +132,18 @@ function validateForm(){isValid = false;
       document.getElementById("student_first_name").className = "";
       document.getElementById("student_first_name").className = "enjoy-css_mobile";
       }
+
+  var x = document.getElementById('select_origin').value;
+    if (x == null || x == "") {
+        isValid = false;
+        var d = document.getElementById("select_origin");
+        d.className += " error_field_mobile";
+        $("#error_schools").html("<div style='color:red; font-size:20px;'>Please select a valid school from the list.</div>");
+      } else {
+
+      document.getElementById("select_origin").className = "";
+      document.getElementById("select_origin").className = "enjoy-css_mobile";
+      }
     
 
     var z = document.getElementById('input_email').value;
@@ -200,4 +211,39 @@ input.select2-search__field {
 
 
 </style>
+
+    <script type="text/javascript">
+    $(function() {
+
+ // Below is the name of the textfield that will be autocomplete    
+    $('#select_origin').autocomplete({
+ // This shows the min length of charcters that must be typed before the autocomplete looks for a match.
+            minLength: 2,
+ // This is the source of the auocomplete suggestions. In this case a list of names from the people controller, in JSON format.
+            source: '<%= typeahead_path(:json) %>',
+  // This updates the textfield when you move the updown the suggestions list, with your keyboard. In our case it will reflect the same value that you see in the suggestions which is the person.given_name.
+            focus: function(event, ui) {
+                $('#select_origin').val(ui.item.name);
+                return false;
+            },
+ // Once a value in the drop down list is selected, do the following:
+            select: function(event, ui) {
+ // place the person.given_name value into the textfield called 'select_origin'...
+                $('#select_origin').val(ui.item.name);
+ // and place the person.id into the hidden textfield called 'link_origin_id'. 
+        $('#link_origin_id').val(ui.item.id);
+                return false;
+            }
+        })
+ // The below code is straight from the jQuery example. It formats what data is displayed in the dropdown box, and can be customized.
+
+        .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+  return $( "<li>" )
+    .data( "ui-autocomplete-item", item )
+    .append( "<a>" + item.name + "</a>" )
+    .appendTo( ul );
+};
+    });
+    </script>
+
 

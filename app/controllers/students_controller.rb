@@ -12,6 +12,19 @@ class StudentsController < ApplicationController
     end
   end
 
+  def typeahead
+    if params[:term]
+      @schools = School.where("lower(name) like ?", "%#{params[:term].downcase}%")
+
+    end
+
+    respond_to do |format|  
+      format.html # index.html.erb  
+  # Here is where you can specify how to handle the request for "/people.json"
+      format.json { render :json => @schools.to_json }
+      end
+  end
+
 
   def showteacher
     @school = School.find(params[:school])

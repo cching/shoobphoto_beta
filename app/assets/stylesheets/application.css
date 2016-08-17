@@ -14,13 +14,14 @@
  *= require mobile
  *= require bootstrap.min
  *= require flat-ui.min
+ *= require jquery-ui
  *= require jquery.minicolors
  *= require component
  *= require animate
  *= require bootstrap-datetimepicker.min
  *= require select2
  *= require select2-bootstrap
- *= require flatui
+ *= require flatui 
  *= require_self
  */
 
