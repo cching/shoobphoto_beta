@@ -35,18 +35,23 @@
 }    
 
 .mobile_text {
-    font-size: 30px;
+  font-size: 30px;
+}
+
+.form-control {
+  font-size: 45px;
+  height: 50px;
 }
     
 </style>
 
 <div class="mobile_district_form" align="center">
 <h2 align="center">District:</h2>
-	<%= form_tag(district_school_notes_path, method: :get, :id => 'search_form', remote: true) do %>
+  <%= form_tag(district_school_notes_path, method: :get, :id => 'search_form', remote: true) do %>
         <%= collection_select(:districts, :id, @district.all, :id, :name, {:prompt => false}, {:class => "form-control"}) %>
      <h3><div class="mobile_text"><%= submit_tag "Continue", class: "btn-blue_mobile2"%> | <%= link_to "Use last district", last_school_notes_path, class: "btn-blue_mobile3", remote: true %></div></h3>
     <% end %>
 </div><br />
- 
+
 <div id="results">
 </div>

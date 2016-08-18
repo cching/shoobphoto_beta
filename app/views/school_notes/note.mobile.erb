@@ -20,18 +20,28 @@
   float: left;
 }
 
+.mobile_response {
+  font-size: 40px;
+  line-height: 48px;
+  height: 240px;
+}
+
+.mobile_label_font3 {
+  font-size: 35px;
+}
+
 </style>
 
 <div class="mobile_response_form">
 <h2><%= @school_note.name %></h2>
 <hr>
-<h3><%= @school_note.city.try(:name) %>: <%= @school_note.district.try(:name) %><br/>
+<span style="font-size:30px"><%= @school_note.city.try(:name) %>: <%= @school_note.district.try(:name) %><br/>
 Address: <%= @school_note.address %><br/>
 Phone: <%= @school_note.phone %><br/>
 
 Principal: <%= @school_note.principal %><br/>
 Secretary: <%= @school_note.secretary %><br/>
-</h3>
+</span>
 <hr>
 
 <h2>Notes</h2>
@@ -54,10 +64,10 @@ Secretary: <%= @school_note.secretary %><br/>
       <h3>Completed? <%= builder.check_box :complete %></h3><br/>
   </div>
   </div><br/>
-  <div class="row">
-    <div class="col-sm-2"></div>
-    <div class="col-sm-10"><strong>Response:</strong> <%= builder.text_area :action  %></div>
-  </div>
+
+
+    <strong>Response:</strong> <%= builder.text_area :action, class: "mobile_response" %>
+ 
   </span>
   <br/>
   <hr>
@@ -65,5 +75,7 @@ Secretary: <%= @school_note.secretary %><br/>
 
   <br/>
   <span style="font-size:30px"><%= f.submit "Save response" %></span>
+  <br/><br/>
+  <span class="mobile_label_font3"><%= link_to_add_fields "Add New Note to School", f, :notes %></span><br/><br/>
 <% end %>
 </div>

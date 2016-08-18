@@ -1,0 +1,75 @@
+<style>
+    
+.mobile_dashboard_form {
+    width: 100%;
+    text-align: center;
+    margin: 237px 0px 0px 0px;
+}
+
+.btn-blue_mobile4 {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 5px;
+  color: white;
+  background: #1abc9c;
+  padding: 5px 8px 5px 8px;
+  border: solid #000000 0px;
+  text-decoration: none;
+  text-align:center;
+  color:#fff;
+  font-size: 45px;
+  margin: 7px;
+}
+
+.mobile_text {
+    font-size: 30px;
+}
+    
+.mobile_dashboard {
+  margin: auto;
+  width: 100%;
+}    
+    
+</style>
+
+<div class="mobile_dashboard_form">
+</div>
+
+	<%= link_to "View Orders", orders_path, class: "btn-blue_mobile4" %>
+	<%= link_to "View Students", admin_students_path, class: "btn-blue_mobile4" %>
+	<br/><br/>
+	
+	<%= link_to "View Schools", admin_schools_path, class: "btn-blue_mobile4" %>
+	<%= link_to "View Packages", admin_packages_path, class: "btn-blue_mobile4" %>
+	<br/><br/>
+	
+	<%= link_to "View Pages", admin_pages_path, class: "btn-blue_mobile4" %>
+	<%= link_to "View Navigation", admin_nav_links_path, class: "btn-blue_mobile4" %>
+  <br/><br/>
+  
+  <%= link_to "Banners", admin_banners_path, class: "btn-blue_mobile4" %>
+  <%= link_to "Emailer", emailer_path, class: "btn-blue_mobile4" %>
+  <br/><br/>
+  
+  <%= link_to "Extras", admin_extras_path, class: "btn-blue_mobile4" %>
+  <%= link_to "Extra Types", admin_extra_types_path, class: "btn-blue_mobile4" %>
+  <br/><br/>
+  
+  <%= link_to "ID cards", export_students_path, class: "btn-blue_mobile4" %>
+  <%= link_to "Templates", templates_path, class: "btn-blue_mobile4" %>
+  <br/><br/>
+
+	<%= link_to "Users", admin_users_path, class: "btn-blue_mobile4" %>
+	<%= link_to "Catalog Orders", corders_path, class: "btn-blue_mobile4" %>
+	<br/><br/>
+	
+	<%= link_to "Sales Call", search_school_notes_path, class: "btn-blue_mobile4" %>
+	<%= link_to "Notes", school_notes_path, class: "btn-blue_mobile4" %>
+	<br/><br/>
+	
+	<%= link_to "Export Carts", carts_admin_packages_path, class: "btn-blue_mobile4" %>
+	<%= link_to "Catalog Items", new_item_path, class: "btn-blue_mobile4" %>
+	<br/><br/>
+
+	<%= link_to "Download Image Import", csv_admin_dashboards_path, class: "btn-blue_mobile4" %>
+	<%= link_to "Items", admin_items_path, class: "btn-blue_mobile4" %>

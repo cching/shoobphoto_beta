@@ -27,7 +27,7 @@ Address: <%= @school.address %><br/>
 Phone: <%= @school.phone %><br/>
 
 Principal: <%= @school.principal %><br/>
-Secretary: <%= @school.secretary %><br/> 
+Secretary: <%= @school.secretary %><br/>
 </div>
 <hr>
 
@@ -37,7 +37,7 @@ Secretary: <%= @school.secretary %><br/>
 	<%= f.fields_for :notes do |builder| %>
 	  <%= render 'note_fields', f: builder %>
 	<% end %>
-	  <span class="mobile_label_font"><%= link_to_add_fields "Add New Note", f, :notes %></span><br/><br/>
+	<span class="mobile_label_font2"><%= link_to_add_fields "Add New Note to School", f, :notes %></span><br/><br/>
 	  <hr>
 <span class="mobile_label_font2"><%= f.submit %></span>
 <% end %>
