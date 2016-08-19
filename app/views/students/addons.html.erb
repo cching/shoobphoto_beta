@@ -20,7 +20,7 @@
 			<div class="<%= @index.to_words %>">
 				<div class="row">
 					<div class="col-xs-3">
-						<span class="<%= 2 >= @index ? 'white_text' : 'gray_text'%>"><%= @option.name[-1] %></span>
+						<span class="<%= 2 >= @index ? 'white_text' : 'gray_text'%> <%= 'small_text_package' if @option.name.size > 1 %>"><%= @option.name %></span>
 					</div>
 					<div class="col-xs-9">
 						<% if 2 >= @index %>

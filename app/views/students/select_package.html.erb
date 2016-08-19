@@ -60,10 +60,10 @@
 		<div class="package_box">
 		<div class="<%= i.to_words %>"> 
 			<div class="row">
-				<div class="col-xs-3">
-					<span class="<%= 2 >= i ? 'white_text' : 'gray_text'%>"><%= option.name[-1] %></span>
+				<div class="col-xs-4">
+					<span class="<%= 2 >= i ? 'white_text' : 'gray_text'%> <%= 'small_text_package' if option.name.size > 1 %>"><%= option.name %></span>
 				</div>
-				<div class="col-xs-9">
+				<div class="col-xs-8">
 					<% if 2 >= i %>
 					<p class="yellow_text">
 					INCLUDES <strong>FREE</strong> DIGITAL IMAGE 
