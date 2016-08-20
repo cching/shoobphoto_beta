@@ -83,7 +83,7 @@
 <script>
 $("#input_student_id").keyup(function() 
 {
-$.get('/students/findbyid/' + $("#dropdown").select2("val") + '?student_id=' + $("#input_student_id").val()).success(function(data) { } )
+$.get('/students/findbyid/' + $('#link_origin_id').val() + '?student_id=' + $("#input_student_id").val()).success(function(data) { } )
 });
 
 
