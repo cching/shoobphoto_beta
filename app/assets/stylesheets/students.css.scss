@@ -13,9 +13,10 @@
 
 }
 
-.small_text_package {
-	font-size: 14px !important;
-	line-height:0px !important;
+p.small_text_package {
+	font-size: 18px !important;
+	padding-top:20px !important;
+	line-height:20px !important;
 }
 
 .package_orange {
@@ -354,7 +355,8 @@ color:#fff;
 p.yellow_text {
 	color:#ffd700;
 	padding-top:40px;
-	font-size:1vw;
+	font-size:0.8vw;
+	padding-left:10px;
 	line-height: 21px !important; 
 }
 

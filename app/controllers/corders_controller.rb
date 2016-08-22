@@ -17,6 +17,10 @@ class CordersController < ApplicationController
 end
 
 def zip_code
+  respond_to do |format|
+    format.html
+    format.mobile
+  end
 end
 
 def create_cart

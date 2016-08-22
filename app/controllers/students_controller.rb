@@ -27,7 +27,7 @@ class StudentsController < ApplicationController
 
 
   def showteacher
-    @school = School.find(params[:school])
+    @school = School.find(params[:school]) 
   end
 
   def add_package

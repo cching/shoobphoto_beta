@@ -1,6 +1,42 @@
-<h1>Editing award</h1>
+<h3>Award Setup</h3>
+<%= simple_form_for(@export_list, :url => {:controller => "awards", :action => "update"}) do |f| %>
+  <%= f.error_notification %>
 
-<%= render 'form' %>
+  <div class="form-inputs">
+    <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
+      <div class="row header_award" align="center">
+          <div class="col-xs-1"><strong>Title</strong></div>
+          <div class="col-xs-1"><strong>Abbrev.</strong></div>
+          <div class="col-xs-2"><strong>Awarded For (optional)</strong></div>
+          <div class="col-xs-2"><strong>Definition (optional)</strong></div>
+          <div class="col-xs-2"><strong>Time Period</strong></div>
+          <div class="col-xs-2"><strong>Award Date</strong></div> 
+          <div class="col-xs-2"><strong>Recieve By</strong></div> 
+        </div>
+        <div class="row award_sample" align="center">
 
-<%= link_to 'Show', @award %> |
-<%= link_to 'Back', awards_path %>
+          <div class="col-xs-1">Student of the Month</div>
+          <div class="col-xs-1">SOM</div>
+          <div class="col-xs-2">Loyalty</div>
+          <div class="col-xs-2">Loyalty is the..</div>
+          <div class="col-xs-2">April 2016/First Trimester</div>
+          <div class="col-xs-2">9/30/2016</div>
+          <div class="col-xs-2">10/07/2016</div>
+      </div>
+        
+        <%= f.simple_fields_for :awards do |builder| %>
+          <%= render 'award_fields', f: builder %>
+        <% end %>
+        
+    
+            <%= link_to_add_fields "Add Award", f, :awards %>
+
+
+  </div> <br/><br/>
+
+  <div class="form-actions" align="right">
+    <%= f.button :submit, "Save and Continue", class: "btn-blue btn-loading" %>
+  </div>
+<% end %>
+
+

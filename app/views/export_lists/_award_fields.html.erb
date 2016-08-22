@@ -9,13 +9,13 @@
 
 <div class="row" align="center">
 
-          <div class="col-xs-1">Award</div>
-          <div class="col-xs-2"><%= f.input :title, :input_html => {:style => "width:90%;"}, label: false %></div>
+          <div class="col-xs-1"><%= f.input :title, :input_html => {:style => "width:90%;"}, label: false %></div>
           <div class="col-xs-1"><%= f.input :abbreviation, :input_html => {:style => "width:90%;"}, label: false %></div>
           <div class="col-xs-2"><%= f.input :awarded_for, :input_html => {:style => "width:90%;"}, label: false %></div>
           <div class="col-xs-2"><%= f.input :definition, :input_html => {:style => "width:90%;"}, label: false %></div>
           <div class="col-xs-2"><%= f.input :time_period, :input_html => {:style => "width:90%;"}, label: false %></div>
           <div class="col-xs-2"><%= f.input :award_date, :as => :date_picker, :input_html => {:style => "width:90%;", :id => "datetimepicker"}, label: false %></div>
+          <div class="col-xs-2"><%= f.input :recieve_by, :as => :date_picker, :input_html => {:style => "width:90%;", :id => "datetimepicker"}, label: false %></div>
       </div>
 
 <script>

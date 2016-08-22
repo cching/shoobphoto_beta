@@ -46,6 +46,6 @@ class ExportListsController < ApplicationController
     end
 
    def export_list_params
-      params.require(:export_list).permit(:id, :user_id, awards_attributes: [:id, :title, :abbreviation, :awarded_for, :definition, :time_period, :award_date, :export_list_id])
+      params.require(:export_list).permit(:id, :user_id, awards_attributes: [:id, :title, :abbreviation, :awarded_for, :definition, :time_period, :award_date, :export_list_id, :recieve_by])
     end
 end

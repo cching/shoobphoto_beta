@@ -173,7 +173,11 @@ class ItemsController < ApplicationController
   def cart
     @items = Item.all.order(:number)
     @cart = Cart.find_by_cart_id(params[:cart_id])
-    respond_with(@items)
+
+    respond_to do |format|
+      format.html
+      format.mobile
+    end
   end
 
   def create

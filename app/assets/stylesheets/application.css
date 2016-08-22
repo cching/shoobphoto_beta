@@ -51,3 +51,8 @@ html {
 .container-full {
     overflow-x:hidden;
 }
+
+#myModal{
+    height: 1000px;
+    top: calc(30% - 200px) !important;
+}

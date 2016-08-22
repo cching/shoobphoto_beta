@@ -1,3 +1,5 @@
+<%= link_to "Back to dashboard", admin_dashboards_path, class: "btn-blue" %>
+
 <%  bucket = AWS::S3::Bucket.new('shoobphoto') %>
 
 <% s3object = AWS::S3::S3Object.new(bucket, "csvs/#{Export.last.file_path}") %>

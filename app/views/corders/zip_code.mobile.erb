@@ -1,0 +1,61 @@
+<br/>
+<br/><br/>
+<br/><br/>
+<br/>
+<%= image_tag("view.jpg", class: "img-responsive") %>
+<br/>
+<%= form_tag(create_cart_path, :id => "new_search_form") do %>
+	<%= text_field_tag :email, nil, placeholder: "Your email address", class: "enjoy-css_mobile", id: "input_email" %>
+	<%= text_field_tag :zip_code, nil, placeholder: "Your ZIP code", class: "enjoy-css_mobile", id: "input_zip" %>
+	<input class="btn-blue_mobile btn-loading" name="commit" value="Continue" onclick="return validateForm()" readonly>
+<% end %>
+
+<script>
+function validateForm(){isValid = false;
+  var isValid = true;
+
+    
+  	var z = document.getElementById('input_email').value;
+    var emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; 
+
+      if(!emailReg.test(z)) {
+        isValid = false;
+        var d = document.getElementById("input_email");
+        d.className += " error_field_mobile";
+        } else {
+
+      document.getElementById("input_email").className = "";
+      document.getElementById("input_email").className = "enjoy-css_mobile";
+      }
+
+      var y = document.getElementById('input_email').value;
+    if (y == null || y == "") {
+        isValid = false;
+        var d = document.getElementById("input_email");
+        d.className += " error_field_mobile";
+        } else {
+
+      document.getElementById("input_email").className = "";
+      document.getElementById("input_email").className = "enjoy-css_mobile";
+      }
+      
+
+    var y = document.getElementById('input_zip').value;
+    if (y == null || y == "") {
+        isValid = false;
+        var d = document.getElementById("input_zip");
+        d.className += " error_field_mobile";
+        } else {
+
+      document.getElementById("input_zip").className = "";
+      document.getElementById("input_zip").className = "enjoy-css_mobile";
+      }
+    
+
+
+  if(isValid){
+    document.getElementById('new_search_form').submit();
+  }
+
+}
+</script>

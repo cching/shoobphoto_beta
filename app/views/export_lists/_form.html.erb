@@ -12,13 +12,13 @@
   <div class="form-inputs">
     <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
       <div class="row header_award" align="center">
-          <div class="col-xs-1"><strong></strong></div>
-          <div class="col-xs-2"><strong>Title</strong></div>
+          <div class="col-xs-1"><strong>Title</strong></div>
           <div class="col-xs-1"><strong>Abbrev.</strong></div>
           <div class="col-xs-2"><strong>Awarded For (optional)</strong></div>
           <div class="col-xs-2"><strong>Definition (optional)</strong></div>
           <div class="col-xs-2"><strong>Time Period</strong></div>
           <div class="col-xs-2"><strong>Award Date</strong></div> 
+          <div class="col-xs-2"><strong>Recieve By</strong></div> 
         </div>
 
         
@@ -26,6 +26,8 @@
           <%= render 'award_fields', f: builder %>
         <% end %>
         
+        <br>
+        <%= link_to "Add More Awards", edit_award_path(@export_list.id), class: "btn-blue" %>
     
 
 
