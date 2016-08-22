@@ -14,6 +14,7 @@ class Users::SessionsController < Devise::SessionsController
     respond_to do |format|
       format.html
       format.mobile
+    end
   end
 
   # DELETE /resource/sign_out
