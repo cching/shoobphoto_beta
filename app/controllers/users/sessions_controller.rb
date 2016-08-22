@@ -11,7 +11,9 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    redirect_to root_url
+    respond_to do |format|
+      format.html
+      format.mobile
   end
 
   # DELETE /resource/sign_out

@@ -1,0 +1,25 @@
+<br/>
+<br/>
+
+<div class="animated fadeInUp">
+
+	<%= link_to export_students_path do %>
+		<div class="mobile_package even_blue">
+			<p>STUDENTS</p>
+		</div> 
+	<% end %>
+
+	<%= link_to new_award_path do %>
+		<div class="mobile_package odd_blue">
+			<p>AWARDS</p>
+		</div> 
+	<% end %>
+
+	<% if current_user.try(:admin) %>
+	<%= link_to new_award_path do %>
+		<div class="mobile_package even_blue">
+			<p>DASHBOARD</p>
+		</div> 
+	<% end %>
+	<% end %>
+</div>
