@@ -7,6 +7,8 @@
   </div>
   <%= f.input :quantity %>
   <%= f.input :image, as: :file %>
+  <%= f.label :_destroy, "Remove Exra" %>
+  <%= f.check_box :_destroy %>
 
   <%= f.simple_fields_for :prices do |builder| %>
           <%= render 'price_fields', f: builder %>
