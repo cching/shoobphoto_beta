@@ -1,8 +1,6 @@
-<% @template.pdfs.each do |pdf| %>
-<% type = pdf.types.first %>
+<% type = @template.pdfs.first.types.first %>
 <% if @template.export_datas.where(:type_id => type.try(:id)).any? %>
   <iframe src=<%= @template.export_datas.where(:type_id => type.id).last.file.url %> width="100%" height="400" style="border: none;"> </iframe>
-  <% end %>
   <% end %>
 
   

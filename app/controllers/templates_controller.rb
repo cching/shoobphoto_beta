@@ -75,9 +75,8 @@ class TemplatesController < ApplicationController
   def update
     @template.update(template_params)
 
-      @template.pdfs.each do |pdf|
 
-      types = pdf.types
+      types = @template.pdfs.first.types
 
       if types.any?
         type = types.first
@@ -98,7 +97,6 @@ class TemplatesController < ApplicationController
           @export_data.save
         end
       end
-    end
       
   end
 
