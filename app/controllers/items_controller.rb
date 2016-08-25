@@ -158,7 +158,11 @@ class ItemsController < ApplicationController
 
     @cart.items.each do |item|
       quantity = @cart.cart_items.where(:item_id => item.id).last.quantity
-      @cart.price = @cart.price + (item.price*quantity)
+      if quantity == 0
+        @cart.items.delete(item)
+      else
+        @cart.price = @cart.price + (item.price*quantity)
+      end
     end
 
     unless Zipcode.pluck(:zip_code).include? @cart.zip_code
