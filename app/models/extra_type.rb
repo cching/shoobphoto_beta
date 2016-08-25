@@ -7,6 +7,5 @@ class ExtraType < ActiveRecord::Base
 
 
 	accepts_nested_attributes_for :options
-	accepts_nested_attributes_for :extras
 end
- 
+  
