@@ -17,39 +17,41 @@ class CorderExport
               @string3 = ""
               @string4 = ""
               @string5 = ""
+
+              @items = order.cart.items.order(:number)
                 
-              order.cart.items[0..4].each do |item|
+              @items[0..4].each do |item|
                 citem = order.cart.cart_items.where(:item_id => item.id).last
                 @string1 = @string1 + "#{item.number}, #{item.name}, #{citem.quantity}; "
               end
 
-              if order.cart.items.count > 5
+              if @items.count > 5
 
-              order.cart.items[5..9].each do |item|
+              @items[5..9].each do |item|
                 citem = order.cart.cart_items.where(:item_id => item.id).last
                 @string2 = @string2 + "#{item.number}, #{item.name}, #{citem.quantity}; "
               end
               end
 
-              if order.cart.items.count > 10
+              if @items.count > 10
 
-              order.cart.items[10..14].each do |item|
+              @items[10..14].each do |item|
                 citem = order.cart.cart_items.where(:item_id => item.id).last
                 @string3 = @string3 + "#{item.number}, #{item.name}, #{citem.quantity}; "
               end
               end
 
-              if order.cart.items.count > 15
+              if @items.count > 15
 
-              order.cart.items[15..19].each do |item|
+              @items.each do |item|
                 citem = order.cart.cart_items.where(:item_id => item.id).last
                 @string4 = @string4 + "#{item.number}, #{item.name}, #{citem.quantity}; "
               end
               end
 
-              if order.cart.items.count > 20
+              if @items.count > 20
 
-              order.cart.items[20..24].each do |item|
+              @items[20..24].each do |item|
                 citem = order.cart.cart_items.where(:item_id => item.id).last
                 @string5 = @string5 + "#{item.number}, #{item.name}, #{citem.quantity}; "
               end
