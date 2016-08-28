@@ -6,7 +6,7 @@
 }
 
 .mobile_large_font {
-  font-size: 27px;
+  font-size: 33px;
 }
 
 .btn-blue_mobile2 {
@@ -20,36 +20,64 @@
   text-decoration: none;
   text-align:center;
   color:#fff;
-  font-size: 30px;
+  font-size: 33px;
+}
+
+.container {
+  width: 100%; !important
 }    
+
+.container-fluid {
+  width: 100%; !important
+}
+
+.mobile_status_left {
+  width: auto;
+  float: left;
+  margin: 0px 40px 0px 0px;
+}
+
+.mobile_status_right {
+  width: auto;
+}
   
 </style>
 
 <div class="mobile_index_form">
-<h1>Notes</h1>
+<span style ="font-size:60px"><b>Notes</b></span>
+
+<br/>
 
 <% @school_notes.each do |school| %>
-  <h4><%= school.name %></h4>
-  <hr>
+  <span style ="font-size:50px"><b><%= school.name %></b></span><br/>
+ 
   <% school.notes.each do |note| %>
-  <div class="row">
-    
-      <div class="mobile_large_font"><i><%= note.created_at.to_time %></i></div>
-    
-    <div class="col-sm-8">
-      <div class="mobile_large_font"><%= note.note %></div>
-    </div>
-    <div class="col-sm-2">
-      <div class="mobile_large_font">Status: <%= note.complete? ? 'Completed' : 'Incomplete' %></div><br/>
-      <%= link_to "View", note_path(school.id, note.id), class: "btn-blue_mobile2" %>
+  
+<div class="mobile_status_left">
+  <div class="mobile_large_font">
+    Status: <%= note.complete? ? 'Completed' : 'Incomplete' %>
+  </div>
+</div>
 
-    </div>
-  </div><br/>
-  <div class="row">
-    <div class="col-sm-2"></div>
-    <div class="mobile_large_font"><div class="col-sm-10"><strong>Response:</strong> <%= note.action %></div></div>
-  </div><br/>
+<div class="mobile_status_right">
+  <%= link_to "View", note_path(school.id, note.id), class: "btn-blue_mobile2" %>
+</div>  
+
+  <br/>
   <hr>
+
+  <div class="mobile_large_font">[<i><%= note.created_at.to_time %></i>]</div>
+  <br/>  
+
+    <div class="mobile_large_font"><%= note.note %></div>
+ 
+  <br/>
+  
+  
+    <div class="mobile_large_font"><strong>Response:</strong> <%= note.action %></div>
+  <br/>
+  
+  <hr><hr>
   <% end %>
 
 <% end %>

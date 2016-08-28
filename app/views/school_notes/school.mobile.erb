@@ -6,20 +6,28 @@
 }
 
 .mobile_school_font {
-	font-size: 30px;
+	font-size: 40px;
 }
 
 .mobile_label_font {
 	font-size: 35px;
 }
 .mobile_label_font2 {
-	font-size: 35px;
+	font-size: 40px;
 }
-	
+
+.container {
+  width: 100%; !important
+}    
+
+.container-fluid {
+  width: 100%; !important
+}
+   	
 </style>
 
 <div class="mobile_note_form">
-<h2><%= @school.name %></h2>
+<span style ="font-size:60px"><b><%= @school.name %></b></span>
 <hr>
 <div class="mobile_school_font">
 <%= @school.city.try(:name) %>: <%= @school.district.try(:name) %><br/>
@@ -31,13 +39,14 @@ Secretary: <%= @school.secretary %><br/>
 </div>
 <hr>
 
-<h2>Notes</h2>
+<span style ="font-size:60px"><b>Notes</b></span>
 
 <%= form_for(@school, :url => updatenote_school_note_path(@school)) do |f| %>
 	<%= f.fields_for :notes do |builder| %>
 	  <%= render 'note_fields', f: builder %>
 	<% end %>
-	<span class="mobile_label_font2"><%= link_to_add_fields "Add New Note to School", f, :notes %></span><br/><br/>
+	<br/>
+	<span class="mobile_label_font2"><%= link_to_add_fields "Add New Note", f, :notes %></span><br/><br/>
 	  <hr>
 <span class="mobile_label_font2"><%= f.submit %></span>
 <% end %>
