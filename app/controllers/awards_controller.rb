@@ -14,8 +14,10 @@ class AwardsController < ApplicationController
 
   def new
     if current_user
-    @export_list = ExportList.new
-    respond_with(@award)
+    @export_list = ExportList.create
+    @export_list.save
+    @export_list.update(:uniq_id => SecureRandom.hex(8))
+    redirect_to edit_award_path(@export_list.id)
     else
       redirect_to new_user_session_path
     end
@@ -26,8 +28,7 @@ class AwardsController < ApplicationController
 
   def create
     @export_list = ExportList.new(export_list_params)
-    @export_list.save
-    @export_list.update(:uniq_id => SecureRandom.hex(8))
+    
 
     redirect_to export_awards_path(@export_list.uniq_id)
   end
