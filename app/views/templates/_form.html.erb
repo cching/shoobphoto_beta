@@ -17,7 +17,6 @@
   <div class="col-sm-9">
 <h3>Fields</h3> <a href="#" id="show_all">Show all</a> - <a href="#" id="hide_all">Hide unselected</a>
  
-  <%= hidden_field_tag "template[category_ids][]", nil %>
 
 <table class="table">
   <tr>
@@ -99,8 +98,6 @@
       File
     </div>
   </div>
-
-  (Need to work on this - we'll need to be careful if there are multiple types per PDF as I'll probably only keep the first type belonging to a PDF when migrating over the data.)
     <%= f.simple_fields_for :pdfs do |builder| %>
     <%= render 'pdf_fields', f: builder %>
   <% end %>
@@ -112,6 +109,12 @@
 <script>
 
 $(".multiple_select").select2();
+
+$(".field_field").blur(function() {
+  $(".edit_template").submit();
+  $("#preview").html("Loading...");
+
+});
 
 $(".field_field").blur(function() {
   $(".edit_template").submit();
@@ -147,6 +150,11 @@ $(document).ready(function() {
     event.preventDefault(); // Prevent link from following its href
   });
 
+});
+
+$('.column_input').click(function() {
+  $(".edit_template").submit();
+  $("#preview").html("Loading...");
 });
 
 

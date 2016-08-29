@@ -11,7 +11,7 @@ class TemplatesController < ApplicationController
         field.delete 
       end
     end
-  end
+  end 
 
   def copy
     @template = Template.find(params[:id])
@@ -89,6 +89,10 @@ class TemplatesController < ApplicationController
 
       @export_data.export_data_students.new(:student_id => 129932)
       @export_data.save
+
+      @export_data.errors.full_messages.each do |error|
+        puts "@@@@@@@@#{error}"
+      end
 
       file_name = ["export-file-#{@export_data.id}", ".pdf"]
         Tempfile.open(file_name) do |file|
