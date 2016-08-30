@@ -69,6 +69,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   resources :templates do
     member do
       get 'copy'
+      get 'pdf'
+      patch 'update_pdf'
     end
     resources :fields
     resources :pdfs do

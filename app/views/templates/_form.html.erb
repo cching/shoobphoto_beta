@@ -1,4 +1,6 @@
-<br/><br/><div class="template_container">
+<div class="template_container">
+  <%= link_to "Add PDFs", pdf_template_path(@template.id), class: "btn-blue" %><br/>
+
 <%= simple_form_for(@template, :remote => true, :html => { :multipart => true }, :input_html => {:id => "template_form"} ) do |f| %>
   <%= f.error_notification %>
   <% if @template.errors.any? %>
@@ -8,10 +10,6 @@
   <% end %>
 </ul>
 <% end %>
-
-  <div class="form-inputs">
-    <%= f.input :name %>
-  </div>
 
 <div class="row">
   <div class="col-sm-9">
@@ -87,22 +85,7 @@
   </div>
 </div>
 </div>
-<h3>Pdfs</h3>
-<hr>
-<div class="row">
-    <div class="col-sm-4">
-      Name
-    </div>
-    
-    <div class="col-sm-8">
-      File
-    </div>
-  </div>
-    <%= f.simple_fields_for :pdfs do |builder| %>
-    <%= render 'pdf_fields', f: builder %>
-  <% end %>
 
-  <%= link_to_add_fields "Add PDF", f, :pdfs %>
   
 <% end %>
 </div>

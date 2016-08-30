@@ -1,7 +1,8 @@
+<div class="col-xs-4">
 <%= f.input :name %>
+</div>
 
+<div class="col-xs-4">
 <%= f.association :schools, collection: School.all.where.not(school_type_id: nil).order(:name), input_html: { class: 'multiple_select'} %><br/>
 
-<%= f.check_box :_destroy %>
-  <%= f.label :_destroy, "Remove Type" %>
-<hr>
+</div>

@@ -1,7 +1,25 @@
 class TemplatesController < ApplicationController
-  before_action :set_template, :require_admin, only: [:show, :edit, :update, :destroy, :preview]
+  before_action :set_template, :require_admin, only: [:show, :edit, :update, :destroy, :preview, :pdf, :update_pdf]
 
   respond_to :html
+
+  def pdf 
+    @template.pdfs.each do |pdf|
+      unless pdf.types.any?
+        pdf.types.create
+      end
+    end
+  end
+
+  def update_pdf
+    @template.update(template_params)
+
+    if @template.errors.any?
+      redirect_to :back
+    else
+    redirect_to edit_template_path(@template.id)
+    end
+  end
 
   def preview
     @template = Template.find(params[:id])
@@ -59,7 +77,7 @@ class TemplatesController < ApplicationController
 
   def new
     @template = Template.create(:name => "New template")
-    redirect_to edit_template_path(@template)
+    redirect_to pdf_template_path(@template)
   end
 
   def edit

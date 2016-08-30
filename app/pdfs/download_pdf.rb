@@ -1,6 +1,6 @@
 class DownloadPdf < Prawn::Document
   require 'prawn'
-    
+     
     def initialize(export_data, package_id, path)
       @export_data = ExportData.find(export_data)
       @package = Package.find(package_id)

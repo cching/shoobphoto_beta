@@ -1,9 +1,13 @@
 <div class="row">
-<% @pdf = @template.pdfs.create %>
-<%= f.simple_fields_for :types, @pdf.types.new do |builder| %>
+<% if @pdf.types.any? %>
+<%= f.simple_fields_for :types, @pdf.types.first do |builder| %>
 	  <%= render 'type_fields', f: builder %>
 <% end %>
-
+<% else %>
+<%= f.simple_fields_for :types, @pdf.types.create do |builder| %>
+	  <%= render 'type_fields', f: builder %>
+<% end %>
+<% end %>
 <div class="col-sm-2">
 <%= f.input :file %>
 </div>
