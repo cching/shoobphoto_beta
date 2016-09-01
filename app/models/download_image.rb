@@ -24,11 +24,11 @@ class DownloadImage < ActiveRecord::Base
 
 
   	def self.package_name(id)
-  		folder = DownloadImage.find(id).folder
+  		folder = StudentImage.find(id).folder
   		name = folder.match(/([A-Za-z]+)(\d+)/)
   		@out = "#{name[1].humanize} #{name[2]} Portraits"
 
-  		return @out 
+  		return @out  
 
   	end
   end
