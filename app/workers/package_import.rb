@@ -14,7 +14,7 @@ class PackageImport
 		    	unless h["student_id"].nil?
 		        student = school.students.find_by_student_id("#{h["student_id"]}")
 
-			          unless student.present?     
+			          if student.present?     
 
 			           	student.update(:shoob_id => h["shoob_id"])
 			          end
