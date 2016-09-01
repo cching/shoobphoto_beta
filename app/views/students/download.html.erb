@@ -1,3 +1,7 @@
+<br/><br/>
+<br/>
+
+
 <% unless defined? @student %>
 <h3 align="center">We've had trouble finding the images for your student with <strong><%= @shoob_id.upcase %></strong>. Please try again <%= link_to "here", student_find_student_path %>.<br/> If trouble persists, please contact us. </h3>
 <% else%>
@@ -13,13 +17,13 @@
 	</div>
 
 	<div class="col-sm-8">
+		<% unless @images.nil? %>
 	<div id="scrolltable">
 		<div class="inner" align="center">
 			<span class="blue">
 			<strong>Download digital images from previous school years!</strong><br/>
 			Click an image below to view pricing and packages.</span><br/><br/>
 
-		<% unless @images.nil? %>
 			
 				<% @images.each_slice(3) do |images| %>
 				<div class="row">
@@ -42,9 +46,9 @@
 				<% end %>
 				
 			
-		<% end %>
 	</div>
 	</div>
+	<% end %>
 </div>
 </div>
 
