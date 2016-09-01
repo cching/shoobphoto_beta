@@ -62,7 +62,7 @@ class CorderExport
 
               @items[25..29].each do |item|
                 citem = order.cart.cart_items.where(:item_id => item.id).last
-                @string5 = @string5 + "#{item.number}, #{item.name}, #{citem.quantity}; "
+                @string6 = @string6 + "#{item.number}, #{item.name}, #{citem.quantity}; "
               end
               end
      
