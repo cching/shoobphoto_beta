@@ -15,8 +15,13 @@ class PackageImport
 		        student = school.students.find_by_student_id("#{h["student_id"]}")
 
 			          if student.present?     
+			          	images = student.student_images.where(:folder => "#{h["folder"]}")
 
-			           	student.update(:shoob_id => h["shoob_id"])
+			          	if images.any?
+			          		image = images.last
+
+			           		image.update(:shoob_id => h["shoob_id"])
+			           	end
 			          end
 
 			        end

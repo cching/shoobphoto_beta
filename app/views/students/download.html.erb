@@ -9,7 +9,7 @@
 				<br/><strong class="image_text"><%= DownloadImage.package_name(@found_image.id) %></strong><br/>
 				
 					<%= link_to "Download Image", student_push_image_path(@student.id, :url => @found_image.image.url), class: "btn-custom2" %>
-	
+	 
 	</div>
 
 	<div class="col-sm-8">
@@ -20,7 +20,6 @@
 			Click an image below to view pricing and packages.</span><br/><br/>
 
 		<% unless @images.nil? %>
-
 			
 				<% @images.each_slice(3) do |images| %>
 				<div class="row">
