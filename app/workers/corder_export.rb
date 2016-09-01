@@ -7,7 +7,7 @@ class CorderExport
 
       csv_file = ''
 
-          csv_file << CSV.generate_line(Corder.all.first.attributes.keys[0..13].map{|column| column} + Corder.all.first.attributes.keys[14..21].map{|column| column} + ['Grade'] + ['School'] + ['District'] + ['Price'] + ['Items1to5'] + ['Items 6 to 10'] + ['Items 11 to 15'] + ['Items 16 to 20'] + ['Items 21 to 25'] + ['Items 26 to 29'] + ['Processed'])
+          csv_file << CSV.generate_line(Corder.all.first.attributes.keys[0..13].map{|column| column} + Corder.all.first.attributes.keys[14..21].map{|column| column} + ['Grade'] + ['School'] + ['District'] + ['Price'] + ['Items1to5'] + ['Items 6 to 10'] + ['Items 11 to 15'] + ['Items 16 to 20'] + ['Items 21 to 25'] + ['Items 26 to 30'] + ['Items 31 to 35'] + ['Items 36 to 40']  + ['Processed'])
             Corder.all.each do |order|
 
               
@@ -18,6 +18,8 @@ class CorderExport
               @string4 = ""
               @string5 = ""
               @string6 = ""
+              @string7 = ""
+              @string8 = ""
 
               @items = order.cart.items.order(:number)
                 
@@ -65,8 +67,24 @@ class CorderExport
                 @string6 = @string6 + "#{item.number}, #{item.name}, #{citem.quantity}; "
               end
               end
+
+              if @items.count > 30
+
+              @items[30..34].each do |item|
+                citem = order.cart.cart_items.where(:item_id => item.id).last
+                @string7 = @string7 + "#{item.number}, #{item.name}, #{citem.quantity}; "
+              end
+              end
+
+              if @items.count > 35
+
+              @items[35..39].each do |item|
+                citem = order.cart.cart_items.where(:item_id => item.id).last
+                @string8 = @string8 + "#{item.number}, #{item.name}, #{citem.quantity}; "
+              end
+              end
      
-                csv_file << CSV.generate_line(order.attributes.values[0..13] + order.attributes.values[14..21] + [order.try(:grade)] + ["#{order.schools}"] +["#{order.district}"] + ["#{order.price.to_i}"] + [@string1] + [@string2] + [@string3] + [@string4] + [@string5] + [@string6] + ["#{order.processed}"]
+                csv_file << CSV.generate_line(order.attributes.values[0..13] + order.attributes.values[14..21] + [order.try(:grade)] + ["#{order.schools}"] +["#{order.district}"] + ["#{order.price.to_i}"] + [@string1] + [@string2] + [@string3] + [@string4] + [@string5] + [@string6] + [@string7] + [@string8] + ["#{order.processed}"]
 
               ) 
             

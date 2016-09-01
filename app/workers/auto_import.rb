@@ -28,7 +28,7 @@ class AutoImport
 				          end
 
 				          if h["rec_type"].downcase == 'master'
-				          	image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"])
+				          	image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"], :shoob_id => h["shoob_id"])
 				            image.index_file_name = "#{image.image_file_name}-index"
 				            image.save
 				          else
@@ -36,7 +36,7 @@ class AutoImport
 				          	images = student.student_images.where(:package_id => 6)
 
 				          	unless images.any?
-				          		image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"])
+				          		image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"], :shoob_id => h["shoob_id"])
 				            	image.index_file_name = "#{image.image_file_name}-index"
 				            	image.save
 				            else
@@ -74,7 +74,7 @@ class AutoImport
 				           	student.update(:student_id => h["student_id"], :access_code => h["accesscode"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :teacher => h["teacher"], :shoob_id => h["shoob_id"], :id_only => true)
 				          end
 
-				          image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :watermark_file_name => h["url"], :index_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"], :url2 => h["url2"], :url3 => h["url3"], :url4 => h["url4"], :url1 => h["url1"] )
+				          image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :watermark_file_name => h["url"], :index_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"], :url2 => h["url2"], :url3 => h["url3"], :url4 => h["url4"], :url1 => h["url1"], :shoob_id => h["shoob_id"] )
 				          image.save
 
 				          obj1 = bucket.objects["images/processed_watermarks/#{image.folder}/#{image.image_file_name}.jpg"]
