@@ -8,10 +8,8 @@ class OrderExport
       csv_file = ''
 
           csv_file << CSV.generate_line(Order.all.first.attributes.keys[0..12].map{|column| column} + Order.all.first.attributes.keys[14..21].map{|column| column} + ['Price'] + ['Student First Name'] + ['Student Last Name'] + ['Student Teacher'] + ['Student ID']  + ['Student Grade'] + ['Student SChool']  + ['Type'] + ['Package'] + ['8x10 | 5x7 | 3x5 | Wallets | Image CD | Name on Wallets | Retouching'] + ['CA Code'] + ['Senior Image'] + ['Grad Image'] + ['Year'] + ['Extra Poses'] + ['Sheet Types'] + ['Yearbook Image']+ ['Access Code'])
-          my_date = Date.strptime("8/28/2016", "%m/%d/%Y")
 
-
-            Order.where("created_at >= ?", my_date).order(:id).each do |order|
+            Order.all.where.not(processed: true).order(:id).each do |order|
               order.cart.students.each do |student|
 
                 @string1 = ""
