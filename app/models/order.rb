@@ -43,7 +43,7 @@ class Order < ActiveRecord::Base
       end
 
       @cart.order_packages.where(:student_id => sid).each do |opackage|
-        unless opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.nil?
+        unless Student.find(opackage.student_id).school.nil?
         if opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).any?
         @price = @price + opackage.package.shippings.where(:school_id => Student.find(opackage.student_id).school.id).first.price
         end
