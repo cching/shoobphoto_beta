@@ -40,8 +40,9 @@
 		</div>
 	</div>
 	<% else %>
-
-<div class="row animated fadeIn" id="select_package">
+	
+<div class="animated fadeIn" id="select_package">
+	<div class="row">
 	<div class="col-xs-2">
 		<% unless @image.nil? %>
 			<% if @cart.id_supplied? %>
@@ -95,6 +96,14 @@
 	<% end %>
 	<% end %>
 </div>
+</div>
+
+	<div class="row">
+
+		<div class="col-xs-1" align="right"><%= link_to "Back", student_packages_path(@cart.cart_id, @i), class: "btn-blue" %></div>
+
+		<div class="col-xs-11"></div>
+	</div>
 </div>
 <% end %>
 

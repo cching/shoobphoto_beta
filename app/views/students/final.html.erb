@@ -176,12 +176,12 @@
 		<br/>
 		<div class="row">
 			<div class="col-xs-8">
-				<%= link_to "Continue Shopping", student_packages_path(@cart.cart_id, @cart.students.count - 1), class: "btn-blue" %>
-				<br/>
+		
 				<%= link_to "Add More Students to Your Order", student_search_path(:cart => @cart.cart_id, :i => @cart.students.count), class: "btn-blue" %>
 			</div>
 			<div class="col-xs-2" align="right">
-				<%= link_to "Checkout", new_order_path(@cart.cart_id), class: "btn-blue" %>
+				<%= link_to "Checkout", new_order_path(@cart.cart_id), class: "btn-blue" %><br/>
+				<%= link_to "Back", student_packages_path(@cart.cart_id, @cart.students.count - 1), class: "btn-blue" %>
 				<% if current_user.try(:admin) %>
 				<%= link_to "PayPal", @cart.paypal_url(root_url, payment_notifications_url), class: "btn-blue" %>
 				<% end %>

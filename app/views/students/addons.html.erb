@@ -76,7 +76,9 @@
 				<span class="price">Subtotal: <%= number_to_currency(@option.price, :show_zero => false) %></span>
 			</div>
 			<div class="col-xs-3">
-				<%= link_to "Continue", student_update_path(@cart.cart_id, @cart.students.count - 1), class: "btn-blue" %>
+				<%= link_to "Continue", student_update_path(@cart.cart_id, @cart.students.count - 1), class: "btn-blue" %><br/>
+				<%= link_to "Back", student_select_package_path(@cart.cart_id, @cart.students.count - 1, @option.package.id), class: "btn-blue" %>
+				
 			</div>
 		</div>
 	</div>

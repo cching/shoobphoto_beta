@@ -8,10 +8,14 @@
     <div class="blue"><strong>Enter your student's information below.</strong></div>
         <span class="search_input">SCHOOL OR SPORT</span>
         <select name="school[school_id]" id="dropdown" class="enjoy-css">
+          <option value="">Enter school name...</option> 
+
             <% School.all.order(:name).where.not(school_type_id: nil).each do |school| %>
                 <option value="<%= school.id %>"><%= school.name.titleize %></option>
             <% end %>
+            
         </select>
+        <span id="school_error"></span>
 
 
         <% unless cookies[:user_email].nil? %>
@@ -27,7 +31,8 @@
         <%= text_field_tag :student_id, nil, placeholder: "Student's ID or Access Code", class: "enjoy-css2", id: "input_student_id" %>
           </div>
           <div class="col-xs-4" id="student_grade">
-            <%= select_tag :grade, options_for_select(Student::Grades), id: "gradedropdown" %>
+            <%= select_tag :grade, options_for_select(Student::Grades), id: "gradedropdown", :prompt => "Enter grade..." %>
+            <span id="grade_error"></span>
 
           </div>
           </div>
@@ -145,7 +150,36 @@ function validateForm(){isValid = false;
       document.getElementById("student_first_name").className = "";
       document.getElementById("student_first_name").className = "enjoy-css";
       }
-    
+
+      var x = document.getElementById('dropdown').value;
+    if (x == null || x == "") {
+        isValid = false;
+        var d = document.getElementById("dropdown");
+        d.className += " error_field";
+
+        $("#school_error").html("<p>Please select a school</p>");
+      } else {
+
+      document.getElementById("dropdown").className = "";
+      document.getElementById("dropdown").className = "enjoy-css";
+      $("#school_error").html("");
+      }
+
+      var x = document.getElementById('gradedropdown').value;
+    if (x == null || x == "") {
+        isValid = false;
+        var d = document.getElementById("gradedropdown");
+        d.className += " error_field";
+        
+        $("#grade_error").html("<p>Please select a grade</p>");
+      } else {
+
+      document.getElementById("gradedropdown").className = "";
+      document.getElementById("gradedropdown").className = "enjoy-css";
+      $("#school_error").html("");
+      }
+
+
 
     var z = document.getElementById('input_email').value;
     if (z == null || z == "") {
