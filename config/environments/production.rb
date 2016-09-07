@@ -93,7 +93,6 @@ config.action_mailer.raise_delivery_errors = true
   config.active_record.dump_schema_after_migration = false
 
   config.web_console.development_only = false 
-  config.web_console.whitelisted_ips = %w( 127.0.0.1 40.77.167.40 69.110.69.78 74.112.197.142)
 
   config.paperclip_defaults = {
   :storage => :s3,
@@ -104,6 +103,14 @@ config.action_mailer.raise_delivery_errors = true
   }
 }
 
+Rails.application.config.middleware.use ExceptionNotification::Rack,
+    :email => {
+    :email_prefix => "[ERROR LOG] ",
+     :sender_address => %{"Shoobphoto Notifier" <info@shoobphoto.com>},
+     :exception_recipients => %w{cching@live.com}
+
+   }
+   
 
 
   config.after_initialize do
