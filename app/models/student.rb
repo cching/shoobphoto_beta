@@ -69,7 +69,8 @@ end
     ['Freshman', 9],
     ['Sophomore', 10],
     ['Junior', 11],
-    ['Senior', 12]
+    ['Senior', 12],
+    ['Other', 'other']
   ]
 
   CorderGrades = [

@@ -155,35 +155,30 @@ function validateForm(){isValid = false;
     if (x == null || x == "") {
         isValid = false;
         var d = document.getElementById("dropdown");
-        d.className += " error_field";
 
         $("#school_error").html("<p>Please select a school</p>");
       } else {
 
-      document.getElementById("dropdown").className = "";
-      document.getElementById("dropdown").className = "enjoy-css";
       $("#school_error").html("");
       }
 
       var x = document.getElementById('gradedropdown').value;
     if (x == null || x == "") {
         isValid = false;
-        var d = document.getElementById("gradedropdown");
-        d.className += " error_field";
+
         
         $("#grade_error").html("<p>Please select a grade</p>");
       } else {
 
-      document.getElementById("gradedropdown").className = "";
-      document.getElementById("gradedropdown").className = "enjoy-css";
-      $("#school_error").html("");
+
+      $("#grade_error").html("");
       }
 
 
 
     var z = document.getElementById('input_email').value;
     if (z == null || z == "") {
-        isValid = false;
+        isValid = false; 
         var d = document.getElementById("input_email");
         d.className += " error_field";
         } else {

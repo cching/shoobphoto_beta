@@ -97,6 +97,30 @@
  function validateForm1(){isValid = false; 
   var isValid = true;
 
+
+   var x = document.getElementById('dropdown').value;
+    if (x == null || x == "") {
+        isValid = false;
+        var d = document.getElementById("dropdown");
+
+        $("#school_error").html("<p>Please select a school</p>");
+      } else {
+
+      $("#school_error").html("");
+      }
+
+      var x = document.getElementById('gradedropdown').value;
+    if (x == null || x == "") {
+        isValid = false;
+
+        
+        $("#grade_error").html("<p>Please select a grade</p>");
+      } else {
+
+
+      $("#grade_error").html("");
+      }
+
   var x = document.getElementById('student_first_name').value;
     if (x == null || x == "") {
         isValid = false;
