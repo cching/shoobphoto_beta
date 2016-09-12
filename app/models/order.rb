@@ -33,7 +33,7 @@ class Order < ActiveRecord::Base
   def self.price oid, sid
     order = Order.find(oid)
     @cart = order.cart
-    @price = 0
+    @price = 0 
 
 
       @cart.order_packages.where(:student_id => sid).each do |package|

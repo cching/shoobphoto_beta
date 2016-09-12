@@ -16,7 +16,7 @@ private
     students = students.where('students.school_id = ?', "#{school_id}") if school_id.present?
     carts = CartStudent.where(student_id: students.pluck(:id)) if school_id.present?
     orders = orders.where(cart_id: carts.pluck(:cart_id)) if school_id.present? 
-
+    orders = orders.where("id = ?", "#{order_id.to_i}") if order_id.present?
     orders = orders.where("lower(first_name) like ?", "%#{first_name.downcase}%") if first_name.present?
     orders = orders.where("lower(last_name) like ?", "%#{last_name.downcase}%") if last_name.present?
     orders = orders.where("phone like ?", "%#{phone}%") if phone.present?
