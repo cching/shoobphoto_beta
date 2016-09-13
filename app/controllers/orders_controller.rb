@@ -196,8 +196,12 @@ end
 	    	end
 	    	OrderMailer.receipt(@order).deliver
 
-	    		redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt."
-	    	
+	    	respond_to do |format|
+
+
+	    		format.html {redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt." }
+	    		format.mobile {redirect_to after_purchase_pages_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt." }
+	    	end
 	    else
 	    	respond_to do |format|
 	    	format.html { render 'new', :price => @order.price}

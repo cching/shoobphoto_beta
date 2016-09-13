@@ -16,6 +16,13 @@ class PagesController < ApplicationController
   def close_menu
   end
 
+  def after_purchase
+    respond_to do |format|
+        format.html
+        format.mobile
+      end
+  end
+
   def home
         
 

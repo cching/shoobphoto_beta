@@ -85,6 +85,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
     collection do
       get :menu
       get :close_menu
+      get :after_purchase
     end
   end
 
