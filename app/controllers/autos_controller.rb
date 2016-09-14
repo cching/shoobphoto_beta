@@ -13,9 +13,9 @@ class AutosController < ApplicationController
     objects.each do |object|
       csv_path  = "https://s3-us-west-1.amazonaws.com/shoobphoto/#{object}"
 
-      csv_file  = open(csv_path,'wb')
+      csv_file  = open(csv_path,'r')
 
-      chunk = SmarterCSV.process(csv_file, options={:chunk_size => 500, row_sep: :auto, :file_encoding =>'iso-8859-1'}) do |chunk|
+      chunk = SmarterCSV.process(csv_file, {:chunk_size => 500, row_sep: :auto}) do |chunk|
         AutoImport.perform_async(chunk, object, @auto.id)
       end
  
