@@ -3,7 +3,7 @@ class AutoImport
  	sidekiq_options queue: "package_import"
 
   	def perform(chunk, s3_key, auto)
-   		@auto = Auto.find(auto)
+   		@auto = Auto.find(auto) 
    		bucket = AWS::S3::Bucket.new('shoobphoto')
       	s3 = AWS::S3.new
       	chunk.each do |h|
@@ -12,7 +12,7 @@ class AutoImport
       		if schools.any?
       			school = schools.last
       			packages = school.packages.where("lower(slug) like ?", "%#{h["slug"].downcase}%")
-      		if packages.any?
+      		if packages.any? 
       			package = packages.last
 	      	unless h["rec_type"].nil? || h["rec_type"] == ""
 		        
@@ -84,11 +84,11 @@ class AutoImport
 				    end#end if no student id
 			    end  # end rectype
 			else #else packages
-				@auto.student_errors.create(:error_text => "#{h}", :error_description => "No package found with slug #{h["slug"]}")
+				@auto.student_errors.create(:priority => 0, :error_text => "#{h}", :error_description => "No package found with slug #{h["slug"]}")
 			end # end if no packages found
 
 			else
-				@auto.student_errors.create(:error_text => "#{h}", :error_description => "No school found with CA code #{h["ca_code"]}")
+				@auto.student_errors.create(:priority => 0, :error_text => "#{h}", :error_description => "No school found with CA code #{h["ca_code"]}")
 		        
 		    end #end if no schools found
 		end #end unless ca_code nil
