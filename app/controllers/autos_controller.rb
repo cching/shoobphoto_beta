@@ -11,7 +11,7 @@ class AutosController < ApplicationController
 
     ##add error/success count
 
-    @auto = Auto.create
+    @auto = Auto.create(:success_count => 0, :failed_count => 0)
     s3 = AWS::S3.new
     
     bucket = AWS::S3::Bucket.new('shoobphoto')
