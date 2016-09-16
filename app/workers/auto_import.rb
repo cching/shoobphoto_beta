@@ -7,7 +7,7 @@ class AutoImport
    		bucket = AWS::S3::Bucket.new('shoobphoto')
       	s3 = AWS::S3.new
       	chunk.each do |h|
-      		unless h["ca_code"].nil?
+      		unless h["ca_code"].nil? 
       		schools = School.where(:ca_code => "#{h["ca_code"]}")
       		if schools.any?
       			school = schools.last
@@ -18,6 +18,8 @@ class AutoImport
 		        
 					unless h["student_id"].nil?
 						students = school.students.where(:student_id => "#{h["student_id"]}")
+
+						@auto.increment!(:success_count)
 
 				          unless students.any?    
 				            student = school.students.new(:student_id => h["student_id"], :access_code => h["accesscode"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :id_only => true, :access_code => h["accesscode"])
@@ -63,9 +65,11 @@ class AutoImport
 
 
 			        end
-		    	else
+		    	else #else rectype
 			    	unless h["student_id"].nil?
 			        student = school.students.find_by_student_id("#{h["student_id"]}")
+
+			        @auto.increment!(:success_count)
 
 				          unless student.present?     
 				            student = school.students.new(:student_id => h["student_id"], :access_code => h["accesscode"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :teacher => h["teacher"], :shoob_id => h["shoob_id"], :id_only => true)
@@ -85,11 +89,12 @@ class AutoImport
 			    end  # end rectype
 			else #else packages
 				@auto.student_errors.create(:priority => 0, :error_text => "#{h}", :error_description => "No package found with slug #{h["slug"]} for school #{h["ca_code"]} - check that the package exists for the school")
+				@auto.increment!(:failed_count)
 			end # end if no packages found
 
 			else
 				@auto.student_errors.create(:priority => 0, :error_text => "#{h}", :error_description => "No school found with CA code #{h["ca_code"]} - check that the CSV CA code matches exactly with the school's CA code on the site")
-		        
+		        @auto.increment!(:failed_count)
 		    end #end if no schools found
 		end #end unless ca_code nil
 

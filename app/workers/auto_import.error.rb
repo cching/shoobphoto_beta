@@ -8,6 +8,7 @@ class AutoImportError
       	s3 = AWS::S3.new
       	chunk.each do |h|
       		@auto.student_errors.create(:priority => 10, :error_text => "#{h}", :error_description => "Couldn't locate student image on the computer - #{h["url"]}")
+      		@auto.increment!(:failed_count)
 
 
      	end #end chunk loop

@@ -4,6 +4,13 @@ class AutosController < ApplicationController
   respond_to :html
 
   def start_auto
+
+    #clear database of previous
+    Auto.delete_all
+    StudentError.delete_all ## double check
+
+    ##add error/success count
+
     @auto = Auto.create
     s3 = AWS::S3.new
     
@@ -21,14 +28,14 @@ class AutosController < ApplicationController
  
     end
 
-    objects.each do |object|
+    objects.each do |object| #clear database csv
       obj = s3.buckets['shoobphoto'].objects[object] # no request made
       obj.delete
     end
 
     objects = bucket.objects.with_prefix('AutoCSV/failed').collect(&:key).drop(1)
 
-    objects.each do |object|
+    objects.each do |object| #clear failure csv
       csv_path  = "https://s3-us-west-1.amazonaws.com/shoobphoto/#{object}"
 
       csv_file  = open(csv_path,'r')
@@ -39,7 +46,7 @@ class AutosController < ApplicationController
  
     end
 
-    objects.each do |object|
+    objects.each do |object| 
       obj = s3.buckets['shoobphoto'].objects[object] # no request made
       obj.delete
     end
