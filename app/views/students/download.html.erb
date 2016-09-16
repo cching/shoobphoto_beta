@@ -10,11 +10,11 @@
 			<h3 class="blue">Click below to begin your <br/>image download.</h3>
 					
 				<%= image_tag(@found_image.image.url, class: "img-rounded img-med") %>
-				<br/><strong class="image_text"><%= DownloadImage.package_name(@found_image.id) %></strong><br/>
+				<br/><strong class="image_text"><%= StudentImage.package_name(@found_image.id) %></strong><br/>
 				
 					<%= link_to "Download Image", student_push_image_path(@student.id, :url => @found_image.image.url), class: "btn-custom2" %>
 	 
-	</div>
+	</div> 
 
 	<div class="col-sm-8">
 		<% unless @images.nil? %>

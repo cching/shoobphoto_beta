@@ -29,4 +29,13 @@ class StudentImage < ActiveRecord::Base
                     :default_url => "https://shoobphoto.s3.amazonaws.com/images/package_types/:package_id/:package_image_file_name",
                      :preserve_files => true
     validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+
+    def self.package_name(id)
+      folder = StudentImage.find(id).folder
+      name = folder.match(/([A-Za-z]+)(\d+)/)
+      @out = "#{name[1].humanize} #{name[2]} Portraits"
+
+      return @out  
+ 
+    end
 end 
