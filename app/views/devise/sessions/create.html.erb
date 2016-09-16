@@ -9,11 +9,26 @@
 		</div> 
 	<% end %>
 
-	<%= link_to new_award_path do %>
+	<%= link_to '#', id: "my-link" do %>
 		<div class="mobile_package odd_blue">
 			<p>AWARDS</p>
 		</div> 
 	<% end %>
+
+	<div id="award_options" hidden>
+		<%= link_to new_award_path do %>
+			<div class="mobile_package even_blue">
+				<p>Start a new award</p>
+			</div> 
+		<% end %>
+
+		<%= link_to edit_award_path(current_user.export_lists.last.id) do %>
+			<div class="mobile_package  odd_blue">
+				<p>Start where you left off</p>
+			</div> 
+		<% end %>
+
+	</div>
 
 	<% if current_user.try(:admin) %>
 	<%= link_to admin_dashboards_path do %>
@@ -23,3 +38,11 @@
 	<% end %>
 	<% end %>
 </div>
+
+<script>
+$('#my-link').click(function (event) {
+  $("#award_options").show();
+  $("#award_options").addClass("animated fadeInDown");
+  event.preventDefault(); // Prevent link from following its href
+});
+</script>
