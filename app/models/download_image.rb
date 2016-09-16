@@ -29,6 +29,6 @@ class DownloadImage < ActiveRecord::Base
   		@out = "#{name[1].humanize} #{name[2]} Portraits"
 
   		return @out  
-
+ 
   	end
   end 

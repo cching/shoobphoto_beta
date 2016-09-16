@@ -411,7 +411,7 @@ class StudentsController < ApplicationController
       @student = @found_image.student
       @ids = @student.download_images.pluck(:id) 
       @images = DownloadImage.where(id: @ids)
-
+ 
       @images.each do |image|
         if @images.where(:folder => image.folder).where(:year => image.year).count > 1
           @ids = @ids - [@images.where(:folder => image.folder).where(:year => image.year).first.id]
