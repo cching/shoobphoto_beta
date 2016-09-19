@@ -83,6 +83,7 @@ gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: '
 gem 'mobylette'
 gem 'web-console'
 
+gem 'plusminus', '~> 0.2.0'
 
 
 # Use ActiveModel has_secure_password

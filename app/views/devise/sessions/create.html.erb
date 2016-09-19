@@ -22,10 +22,10 @@
 			</div> 
 		<% end %>
 
-		<% unless current_user.export_lists.any? && current_user.export_lists.last.try(:id) != nil %>
+		<% if current_user.export_lists.any? && current_user.export_lists.last.try(:id) != nil %>
 		<%= link_to edit_award_path(current_user.export_lists.last.id) do %>
 			<div class="mobile_package  odd_blue">
-				<p>Start where you left off</p>
+				<p>Start awards where you left off</p>
 			</div> 
 		<% end %>
 		<% end %>

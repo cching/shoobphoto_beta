@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915205101) do
+ActiveRecord::Schema.define(version: 20160919105120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -752,6 +752,7 @@ ActiveRecord::Schema.define(version: 20160915205101) do
     t.integer  "user_id"
     t.boolean  "webcam",             default: false
     t.string   "access_code"
+    t.boolean  "enrolled",           default: false
   end
 
   create_table "subcategories", force: true do |t|
