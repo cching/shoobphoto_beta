@@ -26,3 +26,28 @@
 <% else %>
 <h3>Your awards in progress will appear here.</h3>
 <% end %>
+
+
+<% if current_user.export_lists.where(submitted: true).any? %>
+<hr>
+<h3>Your previously submitted awards:</h3>
+
+
+<% current_user.export_lists.where(submitted: true).each do |export_list| %>
+<div class="row">
+  <div class="col-xs-3">
+    Submitted
+  </div>
+
+  <div class="col-xs-4">
+    Awards: <%= export_list.awards.map(&:abbreviation).join(", ") %>
+  </div>
+
+  <div class="col-xs-3">
+    <%= link_to "Continue Award", edit_award_path(export_list.id) %>
+  </div>
+
+  </div>
+<% end %>
+
+<% end %>

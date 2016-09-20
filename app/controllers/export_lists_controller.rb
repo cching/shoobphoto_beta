@@ -32,7 +32,7 @@ class ExportListsController < ApplicationController
     end
     ListExport.perform_async(@export_list.id)
 
-    respond_to :js
+    redirect_to awards_path, notice: "Thank you for submitting your awards list! We've emailed you a confirmation."
   end
 
   def destroy
