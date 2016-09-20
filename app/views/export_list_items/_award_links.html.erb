@@ -1,13 +1,16 @@
 <div class="row" id="batch_links">
-<div class="col-sm-6">
+<div class="col-sm-4">
 	<%= link_to "Add New Student", export_new_path(@school.id, @image.id), remote: true, class: "btn btn-orange btn-centered" %>
 </div>
-<% unless current_user.teacher? %>
-<div class="col-sm-6">
+
+<div class="col-sm-4">
+
+<%= link_to "Add More Awards", edit_award_path(@export_list.id), class: "btn btn-orange btn-centered batchlink" %><br/>
+</div> 
+<div class="col-sm-4">
 
 <%= link_to "Review Awards List", export_batch_path(@school.id, :operation => 'awards', :export_list => @export_list.id), remote: true, class: "btn btn-orange btn-centered batchlink" %><br/>
 </div> 
-<% end %>
 
 </div>
 

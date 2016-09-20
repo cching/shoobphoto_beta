@@ -11,14 +11,9 @@ class ExportListItemsController < ApplicationController
     @export_list = ExportList.find_by_uniq_id(params[:uniq_id])
     if current_user
     @school = current_user.school
-      if current_user.teacher?
-        @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).paginate(:per_page => 25,:page => params[:page])
-        @students = @students.where(:user_id => current_user.id)
-      elsif current_user.parent?
-        redirect_to yearbooks_path
-      else
-      @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).paginate(:per_page => 25,:page => params[:page])
-      end
+
+      @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
+      
 
     @image = @school.packages.where("name like ?", "%Fall%").last
 
@@ -78,12 +73,12 @@ class ExportListItemsController < ApplicationController
     if current_user
     @school = current_user.school
       if current_user.teacher?
-        @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).paginate(:per_page => 25,:page => params[:page])
+        @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
         @students = @students.where(:user_id => current_user.id)
       elsif current_user.parent?
         redirect_to yearbooks_path
       else
-      @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).paginate(:per_page => 25,:page => params[:page])
+      @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
       end
 
     @image = @school.packages.where("name like ?", "%Fall%").last
@@ -286,7 +281,7 @@ class ExportListItemsController < ApplicationController
     if current_user.try(:admin) || current_user.try(:school_admin)
     @school = School.find(params[:id])
     @image = @school.packages.where("name like ?", "%Fall%").last
-    @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).paginate(:per_page => 25,:page => params[:page])
+    @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
 
     if @image.nil?
       @image = @school.packages.first

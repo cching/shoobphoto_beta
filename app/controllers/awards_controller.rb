@@ -4,8 +4,10 @@ class AwardsController < ApplicationController
   respond_to :html
 
   def index
-    @awards = Award.all
-    respond_with(@awards)
+    if current_user
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   def show
@@ -14,7 +16,7 @@ class AwardsController < ApplicationController
 
   def new
     if current_user
-    @export_list = ExportList.create
+    @export_list = ExportList.create(:submitted => false)
     @export_list.save
     @export_list.update(:uniq_id => SecureRandom.hex(8))
     redirect_to edit_award_path(@export_list.id)

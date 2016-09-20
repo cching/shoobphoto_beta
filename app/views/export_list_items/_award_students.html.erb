@@ -30,7 +30,7 @@
 	<tbody>
 		
 	<tr id="newstudentlist"></tr>
-
+ 
 <% @students.order(:last_name).each do |student| %>
 
 <%= render 'award_student_list', :student => student %>

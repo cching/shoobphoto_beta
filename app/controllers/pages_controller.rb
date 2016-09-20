@@ -23,6 +23,13 @@ class PagesController < ApplicationController
       end
   end
 
+  def dashboard
+    if current_user
+    else
+      redirect_to root_url
+    end
+  end
+
   def home
         
 

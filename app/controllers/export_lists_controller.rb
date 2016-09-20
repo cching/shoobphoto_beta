@@ -25,7 +25,7 @@ class ExportListsController < ApplicationController
 
   def update
     @export_list.update(export_list_params)
-    @export_list.update(:school_id => current_user.school_id)
+    @export_list.update(:school_id => current_user.school_id, :submitted => true)
 
     current_user.user_students.each do |ustudent|
       @export_list.export_list_students.create(:student_id => ustudent.student_id, :award_id => ustudent.award_id)

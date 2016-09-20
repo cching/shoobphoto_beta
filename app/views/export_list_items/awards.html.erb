@@ -7,7 +7,7 @@
 </div>
 <hr />
 <div class="searchform" id="wide">
-<%= form_tag(export_students_path, method: :get, :id => "students_search") do %>
+<%= form_tag(export_awards_path, method: :get, :id => "students_search") do %>
 <div class="row"> 
 	<div class="col-sm-2" id="nospacefirst">
         First Name: <%= text_field_tag :first_name, nil, placeholder: "First Name", class: "form-control", id: "input_first_name", label: false, input_html: {value: "#{params[:first_name]}"} %>
@@ -59,7 +59,7 @@
 
 <%= render 'award_links' %>
 
-
+ 
 	<% if current_user.try(:admin) %>
  
 
