@@ -81,6 +81,10 @@ class AutoImport
 				          image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :watermark_file_name => h["url"], :index_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"], :url2 => h["url2"], :url3 => h["url3"], :url4 => h["url4"], :url1 => h["url1"], :shoob_id => h["shoob_id"] )
 				          image.save
 
+				          if h["url"] == "fall2017" || h["url"] == "Fall2017"
+				          	student.update(:enrolled => true)
+				          end
+
 				          unless h["url"].nil? || h["url"] == ""
 
 				          obj1 = bucket.objects["images/processed_watermarks/#{image.folder}/#{image.image_file_name}.jpg"]
