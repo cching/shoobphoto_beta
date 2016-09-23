@@ -1,7 +1,7 @@
 class ExportListItemsController < ApplicationController
   require "rubygems"
    require 'zip'
- require "open-uri"
+  require "open-uri"
 
   def clean_up
     @first = params[:students] 
@@ -215,6 +215,7 @@ class ExportListItemsController < ApplicationController
     @student.id_only = true
     
   @student.save
+  @student.update(:enrolled => true)
   @school = @student.school
     respond_to do |format|
       format.js { render 'create'}
