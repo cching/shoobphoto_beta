@@ -418,10 +418,6 @@ class StudentsController < ApplicationController
           @images = DownloadImage.where(id: @ids)
         end
 
-        if @images.where(:folder => @found_image.folder).where(:year => @found_image.year).count > 0
-          @ids = @ids - [@images.where(:folder => @found_image.folder).where(:year => @found_image.year).first.id]
-        end
-
       end
       @images = DownloadImage.find(@ids - [@found_image.id]).sort_by {|x| x.year}.reverse
     end
