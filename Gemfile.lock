@@ -115,6 +115,7 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
+    libv8 (3.16.14.15)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -198,6 +199,7 @@ GEM
     rdoc (4.2.2)
       json (~> 1.4)
     redis (3.2.2)
+    ref (2.0.0)
     remotipart (1.2.1)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
@@ -244,6 +246,9 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     temple (0.7.6)
+    therubyracer (0.12.2)
+      libv8 (~> 3.16.14.0)
+      ref
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
@@ -283,6 +288,7 @@ DEPENDENCIES
   datetimepicker-rails!
   devise
   exception_notification!
+  execjs
   headshot
   jbuilder (~> 2.0)
   jquery-easing-rails
@@ -316,6 +322,7 @@ DEPENDENCIES
   slim
   smarter_csv
   spring
+  therubyracer
   to_words
   touchpunch-rails
   turbolinks
