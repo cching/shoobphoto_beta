@@ -365,7 +365,7 @@ class StudentsController < ApplicationController
 
   def create_cart
     @shoob_id = "#{params[:shoob_id].gsub(/\s+/, "").downcase}"
-    if @shoob_id[4] == "5"
+    if @shoob_id[4] == "5" || @shoob_id[4] == "1"
       @found_image = StudentImage.where("lower(shoob_id) = ?", "#{@shoob_id}").where(:folder => "fall2017").last
     elsif @shoob_id[4] == "2"
       @found_image = StudentImage.where("lower(shoob_id) = ?", "#{@shoob_id}").where(:folder => "spring2016").last
