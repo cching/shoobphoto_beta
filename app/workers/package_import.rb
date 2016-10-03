@@ -49,9 +49,9 @@ class PackageImport
 				          	unless url.nil?
 					        	if images.any? #update
 					        		image = images.last
-					        		image.update(:package_id => package.id, :student_id => student.id, :image_file_name => h["url"], :url => h["url"], :folder => h["folder"], :shoob_id => h["shoob_id"])
+					        		image.update(:package_id => package.id, :student_id => student.id, :image_file_name => url, :url => url, :folder => h["folder"], :shoob_id => h["shoob_id"])
 					        	else #create
-					        		image = StudentImage.new(:package_id => package.id, :student_id => student.id, :image_file_name => h["url"], :url => h["url"], :folder => h["folder"], :shoob_id => h["shoob_id"])
+					        		image = StudentImage.new(:package_id => package.id, :student_id => student.id, :image_file_name => url, :url => url, :folder => h["folder"], :shoob_id => h["shoob_id"])
 					        		image.save
 					        	end
 					        	csv_file << CSV.generate_line(["#{h["student id"]}"] + ["#{h["image"]}"] + ["#{h["grade"]}"] + ["#{h["folder"]}"] + ["#{h["last_name"]}"] + ["#{h["first_name"]}"] + ["#{h["email"]}"]  + ["#{h["dob"]}"] + ["#{h["teacher"]}"] + ["#{h["rec_type"]}"] + ["#{h["accesscode"]}"] + ["#{h["ca_code"]}"] + ["#{h["slug"]}"] + ["#{h["shoob_id"]}"] + ['TRUE'] + [''])
