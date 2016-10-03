@@ -14,7 +14,7 @@ class PackageImport
       	chunk.each do |h|
       	schools = School.where("ca_code like ?", "%#{h["ca_code"]}%")	
 	      	if schools.any?
-	      		school = school.last
+	      		school = schools.last
 	      		packages = school.packages.where("slug like ?", "%#{h["slug"]}%")
 
 	      		if packages.any?
