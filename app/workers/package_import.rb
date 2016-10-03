@@ -39,9 +39,9 @@ class PackageImport
 
 				          	images = student.student_images.where("lower(folder) like ?", "%#{h["folder"]}%")
 				          	if bucket.objects["images/#{h["folder"]}/#{h["image"].upcase}.jpg"].exists? #upcase
-				          		url = h["folder"].upcase
+				          		url = h["image"].upcase
 				          	elsif bucket.objects["images/#{h["folder"]}/#{h["image"].downcase}.jpg"].exists? #upcase
-				          		url = h["folder"].downcase
+				          		url = h["image"].downcase
 				          	else
 				          		url = nil
 				          	end
