@@ -97,7 +97,7 @@ require 'smarter_csv'
   def import
     file = File.open(params[:file].tempfile, "r:ISO-8859-1")
 
-    chunk = SmarterCSV.process(file, {:chunk_size => 1000, row_sep: :auto}) do |chunk|
+    chunk = SmarterCSV.process(file, {:chunk_size => 10000, row_sep: :auto}) do |chunk|
       PackageImport.perform_async(chunk)
     end
     file.close
