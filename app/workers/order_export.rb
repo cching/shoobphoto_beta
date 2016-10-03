@@ -15,7 +15,7 @@ class OrderExport
 
                 @string1 = ""
                 @string2 = ""
-
+ 
                 @year = ""
 
                 @extra_poses = ""

@@ -20,7 +20,7 @@ class AutoImport
 					unless h["student_id"].nil?
 						students = school.students.where(:student_id => "#{h["student_id"]}")
 
-						@auto.increment!(:success_count)
+						@auto.increment!(:success_count) 
 
 				          unless students.any?    
 				            student = school.students.new(:student_id => h["student_id"], :access_code => h["accesscode"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :id_only => true, :access_code => h["accesscode"])

@@ -95,12 +95,9 @@ require 'smarter_csv'
   end
 
   def import
-    @package = Package.find(params[:id])
-    @school = School.find(params[:school][:id])
-
     file = File.open(params[:file].tempfile, "r:ISO-8859-1")
 
-    chunk = SmarterCSV.process(file, {:chunk_size => 500, row_sep: :auto}) do |chunk|
+    chunk = SmarterCSV.process(file, {:chunk_size => 1000, row_sep: :auto}) do |chunk|
       PackageImport.perform_async(chunk, @package.id, @school.id)
     end
     file.close
