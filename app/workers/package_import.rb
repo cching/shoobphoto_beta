@@ -54,25 +54,25 @@ class PackageImport
 					        		image = StudentImage.new(:package_id => package.id, :student_id => student.id, :image_file_name => url, :url => url, :folder => h["folder"], :shoob_id => h["shoob_id"])
 					        		image.save
 					        	end
-					        	csv_file << CSV.generate_line(["#{h["student id"]}"] + ["#{h["image"]}"] + ["#{h["grade"]}"] + ["#{h["folder"]}"] + ["#{h["last_name"]}"] + ["#{h["first_name"]}"] + ["#{h["email"]}"]  + ["#{h["dob"]}"] + ["#{h["teacher"]}"] + ["#{h["rec_type"]}"] + ["#{h["accesscode"]}"] + ["#{h["ca_code"]}"] + ["#{h["slug"]}"] + ["#{h["shoob_id"]}"] + ['TRUE'] + [''])
+					        	csv_file << CSV.generate_line(["#{h["student_id"]}"] + ["#{h["image"]}"] + ["#{h["grade"]}"] + ["#{h["folder"]}"] + ["#{h["last_name"]}"] + ["#{h["first_name"]}"] + ["#{h["email"]}"]  + ["#{h["dob"]}"] + ["#{h["teacher"]}"] + ["#{h["rec_type"]}"] + ["#{h["accesscode"]}"] + ["#{h["ca_code"]}"] + ["#{h["slug"]}"] + ["#{h["shoob_id"]}"] + ['TRUE'] + [''])
 				        	else
 				        		#throw exception image not found on s3
-				        		csv_file << CSV.generate_line(["#{h["student id"]}"] + ["#{h["image"]}"] + ["#{h["grade"]}"] + ["#{h["folder"]}"] + ["#{h["last_name"]}"] + ["#{h["first_name"]}"] + ["#{h["email"]}"]  + ["#{h["dob"]}"] + ["#{h["teacher"]}"] + ["#{h["rec_type"]}"] + ["#{h["accesscode"]}"] + ["#{h["ca_code"]}"] + ["#{h["slug"]}"] + ["#{h["shoob_id"]}"] + ['FALSE'] + ['Image not found on S3'])
+				        		csv_file << CSV.generate_line(["#{h["student_id"]}"] + ["#{h["image"]}"] + ["#{h["grade"]}"] + ["#{h["folder"]}"] + ["#{h["last_name"]}"] + ["#{h["first_name"]}"] + ["#{h["email"]}"]  + ["#{h["dob"]}"] + ["#{h["teacher"]}"] + ["#{h["rec_type"]}"] + ["#{h["accesscode"]}"] + ["#{h["ca_code"]}"] + ["#{h["slug"]}"] + ["#{h["shoob_id"]}"] + ['FALSE'] + ['Image not found on S3'])
 				        	end
 			        	else
 			        		#image blank
-			        		csv_file << CSV.generate_line(["#{h["student id"]}"] + ["#{h["image"]}"] + ["#{h["grade"]}"] + ["#{h["folder"]}"] + ["#{h["last_name"]}"] + ["#{h["first_name"]}"] + ["#{h["email"]}"]  + ["#{h["dob"]}"] + ["#{h["teacher"]}"] + ["#{h["rec_type"]}"] + ["#{h["accesscode"]}"] + ["#{h["ca_code"]}"] + ["#{h["slug"]}"] + ["#{h["shoob_id"]}"] + ['FALSE'] + ['Image on CSV blank'])
+			        		csv_file << CSV.generate_line(["#{h["student_id"]}"] + ["#{h["image"]}"] + ["#{h["grade"]}"] + ["#{h["folder"]}"] + ["#{h["last_name"]}"] + ["#{h["first_name"]}"] + ["#{h["email"]}"]  + ["#{h["dob"]}"] + ["#{h["teacher"]}"] + ["#{h["rec_type"]}"] + ["#{h["accesscode"]}"] + ["#{h["ca_code"]}"] + ["#{h["slug"]}"] + ["#{h["shoob_id"]}"] + ['FALSE'] + ['Image on CSV blank'])
 						end #check if image is in CSV
 					else
-						csv_file << CSV.generate_line(["#{h["student id"]}"] + ["#{h["image"]}"] + ["#{h["grade"]}"] + ["#{h["folder"]}"] + ["#{h["last_name"]}"] + ["#{h["first_name"]}"] + ["#{h["email"]}"]  + ["#{h["dob"]}"] + ["#{h["teacher"]}"] + ["#{h["rec_type"]}"] + ["#{h["accesscode"]}"] + ["#{h["ca_code"]}"] + ["#{h["slug"]}"] + ["#{h["shoob_id"]}"] + ['FALSE'] + ['Folder on CSV blank'])
+						csv_file << CSV.generate_line(["#{h["student_id"]}"] + ["#{h["image"]}"] + ["#{h["grade"]}"] + ["#{h["folder"]}"] + ["#{h["last_name"]}"] + ["#{h["first_name"]}"] + ["#{h["email"]}"]  + ["#{h["dob"]}"] + ["#{h["teacher"]}"] + ["#{h["rec_type"]}"] + ["#{h["accesscode"]}"] + ["#{h["ca_code"]}"] + ["#{h["slug"]}"] + ["#{h["shoob_id"]}"] + ['FALSE'] + ['Folder on CSV blank'])
 						#folder blank
 			        end #check if folder exists to create image
 			    else
-			    	csv_file << CSV.generate_line(["#{h["student id"]}"] + ["#{h["image"]}"] + ["#{h["grade"]}"] + ["#{h["folder"]}"] + ["#{h["last_name"]}"] + ["#{h["first_name"]}"] + ["#{h["email"]}"]  + ["#{h["dob"]}"] + ["#{h["teacher"]}"] + ["#{h["rec_type"]}"] + ["#{h["accesscode"]}"] + ["#{h["ca_code"]}"] + ["#{h["slug"]}"] + ["#{h["shoob_id"]}"] + ['FALSE'] + ['No package with slug found for school'])
+			    	csv_file << CSV.generate_line(["#{h["student_id"]}"] + ["#{h["image"]}"] + ["#{h["grade"]}"] + ["#{h["folder"]}"] + ["#{h["last_name"]}"] + ["#{h["first_name"]}"] + ["#{h["email"]}"]  + ["#{h["dob"]}"] + ["#{h["teacher"]}"] + ["#{h["rec_type"]}"] + ["#{h["accesscode"]}"] + ["#{h["ca_code"]}"] + ["#{h["slug"]}"] + ["#{h["shoob_id"]}"] + ['FALSE'] + ['No package with slug found for school'])
 			    	#no package found with slug
 			    end
 			else
-				csv_file << CSV.generate_line(["#{h["student id"]}"] + ["#{h["image"]}"] + ["#{h["grade"]}"] + ["#{h["folder"]}"] + ["#{h["last_name"]}"] + ["#{h["first_name"]}"] + ["#{h["email"]}"]  + ["#{h["dob"]}"] + ["#{h["teacher"]}"] + ["#{h["rec_type"]}"] + ["#{h["accesscode"]}"] + ["#{h["ca_code"]}"] + ["#{h["slug"]}"] + ["#{h["shoob_id"]}"] + ['FALSE'] + ['No school found with CA code'])
+				csv_file << CSV.generate_line(["#{h["student_id"]}"] + ["#{h["image"]}"] + ["#{h["grade"]}"] + ["#{h["folder"]}"] + ["#{h["last_name"]}"] + ["#{h["first_name"]}"] + ["#{h["email"]}"]  + ["#{h["dob"]}"] + ["#{h["teacher"]}"] + ["#{h["rec_type"]}"] + ["#{h["accesscode"]}"] + ["#{h["ca_code"]}"] + ["#{h["slug"]}"] + ["#{h["shoob_id"]}"] + ['FALSE'] + ['No school found with CA code'])
 				#no school found with ca_code
 			end
      	end #end chunk loop
