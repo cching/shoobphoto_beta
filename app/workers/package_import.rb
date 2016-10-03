@@ -15,7 +15,7 @@ class PackageImport
       	schools = School.where("ca_code like ?", "%#{h["ca_code"]}%")	
 	      	if schools.any?
 	      		school = schools.last
-	      		packages = school.packages.where("slug like ?", "%#{h["slug"]}%")
+	      		packages = school.packages.where("lower(slug) like ?", "%#{h["slug"].downcase}%")
 
 	      		if packages.any?
 	      			package = packages.last
