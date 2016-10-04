@@ -36,13 +36,13 @@
 						<%= image_tag(image.image.url, class: "img-proof", id: "png1") %>
 						<%= image_tag('watermark.png', class: "img-proof", id: "png2") %><br/>
 
-					</div>
+					</div><br/><br/><br/><br/>
 					<strong class="image_text"><%= DownloadImage.package_name(image.id) %></strong><br/>
 					<%= link_to "Select", download_cart_path(@student.id, :cart_id => params[:cart_id], :image => image.id, :i => 0), class: "btn-custom2", remote: true %>
 					</div>	
 				<% end %>
 				<div class="col-sm-1"></div>
-				</div><br/><br/><br/>
+				</div><br/><br/>
 				<% end %>
 				
 			
