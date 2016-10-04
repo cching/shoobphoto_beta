@@ -1,15 +1,15 @@
 class Student < ActiveRecord::Base
-	has_many :cart_students, dependent: :destroy
+  has_many :cart_students, dependent: :destroy
   has_many :carts, through: :cart_students
   has_many :order_packages
- 	belongs_to :school
+  belongs_to :school
 
   has_many :export_data_students
   has_many :export_datas, through: :export_data_students, dependent: :destroy
 
   has_many :orders
 
- 	has_many :student_images
+  has_many :student_images
 
   belongs_to :period
 
@@ -88,7 +88,8 @@ end
     ['Freshman', 9],
     ['Sophomore', 10],
     ['Junior', 11],
-    ['Senior', 12]
+    ['Senior', 12],
+  ['All', 'all']
   ]
 
   Operations = [
