@@ -17,8 +17,8 @@
 	</div> 
 
 	<div class="col-sm-8">
-		<% unless @images.nil? %>
-	<div id="scrolltable">
+		<% if @images.any? %>
+	<div id="scrolltable"> 
 		<div class="inner" align="center">
 			<span class="blue">
 			<strong>Download digital images from previous school years!</strong><br/>
@@ -42,7 +42,7 @@
 					</div>	
 				<% end %>
 				<div class="col-sm-1"></div>
-				</div>
+				</div><br/><br/><br/>
 				<% end %>
 				
 			
