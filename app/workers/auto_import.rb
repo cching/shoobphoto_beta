@@ -77,10 +77,18 @@ class AutoImport
 				            student.save
 				           else
 				           	student.update(:student_id => h["student_id"], :access_code => h["accesscode"], :last_name => h["last_name"], :first_name => h["first_name"], :grade => h["grade"], :email => h["email"], :teacher => h["teacher"], :shoob_id => h["shoob_id"], :id_only => true)
-				          end
+				          end 
 
-				          image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :watermark_file_name => h["url"], :index_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"], :url2 => h["url2"], :url3 => h["url3"], :url4 => h["url4"], :url1 => h["url1"], :shoob_id => h["shoob_id"] )
-				          image.save
+				          images = student.student_images.where("lower(folder) like ?", "%#{h["folder"]}%")
+
+				          	if images.any? #update
+					        		image = images.last
+				          			image = image.update(:package_id => package.id, :student_id => student.id, :image_file_name => h["url"], :url => h["url"], :folder => h["folder"], :shoob_id => h["shoob_id"])
+					        else #create
+					        		image = StudentImage.new(:package_id => package.id, :student_id => student.id, :image_file_name => h["url"], :url => h["url"], :folder => h["folder"], :shoob_id => h["shoob_id"])
+					        		image.save
+					     	end
+
 
 				          if h["folder"] == "fall2017" || h["folder"] == "Fall2017"
 				          	student.update(:enrolled => true)
