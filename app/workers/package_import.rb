@@ -3,7 +3,7 @@ class PackageImport
  	sidekiq_options queue: "package_import"
 
   	def perform(chunk)
-
+ 
    		bucket = AWS::S3::Bucket.new('shoobphoto')
       	s3 = AWS::S3.new
       	bucket1 = s3.buckets["shoobphoto"]
