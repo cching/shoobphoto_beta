@@ -12,7 +12,7 @@ class StartAuto
       csv_file  = open(csv_path,'r')
 
       chunk = SmarterCSV.process(csv_file, {:file_encoding =>'iso-8859-1'}) do |chunk|
-        PackageImport.perform_async(chunk, object)
+        PackageImport.perform_async(chunk)
       end
  
     end
