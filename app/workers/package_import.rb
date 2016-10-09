@@ -2,10 +2,7 @@ class PackageImport
  	include Sidekiq::Worker
  	sidekiq_options queue: "package_import"
 
-  	def perform(object)
-  		csv_path  = "https://s3-us-west-1.amazonaws.com/shoobphoto/#{object}"
-
-      	csv_file_process  = open(csv_file_process,'r')
+  	def perform(chunk)
 
    		bucket = AWS::S3::Bucket.new('shoobphoto')
       	s3 = AWS::S3.new
@@ -14,10 +11,6 @@ class PackageImport
 
         csv_file << CSV.generate_line(['student id'] + ['image'] + ['grade'] + ['folder'] + ['last_name']  + ['first_name'] + ['email']  + ['dob'] + ['teacher'] + ['rec_type'] + ['accesscode'] + ['ca_code'] + ['slug'] + ['shoob_id'] + ['Imported?'] + ['Failure reason'])
 
-
-      chunk = SmarterCSV.process(csv_file_process, {:file_encoding =>'iso-8859-1'}) do |chunk|
-      
- 
       	chunk.each do |h|
       	schools = School.where("ca_code like ?", "%#{h["ca_code"]}%")	
 	      	if schools.any?
@@ -83,7 +76,6 @@ class PackageImport
 				#no school found with ca_code
 			end
      	end #end chunk loop
-     end
      	file_name = Rails.root.join('tmp', "output_#{Time.now.day}-#{Time.now.month}-#{Time.now.year}_#{Time.now.hour}_#{Time.now.min}.csv");
 
           File.open(file_name, 'wb') do |file|
