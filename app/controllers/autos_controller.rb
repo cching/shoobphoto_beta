@@ -8,9 +8,7 @@ class AutosController < ApplicationController
         PackageImport.perform_async(chunk)
       end
 
-      chunk = SmarterCSV.process("#{Rails.root}/public/csv/2.csv", {:chunk_size => 2000}) do |chunk|
-        PackageImport.perform_async(chunk)
-      end
+    
     
   end
 
