@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :autos do
     collection do
       get "start_auto"
+      get "start_import"
     end
     member do
       get "process_auto"
