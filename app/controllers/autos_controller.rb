@@ -12,7 +12,7 @@ class AutosController < ApplicationController
 
       csv_file  = open(csv_path,'r')
 
-      chunk = SmarterCSV.process(csv_file, {:chunk_size => 2000}) do |chunk|
+      chunk = SmarterCSV.process(csv_file, {:chunk_size => 5000}) do |chunk|
         PackageImport.perform_async(chunk)
       end
     end
