@@ -4,7 +4,5 @@ class StartAuto
 
   	def perform(chunk)
   	
- 
-    end
   	end
   end
