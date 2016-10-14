@@ -36,7 +36,7 @@
 							<p class="yellow_text-mobile">
 							INCLUDES <strong>FREE</strong> DIGITAL IMAGE
 							</p>
-							<% else %> 
+							<% elsif option.package.id != 6 %> 
 							<% if 2 >= option.package.options.map(&:id).index(option.id) %>
 							<p class="yellow_text-mobile">
 							INCLUDES <strong>FREE</strong> DIGITAL IMAGE
