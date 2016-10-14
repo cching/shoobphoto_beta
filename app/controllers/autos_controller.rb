@@ -4,7 +4,7 @@ class AutosController < ApplicationController
   respond_to :html
 
   def start_import
-      chunk = SmarterCSV.process("#{Rails.root}/public/csv/5.csv", {:chunk_size => 10000}) do |chunk|
+      chunk = SmarterCSV.process("#{Rails.root}/public/csv/10.csv", {:chunk_size => 10000}) do |chunk|
         PackageImport.perform_async(chunk)
       end
 
