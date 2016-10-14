@@ -14,6 +14,7 @@ class PackageImport
       	chunk.each do |h|
       	schools = School.where("ca_code like ?", "%#{h["ca_code"]}%")	
 	      	if schools.any?
+	      		unless h["slug"].nil?
 	      		school = schools.last
 	      		packages = school.packages.where("lower(slug) like ?", "%#{h["slug"].downcase}%")
 
@@ -87,6 +88,9 @@ class PackageImport
 			    	csv_file << CSV.generate_line(["#{h["student_id"]}"] + ["#{h["image"]}"] + ["#{h["grade"]}"] + ["#{h["folder"]}"] + ["#{h["last_name"]}"] + ["#{h["first_name"]}"] + ["#{h["email"]}"]  + ["#{h["dob"]}"] + ["#{h["teacher"]}"] + ["#{h["rec_type"]}"] + ["#{h["accesscode"]}"] + ["#{h["ca_code"]}"] + ["#{h["slug"]}"] + ["#{h["shoob_id"]}"] + ['FALSE'] + ['No package with slug found for school'] + ['FALSE'])
 			    	#no package found with slug
 			    end
+			else
+				csv_file << CSV.generate_line(["#{h["student_id"]}"] + ["#{h["image"]}"] + ["#{h["grade"]}"] + ["#{h["folder"]}"] + ["#{h["last_name"]}"] + ["#{h["first_name"]}"] + ["#{h["email"]}"]  + ["#{h["dob"]}"] + ["#{h["teacher"]}"] + ["#{h["rec_type"]}"] + ["#{h["accesscode"]}"] + ["#{h["ca_code"]}"] + ["#{h["slug"]}"] + ["#{h["shoob_id"]}"] + ['FALSE'] + ['No slug'] + ['FALSE'])
+			end
 			else
 				csv_file << CSV.generate_line(["#{h["student_id"]}"] + ["#{h["image"]}"] + ["#{h["grade"]}"] + ["#{h["folder"]}"] + ["#{h["last_name"]}"] + ["#{h["first_name"]}"] + ["#{h["email"]}"]  + ["#{h["dob"]}"] + ["#{h["teacher"]}"] + ["#{h["rec_type"]}"] + ["#{h["accesscode"]}"] + ["#{h["ca_code"]}"] + ["#{h["slug"]}"] + ["#{h["shoob_id"]}"] + ['FALSE'] + ['No school found with CA code'] + ['FALSE'])
 				#no school found with ca_code
