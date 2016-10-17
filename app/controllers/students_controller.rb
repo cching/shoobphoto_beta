@@ -33,7 +33,7 @@ class StudentsController < ApplicationController
   def add_package
     @cart = Cart.find_by_cart_id(params[:cart])
     @i = params[:i]
-    @student = @cart.students[params[:i].to_i]
+    @student = @cart.students.last
     @option = Option.find(params[:option])
 
     @opackage = @cart.order_packages.create(:package_id => @option.package.id, :student_id => @student.id)
@@ -48,7 +48,7 @@ class StudentsController < ApplicationController
   def addons
     @cart = Cart.find_by_cart_id(params[:cart])
     @i = params[:i]
-    @student = @cart.students[params[:i].to_i]
+    @student = @cart.students.last
     @option = Option.find(params[:option])
     array = @option.package.options.map(&:id)
     @index = array.index(@option.id)
@@ -164,7 +164,7 @@ class StudentsController < ApplicationController
 
   def select
     @cart = Cart.find_by_cart_id(params[:cart_id])
-    @student = @cart.students[params[:i].to_i]
+    @student = @cart.students.last
 
     if @cart.order_packages.where(:package_id => 6).any?
       @opackage = @cart.order_packages.where(:package_id => 6).last
@@ -216,7 +216,7 @@ class StudentsController < ApplicationController
 
   def senior_portraits
     @cart = Cart.find_by_cart_id(params[:cart_id])
-    @student = @cart.students[params[:i].to_i]
+    @student = @cart.students.last
     @i = params[:i]
 
     @opackage = @cart.order_packages.where(:package_id => 6).last
@@ -284,8 +284,7 @@ class StudentsController < ApplicationController
     @op = OrderPackage.find(params[:order_package_id])
     @option = Option.find(params[:option_id])
     @cart = @op.cart
-    @student = @cart.students[params[:i].to_i]
-
+    @student = @cart.students.last
     @op.options.delete(@option)
     @op.order_package_extras.where(:option_id => @option.id).destroy_all
 
@@ -432,7 +431,7 @@ class StudentsController < ApplicationController
 
   def final
     @cart = Cart.find_by_cart_id(params[:cart_id])
-    @student = @cart.students[params[:i].to_i]
+    @student = @cart.students.last
     @price = 0
     if @cart.order_packages.where.not(package_id: nil).first.package.shippings.any?
 
@@ -486,7 +485,7 @@ class StudentsController < ApplicationController
     @i = params[:i]
 
     @cart = Cart.find_by_cart_id(params[:id])
-    @student = @cart.students[params[:i].to_i]
+    @student = @cart.students.last
     @ids = @student.download_images.pluck(:id) 
 
     if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%fall%").any?
@@ -534,7 +533,7 @@ class StudentsController < ApplicationController
 
   def update_cart
     @cart = Cart.find_by_cart_id(params[:cart_id])
-    @student = @cart.students[@cart.students.count - 1]
+    @student = @cart.students.last
      
       if @cart.students[params[:i].to_i].download_images.any? && @cart.id_supplied?
         redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
@@ -547,7 +546,7 @@ class StudentsController < ApplicationController
   def add_options
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @i = params[:i].to_i
-    @student = @cart.students[@i]
+    @student = @cart.students.last
     @option = Option.find(params[:option_id])
     @op = OrderPackage.find(params[:op_id])
     
@@ -566,7 +565,7 @@ class StudentsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:id])
     @i = params[:i]
 
-    @student = @cart.students[params[:i].to_i]
+    @student = @cart.students.last
     @opackages = @cart.order_packages.where(:student_id => @student.id).order(:id)
 
   end
@@ -631,7 +630,7 @@ class StudentsController < ApplicationController
   def select_package
     @cart = Cart.find_by_cart_id(params[:id])
     @i = params[:i]
-    @student = @cart.students[params[:i].to_i]
+    @student = @cart.students.last
     @package = Package.find(params[:package]) 
 
     @image = @student.student_images.where(:package_id => @package.id).where.not(folder: "fall2015").last
@@ -642,7 +641,7 @@ class StudentsController < ApplicationController
 
   def packages
     @cart = Cart.find_by_cart_id(params[:id])
-    @student = @cart.students[params[:i].to_i]
+    @student = @cart.students.last
     @packages = @student.school.packages.order(:id)
 
 

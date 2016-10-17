@@ -5,7 +5,7 @@
 	<div class="col-xs-5">
 
 	
-				<% @cart.order_packages.where(:student_id => @student.id).each do |opackage| %>
+				<% @cart.order_packages.each do |opackage| %>
 					<% opackage.options.each do |option| %>
 					<span class="<%= opackage.id %>_<%= option.id %>">
 					<div class="row" id="outer_row">
