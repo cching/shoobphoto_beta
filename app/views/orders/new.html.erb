@@ -86,7 +86,7 @@
         <div class="col-xs-8">
           <%= opackage.package.name %>: <%= option.name %>
         </div>
-        <div class="col-xs-4 gray_text_cart" align="right"><%= number_to_currency(option.price, :show_zero => false) %>
+        <div class="col-xs-4 gray_text_cart" align="right"><%= number_to_currency(option.price(student.school.id), :show_zero => false) %>
 
           <% if opackage.try(:extra_poses) != 0 && opackage.try(:extra_poses) != nil%><br/>
          + Extra Pose: $<%= opackage.try(:extra_poses)*25 %>.00
@@ -210,6 +210,7 @@ $(document).ready(function() {
     theme: "bootstrap",
     width: '104%',
   });
+
 
   $("#order_card_type").select2({
     theme: "bootstrap",

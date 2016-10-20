@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col-sm-5" align="center"  id="senior_table">
 			<% if @cart.id_supplied? && images.any? %>
-			<% image = images.last %>
+			<% image = images.last %> 
 			<h3>Preview Your Poses: (click to enlarge)</h3>
 			<% image.senior_images.each_slice(2) do |slice| %>
 			<div class="row" align="center">
@@ -62,13 +62,21 @@
 		<div class="<%= i.to_words %>"> 
 			<div class="row">
 				<div class="col-xs-4">
-					<p class="<%= 2 >= i ? 'white_text' : 'gray_text'%> <%= 'small_text_package' if option.name.size > 1 %>"><%= option.name %></p>
+					<% if option.name.downcase.include?("yearbook") %>
+					<p class="<%= 2 >= i ? 'white_text' : 'gray_text'%> <%= 'small_yearbook_text' if option.name.size > 1 %>">
+						<%= option.name %></p>
+					<% else %>
+					<p class="<%= 2 >= i ? 'white_text' : 'gray_text'%> <%= 'small_text_package' if option.name.size > 1 %>">
+						<%= option.name %></p>
+					<% end %>
 				</div> 
 				<div class="col-xs-8">
+					<% unless option.name.downcase.include?("yearbook") %>
 					<% if 2 >= i %>
 					<p class="yellow_text">
 					INCLUDES <strong>FREE</strong> DIGITAL IMAGE 
 					</p>
+					<% end %>
 					<% end %>
 				</div>
 			</div>
@@ -83,7 +91,7 @@
 			</div>
 			<div class="row bottom">
 				<div class="col-xs-3 bottom_text">
-				$<%= option.price.floor %>
+				$<%= option.price(@student.school.id).floor %>
 				</div>
 				<div class="col-xs-9 padding-top" align="right">
 						<%= link_to "Add to Cart", add_package_path(@cart.cart_id, @i, option.id), class: "btn-#{i} btn-loading" %>

@@ -140,6 +140,8 @@ $(document).ready(function() {
  });
 
 function validateForm(){isValid = false;
+  $(".btn-blue").prop("disabled", true );
+
   var isValid = true;
 
   var x = document.getElementById('student_first_name').value;
@@ -175,8 +177,6 @@ function validateForm(){isValid = false;
 
       $("#grade_error").html("");
       }
-
-
 
     var z = document.getElementById('input_email').value;
     if (z == null || z == "") {
@@ -215,12 +215,11 @@ function validateForm(){isValid = false;
 
       }
     
-
-
-
-
   if(isValid){
     document.getElementById('new_search_form').submit();
+  } else {
+    $(".btn-blue").prop("disabled", false );
+
   }
 
 }
