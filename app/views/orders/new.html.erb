@@ -1,16 +1,59 @@
 <%= form_for @order, :url => {:action => "confirm", class: "form-control"} do |f| %>
 
 <%= errors_for(@order) %>
-<div class="row">
+<div class="row animated fadeIn">
   <div class="col-xs-6">
-    <span class="cart_title">Shipping Info: &nbsp;</span><span id="edit_shipping"></span><br/>
+
+    <span class="cart_title billing_info_title">Billing Info: &nbsp;</span><span id="edit_billing"></span><br/>
+    <div id="billing_info" >
+      
+      <span class="label_header">First Name</span>
+      <%= f.text_field :first_name, class: "enjoy-css", id: "billing_first_name" %>
+      <span class="label_header">Last Name</span>
+      <%= f.text_field :last_name, class: "enjoy-css", id: "billing_last_name" %>
+
+      <div class="row">
+        <div class="col-xs-4">
+          <span class="label_header">Card Number</span> <br/>
+          <%= f.text_field :card_number, class: "enjoy-css", id: "card_number", :autocomplete => :off  %>
+        </div>
+        <div class="col-xs-2">
+          <span class="label_header">Card Type</span> <br/>
+          <%= f.select :card_type, Order::CardTypes, id: "card_types" %>
+        </div>
+        <div class="col-xs-3">
+          <span class="label_header">Expiration Date</span> <br/>
+
+          <%= f.date_select :card_expires_on, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true, id: "expiration_date" %>
+        </div>
+
+      <div class="col-xs-3">
+        <span class="label_header">Security Code</span> <br/>
+        <%= f.text_field :card_verification, class: "enjoy-css", id: "card_verification" %>
+      </div>
+    </div>
+      <span class="label_header">Billing Address &nbsp; 
+      <%= f.text_field :address, class: "enjoy-css", id: "billing_address" %>
+      <%= f.text_field :address2, class: "enjoy-css", id: "billing_address2" %>
+
+      <span class="label_header">City</span>
+
+      <%= f.text_field :city, class: "enjoy-css", id: "billing_city" %>
+      <span class="label_header">State</span>
+      <%= f.select :state, options_for_select(us_states),{}, id: "billing_state" %>
+
+      <span class="label_header">ZIP Code</span>
+      <%= f.text_field :zip_code, class: "enjoy-css", id: "billing_zip" %>
+
+    </div>
+
+    <div id="billing_hidden"></div>
+
+
+      <span class="cart_title">Shipping Info: &nbsp;</span><span id="edit_shipping"></span><br/>
     <div id="shipping_info" class="animated fadeIn">
-    
-    <span class="label_header">First Name</span> <br/>
-    <%= f.text_field :shipping_first_name, class: "enjoy-css", id: "shipping_first_name" %>
-    <span class="label_header">Last Name</span> <br/>
-    <%= f.text_field :shipping_last_name, class: "enjoy-css", id: "shipping_last_name" %>
-    <span class="label_header">Address</span>
+
+    <span class="label_header">Address</span><label for="ship_to_billing_address"> <input type="checkbox" name="ship_to_billing_address" id="ship_to_billing_address" /> Check if the billing address is the same as your shipping address</span>
     <%= f.text_field :shipping_address, class: "enjoy-css", id: "shipping_address" %>
     <%= f.text_field :shipping_address2, class: "enjoy-css", id: "shipping_address2" %>
 
@@ -27,43 +70,10 @@
       <%= f.hidden_field :email, :value => "#{@cart.email}" %>
     </div>
     <div id="shipping_hidden"></div>
-    <span class="cart_title billing_info_title" hidden>Billing Info: &nbsp;</span><span id="edit_billing"></span><br/>
-    <div id="billing_info" hidden >
-      
-      <span class="label_header">First Name</span> <br/>
-      <%= f.text_field :first_name, class: "enjoy-css", id: "billing_first_name" %>
-      <span class="label_header">Last Name</span> <br/>
-      <%= f.text_field :last_name, class: "enjoy-css", id: "billing_last_name" %>
-      <span class="label_header">Card Number</span> <br/>
-      <%= f.text_field :card_number, class: "enjoy-css", id: "card_number", :autocomplete => :off  %>
-      <span class="label_header">Card Type</span> <br/>
-      <%= f.select :card_type, Order::CardTypes, id: "card_types" %>
-      <span class="label_header">Expiration Date</span> <br/>
-
-      <%= f.date_select :card_expires_on, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true, id: "expiration_date" %>
-
-
-      <span class="label_header">Security Code (CVV)</span> <br/>
-      <%= f.text_field :card_verification, class: "enjoy-css", id: "card_verification" %>
-  
-      <span class="label_header">Billing Address &nbsp; <label for="ship_to_billing_address"> <input type="checkbox" name="ship_to_billing_address" id="ship_to_billing_address" /> Check if the billing address is the same as your shipping address</span>
-      <%= f.text_field :address, class: "enjoy-css", id: "billing_address" %>
-      <%= f.text_field :address2, class: "enjoy-css", id: "billing_address2" %>
-
-      <span class="label_header">City</span>
-
-      <%= f.text_field :city, class: "enjoy-css", id: "billing_city" %>
-      <span class="label_header">State</span>
-      <%= f.select :state, options_for_select(us_states),{}, id: "billing_state" %>
-
-      <span class="label_header">ZIP Code</span>
-      <%= f.text_field :zip_code, class: "enjoy-css", id: "billing_zip" %>
-
-      
-    </div>
-
-    <div id="billing_hidden"></div>
   </div>
+
+
+
 
 
 
@@ -165,11 +175,30 @@
       </div>
     </div><br/>
     <div class="row">
-      <div class="col-xs-8"></div>
-      <div class="col-xs-3" id="button_continue">
-        <%= button_tag "Continue", type: 'button', onclick: "validateForm()", class: 'btn-blue' %>
+      <div class="col-xs-6">
+    
+    
       </div>
+      <div class="col-xs-2" align="right">
+        <%= link_to "Back", student_final_path(@cart.cart_id, @cart.students.count - 1), class: "btn-blue" %>
+
+
+      </div>
+      <div class="col-xs-2" id="button_continue">
+            <%= button_tag "Continue", type: 'button', onclick: "validateForm()", class: 'btn-blue' %>
+      </div>
+      <div class="col-xs-2"></div>
     </div>
+
+    <div class="row">
+      <div class="col-xs-10"><br/>
+        <div class="alert alert-danger" role="alert" align="center">
+          Do not use the back arrow on your browser
+        </div>
+      </div>
+      <div class="col-xs-2"></div>
+    </div>
+
   </div>
 </div>
 
@@ -184,14 +213,14 @@
 $("input#ship_to_billing_address").click(function(){ 
 if ($("input#ship_to_billing_address").is(':checked')) 
 { 
-$('#billing_address').val($('#shipping_address').val());
-$('#billing_address2').val($('#shipping_address2').val()); 
+$('#shipping_address').val($('#billing_address').val());
+$('#shipping_address2').val($('#billing_address2').val()); 
 
-$('#billing_zip').val($('#shipping_zip').val()); 
-$('#billing_city').val($('#shipping_city').val()); 
+$('#shipping_zip').val($('#billing_zip').val()); 
+$('#shipping_city').val($('#billing_city').val()); 
 
-$("#billing_state").select2("trigger", "select", {
-    data: { id: $("#shipping_state").val() }
+$("#shipping_state").select2("trigger", "select", {
+    data: { id: $("#billing_state").val() }
 });
 } 
 
@@ -244,50 +273,84 @@ $(document).ready(function() {
 function validateForm(){isValid = false;
   var isValid = true;
 
-  var x = document.getElementById('shipping_first_name').value;
+  var x = document.getElementById('billing_first_name').value;
     if (x == null || x == "") {
         isValid = false;
-        var d = document.getElementById("shipping_first_name");
+        var d = document.getElementById("billing_first_name");
         d.className += " error_field";
       } else {
 
-      document.getElementById("shipping_first_name").className = "";
-      document.getElementById("shipping_first_name").className = "enjoy-css";
+      document.getElementById("billing_first_name").className = "";
+      document.getElementById("billing_first_name").className = "enjoy-css";
       }
     
 
-    var z = document.getElementById('shipping_last_name').value;
+    var z = document.getElementById('billing_last_name').value;
     if (z == null || z == "") {
         isValid = false;
-        var d = document.getElementById("shipping_last_name");
+        var d = document.getElementById("billing_last_name");
         d.className += " error_field";
         } else {
 
-      document.getElementById("shipping_last_name").className = "";
-      document.getElementById("shipping_last_name").className = "enjoy-css";
+      document.getElementById("billing_last_name").className = "";
+      document.getElementById("billing_last_name").className = "enjoy-css";
       }
     
-    var z = document.getElementById('shipping_address').value;
+    var z = document.getElementById('card_number').value;
     if (z == null || z == "") {
         isValid = false;
-        var d = document.getElementById("shipping_address");
+        var d = document.getElementById("card_number");
         d.className += " error_field";
         } else {
 
-      document.getElementById("shipping_address").className = "";
-      document.getElementById("shipping_address").className = "enjoy-css";
+      document.getElementById("card_number").className = "";
+      document.getElementById("card_number").className = "enjoy-css";
       }
 
-      var z = document.getElementById('shipping_zip').value;
+      var z = document.getElementById('card_verification').value;
     if (z == null || z == "") {
         isValid = false;
-        var d = document.getElementById("shipping_zip");
+        var d = document.getElementById("card_verification");
         d.className += " error_field";
         } else {
 
-      document.getElementById("shipping_zip").className = "";
-      document.getElementById("shipping_zip").className = "enjoy-css";
+      document.getElementById("card_verification").className = "";
+      document.getElementById("card_verification").className = "enjoy-css";
       }
+
+      var z = document.getElementById('billing_city').value;
+      if (z == null || z == "") {
+        isValid = false;
+        var d = document.getElementById("billing_city");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("billing_city").className = "";
+      document.getElementById("billing_city").className = "enjoy-css";
+      }
+
+      var z = document.getElementById('billing_address').value;
+      if (z == null || z == "") {
+        isValid = false;
+        var d = document.getElementById("billing_address");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("billing_address").className = "";
+      document.getElementById("billing_address").className = "enjoy-css";
+      }
+
+      var z = document.getElementById('billing_zip').value;
+      if (z == null || z == "") {
+        isValid = false;
+        var d = document.getElementById("billing_zip");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("billing_zip").className = "";
+      document.getElementById("billing_zip").className = "enjoy-css";
+      }
+
 
       var z = document.getElementById('phone').value;
     if (z == null || z == "") {
@@ -310,17 +373,42 @@ function validateForm(){isValid = false;
       document.getElementById("shipping_city").className = "";
       document.getElementById("shipping_city").className = "enjoy-css";
       }
-    
 
+      var z = document.getElementById('shipping_address').value;
+      if (z == null || z == "") {
+        isValid = false;
+        var d = document.getElementById("shipping_address");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("shipping_address").className = "";
+      document.getElementById("shipping_address").className = "enjoy-css";
+      }
+
+      var z = document.getElementById('shipping_zip').value;
+      if (z == null || z == "") {
+        isValid = false;
+        var d = document.getElementById("shipping_zip");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("shipping_zip").className = "";
+      document.getElementById("shipping_zip").className = "enjoy-css";
+      }
+          
 
   if(isValid){
     $('#shipping_info').hide();
+    $('#billing_info').hide();
+
     $('#edit_shipping').html("<%= escape_javascript(button_tag 'Edit', type: 'button', onclick: 'editShipping()', class: 'btn-4') %>");
-    $('#shipping_hidden').html("<p class='shipping_info'>" + $('#shipping_first_name').val() + " " + $('#shipping_last_name').val() + "<br/>" + $('#shipping_address').val() + " " + $('#shipping_address2').val() + "<br/>" + $('#shipping_city').val() + ", " + $('#shipping_state').val() + " " + $('#shipping_zip').val() + "</p>");
-    $('#billing_info').show();
-    $('.billing_info_title').show();
-    $('#billing_info').addClass('animated fadeIn');
-    $("#button_continue").html("<%= escape_javascript(button_tag 'Continue', type: 'button', onclick: 'validateForm2()', class: 'btn-blue') %>");
+
+    $('#shipping_hidden').html("<p class='shipping_info'>" + $('#billing_first_name').val() + " " + $('#billing_last_name').val() + "<br/>" + $('#shipping_address').val() + " " + $('#shipping_address2').val() + "<br/>" + $('#shipping_city').val() + ", " + $('#shipping_state').val() + " " + $('#shipping_zip').val() + "</p>");
+    $('#billing_hidden').html("<p class='shipping_info'>" + $('#billing_first_name').val() + " " + $('#billing_last_name').val() + "<br/>" + "Paid with: " + $('#order_card_type').val() + "<br/>" + $('#billing_address').val() + " " + $('#billing_address2').val() + "<br/>" + $('#billing_city').val() + ", " + $('#billing_state').val() + " " + $('#shipping_zip').val() + "</p>");
+    $("#button_continue").html("<%= escape_javascript(render 'finalize_order') %>");
+    $('#edit_billing').html("<%= escape_javascript(button_tag 'Edit', type: 'button', onclick: 'editBilling()', class: 'btn-4') %>");
+
+    $("#button_continue").html("<%= escape_javascript(render 'finalize_order') %>");
 
   }
 
@@ -336,98 +424,6 @@ function editShipping(){
   $('#billing_hidden').hide();
   }
 
-
-function validateForm2(){isValid = false;
-  var isValid = true;
-
-  var x = document.getElementById('billing_first_name').value;
-    if (x == null || x == "") {
-        isValid = false;
-        var d = document.getElementById("billing_first_name");
-        d.className += " error_field";
-      } else {
-
-      document.getElementById("billing_first_name").className = "";
-      document.getElementById("billing_first_name").className = "enjoy-css";
-      }
-    
-
-    var z = document.getElementById('billing_last_name').value;
-    if (z == null || z == "") {
-        isValid = false;
-        var d = document.getElementById("billing_last_name");
-        d.className += " error_field"; 
-        } else {
-
-      document.getElementById("billing_last_name").className = "";
-      document.getElementById("billing_last_name").className = "enjoy-css";
-      }
-    
-    var z = document.getElementById('billing_address').value;
-    if (z == null || z == "") {
-        isValid = false;
-        var d = document.getElementById("billing_address");
-        d.className += " error_field";
-        } else {
-
-      document.getElementById("billing_address").className = "";
-      document.getElementById("billing_address").className = "enjoy-css";
-      }
-
-      var z = document.getElementById('billing_zip').value;
-    if (z == null || z == "") {
-        isValid = false;
-        var d = document.getElementById("billing_zip");
-        d.className += " error_field";
-        } else {
-
-      document.getElementById("billing_zip").className = "";
-      document.getElementById("billing_zip").className = "enjoy-css";
-      }
-
-      var z = document.getElementById('billing_city').value;
-      if (z == null || z == "") {
-        isValid = false;
-        var d = document.getElementById("billing_city");
-        d.className += " error_field";
-        } else {
-
-      document.getElementById("billing_city").className = "";
-      document.getElementById("billing_city").className = "enjoy-css";
-      }
-
-      var z = document.getElementById('card_number').value;
-      if (z == null || z == "") {
-        isValid = false;
-        var d = document.getElementById("card_number");
-        d.className += " error_field";
-        } else {
-
-      document.getElementById("card_number").className = "";
-      document.getElementById("card_number").className = "enjoy-css";
-      }
-
-      var z = document.getElementById('card_verification').value;
-      if (z == null || z == "") {
-        isValid = false;
-        var d = document.getElementById("card_verification");
-        d.className += " error_field";
-        } else {
-
-      document.getElementById("card_verification").className = "";
-      document.getElementById("card_verification").className = "enjoy-css";
-      }
-    
-
-
-  if(isValid){
-    $('#billing_info').hide();
-    $('#edit_billing').html("<%= escape_javascript(button_tag 'Edit', type: 'button', onclick: 'editBilling()', class: 'btn-4') %>");
-    $('#billing_hidden').html("<p class='shipping_info'>" + $('#billing_first_name').val() + " " + $('#billing_last_name').val() + "<br/>" + "Paid with: " + $('#order_card_type').val() + "<br/>" + $('#billing_address').val() + " " + $('#billing_address2').val() + "<br/>" + $('#billing_city').val() + ", " + $('#billing_state').val() + " " + $('#shipping_zip').val() + "</p>");
-    $("#button_continue").html("<%= escape_javascript(render 'finalize_order') %>");
-  }
-
-}
 <% if @order.errors.any? %>
 $('#billing_info').show();
 $('.billing_info_title').show();
