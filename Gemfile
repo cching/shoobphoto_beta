@@ -50,7 +50,7 @@ gem 'roo'
 
 gem 'simple_form'
 gem 'headshot'
-gem "rmagick", "2.13.3", :require => "RMagick"
+
 gem "select2-rails"
 
 
