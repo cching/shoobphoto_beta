@@ -1243,6 +1243,16 @@ input[type='text'].enjoy-css_mobile:focus {
   max-height: 70px;
   max-widht: 50px;
 }
+
+/* line 21, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/orders.css.scss */
+#shipping_state_error p {
+  color: red;
+}
+
+/* line 25, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/orders.css.scss */
+#billing_state_error p {
+  color: red;
+}
 /* line 5, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/packages.css.scss */
 .img-cust {
   max-width: 100%;
