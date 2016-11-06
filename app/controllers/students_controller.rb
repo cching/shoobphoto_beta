@@ -23,7 +23,7 @@ class StudentsController < ApplicationController
   # Here is where you can specify how to handle the request for "/people.json"
       format.json { render :json => @schools.to_json }
       end
-  end
+  end 
 
 
   def showteacher
@@ -33,12 +33,11 @@ class StudentsController < ApplicationController
   def add_package
     @cart = Cart.find_by_cart_id(params[:cart])
     @i = params[:i]
-    @student = @cart.students.last
+    @student = @cart.cart_students.order(:i).last.student
     @option = Option.find(params[:option])
 
     @opackage = @cart.order_packages.create(:package_id => @option.package.id, :student_id => @student.id)
     
-
     @opackage.options << @option
 
     redirect_to student_addons_path(@cart.cart_id, @i, @option.id, @opackage.id)
@@ -48,7 +47,7 @@ class StudentsController < ApplicationController
   def addons
     @cart = Cart.find_by_cart_id(params[:cart])
     @i = params[:i]
-    @student = @cart.students.last
+    @student = @cart.cart_students.order(:i).last.student
     @option = Option.find(params[:option])
     array = @option.package.options.map(&:id)
     @index = array.index(@option.id)
@@ -164,7 +163,7 @@ class StudentsController < ApplicationController
 
   def select
     @cart = Cart.find_by_cart_id(params[:cart_id])
-    @student = @cart.students.last
+    @student = @cart.cart_students.order(:i).last.student
 
     if @cart.order_packages.where(:package_id => 6).any?
       @opackage = @cart.order_packages.where(:package_id => 6).last
@@ -216,7 +215,7 @@ class StudentsController < ApplicationController
 
   def senior_portraits
     @cart = Cart.find_by_cart_id(params[:cart_id])
-    @student = @cart.students.last
+    @student = @cart.cart_students.order(:i).last.student
     @i = params[:i]
 
     @opackage = @cart.order_packages.where(:package_id => 6).last
@@ -284,7 +283,7 @@ class StudentsController < ApplicationController
     @op = OrderPackage.find(params[:order_package_id])
     @option = Option.find(params[:option_id])
     @cart = @op.cart
-    @student = @cart.students.last
+    @student = @cart.cart_students.order(:i).last.student
     @op.options.delete(@option)
     @op.order_package_extras.where(:option_id => @option.id).destroy_all
 
@@ -431,7 +430,7 @@ class StudentsController < ApplicationController
 
   def final
     @cart = Cart.find_by_cart_id(params[:cart_id])
-    @student = @cart.students.last
+    @student = @cart.cart_students.order(:i).last.student
     @price = 0 
     if @cart.order_packages.where.not(package_id: nil).first.package.shippings.any?
 
@@ -485,7 +484,7 @@ class StudentsController < ApplicationController
     @i = params[:i]
 
     @cart = Cart.find_by_cart_id(params[:id])
-    @student = @cart.students.last
+    @student = @cart.cart_students.order(:i).last.student
     @ids = @student.download_images.pluck(:id) 
 
     if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%fall%").any?
@@ -533,9 +532,9 @@ class StudentsController < ApplicationController
 
   def update_cart
     @cart = Cart.find_by_cart_id(params[:cart_id])
-    @student = @cart.students.last
+    @student = @cart.cart_students.order(:i).last.student
      
-      if @cart.students[params[:i].to_i].download_images.any? && @cart.id_supplied?
+      if @student.download_images.any? && @cart.id_supplied?
         redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
       else
         redirect_to student_final_path(@cart.cart_id, @cart.students.count - 1)
@@ -546,7 +545,7 @@ class StudentsController < ApplicationController
   def add_options
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @i = params[:i].to_i
-    @student = @cart.students.last
+    @student = @cart.cart_students.order(:i).last.student
     @option = Option.find(params[:option_id])
     @op = OrderPackage.find(params[:op_id])
     
@@ -565,14 +564,14 @@ class StudentsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:id])
     @i = params[:i]
 
-    @student = @cart.students.last
+    @student = @cart.cart_students.order(:i).last.student
     @opackages = @cart.order_packages.where(:student_id => @student.id).order(:id)
 
   end
 
   def update
     @cart = Cart.find_by_cart_id(params[:id])
-    @student = @cart.students[params[:i].to_i]
+    @student = @cart.cart_students.order(:i).last.student
 
     @price = 0
 
@@ -630,7 +629,7 @@ class StudentsController < ApplicationController
   def select_package
     @cart = Cart.find_by_cart_id(params[:id])
     @i = params[:i]
-    @student = @cart.students.last
+    @student = @cart.cart_students.order(:i).last.student
     @package = Package.find(params[:package]) 
 
     @image = @student.student_images.where(:package_id => @package.id).where.not(folder: "fall2015").last
@@ -641,7 +640,7 @@ class StudentsController < ApplicationController
 
   def packages
     @cart = Cart.find_by_cart_id(params[:id])
-    @student = @cart.students.last
+    @student = @cart.cart_students.order(:i).last.student
     @packages = @student.school.packages.order(:id)
 
 
@@ -662,7 +661,7 @@ class StudentsController < ApplicationController
       @student = @cart.students.create( :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:teacher], :grade => params[:grade])
     end
      
-
+      @cart.cart_students.last.update(:i => @cart.students.count - 1)
     redirect_to student_packages_path(@cart.cart_id, @i)
   end
 
@@ -688,6 +687,8 @@ class StudentsController < ApplicationController
           @cart = Cart.find_by_cart_id(params[:cart])
           @cart.cart_students.create(:student_id => @student.id)
         end
+
+        @cart.cart_students.last.update(:i => @cart.students.count - 1)
 
         respond_to do |format|
             format.html { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
@@ -717,6 +718,8 @@ class StudentsController < ApplicationController
             @cart = Cart.find_by_cart_id(params[:cart])
             @cart.cart_students.create(:student_id => @student.id)
           end
+
+          @cart.cart_students.last.update(:i => @cart.students.count - 1)
           respond_to do |format|
               format.html { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
               format.mobile { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
@@ -731,6 +734,8 @@ class StudentsController < ApplicationController
             @cart = Cart.find_by_cart_id(params[:cart])
             @cart.cart_students.create(:student_id => @student.id)
           end
+
+          @cart.cart_students.last.update(:i => @cart.students.count - 1)
           respond_to do |format|
               format.html { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
               format.mobile { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }

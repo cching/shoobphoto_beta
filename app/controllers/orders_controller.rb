@@ -135,23 +135,19 @@ class OrdersController < ApplicationController
 	    end
 
 	    if @cart.order_packages.where.not(package_id: nil).first.package.shippings.any?
-
-      @price = @price + @cart.order_packages.where.not(package_id: nil).first.package.shippings.first.try(:price)
-
-       
-    end
+	      @price = @price + @cart.order_packages.where.not(package_id: nil).first.package.shippings.first.try(:price)
+	    end
 
 	    @cart.order_packages.each do |opackage|
 	    	opackage.options.each do |option|
-          opackage.addon_sheets.each do |addon|
-          if option.without? 
-          @price = @price + addon.addon.price_without
-          else 
-          @price = @price + addon.addon.price_with
-          end
-          end
+	          opackage.addon_sheets.each do |addon|
+		          if option.without? 
+		          	@price = @price + addon.addon.price_without
+		          else 
+		          	@price = @price + addon.addon.price_with
+		          end
+	          end
         end
-
 	    end
 
 		@cart.order_packages.each do |o|
@@ -171,10 +167,6 @@ class OrdersController < ApplicationController
   	redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1), notice: "Please add a package to your cart before continuing."
       end
 
-      respond_to do |format|
-      	format.html
-      	format.mobile
-      end
 end
 
 	def confirm

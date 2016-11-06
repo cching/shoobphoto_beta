@@ -141,7 +141,7 @@ City
 State
 </div>
 <div class="col-sm-2">
-<%= f.select :state, options_for_select(us_states),{}, id: "billingstate" %></div>
+<%= f.select :state, options_for_select(us_states),{prompt: "Select State"}, id: "billingstate" %></div>
 <div class="col-sm-1">
 Zip code
 </div>
@@ -199,7 +199,7 @@ City
 State
 </div>
 <div class="col-sm-2">
-<%= f.select :shipping_state, options_for_select(us_states),{}, :include_blank => true, id: "shippingstate" %>
+<%= f.select :shipping_state, options_for_select(us_states),{prompt: "Select State"}, :include_blank => true, id: "shippingstate" %>
 </div>
 <div class="col-sm-1">
 Zip code
