@@ -1,5 +1,5 @@
 class AutoImport
- 	include Sidekiq::Worker
+ 	include Sidekiq::Worker 
  	sidekiq_options queue: "package_import"
 
   	def perform(chunk, s3_key, auto)

@@ -10,7 +10,17 @@
 					<span class="<%= opackage.id %>_<%= option.id %>">
 					<div class="row" id="outer_row">
 						<div class="col-xs-3">
-			
+						
+						<% if opackage.package.name.include?("Download") %>
+						<div style="position: relative;" class='wide'>
+							<% image = opackage.student.download_images.where(:package_id => opackage.package.id).where.not(folder: "fall2015").last %>
+						<% unless image.nil? %>
+						<%= image_tag(image.image.url, class: "img-proof", id: "png1") %> 
+						<%= image_tag('watermark.png', class: "img-proof", id: "png2") %><br/>
+						<% end %>
+
+					</div>
+						<% else %>
 							<% image = opackage.student.student_images.where(:package_id => opackage.package.id).where.not(folder: "fall2015").last %>
 							<% unless image.nil? %>
 							<% if @cart.id_supplied? %>
@@ -18,6 +28,7 @@
 							<% end %>
 							<% else %>
 								<%= image_tag(opackage.package.image.url, class: "review_image") %>
+							<% end %>
 							<% end %>
 						</div>
  

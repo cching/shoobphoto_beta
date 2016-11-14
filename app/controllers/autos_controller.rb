@@ -36,7 +36,7 @@ class AutosController < ApplicationController
         AutoImport.perform_async(chunk, object, @auto.id)
       end
  
-    end
+    end 
 
     objects.each do |object| #clear database csv
       obj = s3.buckets['shoobphoto'].objects[object] # no request made

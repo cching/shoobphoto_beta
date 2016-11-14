@@ -12,6 +12,12 @@
 .award_sample {
   background-color: #D3D3D3;
 }
+
+/* line 17, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/awards.css.scss */
+.table_awards {
+  y-overflow: auto;
+  x-overflow: hidden;
+}
 /*!
  * Bootstrap v3.3.4 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
