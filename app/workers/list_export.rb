@@ -4,7 +4,7 @@ class ListExport
     def perform(id)
       export_list = ExportList.find(id)
       require 'csv'
- 
+  
       csv_file = ''
       school = export_list.user.school
       package = school.packages.where("name like ?", "%Fall%").last
@@ -25,15 +25,7 @@ class ListExport
               if package.student_images.where(:student_id => student.id).any?
                 @string = "#{package.student_images.where(:student_id => student.id).last.image.url}"
 
-                image = package.student_images.where(:student_id => student.id)
-                if image.last.try(:folder).nil? && (image.last.downloaded == false)
-                    title = "#{student.last_name}_#{student.first_name}.jpg"
-                    z.put_next_entry("images/#{title}")
-                    url1_data = open(image.last.image.url)
-                    z.print IO.read(url1_data)
 
-                    image.last.update(:downloaded => true)
-                end
 
               else
                 @string = ""
