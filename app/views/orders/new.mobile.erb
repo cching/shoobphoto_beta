@@ -1,7 +1,22 @@
+<style>
+.alert {
+  font-size: 48px;
+}
+.container-fluid {
+  width: 100% !important;
+}
+</style>
+
 <br/><br/>
 <br/><br/>
 <br/><br/>
 <br/><br/>
+
+<br/>
+<div class="alert alert-danger" role="alert" align="center">
+  Do not use the back arrow on your browser
+</div>
+
 <%= form_for @order, :url => {:action => "confirm", class: "form-control"} do |f| %>
 
 <%= errors_for(@order) %>
@@ -21,7 +36,7 @@
     <%= f.text_field :shipping_city, class: "enjoy-css_mobile", id: "shipping_city" %>
     <span class="label_header_mobile">State</span>
     <div class="ui-field-contain">
-          <%= f.select :shipping_state, options_for_select(us_states),{},  class: "enjoy-css_mobile_dropdown" %>
+          <%= f.select :shipping_state, options_for_select(us_states),{prompt: "Select State"},  class: "enjoy-css_mobile_dropdown" %>
 
             </div>
 
@@ -68,7 +83,7 @@
       <%= f.text_field :city, class: "enjoy-css_mobile", id: "billing_city" %>
       <span class="label_header_mobile">State</span>
       <div class="ui-field-contain">
-          <%= f.select :state, options_for_select(us_states),{},  class: "enjoy-css_mobile_dropdown" %>
+          <%= f.select :state, options_for_select(us_states),{prompt: "Select State"},  class: "enjoy-css_mobile_dropdown" %>
 
             </div>
 
@@ -92,48 +107,36 @@
 <br />
 
 <script>
-
-
 $("input#ship_to_billing_address").click(function(){ 
 if ($("input#ship_to_billing_address").is(':checked')) 
 { 
 $('#billing_address').val($('#shipping_address').val());
 $('#billing_address2').val($('#shipping_address2').val()); 
-
 $('#billing_zip').val($('#shipping_zip').val()); 
 $('#billing_city').val($('#shipping_city').val()); 
-
 $("#billing_state").select2("trigger", "select", {
     data: { id: $("#shipping_state").val() }
 });
 } 
-
 });
-
-
-
 function validateForm(){isValid = false;
   var isValid = true;
-
   var x = document.getElementById('shipping_first_name').value;
     if (x == null || x == "") {
         isValid = false;
         var d = document.getElementById("shipping_first_name");
         d.className += " error_field_mobile";
       } else {
-
       document.getElementById("shipping_first_name").className = "";
       document.getElementById("shipping_first_name").className = "enjoy-css_mobile";
       }
     
-
     var z = document.getElementById('shipping_last_name').value;
     if (z == null || z == "") {
         isValid = false;
         var d = document.getElementById("shipping_last_name");
         d.className += " error_field_mobile";
         } else {
-
       document.getElementById("shipping_last_name").className = "";
       document.getElementById("shipping_last_name").className = "enjoy-css_mobile";
       }
@@ -144,46 +147,37 @@ function validateForm(){isValid = false;
         var d = document.getElementById("shipping_address");
         d.className += " error_field_mobile";
         } else {
-
       document.getElementById("shipping_address").className = "";
       document.getElementById("shipping_address").className = "enjoy-css_mobile";
       }
-
       var z = document.getElementById('shipping_zip').value;
     if (z == null || z == "") {
         isValid = false;
         var d = document.getElementById("shipping_zip");
         d.className += " error_field_mobile";
         } else {
-
       document.getElementById("shipping_zip").className = "";
       document.getElementById("shipping_zip").className = "enjoy-css_mobile";
       }
-
       var z = document.getElementById('phone').value;
     if (z == null || z == "") {
         isValid = false;
         var d = document.getElementById("phone");
         d.className += " error_field_mobile";
         } else {
-
       document.getElementById("phone").className = "";
       document.getElementById("phone").className = "enjoy-css_mobile";
       }
-
       var z = document.getElementById('shipping_city').value;
       if (z == null || z == "") {
         isValid = false;
         var d = document.getElementById("shipping_city");
         d.className += " error_field_mobile";
         } else {
-
       document.getElementById("shipping_city").className = "";
       document.getElementById("shipping_city").className = "enjoy-css_mobile";
       }
     
-
-
   if(isValid){
     $('#shipping_info').hide();
     $('#edit_shipping').html("<%= escape_javascript(button_tag 'Edit', type: 'button', onclick: 'editShipping()', class: 'btn-4') %>");
@@ -192,44 +186,34 @@ function validateForm(){isValid = false;
     $('.billing_info_title').show();
     $('#billing_info').addClass('animated fadeIn');
     $("#button_continue").html("<%= escape_javascript(button_tag 'Continue', type: 'button', onclick: 'validateForm2()', class: 'btn-blue_mobile') %>");
-
   }
-
 }
-
 function editShipping(){
   $('#shipping_info').show();
   $('#shipping_hidden').hide();
   }
-
   function editBilling(){
   $('#billing_info').show();
   $('#billing_hidden').hide();
   }
-
-
 function validateForm2(){isValid = false;
   var isValid = true;
-
   var x = document.getElementById('billing_first_name').value;
     if (x == null || x == "") {
         isValid = false;
         var d = document.getElementById("billing_first_name");
         d.className += " error_field_mobile";
       } else {
-
       document.getElementById("billing_first_name").className = "";
       document.getElementById("billing_first_name").className = "enjoy-css_mobile";
       }
     
-
     var z = document.getElementById('billing_last_name').value;
     if (z == null || z == "") {
         isValid = false;
         var d = document.getElementById("billing_last_name");
         d.className += " error_field_mobile";
         } else {
-
       document.getElementById("billing_last_name").className = "";
       document.getElementById("billing_last_name").className = "enjoy-css_mobile";
       }
@@ -240,71 +224,56 @@ function validateForm2(){isValid = false;
         var d = document.getElementById("billing_address");
         d.className += " error_field_mobile";
         } else {
-
       document.getElementById("billing_address").className = "";
       document.getElementById("billing_address").className = "enjoy-css_mobile";
       }
-
       var z = document.getElementById('billing_zip').value;
     if (z == null || z == "") {
         isValid = false;
         var d = document.getElementById("billing_zip");
         d.className += " error_field_mobile";
         } else {
-
       document.getElementById("billing_zip").className = "";
       document.getElementById("billing_zip").className = "enjoy-css_mobile";
       }
-
       var z = document.getElementById('billing_city').value;
       if (z == null || z == "") {
         isValid = false;
         var d = document.getElementById("billing_city");
         d.className += " error_field_mobile";
         } else {
-
       document.getElementById("billing_city").className = "";
       document.getElementById("billing_city").className = "enjoy-css_mobile";
       }
-
       var z = document.getElementById('card_number').value;
       if (z == null || z == "") {
         isValid = false;
         var d = document.getElementById("card_number");
         d.className += " error_field_mobile";
         } else {
-
       document.getElementById("card_number").className = "";
       document.getElementById("card_number").className = "enjoy-css_mobile";
       }
-
       var z = document.getElementById('card_verification').value;
       if (z == null || z == "") {
         isValid = false;
         var d = document.getElementById("card_verification");
         d.className += " error_field_mobile";
         } else {
-
       document.getElementById("card_verification").className = "";
       document.getElementById("card_verification").className = "enjoy-css_mobile";
       }
     
-
-
   if(isValid){
     $('#billing_info').hide();
     $('#edit_billing').html("<%= escape_javascript(button_tag 'Edit', type: 'button', onclick: 'editBilling()', class: 'btn-4') %>");
     $('#billing_hidden').html("<p class='shipping_info'>" + $('#billing_first_name').val() + " " + $('#billing_last_name').val() + "<br/>" + "Paid with: " + $('#order_card_type').val() + "<br/>" + $('#billing_address').val() + " " + $('#billing_address2').val() + "<br/>" + $('#billing_city').val() + ", " + $('#billing_state').val() + " " + $('#shipping_zip').val() + "</p>");
     $("#button_continue").html("<%= escape_javascript(render 'finalize_order') %>");
-
   }
-
 }
 <% if @order.errors.any? %>
 $('#billing_info').show();
 $('.billing_info_title').show();
 $("#button_continue").html("<%= escape_javascript(submit_tag 'Confirm purchase', class: 'btn-blue loading') %>");
 <% end %>
-
-
 </script>
