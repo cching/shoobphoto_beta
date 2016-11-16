@@ -1,6 +1,6 @@
 <% ExportList.find(params[:export_list]).awards.each do |award| %>
 <% @award = award %>
-<%  current_user.user_students.where(:award_id => award.id).each do |student| %>
+<%  current_user.user_students.includes(:student).order("students.teacher ASC").where(:award_id => award.id).each do |student| %>
        <tr id="student_<%= student.student.id %>_<%= award.id %>">
           <td id="button_<%= student.student.id %>_<%= award.id %>">
             <%= link_to "Remove", export_list_remove_path(student.student.id, :award => award.id), remote: true, class: "btn btn-danger" %>

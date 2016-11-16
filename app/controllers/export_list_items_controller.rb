@@ -107,7 +107,7 @@ class ExportListItemsController < ApplicationController
     if params[:q].nil?
       @students = @search.result.order(:teacher).order(:last_name)
     else
-      @students = @search.result
+      @students = @search.result.order(:teacher).order(:last_name)
     end
 
     respond_to do |format|
