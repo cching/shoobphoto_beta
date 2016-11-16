@@ -22,7 +22,7 @@ class DownloadImage < ActiveRecord::Base
                      :preserve_files => true
     validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
-
+ 
   	def self.package_name(id)
   		folder = DownloadImage.find(id).folder
   		name = folder.match(/([A-Za-z]+)(\d+)/)
