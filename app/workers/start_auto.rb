@@ -7,7 +7,7 @@ class StartAuto
 s3 = AWS::S3.new
 bucket1 = s3.buckets["shoobphoto"]
 
-DownloadImage.where.not(image_file_name: nil).each do |image|
+DownloadImage.where(watermark_file_name: nil).each do |image|
 unless image.image_file_name.nil? || image.image_file_name == ""
 if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
 image.update(:image_file_name => image.image_file_name.upcase)
