@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       get 'select'
       get 'update_student'
       get 'newstudent'
-      get 'capture' 
+      get 'capture'  
     end
   end
 match 'webcams/capture/webcams/refresh' => 'webcams#refresh', :via => 'GET', :as => 'refresh'
@@ -212,6 +212,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'export/students' => 'export_list_items#students', :via => 'GET', :as => 'export_students'
   match 'students/add_option/:order_package_id/:option_id' => 'students#add_option', :via => 'GET', :as => 'add_option'
   match 'students/remove_option/:order_package_id/:option_id/:i' => 'students#remove_option', :via => 'GET', :as => 'remove_option'
+  match 'students/gift_packages/:cart_id/:i/' => 'students#gifts', :via => 'GET', :as => 'gift_packages'
   match 'export/users' => 'export_list_items#users', :via => 'GET', :as => 'export_users'
   match 'export/schools' => 'export_list_items#schools', :via => 'GET', :as => 'export_schools'
   match 'export/school_user/:id' => 'export_list_items#school_user', :via => 'GET', :as => 'export_user_school'

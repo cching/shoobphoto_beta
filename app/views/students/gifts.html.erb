@@ -1,0 +1,13 @@
+<br/><br/><br/>
+
+<div class="row">
+	<div class="col-xs-4">
+		<% if @cart.id_supplied? %>
+				<%= image_tag(@image.watermark.url(:watermark), class: "select_package_image") %>
+			<% else %>
+				<%= image_tag(@package.image.url, class: "select_package_image") %>
+			<% end %>
+	</div>
+	<div class="col-xs-8">
+	</div>
+</div>

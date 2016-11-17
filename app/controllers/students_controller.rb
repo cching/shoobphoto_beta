@@ -383,12 +383,17 @@ class StudentsController < ApplicationController
     @school = School.find(params[:school])
     @students = @school.students.where("student_id = ?", "#{params[:student_id].gsub(/\s+/, "")}").where(:id_only => true)
     @students_access = @school.students.where("access_code = ?", "#{params[:student_id].gsub(/\s+/, "")}").where(:id_only => true)
+    @students_access_gift = @school.students.where("access_code = ?", "#{params[:student_id].gsub(/\s+/, "")[1..-1]}").where(:id_only => true)
     if @students.any? && (params[:student_id].gsub(/\s+/, "") != "" && params[:student_id] != nil)
       @student = @students.last
-      RenderWatermark.perform_async(@student.id)
+      RenderWatermark.perform_async(@student.id) 
       respond_to :js
     elsif @students_access.any? && (params[:student_id].gsub(/\s+/, "") != "" && params[:student_id] != nil)
       @student = @students_access.last
+      RenderWatermark.perform_async(@student.id)
+      respond_to :js
+    elsif @students_access_gift.any? && (params[:student_id].gsub(/\s+/, "") != "" && params[:student_id] != nil)
+      @student = @students_access_gift.last
       RenderWatermark.perform_async(@student.id)
       respond_to :js
     else
@@ -632,18 +637,13 @@ class StudentsController < ApplicationController
     @student = @cart.cart_students.order(:i).last.student
     @package = Package.find(params[:package]) 
 
-    @image = @student.student_images.where(:package_id => @package.id).where.not(folder: "fall2015").last
-
-
-    
+    @image = @student.student_images.where(:package_id => @package.id).where.not(folder: "fall2015").last    
   end 
 
   def packages
     @cart = Cart.find_by_cart_id(params[:id])
     @student = @cart.cart_students.order(:i).last.student
     @packages = @student.school.packages.order(:id)
-
-
 
   end
 
@@ -707,7 +707,8 @@ class StudentsController < ApplicationController
     else
       student = @school.students.where("lower(first_name) like ? and lower(last_name) like ? and student_id = ? and id_only = ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%", "#{params[:student_id].gsub(/\s+/, "")}", "true")
       student_access = @school.students.where("lower(first_name) like ? and lower(last_name) like ? and access_code = ? and id_only = ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%", "#{params[:student_id].gsub(/\s+/, "")}", "true")
-
+      student_access_gift = @school.students.where("lower(first_name) like ? and lower(last_name) like ? and access_code = ? and id_only = ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%", "#{params[:student_id].gsub(/\s+/, "")[1..-1]}", "true")
+      gift_code = params[:student_id][0].downcase
       if student.count > 0
         @student = student.last
           if @cart_id.to_i == 1
@@ -725,6 +726,7 @@ class StudentsController < ApplicationController
               format.mobile { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
           end
       elsif student_access.count > 0
+        AccessCodeLog.create(:access_code => "#{params[:student_id]}")
         @student = student_access.last
           if @cart_id.to_i == 1
             @cart = @student.carts.create(:school_id => @school.id, :email => params[:email])
@@ -739,6 +741,23 @@ class StudentsController < ApplicationController
           respond_to do |format|
               format.html { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
               format.mobile { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
+          end
+      elsif student_access_gift.count > 0 && gift_code.include?("g")
+        AccessCodeLog.create(:access_code => "#{params[:student_id]}")
+          @student = student_access_gift.last
+          if @cart_id.to_i == 1
+            @cart = @student.carts.create(:school_id => @school.id, :email => params[:email])
+            @cart.cart_id = (0...8).map { (65 + rand(26)).chr }.join
+            @cart.save
+          else
+            @cart = Cart.find_by_cart_id(params[:cart])
+            @cart.cart_students.create(:student_id => @student.id)
+          end
+
+          @cart.cart_students.last.update(:i => @cart.students.count - 1)
+          respond_to do |format|
+              format.html { redirect_to gift_packages_path(@cart.cart_id, @cart.students.count - 1, 0) }
+              #format.mobile { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
           end
       else ## check for dob, then redirect if none found
 
@@ -755,6 +774,17 @@ class StudentsController < ApplicationController
   # GET /students.json
   def index
     @students = Student.all
+  end
+
+  def gifts
+    @cart = Cart.find_by_cart_id(params[:cart_id])
+    @i = params[:i].to_i
+    @student = @cart.cart_students.order(:i).last.student
+
+    if params[:download_image_id].nil?
+      @image = @student.student_images.where(folder: "fall2017").last
+    else
+    end
   end
 
   def schools

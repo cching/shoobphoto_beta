@@ -11,11 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161106214520) do
+ActiveRecord::Schema.define(version: 20161117225715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_stat_statements"
+
+  create_table "access_code_logs", force: true do |t|
+    t.string   "access_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "addon_sheets", force: true do |t|
     t.integer  "addon_id"
@@ -457,6 +463,7 @@ ActiveRecord::Schema.define(version: 20161106214520) do
     t.string   "grad"
     t.integer  "extra_poses",       default: 0
     t.integer  "senior_image_id"
+    t.integer  "student_image_id"
   end
 
   create_table "orders", force: true do |t|

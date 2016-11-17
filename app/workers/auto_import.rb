@@ -83,9 +83,9 @@ class AutoImport
 
 				          	if images.any? #update
 					        		image = images.last
-				          			image.update(:package_id => package.id, :student_id => student.id, :image_file_name => h["url"], :url => h["url"], :folder => h["folder"], :shoob_id => h["shoob_id"])
+				          			image.update(:package_id => package.id, :student_id => student.id, :image_file_name => h["url"], :watermark_file_name => h["url"], :url => h["url"], :folder => h["folder"], :shoob_id => h["shoob_id"])
 					        else #create
-					        		image = StudentImage.new(:package_id => package.id, :student_id => student.id, :image_file_name => h["url"], :url => h["url"], :folder => h["folder"], :shoob_id => h["shoob_id"])
+					        		image = StudentImage.new(:package_id => package.id, :student_id => student.id, :image_file_name => h["url"], :watermark_file_name => h["url"], :url => h["url"], :folder => h["folder"], :shoob_id => h["shoob_id"])
 					        		image.save
 					     	end
 
