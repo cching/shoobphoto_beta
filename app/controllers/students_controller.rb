@@ -783,6 +783,7 @@ class StudentsController < ApplicationController
 
     if params[:download_image_id].nil?
       @image = @student.student_images.where(folder: "fall2017").last
+      @image.update(:watermark_file_name => @image.image_file_name)
     else
     end
   end
