@@ -122,6 +122,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
 
     resources :addons
 
+    resources :gifts
+
     resources :items do
       member do
         get 'search_term'
@@ -213,6 +215,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'students/add_option/:order_package_id/:option_id' => 'students#add_option', :via => 'GET', :as => 'add_option'
   match 'students/remove_option/:order_package_id/:option_id/:i' => 'students#remove_option', :via => 'GET', :as => 'remove_option'
   match 'students/gift_packages/:cart_id/:i/' => 'students#gifts', :via => 'GET', :as => 'gift_packages'
+  match 'students/add_gift/:cart_id/:i/:gift_id' => 'students#add_gift', :via => 'GET', :as => 'add_gift'
+  match 'students/show_gift/:cart_id/:i/:gift_id' => 'students#show_gift', :via => 'GET', :as => 'show_gift'
   match 'export/users' => 'export_list_items#users', :via => 'GET', :as => 'export_users'
   match 'export/schools' => 'export_list_items#schools', :via => 'GET', :as => 'export_schools'
   match 'export/school_user/:id' => 'export_list_items#school_user', :via => 'GET', :as => 'export_user_school'

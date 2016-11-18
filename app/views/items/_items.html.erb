@@ -23,7 +23,7 @@
   <% @items.each_slice(2) do |slice| %>
   <div class="row">
     <% slice.each do |item| %>
-    
+     
 
       <div class="col-sm-6" id="preview">
         <%= link_to(items_preview_path(item.id, @cart.id, :subcat_id => @subcat_id), remote: true) do %>

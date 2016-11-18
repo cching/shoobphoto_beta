@@ -17,20 +17,18 @@
 				<% images.each do |image| %>
 					<div class="col-sm-3" align="center">
 						
-						<div style="position: relative;" class='wide'>
 
-						<%= image_tag(image.image.url, class: "img-proof", id: "png1") %> 
-						<%= image_tag('watermark.png', class: "img-proof", id: "png2") %><br/>
+						<%= image_tag(image.watermark.url(:watermark), class: "img-proof", id: "png1") %> 
 
 
-					</div>
-					<strong class="image_text"><%= DownloadImage.package_name(image.id) %></strong><br/><br/><br/>
+					
+					<strong class="image_text"><%= DownloadImage.package_name(image.id) %></strong><br/><br/>
 					<%= link_to "Select", download_cart_path(@student.id, :cart_id => params[:id], :image => image.id, :i => @i), class: "btn-custom2", remote: true %>
 					</div>	
 				<% end %>
 				<div class="col-sm-1"></div>
 				</div> 
-				<br/><br/><br/><br/>
+				<br/><br/>
 				<% end %>
 				
 			

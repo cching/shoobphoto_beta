@@ -1,13 +1,61 @@
-<br/><br/><br/>
-
+<div id="gift_notice" hidden><div class='alert alert-success' role='alert' align='center'>The item has been successfully been added to your cart.</div>
+</div>
+<br/><br/>
 <div class="row">
-	<div class="col-xs-4">
-		<% if @cart.id_supplied? %>
-				<%= image_tag(@image.watermark.url(:watermark), class: "select_package_image") %>
+	<div class="col-xs-3">
+		<% if @image.nil? || !@image.image.exists? %>
+			<%= image_tag("missing_image.png", class: "gift-default") %>
+			
+		<% else %>
+			<% if @cart.id_supplied? %>
+					<%= image_tag(@image.watermark.url(:watermark), class: "select_package_image") %>
 			<% else %>
-				<%= image_tag(@package.image.url, class: "select_package_image") %>
+					<%= image_tag("missing_image.png", class: "gift-default") %>
 			<% end %>
+		<% end %>
+		<br/>
+		<p align="center">
+			<% unless @image.nil? || !@image.watermark.exists? %>
+				We're working on loading your student's images to the website.
+			<% else %>
+				<% if params[:download_image_id].nil? %>
+					<%= StudentImage.package_name(@image.id) unless @image.nil? %>
+				<% else %>
+					<%= DownloadImage.package_name(@image.id) unless @image.nil? %>
+				<% end %>
+			<% end %>
+		</p>
 	</div>
-	<div class="col-xs-8">
+
+	<div id="gift_table" class="animated fadeIn">
+
+	<div class="col-xs-9">
+		<p align="center" class="gift_header">Photo Gifts</p>
+		<hr>
+		<% @gifts.each_slice(3) do |slice| %>
+		<div class="row">
+			<% slice.each do |gift| %>
+				<div class="col-xs-4">
+					<%= link_to image_tag(gift.image.url, class: "gift_image"), show_gift_path(@cart.cart_id, @i, gift.id, :download_image_id => params[:download_image_id], :image_id => @image.try(:id)), remote: true %><br/>
+					<p class="gift_name"><%= gift.name %></p>
+					<p class="gift_description"><%= number_to_currency(gift.price, :unit => "$") %> - <%= gift.description %></p>
+				</div>
+			<% end %>
+		</div>
+		<% end %>
+
+
+	</div>
+</div>
+</div>
+<div class="row">
+	<div class="col-xs-10">
+	</div>
+	<div class="col-xs-2">
+		<% if @student.download_images.any? %> 
+		<%= link_to "Continue", previous_images_path(@cart.cart_id, @cart.students.count - 1), class: "btn-blue" %>
+		<% else %>
+		<%= link_to "Continue", student_update_path(@cart.cart_id, @cart.students.count - 1), class: "btn-blue" %>
+		<% end %>
 	</div>
 </div>

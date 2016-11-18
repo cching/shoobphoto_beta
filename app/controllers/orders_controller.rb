@@ -107,7 +107,7 @@ class OrdersController < ApplicationController
                 @senior_id << "#{senior_image.id}"
                end
        		end
-    	 
+    	  
 	   end
 	end
 
@@ -132,11 +132,15 @@ class OrdersController < ApplicationController
 	    	package.options.each do |option|
 	    		@price = option.price(package.student.school.id) + @price
 	 		end
+	 		package.gifts.each do |gift|
+           	@price = package.quantity*gift.price + @price
+        	end
 	    end
-
+	    unless @cart.order_packages.where.not(package_id: nil).first.nil? 
 	    if @cart.order_packages.where.not(package_id: nil).first.package.shippings.any?
 	      @price = @price + @cart.order_packages.where.not(package_id: nil).first.package.shippings.first.try(:price)
 	    end
+		end
 
 	    @cart.order_packages.each do |opackage|
 	    	opackage.options.each do |option|

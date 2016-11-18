@@ -1,6 +1,6 @@
 <%= form_tag(student_find_path, method: :get, :name => 'new_search_form', :id => "new_search_form") do %>
 <div class="row animated fadeIn">
-  <div class="col-xs-7">  
+  <div class="col-xs-7">   
     <%= image_tag("purchase_pics.jpg", class: "img-purchase") %>
   </div>
   <div class="col-xs-4"> 
@@ -41,7 +41,7 @@
         <div class="col-xs-4" id="student_grade">
             <%= select_tag :grade, options_for_select(Student::Grades), id: "gradedropdown", :prompt => "Enter grade..." %>
             <span id="grade_error"></span>
-
+ 
           </div>
           </div>
 

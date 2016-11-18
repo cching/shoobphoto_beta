@@ -196,7 +196,7 @@ class Admin::ItemsController < ApplicationController
   end
 
   def destroy
-    @item.destroy
+    @item.destroy 
     respond_with(@item)
   end
 

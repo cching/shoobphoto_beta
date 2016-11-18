@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161117225715) do
+ActiveRecord::Schema.define(version: 20161118114129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -335,6 +335,18 @@ ActiveRecord::Schema.define(version: 20161117225715) do
     t.datetime "updated_at"
   end
 
+  create_table "gifts", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.decimal  "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
   create_table "headshot_photos", force: true do |t|
     t.string   "description"
     t.string   "image_file_name"
@@ -449,6 +461,13 @@ ActiveRecord::Schema.define(version: 20161117225715) do
     t.integer  "option_id"
   end
 
+  create_table "order_package_gifts", force: true do |t|
+    t.integer  "order_package_id"
+    t.integer  "gift_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "order_packages", force: true do |t|
     t.integer  "package_id"
     t.datetime "created_at"
@@ -464,6 +483,7 @@ ActiveRecord::Schema.define(version: 20161117225715) do
     t.integer  "extra_poses",       default: 0
     t.integer  "senior_image_id"
     t.integer  "student_image_id"
+    t.integer  "quantity"
   end
 
   create_table "orders", force: true do |t|

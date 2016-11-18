@@ -437,17 +437,23 @@ class StudentsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @student = @cart.cart_students.order(:i).last.student
     @price = 0 
+    unless @cart.order_packages.where.not(package_id: nil).first.nil? 
     if @cart.order_packages.where.not(package_id: nil).first.package.shippings.any?
 
           @price = @price + @cart.order_packages.where.not(package_id: nil).first.package.shippings.first.try(:price)
        
         end
+      end
       @cart.order_packages.each do |package|
         unless package.extra_poses.nil?
         @price = @price + package.extra_poses*25
         end
         package.options.each do |option|
            @price = option.price(@student.school.id) + @price
+        end
+
+        package.gifts.each do |gift|
+           @price = package.quantity*gift.price + @price
         end
       end
 
@@ -507,8 +513,8 @@ class StudentsController < ApplicationController
       @images = DownloadImage.where(id: @ids)
 
       @images.each do |image|
-        if image.image_file_name.nil?
-          image.update(:image_file_name => image.try(:url).downcase)
+        if image.watermark_file_name.nil?
+          image.update(:watermark_file_name => image.image_file_name)
         end
         if image.year.nil?
           image.update(:year => image.folder[-4..-1])
@@ -585,14 +591,17 @@ class StudentsController < ApplicationController
      package.options.each do |option|
       @price = option.price(@student.school.id) + @price
      end
+     package.gifts.each do |gift|
+      @price = package.quantity*gift.price + @price
+     end
     end
 
 
-
+    unless @cart.order_packages.where.not(package_id: nil).first.nil? 
     if @cart.order_packages.where.not(package_id: nil).first.package.shippings.any?
 
       @price = @price + @cart.order_packages.where.not(package_id: nil).first.package.shippings.first.price
-       
+       end
     end
 
     @cart.update(:price => @price)
@@ -654,7 +663,7 @@ class StudentsController < ApplicationController
 
     if params[:cart].to_i == 1 
       @student = @school.students.create(:first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :teacher => params[:teacher], :grade => params[:grade])
-      @cart = @student.carts.create(:email => params[:email], :school_id => @school.id, :cart_id => (0...8).map { (65 + rand(26)).chr }.join)
+      @cart = @student.carts.create(:email => params[:email], :school_id => @school.id, :cart_id => (0...8).map { (65 + rand(26)).chr }.join, :id_supplied => params[:id_supplied])
     else
       @cart = Cart.find_by_cart_id(params[:cart])
       @cart.update(:id_supplied => params[:id_supplied])
@@ -674,7 +683,7 @@ class StudentsController < ApplicationController
     cookies[:user_email] = { :value => "#{params[:email]}", :expires => 5.years.from_now}
 
 
-    if (params[:student_id].nil? || params[:student_id].strip == "")
+    if (params[:student_id].nil? || params[:student_id].strip == "") #if no student ID is entered
 
       student = @school.students.where("lower(first_name) like ? and lower(last_name) like ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%")
       
@@ -685,6 +694,7 @@ class StudentsController < ApplicationController
           @cart = @student.carts.create(:cart_id => (0...8).map { (65 + rand(26)).chr }.join, :id_supplied => false, :school_id => @school.id, :email => params[:email])
         else
           @cart = Cart.find_by_cart_id(params[:cart])
+          @cart.update(:id_supplied => false)
           @cart.cart_students.create(:student_id => @student.id)
         end
 
@@ -695,11 +705,11 @@ class StudentsController < ApplicationController
             format.mobile { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
         end
  
-      else
+      else #if no student found, create student
 
         respond_to do |format|
-            format.mobile { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :grade => params[:grade], :email => params[:email], :id_supplied => "false") }
-            format.html { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :grade => params[:grade], :email => params[:email], :id_supplied => "false") }
+            format.mobile { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :grade => params[:grade], :email => params[:email], :id_supplied => false) }
+            format.html { redirect_to student_input_path(@school.id, @cart_id, @i, :first_name => params[:first_name], :last_name => params[:last_name], :student_id => params[:student_id], :school_id => @school.id, :teacher => params[:student_teacher], :grade => params[:grade], :email => params[:email], :id_supplied => false) }
           end
   
       end
@@ -756,7 +766,7 @@ class StudentsController < ApplicationController
 
           @cart.cart_students.last.update(:i => @cart.students.count - 1)
           respond_to do |format|
-              format.html { redirect_to gift_packages_path(@cart.cart_id, @cart.students.count - 1, 0) }
+              format.html { redirect_to gift_packages_path(@cart.cart_id, @cart.students.count - 1) }
               #format.mobile { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
           end
       else ## check for dob, then redirect if none found
@@ -780,12 +790,29 @@ class StudentsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @i = params[:i].to_i
     @student = @cart.cart_students.order(:i).last.student
+    @gifts = Gift.all.order(:name)
 
-    if params[:download_image_id].nil?
+    if params[:download_image_id].nil? #check if cart has ID input - also check if last student updates cart
       @image = @student.student_images.where(folder: "fall2017").last
       @image.update(:watermark_file_name => @image.image_file_name)
     else
     end
+  end
+
+  def show_gift
+    @gift = Gift.find(params[:gift_id])
+    @cart = Cart.find_by_cart_id(params[:cart_id])
+    @i = params[:i].to_i
+    @student = @cart.cart_students.order(:i).last.student
+  end
+
+  def add_gift
+    @gift = Gift.find(params[:gift_id])
+    @cart = Cart.find_by_cart_id(params[:cart_id])
+    @i = params[:i].to_i
+    @student = @cart.cart_students.order(:i).last.student
+    @op = @cart.order_packages.create(:student_id => @student.id, :download_image_id => params[:download_image_id], :student_image_id => params[:image_id], :quantity => params[:quantity]) 
+    @op.gifts << @gift
   end
 
   def schools

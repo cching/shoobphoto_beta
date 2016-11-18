@@ -806,6 +806,29 @@ color:#fff;
   outline: none;
 }
 
+.btn-red {
+	-webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  color: #E74C3C;
+  font-size: 14px;
+  background: #E74C3C;
+  padding: 5px 8px 5px 8px;
+  border: solid #000000 0px;
+  text-decoration: none;
+  text-align:center;
+  color:#fff;
+}
+
+.btn-red:hover {
+background-color:#E74C3C;
+color:#fff;
+}
+
+.btn-red:focus {
+  outline: none;
+}
+
 
 .btn-custom2 {
 	-webkit-border-radius: 0;
@@ -941,7 +964,6 @@ color:#fff;
 }
 
 #png1 {
-    position:absolute;
     top:0;
     left:0;
     z-index:0;
