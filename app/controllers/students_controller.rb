@@ -794,7 +794,9 @@ class StudentsController < ApplicationController
 
     if params[:download_image_id].nil? #check if cart has ID input - also check if last student updates cart
       @image = @student.student_images.where(folder: "fall2017").last
+      unless @image.nil?
       @image.update(:watermark_file_name => @image.image_file_name)
+      end
     else
     end
   end
