@@ -12,7 +12,7 @@
 
 				<% if senior_image.watermark.exists? %>
 					<div class="col-sm-6">
-						<span class="small_text_info"><%= senior_image.url.downcase %></span><br/><%= link_to image_tag(senior_image.watermark.url(:watermark), :class => "img img-package"), student_preview_image_path(:image => senior_image.watermark.url(:watermark)), remote: true %>
+						<span class="small_text_info"><%= senior_image.url.downcase %></span><br/><%= link_to image_tag(senior_image.watermark.url, :class => "img img-package"), student_preview_image_path(:image => senior_image.watermark.url, remote: true %>
 						</div>
 					<% end %>
 				<% end %>
