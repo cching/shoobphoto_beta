@@ -10,18 +10,8 @@
 					<span class="<%= opackage.id %>_<%= gift.id %>">
 					<div class="row" id="outer_row">
 						<div class="col-xs-3">
-						<% @image = opackage.download_image %>
-						<% if @image.nil? %>
-							<% @image = opackage.student_image %>
-						<% end %>
-						<% if @image.nil? || !@image.image.exists? %>
-							<%= image_tag("missing_image.png", class: "gift-default") %>
-							
-						<% else %>
-							<%= image_tag(@image.watermark.url(:watermark), class: "review_image") %>
-			
-						<% end %>
 
+						<%= image_tag(gift.image.url, class: "review_image") %>
 						</div>
  
 						<div class="col-xs-9 package_blue" %>
