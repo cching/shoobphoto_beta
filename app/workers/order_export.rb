@@ -30,11 +30,11 @@ class OrderExport
 
               if order.cart.order_packages.where(:student_id => student.id).count > 1
 
-                @string = order.cart.order_packages.where(:student_id => student.id).collect { |w| w.package.slug }.join(", ")
+                @string = order.cart.order_packages.where(:student_id => student.id).collect { |w| w.package.try(:slug) }.join(", ")
               else
                 @string = ""
                 order.cart.order_packages.where(:student_id => student.id).each do |opackage|
-                  @string = @string + "#{opackage.package.slug}"
+                  @string = @string + "#{opackage.package.try(:slug)}"
                 end
               end
 
