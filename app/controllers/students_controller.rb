@@ -485,7 +485,6 @@ class StudentsController < ApplicationController
 
       respond_to do |format|
         format.html
-        format.mobile
       end
 
 
