@@ -437,7 +437,7 @@ class StudentsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @student = @cart.cart_students.order(:i).last.student
     @price = 0 
-    unless @cart.order_packages.where.not(package_id: nil).first.nil? 
+    unless @cart.order_packages.where.not(package_id: nil).first.package.nil? 
     if @cart.order_packages.where.not(package_id: nil).first.package.shippings.any?
 
           @price = @price + @cart.order_packages.where.not(package_id: nil).first.package.shippings.first.try(:price)

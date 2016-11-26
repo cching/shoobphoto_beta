@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
 		if @order.cart.order_packages.map(&:download_image_id).any? && @order.cart.order_packages.map{ |o| o.options.map {|x| x.download }}.any? 
 			@images = @order.cart.order_packages.where.not(download_image_id: nil).all
 		else
-			redirect_to root_path
+			redirect_to root_path 
 		end
 	end
 
@@ -192,11 +192,14 @@ end
 	    	end
 	    	OrderMailer.receipt(@order).deliver
 
-	    	respond_to do |format|
-
-
-	    		format.html {redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt." }
-	    		format.mobile {redirect_to after_purchase_pages_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt." }
+	    	if @order.cart.order_packages.map(&:download_image_id).any? && @order.cart.order_packages.map{ |o| o.options.map {|x| x.download }}.any? 
+				@images = @order.cart.order_packages.where.not(download_image_id: nil).all
+				redirect_to order_download_path(@order.id)
+			else
+		    	respond_to do |format|
+		    		format.html {redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt." }
+		    		format.mobile {redirect_to after_purchase_pages_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt." }
+		    	end
 	    	end
 	    else
 	    	respond_to do |format|
