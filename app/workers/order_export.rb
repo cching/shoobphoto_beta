@@ -75,11 +75,15 @@ class OrderExport
                         @string2 = @string2 +  "#{option.name[-1]}, "
                       end # end if
                     end #end if
+
+                    opackage.gifts.each_with_index do |gift, i|
+                      @string2 = @string2 + "#{gift.number}, "
+                    end   #end loop
                   end   #end loop
 
                   if opackage.gifts.any?
                   opackage.gifts.each_with_index do |gift, i|
-                    @string3 = @string3 + "#{gift.number}, #{opackage.quantity}"
+                    @string3 = @string3 + "#{gift.number}, #{opackage.quantity};"
                   end   #end loop
                   end
 
