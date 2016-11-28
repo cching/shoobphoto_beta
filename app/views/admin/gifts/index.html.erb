@@ -10,7 +10,7 @@
   <tbody>
     <% @gifts.each do |gift| %>
       <tr>
-        <td><%= link_to 'Show', admin_gift_path(gift.id) %></td>
+        <td><%= gift.name %></td>
         <td><%= link_to 'Edit', edit_admin_gift_path(gift) %></td>
         <td><%= link_to 'Destroy', admin_gift_path(gift.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
