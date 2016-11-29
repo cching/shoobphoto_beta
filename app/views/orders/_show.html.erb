@@ -16,6 +16,18 @@
   Teacher: <%= student.try(:teacher) %>
  
   <% @order.cart.order_packages.where(:student_id => student.id).each do |o| %>
+  <% o.gifts.each do |gift| %>
+    <div class="row">
+      <div class="col-sm-6">
+      <strong>Gifts: </strong><br/>
+      </div>
+      <div class="col-sm-6">
+        <strong><%= gift.name %> - (<%= number_to_currency(gift.price, :unit => "$") %>)</strong>
+
+      <hr>
+          </div>
+      </div>
+  <% end %>
   <% o.options.each do |option| %>
   <div class="row">
       <div class="col-sm-6">

@@ -40,6 +40,10 @@ class Order < ActiveRecord::Base
         package.options.each do |option|
             @price = option.price + @price
         end
+
+        package.gifts.each do |gift|
+            @price = package.quantity*gift.price + @price
+          end
       end
 
       @cart.order_packages.where(:student_id => sid).each do |opackage|

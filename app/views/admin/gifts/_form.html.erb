@@ -12,6 +12,8 @@
 
     <%= f.input :image, as: :file %>
 
+    <%= image_tag(@gift.image.url) if @gift.image? %>
+
   </div>
 
   </div>
