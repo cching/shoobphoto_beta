@@ -8,7 +8,11 @@ class OrdersController < ApplicationController
 		@order = Order.find(params[:id])
 
 		if @order.cart.order_packages.map(&:download_image_id).any? && @order.cart.order_packages.map{ |o| o.options.map {|x| x.download }}.any? 
-			@images = @order.cart.order_packages.where.not(download_image_id: nil).all
+			@images = []
+			@order.cart.order_packages.where.not(download_image_id: nil).map{ |o| @images << o if o.options.first.download?}
+		elsif @order.cart.order_packages.map(&:student_image_id).any? && @order.cart.order_packages.map{ |o| o.gifts.map {|x| x.download }}.any? 
+			@gift_images = []
+			@order.cart.order_packages.where.not(student_image_id: nil).map{ |o| @gift_images << o if o.gifts.first.download?}
 		else
 			redirect_to root_path 
 		end
@@ -183,7 +187,7 @@ end
 	    	@cart.cart_type = "school_pictures"
 	    	@cart.save
 
-	    	@cart.order_packages.each do |op|
+	    	@cart.order_packages.each do |op| #bundle thing that adds the appropriate extras at a discount
 	    		if op.extras.pluck(:id).include? 75
 	    			op.extras.where(:id => 74).destroy_all
 	    			op.extras << Extra.find(43)
@@ -194,6 +198,8 @@ end
 
 	    	if @order.cart.order_packages.map(&:download_image_id).any? && @order.cart.order_packages.map{ |o| o.options.map {|x| x.download }}.any? 
 				@images = @order.cart.order_packages.where.not(download_image_id: nil).all
+				redirect_to order_download_path(@order.id)
+			elsif @order.cart.order_packages.map{ |o| o.gifts.map {|x| x.download }}.any?
 				redirect_to order_download_path(@order.id)
 			else
 		    	respond_to do |format|

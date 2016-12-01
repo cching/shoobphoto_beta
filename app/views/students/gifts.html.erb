@@ -4,19 +4,16 @@
 <div class="row">
 	<div class="col-xs-3">
 		<% if @image.nil? || !@image.image.exists? %>
-			<%= image_tag("missing_image.png", class: "gift-default") %>
 			
 		<% else %>
 			<% if @cart.id_supplied? %>
 					<%= image_tag(@image.watermark.url(:watermark), class: "select_package_image") %>
 			<% else %>
-					<%= image_tag("missing_image.png", class: "gift-default") %>
 			<% end %>
 		<% end %>
 		<br/>
 		<p align="center">
 			<% unless @image.nil? || !@image.watermark.exists? %>
-				We're working on loading your student's images to the website.
 			<% else %>
 				<% if params[:download_image_id].nil? %>
 					<%= StudentImage.package_name(@image.id) unless @image.nil? %>

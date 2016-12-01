@@ -46,7 +46,7 @@
   <td>
   <% @cart.order_packages.where(:student_id => student.id).each do |o| %>
   <% o.gifts.each do |gift| %>
-  <%= number_to_currency(gift.price, :unit => "$") %>  - <%= gift.name %> <br/>
+  <%= number_to_currency(o.quantity*gift.price, :unit => "$") %>  - (<%= o.quantity %>) <%= gift.name %> <br/>
   <% end %>
   <% o.options.each do |option| %>
 

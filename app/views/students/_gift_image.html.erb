@@ -13,8 +13,14 @@
 				<p class="preview_gift_description"><%= number_to_currency(@gift.price, :unit => "$") %> - <%= @gift.description %></p>
 				<br/><br/>
 				<%= form_tag(add_gift_path(@cart.cart_id, @i, @gift.id, :download_image_id => params[:download_image_id], :image_id => params[:image_id]), method: :get, remote: true) do %>
+				
+
+				<% if @gift.name.downcase.include?("download") %>
+					<%= hidden_field_tag :quantity, 1 %>
+				<% else %>
 				Choose quantity:
-				<%= select_tag :quantity, options_for_select(Gift::Quantity), id: "gradedropdown"%>
+					<%= select_tag :quantity, options_for_select(Gift::Quantity), id: "gradedropdown"%>
+				<% end %>
 				<br/><br/>
 				<div class="row">
 				<div class="col-xs-6">

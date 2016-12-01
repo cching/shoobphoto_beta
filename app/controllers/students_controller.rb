@@ -809,7 +809,7 @@ class StudentsController < ApplicationController
 
   def add_gift
     @gift = Gift.find(params[:gift_id])
-    @cart = Cart.find_by_cart_id(params[:cart_id])
+    @cart = Cart.find_by_cart_id(params[:cart_id]) 
     @i = params[:i].to_i
     @student = @cart.cart_students.order(:i).last.student
     @op = @cart.order_packages.create(:student_id => @student.id, :download_image_id => params[:download_image_id], :student_image_id => params[:image_id], :quantity => params[:quantity], :package_id => 256) 
