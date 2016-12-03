@@ -28,6 +28,7 @@ class Order < ActiveRecord::Base
   
   attr_accessor :card_number, :card_verification, :clearance
   
+  before_create :send_purchase
 
   def self.price oid, sid
     order = Order.find(oid)
