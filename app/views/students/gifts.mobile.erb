@@ -1,0 +1,77 @@
+<style>
+
+.gift_header {
+	font-size: 36px; !important
+}
+
+.gift_name {
+	font-size: 28px; !important
+}
+
+.gift_description {
+	font-size: 24px; !important
+}
+
+</style>
+
+
+<br/><br/><br/><br/><br/>
+
+<div id="gift_notice" hidden><div class='alert alert-success' role='alert' align='center'>The item has been successfully been added to your cart.</div>
+</div>
+<br/><br/>
+<div class="row">
+	<div class="col-xs-2">
+		<% if @image.nil? || !@image.image.exists? %>
+			
+		<% else %>
+			<% if @cart.id_supplied? %>
+					<%= image_tag(@image.watermark.url(:watermark), class: "select_package_image") %>
+			<% else %>
+			<% end %>
+		<% end %>
+		<br/>
+		<p align="center">
+			<% unless @image.nil? || !@image.watermark.exists? %>
+			<% else %>
+				<% if params[:download_image_id].nil? %>
+					<%= StudentImage.package_name(@image.id) unless @image.nil? %>
+				<% else %>
+					<%= DownloadImage.package_name(@image.id) unless @image.nil? %>
+				<% end %>
+			<% end %>
+		</p>
+	</div>
+
+	<div id="gift_table" class="animated fadeIn">
+
+	<div class="col-xs-10">
+		<p align="center" class="gift_header">Photo Gifts</p>
+		<hr>
+		<% @gifts.each_slice(2) do |slice| %>
+		<div class="row">
+			<% slice.each do |gift| %>
+				<div class="col-xs-6">
+					<%= link_to image_tag(gift.image.url, class: "gift_image"), show_gift_path(@cart.cart_id, @i, gift.id, :download_image_id => params[:download_image_id], :image_id => @image.try(:id)), remote: true %><br/>
+					<p class="gift_name"><%= gift.name %></p>
+					<p class="gift_description"><%= number_to_currency(gift.price, :unit => "$") %> - <%= gift.description %></p>
+				</div>
+			<% end %>
+		</div>
+		<% end %>
+
+
+	</div>
+</div>
+</div>
+<div class="row">
+	<div class="col-xs-9">
+	</div>
+	<div class="col-xs-3">
+		<% if @student.download_images.any? %> 
+		<%= link_to "Continue", previous_images_path(@cart.cart_id, @cart.students.count - 1), class: "btn-blue_mobile" %>
+		<% else %>
+		<%= link_to "Continue", student_update_path(@cart.cart_id, @cart.students.count - 1), class: "btn-blue_mobile" %>
+		<% end %>
+	</div>
+</div>

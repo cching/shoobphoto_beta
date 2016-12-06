@@ -6,11 +6,17 @@
 
     <span class="cart_title billing_info_title">Billing Info: &nbsp;</span><span id="edit_billing"></span><br/>
     <div id="billing_info" >
-      
+    
+    <div class="row">
+    <div class="col-xs-6">  
       <span class="label_header">First Name</span>
       <%= f.text_field :first_name, class: "enjoy-css", id: "billing_first_name" %>
+    </div>
+    <div class="col-xs-6">  
       <span class="label_header">Last Name</span>
       <%= f.text_field :last_name, class: "enjoy-css", id: "billing_last_name" %>
+    </div>  
+    </div>
 
       <div class="row">
         <div class="col-xs-4">
@@ -36,16 +42,22 @@
       <%= f.text_field :address, class: "enjoy-css", id: "billing_address" %>
       <%= f.text_field :address2, class: "enjoy-css", id: "billing_address2" %>
 
+    <div class="row">  
+    <div class="col-xs-5">
       <span class="label_header">City</span>
-
       <%= f.text_field :city, class: "enjoy-css", id: "billing_city" %>
+    </div>  
+    <div class="col-xs-5">  
       <span class="label_header">State</span>
       <%= f.select :state, options_for_select(us_states),{prompt: "Select State"}, id: "billing_state" %>
       <div id="billing_state_error"></div>
-
+    </div>  
+    <div class="col-xs-2">  
       <span class="label_header">ZIP Code</span>
       <%= f.text_field :zip_code, class: "enjoy-css", id: "billing_zip" %>
-
+    </div>
+    </div>
+      
     </div>
 
     <div id="billing_hidden"></div>
@@ -58,15 +70,22 @@
     <%= f.text_field :shipping_address, class: "enjoy-css", id: "shipping_address" %>
     <%= f.text_field :shipping_address2, class: "enjoy-css", id: "shipping_address2" %>
 
-    <span class="label_header">City</span>
+        <div class="row">  
+    <div class="col-xs-5">
+      <span class="label_header">City</span>
+      <%= f.text_field :shipping_city, class: "enjoy-css", id: "shipping_city" %>
+    </div>  
+    <div class="col-xs-5">  
+      <span class="label_header">State</span>
+      <%= f.select :shipping_state, options_for_select(us_states),{prompt: "Select State"}, id: "shipping_state" %>
+      <div id="billing_state_error"></div>
+    </div>  
+    <div class="col-xs-2">  
+      <span class="label_header">ZIP Code</span>
+       <%= f.text_field :shipping_zip, class: "enjoy-css", id: "shipping_zip" %>
+    </div>
+    </div>
 
-    <%= f.text_field :shipping_city, class: "enjoy-css", id: "shipping_city" %>
-    <span class="label_header">State</span>
-    <%= f.select :shipping_state, options_for_select(us_states),{prompt: "Select State"}, id: "shipping_state" %>
-    <div id="shipping_state_error"></div>
-
-    <span class="label_header">ZIP Code</span>
-    <%= f.text_field :shipping_zip, class: "enjoy-css", id: "shipping_zip" %>
     <span class="label_header">Phone</span>
       <%= f.text_field :phone, class: "enjoy-css", id: "phone" %>
       <%= f.hidden_field :email, :value => "#{@cart.email}" %>
@@ -82,7 +101,7 @@
 <div class="col-xs-6 space_left">
     <div class="row">
       <div class="col-xs-6 cart_title">
-        Cart
+        Cart:
       </div>
       <div class="col-xs-6 subtotal">
 

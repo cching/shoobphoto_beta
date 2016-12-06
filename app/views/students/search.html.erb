@@ -30,24 +30,27 @@
         <%= text_field_tag :student_id, nil, placeholder: "Student's ID or Access Code - recommended but not required", class: "enjoy-css2", id: "input_student_id" %>
           
           
- 
+      <div class="row">
+      <div class="col-xs-6">
         <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "enjoy-css", id: "student_first_name" %>
+      </div>  
+      <div class="col-xs-6">
+        <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "enjoy-css", id: "student_last_name" %>
+      </div> 
+      </div>
 
         <div class="row">
-          <div class="col-xs-8">
-          <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "enjoy-css", id: "student_last_name" %>
-          </div>
-       
         <div class="col-xs-4" id="student_grade">
             <%= select_tag :grade, options_for_select(Student::Grades), id: "gradedropdown", :prompt => "Enter grade..." %>
             <span id="grade_error"></span>
- 
-          </div>
-          </div>
-
+        </div>  
+        <div class="col-xs-8">  
         <span class="teacher" hidden>
         <%= text_field_tag :student_teacher, nil, placeholder: "Student's Teacher", class: "enjoy-css", id: "input_student_teacher" %>
-        </span>
+        </span>  
+        </div>  
+        </div>
+
         <span class="dob">
           DATE OF BIRTH
         </span>
