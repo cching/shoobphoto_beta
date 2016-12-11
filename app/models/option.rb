@@ -15,7 +15,7 @@ class Option < ActiveRecord::Base
 	accepts_nested_attributes_for :prices, allow_destroy: true
 
 	def price school = nil
-    prices.where('school_id = ? OR school_id IS NULL', school).where('enddate > ? OR enddate IS NULL', Time.now).where('begin < ? OR begin IS NULL', Time.now).order('school_id DESC, enddate DESC, begin DESC').first.price rescue 0
+    prices.where('school_id = ? OR school_id IS NULL', school).where('enddate > ? OR enddate IS NULL', Time.now).order('school_id DESC, enddate DESC, begin DESC').first.price rescue 0
   	end
 
 end

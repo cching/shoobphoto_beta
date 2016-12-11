@@ -32,13 +32,14 @@ class Order < ActiveRecord::Base
 
   def self.price oid, sid
     order = Order.find(oid)
+    school = Student.find(sid).school
     @cart = order.cart
     @price = 0 
 
 
       @cart.order_packages.where(:student_id => sid).each do |package|
         package.options.each do |option|
-            @price = option.price + @price
+            @price = option.price(school.id) + @price
         end
 
         package.gifts.each do |gift|
