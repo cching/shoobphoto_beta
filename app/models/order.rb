@@ -39,7 +39,7 @@ class Order < ActiveRecord::Base
 
       @cart.order_packages.where(:student_id => sid).each do |package|
         package.options.each do |option|
-            @price = option.price(school.id) + @price
+            @price = option.price(school.try(:id)) + @price
         end
 
         package.gifts.each do |gift|
