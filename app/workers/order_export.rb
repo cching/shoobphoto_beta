@@ -9,7 +9,7 @@ class OrderExport
 
           csv_file << CSV.generate_line(Order.all.first.attributes.keys[0..12].map{|column| column} + Order.all.first.attributes.keys[14..21].map{|column| column} + ['Price'] + ['Student First Name'] + ['Student Last Name'] + ['Student Teacher'] + ['Student ID']  + ['Student Grade'] + ['Student SChool']  + ['Type'] + ['Package'] + ['8x10 | 5x7 | 3x5 | Wallets | Image CD | Name on Wallets | Retouching'] + ['CA Code'] + ['Senior Image'] + ['Grad Image'] + ['Year'] + ['Extra Poses'] + ['Sheet Types'] + ['Yearbook Image']+ ['Access Code'] + ['Gift'])
 
-            Order.all.where("created_at > ?", "#{"01/07/2016".to_date}").order(:id).each do |order|
+            Order.all.where(:processed => false).order(:id).each do |order|
               #Order.where("created_at >= ?", Date.strptime("07/01/2016", "%m/%d/%Y")).each do |order|
               order.cart.students.each do |student|
 
@@ -78,13 +78,13 @@ class OrderExport
                   end   #end loop
 
                     opackage.gifts.each_with_index do |gift, i|
-                      @string2 = @string2 + "#{gift.number}, "
+                      @string2 = @string2 + "#{gift.number}; "
                     end   #end loop
                   
 
                   if opackage.gifts.any?
                   opackage.gifts.each_with_index do |gift, i|
-                    @string3 = @string3 + "#{gift.number}, #{opackage.quantity};"
+                    @string3 = @string3 + "#{gift.number}, #{opackage.quantity}; "
                   end   #end loop
                   end
 
