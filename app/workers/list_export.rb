@@ -29,13 +29,15 @@ class ListExport
                 if image.last.try(:folder).nil? && (image.last.downloaded == false)
                     title = "#{student.last_name}_#{student.first_name}.jpg"
                     z.put_next_entry("images/#{title}")
-                    url1_data = open(image.last.image.url)
-                    z.print IO.read(url1_data)
+                    if image.last.image.exists?
+                      url1_data = open(image.last.image.url)
+                      z.print IO.read(url1_data)
+                    end
 
                     image.last.update(:downloaded => true)
                 end
 
-              else
+              else 
                 @string = ""
               end ## end if
 
