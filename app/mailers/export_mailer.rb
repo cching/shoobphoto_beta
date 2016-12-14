@@ -16,7 +16,7 @@ class ExportMailer < ActionMailer::Base
     end
 
 
-    mail(:to => "cching@live.com.com", :from => 'info@shoobphoto.com' )
+    mail(:to => "cching@live.com", :from => 'info@shoobphoto.com' )
   end
 
 end
