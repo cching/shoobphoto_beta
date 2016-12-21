@@ -41,7 +41,9 @@
 </p>
 
 <p>
+  <% unless award.award_date.nil? %>
   Award date: <%= award.award_date.strftime("%B %d, %Y") %>
+  <% end %>
 </p>
 <hr>
 
