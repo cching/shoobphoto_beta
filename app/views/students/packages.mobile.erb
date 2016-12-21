@@ -1,3 +1,16 @@
+<style>
+
+.mobile_gift_container {
+	width: 100%;
+	height: 190px;
+	background-color: rgb(21, 45, 73);
+	font-size: 48px;
+	color: white;
+
+}
+
+</style>
+
 <div class="package_container">
 	<div class="center_text">
 		Select a category to view packages.
@@ -20,4 +33,8 @@
 		</div> 
 	<% end %>
 	<% end %>
+
+	<div class="mobile_gift_container">
+		<p style="color: white; font-size: 55px; text-align:center; line-height:10vh; vertical-align:middle;"><%= link_to gift_packages_path(@cart.cart_id, @cart.students.count - 1), {:style=>'color:#FFFFFF;'} do %> GIFTS <% end %></p>
+	</div>
 </div>
