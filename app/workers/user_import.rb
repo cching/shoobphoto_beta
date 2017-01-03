@@ -6,19 +6,27 @@ class UserImport
   		@user_id = []
 
       	chunk.each do |h|
-      		school = School.where(:ca_code => "#{h["nscode"]}")
-      		query = School.where("lower(name) like ?", "%#{h["school"].downcase[0..6]}%")
+      		school = School.where(:scode => h["scode"].to_i)
 
       		if school.any?
-      			school = school.last
-      			school.update(:scode => h["scode"].to_i)
-      		elsif query.count == 1
-      			query = query.last
-      			query.update(:scode => h["scode"].to_i)
+      			if "#{h["awd_date"]}" == "T"
+      				awd_date = true
+      			else
+      				awd_date = false
+      			end
+
+      			if "#{h["time_per"]}" == "T"
+      				time_per = true
+      			else
+      				time_per = false
+      			end
+      			school.awards.create(:abbreviation => "#{h["abbreviation"]}", :image_file_name => "#{h["new_label"].jpg}", :title => "#{h["award"]}", :add_period => time_per, :add_date => awd_date)
+
       		else
-      			@user_id << "#{h["nscode"]}"
+      			@user_id << h["scode"]
       		end
-	   
+
+
      	end #end chunk
      	puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
       	puts @user_id
