@@ -9,6 +9,7 @@ class UserImport
       		school = School.where(:scode => h["scode"].to_i)
 
       		if school.any?
+      			school = school.last
       			if "#{h["awd_date"]}" == "T"
       				awd_date = true
       			else
