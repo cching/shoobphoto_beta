@@ -6,7 +6,7 @@ class UserImport
   		@user_id = []
 
       	chunk.each do |h|
-      		school = School.where(:ca_code => h["nscode"].to_i)
+      		school = School.where(:ca_code => "#{h["nscode"]}")
 
       		if school.any?
       			school = school.last
