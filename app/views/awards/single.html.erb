@@ -1,0 +1,135 @@
+<style>
+
+.award_header {	
+  text-align: right;
+}
+
+</style>
+
+<!-- The progress list at the top -->
+<div class="animated fadeIn">
+<%= form_tag(award_single_update_path(@export_list.uniq_id), method: :get) do %>
+<%= hidden_field_tag :award_id %>
+<div id="selected_award" data-url="" data-award=""></div>
+<div class="row">
+<div class="col-xs-1">
+</div>
+	<div class="award_header">
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> SELECT AWARD</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> ADD INFORMATION</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> SELECT STUDENTS</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> REVIEW LISTS</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> SUBMIT LISTS</b>
+	</div>
+	</div>
+<div class="col-xs-1">
+</div>
+</div>
+
+<br/>
+
+<!-- The line with the school logo and school name -->
+
+<div class="row">
+	<div class="col-xs-2" align="right">
+	<%= image_tag(current_user.school.logo, class: "school_logo") %>
+	</div>
+	<div class="col-xs-10" style="color:#396599; font-size:40px; padding-top:20px;">
+  <%= current_user.school.name.upcase %> AWARDS
+  </div>
+</div>
+
+<br/>
+
+<!-- The 'Select Award' scroller and display -->
+
+<div class="row">
+	<div class="col-xs-2">
+	<!-- INSERT LOGO HERE -->
+	</div>
+	<div class="col-xs-5" >
+	<span style="font-size:30px; color:#396599">SELECT AWARD</span>
+		<div style="height:38vh;overflow:auto;">
+			<% current_user.school.awards.order(:title).each do |award| %>
+			<div class="row award_hover" id="<%= award.id %>" data-url="<%= award.image.url %>" data-award="<%= award.title %> (<%= award.abbreviation %>)">
+				<div class="col-xs-2">
+					<%= image_tag(award.image.url, class: "award_thumbnail") %>
+				</div>
+				<div class="col-xs-10 blue_text">
+				<p>
+				<%= award.title.upcase %> (<%= award.abbreviation %>)
+				</p>
+				</div>
+			</div>
+			<% end %>
+
+		</div>
+	</div>
+
+	<div class="col-xs-5">
+	
+	<div id="preview"></div>
+
+	</div>
+</div>
+
+<br/>
+
+<!-- 'Next' button -->
+
+<div class="row">
+	<div class="col-xs-9"></div>
+	<div class="col-xs-3" style="right:0px">
+		
+	<%= submit_tag "Next", class: "btn-awards-next" %>
+
+	</div>
+</div>
+
+<% end %>
+</div>
+<script>
+$('.award_hover').hover(
+
+function() {
+    $("#" + this.id).addClass("selected_award");
+    $("#preview").html('<img align="middle" src="' + this.dataset.url + '"><br/><p class="blue_text">' + this.dataset.award + '</p>');
+
+  }, function() {
+    $("#" + this.id).removeClass("selected_award");
+     var value=$("#award_id").val();
+
+
+	if(value.length>0)
+	{
+		$("#preview").html('<img align="middle" src="' + $("#selected_award").data("url") + '"><br/><p class="blue_text">' + $("#selected_award").data("award") + '</p>');
+	} else {
+		$("#preview").html("");
+		
+	}
+
+    
+
+  }
+);
+
+$( ".award_hover" ).click(function() {
+	$(".award_hover").removeClass("highlight_award");
+	$("#award_id").val(this.id);
+	$("#selected_award").attr('data-url', this.dataset.url);
+	$("#selected_award").attr('data-award', this.dataset.award);
+	$("#" + this.id).addClass("highlight_award");
+    $("#preview").html('<img align="middle" src="' + this.dataset.url + '"><br/><p class="blue_text">' + this.dataset.award + '</p>');
+});
+</script>
+
+

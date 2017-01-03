@@ -36,11 +36,11 @@ class ExportListItemsController < ApplicationController
     @student = Student.find(params[:student_id])
     unless params[:award].nil?
       @award = params[:award]
-      @userstudent = current_user.user_students.create(:student_id => params[:student_id], :award_id => params[:award])
+      @userstudent = AwardInfoStudent.create(:student_id => params[:student_id], :award_info_id => params[:award])
     else
       current_user.students << @student
     end
-  end
+  end 
 
   def remove_student
     @student = Student.find(params[:student_id])
@@ -48,8 +48,8 @@ class ExportListItemsController < ApplicationController
 
       current_user.students.delete(@student)
     else
-      @award = params[:award]
-      @userstudent = current_user.user_students.where(:award_id => params[:award]).where(:student_id => @student.id).destroy_all
+      @award = AwardInfo.find(params[:award])
+      @userstudent = @award.students.delete(@student)
     end
   end
 

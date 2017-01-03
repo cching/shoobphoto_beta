@@ -1,0 +1,29 @@
+<div class="row">
+	<div class="col-xs-1"></div>
+	<div class="col-xs-11"><span style="font-size:30px; color:#396599">ADD INFORMATION - <%= f.object.award.title %></span>
+</div>
+</div>
+<div class="row">
+	<div class="col-xs-1">
+	</div>
+	<div class="col-xs-6" >
+
+				<%= f.input :awarded_for, :label => false, placeholder: "Awarded For (Trustworthy)", :input_html => { :class => 'awardform' } %>
+				<%= f.input :definition, as: :string, :label => false, placeholder: "Definition (Being trustworhty means...)", :input_html => { :class => 'awardform' } %>
+				<% if f.object.award.add_period? %>
+				<%= f.input :time_period, :label => false, placeholder: "Time Period (April 2016/1st Trimester)", :input_html => { :class => 'awardform' } %>
+				<% end %>
+				<% if f.object.award.add_date? %>
+				<%= f.input :award_date, placeholder: "Award Date (12/30/2016)", :as => :date_picker, :input_html => {:style => "width:90%;", :id => "datetimepicker#{i}"}, label: false %>
+				<% end %>
+				<%= f.input :receive_by, placeholder: "Receive By (12/28/2016)", :as => :date_picker, :input_html => {:style => "width:90%;", :id => "datetimepicker#{i}_2"}, label: false %>
+
+	</div>
+
+	<div class="col-xs-5">
+	
+	<%= image_tag(f.object.award.image.url, class: "award_preview") %> 
+
+
+	</div>
+</div>

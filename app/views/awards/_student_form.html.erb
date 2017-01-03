@@ -1,0 +1,95 @@
+
+<%= simple_form_for(@student, :url => award_student_create_path(@school.id, @image.id, @award_info.id), remote: true, :html => {:multipart => true}) do |f| %>
+
+<div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">New Student</h4>
+      </div>
+      <div class="modal-body centered">
+
+<div id="studenttable"> 
+<div class="row">
+  <div class="col-sm-6">
+<%= f.input :first_name %> 
+</div>
+<div class="col-sm-6">
+<%= f.input :last_name %>
+</div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <%= f.input :grade, collection: Student::Grades, class: "form-control" %><br/>
+
+</div>
+  <div class="col-sm-6">
+Teacher/Class:
+
+<div class="teacher">
+<%= f.input :teacher, label: false, :collection => @school.students.where(:id_only => true).select(:teacher).order(:teacher).map(&:teacher).uniq, :include_blank => true  %><br/>
+</div>
+</div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+<%= f.input :student_id, label: "Student ID" %>
+</div>
+<div class="col-sm-6">
+  Student Image<br/>
+  <%= file_field_tag :image %>
+</div>
+</div>
+
+
+
+
+
+<hr>
+<div class="row">
+  <div class="col-sm-6">
+    <%= f.input :data1 %>
+  </div>
+<div class="col-sm-6">
+    <%= f.input :data2 %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6">
+    <%= f.input :data3 %>
+  </div>
+  <div class="col-sm-6">
+    <%= f.input :data4 %>
+  </div>
+</div>
+<br/>
+
+</div>
+
+      <div class="form-actions">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+        <%= f.submit class: "btn btn-primary", id: "submit" %><br/>
+        <div id="window"></div>
+
+      </div>   
+      </div>  
+      
+    </div>
+  </div>
+</div>
+
+<% end %>
+
+<script>
+$("#submit").on("click", function() {
+  $("#window").html("<%= escape_javascript(render partial: 'export_list_items/loading') %>"); 
+});
+
+
+
+
+</script>

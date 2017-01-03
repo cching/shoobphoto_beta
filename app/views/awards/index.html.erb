@@ -1,53 +1,49 @@
-<br/><br/>
+<style>
 
-<%= link_to "Create a New Award", new_award_path, class: "btn btn-orange btn-centered batchlink" %><br/>
+.award_header { 
+  text-align: right;
+}
 
-<% if current_user.export_lists.where(submitted: false).any? %>
+</style>
 
-<h3>Your awards in progress:</h3>
+<!-- The line with the school logo and school name -->
 
-
-<% current_user.export_lists.where(submitted: false).each do |export_list| %>
+<div class="animated fadeIn">
 <div class="row">
-  <div class="col-xs-3">
-    In progress
+  <div class="col-xs-2" align="right">
+  <%= image_tag(current_user.school.logo, class: "school_logo") %>
   </div>
-
-  <div class="col-xs-4">
-    Awards: <%= export_list.awards.map(&:abbreviation).join(", ") %>
+  <div class="col-xs-10" style="color:#396599; font-size:40px; padding-top:20px;">
+  <%= current_user.school.name.upcase %> AWARDS
   </div>
+</div>
 
-  <div class="col-xs-3">
-    <%= link_to "Continue Award", edit_award_path(export_list.id) %>
-  </div>
+<br/>
 
-  </div>
-<% end %>
-<% else %>
-<h3>Your awards in progress will appear here.</h3>
-<% end %>
+<!-- The four slection buttons -->
 
-
-<% if current_user.export_lists.where(submitted: true).any? %>
-<hr>
-<h3>Your previously submitted awards:</h3>
-
-
-<% current_user.export_lists.where(submitted: true).each do |export_list| %>
 <div class="row">
-  <div class="col-xs-3">
-    Submitted
+  <div class="col-xs-12" align="center">
+    <%= link_to "NEW AWARD", new_award_path, class: "btn-awards" %>
   </div>
+</div>
+<br/>
 
+<div class="row">
+  <div class="col-xs-12" align="center">
+    <%= link_to "AWARDS IN PROGRESS", award_in_progress_path, class: "btn-awards" %>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-xs-4">
-    Awards: <%= export_list.awards.map(&:abbreviation).join(", ") %>
   </div>
+  <div class="col-xs-4" style="text-align:center; margin: auto;">
 
-  <div class="col-xs-3">
-    <%= link_to "Edit to resubmit", export_awards_path(export_list.uniq_id), class: "btn-blue", data: { disable_with: "Please wait..." } %>
-  </div>
+    <!-- INSERT 'SUBMITTED LIST' BUTTON -->
 
   </div>
-<% end %>
-
-<% end %>
+  <div class="col-xs-4">
+  </div>
+</div>
+</div>

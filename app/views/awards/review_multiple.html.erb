@@ -1,0 +1,87 @@
+<style>
+
+.award_header {	
+  text-align: right;
+}
+
+</style>
+
+<!-- The progress list at the top -->
+
+<div class="row">
+<div class="col-xs-1">
+</div>
+	<div class="award_header">
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> SELECT AWARD</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> ADD INFORMATION</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> SELECT STUDENTS</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> REVIEW LISTS</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> SUBMIT LISTS</b>
+	</div>
+	</div>
+<div class="col-xs-1">
+</div>
+</div>
+
+<br/>
+
+<!-- The line with the school logo and school name -->
+
+<div class="row">
+	<div class="col-xs-2" align="right">
+	<%= image_tag(current_user.school.logo, class: "school_logo") %>
+	</div>
+	<div class="col-xs-10" style="color:#396599; font-size:40px; padding-top:20px;">
+  <%= current_user.school.name.upcase %> AWARDS
+  </div>
+</div>
+
+<br/>
+<div class="row">
+	<div class="col-xs-4" align="center"><%= link_to "SAVE AND CONTINUE", award_review_all_path(@export_list.uniq_id), class: "btn-awards-next"%></div>
+	<div class="col-xs-4" align="center"><%= link_to "ADD MORE STUDENTS", award_multiple_students_path(@export_list.uniq_id), class: "btn-awards-next3" %></div>
+	<div class="col-xs-4" align="center"><%= link_to "CLEAR LIST", award_multiple_clear_path(@export_list.id), class: "btn-awards-next2", data: {confirm: "Are you sure you want to clear all #{@export_list.award_infos.count} lists?"} %></div>
+	
+
+</div>
+<br/>
+<!-- The 'Student Search' forms -->
+
+
+<!-- The student select list -->
+
+<div class="row">
+	<div class="col-xs-1">
+	</div>
+	<div class="col-xs-10">
+		<span style="font-size:30px; color:#396599">REVIEW LIST</span> <!-- PUT AWARD TITLE HERE -->
+	</div>
+</div>
+
+<div id="table">
+        <table class="table">
+          <thead>
+            <th>Remove</th> 
+              <th><%= sort_link @search, :student_id, "Student ID",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
+              <th><%= sort_link @search, :first_name, "First Name",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
+              <th><%= sort_link @search, :last_name, "Last Name",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
+              <th><%= sort_link @search, :grade, "Grade",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
+              <th><%= sort_link @search, :teacher, "Teacher",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
+              <th>Award</th>
+          </thead>
+          <tbody>
+            <div class="display">
+              <%= render 'multiple_results', :students => @students %>
+            </div>
+          </tbody>
+     </table>
+   </div>

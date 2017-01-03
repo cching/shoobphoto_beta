@@ -1,0 +1,97 @@
+<style>
+
+.award_header {	
+  text-align: right;
+}
+
+</style>
+
+<!-- The progress list at the top -->
+<%= form_tag(award_multiple_update_path(@export_list.uniq_id), method: :get) do %>
+
+<div class="row">
+<div class="col-xs-1">
+</div>
+	<div class="award_header">
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> SELECT AWARD</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> ADD INFORMATION</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> SELECT STUDENTS</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> REVIEW LISTS</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> SUBMIT LISTS</b>
+	</div>
+	</div>
+<div class="col-xs-1">
+</div>
+</div>
+
+<br/> 
+
+<!-- The line with the school logo and school name -->
+
+<div class="row">
+	<div class="col-xs-2" align="right">
+	<%= image_tag(current_user.school.logo, class: "school_logo") %>
+	</div>
+	<div class="col-xs-10" style="color:#396599; font-size:40px; padding-top:20px;">
+  <%= current_user.school.name.upcase %> AWARDS
+  </div>
+</div>
+
+<br/>
+
+<!-- The 'Select Awards' checklist -->
+
+<div class="row">
+	<div class="col-xs-1">
+	</div>
+	<span style="font-size:30px; color:#396599">SELECT AWARD</span><br/>
+
+	<div class="col-xs-1">
+	</div>
+	<span style="font-size:30px; color:#396599">Select all awards that you want to edit</span>
+	<div class="col-xs-10">
+
+	</div>
+	<div class="col-xs-1">
+	</div>
+</div>
+<div style="height:33vh;overflow:auto;">
+<% award_ids = @export_list.award_infos.pluck(:award_id) %>
+<% current_user.school.awards.each_slice(3) do |slice| %>
+<div class="row">
+	<% slice.each do |award| %>
+	<div class="col-xs-1" align="right">
+		<% if award_ids.include?(award.id) %>
+		<%= check_box_tag 'award_ids[]', award.id, {:checked => "checked"} %>
+		<% else %>
+		<%= check_box_tag 'award_ids[]', award.id %>
+		<% end %></div>
+	<div class="col-xs-1"><%= image_tag(award.image.url, class: "award_thumbnail") %></div>
+	<div class="col-xs-2 blue_text_multiple"><%= award.title.upcase %> (<%= award.abbreviation.upcase %>)</div>
+	<% end %>
+</div>
+<% end %>
+</div>
+<br/>
+
+<!-- 'Next' button -->
+
+<div class="row">
+	<div class="col-xs-9"></div>
+	<div class="col-xs-3" style="right:0px">
+		
+	<%= submit_tag "Next", class: "btn-awards-next" %>
+
+	</div>
+</div>
+
+<% end %>

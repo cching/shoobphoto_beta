@@ -1,0 +1,107 @@
+<style>
+
+.award_header {	
+  text-align: right;
+}
+
+</style>
+
+
+
+<!-- The progress list at the top -->
+ <%= simple_form_for(@award_info, :url => update_award_info_path(@award_info.id)) do |f| %>
+
+<div class="row">
+<div class="col-xs-1">
+</div>
+	<div class="award_header">
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> SELECT AWARD</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> ADD INFORMATION</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> SELECT STUDENTS</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> REVIEW LISTS</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> SUBMIT LISTS</b>
+	</div>
+	</div>
+<div class="col-xs-1">
+</div>
+</div>
+
+<br/>
+
+<!-- The line with the school logo and school name -->
+
+<div class="row">
+	<div class="col-xs-2" align="right">
+	<%= image_tag(current_user.school.logo, class: "school_logo") %>
+	</div>
+	<div class="col-xs-10" style="color:#396599; font-size:40px; padding-top:20px;">
+  <%= current_user.school.name.upcase %> AWARDS
+  </div>
+</div>
+
+<br/>
+
+<!-- The 'Add Information' forms and display -->
+
+<div class="row">
+	<div class="col-xs-1">
+	</div>
+	<div class="col-xs-6" >
+				<span style="font-size:30px; color:#396599">ADD INFORMATION</span>
+
+				<%= f.input :awarded_for, :label => false, placeholder: "Awarded For (Trustworthy)", :input_html => { :class => 'awardform' } %>
+				<%= f.input :definition, as: :string, :label => false, placeholder: "Definition (Being trustworhty means...)", :input_html => { :class => 'awardform' } %>
+				<% if @award.add_period? %>
+				<%= f.input :time_period, :label => false, placeholder: "Time Period (April 2016/1st Trimester)", :input_html => { :class => 'awardform' } %>
+				<% end %>
+				<% if @award.add_date? %>
+				<%= f.input :award_date, placeholder: "Award Date (12/30/2016)", :as => :date_picker, :input_html => {:style => "width:90%;", :id => "datetimepicker"}, label: false %>
+				<% end %>
+				<%= f.input :receive_by, placeholder: "Receive By (12/28/2016)", :as => :date_picker, :input_html => {:style => "width:90%;", :id => "datetimepicker2"}, label: false %>
+
+	</div>
+
+	<div class="col-xs-5">
+	
+	<%= image_tag(@award.image.url, class: "award_preview") %> 
+
+	</div>
+</div>
+
+<br/>
+
+<!-- 'Next' button -->
+
+<div class="row">
+	<div class="col-xs-10"></div>
+	<div class="col-xs-2" style="left:0px">
+		
+	<%= f.submit "Next", class: "btn-awards-next" %>
+
+	</div>
+</div>
+
+<% end %>
+
+<script type="text/javascript">
+
+
+    $('#datetimepicker').datetimepicker({
+    format: 'mm-dd-yy'
+	});
+
+	 $('#datetimepicker2').datetimepicker({
+    format: 'mm-dd-yy'
+	});
+
+
+</script>

@@ -1,0 +1,88 @@
+<style>
+
+.award_header {	
+  text-align: right;
+}
+
+</style>
+
+
+
+<!-- The progress list at the top -->
+ <%= simple_form_for(@export_list, :url => update_multiple_award_info_path(@export_list.id)) do |f| %>
+
+<div class="row">
+<div class="col-xs-1">
+</div>
+	<div class="award_header">
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> SELECT AWARD</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> ADD INFORMATION</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> SELECT STUDENTS</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> REVIEW LISTS</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> SUBMIT LISTS</b>
+	</div>
+	</div>
+<div class="col-xs-1">
+</div>
+</div>
+
+<br/>
+
+<!-- The line with the school logo and school name -->
+
+<div class="row">
+	<div class="col-xs-2" align="right">
+	<%= image_tag(current_user.school.logo, class: "school_logo") %>
+	</div>
+	<div class="col-xs-10" style="color:#396599; font-size:40px; padding-top:20px;">
+  <%= current_user.school.name.upcase %> AWARDS
+  </div>
+</div>
+
+<br/>
+
+<!-- The 'Add Information' forms and display -->
+
+<% @export_list.award_infos.each_with_index do |award_info, i| %>
+<%= f.simple_fields_for :award_infos, award_info do |builder| %>
+	<%= render "award_info_fields", :f => builder, :i => i %>
+<% end %>
+<% end %>
+<br/>
+
+<!-- 'Next' button -->
+
+<div class="row">
+	<div class="col-xs-10"></div>
+	<div class="col-xs-2" style="left:0px">
+		
+	<%= f.submit "Next", class: "btn-awards-next" %>
+
+	</div>
+</div>
+
+<% end %>
+
+<script type="text/javascript">
+
+<% @export_list.award_infos.each_with_index do |award_info, i| %>
+    $('#datetimepicker<%= i %>').datetimepicker({
+    format: 'mm-dd-yy'
+	});
+
+	 $('#datetimepicker<%= i %>_2').datetimepicker({
+    format: 'mm-dd-yy'
+	});
+<% end %>
+
+
+</script>

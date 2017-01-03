@@ -5,6 +5,8 @@ class School < ActiveRecord::Base
 
 	has_many :orders
 
+	has_many :awards
+
 	has_many :school_packages, dependent: :destroy
 	has_many :packages, through: :school_packages
 
@@ -27,5 +29,10 @@ class School < ActiveRecord::Base
 	has_many :notes
 
 	accepts_nested_attributes_for :notes, allow_destroy: true
+
+	has_attached_file :logo,
+  	:url => ':s3_domain_url',
+  	:path => '/images/logos/:id/:filename'
+  	validates_attachment_content_type :logo, :content_type => /\Aimage\/.*\Z/
 
 end

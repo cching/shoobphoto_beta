@@ -1,0 +1,2 @@
+$("#myModal").html("<%= escape_javascript(render 'newstudent') %>");
+$("#newstudentlist").after("<%= escape_javascript(render 'multiple_student_list', :locals => { :image => @image, :student => @student}) %>");

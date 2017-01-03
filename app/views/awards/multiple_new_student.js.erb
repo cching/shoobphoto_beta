@@ -1,0 +1,6 @@
+if($("#my-Modal").is(":visible")) {
+$('#myModal').modal('close');
+}
+$('#myModal').modal('show');
+$("#myModal").html("<%= escape_javascript(render 'multiple_student_form') %>");
+ 

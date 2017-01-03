@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  awarded_for: MyString
+  definition: MyText
+  time_period: MyString
+  award_date: 2016-12-30
+  receive_by: 2016-12-30
+  export_list_id: 1
+  award_id: 1
+
+two:
+  awarded_for: MyString
+  definition: MyText
+  time_period: MyString
+  award_date: 2016-12-30
+  receive_by: 2016-12-30
+  export_list_id: 1
+  award_id: 1

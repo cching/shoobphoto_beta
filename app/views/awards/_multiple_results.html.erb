@@ -1,0 +1,29 @@
+<% @export_list.award_infos.each do |award_info| %>
+<%  award_info.students.order("teacher ASC").each do |student| %>
+       <tr id="student_<%= student.id %>_<%= award_info.id %>">
+          <td id="button_<%= student.id %>_<%= award_info.id %>">
+            <%= link_to "Remove", export_list_remove_path(student.id, :award => award_info.id), remote: true, class: "btn btn-danger" %>
+          </td>
+          <td>
+            <%= student.student_id %> 
+          </td>
+           <td>
+            <%= student.first_name %>
+          </td> 
+           <td>
+            <%= student.last_name %>
+          </td>
+           <td>
+            <%= student.grade %> 
+          </td>
+           <td>
+            <%= student.teacher %>
+          </td>
+          <td>
+            <%= award_info.award.abbreviation %>
+          </td>
+  
+      </tr>
+
+<% end %>
+<% end %>

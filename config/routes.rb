@@ -2,10 +2,9 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  resources :awards
 
   resources :autos do
-    collection do
+    collection do 
       get "start_auto"
       get "start_import"
     end
@@ -314,6 +313,37 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'corders/import' => 'corders#import', :via => 'POST', :as => "corders_import"
   match 'corders/:id/export' => 'corders#export', :via => 'GET', :as => 'corder_export'
   match 'payment_notifications' => 'payment_notifications#create', :via => 'GET', :as => 'payment_notifications'
+
+
+
+  #awards
+  match 'awards/' => 'awards#index', :via => 'GET', :as => "awards"
+  match 'awards/new' => 'awards#new', :via => 'GET', :as => "new_award"
+  match 'awards/:id/single_award' => 'awards#single', :via => 'GET', :as => "awards_single"
+  match 'awards/:id/multiple_awards' => 'awards#multiple', :via => 'GET', :as => "awards_multiple" 
+  match 'awards/:id/single_award_update' => 'awards#single_update', :via => 'GET', :as => "award_single_update"
+  match 'awards/:id/multiple_award_update' => 'awards#multiple_update', :via => 'GET', :as => "award_multiple_update"
+  match 'awards/:id/add_info/:award_id/:award_info' => 'awards#add_info', :via => 'GET', :as => "award_add_info"
+  match 'awards/:id/multiple_add_info' => 'awards#multiple_add_info', :via => 'GET', :as => "award_multiple_add_info"
+  match 'awards/:id/update_award_info/' => 'awards#update_award_info', :via => 'PATCH', :as => "update_award_info"
+  match 'awards/:id/update_multiple_award_info/' => 'awards#update_multiple_award_info', :via => 'PATCH', :as => "update_multiple_award_info"
+  match 'awards/:id/students' => 'awards#students', :via => 'get', :as => "award_students"
+  match 'awards/:id/mutiple_students' => 'awards#multiple_students', :via => 'get', :as => "award_multiple_students"
+  match 'awards/:id/review/' => 'awards#review', :via => 'get', :as => "award_review"
+  match 'awards/:id/review_multiple/' => 'awards#review_multiple', :via => 'get', :as => "award_multiple_review"
+  match 'awards/:id/review_all/' => 'awards#review_all', :via => 'get', :as => "award_review_all"
+  match 'awards/in_progress/' => 'awards#in_progress', :via => 'get', :as => "award_in_progress"
+   match 'awards/student/new/:award_id' => 'awards#new_student', :via => 'get', :as => "award_new_student"
+   match 'awards/multiple_student/new/:id' => 'awards#multiple_new_student', :via => 'get', :as => "award_multiple_new_student"
+   match 'awards/:id/clear/' => 'awards#clear', :via => 'get', :as => "award_clear"
+   match 'awards/:id/multiple_clear/' => 'awards#multiple_clear', :via => 'get', :as => "award_multiple_clear"
+   match 'awards/:id/confirm/' => 'awards#confirm', :via => 'get', :as => "award_confirm"
+   match 'awards/:id/submit/' => 'awards#submit', :via => 'get', :as => "award_submit"
+   match 'awards/students/create/:school/:package/:award_id' => 'awards#create_student', :via => 'POST', :as => 'award_student_create'
+   match 'awards/multiple_students/create/:school/:package/:id' => 'awards#multiple_create_student', :via => 'POST', :as => 'award_multiple_student_create'
+   match 'awards/add_student/:student_id' => 'awards#add_student', :via => 'GET', :as => 'award_add_student'
+  match 'awards/remove_student/:student_id' => 'awards#remove_student', :via => 'GET', :as => 'award_remove_student'
+
   resources :searches
 
   root :to => 'pages#home'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161130231106) do
+ActiveRecord::Schema.define(version: 20170103010955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,29 @@ ActiveRecord::Schema.define(version: 20161130231106) do
     t.integer  "success_count"
   end
 
+  create_table "award_info_students", force: true do |t|
+    t.integer "student_id"
+    t.integer "award_info_id"
+  end
+
+  create_table "award_infos", force: true do |t|
+    t.string   "awarded_for"
+    t.text     "definition"
+    t.string   "time_period"
+    t.date     "award_date"
+    t.date     "receive_by"
+    t.integer  "export_list_id"
+    t.integer  "award_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "index"
+  end
+
+  create_table "award_infos_students", force: true do |t|
+    t.integer "award_info_id"
+    t.integer "student_id"
+  end
+
   create_table "awards", force: true do |t|
     t.string   "title"
     t.string   "abbreviation"
@@ -61,6 +84,14 @@ ActiveRecord::Schema.define(version: 20161130231106) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "recieve_by"
+    t.boolean  "add_period"
+    t.boolean  "add_date"
+    t.boolean  "submitted"
+    t.integer  "school_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "banners", force: true do |t|
@@ -263,6 +294,8 @@ ActiveRecord::Schema.define(version: 20161130231106) do
     t.text     "file_path"
     t.integer  "school_id"
     t.string   "uniq_id"
+    t.integer  "award_id"
+    t.boolean  "multiple",   default: false
   end
 
   create_table "exports", force: true do |t|
@@ -628,9 +661,9 @@ ActiveRecord::Schema.define(version: 20161130231106) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "default",        default: false
+    t.boolean  "default",           default: false
     t.integer  "school_type_id"
-    t.boolean  "teacher",        default: false
+    t.boolean  "teacher",           default: false
     t.string   "ca_code"
     t.integer  "district_id"
     t.integer  "city_id"
@@ -639,9 +672,14 @@ ActiveRecord::Schema.define(version: 20161130231106) do
     t.string   "principal"
     t.string   "secretary"
     t.string   "cdscode"
-    t.boolean  "visible",        default: false
+    t.boolean  "visible",           default: false
     t.text     "student_cache"
     t.text     "yearbook_cache"
+    t.boolean  "multiple",          default: false
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
   end
 
   create_table "searches", force: true do |t|

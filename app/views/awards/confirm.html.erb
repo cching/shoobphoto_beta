@@ -1,0 +1,31 @@
+<style>
+
+.review_box {
+	background-color: #E8E8E8;
+	border-radius: 25px;
+	text-align: center;
+}
+
+</style>
+
+<br/><br/><br/>
+
+<div class="row">
+	<div class="review_box">
+		<span style="font-size:30px; color:#396599">I have reviewed all of the lists to be submitted.</span>
+		<br/><br/>
+			<span style="font-size:20px; color:#FFBB00">If you find that you need to make a change to a list</span>
+			<br/>
+			<span style="font-size:20px; color:#FFBB00">that has been submitted, please go to the award in</span>
+			<br/>
+			<span style="font-size:20px; color:#FFBB00">progress screen before submitting your list.</span>
+		<br/><br/>
+
+		<div class="row">
+			<div class="col-xs-2"></div>
+			<div class="col-xs-4" align="center"><%= link_to "AWARDS IN PROGRESS", award_review_all_path(@export_list.uniq_id), class: "btn-awards-next3"%></div>
+			<div class="col-xs-4" align="center"><%= link_to "SUBMIT", award_submit_path(@export_list.uniq_id), class: "btn-awards-next3"%>
+			</div>
+			<div class="col-xs-2"></div>
+	</div><br/>
+</div>
