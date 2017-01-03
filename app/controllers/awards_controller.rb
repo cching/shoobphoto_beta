@@ -68,6 +68,7 @@ class AwardsController < ApplicationController
   end
 
   def review_all
+    @export_list = ExportList.find_by_uniq_id("#{params[:id]}")
   end
 
   def in_progress
