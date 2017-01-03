@@ -6,11 +6,11 @@ class UserImport
   		@user_id = []
 
       	chunk.each do |h|
-      		school = School.where(:ca_code => h["nscode"])
+      		school = School.where(:ca_code => h["nscode"].to_i)
 
       		if school.any?
       			school = school.last
-      			school.update(:scode => h["scode"])
+      			school.update(:scode => h["scode"].to_i)
       		else
       			@user_id << h["nscode"]
       		end
