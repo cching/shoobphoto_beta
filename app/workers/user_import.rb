@@ -14,12 +14,11 @@ class UserImport
       		else
       			@user_id << h["nscode"]
       		end
-
-      		puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-      		puts @user_id
-
-	        
+	   
      	end #end chunk
+     	puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+      	puts @user_id
+      	puts "#{@user_id.count}"
  	end
 end
 
