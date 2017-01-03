@@ -21,7 +21,7 @@ class UserImport
       			else
       				time_per = false
       			end
-      			school.awards.create(:abbreviation => "#{h["abbreviation"]}", :image_file_name => "#{h["new_label"].jpg}", :title => "#{h["award"]}", :add_period => time_per, :add_date => awd_date)
+      			school.awards.create(:abbreviation => "#{h["abbreviation"]}", :image_file_name => "#{h["new_label"]}.jpg", :title => "#{h["award"]}", :add_period => time_per, :add_date => awd_date)
 
       		else
       			@user_id << h["scode"]
