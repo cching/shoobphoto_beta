@@ -28,4 +28,11 @@ end
 Paperclip.interpolates :watermark_file_name do |attachment, style|
   attachment.instance.student_image.watermark_file_name
 end
- 
+  
+Paperclip.interpolates :image_file_name do |attachment, style|
+  attachment.instance.image_file_name
+end
+
+Paperclip.interpolates :scode do |attachment, style|
+  attachment.instance.scode
+end

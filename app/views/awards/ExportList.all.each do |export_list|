@@ -1,5 +1,0 @@
-ExportList.all.each do |export_list|
-export_list.awards.each do |award|
-export_list.award_infos.create(:award_id => award.id, :definition => award.definition, :awarded_for => award.awarded_for, :time_period => award.time_period, :receive_by => award.recieve_by)
-end
-end

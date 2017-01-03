@@ -6,6 +6,6 @@ class Award < ActiveRecord::Base
 
 	has_attached_file :image,
   	:url => ':s3_domain_url',
-  	:path => '/images/awards/:id/:filename'
+  	:path => '/images/awards/:image_file_name'
   	validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 end

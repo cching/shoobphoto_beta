@@ -32,7 +32,7 @@ class School < ActiveRecord::Base
 
 	has_attached_file :logo,
   	:url => ':s3_domain_url',
-  	:path => '/images/logos/:id/:filename'
+  	:path => '/images/logos/:scode/'
   	validates_attachment_content_type :logo, :content_type => /\Aimage\/.*\Z/
 
 end

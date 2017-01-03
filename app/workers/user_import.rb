@@ -6,16 +6,18 @@ class UserImport
   		@user_id = []
 
       	chunk.each do |h|
+      		school = School.where(:ca_code => h["nscode"])
 
- 	            school = School.find_by_ca_code(h["ca_code"].to_s)
-	            unless school.nil?
-	            	unless User.where(:first_name => h["firstname"]).where(:last_name => h["lastname"]).any?
-	           		school.users.create(:email => h["email"], :password => h["password"], :password_confirmation => h["password_confirmation"], :first_name => h["firstname"], :last_name => h["lastname"], :school_admin => h["administrator"], :principal => h["principal"], :secretary => h["secretary"], :teacher => h["teacher"], :parent => h["parent"])
-	           	end
-	           	else
-	           		@user_id << h["id"]
-	        	end #end if
-	          	
+      		if school.any?
+      			school = school.last
+      			school.update(:scode => h["scode"])
+      		else
+      			@user_id << h["nscode"]
+      		end
+
+      		puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+      		puts @user_id
+
 	        
      	end #end chunk
  	end
