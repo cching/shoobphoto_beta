@@ -9,8 +9,8 @@ class AwardExport
 
           csv_file_setup << CSV.generate_line(['scode'] + ['name'] + ['abbrev'] + ['time_per'] + ['awd_date'] + ['rec_by'] + ['labelfile'] + ['award_id'])
 
-          ExportList.where(:submitted => true).each do |export_list|
-            export_list.where(:processed => false).each do |award|
+          ExportList.all.where(:submitted => true).each do |export_list|
+            export_list.award_infos.where(:processed => false).each do |award|
                csv_file_setup << CSV.generate_line(["#{export_list.user.school.scode}"] + ["#{award.award.title}"] + ["#{award.award.abbreviation}"] + ["#{award.time_period}"] + ["#{award.receive_by}"] + ["#{award.award.image_file_name}"] + ["#{award.award.abbreviation.humanize}#{award.id}"])
             end
           end
@@ -19,8 +19,8 @@ class AwardExport
 
           csv_file << CSV.generate_line(['scode'] + ['shoob_id'] + ['st_stu_id'] + ['st_fname'] + ['st_lname'] + ['st_grade'] + ['st_teacher'] + ['image'] + ['award'] + ['st_id'])
 
-          ExportList.where(:submitted => true).each do |export_list|
-            export_list.where(:processed => false).each do |award|
+          ExportList.all.where(:submitted => true).each do |export_list|
+            export_list.award_infos.where(:processed => false).each do |award|
               award.students.each do |student|
                 @image = student.school.packages.where("name like ?", "%Fall%").last
 
