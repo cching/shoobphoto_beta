@@ -128,6 +128,8 @@ class AwardsController < ApplicationController
   def submit
     @export_list = ExportList.find_by_uniq_id("#{params[:id]}")
     @export_list.update(:submitted => true)
+
+    ListExport.perform_async(@export_list.id)
   end
 
   def single_update
