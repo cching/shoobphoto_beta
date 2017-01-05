@@ -64,7 +64,7 @@ class ListExport
           file_setup = s3.buckets['shoobphoto'].objects["csvs/#{key_setup}"].write(:file => file_name_setup)
           file_setup.acl = :public_read
 
-          export_list.update(:file_path => key, :file_path_setup => key_setup)
+          export_list.update(:file_path => key)
 
 
           ExportMailer.send_mail(export_list).deliver 
