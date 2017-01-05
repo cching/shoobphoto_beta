@@ -37,10 +37,10 @@ class ListExport
             end
           
 
-          name = "#{export_list.title}_#{export_list.created_at}"
-          file_name = Rails.root.join('tmp', "#{name}.csv");
+          name = "#{export_list.user.school.name}_#{export_list.created_at}"
+          file_name = Rails.root.join('tmp', "#{name}");
 
-          file_name_setup = Rails.root.join('tmp', "#{name}-setup.csv");
+          file_name_setup = Rails.root.join('tmp', "#{name}-setup");
 
           File.open(file_name, 'wb') do |file|
           
