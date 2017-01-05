@@ -37,10 +37,10 @@ class ListExport
             end
           
 
-          name = "awards_#{export_list.created_at}"
-          file_name = Rails.root.join('tmp', "#{name}");
+          base_file_name = "awards_#{export_list.created_at}"
+          file_name = Rails.root.join('tmp', "#{base_file_name}");
 
-          file_name_setup = Rails.root.join('tmp', "#{name}-setup");
+          file_name_setup = Rails.root.join('tmp', "#{base_file_name}-setup");
 
           File.open(file_name, 'wb') do |file|
           
