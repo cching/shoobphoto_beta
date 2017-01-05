@@ -9,22 +9,17 @@
   Secretary's email: <%= @export.user.email %> 
 
 </p>
-<p>
-  School: <%= @export.school.name %>
-</p>
 
-<p>
-  Additional data: <%= @export.data %>
-</p>
+
 <hr>
 
-<% @export.awards.each do |award| %>
+<% @export.award_infos.each do |award| %>
 <p>
-  Award title: <%= award.title %>
+  Award title: <%= award.award.title %>
 </p>
 
 <p>
-  Award abbreviation: <%= award.abbreviation %>
+  Award abbreviation: <%= award.award.abbreviation %>
 </p>
 
 
@@ -33,7 +28,7 @@
 </p>
 
 <p>
-  Definition: <%= award.awarded_for %>
+  Definition: <%= award.definition %>
 </p>
 
 <p>
