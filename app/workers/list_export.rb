@@ -37,7 +37,7 @@ class ListExport
             end
           
 
-          name = "#{export_list.user.school.name}_#{export_list.created_at}"
+          name = "awards_#{export_list.created_at}"
           file_name = Rails.root.join('tmp', "#{name}");
 
           file_name_setup = Rails.root.join('tmp', "#{name}-setup");
