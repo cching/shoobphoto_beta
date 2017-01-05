@@ -11,7 +11,7 @@ class AwardExport
 
           ExportList.all.where(:submitted => true).each do |export_list|
             export_list.award_infos.where(:processed => false).each do |award|
-               csv_file_setup << CSV.generate_line(["#{export_list.user.school.scode}"] + ["#{award.award.title}"] + ["#{award.award.abbreviation}"] + ["#{award.time_period}"] + ["#{award.receive_by}"] + ["#{award.award.image_file_name}"] + ["#{award.award.abbreviation.humanize}#{award.id}"])
+               csv_file_setup << CSV.generate_line(["#{export_list.user.school.scode}"] + ["#{award.award.title}"] + ["#{award.award.abbreviation}"] + ["#{award.time_period}"] + ["#{award.award_date}"]+  ["#{award.receive_by}"] + ["#{award.award.image_file_name}"] + ["#{award.award.abbreviation.humanize}#{award.id}"])
             end
           end
 

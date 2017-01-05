@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105112158) do
+ActiveRecord::Schema.define(version: 20170105115115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -300,6 +300,7 @@ ActiveRecord::Schema.define(version: 20170105112158) do
     t.boolean  "multiple",       default: false
     t.integer  "export_list_id"
     t.boolean  "correction",     default: false
+    t.boolean  "hidden",         default: false
   end
 
   create_table "exports", force: true do |t|
