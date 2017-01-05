@@ -29,10 +29,12 @@ class AwardExport
                 end
                 img = @image.student_images.where(:student_id => student.id)
                 @string = ""
+                @string2 = ""
                 if img.any?
-                  @string = "#{img.last.image_file_name}.jpg"
+                  @string2 = "#{img.last.image.url}"
+                  @string = "#{img.last.try(:image_file_name)}.jpg"
                 end
-               csv_file << CSV.generate_line(["#{student.school.scode}"] + ["#{student.shoob_id}"] + ["#{student.student_id}"] + ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.grade}"] + ["#{student.teacher}"] + ["#{img.last.image.url}"] + ["#{award.award.abbreviation.humanize}#{award.id}"] + ["#{@string}"])
+               csv_file << CSV.generate_line(["#{student.school.scode}"] + ["#{student.shoob_id}"] + ["#{student.student_id}"] + ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.grade}"] + ["#{student.teacher}"] + ["#{@string2}"] + ["#{award.award.abbreviation.humanize}#{award.id}"] + ["#{@string}"])
              end
             end
           end
