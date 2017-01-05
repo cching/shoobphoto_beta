@@ -1,0 +1,108 @@
+ <style>
+
+.award_header {	
+  text-align: right;
+}
+
+</style>
+
+<!-- The progress list at the top -->
+
+<div class="row">
+<div class="col-xs-1">
+</div>
+	<div class="award_header">
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> SELECT AWARD</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> ADD INFORMATION</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> SELECT STUDENTS</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> REVIEW LISTS</b>
+	</div>
+	<div class="col-xs-2">
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> SUBMIT LISTS</b>
+	</div>
+	</div>
+<div class="col-xs-1">
+</div>
+</div>
+
+<br/>
+
+<!-- The line with the school logo and school name -->
+
+<div class="row">
+	<div class="col-xs-2" align="right">
+	<%= image_tag(current_user.school.logo, class: "school_logo") %>
+	</div>
+	<div class="col-xs-10" style="color:#396599; font-size:40px; padding-top:20px;">
+  <%= current_user.school.name.upcase %> AWARDS
+  </div>
+</div>
+
+<br/>
+
+<!-- The 'Student Search' forms -->
+
+
+<div class="row">
+	<div class="col-xs-1">
+	</div>
+	<div class="col-xs-10">
+		<span style="font-size:15px; color:#396599">STUDENT SEARCH</span>
+	</div> 
+	<br/>
+	<div class="col-xs-1">
+	</div>
+	<div class="col-xs-10">
+
+		<%= form_tag(award_students_path, method: :get, :id => "students_search") do %>
+<div class="row"> 
+	<div class="col-sm-2" id="nospacefirst">
+        <%= text_field_tag :first_name, nil, placeholder: "First Name", class: "form-control", id: "input_first_name", label: false, input_html: {value: "#{params[:first_name]}"} %>
+    </div>
+    <div class="col-sm-2" id="nospace">
+        <%= text_field_tag :last_name, nil, placeholder: "Last Name", class: "form-control", id: "input_last_name", input_html: {value: "#{params[:last_name]}"} %>
+    </div>
+    <div class="col-sm-2" id="nospace">
+     <%= text_field_tag :student_id, nil, label: false, placeholder: "ID", class: "form-control", id: "input_id", input_html: {value: "#{params[:student_id]}"} %>
+    </div>    
+    
+    <div class="col-sm-2" id="nospace">
+        
+    <%= select_tag :grade, options_for_select( current_user.school.students.where(:id_only => true).select(:grade).order(:grade).map(&:grade).uniq), class: "form-control", id: "input_student_grade", :prompt => "Grade" %>
+
+    </div>
+    <div class="col-sm-2" id="nospace">
+        
+    <%= select_tag :teacher, options_for_select( current_user.school.students.where(:id_only => true).select(:teacher).order(:teacher).map(&:teacher).uniq), class: "form-control", id: "input_student_teacher", :prompt => "Teacher" %>
+
+    </div>
+    
+
+    <div class="col-sm-1" id="nospace"><%= submit_tag "Search", class: "btn btn-orange" %></div>
+
+</div>
+<% end %>
+
+	</div>
+</div><br/>
+
+<!-- The student select list -->
+<div class="row">
+	<div class="col-xs-4" align="center"><%= link_to "ADD MORE AWARDS", awards_multiple_path(@export_list.uniq_id), class: "btn-awards-next2" %></div>
+	
+	<div class="col-xs-4" align="center"><%= link_to "ADD NEW STUDENT", award_multiple_new_student_path(@export_list.id), class: "btn-awards-next3", remote: true %></div>
+	<div class="col-xs-4" align="center"><%= link_to "SAVE AND CONTINUE", award_multiple_review_path(@export_list.uniq_id), class: "btn-awards-next"%></div>
+
+</div>
+
+<br/><br/>
+
+
+<%= render "award_students_correction" %> 

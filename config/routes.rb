@@ -121,6 +121,14 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
 
     resources :addons
 
+    resources :awards do
+      member do
+        get :notprocessed
+        get :processed
+        get :export
+      end
+    end
+
     resources :gifts
 
     resources :items do
@@ -339,6 +347,9 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
    match 'awards/:id/multiple_clear/' => 'awards#multiple_clear', :via => 'get', :as => "award_multiple_clear"
    match 'awards/:id/confirm/' => 'awards#confirm', :via => 'get', :as => "award_confirm"
    match 'awards/:id/submit/' => 'awards#submit', :via => 'get', :as => "award_submit"
+   match 'awards/:id/corrections/' => 'awards#corrections', :via => 'get', :as => "award_corrections"
+   match 'awards/correction_list/' => 'awards#correction_list', :via => 'get', :as => "award_correction_list"
+   match 'awards/:id/create_corrections/' => 'awards#create_corrections', :via => 'get', :as => "award_create_corrections"
    match 'awards/students/create/:school/:package/:award_id' => 'awards#create_student', :via => 'POST', :as => 'award_student_create'
    match 'awards/multiple_students/create/:school/:package/:id' => 'awards#multiple_create_student', :via => 'POST', :as => 'award_multiple_student_create'
    match 'awards/add_student/:student_id' => 'awards#add_student', :via => 'GET', :as => 'award_add_student'

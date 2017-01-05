@@ -1,4 +1,4 @@
-$("#student_<%= @student.id %>_<%= @award.id %>").addClass("danger");
-$('#button_<%= @student.id %>_<%= @award.id %>').html("<%= escape_javascript(render("removed"))%>")
+$("#student_<%= @student.id %>").addClass("danger");
+$('#button_<%= @student.id %>').html("<%= escape_javascript(render("removed"))%>")
 
 $("#student_<%= @student.id %>_check").html("<%= escape_javascript(render 'remove_student', :locals => {:student => @student, :award => @award }) %>");

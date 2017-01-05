@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170103095152) do
+ActiveRecord::Schema.define(version: 20170105112158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(version: 20170103095152) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "index"
+    t.integer  "award_info_id"
+    t.boolean  "processed",      default: false
   end
 
   create_table "award_infos_students", force: true do |t|
@@ -295,13 +297,16 @@ ActiveRecord::Schema.define(version: 20170103095152) do
     t.integer  "school_id"
     t.string   "uniq_id"
     t.integer  "award_id"
-    t.boolean  "multiple",   default: false
+    t.boolean  "multiple",       default: false
+    t.integer  "export_list_id"
+    t.boolean  "correction",     default: false
   end
 
   create_table "exports", force: true do |t|
     t.text     "file_path"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "file_path_setup"
   end
 
   create_table "extra_assignments", force: true do |t|

@@ -44,6 +44,30 @@ color:#fff;
   text-decoration: none;
 }
 
+.btn-awards-clear {
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 60px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #ff0000;
+  padding: 5px 28px 5px 28px !important;
+  text-decoration: none;
+  border:none !important;
+  outline:none !important;
+  width:100% !important;
+   white-space: normal !important;
+
+}
+
+.btn-awards-clear:hover {
+color:#fff;
+  background: #ff3232;
+
+  text-decoration: none;
+}
+
 .btn-awards-next2 {
   -webkit-border-radius: 60;
   -moz-border-radius: 60;

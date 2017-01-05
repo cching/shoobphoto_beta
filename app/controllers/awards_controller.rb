@@ -14,7 +14,7 @@ class AwardsController < ApplicationController
     @award_info = AwardInfo.find(params[:id])
     @award_info.students = []
     redirect_to award_students_path(@award_info.id)
-  end
+  end 
 
   def multiple_clear
     @export_list = ExportList.find(params[:id])
@@ -43,6 +43,42 @@ class AwardsController < ApplicationController
     @export_list = ExportList.find_by_uniq_id("#{params[:id]}")
   end
 
+  def create_corrections
+    export_list = ExportList.find_by_uniq_id("#{params[:id]}")
+    @export_list = ExportList.create(:export_list_id => export_list.id, :submitted => false, :user_id => current_user.id, :multiple => current_user.school.multiple, :correction => true)
+    @export_list.save
+    @export_list.update(:uniq_id => SecureRandom.hex(8))
+
+    export_list.award_infos.each do |award_info|
+      ai = award_info.dup
+      ai.export_list_id = @export_list.id
+      ai.award_info_id = award_info.id
+      ai.save
+    end
+
+    redirect_to award_corrections_path(@export_list.uniq_id)
+  end
+
+  def corrections
+    @export_list = ExportList.find_by_uniq_id("#{params[:id]}")
+    @original_list = ExportList.find(@export_list.export_list_id)
+
+    @school = current_user.school
+
+    @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
+      
+
+    @image = @school.packages.where("name like ?", "%Fall%").last
+
+    if @image.nil?
+      @image = @school.packages.first
+    end
+  end
+
+  def correction_list
+  end
+
+
   def review
     @award_info = AwardInfo.find(params[:id])
     @search = @award_info.students.search(params[:q])
@@ -59,6 +95,16 @@ class AwardsController < ApplicationController
     @export_list = ExportList.find_by_uniq_id("#{params[:id]}")
     @search = @export_list.award_infos.first.students.search(params[:q])
     @school = current_user.school
+
+    @student_list = []
+
+    @export_list.award_infos.each do |award_info|
+      award_info.students.each do |student|
+        @student_list << student
+      end
+    end
+
+    @student_list = @student_list.uniq
 
     if params[:q].nil?
       @students = @search.result.order(:teacher).order(:last_name)

@@ -268,9 +268,12 @@ class ExportListItemsController < ApplicationController
 
  def remove
   @student = Student.find(params[:id])
-  @award = Award.find(params[:award])
-  current_user.user_students.where(:student_id => @student.id).where(:award_id => @award.id).destroy_all
+  @export_list = ExportList.find(params[:award])
 
+  @export_list.award_infos.each do |award_info|
+    award_info.students.delete(@student)
+  end
+ 
  end
 
   def schools

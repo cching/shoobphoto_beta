@@ -1,8 +1,9 @@
-<% @export_list.award_infos.each do |award_info| %>
-<%  award_info.students.order("teacher ASC").each do |student| %>
-       <tr id="student_<%= student.id %>_<%= award_info.id %>">
-          <td id="button_<%= student.id %>_<%= award_info.id %>">
-            <%= link_to "Remove", export_list_remove_path(student.id, :award => award_info.id), remote: true, class: "btn btn-danger" %>
+<% @student_list.count.times do |index| %>
+
+<% student = @student_list[index] %>
+       <tr id="student_<%= student.id %>">
+          <td id="button_<%= student.id %>">
+            <%= link_to "Remove", export_list_remove_path(student.id, :award => @export_list.id), remote: true, class: "btn btn-danger" %>
           </td>
           <td>
             <%= student.student_id %> 
@@ -19,11 +20,22 @@
            <td>
             <%= student.teacher %>
           </td>
-          <td>
-            <%= award_info.award.abbreviation %>
-          </td>
+          <% @export_list.award_infos.each do |award_info| %>
+            <td> 
+              <div id="student_<%= student.id %>_<%= award_info.id %>_check" class="student_check">
+              <% if award_info.students.exists?(student) %>
+                <%= link_to export_remove_student_path(student.id, :award => award_info.id), remote: true do %> 
+                    <span class="glyphicon glyphicon-check"></span>
+                <% end %>
+              <% else %>
+                <%= link_to export_add_student_path(student.id, :award => award_info.id), remote: true do %>
+                    <span class="glyphicon glyphicon-unchecked"></span>
+                <% end %>
+              <% end %>
+              </div>
+             </td>
+             <% end %>
   
       </tr>
-
-<% end %>
+ 
 <% end %>

@@ -1,0 +1,4 @@
+$("#award_<%= @award.id %>").removeClass("success");
+$("#award_<%= @award.id %>").addClass("danger");
+
+$("#button_<%= @award.id %>").html("<%= escape_javascript(render partial: 'notprocessed', :locals => {:award => @award }) %>"); 

@@ -47,10 +47,10 @@
 
 <br/>
 <div class="row">
-	<div class="col-xs-4" align="center"><%= link_to "SAVE AND CONTINUE", award_review_all_path(@export_list.uniq_id), class: "btn-awards-next"%></div>
+	<div class="col-xs-4" align="center"><%= link_to "CLEAR LIST", award_multiple_clear_path(@export_list.id), class: "btn-awards-clear", data: {confirm: "Are you sure you want to clear all #{@export_list.award_infos.count} lists?"} %></div>
 	<div class="col-xs-4" align="center"><%= link_to "ADD MORE STUDENTS", award_multiple_students_path(@export_list.uniq_id), class: "btn-awards-next3" %></div>
-	<div class="col-xs-4" align="center"><%= link_to "CLEAR LIST", award_multiple_clear_path(@export_list.id), class: "btn-awards-next2", data: {confirm: "Are you sure you want to clear all #{@export_list.award_infos.count} lists?"} %></div>
 	
+	<div class="col-xs-4" align="center"><%= link_to "SAVE AND CONTINUE", award_review_all_path(@export_list.uniq_id), class: "btn-awards-next"%></div>
 
 </div>
 <br/>
@@ -59,14 +59,7 @@
 
 <!-- The student select list -->
 
-<div class="row">
-	<div class="col-xs-1">
-	</div>
-	<div class="col-xs-10">
-		<span style="font-size:30px; color:#396599">REVIEW LIST</span> <!-- PUT AWARD TITLE HERE -->
-	</div>
-</div>
-
+<br/><br/>
 <div id="table">
         <table class="table">
           <thead>
@@ -76,7 +69,12 @@
               <th><%= sort_link @search, :last_name, "Last Name",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
               <th><%= sort_link @search, :grade, "Grade",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
               <th><%= sort_link @search, :teacher, "Teacher",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
-              <th>Award</th>
+              <%  @export_list.award_infos.each do |award| %>
+				<th style="padding-right:0px" style="padding-left:0px" class="responsive-th select-all"> 
+					
+					<%= award.award.abbreviation %>
+				</th>
+				<% end %>
           </thead>
           <tbody>
             <div class="display">
