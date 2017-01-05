@@ -2,7 +2,7 @@ class AwardExport
   include Sidekiq::Worker
   sidekiq_options queue: "package_import"
     def perform(id)
-      export = Missing.find(id)
+      export = Export.find(id)
       require 'csv'
 
       csv_file_setup = ''
