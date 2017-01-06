@@ -14,12 +14,12 @@
 				<% if f.object.award.add_date? %>
 				<div class="form-group string optional export_list_award_infos_awarded_for">
             	<input type='text' placeholder="Award Date (12/30/2016)" class="form-control awardform" id='datetimepicker<%= i %>' style="width: 98%;"/>
-				<input hidden type='text' name='export_list[award_infos_attributes][<%= i %>][award_date]' id='value<%= i %>' value="" />
+				<input hidden type='text' name='export_list[award_infos_attributes][<%= i %>][award_date]' id='value<%= i %>' value="<%= f.object.award_date %>" />
             	</div>
 				<% end %>
 				<div class="form-group string optional export_list_award_infos_awarded_for">
             	<input type='text' placeholder="Receive By (12/28/2016)" class="form-control awardform" id='datetimepicker<%= i %>_2' style="width: 98%;"/>
-				<input hidden type='text' name='export_list[award_infos_attributes][<%= i %>][receive_by]' id='value<%= i %>_2' value="" />
+				<input hidden type='text' name='export_list[award_infos_attributes][<%= i %>][receive_by]' id='value<%= i %>_2' value="<%= f.object.receive_by %>" />
             	</div>
 
 				<%= f.input :awarded_for, :label => false, placeholder: "Awarded For (Trustworthy) (optional)", :input_html => { :class => 'awardform' } %>
