@@ -6,8 +6,6 @@
 
 </style>
 
-
-
 <!-- The progress list at the top -->
  <%= simple_form_for(@export_list, :url => update_multiple_award_info_path(@export_list.id)) do |f| %>
 
@@ -74,14 +72,44 @@
 
 <script type="text/javascript">
 
+
+
 <% @export_list.award_infos.each_with_index do |award_info, i| %>
+	<% unless award_info.receive_by.nil? %>
+
+	$('#datetimepicker<%= i %>_2').val('<%= award_info.receive_by.strftime("%m/%d/%Y")%>');
+
+	<% end %>
+
+	<% unless award_info.award_date.nil? %>
+
+	$('#datetimepicker<%= i %>').val('<%= award_info.award_date.strftime("%m/%d/%Y")%>');
+
+	<% end %>
+
+
     $('#datetimepicker<%= i %>').datetimepicker({
-    format: 'mm-dd-yy'
+    	format: 'MM/DD/YYYY'
 	});
 
 	 $('#datetimepicker<%= i %>_2').datetimepicker({
-    format: 'mm-dd-yy'
+	 	format: 'MM/DD/YYYY'
+
 	});
+
+
+	   $("#datetimepicker<%= i %>_2").blur(function() {
+        val = $("#datetimepicker<%= i %>_2").val();
+
+        $("#value<%= i %>_2").val(val);
+        alert(val);
+    });
+
+	   $("#datetimepicker<%= i %>").blur(function() {
+        val = $("#datetimepicker<%= i %>").val();
+        $("#value<%= i %>").val(val);
+    });
+
 <% end %>
 
 

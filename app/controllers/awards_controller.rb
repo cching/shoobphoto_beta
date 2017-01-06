@@ -3,7 +3,7 @@ class AwardsController < ApplicationController
   respond_to :html
 
   def index
-    if current_user
+    if current_user 
     else
       redirect_to new_user_session_path
     end
@@ -197,6 +197,11 @@ class AwardsController < ApplicationController
 
     if @image.nil?
       @image = @school.packages.first
+    end
+
+    respond_to do |format|
+      format.js
+      format.html
     end
   end
 

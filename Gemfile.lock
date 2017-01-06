@@ -1,26 +1,10 @@
 GIT
-  remote: git://github.com/derekprior/momentjs-rails.git
-  revision: eda1b74512db5844673bd4d37a6e4fe6127053b3
-  specs:
-    momentjs-rails (2.11.0)
-      railties (>= 3.1)
-
-GIT
   remote: git://github.com/joshco/exception_notification.git
   revision: a43a3c2b4d19648387480c2704165ce507214a29
   specs:
     exception_notification (4.1.0)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
-
-GIT
-  remote: git://github.com/zpaulovics/datetimepicker-rails.git
-  revision: 36d21cec5da7f5b214925804f60e63c61c747023
-  branch: master
-  submodules: true
-  specs:
-    datetimepicker-rails (4.7.16)
-      momentjs-rails (>= 2.9.0)
 
 GEM
   remote: https://rubygems.org/
@@ -58,6 +42,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     afm (0.2.2)
+    american_date (1.1.1)
     arel (5.0.1.20140414130214)
     awesome_nested_set (3.0.3)
       activerecord (>= 4.0.0, < 5)
@@ -69,6 +54,8 @@ GEM
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap3-datetimepicker-rails (4.17.43)
+      momentjs-rails (>= 2.8.1)
     builder (3.2.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -125,6 +112,8 @@ GEM
     minitest (5.8.4)
     mobylette (3.5)
       actionpack (>= 3.0)
+    momentjs-rails (2.15.1)
+      railties (>= 3.1)
     multi_json (1.11.2)
     multi_xml (0.5.5)
     nio (0.2.5)
@@ -281,10 +270,11 @@ PLATFORMS
 
 DEPENDENCIES
   activemerchant
+  american_date
   awesome_nested_set
   aws-sdk (~> 1.6.0)
+  bootstrap3-datetimepicker-rails (~> 4.17.43)
   coffee-rails (~> 4.0.0)
-  datetimepicker-rails!
   devise
   exception_notification!
   execjs
@@ -295,7 +285,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   mobylette
-  momentjs-rails (~> 2.9)!
+  momentjs-rails (>= 2.9.0)
   paperclip (~> 4.3)
   paperclip-watermark
   paypal-sdk-rest

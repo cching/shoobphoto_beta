@@ -74,13 +74,14 @@ gem 'jquery-minicolors-rails'
 
 
 gem 'sidekiq'
+gem 'american_date'
 
 
 gem 'sinatra', require: false
 gem 'slim'
 
-gem 'momentjs-rails', '~> 2.9',  :github => 'derekprior/momentjs-rails'
-gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
 
 gem 'mobylette'
 gem 'web-console'

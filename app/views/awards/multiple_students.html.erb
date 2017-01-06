@@ -61,7 +61,7 @@
 	</div>
 	<div class="col-xs-10">
 
-		<%= form_tag(award_students_path, method: :get, :id => "students_search") do %>
+		<%= form_tag(award_multiple_students_path(@export_list.uniq_id), remote: true, method: :get, :id => "students_search") do %>
 <div class="row"> 
 	<div class="col-sm-2" id="nospacefirst">
         <%= text_field_tag :first_name, nil, placeholder: "First Name", class: "form-control", id: "input_first_name", label: false, input_html: {value: "#{params[:first_name]}"} %>
@@ -104,5 +104,13 @@
 
 <br/><br/>
 
+<div id="student_search">
+<%= render "award_students" %>
+</div> 
 
-<%= render "award_students" %> 
+<script>
+$( ".btn-orange" ).click(function() {
+
+    $("#student_search").html('Searching....');
+});
+</script>

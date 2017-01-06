@@ -8,13 +8,19 @@
 	</div>
 	<div class="col-xs-6" >
 
-		<% if f.object.award.add_period? %>
+				<% if f.object.award.add_period? %>
 				<%= f.input :time_period, :label => false, placeholder: "Time Period (April 2016/1st Trimester)", :input_html => { :class => 'awardform' } %>
 				<% end %>
 				<% if f.object.award.add_date? %>
-				<%= f.input :award_date, placeholder: "Award Date (12/30/2016)", :as => :date_picker, :input_html => {:style => "width:90%;", :id => "datetimepicker#{i}"}, label: false %>
+				<div class="form-group string optional export_list_award_infos_awarded_for">
+            	<input type='text' placeholder="Award Date (12/30/2016)" class="form-control awardform" id='datetimepicker<%= i %>' style="width: 98%;"/>
+				<input hidden type='text' name='export_list[award_infos_attributes][<%= i %>][award_date]' id='value<%= i %>' value="" />
+            	</div>
 				<% end %>
-				<%= f.input :receive_by, placeholder: "Receive By (12/28/2016)", :as => :date_picker, :input_html => {:style => "width:90%;", :id => "datetimepicker#{i}_2"}, label: false %>
+				<div class="form-group string optional export_list_award_infos_awarded_for">
+            	<input type='text' placeholder="Receive By (12/28/2016)" class="form-control awardform" id='datetimepicker<%= i %>_2' style="width: 98%;"/>
+				<input hidden type='text' name='export_list[award_infos_attributes][<%= i %>][receive_by]' id='value<%= i %>_2' value="" />
+            	</div>
 
 				<%= f.input :awarded_for, :label => false, placeholder: "Awarded For (Trustworthy) (optional)", :input_html => { :class => 'awardform' } %>
 				<%= f.input :definition, as: :string, :label => false, placeholder: "Definition (Being trustworhty means...) (optional)", :input_html => { :class => 'awardform' } %>
