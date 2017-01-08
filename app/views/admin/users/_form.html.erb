@@ -4,8 +4,12 @@
 <%= f.input :last_name %>
 
 <%= f.input :email %>
-<%= f.input :password %>
-<%= f.input :password_confirmation %>
+<% unless action_name == "edit" %>
+<%= f.input :password, id: "password" %>
+<span id="show_password"></span>
+<%= f.input :password_confirmation, id: "password_confirmation" %>
+<span id="show_password_confirmation"></span>
+<% end %>
 <%= f.association :school, collection: School.all.order(:name), as: :select %><br/>
 <%= f.input_field :school_admin, as: :boolean, inline_label: 'School Administrator' %><br/>
 <%= f.input_field :principal, as: :boolean, inline_label: 'Principal' %><br/>
@@ -16,3 +20,14 @@
 <%= f.submit %>
 
 <% end %>
+
+<script>
+
+$( "#user_password" ).blur(function() {
+	$( "#show_password" ).html(this.value);
+});
+
+$( "#user_password_confirmation" ).blur(function() {
+	$( "#show_password_confirmation" ).html(this.value);
+});
+</script>
