@@ -18,7 +18,10 @@
 			Privilege
 		</th>
 		<th>
-			Edit
+			Edit info
+		</th>
+		<th>
+			Edit password
 		</th>
 	</tr>
 	<% @users.each do |user| %>
@@ -39,8 +42,11 @@
 			<%= "Admin" if user.admin %> <%= "School Administrator" if user.school_admin %> <%= "Principal" if user.principal %> <%= "Secretary" if user.secretary %> <%= "Parent Yearbook Advisor" if user.parent %>
 		</td>
 		<td>
-			<%= link_to 'Edit', edit_admin_user_path(user) %>
-			</td
+			<%= link_to 'Edit info', edit_admin_user_path(user) %>
+			</td>
+			<td>
+			<%= link_to 'Edit password', edit_password_admin_user_path(user) %>
+			</td>
 	</tr>
 	<% end %>
 

@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-	before_action :set_user, only: [:show, :edit, :update, :destroy]
+	before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_password, :update_password]
 
 	  respond_to :html
 
@@ -18,10 +18,22 @@ class Admin::UsersController < ApplicationController
 		respond_with(@user)
 	end
 
+	def edit_password
+	end
+
 	def update
-    @user.update(user_params)
-    redirect_to admin_users_path
-  end
+    	@user.update(user_params)
+    	redirect_to admin_users_path
+  	end
+
+  	def update_password
+    	bool = @user.update(user_params)
+    	if bool == true
+    	redirect_to admin_users_path
+    	else
+    		redirect_to :back, notice: "Passwords do not match or isn't at least 8 characters."
+    	end
+  	end
 
 	def index
 		@users = User.all.order(:last_name)

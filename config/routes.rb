@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     collection do 
       get "start_auto"
       get "start_import"
-    end
+    end 
     member do
       get "process_auto"
     end
@@ -162,6 +162,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
     resources :users do
       member do 
         get :sync
+        post :update_password
+        get :edit_password
       end
       collection do
         get :csv
