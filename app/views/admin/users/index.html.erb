@@ -23,6 +23,8 @@
 		<th>
 			Edit password
 		</th>
+		<th> Delete
+		</th>
 	</tr>
 	<% @users.order(:first_name).each do |user| %>
 	<tr>
@@ -46,6 +48,11 @@
 			</td>
 			<td>
 			<%= link_to 'Edit password', edit_password_admin_user_path(user) %>
+			</td>
+			<td>
+				<%= link_to 'Delete', delete_admin_user_path(user) ,method: :delete, data: {confirm: "Are you sure?"} %>
+
+
 			</td>
 	</tr>
 	<% end %>

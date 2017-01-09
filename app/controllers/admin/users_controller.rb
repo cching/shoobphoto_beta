@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-	before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_password, :update_password]
+	before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_password, :update_password, :delete]
 
 	  respond_to :html
 
@@ -16,6 +16,12 @@ class Admin::UsersController < ApplicationController
 	def new
 		@user = User.new
 		respond_with(@user)
+	end
+
+	def delete
+		@user.delete
+
+		redirect_to admin_users_path
 	end
 
 	def edit_password

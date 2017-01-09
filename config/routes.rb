@@ -164,6 +164,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
         get :sync
         post :update_password
         get :edit_password
+        delete :delete
       end
       collection do
         get :csv
