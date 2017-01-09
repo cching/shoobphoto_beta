@@ -19,7 +19,7 @@ class AwardExport
 
           csv_file << CSV.generate_line(['scode'] + ['shoob_id'] + ['st_stu_id'] + ['st_fname'] + ['st_lname'] + ['st_grade'] + ['st_teacher'] + ['image'] + ['award'] + ['st_id'])
 
-          ExportList.all.where(:submitted => true).each do |export_list|
+          ExportList.all.where(:submitted => true).where(:hidden => false).each do |export_list|
             export_list.award_infos.where(:processed => false).each do |award|
               award.students.each do |student|
                 @image = student.school.packages.where("name like ?", "%Fall%").last
@@ -32,7 +32,7 @@ class AwardExport
                 @string2 = ""
                 if img.any?
                   @string2 = "#{img.last.image.url}"
-                  @string = "#{img.last.try(:image_file_name)}.jpg"
+                  @string = "#{img.last.try(:image_file_name)}"
                 end
                csv_file << CSV.generate_line(["#{student.school.scode}"] + ["#{student.shoob_id}"] + ["#{student.student_id}"] + ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.grade}"] + ["#{student.teacher}"] + ["#{@string2}"] + ["#{award.award.abbreviation.humanize}#{award.id}"] + ["#{@string}"])
              end
