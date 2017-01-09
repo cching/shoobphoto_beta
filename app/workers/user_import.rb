@@ -34,6 +34,7 @@ class UserImport
             else
               award.update(:add_period => false)
             end
+          end
 
 
      	end #end chunk
