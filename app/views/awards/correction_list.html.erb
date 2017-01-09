@@ -26,41 +26,41 @@
 
 <!-- The student select list -->
 
-<div class="row">
-	<div class="col-xs-1">
-	</div>
-	<div class="col-xs-10">
-		<span style="font-size:30px; color:#396599">SELECT A LIST TO SUBMIT A CORRECTION FOR</span>
-	</div>
-</div>
 
 <div class="row">
-	<div class="col-xs-1"></div>
-	<div class="col-xs-1 blue_text">AWARD</div>
-	<div class="col-xs-2 blue_text">DATE STARTED</div>
+	<div class="col-xs-2 blue_text">SUBMITTED</div>
 	<div class="col-xs-2 blue_text">AWARD DATE</div>
 	<div class="col-xs-2 blue_text">RECEIVE BY</div>
+	<div class="col-xs-2 blue_text">AWARDS</div>
 	<div class="col-xs-4 blue_text">SEND CORRECTION</div>
 </div>
 
 	<% current_user.export_lists.where(:submitted => true).each do |export_list| %>
 	<% export_list.award_infos.order(:index).each_with_index do |award, i| %>
-	<% unless award.award.nil? %>
 	<div class="row">
-	<div class="col-xs-1">
-		<% unless award.award.try(:image).nil? %>
-		<%= image_tag(award.award.image.url, class: "award_thumbnail") %>
+		<div class="col-xs-2 blue_text">
+		<% if i == 0 %>
+		<%= export_list.submit_date.strftime("%m/%d/%Y") unless export_list.submit_date.nil? %>
+		<% end %>
+		</div>
+		<% unless award.award.nil? %>
+			<div class="col-xs-2 blue_text"><%= award.award_date.strftime("%m/%d/%Y") unless award.award_date.nil? %></div>
+			<div class="col-xs-2 blue_text"><%= award.receive_by.strftime("%m/%d/%Y") unless award.receive_by.nil? %></div>
+			<div class="col-xs-1">
+				<% unless award.award.try(:image).nil? %>
+				<%= image_tag(award.award.image.url, class: "award_thumbnail") %>
+				<% end %>
+			</div>
+			<div class="col-xs-1 blue_text"><%= award.award.abbreviation %></div>
+
+			<div class="col-xs-4 blue_text">
+				<% if i == 0 %>
+			<%= link_to "REVIEW/CORRECT", award_create_corrections_path(award.export_list.uniq_id), class: "btn-awards-next2" %>
+			
+			<% end %>
+			</div>
 		<% end %>
 	</div>
-	<div class="col-xs-1 blue_text"><%= award.award.abbreviation %></div>
-	<div class="col-xs-2 blue_text"><%= award.created_at.strftime("%m/%d/%Y") unless award.created_at.nil? %></div>
-	<div class="col-xs-2 blue_text"><%= award.award_date.strftime("%m/%d/%Y") unless award.award_date.nil? %></div>
-	<div class="col-xs-2 blue_text"><%= award.receive_by.strftime("%m/%d/%Y") unless award.receive_by.nil? %></div>
-	<div class="col-xs-4 blue_text">
-	<%= link_to "SEND CORRECTION", award_create_corrections_path(award.export_list.uniq_id), class: "btn-awards-next2" %>
-	</div>
-</div>
-<% end %>
 	<% end %>
 	<% end %>
 <br/>

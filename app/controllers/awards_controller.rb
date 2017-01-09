@@ -22,7 +22,7 @@ class AwardsController < ApplicationController
       award_info.students = []
     end
     redirect_to award_multiple_students_path(@export_list.uniq_id)
-  end
+  end 
   
   def new
     if current_user
@@ -97,14 +97,23 @@ class AwardsController < ApplicationController
     @school = current_user.school
 
     @student_list = []
+    @student_list_teacher = []
 
     @export_list.award_infos.each do |award_info|
       award_info.students.each do |student|
-        @student_list << student
+        if student.teacher.nil?
+          @student_list << student
+        else
+          @student_list_teacher << student
+        end
       end
     end
 
     @student_list = @student_list.uniq
+    @student_list_teacher = @student_list_teacher.uniq
+
+    @student_list.sort_by!{|e| e[:last_name]}
+    @student_list_teacher.sort_by!{|e| [e[:teacher], e[:last_name]]}
 
     if params[:q].nil?
       @students = @search.result.order(:teacher).order(:last_name)
@@ -127,7 +136,7 @@ class AwardsController < ApplicationController
 
   def submit
     @export_list = ExportList.find_by_uniq_id("#{params[:id]}")
-    @export_list.update(:submitted => true)
+    @export_list.update(:submitted => true, :submit_date => Date.today)
 
     ListExport.perform_async(@export_list.id)
   end

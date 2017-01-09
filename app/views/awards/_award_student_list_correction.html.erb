@@ -37,11 +37,11 @@
 			<% if original_award_info.students.include?(student) %>
 				<span class="glyphicon glyphicon-check"></span>
 			<% elsif award_info.students.exists?(student) %>
-				<%= link_to export_remove_student_path(student.id, :award => award_info.id), remote: true do %> 
+				<%= link_to export_remove_student_path(student.id, :award => award_info.id, :correction => true), remote: true, class: "correction-check" do %>  
 				    <span class="glyphicon glyphicon-check"></span>
 				<% end %>
 			<% else %>
-				<%= link_to export_add_student_path(student.id, :award => award_info.id), remote: true do %>
+				<%= link_to export_add_student_path(student.id, :award => award_info.id, :correction => true), remote: true do %>
 				    <span class="glyphicon glyphicon-unchecked"></span>
 				<% end %>
 			<% end %>

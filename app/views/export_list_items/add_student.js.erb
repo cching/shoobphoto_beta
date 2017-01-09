@@ -3,4 +3,4 @@ $("#student_<%= @student.id %>_<%= @award %>_check").html("<%= escape_javascript
 <% else %>
 $("#student_<%= @student.id %>_<%= @award %>_check").html("<%= escape_javascript(render 'add_student', :locals => {:student => @student}) %>");
 
-<% end %>
+<% end %> 

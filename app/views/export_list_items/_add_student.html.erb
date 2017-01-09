@@ -1,3 +1,9 @@
-<%= link_to export_remove_student_path(@student.id, :award => @award), remote: true do %>
+<% if @correction.nil? %>
+<%= link_to export_remove_student_path(@student.id, :award => @award, :correction => @correction), remote: true do %>
 	<span class="glyphicon glyphicon-check"></span>
+<% end %>
+<% else %>
+<%= link_to export_remove_student_path(@student.id, :award => @award, :correction => @correction), class: "correction-check", remote: true do %>
+	<span class="glyphicon glyphicon-check"></span>
+	<% end%>
 <% end %>

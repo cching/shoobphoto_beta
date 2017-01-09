@@ -6,32 +6,38 @@ class UserImport
   		@user_id = []
 
       	chunk.each do |h|
-      		school = School.where(:scode => h["scode"].to_i)
 
-      		if school.any?
-      			school = school.last
-      			if "#{h["awd_date"]}" == "T"
-      				awd_date = true
-      			else
-      				awd_date = false
-      			end
+          award = Award.where("lower(image_file_name) like ?", "%#{h["new_label"].downcase}%")
 
-      			if "#{h["time_per"]}" == "T"
-      				time_per = true
-      			else
-      				time_per = false
-      			end
-      			school.awards.create(:abbreviation => "#{h["abbrev"]}", :image_file_name => "#{h["new_label"]}.jpg", :title => "#{h["award"]}", :add_period => time_per, :add_date => awd_date)
+          if award.any?
+            award = award.last
+            if h["awd_date"] == "T"
+              award.update(:add_date => true)
+            else
+              award.update(:add_date => false)
+            end
 
-      		else
-      			@user_id << h["scode"]
-      		end
+            if h["awd_for"] == "T"
+              award.update(:add_awarded_for => true)
+            else
+              award.update(:add_awarded_for => false)
+            end
+
+            if h["awd_def"] == "T"
+              award.update(:add_definition => true)
+            else
+              award.update(:add_definition => false)
+            end
+
+            if h["time_per"] == "T"
+              award.update(:add_period => true)
+            else
+              award.update(:add_period => false)
+            end
 
 
      	end #end chunk
-     	puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-      	puts @user_id
-      	puts "#{@user_id.count}"
+ 
  	end
 end
 

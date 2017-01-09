@@ -34,6 +34,7 @@ class ExportListItemsController < ApplicationController
 
   def add_student
     @student = Student.find(params[:student_id])
+    @correction = params[:correction]
     unless params[:award].nil?
       @award = params[:award]
       @userstudent = AwardInfoStudent.create(:student_id => params[:student_id], :award_info_id => params[:award])
@@ -44,6 +45,7 @@ class ExportListItemsController < ApplicationController
 
   def remove_student
     @student = Student.find(params[:student_id])
+    @correction = params[:correction]
     if params[:award].nil?
 
       current_user.students.delete(@student)

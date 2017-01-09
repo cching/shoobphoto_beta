@@ -8,22 +8,32 @@
 	</div>
 	<div class="col-xs-6" >
 
+				<div class="row">
 				<% if f.object.award.add_period? %>
+				<div class="col-xs-6">
 				<%= f.input :time_period, :label => false, placeholder: "Time Period (April 2016/1st Trimester)", :input_html => { :class => 'awardform' } %>
+				</div>
 				<% end %>
+
 				<% if f.object.award.add_date? %>
+				<div class="col-xs-6">
 				<div class="form-group string optional export_list_award_infos_awarded_for">
             	<input type='text' placeholder="Award Date (12/30/2016)" class="form-control awardform" id='datetimepicker<%= i %>' style="width: 98%;"/>
 				<input hidden type='text' name='export_list[award_infos_attributes][<%= i %>][award_date]' id='value<%= i %>' value="<%= f.object.award_date %>" />
             	</div>
+            	</div>
 				<% end %>
+				</div>
 				<div class="form-group string optional export_list_award_infos_awarded_for">
             	<input type='text' placeholder="Receive By (12/28/2016)" class="form-control awardform" id='datetimepicker<%= i %>_2' style="width: 98%;"/>
 				<input hidden type='text' name='export_list[award_infos_attributes][<%= i %>][receive_by]' id='value<%= i %>_2' value="<%= f.object.receive_by %>" />
             	</div>
-
+            	<% if f.object.award.add_awarded_for? %>
 				<%= f.input :awarded_for, :label => false, placeholder: "Awarded For (Trustworthy) (optional)", :input_html => { :class => 'awardform' } %>
+				<% end %>
+				<% if f.object.award.add_definition? %>
 				<%= f.input :definition, as: :string, :label => false, placeholder: "Definition (Being trustworhty means...) (optional)", :input_html => { :class => 'awardform' } %>
+				<% end %>
 				
 
 	</div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105115115) do
+ActiveRecord::Schema.define(version: 20170109121336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,8 @@ ActiveRecord::Schema.define(version: 20170105115115) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.boolean  "add_awarded_for",    default: false
+    t.boolean  "add_definition",     default: false
   end
 
   create_table "banners", force: true do |t|
@@ -301,6 +303,7 @@ ActiveRecord::Schema.define(version: 20170105115115) do
     t.integer  "export_list_id"
     t.boolean  "correction",     default: false
     t.boolean  "hidden",         default: false
+    t.date     "submit_date"
   end
 
   create_table "exports", force: true do |t|
