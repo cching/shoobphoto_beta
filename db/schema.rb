@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170109121336) do
+ActiveRecord::Schema.define(version: 20170110063721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -831,11 +831,22 @@ ActiveRecord::Schema.define(version: 20170109121336) do
     t.boolean  "webcam",             default: false
     t.string   "access_code"
     t.boolean  "enrolled",           default: false
+    t.string   "lower_teacher"
+    t.integer  "teacher_id"
   end
 
   create_table "subcategories", force: true do |t|
     t.integer  "category_id"
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teachers", force: true do |t|
+    t.integer  "school_id"
+    t.integer  "scode"
+    t.string   "name"
+    t.string   "grade"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

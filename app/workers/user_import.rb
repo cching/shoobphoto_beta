@@ -7,33 +7,15 @@ class UserImport
 
       	chunk.each do |h|
 
-          award = Award.where("lower(image_file_name) like ?", "%#{h["new_label"].downcase}%")
+          school = School.where(:scode => h["scode"].to_i)
 
-          if award.any?
-            award = award.last
-            if h["awd_date"] == "T"
-              award.update(:add_date => true)
-            else
-              award.update(:add_date => false)
-            end
-
-            if h["awd_for"] == "T"
-              award.update(:add_awarded_for => true)
-            else
-              award.update(:add_awarded_for => false)
-            end
-
-            if h["awd_def"] == "T"
-              award.update(:add_definition => true)
-            else
-              award.update(:add_definition => false)
-            end
-
-            if h["time_per"] == "T"
-              award.update(:add_period => true)
-            else
-              award.update(:add_period => false)
-            end
+          if school.any?
+            school = school.last
+            teacher = school.teacher.create(:name => "#{h["teacher"]}", :grade => "#{h["grade"]}")
+            students = school.students.where("lower_teacher like ?", "%#{teacher.name.downcase.gsub(/[^\w\s\d]/, '')}%")
+            students.update_all(:teacher_id => teacher.id)
+          else
+            Teacher.create(:name => "#{h["teacher"]}", :grade => "#{h["grade"]}", :scode => h["scode"].to_i)
           end
 
 
