@@ -11,7 +11,7 @@ class UserImport
 
           if school.any?
             school = school.last
-            teacher = school.teacher.create(:name => "#{h["teacher"]}", :grade => "#{h["grade"]}")
+            teacher = school.teachers.create(:name => "#{h["teacher"]}", :grade => "#{h["grade"]}")
             students = school.students.where("lower_teacher like ?", "%#{teacher.name.downcase.gsub(/[^\w\s\d]/, '')}%")
             students.update_all(:teacher_id => teacher.id)
           else
