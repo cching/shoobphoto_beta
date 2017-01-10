@@ -15,6 +15,7 @@
 				<div class="row">
 				<div class="col-sm-1"></div>
 				<% images.each do |image| %>
+				<% if image.watermark.exists? %>
 					<div class="col-sm-3" align="center">
 						
 
@@ -25,6 +26,7 @@
 					<strong class="image_text"><%= DownloadImage.package_name(image.id) %></strong><br/><br/>
 					<%= link_to "Select", download_cart_path(@student.id, :cart_id => params[:id], :image => image.id, :i => @i), class: "btn-custom2", remote: true %>
 					</div>	
+					<% end %>
 				<% end %>
 				<div class="col-sm-1"></div>
 				</div> 

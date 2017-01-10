@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
 
 		if @order.cart.order_packages.map(&:download_image_id).any? && @order.cart.order_packages.map{ |o| o.options.map {|x| x.download }}.any? 
 			@images = []
-			@order.cart.order_packages.where.not(download_image_id: nil).map{ |o| @images << o if o.options.first.download?}
+			@order.cart.order_packages.where.not(download_image_id: nil).map{ |o| @images << o if o.options.map{|o| o.try(:download) if o.try(:download) == true}.any?}
 		elsif @order.cart.order_packages.map(&:student_image_id).any? && @order.cart.order_packages.map{ |o| o.gifts.map {|x| x.download }}.any? 
 			@gift_images = []
 			@order.cart.order_packages.where.not(student_image_id: nil).map{ |o| @gift_images << o if o.gifts.first.download?}

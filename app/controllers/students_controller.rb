@@ -437,6 +437,7 @@ class StudentsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @student = @cart.cart_students.order(:i).last.student
     @price = 0 
+    if @cart.order_packages.any?
     unless @cart.order_packages.where.not(package_id: nil).first.package.nil? 
     if @cart.order_packages.where.not(package_id: nil).first.package.shippings.any?
 
@@ -478,14 +479,15 @@ class StudentsController < ApplicationController
       end
 
        @cart.update(:price => @price)
-
-       unless @cart.order_packages.any?
+       respond_to do |format|
+        format.html
+      end
+     else
+       
         redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1)
       end
 
-      respond_to do |format|
-        format.html
-      end
+      
 
 
   end
@@ -585,6 +587,8 @@ class StudentsController < ApplicationController
 
     @price = 0
 
+    bool = []
+
 
     @cart.order_packages.each do |package|
      package.options.each do |option|
@@ -623,13 +627,17 @@ class StudentsController < ApplicationController
           @images = DownloadImage.where(id: @ids)
         end
 
-
+ 
       end
       @images = DownloadImage.find(@ids)
 
+      @images.each do |image|
+        if image.watermark.exists?
+          bool << true
+        end
+      end
 
-
-      if @images.any? && @cart.id_supplied?
+      if @images.any? && @cart.id_supplied? && bool.include?(true)
         redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
       else
         redirect_to student_final_path(@cart.cart_id, @cart.students.count - 1)
