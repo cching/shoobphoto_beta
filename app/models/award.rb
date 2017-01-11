@@ -8,4 +8,5 @@ class Award < ActiveRecord::Base
   	:url => ':s3_domain_url',
   	:path => '/images/awards/:image_file_name'
   	validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+  	validates_presence_of :image
 end

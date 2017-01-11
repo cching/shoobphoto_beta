@@ -1,0 +1,30 @@
+<%= simple_form_for([:admin, @award]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  	<%= f.input :title %>
+  	<%= f.input :abbreviation %>
+  	<div class="row">
+  		<div class="col-xs-3">
+  			<%= f.input :add_awarded_for, label: "Add awarded for field?", :input_html => { :checked => true } %>
+  		</div>
+  		<div class="col-xs-3">
+  			<%= f.input :add_definition, label: "Add definition field?", :input_html => { :checked => true } %>
+  		</div>
+  		<div class="col-xs-3">
+  			<%= f.input :add_period, label: "Add time period field?", :input_html => { :checked => true } %>
+  		</div>
+  		<div class="col-xs-3">
+  			<%= f.input :add_date, label: "Add award date field?", :input_html => { :checked => true } %>
+  		</div>
+  	</div>
+
+  	<hr>
+  	<%= image_tag(@award.image.url, class: "school_logo") if @award.image.exists? %>
+  	<%= f.input :image %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

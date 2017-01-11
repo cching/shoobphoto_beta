@@ -1,86 +1,22 @@
-<%= link_to "Back to dashboard", admin_dashboards_path, class: "btn-blue" %>
 <h3>Awards</h3>
-<hr>
-<%  bucket = AWS::S3::Bucket.new('shoobphoto') %>
 
-<% s3object = AWS::S3::S3Object.new(bucket, "csvs/#{Export.last.file_path}") %>
-<% s3object_setup = AWS::S3::S3Object.new(bucket, "csvs/#{Export.last.file_path_setup}") %>
-
-
-<% @image_url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true) %>
-<% @image_url_setup = s3object_setup.url_for(:read, :expires => 60.minutes, :use_ssl => true) %>
-
-<p><%= link_to "Advanced Search", new_search_path %></p>
-
-<div class="row">
-<div class="col-sm-6">
-<%= link_to 'Generate the latest CSV File of Awards', export_admin_award_path(1) %><br />
-
-<% if Export.last.file_path.nil? %>
-<a href="#" download class="btn btn-disabled btn-primary">The CSV is still being processed. Please refresh in a few minutes.</a>
-<% else %>
-<a href="<%= @image_url %>" download class="btn btn-primary">Download <%= Export.last.file_path %></a>
-<a href="<%= @image_url_setup %>" download class="btn btn-primary">Download Setup <%= Export.last.file_path_setup %></a>
-
-<% end %>
-</div>
-<div class="col-sm-6">
-
-</div>
-</div>
-
+<%= link_to "New Award", new_admin_award_path, class: "btn btn-primary" %>
 <table class="table">
-  <thead>
-    <tr>
-      <th>Submitted</th>
-      <th>Award ID</th>
-      <th>School</th>
-      <th>Submitted By</th>
-      <th>Award Abbrev</th>
-      <th>Processed?</th>
-    </tr>
-  </thead>
-  <tbody>
-<% ExportList.all.where(:submitted => true).where(:hidden => false).each do |export_list| %>
-<% export_list.award_infos.where(:processed => false).each do |award_info| %>
+	<thead>
+		<th>Title</th>
+		<th>Abbreviation</th>
+		<th>Edit</th>
+		<th>Delete</th>
+	</thead>
 
-      <tr class=<%= award_info.processed? ? "success" : "danger" %> id="award_<%= award_info.id %>" >
-        <td><%= export_list.submit_date %></td>
-        <td><%= award_info.id %></td>
-        <td><%= export_list.user.school.name %></td>
-        <td><%= "#{export_list.user.first_name} #{export_list.user.last_name}" %></td>
-        <td><%= award_info.award.abbreviation %></td>
-        <td id="button_<%= award_info.id %>">
-        <% if award_info.processed? %>
-          <%= link_to "Processed", notprocessed_admin_award_path(award_info.id), class: "btn btn-success", remote: true %>
-        <% else %>
-          <%= link_to "Not Processed", processed_admin_award_path(award_info.id), remote: true, class: "btn btn-danger" %>
-          <% end %>
-        </td>
-      </tr>
-<% end %>
-
-
-<% export_list.award_infos.where(:processed => true).each do |award_info| %>
-
-      <tr class=<%= award_info.processed? ? "success" : "danger" %> id="award_<%= award_info.id %>" >
-        <td><%= award_info.created_at %></td>
-        <td><%= award_info.id %></td>
-        <td><%= export_list.user.school.name %></td>
-        <td><%= "#{export_list.user.first_name} #{export_list.user.last_name}" %></td>
-        <td><%= award_info.award.abbreviation %></td>
-        <td id="button_<%= award_info.id %>">
-        <% if award_info.processed? %>
-          <%= link_to "Processed", notprocessed_admin_award_path(award_info.id), class: "btn btn-success", remote: true %>
-        <% else %>
-          <%= link_to "Not Processed", processed_admin_award_path(award_info.id), remote: true, class: "btn btn-danger" %>
-          <% end %>
-        </td>
-      </tr>
-<% end %>
-
-
-
-<% end %>
-  </tbody>
+	<tbody>
+		<% Award.where.not(image_file_name: nil).order(:title).each do |award| %>
+			<tr>
+				<td><%= award.title %></td>
+				<td><%= award.abbreviation %></td>
+				<td><%= link_to "Edit", edit_admin_award_path(award), class: "btn btn-primary" %></td>
+				<td><%= link_to "Delete", admin_award_path(award), method: :delete, class: "btn btn-danger", :data => {:confirm => "Are you sure?"} %></td>
+			</tr>
+		<% end -%>
+	</tbody>
 </table>

@@ -122,8 +122,12 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
     resources :addons
 
     resources :awards do
+      collection do
+        get :list
+      end
       member do
         get :notprocessed
+
         get :processed
         get :export
       end
