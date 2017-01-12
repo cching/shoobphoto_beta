@@ -14,7 +14,7 @@ class StudentsController < ApplicationController
 
   def typeahead
     if params[:term]
-      @schools = School.where("lower(name) like ?", "%#{params[:term].downcase}%")
+      @schools = School.where("lower(name) like ?", "%#{params[:term].downcase}%").where.not(school_type_id: nil)
 
     end
 
