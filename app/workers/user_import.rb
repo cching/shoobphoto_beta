@@ -21,7 +21,7 @@ class UserImport
             teacher = school.teachers.create(:name => "#{h["teacher"]}", :full_name => "#{h["comptea"]}", :teacher_id => h["cl_id"].to_i, :email => "#{h["email"]}")
           elsif schools.count == 1
             schools = schools.last
-            teacher = school.teachers.create(:name => "#{h["teacher"]}", :full_name => "#{h["comptea"]}", :teacher_id => h["cl_id"].to_i, :email => "#{h["email"]}")
+            teacher = schools.teachers.create(:name => "#{h["teacher"]}", :full_name => "#{h["comptea"]}", :teacher_id => h["cl_id"].to_i, :email => "#{h["email"]}")
             schools.update(:scode => h["scode"].to_i)
           else
             school.teachers.create(:name => "#{h["teacher"]}", :full_name => "#{h["comptea"]}", :teacher_id => h["cl_id"].to_i, :email => "#{h["email"]}", :scode => h["scode"].to_i)
