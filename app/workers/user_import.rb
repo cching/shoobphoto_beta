@@ -24,7 +24,7 @@ class UserImport
               students = school.students.where("student_id like ?", "%#{h["st_stu_id"]}%").where(:id_only => true)
               students_access = school.students.where("access_code like ?", "%#{h["accesscode"]}%").where(:id_only => true)
               if students.any?
-                student = student.last
+                student = students.last
                 student.update(:teacher_id => teacher.id)
               elsif students_access.any?
                 student = students_access.last
