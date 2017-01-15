@@ -71,7 +71,7 @@ class Admin::UsersController < ApplicationController
 
 	def edit
 	end
-
+ 
 	def import
     chunk = SmarterCSV.process(params[:file].tempfile, {:chunk_size => 2000, row_sep: :auto}) do |chunk|
       UserImport.perform_async(chunk)
