@@ -73,7 +73,7 @@ class Admin::UsersController < ApplicationController
 	end
  
 	def import
-    chunk = SmarterCSV.process(params[:file].tempfile.force_encoding("UTF-8"), {:chunk_size => 2000, row_sep: :auto, :encoding => 'ISO-8859-1'}) do |chunk|
+    chunk = SmarterCSV.process(params[:file].force_encoding("UTF-8").tempfile, {:chunk_size => 2000, row_sep: :auto, :encoding => 'ISO-8859-1'}) do |chunk|
       UserImport.perform_async(chunk)
     end
     redirect_to csv_admin_users_path, notice: "Users successfully imported."
