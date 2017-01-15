@@ -74,14 +74,9 @@ class Admin::UsersController < ApplicationController
  
 	def import
 
-		  encoding_options = {
-        :invalid           => :replace,  # Replace invalid byte sequences
-        :undef             => :replace,  # Replace anything not defined in ASCII
-        :replace           => '',        # Use a blank for those replacements
-        :universal_newline => true       # Always break lines with \n
-      }
+
     chunk = SmarterCSV.process(params[:file].tempfile, options={:file_encoding =>'iso-8859-1', :chunk_size => 2000, :force_utf8 => true, :invalid_byte_sequence => ''}) do |chunk|
-      UserImport.perform_async(chunk.encode(Encoding.find('ASCII'), encoding_options))
+      UserImport.perform_async(chunk)
     end
     redirect_to csv_admin_users_path, notice: "Users successfully imported."
   end
