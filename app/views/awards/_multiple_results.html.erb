@@ -65,7 +65,7 @@
             <%= student.grade %> 
           </td>
            <td>
-            <%= student.teacher %>
+            <%= student.educator.try(:name) %>
           </td>
           <% @export_list.award_infos.each do |award_info| %>
             <td> 
