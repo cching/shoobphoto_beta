@@ -56,6 +56,12 @@
 <br/>
 <!-- The 'Student Search' forms -->
 
+<div class="row">
+	<div class="col-xs-3"></div>
+	<div class="col-xs-3" align="center"><%= link_to "Sort by student name", award_multiple_review_path(@export_list.uniq_id, :sort => "student"), class: "btn-awards-next"%></div>
+	<div class="col-xs-3" align="center"><%= link_to "Sort by teacher", award_multiple_review_path(@export_list.uniq_id, :sort => "teacher"), class: "btn-awards-next"%></div>
+	<div class="col-xs-3"></div>
+</div>
 
 <!-- The student select list -->
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170115002445) do
+ActiveRecord::Schema.define(version: 20170116022741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -242,6 +242,18 @@ ActiveRecord::Schema.define(version: 20170115002445) do
     t.string   "watermark_content_type"
     t.integer  "watermark_file_size"
     t.datetime "watermark_updated_at"
+  end
+
+  create_table "educators", force: true do |t|
+    t.integer  "school_id"
+    t.integer  "scode"
+    t.string   "name"
+    t.string   "grade"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "full_name"
+    t.integer  "teacher_id"
+    t.string   "email"
   end
 
   create_table "export_data", force: true do |t|
@@ -832,7 +844,7 @@ ActiveRecord::Schema.define(version: 20170115002445) do
     t.string   "access_code"
     t.boolean  "enrolled",           default: false
     t.string   "lower_teacher"
-    t.integer  "teacher_id"
+    t.integer  "educator_id"
   end
 
   create_table "subcategories", force: true do |t|
@@ -840,18 +852,6 @@ ActiveRecord::Schema.define(version: 20170115002445) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "teachers", force: true do |t|
-    t.integer  "school_id"
-    t.integer  "scode"
-    t.string   "name"
-    t.string   "grade"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "full_name"
-    t.integer  "teacher_id"
-    t.string   "email"
   end
 
   create_table "teams", force: true do |t|

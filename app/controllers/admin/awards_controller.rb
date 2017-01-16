@@ -26,8 +26,8 @@ class Admin::AwardsController < ApplicationController
 	def export
 		e = Export.create
 		AwardExport.perform_async(e.id)
-		redirect_to admin_awards_path, notice: "Generating award CSV. Please refresh in a few minutes."
-	end
+		redirect_to list_admin_awards_path, notice: "Generating award CSV. Please refresh in a few minutes."
+	end 
 
 	def processed
 		@award = AwardInfo.find(params[:id])
@@ -106,6 +106,6 @@ class Admin::AwardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def award_params
-      params.require(:award).permit(:title, :abbreviation, :image, :add_period, :add_date, :add_awarded_for, :add_definition)
+      params.require(:award).permit(:title, :abbreviation, :image, :add_period, :add_date, :add_awarded_for, :add_definition, :school_id)
     end
 end

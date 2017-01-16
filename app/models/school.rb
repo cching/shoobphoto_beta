@@ -15,7 +15,7 @@ class School < ActiveRecord::Base
 	belongs_to :school_type
 
 	has_many :users
-	has_many :teachers
+	has_many :educators
 
   has_many :school_templates
 

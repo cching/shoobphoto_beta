@@ -1,6 +1,5 @@
-<% @student_list_teacher.count.times do |index| %>
+<% @student_list_teacher.each do |student| %>
 
-<% student = @student_list_teacher[index] %>
        <tr id="student_<%= student.id %>">
           <td id="button_<%= student.id %>">
             <%= link_to "Remove", export_list_remove_path(student.id, :award => @export_list.id), remote: true, class: "btn btn-danger" %>
@@ -18,7 +17,7 @@
             <%= student.grade %> 
           </td>
            <td>
-            <%= student.teacher %>
+            <%= student.educator.try(:name) %>
           </td>
           <% @export_list.award_infos.each do |award_info| %>
             <td> 
@@ -47,9 +46,8 @@
 <% end %>
 
 
-<% @student_list.count.times do |index| %>
+<% @student_list.each do |student| %>
 
-<% student = @student_list[index] %>
        <tr id="student_<%= student.id %>">
           <td id="button_<%= student.id %>">
             <%= link_to "Remove", export_list_remove_path(student.id, :award => @export_list.id), remote: true, class: "btn btn-danger" %>

@@ -65,7 +65,7 @@ class AwardsController < ApplicationController
 
     @school = current_user.school
 
-    @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
+    @students = Student.searching_awards(@school.id, params[:first_name], params[:last_name], params[:grade], params[:educator], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
       
 
     @image = @school.packages.where("name like ?", "%Fall%").last
@@ -99,26 +99,39 @@ class AwardsController < ApplicationController
     @student_list = []
     @student_list_teacher = []
 
+    if params[:sort].nil?
+
     @export_list.award_infos.each do |award_info|
       award_info.students.each do |student|
-        if student.teacher.nil?
-          @student_list << student
+        if student.educator.nil?
+          @student_list << student.id
         else
-          @student_list_teacher << student
+          @student_list_teacher << student.id
         end
       end
     end
 
-    @student_list = @student_list.uniq
-    @student_list_teacher = @student_list_teacher.uniq
+    @student_list = Student.where(id: @student_list.uniq).order(:last_name)
+    @student_list_teacher = Student.where(id: @student_list_teacher.uniq).includes(:educator).order("educators.name").order(:last_name)
 
-    @student_list.sort_by!{|e| e[:last_name]}
-    @student_list_teacher.sort_by!{|e| [e[:teacher], e[:last_name]]}
+    elsif params[:sort] == "student"
+      @export_list.award_infos.each do |award_info|
+      award_info.students.each do |student|
+          @student_list << student.id
+      end
+      end
 
-    if params[:q].nil?
-      @students = @search.result.order(:teacher).order(:last_name)
+      @student_list = Student.where(id: @student_list.uniq).order(:last_name)
+
     else
-      @students = @search.result.order(:teacher).order(:last_name)
+      @export_list.award_infos.each do |award_info|
+      award_info.students.each do |student|
+          @student_list << student.id
+      end
+      end
+
+      @student_list = Student.where(id: @student_list.uniq).includes(:educator).order("educators.name").order(:last_name)
+
     end
   end
 
@@ -199,7 +212,7 @@ class AwardsController < ApplicationController
     @export_list = ExportList.find_by_uniq_id("#{params[:id]}")
     @school = current_user.school
 
-    @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
+    @students = Student.searching_awards(@school.id, params[:first_name], params[:last_name], params[:grade], params[:educator], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
       
 
     @image = @school.packages.where("name like ?", "%Fall%").last
@@ -277,7 +290,6 @@ class AwardsController < ApplicationController
     if @image.nil?
       @package = @school.packages.first
     end
-    @teacher = @school.students.where(:id_only => true).select(:teacher).order(:teacher).map(&:teacher).uniq
 
     respond_to :js
   end
@@ -341,6 +353,6 @@ class AwardsController < ApplicationController
     end
 
     def student_params
-            params.require(:student).permit(:first_name, :last_name, :id_only, :grade, :school_id, :student_id, :grade, :image, :index, :dob, :teacher, :data1, :data2, :data3, :data4, student_images_attributes: [:image])
+            params.require(:student).permit(:first_name, :last_name, :id_only, :grade, :school_id, :student_id, :grade, :image, :index, :dob, :educator_id, :data1, :data2, :data3, :data4, student_images_attributes: [:image])
     end
 end

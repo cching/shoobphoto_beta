@@ -10,7 +10,7 @@ class ListExport
           csv_file_setup << CSV.generate_line(['scode'] + ['name'] + ['abbrev'] + ['time_per'] + ['awd_date'] + ['rec_by'] + ['labelfile'] + ['award_id'])
 
             export_list.award_infos.where(:processed => false).each do |award|
-               csv_file_setup << CSV.generate_line(["#{export_list.user.school.scode}"] + ["#{award.award.title}"] + ["#{award.award.abbreviation}"] + ["#{award.time_period}"] + ["#{award.award_date}"]+  ["#{award.receive_by}"] + ["#{award.award.image_file_name}"] + ["#{award.award.abbreviation.humanize}#{award.id}"])
+               csv_file_setup << CSV.generate_line(["#{export_list.user.school.scode}"] + ["#{award.award.title}"] + ["#{award.award.abbreviation}"] + ["#{award.time_period}"] + ["#{award.award_date}"]+  ["#{award.receive_by}"] + ["#{File.basename award.award.image_file_name, '.jpg'}"] + ["#{award.award.abbreviation.humanize}#{award.id}"])
             end
           
 
@@ -32,7 +32,7 @@ class ListExport
                   @string2 = "#{img.last.image.url}"
                   @string = "#{img.last.try(:image_file_name)}"
                 end
-               csv_file << CSV.generate_line(["#{student.school.scode}"] + ["#{student.shoob_id}"] + ["#{student.student_id}"] + ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.grade}"] + ["#{student.teacher}"] + ["#{@string2}"] + ["#{award.award.abbreviation.humanize}#{award.id}"] + ["#{@string}"])
+               csv_file << CSV.generate_line(["#{student.school.scode}"] + ["#{student.shoob_id}"] + ["#{student.student_id}"] + ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.grade}"] + ["#{student.teacher}"] + ["#{@string2}"] + ["#{File.basename award.award.image_file_name, '.jpg'}"] + ["#{@string}"])
              end
             end
           

@@ -19,6 +19,7 @@
   		</div>
   	</div>
 
+    <%= f.input :school_id, :collection => School.where.not(school_type_id: nil).order(:name), label: "School" %>
   	<hr>
   	<%= image_tag(@award.image.url, class: "school_logo") if @award.image.exists? %>
   	<%= f.input :image %>
