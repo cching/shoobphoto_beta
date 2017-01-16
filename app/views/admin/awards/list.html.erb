@@ -59,12 +59,13 @@
         </td>
       </tr>
 <% end %>
+<% end %>
 
-
+<% ExportList.all.where(:submitted => true).where(:hidden => false).each do |export_list| %>
 <% export_list.award_infos.where(:processed => true).each do |award_info| %>
 
       <tr class=<%= award_info.processed? ? "success" : "danger" %> id="award_<%= award_info.id %>" >
-        <td><%= award_info.created_at %></td>
+        <td><%= export_list.submit_date %></td>
         <td><%= award_info.id %></td>
         <td><%= export_list.user.school.name %></td>
         <td><%= "#{export_list.user.first_name} #{export_list.user.last_name}" %></td>
@@ -78,9 +79,10 @@
         </td>
       </tr>
 <% end %>
-
-
-
 <% end %>
+
+
+
+
   </tbody>
 </table>
