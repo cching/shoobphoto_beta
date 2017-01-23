@@ -16,6 +16,13 @@ class AwardsController < ApplicationController
     redirect_to award_students_path(@award_info.id)
   end 
 
+  def remove
+    @award_info = AwardInfo.find(params[:id])
+    @award_info.delete
+
+    redirect_to :back, notice: "Award was removed from your awards in progress."
+  end
+
   def multiple_clear
     @export_list = ExportList.find(params[:id])
     @export_list.award_infos.each do |award_info|

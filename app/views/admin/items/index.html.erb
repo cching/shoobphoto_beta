@@ -17,6 +17,7 @@
 <% @image_url = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true) %>
 
 <div class="row">
+	<%= link_to "Manage Categories", admin_categories_path, class: "btn btn-primary" %>
     <%= render 'categories' %>
     <div class="col-sm-1"></div>
     <div class="col-sm-8">

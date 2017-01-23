@@ -1,0 +1,19 @@
+<%= simple_form_for([:admin, @category]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  	<%= f.input :name, label: "Category name" %>
+  </div>
+
+Subcategories
+<hr>
+  <%= f.simple_fields_for :subcategories do |builder| %>
+        <%= render 'subcategory_fields', f: builder %>
+   <% end %>
+
+   <%= link_to_add_fields "Add Subcategories", f, :subcategories %>
+<br/>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

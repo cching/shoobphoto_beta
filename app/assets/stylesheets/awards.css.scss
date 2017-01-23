@@ -84,11 +84,58 @@ color:#fff;
   text-decoration: none;
   border:none !important;
   outline:none !important;
+
 }
 
 .btn-awards-next2:hover {
   color:#fff;
   background: #4C74A3;
+  text-decoration: none;
+}
+
+.btn-awards-next-small {
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 60px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 15px;
+  background: #396599;
+  padding: 5px 15px 5px 15px !important;
+  text-decoration: none;
+  border:none !important;
+  outline:none !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  width: 80% !important;
+}
+
+.btn-awards-next-small:hover {
+  color:#fff;
+  background: #4C74A3;
+  text-decoration: none;
+}
+
+.btn-awards-next-small-danger {
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 60px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 15px;
+  background: #ff0000;
+  padding: 5px 15px 5px 15px !important;
+  text-decoration: none;
+  border:none !important;
+  outline:none !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  width: 80% !important;
+}
+
+.btn-awards-next-small-danger:hover {
+  color:#fff;
+  background: #FF3232;
   text-decoration: none;
 }
 

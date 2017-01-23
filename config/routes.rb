@@ -104,6 +104,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'emailers/' => 'emailers#index', :via => 'GET', :as => 'emailer'
   match 'emailers/csv' => 'emailers#import', :via => 'POST', :as => 'import_emailer'
   namespace :admin do
+    resources :categories
     resources :dashboards do
         collection do
           get :console
@@ -348,6 +349,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'awards/:id/review_multiple/' => 'awards#review_multiple', :via => 'get', :as => "award_multiple_review"
   match 'awards/:id/review_all/' => 'awards#review_all', :via => 'get', :as => "award_review_all"
   match 'awards/in_progress/' => 'awards#in_progress', :via => 'get', :as => "award_in_progress"
+  match 'awards/remove/:id' => 'awards#remove', :via => 'get', :as => "award_remove"
    match 'awards/student/new/:award_id' => 'awards#new_student', :via => 'get', :as => "award_new_student"
    match 'awards/multiple_student/new/:id' => 'awards#multiple_new_student', :via => 'get', :as => "award_multiple_new_student"
    match 'awards/:id/clear/' => 'awards#clear', :via => 'get', :as => "award_clear"
