@@ -31,7 +31,7 @@ class AutoImport
 				          end
 
 				          if h["rec_type"].downcase == 'master'
-				          	image = package.student_images.new(:student_id => student.id, :image_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"], :shoob_id => h["shoob_id"])
+				          	image = package.student_images.new(:package_id => 6, :student_id => student.id, :image_file_name => h["url"], :folder => h["folder"], :grade => h["grade"], :url => h["url"], :shoob_id => h["shoob_id"])
 				            image.index_file_name = "#{image.image_file_name}-index"
 				            image.save
 				          else
