@@ -6,7 +6,7 @@
 			<% if @cart.id_supplied? && images.any? %>
 			<% image = images.last %> 
 			<h3>Preview Your Poses: (click to enlarge)</h3>
-			<% image.senior_images.each_slice(2) do |slice| %>
+			<% image.senior_images.each_slice(2) do |slice| %> 
 			<div class="row" align="center">
 				<% slice.each do |senior_image| %>
 

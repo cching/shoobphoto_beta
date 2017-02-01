@@ -6,10 +6,6 @@ class Auto < ActiveRecord::Base
 
 	      #clear previous images from transfer
 
-	      FileUtils.rm_rf("/Users/alexshoob/load_station/csv/.", secure: true)
-
-	      Dir.mkdir("/Users/alexshoob/load_station/csv")
-
 	      s3 = AWS::S3.new
 	      encoding_options = {
 	        :invalid           => :replace,  # Replace invalid byte sequences
@@ -26,8 +22,8 @@ class Auto < ActiveRecord::Base
 
 	      failed_filename = "#{@load_id}_failed.csv"
 	      output_filename = "#{@load_id}_output.csv"
-	          File.open("/Users/alexshoob/load_station/#{output_filename}", "w") do |output| #initiate output CSV 
-	            File.open("/Users/alexshoob/load_station/#{failed_filename}", "w") do |failed| #initiate failed CSV 
+	          File.open("/Users/alexshoob/load_station/output/#{output_filename}", "w") do |output| #initiate output CSV 
+	            File.open("/Users/alexshoob/desktop/load_station_failed/#{failed_filename}", "w") do |failed| #initiate failed CSV 
 
 	              Dir.glob("/Volumes/6TB-J-12-13/Diglab2017/Dbf/csv/*.csv") do |fname|
 
@@ -46,7 +42,7 @@ class Auto < ActiveRecord::Base
 	                        @csv = SmarterCSV.process(fname, options={:file_encoding =>'iso-8859-1'}) do |chunk| #goes through file to upload images from local network
 	                          chunk.each do |h|
 	                            student_index = student_index + 1
-	                            unless h["ca_code"].nil? 
+	                            unless h[:ca_code].nil? 
 					      			schools = School.where("ca_code like ?", "%#{h[:ca_code]}%")
 
 						      		if schools.any?
@@ -57,7 +53,7 @@ class Auto < ActiveRecord::Base
 				                            unless h[:url].nil? || h[:url] == ""
 				                            	url = "#{h[:url]}".gsub("\\","\/").to_s
 				                            	url_array = url.split("\/")
-				                            	url_path = "/Volumes/6TB-J-12-13"
+				                            	url_path = "/Volumes/6TB-J-12-13" #convert windows path to mac
 
 				                            	url_index = 1
 				                            	until url_array.count == url_index
@@ -79,7 +75,7 @@ class Auto < ActiveRecord::Base
 				                                #write error file
 				                                @failed << true
 				                                @output << false
-				                                response = "Unable to locate student image in local folder, #{url_path}, #{h[:student_id]}, #{h[:acesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{h[:ca_code]}, #{h[:rec_type]}, h#{@load_id}"
+				                                response = "Unable to locate student image in local path #{url_path}, #{url_path}, #{h[:student_id]}, #{h[:acesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{h[:ca_code]}, #{h[:rec_type]}, h#{@load_id}"
 				                                failed << response.encode(Encoding.find('ASCII'), encoding_options)
 				                                failed << "\n"
 
@@ -100,7 +96,7 @@ class Auto < ActiveRecord::Base
 				                        else #if no packages found for school 
 				                        	@failed << true
 			                                @output << false
-			                                response = "No package found with slug #{h["slug"]} for school with CA code #{["ca_code"]}, #{url_path}, #{h[:student_id]}, #{h[:acesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{h[:ca_code]}, #{h[:rec_type]}, h#{@load_id}"
+			                                response = "No package found with slug #{h[:slug]} for school with CA code #{h[:ca_code]}, #{url_path}, #{h[:student_id]}, #{h[:acesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{h[:ca_code]}, #{h[:rec_type]}, h#{@load_id}"
 
 			                                failed << response.encode(Encoding.find('ASCII'), encoding_options)
 			                                failed << "\n"
@@ -109,7 +105,7 @@ class Auto < ActiveRecord::Base
 				                    else #if no school found with ca code
 				                    	@failed << true
 		                                @output << false
-		                                response = "No school found with CA code #{["ca_code"]}, #{url_path}, #{h[:student_id]}, #{h[:acesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{h[:ca_code]}, #{h[:rec_type]}, h#{@load_id}"
+		                                response = "No school found with CA code #{h[:ca_code]}, #{url_path}, #{h[:student_id]}, #{h[:acesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{h[:ca_code]}, #{h[:rec_type]}, h#{@load_id}"
 		                                failed << response.encode(Encoding.find('ASCII'), encoding_options)
 		                                failed << "\n"
 				                    end
@@ -130,24 +126,25 @@ class Auto < ActiveRecord::Base
 	                end  #close failed
 	                end #close output
 
-	      #cleanup and upload
-
+	      #cleanup and uploa
 
 	      if @output.include? true
 	        obj = s3.buckets['shoobphoto'].objects["AutoCSV/output/#{output_filename}"]
-	        obj.write(File.read("/Users/alexshoob/load_station/#{output_filename}"))
+	        obj.write(File.read("/Users/alexshoob/load_station/output/#{output_filename}"))
 	      end  
 
 	     #Launchy.open("https:///www.shoobphoto.com/autos/start_auto")
+	     Dir.glob("/Volumes/6TB-J-12-13/Diglab2017/Dbf/csv/*.csv").each { |f| File.delete(f) } #cleanup
 	      end # end if any csv files exist
 	     
 	  end
 
 	  def self.watermark_images(url, folder, basename, s3, student_index, i)
 	  	img = Magick::Image.read("#{url}.jpg").first
-        mark = Magick::Image.read("#{Rails.root}/public/watermark.png").first
+        mark = Magick::Image.read("/Users/alexshoob/load_station/watermark.png").first
         mark.background_color = "Transparent"
         watermark = mark.resize_to_fit(img.rows, img.columns.to_f)
+
 
         img2 = img.dissolve(watermark, 0.75, 1, Magick::CenterGravity)
         img2.write("/Users/alexshoob/load_station/watermarks/#{basename}.jpg")

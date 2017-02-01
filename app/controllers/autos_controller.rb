@@ -22,44 +22,7 @@ class AutosController < ApplicationController
     ##add error/success count
 
     @auto = Auto.create(:success_count => 0, :failed_count => 0)
-    s3 = AWS::S3.new
-    
-    bucket = AWS::S3::Bucket.new('shoobphoto')
-    objects = bucket.objects.with_prefix('AutoCSV/output').collect(&:key).drop(1)
-
-    objects.each do |object|
-      csv_path  = "https://s3-us-west-1.amazonaws.com/shoobphoto/#{object}"
-
-      csv_file  = open(csv_path,'r')
-
-      chunk = SmarterCSV.process(csv_file, {:chunk_size => 2000, :file_encoding =>'iso-8859-1'}) do |chunk|
-        AutoImport.perform_async(chunk, object, @auto.id)
-      end
- 
-    end 
-
-    objects.each do |object| #clear database csv
-      obj = s3.buckets['shoobphoto'].objects[object] # no request made
-      obj.delete
-    end
-
-    objects = bucket.objects.with_prefix('AutoCSV/failed').collect(&:key).drop(1)
-
-    objects.each do |object| #clear failure csv
-      csv_path  = "https://s3-us-west-1.amazonaws.com/shoobphoto/#{object}"
-
-      csv_file  = open(csv_path,'r')
-
-      chunk = SmarterCSV.process(csv_file, {:chunk_size => 500, :file_encoding =>'iso-8859-1'}) do |chunk|
-        AutoImportError.perform_async(chunk, object, @auto.id)
-      end
- 
-    end
-
-    objects.each do |object| 
-      obj = s3.buckets['shoobphoto'].objects[object] # no request made
-      obj.delete
-    end
+    AutoImport.perform_async(@auto.id)
     
     redirect_to process_auto_auto_path(@auto.id)
   end
