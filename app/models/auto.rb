@@ -133,6 +133,10 @@ class Auto < ActiveRecord::Base
 	        obj.write(File.read("/Users/alexshoob/load_station/output/#{output_filename}"))
 	      end  
 
+	      unless @output.include? true
+	      	File.delete("/Users/alexshoob/load_station/output/#{output_filename}")
+	      end
+
 	     #Launchy.open("https:///www.shoobphoto.com/autos/start_auto")
 	     Dir.glob("/Volumes/6TB-J-12-13/Diglab2017/Dbf/csv/*.csv").each { |f| File.delete(f) } #cleanup
 	      end # end if any csv files exist

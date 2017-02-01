@@ -15,10 +15,6 @@ class AutosController < ApplicationController
 
   def start_auto
 
-    #clear database of previous
-    Auto.delete_all
-    StudentError.delete_all ## double check
-
     ##add error/success count
 
     @auto = Auto.create(:success_count => 0, :failed_count => 0)

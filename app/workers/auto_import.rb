@@ -3,7 +3,7 @@ class AutoImport
  	sidekiq_options queue: "package_import"
 
   	def perform(auto)
-   		@auto = Auto.find(auto) 
+   		@auto = Auto.create(:success_count => 0, :failed_count => 0)
    		bucket = AWS::S3::Bucket.new('shoobphoto')
       	s3 = AWS::S3.new
       	    objects = bucket.objects.with_prefix('AutoCSV/output').collect(&:key).drop(1)
