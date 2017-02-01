@@ -6,7 +6,7 @@
 			<% if @cart.id_supplied? && images.any? %>
 			<% image = images.last %> 
 			<h3>Preview Your Poses: (click to enlarge)</h3>
-			<% image.senior_images.each_slice(2) do |slice| %> 
+			<% image.senior_images.each_slice(2) do |slice| %>
 			<div class="row" align="center">
 				<% slice.each do |senior_image| %>
 
@@ -74,7 +74,7 @@
 					<% unless option.name.downcase.include?("yearbook") %>
 					<% if 2 >= i %>
 					<p class="yellow_text">
-					INCLUDES <strong>FREE</strong> DIGITAL IMAGE 
+					INCLUDES <strong>FREE</strong> ADDONS 
 					</p>
 					<% end %>
 					<% end %>
@@ -124,7 +124,6 @@
 
 <script>
 $('.btn-loading').button();
-
 $(document).ready(function(){
   $('.btn-loading').click(function() {
     $(this).button('loading');
