@@ -16,6 +16,7 @@ class AutoImport
 		      chunk = SmarterCSV.process(csv_file, {:file_encoding =>'iso-8859-1'}) do |chunk|
 		      	      	chunk.each do |h|
 				      		school = School.find(h[:school_id].to_i)
+				      		package = Package.find(h[:package_id].to_i)
 					      	unless h[:rec_type].nil? || h[:rec_type] == ""
 						        
 									unless h[:student_id].nil?
