@@ -1,0 +1,1 @@
+json.array! @jtypes, partial: 'jtypes/jtype', as: :jtype

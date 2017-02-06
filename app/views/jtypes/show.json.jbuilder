@@ -1,0 +1,1 @@
+json.partial! "jtypes/jtype", jtype: @jtype

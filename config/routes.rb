@@ -3,6 +3,8 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  resources :jobs
+
   resources :autos do
     collection do 
       get "start_auto"
