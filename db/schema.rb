@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170131041824) do
+ActiveRecord::Schema.define(version: 20170206213224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -454,6 +454,16 @@ ActiveRecord::Schema.define(version: 20170131041824) do
     t.integer  "subcategory_id"
     t.string   "size"
     t.string   "product_type"
+  end
+
+  create_table "jobs", force: true do |t|
+    t.integer  "school_id"
+    t.integer  "jtype_id"
+    t.string   "job"
+    t.date     "jdate"
+    t.string   "location"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "missings", force: true do |t|
