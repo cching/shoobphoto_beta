@@ -177,21 +177,27 @@ class StudentsController < ApplicationController
     @opackage.options << Option.find(params[:option])
 
 
-    added_folder = []
-
-    @cart.order_packages.where(:student_id => @student.id).each do |opackage|
-      added_folder << @student.student_images.where(:package_id => opackage.package_id).last.folder
-    end
-
-
-    folder = @student.student_images.pluck(:folder).uniq
     @ids = []
+        if @student.student_images.any?
 
-    folder.each do |folder|
-      unless added_folder.include?(folder)
-        @ids << @student.student_images.where("folder like ?", "%#{folder}%").last.watermark.exists?
-      end
-    end
+        added_folder = []
+
+        @cart.order_packages.where(:student_id => @student.id).each do |opackage|
+          added_folder << @student.student_images.where(:package_id => opackage.package_id).last.folder
+        end
+
+        folder = @student.student_images.pluck(:folder).uniq
+        
+
+        folder.each do |folder|
+          unless added_folder.include?(folder)
+            @ids << @student.student_images.where("folder like ?", "%#{folder}%").last.watermark.exists?
+          end
+        end
+
+        else
+          @ids << false
+        end
 
 
       if @cart.order_packages.where(:student_id => @student.id).pluck(:package_id).include?(6) && @cart.id_supplied?
@@ -230,21 +236,28 @@ class StudentsController < ApplicationController
             end 
           end
         end
+
+        @ids = []
+        if @student.student_images.any?
+
         added_folder = []
 
-      @cart.order_packages.where(:student_id => @student.id).each do |opackage|
-        added_folder << @student.student_images.where(:package_id => opackage.package_id).last.folder
-      end
-
-
-      folder = @student.student_images.pluck(:folder).uniq
-      @ids = []
-
-      folder.each do |folder|
-        unless added_folder.include?(folder)
-          @ids << @student.student_images.where("folder like ?", "%#{folder}%").last.watermark.exists?
+        @cart.order_packages.where(:student_id => @student.id).each do |opackage|
+          added_folder << @student.student_images.where(:package_id => opackage.package_id).last.folder
         end
-      end
+
+        folder = @student.student_images.pluck(:folder).uniq
+        
+
+        folder.each do |folder|
+          unless added_folder.include?(folder)
+            @ids << @student.student_images.where("folder like ?", "%#{folder}%").last.watermark.exists?
+          end
+        end
+
+        else
+          @ids << false
+        end
          
         unless @boolean == true
           if @ids.include?(true) && @cart.id_supplied?
@@ -509,6 +522,9 @@ class StudentsController < ApplicationController
   def update_cart
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @student = @cart.cart_students.order(:i).last.student
+    @ids = []
+
+    if @student.student_images.any?
 
     added_folder = []
 
@@ -517,12 +533,15 @@ class StudentsController < ApplicationController
     end
 
     folder = @student.student_images.pluck(:folder).uniq
-    @ids = []
 
     folder.each do |folder|
       unless added_folder.include?(folder)
         @ids << @student.student_images.where("folder like ?", "%#{folder}%").last.watermark.exists?
       end
+    end
+
+    else
+      @ids << false
     end
      
       if @ids.include?(true) && @cart.id_supplied?
@@ -588,21 +607,27 @@ class StudentsController < ApplicationController
 
     @cart.update(:price => @price)
 
-    added_folder = []
-
-    @cart.order_packages.where(:student_id => @student.id).each do |opackage|
-      added_folder << @student.student_images.where(:package_id => opackage.package_id).last.folder
-    end
-
-
-    folder = @student.student_images.pluck(:folder).uniq
     @ids = []
+        if @student.student_images.any?
 
-    folder.each do |folder|
-      unless added_folder.include?(folder)
-        @ids << @student.student_images.where("folder like ?", "%#{folder}%").last.watermark.exists?
-      end
-    end
+        added_folder = []
+
+        @cart.order_packages.where(:student_id => @student.id).each do |opackage|
+          added_folder << @student.student_images.where(:package_id => opackage.package_id).last.folder
+        end
+
+        folder = @student.student_images.pluck(:folder).uniq
+        
+
+        folder.each do |folder|
+          unless added_folder.include?(folder)
+            @ids << @student.student_images.where("folder like ?", "%#{folder}%").last.watermark.exists?
+          end
+        end
+
+        else
+          @ids << false
+        end
 
       if @ids.include?(true) && @cart.id_supplied? 
         redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
