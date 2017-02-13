@@ -1,3 +1,7 @@
 $(".<%= @op.id %>_<%= @option.id %>").hide();
 
+<% unless @op.options.any? %>
+$("#myModal").modal('hide');
+<% end %>
+
 

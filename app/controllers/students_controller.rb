@@ -177,32 +177,26 @@ class StudentsController < ApplicationController
     @opackage.options << Option.find(params[:option])
 
 
-    @ids = @student.download_images.pluck(:id) 
+    added_folder = []
 
-    if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%fall%").any?
-      @ids = @ids - @student.download_images.where(:folder => "fall2015").pluck(:id)
+    @cart.order_packages.where(:student_id => @student.id).each do |opackage|
+      added_folder << @student.student_images.where(:package_id => opackage.package_id).last.folder
     end
 
-    if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%spring%").any?
-      @ids = @ids - @student.download_images.where(:folder => "spring2016").pluck(:id)
-    end
-      
-      @images = DownloadImage.where(id: @ids)
 
-      @images.each do |image|
-        if @images.where(:folder => image.folder).where(:year => image.year).count > 1
-          @ids = @ids - [@images.where(:folder => image.folder).where(:year => image.year).first.id]
-          @images = DownloadImage.where(id: @ids)
-        end
+    folder = @student.student_images.pluck(:folder).uniq
+    @ids = []
 
-
+    folder.each do |folder|
+      unless added_folder.include?(folder)
+        @ids << @student.student_images.where("folder like ?", "%#{folder}%").last.watermark.exists?
       end
-      @images = DownloadImage.find(@ids)
+    end
 
 
       if @cart.order_packages.where(:student_id => @student.id).pluck(:package_id).include?(6) && @cart.id_supplied?
         redirect_to senior_portraits_path(@cart.cart_id, params[:i])
-      elsif @images.any? && @cart.id_supplied?
+      elsif @ids.include?(true) && @cart.id_supplied?
         redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
       else
         redirect_to student_final_path(@cart.cart_id, @cart.students.count - 1)
@@ -236,24 +230,24 @@ class StudentsController < ApplicationController
             end 
           end
         end
+        added_folder = []
 
-            @ids = @student.download_images.pluck(:id) 
-            if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%fall%").any?
-              @ids = @ids - @student.download_images.where(:folder => "fall2015").pluck(:id)
-            end
+      @cart.order_packages.where(:student_id => @student.id).each do |opackage|
+        added_folder << @student.student_images.where(:package_id => opackage.package_id).last.folder
+      end
 
-            if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%spring%").any?
-              @ids = @ids - @student.download_images.where(:folder => "spring2016").pluck(:id)
-            end
 
-            if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%senior%").any?
-              @ids = @ids - @student.download_images.where(:folder => "seniors2016").pluck(:id)
-            end
-              
-            @images = DownloadImage.where(id: @ids)
+      folder = @student.student_images.pluck(:folder).uniq
+      @ids = []
+
+      folder.each do |folder|
+        unless added_folder.include?(folder)
+          @ids << @student.student_images.where("folder like ?", "%#{folder}%").last.watermark.exists?
+        end
+      end
          
         unless @boolean == true
-          if @images.any? && @cart.id_supplied?
+          if @ids.include?(true) && @cart.id_supplied?
             redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
           else
             redirect_to student_final_path(@cart.cart_id, @cart.students.count - 1)
@@ -340,24 +334,19 @@ class StudentsController < ApplicationController
   def purchase
     @i = params[:i]
     @cart = Cart.find_by_cart_id(params[:cart_id])
-    @dimage = DownloadImage.find(params[:image])
+    @dimage = StudentImage.find(params[:image])
     @student = Student.find(params[:id])
-    if @dimage.package_id.nil?
-      id = 253
-    else
-      id = @dimage.package_id
-    end
-   # @cart.order_packages.create(:package_id => id, :student_id => @student.id, :download_image_id => @dimage.id)
-   @package = Package.find(id)
 
-   if OrderPackage.where(:student_id => @student.id).where(:cart_id => @cart.id).where(:download_image_id => @dimage.id).any?
-    @opackage = OrderPackage.where(:student_id => @student.id).where(:cart_id => @cart.id).where(:download_image_id => @dimage.id).last
+   # @cart.order_packages.create(:package_id => id, :student_id => @student.id, :download_image_id => @dimage.id)
+   @package = Package.find(253)
+
+   if OrderPackage.where(:student_id => @student.id).where(:cart_id => @cart.id).where(:student_image_id => @dimage.id).any?
+    @opackage = OrderPackage.where(:student_id => @student.id).where(:cart_id => @cart.id).where(:student_image_id => @dimage.id).last
     else
-    @opackage = @package.order_packages.create(:student_id => @student.id, :cart_id => @cart.id, :download_image_id => @dimage.id)
+    @opackage = @package.order_packages.create(:student_id => @student.id, :cart_id => @cart.id, :student_image_id => @dimage.id)
     end
     #@cart.order_packages.last.update(:option_id => Package.find(id).options.first.id)
     @image_url = []
-
 
   end
 
@@ -497,56 +486,46 @@ class StudentsController < ApplicationController
 
     @cart = Cart.find_by_cart_id(params[:id])
     @student = @cart.cart_students.order(:i).last.student
-    @ids = @student.download_images.pluck(:id) 
 
-    if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%fall%").any?
-      @ids = @ids - @student.download_images.where(:folder => "fall2015").pluck(:id)
+    added_folder = []
+
+    @cart.order_packages.where(:student_id => @student.id).each do |opackage|
+      added_folder << @student.student_images.where(:package_id => opackage.package_id).last.folder
     end
 
-    if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%spring%").any?
-      @ids = @ids - @student.download_images.where(:folder => "spring2016").pluck(:id)
-    end
 
-    if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%senior%").any?
-      @ids = @ids - @student.download_images.where(:folder => "seniors2016").pluck(:id)
-    end
-      
-      @images = DownloadImage.where(id: @ids)
+    folder = @student.student_images.pluck(:folder).uniq
+    @ids = []
 
-      @images.each do |image|
-        if image.watermark_file_name.nil?
-          image.update(:watermark_file_name => image.image_file_name)
-        end
-        if image.year.nil?
-          image.update(:year => image.folder[-4..-1])
-        end
-
-        if image.folder.include? "senior"
-          for attribute in ['url', 'url1', 'url2', 'url3', 'url4']
-            while @images.where(:url => attribute).count > 1
-              @ids = @ids - [@images.where(:url => attribute).first.id]
-              @images = DownloadImage.where(id: @ids)
-            end
-            unless image.image.exists?
-              image.update(:image_file_name => image.image_file_name.downcase)
-            end
-
-          end
-        else
-          while @images.where(:folder => image.folder).where(:year => image.year).count > 1
-            @ids = @ids - [@images.where(:folder => image.folder).where(:year => image.year).first.id]
-            @images = DownloadImage.where(id: @ids)
-          end
-        end
+    folder.each do |folder|
+      unless added_folder.include?(folder)
+        @ids << @student.student_images.where("folder like ?", "%#{folder}%").last.id
       end
-      @images = DownloadImage.find(@ids).sort_by {|x| x.year}.reverse
+    end
+
+    @images = StudentImage.find(@ids).sort_by {|x| x.folder}.reverse
   end
 
   def update_cart
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @student = @cart.cart_students.order(:i).last.student
+
+    added_folder = []
+
+    @cart.order_packages.where(:student_id => @student.id).each do |opackage|
+      added_folder << @student.student_images.where(:package_id => opackage.package_id).last.folder
+    end
+
+    folder = @student.student_images.pluck(:folder).uniq
+    @ids = []
+
+    folder.each do |folder|
+      unless added_folder.include?(folder)
+        @ids << @student.student_images.where("folder like ?", "%#{folder}%").last.watermark.exists?
+      end
+    end
      
-      if @student.download_images.any? && @cart.id_supplied?
+      if @ids.include?(true) && @cart.id_supplied?
         redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
       else
         redirect_to student_final_path(@cart.cart_id, @cart.students.count - 1)
@@ -609,35 +588,23 @@ class StudentsController < ApplicationController
 
     @cart.update(:price => @price)
 
-    @ids = @student.download_images.pluck(:id) 
+    added_folder = []
 
-    if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%fall%").any?
-      @ids = @ids - @student.download_images.where(:folder => "fall2015").pluck(:id)
+    @cart.order_packages.where(:student_id => @student.id).each do |opackage|
+      added_folder << @student.student_images.where(:package_id => opackage.package_id).last.folder
     end
 
-    if @cart.order_packages.where(:student_id => @student.id).joins(:package).where("lower(packages.name) like ?", "%spring%").any?
-      @ids = @ids - @student.download_images.where(:folder => "spring2016").pluck(:id)
+
+    folder = @student.student_images.pluck(:folder).uniq
+    @ids = []
+
+    folder.each do |folder|
+      unless added_folder.include?(folder)
+        @ids << @student.student_images.where("folder like ?", "%#{folder}%").last.watermark.exists?
+      end
     end
-      
-      @images = DownloadImage.where(id: @ids)
 
-      @images.each do |image|
-        if @images.where(:folder => image.folder).where(:year => image.year).count > 1
-          @ids = @ids - [@images.where(:folder => image.folder).where(:year => image.year).first.id]
-          @images = DownloadImage.where(id: @ids)
-        end
-
- 
-      end
-      @images = DownloadImage.find(@ids)
-
-      @images.each do |image|
-        if image.watermark.exists?
-          bool << true
-        end
-      end
-
-      if @images.any? && @cart.id_supplied? && bool.include?(true)
+      if @ids.include?(true) && @cart.id_supplied? 
         redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
       else
         redirect_to student_final_path(@cart.cart_id, @cart.students.count - 1)

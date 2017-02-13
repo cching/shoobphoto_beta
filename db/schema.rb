@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170206213224) do
+ActiveRecord::Schema.define(version: 20170208074519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -454,6 +454,10 @@ ActiveRecord::Schema.define(version: 20170206213224) do
     t.integer  "subcategory_id"
     t.string   "size"
     t.string   "product_type"
+    t.string   "pdf_file_name"
+    t.string   "pdf_content_type"
+    t.integer  "pdf_file_size"
+    t.datetime "pdf_updated_at"
   end
 
   create_table "jobs", force: true do |t|

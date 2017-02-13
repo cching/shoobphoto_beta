@@ -15,6 +15,12 @@ class Item < ActiveRecord::Base
                      :preserve_files => true
   	validates_attachment_content_type :main, :content_type => /\Aimage\/.*\Z/
 
+    has_attached_file :pdf,
+    :url => ':s3_domain_url',
+    :path => '/images/pdf/:filename.pdf',
+                     :preserve_files => true
+    validates_attachment_content_type :pdf, :content_type => /\Apdf\/.*\Z/
+
   	has_attached_file :thumb,
   	:url => ':s3_domain_url',
   	:path => '/images/thumbs/:filename.jpg',

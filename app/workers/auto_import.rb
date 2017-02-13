@@ -17,7 +17,7 @@ class AutoImport
 		      	      	chunk.each do |h|
 				      		school = School.find(h[:school_id].to_i)
 				      		package = Package.find(h[:package_id].to_i)
-					      	unless h[:rec_type].nil? || h[:rec_type] == ""
+					      	unless h[:rec_type].nil? || h[:rec_type] == "" 
 						        
 									unless h[:student_id].nil?
 										students = school.students.where(:student_id => "#{h[:student_id]}")

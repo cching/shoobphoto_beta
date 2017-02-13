@@ -7,9 +7,9 @@ class OrdersController < ApplicationController
 	def download
 		@order = Order.find(params[:id])
 
-		if @order.cart.order_packages.map(&:download_image_id).any? && @order.cart.order_packages.map{ |o| o.options.map {|x| x.download }}.any? 
+		if @order.cart.order_packages.map(&:student_image_id).any? && @order.cart.order_packages.map{ |o| o.options.map {|x| x.download }}.any? 
 			@images = []
-			@order.cart.order_packages.where.not(download_image_id: nil).map{ |o| @images << o if o.options.map{|o| o.try(:download) if o.try(:download) == true}.any?}
+			@order.cart.order_packages.where.not(student_image_id: nil).map{ |o| @images << o if o.options.map{|o| o.try(:download) if o.try(:download) == true}.any?}
 		elsif @order.cart.order_packages.map(&:student_image_id).any? && @order.cart.order_packages.map{ |o| o.gifts.map {|x| x.download }}.any? 
 			@gift_images = []
 			@order.cart.order_packages.where.not(student_image_id: nil).map{ |o| @gift_images << o if o.gifts.first.download?}
@@ -196,9 +196,9 @@ end
 	    	end
 	    	OrderMailer.receipt(@order).deliver
 
-	    	if @order.cart.order_packages.map(&:download_image_id).any? && @order.cart.order_packages.map{ |o| o.options.map {|x| x.download }}.any? 
-				@images = @order.cart.order_packages.where.not(download_image_id: nil).all
-				redirect_to order_download_path(@order.id)
+	    	if @order.cart.order_packages.map(&:student_image_id).any? && @order.cart.order_packages.map{ |o| o.options.map {|x| x.download }}.any? 
+				@images = @order.cart.order_packages.where.not(student_image_id: nil).all
+				redirect_to order_download_path(@order.id), notice: "You order has been successfully placed! A copy of your receipt has been emailed. Here are your available digital images."
 			elsif @order.cart.order_packages.map{ |o| o.gifts.map {|x| x.download }}.any?
 				redirect_to order_download_path(@order.id)
 			else

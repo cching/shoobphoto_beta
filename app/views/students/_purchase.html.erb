@@ -14,9 +14,9 @@
 
 
   <div class="row" id="<%= @dimage.id %>">
-    <div class="col-sm-4" align="center"> 
+    <div class="col-sm-4" align="center">  
       
-      <%= image_tag(DownloadImage.find(@dimage.id).watermark.url(:watermark), class: "img-proof", id: "png1") %>
+      <%= image_tag(StudentImage.find(@dimage.id).watermark.url(:watermark), class: "img-proof", id: "png1") %>
     </div><br />
     <div class="col-sm-8">
 

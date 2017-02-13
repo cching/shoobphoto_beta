@@ -1,6 +1,7 @@
 class DownloadImage < ActiveRecord::Base
 	belongs_to :student
 	belongs_to :package
+  belongs_to :student_image
 	has_many :order_packages
 
 	has_attached_file :image,
@@ -24,7 +25,7 @@ class DownloadImage < ActiveRecord::Base
 
  
   	def self.package_name(id)
-  		folder = DownloadImage.find(id).folder
+  		folder = StudentImage.find(id).folder
   		name = folder.match(/([A-Za-z]+)(\d+)/)
   		@out = "#{name[1].humanize} #{name[2]} Portraits"
 
