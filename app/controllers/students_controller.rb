@@ -36,7 +36,7 @@ class StudentsController < ApplicationController
     @student = @cart.cart_students.order(:i).last.student
     @option = Option.find(params[:option])
 
-    @opackage = @cart.order_packages.create(:package_id => @option.package.id, :student_id => @student.id)
+    @opackage = @cart.order_packages.create(:package_id => @option.package.id, :student_id => @student.id, :student_image_id => params[:student_image_id])
     
     @opackage.options << @option
 
@@ -54,7 +54,7 @@ class StudentsController < ApplicationController
     @opackage = OrderPackage.find(params[:op])
 
 
-    @image = @student.student_images.where(:package_id => @option.package.id).where.not(folder: "fall2015").last 
+    @image = @student.student_images.where(:package_id => @opackage.package.id).order(:folder).last
 
     unless @option.extra_types.any? 
       redirect_to student_update_path(@cart.cart_id, @cart.students.count - 1)
@@ -183,7 +183,7 @@ class StudentsController < ApplicationController
         added_folder = []
 
         @cart.order_packages.where(:student_id => @student.id).each do |opackage|
-          added_folder << @student.student_images.where(:package_id => opackage.package_id).last.folder
+          added_folder << @student.student_images.where(:package_id => opackage.package_id).last.folder unless @student.student_images.where(:package_id => opackage.package_id).last.folder.nil?
         end
 
         folder = @student.student_images.pluck(:folder).uniq
@@ -645,7 +645,7 @@ class StudentsController < ApplicationController
     @student = @cart.cart_students.order(:i).last.student
     @package = Package.find(params[:package]) 
 
-    @image = @student.student_images.where(:package_id => @package.id).where.not(folder: "fall2015").last    
+    @image = @student.student_images.where(:package_id => @package.id).order(:folder).last   
   end 
 
   def packages

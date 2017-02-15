@@ -94,7 +94,7 @@
 				$<%= option.price(@student.school.id).floor %>
 				</div>
 				<div class="col-xs-9 padding-top" align="right">
-						<%= link_to "Add to Cart", add_package_path(@cart.cart_id, @i, option.id), class: "btn-#{i} btn-loading" %>
+						<%= link_to "Add to Cart", add_package_path(@cart.cart_id, @i, option.id, :student_image_id => @image.try(:id)), class: "btn-#{i} btn-loading" %>
 			
 				</div>
 			</div>

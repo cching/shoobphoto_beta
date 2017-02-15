@@ -11,8 +11,8 @@
 						<div class="col-xs-1"></div>
 						<div class="col-xs-3">
 			
-							<% image = @student.student_images.where(:package_id => opackage.package.id).where.not(folder: "fall2015").last %>
-							<% unless @image.nil? %>
+							<% image = @student.student_images.where(:package_id => opackage.package.id).order(:folder).last %>
+							<% unless image.nil? %>
 							<% if @cart.id_supplied? %>
 								<%= image_tag(image.watermark.url(:watermark), class: "review_image") %>
 							<% end %>

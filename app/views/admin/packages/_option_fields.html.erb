@@ -44,6 +44,10 @@
 <hr></div>
 </div>
 
+
+<%= f.fields_for :prices, f.object.prices do |builder| %>
+          <%= render 'price_fields', f: builder %>
+  <% end %>
 <%= f.fields_for :prices, f.object.prices.joins(:school).order("schools.name asc") do |builder| %>
           <%= render 'price_fields', f: builder %>
   <% end %>

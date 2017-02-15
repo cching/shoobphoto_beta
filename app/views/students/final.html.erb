@@ -37,7 +37,7 @@
 						<% if opackage.package.name.include?("Download") %>
 							<%= image_tag(opackage.student_image.watermark.url(:watermark), class: "review_image") %>
 						<% else %>
-							<% image = opackage.student.student_images.where(:package_id => opackage.package.id).where.not(folder: "fall2015").last %>
+							<% image = opackage.student.student_images.where(:package_id => opackage.package.id).order(:folder).last %>
 							<% unless image.nil? %>
 							<% if @cart.id_supplied? %>
 								<%= image_tag(image.watermark.url(:watermark), class: "review_image") %>
