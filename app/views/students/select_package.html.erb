@@ -45,7 +45,7 @@
 	<div class="row">
 	<div class="col-xs-2">
 		<% unless @image.nil? %>
-			<% if @cart.id_supplied? %>
+			<% if @cart.id_supplied? && @image.watermark_file_name != nil %>
 				<%= image_tag(@image.watermark.url(:watermark), class: "select_package_image") %>
 			<% else %>
 				<%= image_tag(@package.image.url, class: "select_package_image") %>
@@ -94,7 +94,11 @@
 				$<%= option.price(@student.school.id).floor %>
 				</div>
 				<div class="col-xs-9 padding-top" align="right">
-						<%= link_to "Add to Cart", add_package_path(@cart.cart_id, @i, option.id, :student_image_id => @image.try(:id)), class: "btn-#{i} btn-loading" %>
+					<% if @image.watermark_file_name != nil %>
+					<%= link_to "Add to Cart", add_package_path(@cart.cart_id, @i, option.id, :student_image_id => @image.try(:id)), class: "btn-#{i} btn-loading" %>
+					<% else %>
+						<%= link_to "Add to Cart", add_package_path(@cart.cart_id, @i, option.id), class: "btn-#{i} btn-loading" %>
+						<% end %>
 			
 				</div>
 			</div>
