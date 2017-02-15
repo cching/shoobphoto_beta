@@ -39,7 +39,7 @@
 						<% else %>
 							<% image = opackage.student.student_images.where(:package_id => opackage.package.id).order(:folder).last %>
 							<% unless image.nil? %>
-							<% if @cart.id_supplied? && image.watermark_file_name != nil %>
+							<% if @cart.id_supplied? && image.try(:watermark_file_name) != nil %>
 								<%= image_tag(image.watermark.url(:watermark), class: "review_image") %>
 								<% else %>
 								<%= image_tag(opackage.package.image.url, class: "review_image") %>
