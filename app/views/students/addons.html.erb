@@ -3,7 +3,7 @@
 	<div class="col-xs-2"></div>
 	<div class="col-xs-2">
 		<% unless @image.nil? %>
-			<% if @cart.id_supplied? && @image.watermark_file_name != nil %>
+			<% if @cart.id_supplied? && @image.try(:watermark_file_name) != nil %>
 				<%= image_tag(@image.watermark.url(:watermark), class: "select_package_image") %>
 			<% else %>
 				<%= image_tag(@option.package.image.url, class: "select_package_image") %>
