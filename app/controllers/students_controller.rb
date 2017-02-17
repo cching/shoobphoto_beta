@@ -183,7 +183,7 @@ class StudentsController < ApplicationController
         added_folder = []
 
         @cart.order_packages.where(:student_id => @student.id).each do |opackage|
-          added_folder << @student.student_images.where(:package_id => opackage.package_id).last.try(:folder) unless @student.student_images.where(:package_id => opackage.package_id).last.folder.nil?
+          added_folder << @student.student_images.where(:package_id => opackage.package_id).last.try(:folder)
         end
 
         folder = @student.student_images.pluck(:folder).uniq
@@ -243,7 +243,7 @@ class StudentsController < ApplicationController
         added_folder = []
 
         @cart.order_packages.where(:student_id => @student.id).each do |opackage|
-          added_folder << @student.student_images.where(:package_id => opackage.package_id).last.try(:folder) unless @student.student_images.where(:package_id => opackage.package_id).last.folder.nil?
+          added_folder << @student.student_images.where(:package_id => opackage.package_id).last.try(:folder)
         end
 
         folder = @student.student_images.pluck(:folder).uniq
@@ -503,7 +503,7 @@ class StudentsController < ApplicationController
     added_folder = []
 
     @cart.order_packages.where(:student_id => @student.id).each do |opackage|
-          added_folder << @student.student_images.where(:package_id => opackage.package_id).last.try(:folder) unless @student.student_images.where(:package_id => opackage.package_id).last.folder.nil?
+      added_folder << @student.student_images.where(:package_id => opackage.package_id).last.try(:folder)
     end
 
 
@@ -529,7 +529,7 @@ class StudentsController < ApplicationController
     added_folder = []
 
     @cart.order_packages.where(:student_id => @student.id).each do |opackage|
-          added_folder << @student.student_images.where(:package_id => opackage.package_id).last.try(:folder) unless @student.student_images.where(:package_id => opackage.package_id).last.folder.nil?
+      added_folder << @student.student_images.where(:package_id => opackage.package_id).last.try(:folder)
     end
 
     folder = @student.student_images.pluck(:folder).uniq
@@ -613,7 +613,7 @@ class StudentsController < ApplicationController
         added_folder = []
 
         @cart.order_packages.where(:student_id => @student.id).each do |opackage|
-          added_folder << @student.student_images.where(:package_id => opackage.package_id).last.try(:folder) unless @student.student_images.where(:package_id => opackage.package_id).last.folder.nil?
+            added_folder << @student.student_images.where(:package_id => opackage.package_id).last.try(:folder)
         end
 
         folder = @student.student_images.pluck(:folder).uniq
