@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
 		end
 
 		if @images.nil?
-			redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt."
+			redirect_to after_purchase_pages_path
 		end
 	end
 
@@ -204,10 +204,7 @@ end
 			elsif @order.cart.order_packages.map{ |o| o.gifts.map {|x| x.download }}.any?
 				redirect_to order_download_path(@order.id)
 			else
-		    	respond_to do |format|
-		    		format.html {redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt." }
-		    		format.mobile {redirect_to after_purchase_pages_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt." }
-		    	end
+		    	redirect_to after_purchase_pages_path
 	    	end
 	    else
 	    	respond_to do |format|
@@ -220,7 +217,7 @@ end
         	end 
 	    end
 
-	end
+	end 
 
 	def show
 		@order = Order.find(params[:id])

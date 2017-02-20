@@ -213,7 +213,7 @@ class StudentsController < ApplicationController
     @image = params[:image] 
   end
 
-  def senior_portraits
+  def senior_portraits 
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @student = @cart.cart_students.order(:i).last.student
     @i = params[:i]

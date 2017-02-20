@@ -36,7 +36,7 @@
 		<%= link_to "Back", student_select_package_path(@cart.cart_id, @cart.students.count - 1, 6), class: " btn-custom4" %>
 	</div>
 	<div class="col-xs-5" align="right">
-	<% if @images.any? && @cart.id_supplied? %>
+	<% if @ids.include?(true) && @cart.id_supplied? %> 
      	<%= link_to "Add to Cart", previous_images_path(@cart.cart_id, @cart.students.count - 1), class: "btn-custom4" %>
     <% else %>
         <%= link_to "Add to Cart", student_final_path(@cart.cart_id, @cart.students.count - 1), class: "btn-custom4" %>
