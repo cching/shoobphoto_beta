@@ -47,6 +47,7 @@ class Auto < ActiveRecord::Base
 
 						      		if schools.any?
 						      			school = schools.last
+						      			unless h[:slug].nil?
 						      			packages = school.packages.where("lower(slug) like ?", "%#{h[:slug].downcase}%")
 						      			if packages.any? 
 						      				package = packages.last
@@ -64,7 +65,7 @@ class Auto < ActiveRecord::Base
 				                                file_name = File.basename(url_path)
 				                                basename = file_name.downcase
 
-				                                Auto.watermark_images(url_path, h[:folder], basename, s3, student_index, i)
+				                                Auto.watermark_images(url_path, h[:folder], basename, s3, student_index, i, school)
 				                                @failed << false
 				                                @output << true
 				                                response = "#{basename}, #{h[:student_id]}, #{h[:accesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{school.id}, #{package.id}, #{h[:shoob_id]}, #{h[:rec_type]}, #{@load_id}".encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
@@ -75,16 +76,16 @@ class Auto < ActiveRecord::Base
 				                                #write error file
 				                                @failed << true
 				                                @output << false
-				                                response = "Unable to locate student image in local path #{url_path}, #{url_path}, #{h[:student_id]}, #{h[:acesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{h[:ca_code]}, #{h[:rec_type]}, h#{@load_id}"
+				                                response = "Unable to locate student image in local path #{url_path} for school #{school.name}, #{url_path}, #{h[:student_id]}, #{h[:acesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{h[:ca_code]}, #{h[:rec_type]}, h#{@load_id}"
 				                                failed << response.encode(Encoding.find('ASCII'), encoding_options)
 				                                failed << "\n"
 
-				                                puts "Unable to locate student image #{student_index} of CSV #{i}."
+				                                puts "Unable to locate student image #{student_index} for school #{school.name}"
 				                              end #end if file exists
 				                            else #url is blank, load empty kid
 
 
-				                              puts "Student #{student_index} of CSV #{i} has no image. Adding to CSV."
+				                              puts "Student #{student_index} for school #{school.name} has no image. Adding to CSV."
 
 				                              @failed << false
 				                                @output << true
@@ -96,12 +97,20 @@ class Auto < ActiveRecord::Base
 				                        else #if no packages found for school 
 				                        	@failed << true
 			                                @output << false
-			                                response = "No package found with slug #{h[:slug]} for school with CA code #{h[:ca_code]}, #{url_path}, #{h[:student_id]}, #{h[:acesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{h[:ca_code]}, #{h[:rec_type]}, h#{@load_id}"
+			                                response = "No package found with slug #{h[:slug]} for school #{school.name} - availabile: #{school.packages.map(&:slug).join(', ')}, #{url_path}, #{h[:student_id]}, #{h[:acesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{h[:ca_code]}, #{h[:rec_type]}, h#{@load_id}"
 
 			                                failed << response.encode(Encoding.find('ASCII'), encoding_options)
 			                                failed << "\n"
 
 				                        end
+				                    else
+				                    	@failed << true
+			                                @output << false
+			                                response = "No slug provided, #{url_path}, #{h[:student_id]}, #{h[:acesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{h[:ca_code]}, #{h[:rec_type]}, h#{@load_id}"
+
+			                                failed << response.encode(Encoding.find('ASCII'), encoding_options)
+			                                failed << "\n"
+			                            end
 				                    else #if no school found with ca code
 				                    	@failed << true
 		                                @output << false
@@ -131,19 +140,34 @@ class Auto < ActiveRecord::Base
 	      if @output.include? true
 	        obj = s3.buckets['shoobphoto'].objects["AutoCSV/output/#{output_filename}"]
 	        obj.write(File.read("/Users/alexshoob/load_station/output/#{output_filename}"))
+	        puts "Uploading CSVs to S3..."
 	      end  
 
 	      unless @output.include? true
 	      	File.delete("/Users/alexshoob/load_station/output/#{output_filename}")
 	      end
 
-	     #Launchy.open("https:///www.shoobphoto.com/autos/start_auto")
-	     Dir.glob("/Volumes/6TB-J-12-13/Diglab2017/Dbf/csv/*.csv").each { |f| File.delete(f) } #cleanup
-	      end # end if any csv files exist
+	      unless @failed.include? true
+	      	File.delete("/Users/alexshoob/desktop/load_station_failed/#{failed_filename}")
+	      else
+	      	puts "There may be #{@failed.count(true)} errors. Please check the folder on your desktop for more information: filename #{failed_filename}"
+	      end
+
+	    puts "Initiating transfer of CSVs from S3 to site for load..."
+	    AutoImport.perform_async(1) #Initiate upload to site
+	    puts "All CSVs loaded successfully. They are currently being imported into the site."
+
+	    begin
+
+	    Dir.glob("/Volumes/6TB-J-12-13/Diglab2017/Dbf/csv/*.csv").each { |f| File.delete(f) } #cleanup
+	  	rescue
+	  		puts "ALERT: CSV and images were uploaded to site correctly. Unable to delete loaded CSVs from ~/Diglab2017/Dbf/csv/. Please manually delete CSVs before loading in more."
+	  	end
+	    end # end if any csv files exist
 	     
 	  end
 
-	  def self.watermark_images(url, folder, basename, s3, student_index, i)
+	  def self.watermark_images(url, folder, basename, s3, student_index, i, school)
 	  	img = Magick::Image.read("#{url}.jpg").first
         mark = Magick::Image.read("/Users/alexshoob/load_station/watermark.png").first
         mark.background_color = "Transparent"
@@ -169,7 +193,7 @@ class Auto < ActiveRecord::Base
         File.delete("/Users/alexshoob/load_station/watermarks/#{basename}.jpg")
         File.delete("/Users/alexshoob/load_station/index/#{basename}.jpg")
 
-        puts "Watermarking and indexing images for student #{student_index} of CSV #{i}. Uploading to S3..."
+        puts "Watermarking and indexing images for student #{student_index} for #{school.name}. Uploading to S3..."
 
         obj = s3.buckets['shoobphoto'].objects["images/#{folder}/#{basename}.jpg"] # no request made
         obj.write(File.open("#{url}.jpg")) #Writes image found to s3
