@@ -26,7 +26,7 @@ class StudentsController < ApplicationController
   end 
 
 
-  def showteacher
+  def showteacher 
     @school = School.find(params[:school]) 
   end
 
@@ -183,7 +183,7 @@ class StudentsController < ApplicationController
         added_folder = []
 
         @cart.order_packages.where(:student_id => @student.id).each do |opackage|
-          added_folder << @student.student_images.where(:package_id => opackage.package_id).last.try(:folder)
+          added_folder << @student.student_images.where(:package_id => opackage.package_id).order(:folder).last.try(:folder)
         end
 
         folder = @student.student_images.pluck(:folder).uniq
@@ -243,7 +243,7 @@ class StudentsController < ApplicationController
         added_folder = []
 
         @cart.order_packages.where(:student_id => @student.id).each do |opackage|
-          added_folder << @student.student_images.where(:package_id => opackage.package_id).last.try(:folder)
+          added_folder << @student.student_images.where(:package_id => opackage.package_id).order(:folder).last.try(:folder)
         end
 
         folder = @student.student_images.pluck(:folder).uniq
@@ -503,7 +503,7 @@ class StudentsController < ApplicationController
     added_folder = []
 
     @cart.order_packages.where(:student_id => @student.id).each do |opackage|
-      added_folder << @student.student_images.where(:package_id => opackage.package_id).last.try(:folder)
+      added_folder << @student.student_images.where(:package_id => opackage.package_id).order(:folder).last.try(:folder)
     end
 
 
@@ -529,7 +529,7 @@ class StudentsController < ApplicationController
     added_folder = []
 
     @cart.order_packages.where(:student_id => @student.id).each do |opackage|
-      added_folder << @student.student_images.where(:package_id => opackage.package_id).last.try(:folder)
+      added_folder << @student.student_images.where(:package_id => opackage.package_id).order(:folder).last.try(:folder)
     end
 
     folder = @student.student_images.pluck(:folder).uniq
@@ -613,7 +613,7 @@ class StudentsController < ApplicationController
         added_folder = []
 
         @cart.order_packages.where(:student_id => @student.id).each do |opackage|
-            added_folder << @student.student_images.where(:package_id => opackage.package_id).last.try(:folder)
+            added_folder << @student.student_images.where(:package_id => opackage.package_id).order(:folder).last.try(:folder)
         end
 
         folder = @student.student_images.pluck(:folder).uniq

@@ -29,7 +29,7 @@ class StudentImage < ActiveRecord::Base
                                  :watermark => { :geometry => '800>', :watermark_path => "#{Rails.root}/public/images/watermark.png" } 
                                },
                     :url => ':s3_domain_url',
-                    :path => "/images/watermarks/:id/:style/:url.jpg",
+                    :path => "/images/watermarks/:id/watermark/:url.jpg",
                     :default_url => "https://shoobphoto.s3.amazonaws.com/images/package_types/:package_id/:package_image_file_name",
                      :preserve_files => true 
     validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
