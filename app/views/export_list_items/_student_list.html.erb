@@ -29,13 +29,6 @@
 		<td class="button" style="padding-right:0px" style="padding-left:0px"> 
 			<%= link_to "Edit", export_show_path(student.id, :image => @image.id), remote: true, class: "btn btn-custom responsive-width" %>
 		</td>
-		<td id="student_buy_<%= student.id %>" class="button" style="padding-right:0px" style="padding-left:0px">
-			<% if student.yearbooks.any? %>
-			<%= render 'yearbooks/bought' %>
-			<% else %>
-			<%= link_to "Buy", buy_yearbook_path(student.id), class: "btn btn-custom responsive-width", remote: true %>
-			<% end %>
-		</td>
 		<td class="button" style="padding-right:0px" style="padding-left:0px">
 
 			<% unless @image.student_images.where(:student_id => student.id).last.try(:image).nil? %>

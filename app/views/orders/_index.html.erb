@@ -9,6 +9,7 @@
       <th>Last name</th>
       <th>Student's First Name</th>
       <th>Student's Last Name</th>
+      <th>Package</th>
       <th>Price</th>
       <th>Processed?</th>
     </tr>
@@ -26,6 +27,7 @@
         <td><%= order.last_name %></td>
         <td><%= student.first_name %></td>
         <td><%= student.last_name %></td>
+        <td><%= o.option_name %></td>
         <td><%= number_to_currency(order.price, :unit => "$") %></td>
         <td id="button_<%= order.id %>_<%= student.id %>">
         <% if order.processed? %>

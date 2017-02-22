@@ -1,30 +1,37 @@
 <fieldset>
+
 <div class="row">
-	<div class="col-sm-1"></div>
-	<div class="col-sm-9">
-		Name: <%= f.input :name, label: false %>
-		 Poses: <%= f.input :poses, label: false %>
-		Without Package: <%= f.input :without, label: false %>
+<div class="col-sm-8"><b>Category</b>
+<hr></div>
+</div>
+
+<div class="row">
+	<div class="col-sm-3">
+	  Name <%= f.input :name, label: false %>
+  </div>
+  <div class="col-sm-3">
+		Poses <%= f.input :poses, label: false %>
+  </div>
+  <div class="col-sm-2">
+		Without Package <%= f.input :without, label: false %>
 	</div>
 	
 	<div class="col-sm-1">
 
-  <%= f.label :_destroy, "Remove" %>
+  Remove
   <%= f.check_box :_destroy %>
 
 	</div>
 </div>
 
 <div class="row">
-<div class="col-sm-2"></div>
 <div class="col-sm-8"><%= f.check_box :download %> Allow download if image available?
-
 </div>
 </div>
+<br/>
 
 <div class="row">
-<div class="col-sm-2"></div>
-<div class="col-sm-8">Package Types
+<div class="col-sm-8"><b>Package Types</b>
 <hr></div>
 </div>
 
@@ -32,29 +39,30 @@
           <%= render 'image_type_fields', f: builder %>
   <% end %>
 <div class="row">
-<div class="col-sm-2"></div>
 <div class="col-sm-8"> 
   <%= link_to_add_fields "Add Package Types", f, :image_types %>
  </div>
  </div>
+<br/>
 
- <div class="row">
-<div class="col-sm-2"></div>
-<div class="col-sm-8">Prices
+<div class="row">
+<div class="col-sm-8"><b>Prices</b>
 <hr></div>
 </div>
-
 
 <%= f.fields_for :prices, f.object.prices do |builder| %>
           <%= render 'price_fields', f: builder %>
   <% end %>
+
 <%= f.fields_for :prices, f.object.prices.joins(:school).order("schools.name asc") do |builder| %>
           <%= render 'price_fields', f: builder %>
   <% end %>
+
 <div class="row">
-<div class="col-sm-2"></div>
 <div class="col-sm-8"> 
   <%= link_to_add_fields "Add Prices", f, :prices %>
  </div>
- </div>
+</div>
+ <br/>
+ <hr/><hr/>
 </fieldset>
