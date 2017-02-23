@@ -58,11 +58,11 @@ class AutoImport
 							        @auto.increment!(:success_count)
 
 								          unless students.any?     
-								            student = school.students.new(:student_id => h[:student_id], :access_code => h[:accesscode], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :email => h[:email], :teacher => h[:teacher], :shoob_id => h[:shoob_id], :id_only => true)
+								            student = school.students.new(:student_id => h[:student_id], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :email => h[:email], :teacher => h[:teacher], :shoob_id => h[:shoob_id], :id_only => true)
 								            student.save
 								           else
 								           	student = students.last
-								           	student.update(:student_id => h[:student_id], :access_code => h[:accesscode], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :email => h[:email], :teacher => h[:teacher], :shoob_id => h[:shoob_id], :id_only => true)
+								           	student.update(:student_id => h[:student_id], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :email => h[:email], :teacher => h[:teacher], :shoob_id => h[:shoob_id], :id_only => true)
 								          end 
 				 
 								          images = student.student_images.where("lower(folder) like ?", "%#{h[:folder]}%")
