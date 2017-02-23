@@ -17,7 +17,7 @@
  
   <% @order.cart.order_packages.where(:student_id => student.id).each do |o| %>
   <% o.gifts.each do |gift| %>
-    <div class="row">
+    <div class="row"> 
       <div class="col-sm-6">
       <strong>Gifts: </strong><br/>
 
@@ -34,7 +34,7 @@
       <div class="col-sm-6">
       <strong><%= o.package.name %> 
       <% if o.package.id == 253 %>
-      - <%= DownloadImage.package_name(o.download_image_id) %>
+      - <%= DownloadImage.package_name(o.student_image_id) %>
       <% end %></strong><br />
       <% image = o.package.student_images.where(:student_id => student.id).last %>
       
