@@ -384,19 +384,17 @@ class StudentsController < ApplicationController
   def findbyid 
     @school = School.find(params[:school])
     @students = @school.students.where("student_id = ?", "#{params[:student_id].gsub(/\s+/, "")}").where(:id_only => true)
-    @students_access = @school.students.where("access_code = ?", "#{params[:student_id].gsub(/\s+/, "")}").where(:id_only => true)
+    @students_access = @school.student_images.where("accesscode = ?", "#{params[:student_id].gsub(/\s+/, "")}")
     @students_access_gift = @school.students.where("access_code = ?", "#{params[:student_id].gsub(/\s+/, "")[1..-1]}").where(:id_only => true)
     if @students.any? && (params[:student_id].gsub(/\s+/, "") != "" && params[:student_id] != nil)
       @student = @students.last
-      RenderWatermark.perform_async(@student.id) 
-      respond_to :js
+      respond_to :js 
     elsif @students_access.any? && (params[:student_id].gsub(/\s+/, "") != "" && params[:student_id] != nil)
-      @student = @students_access.last
-      RenderWatermark.perform_async(@student.id)
+      @student = @students_access.last.student
+
       respond_to :js
     elsif @students_access_gift.any? && (params[:student_id].gsub(/\s+/, "") != "" && params[:student_id] != nil)
       @student = @students_access_gift.last
-      RenderWatermark.perform_async(@student.id)
       respond_to :js
     else
       render :nothing => true
@@ -715,7 +713,7 @@ class StudentsController < ApplicationController
 
     else
       student = @school.students.where("lower(first_name) like ? and lower(last_name) like ? and student_id = ? and id_only = ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%", "#{params[:student_id].gsub(/\s+/, "")}", "true")
-      student_access = @school.students.where("lower(first_name) like ? and lower(last_name) like ? and access_code = ? and id_only = ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%", "#{params[:student_id].gsub(/\s+/, "")}", "true")
+      student_access = @school.student_images.where("accesscode = ?", "#{params[:student_id].gsub(/\s+/, "")}")
       student_access_gift = @school.students.where("lower(first_name) like ? and lower(last_name) like ? and access_code = ? and id_only = ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%", "#{params[:student_id].gsub(/\s+/, "")[1..-1]}", "true")
       gift_code = params[:student_id][0].downcase
       if student.count > 0
@@ -736,7 +734,7 @@ class StudentsController < ApplicationController
           end
       elsif student_access.count > 0
         AccessCodeLog.create(:access_code => "#{params[:student_id]}")
-        @student = student_access.last
+        @student = student_access.last.student
           if @cart_id.to_i == 1
             @cart = @student.carts.create(:school_id => @school.id, :email => params[:email])
             @cart.cart_id = (0...8).map { (65 + rand(26)).chr }.join

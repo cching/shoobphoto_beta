@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220093822) do
+ActiveRecord::Schema.define(version: 20170224084152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -822,7 +822,7 @@ ActiveRecord::Schema.define(version: 20170220093822) do
     t.datetime "watermark_updated_at"
     t.string   "shoob_id"
     t.string   "load_id"
-    t.string   "access_code"
+    t.string   "accesscode"
   end
 
   create_table "student_proofs", force: true do |t|

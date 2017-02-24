@@ -1,5 +1,6 @@
 class School < ActiveRecord::Base
 	has_many :students
+	has_many :student_images, through: :students
 
 	has_many :shippings
 

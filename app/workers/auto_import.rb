@@ -25,11 +25,11 @@ class AutoImport
 										@auto.increment!(:success_count) 
 
 								        unless students.any?    
-								            student = school.students.new(:student_id => h[:student_id], :access_code => h[:accesscode], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :id_only => true, :shoob_id => h[:shoob_id])
+								            student = school.students.new(:student_id => h[:student_id], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :id_only => true, :shoob_id => h[:shoob_id])
 								            student.save
 								        else
 								           	student = students.last
-								           	student.update(:student_id => h[:student_id], :access_code => h[:accesscode], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :email => h[:email], :teacher => h[:teacher], :shoob_id => h[:shoob_id], :id_only => true)
+								           	student.update(:student_id => h[:student_id], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :email => h[:email], :teacher => h[:teacher], :shoob_id => h[:shoob_id], :id_only => true)
 								        end
 
 
@@ -70,15 +70,15 @@ class AutoImport
 								          	if images.any? #update
 									        		image = images.last
 									        		if h[:url].nil?
-								          				image.update(:access_code => h[:accesscode], :package_id => package.id, :student_id => student.id, :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
+								          				image.update(:accesscode => h[:accesscode], :package_id => package.id, :student_id => student.id, :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
 								          			else
-								          				image.update(:access_code => h[:accesscode],:package_id => package.id, :student_id => student.id, :image_file_name => h[:url], :watermark_file_name => h[:url], :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
+								          				image.update(:accesscode => h[:accesscode],:package_id => package.id, :student_id => student.id, :image_file_name => h[:url], :watermark_file_name => h[:url], :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
 								          			end
 									        else #create
 									        		if h[:url].nil?
-									        			image = StudentImage.new(:access_code => h[:accesscode], :package_id => package.id, :student_id => student.id, :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
+									        			image = StudentImage.new(:accesscode => h[:accesscode], :package_id => package.id, :student_id => student.id, :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
 									        		else
-									        			image = StudentImage.new(:access_code => h[:accesscode], :package_id => package.id, :student_id => student.id, :image_file_name => h[:url], :watermark_file_name => h[:url], :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
+									        			image = StudentImage.new(:accesscode => h[:accesscode], :package_id => package.id, :student_id => student.id, :image_file_name => h[:url], :watermark_file_name => h[:url], :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
 
 									        		end
 									        		image.save
