@@ -144,6 +144,50 @@ class ItemsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:cart_id])
   end
 
+  def download_image
+      @cart = Cart.find_by_cart_id(params[:cart_id])
+      bucket = AWS::S3::Bucket.new('shoobphoto')
+      t = Tempfile.new("my-temp-filename-#{Time.now}")
+      Zip::OutputStream.open(t.path) do |z|
+        @cart.items.each do |item|
+          if item.main.exists?
+            title = "#{item.main_file_name}"
+            z.put_next_entry("images/#{title}")
+
+            url1_data = open(item.main.url)
+            z.print IO.read(url1_data)
+          end
+        end
+      end
+
+          send_file t.path, :type => 'application/zip',
+                                 :x_sendfile => true,
+                                 :filename => "#{@cart.cart_id}_images.zip"                
+
+  end
+
+  def download_pdf
+    @cart = Cart.find_by_cart_id(params[:cart_id])
+      bucket = AWS::S3::Bucket.new('shoobphoto')
+      t = Tempfile.new("my-temp-filename-#{Time.now}")
+      Zip::OutputStream.open(t.path) do |z|
+        @cart.items.each do |item|
+          if item.pdf.exists?
+            title = "#{item.pdf_file_name}"
+            z.put_next_entry("pdfs/#{title}")
+
+            url1_data = open(item.pdf.url)
+            z.print IO.read(url1_data)
+          end
+        end
+      end
+
+          send_file t.path, :type => 'application/zip',
+                                 :x_sendfile => true,
+                                 :filename => "#{@cart.cart_id}_pdfs.zip"                
+
+  end
+
   def edit
     @item = Item.find(params[:id])
 

@@ -97,6 +97,10 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   resources :schools
 
   resources :items do
+    collection do
+      get :download_pdf
+      get :download_image
+    end
 
 
     member do
