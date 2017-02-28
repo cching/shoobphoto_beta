@@ -41,11 +41,11 @@ Price
 
 <div class="row">
 	<div class="col-xs-6">
-		<%= link_to "Download Item Images", class: "btn btn-primary", {:controller => "items", :action => "download_image", :cart_id => @cart.cart_id }%>
+		<%= link_to "Download Item Images", {:controller => "items", :action => "download_image", :cart_id => @cart.cart_id }, class: "btn btn-primary"%>
 
 	</div>
 	<div class="col-xs-6">
-		<%= link_to "Download Item PDFs", class: "btn btn-primary", {:controller => "items", :action => "download_pdf", :cart_id => @cart.cart_id }%>
+		<%= link_to "Download Item PDFs", {:controller => "items", :action => "download_pdf", :cart_id => @cart.cart_id }, class: "btn btn-primary"%>
 
 	</div>
 </div>
