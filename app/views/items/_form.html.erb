@@ -20,7 +20,7 @@
 
 
     <%= f.input :main, as: :file %>
-    <%= f.input :thumb, as: :file %>
+    <%= f.input :pdf, as: :file %>
 
     <%= f.association :subcategory, collection: Subcategory.all.order(:name) %>
 

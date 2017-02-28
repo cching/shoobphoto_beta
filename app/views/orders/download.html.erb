@@ -6,6 +6,7 @@
 	<div class="col-sm-1">
 	</div>
 	<div class="col-sm-11">
+		<%= DownloadImage.package_name(image.student_image_id) %><br/>
 		<%= image_tag(image.student_image.image.url, class: "img-rounded img-med") %><br/><br/>
 		<%= link_to "Download Image", student_push_image_path(image.student.id, :url => image.student_image.image.url), class: "btn-custom2" %>
 	</div>
@@ -33,3 +34,14 @@
 
 <% end %> 
 <% end %>
+
+<script>
+
+
+$( document ).ready(function() {
+	$('#myModal').modal('show');
+$("#myModal").html("<%= escape_javascript(render 'notice') %>");
+});
+
+
+</script>
