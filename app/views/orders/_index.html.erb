@@ -5,6 +5,7 @@
       <th>Submitted</th>
       <th>Order ID</th>
       <th>School</th>
+      <th>Packages</th>
       <th>First name</th>
       <th>Last name</th>
       <th>Student's First Name</th>
@@ -22,6 +23,7 @@
         <td><%= order.created_at %></td>
         <td><%= order.id %></td>
         <td><%= student.school.try(:name) %></td>
+        <td><%= order.order_packages.where(:student_id => student.id).map{ |o| o.package.slug }.join(", ") %></td>
         <td><%= order.first_name %></td>
         <td><%= order.last_name %></td>
         <td><%= student.first_name %></td>

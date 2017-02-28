@@ -36,12 +36,17 @@
       <% if o.package.id == 253 %>
       - <%= DownloadImage.package_name(o.student_image_id) %>
       <% end %></strong><br />
+
+      <% if o.student_image.nil? %>
       <% image = o.package.student_images.where(:student_id => student.id).last %>
       
       <% unless image.nil? %> 
       <%= image_tag(image.url, class: "img-rounded img-package") %>
       <% else %>
       <%= image_tag(o.package.image.url, class: "img-rounded img-package") %>
+      <% end %>
+      <% else %>
+      <%= image_tag(o.student_image.image.url, class: "img-rounded img-package") %>
       <% end %>
       </div>
       <div class="col-sm-6">
