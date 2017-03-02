@@ -56,6 +56,7 @@
 	</div>
 	<% i = 0 %>
 	<div class="col-xs-10">
+
 	<% @package.options.order(:name).each_slice(5) do |slice| %>
 		<% slice.each do |option| %>
 		<div class="package_box">
@@ -71,13 +72,12 @@
 					<% end %>
 				</div> 
 				<div class="col-xs-8">
-					<% unless option.name.downcase.include?("yearbook") %>
-					<% if 2 >= i %>
+					<% if option.download? %>
 					<p class="yellow_text">
-					
+						Includes FREE Digital Image
 					</p>
 					<% end %>
-					<% end %>
+
 				</div>
 			</div>
 		</div>

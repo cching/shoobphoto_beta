@@ -49,7 +49,7 @@ class StudentsController < ApplicationController
     @i = params[:i]
     @student = @cart.cart_students.order(:i).last.student
     @option = Option.find(params[:option])
-    array = @option.package.options.map(&:id)
+    array = @option.package.options.order(:name).map(&:id)
     @index = array.index(@option.id)
     @opackage = OrderPackage.find(params[:op])
 

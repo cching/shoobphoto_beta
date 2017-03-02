@@ -17,29 +17,43 @@
 		<% unless request_device?(:ipad) %>
 
 		<div class="package_box">
-			<div class="<%= @index.to_words %>">
-				<div class="row">
-					<div class="col-xs-3">
-						<span class="<%= 2 >= @index ? 'white_text' : 'gray_text'%> <%= 'small_text_package' if @option.name.size > 1 %>"><%= @option.name %></span>
-					</div>
-					<div class="col-xs-9">
-						<% if 2 >= @index %>
-						<p class="yellow_text">
-						INCLUDES <strong>FREE</strong> DIGITAL IMAGE
-						</p>
-						<% end %>
-					</div>
+		<div class="<%= @index.to_words %>"> 
+			<div class="row">
+				<div class="col-xs-4">
+					<% if @option.name.downcase.include?("yearbook") %>
+					<p class="<%= 2 >= @index ? 'white_text' : 'gray_text'%> <%= 'small_yearbook_text' if @option.name.size > 1 %>">
+						<%= @option.name %></p>
+					<% else %>
+					<p class="<%= 2 >= @index ? 'white_text' : 'gray_text'%> <%= 'small_text_package' if @option.name.size > 1 %>">
+						<%= @option.name %></p>
+					<% end %>
+				</div> 
+				<div class="col-xs-8">
+					<% if @option.download? %>
+					<p class="yellow_text">
+						Includes FREE Digital Image
+					</p>
+					<% end %>
+
 				</div>
 			</div>
-			<div class="<%= @index.to_words %>_content"><br/>
-				<% @option.image_types.each do |type| %>
+		</div>
+		<div class="<%= @index.to_words %>_content">
+			<div class="scrollbox">
+			<% @option.image_types.each do |type| %>
 
-					<%= type.name %><br/>
-												
-				<% end %>
+				<%= type.name %><br/>
+											
+			<% end %>
+			</div>
+			<div class="row bottom">
+				<div class="col-xs-3 bottom_text">
+				$<%= @option.price(@student.school.id).floor %>
+				</div>
 
 			</div>
 		</div>
+	</div>
 		<% end %>
 	</div>
 
