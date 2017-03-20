@@ -1,28 +1,42 @@
 <%= simple_form_for(@cart, :url => update_items_path) do |f| %>
 
 <div class="row">
-<div class="col-sm-6">
+<div class="col-sm-5">
 Name
 </div>
 <div class="col-sm-3">
 Quantity
 </div>
-<div class="col-sm-1"></div>
+<div class="col-sm-2">Format</div>
 <div class="col-sm-2">
 Price
 </div> 
 </div><hr>
-<% @cart.items.each do |item| %>
-<div class="row">
-<div class="col-sm-6">
-	<%= item.number %>: <%= item.name %>
+<% @cart.cart_items.each do |citem| %>
+<% item = citem.item %>
+<div class="row" id="item_<%= citem.id %>">
+<div class="col-sm-1">
+	<%= image_tag(citem.item.main.url, class: "img-cart") %>
 </div>
-<div class="col-sm-3">
-	<%= f.simple_fields_for :cart_items, item.cart_items.where(:item_id => item.id).last do |c| %>
+<div class="col-sm-4">
+	<%= citem.item.number %>: <%= citem.item.name %>
+</div>
+<div class="col-sm-1"><%= link_to "REMOVE", remove_item_path(citem.id), class: "item-btn", remote: true, :data => {:confirm => "Are you sure?"} %></div>
+<div class="col-sm-2">
+	<%= f.simple_fields_for :cart_items, citem do |c| %>
 		<%= c.input :quantity, :label => false, input_html: { min: '0', step: 'any', :maxlength => 1, :size => 4, :onBlur => 'updateTotalFunction(this.id, this.value, this.dataset.price)', :id => "#{item.id}", data: { :price => "#{item.price}"} }, label: false %>
 	<% end %>
 </div>
-<div class="col-sm-1"></div>
+<div class="col-sm-2">
+
+<% if citem.download %>
+Instant Download
+<% elsif citem.both %>
+Instant Download and <%= citem.item.format %>
+<% else %>
+<%= citem.item.format %>
+<% end %>
+</div>
 
 <div class="col-sm-2">
 <div id="item_<%= item.id %>" class="item"  onload="loadFunction(this.dataset.id, this.dataset.price, this.dataset.quantity)" data-id="#{item.id}" data-price="#{item.price}" data-quantity="#{@cart.item_forms.where(:item_id => item.id).last.quantity}">
@@ -30,25 +44,18 @@ Price
 
 	</div>
 </div>
-</div>
+</div><br/><hr>
 <% end %>
- 
-<div align="right"><%= f.submit "Continue", class: "btn btn-primary" %></div>
+
+<div class="row">
+ <div class="col-xs-8"></div>
+ <div class="col-xs-2"><%= link_to "Back to Catalog", items_cart_path(@cart.cart_id), class: "btn-blue" %></div>
+ <div class="col-xs-2"><%= f.submit "Checkout", class: "btn-dark-blue" %></div>
 <% end %>
 
 
 <br>
 
-<div class="row">
-	<div class="col-xs-6">
-		<%= link_to "Download Item Images", {:controller => "items", :action => "download_image", :cart_id => @cart.cart_id }, class: "btn btn-primary"%>
-
-	</div>
-	<div class="col-xs-6">
-		<%= link_to "Download Item PDFs", {:controller => "items", :action => "download_pdf", :cart_id => @cart.cart_id }, class: "btn btn-primary"%>
-
-	</div>
-</div>
 
 <script>
 
@@ -64,4 +71,32 @@ tot = tot.toFixed(2)
 document.getElementById(res).innerHTML = '$' + tot;
 
 }
+</script>
+
+
+
+<script>
+
+$(document).ready(function() { 
+	<% @cart.cart_items.each do |citem| %>
+  $( "#type_dropdown_<%= citem.id %>" ).select2({
+    theme: "bootstrap",
+    width: '100%',
+    height: '20px',
+    minimumResultsForSearch: Infinity
+});
+
+  <% end %>
+
+  $('.select2-selection').css('border-radius','0px')
+  $('.select2-selection').css('border','2px solid #9D9D9D')
+  $('.select2-selection').css('font','normal 16px/normal "Trebuchet MS", Helvetica, sans-serif')
+  $('.select2-selection').css('margin-bottom','20px') 
+  $('.select2-selection').css('padding-top','9px')
+  $('.select2-selection').css('height','44px')
+  $('.select2-container').children().css('border-radius','0px')
+
+ });
+
+
 </script>

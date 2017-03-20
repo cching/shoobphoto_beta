@@ -9,6 +9,31 @@ class ItemsController < ApplicationController
     redirect_to items_cart_path(@cart.cart_id)
   end
 
+  def update_cart_item
+  end
+
+
+  def remove_item
+    @citem = CartItem.find(params[:citem])
+    @id = @citem.id
+    @citem.destroy
+  end
+
+  def add_item
+    @cart = Cart.find(params[:cart_id])
+    @item = Item.find(params[:item_id])
+    @cart_item = @cart.cart_items.create(:item_id => @item.id, :quantity => params[:quantity].to_i + 1)
+
+    if params[:format] == "0"
+      @cart_item.update(:product => true)
+    elsif params[:format] == "1"
+      @cart_item.update(:download => true)
+    else
+      @cart_item.update(:both => true)
+    end
+
+  end
+
 
   def search_term
     if Searchterm.where("name like ?", "%#{params[:search_term]}%").any?
@@ -149,20 +174,31 @@ class ItemsController < ApplicationController
       bucket = AWS::S3::Bucket.new('shoobphoto')
       t = Tempfile.new("my-temp-filename-#{Time.now}")
       Zip::OutputStream.open(t.path) do |z|
-        @cart.items.each do |item|
-          if item.main.exists?
-            title = "#{item.main_file_name}"
-            z.put_next_entry("images/#{title}")
+        @cart.cart_items.each do |citem|
+          if citem.download? || citem.both?
+            item = citem.item
+            if item.main.exists?
+              title = "#{item.main_file_name}.jpg"
+              z.put_next_entry("images/#{title}")
 
-            url1_data = open(item.main.url)
-            z.print IO.read(url1_data)
+              url1_data = open(item.main.url)
+              z.print IO.read(url1_data)
+            end
+
+            if item.pdf.exists?
+              title = "#{item.pdf_file_name}"
+              z.put_next_entry("pdfs/#{title}")
+
+              url1_data = open(item.pdf.url)
+              z.print IO.read(url1_data)
+            end
           end
         end
       end
 
           send_file t.path, :type => 'application/zip',
                                  :x_sendfile => true,
-                                 :filename => "#{@cart.cart_id}_images.zip"                
+                                 :filename => "#{@cart.cart_id}_items.zip"                
 
   end
 

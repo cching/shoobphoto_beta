@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170224084152) do
+ActiveRecord::Schema.define(version: 20170320073506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,9 @@ ActiveRecord::Schema.define(version: 20170224084152) do
     t.datetime "updated_at"
     t.integer  "pages"
     t.integer  "quantity",   default: 1
+    t.boolean  "download"
+    t.boolean  "product"
+    t.boolean  "both"
   end
 
   create_table "cart_students", force: true do |t|
@@ -458,6 +461,7 @@ ActiveRecord::Schema.define(version: 20170224084152) do
     t.string   "pdf_content_type"
     t.integer  "pdf_file_size"
     t.datetime "pdf_updated_at"
+    t.string   "format"
   end
 
   create_table "jobs", force: true do |t|

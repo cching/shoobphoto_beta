@@ -2,14 +2,60 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.btn-dark-blue {
+	-webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  color: #396599;
+  font-size: 14px;
+  background: #396599;
+  padding: 5px 8px 5px 8px;
+  border: solid #000000 0px;
+  text-decoration: none;
+  text-align:center;
+  color:#fff;
+}
+
+.btn-dark-blue:hover {
+background-color:#5392c8;
+color:#fff;
+}
+
+.btn-dark-blue:focus {
+  outline: none;
+}
+
 .img-preview  {
 	max-height:300px;
 	max-width:80%;  
 }
 
+.img-cart  {
+	max-height:100px;
+	max-width:200px;  
+}
+
 .img-responsive {
 	max-height:60vh;
 }
+
+p.item_title_show {
+	font-weight: bold;
+	font-size: 20px;
+	text-align:left;
+
+}
+
+.item-btn {
+	text-decoration:underline;
+	font-size:20px;
+	color:#000;
+}
+
+.item-btn:hover {
+	color:#909090;
+	text-decoration:underline;
+}	
 
 #catalog td {
 	padding-top:2px;

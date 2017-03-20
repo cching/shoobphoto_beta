@@ -3,6 +3,10 @@ class CordersController < ApplicationController
 
   before_action :require_admin, only: [:index, :processed, :unprocessed]
 
+  def after_purchase_corder
+    @cart = Cart.find_by_cart_id(params[:cart_id])
+  end
+
   def new
     @cart = Cart.find_by_cart_id(params[:cart_id])
 
@@ -89,7 +93,7 @@ def export
         @cart.save
         CorderMailer.receipt(@order).deliver
         CorderMailer.send_receipt(@order).deliver
-        redirect_to root_path, notice: "Your order has been successfully placed! We've emailed you a copy of your receipt."
+        redirect_to after_purchase_corder_path(@order.cart.cart_id)
       else
         respond_to do |format|
         format.html { render 'new', :price => @order.price }

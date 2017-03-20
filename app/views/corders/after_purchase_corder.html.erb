@@ -1,0 +1,37 @@
+<style>
+
+.review_box {
+	background-color: #E8E8E8;
+	border-radius: 25px;
+	text-align: center;
+}
+
+</style>
+
+
+<div class="row">
+	<div class="review_box">
+		<span style="font-size:30px; color:#396599">Thank you for your order!</span>
+		<br/><br/>
+			<span style="font-size:20px; color:#FFBB00">Your order has been successfully placed.</span>
+			<br/>
+			<span style="font-size:20px; color:#FFBB00">A copy of your receipt has been sent to your provided email.</span>
+			<br/>
+
+			<% if @cart.cart_items.pluck(:both).include?(true) || @cart.cart_items.pluck(:download).include?(true) %>
+			<span style="font-size:20px; color:#FFBB00">Your instant downloads can be accessed below.</span>
+			<% end %>
+
+		<br/><br/>
+
+		<div class="row" align="center">
+			<% if @cart.cart_items.pluck(:both).include?(true) || @cart.cart_items.pluck(:download).include?(true) %>
+			<%= link_to "DOWNLOAD ITEMS", {:controller => "items", :action => "download_image", :cart_id => @cart.cart_id }, class: "btn-awards-next3"%>
+
+			<% else %>
+			<%= link_to "HOME", root_url, class: "btn-awards-next3" %>
+			<% end %>
+
+	</div><br/>
+</div>
+</div>

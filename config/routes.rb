@@ -295,7 +295,12 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'students/cart/:cart_id/orders/new' => 'orders#new', :via => 'GET', :as => 'new_order'
   match 'items/:cart_id/orders' => 'corders#confirm', :via => 'POST', :as => 'corder_confirm'
   match 'zip_code' => 'corders#zip_code', :via => 'get', :as => 'zip_code'
+  match 'add_item/:cart_id/:item_id' => 'items#add_item', :via => 'get', :as => 'add_item'
+  match 'update_cart_item/:citem' => 'items#update_cart_item', :via => 'get', :as => 'update_cart_item'
+  match 'remove_item/:citem' => 'items#remove_item', :via => 'get', :as => 'remove_item'
+
   match 'create_cart' => 'corders#create_cart', :via => 'post', :as => 'create_cart'
+  match 'after_purchase_catalog/:cart_id' => 'corders#after_purchase_corder', :via => 'get', :as => 'after_purchase_corder'
   match 'items/:cart_id/orders/new' => 'corders#new', :via => 'GET', :as => 'new_corder'
   match 'catalog_orders' => 'corders#index', :via => 'GET', :as => 'corders'
   match 'catalog_orders/:id' => 'corders#show', :via => 'GET', :as => 'corder_show'
