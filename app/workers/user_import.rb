@@ -15,6 +15,9 @@ class UserImport
           item = Item.find(h["id"])  
           item.update(:format => h["product_type"])
 
+          puts "@@@@@@@@@@ #{h["product_type"]}"
+          puts "this one #{h[:product_type]}"
+
      	end #end chunk
 
  	end
