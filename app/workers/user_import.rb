@@ -12,8 +12,8 @@ class UserImport
   		@user_id = []
 
       	chunk.each do |h|
-          item = Item.find(h[:id])  
-          item.update(:format => h[:product_type])
+          item = Item.find(h["id"])  
+          item.update(:format => h["product_type"])
 
      	end #end chunk
 
