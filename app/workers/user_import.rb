@@ -13,10 +13,10 @@ class UserImport
 
       	chunk.each do |h|
           item = Item.find(h["id"])  
-          item.update(:format => h["product_type"])
+          item.update(:format => h["format"])
 
-          puts "@@@@@@@@@@ #{h["product_type"]}"
-          puts "this one #{h[:product_type]}"
+          puts "@@@@@@@@@@ #{h["format"]} #{h[:id]} #{h["id"]}"
+          puts "this one #{h[:format]}"
 
      	end #end chunk
 
