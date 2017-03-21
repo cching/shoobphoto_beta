@@ -1,1 +1,3 @@
-$("#myModal").modal('hide');
+$('#<%= @item.id %>').html('<%= escape_javascript(render(:partial => 'add', :locals => {:item => @item, :cart => @cart})) %>');
+$('.notice').html('<p class="alert alert-info animated fadeInDown" align="center">You cart now has <%= pluralize(@cart.cart_items.count, "item") %>.</p>');
+$('#cart_quantity').html('<%= escape_javascript(render(:partial => 'quantity', :locals => {:cart => @cart})) %>');

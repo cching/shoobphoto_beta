@@ -9,7 +9,7 @@
       <div class="modal-body" align="center">
     <div class="row">
       <div class="col-xs-5">
-      <%= image_tag(@item.main.url, class: "img img-rounded img-responsive") %>
+      <%= image_tag(@item.main.url, class: "img img-preview") %>
       <div class="row">
         <div class="col-sm-4"></div>
         <div class="col-sm-2">
@@ -33,20 +33,23 @@
       </span>
         </p>
       </p>
-    </div>
-    <br/><br/>
-<br/><br/>
-<br/><br/>
+          <br/><br/>
+
     <%= form_tag(add_item_path(@cart.id, @item.id), method: :get, remote: true) do %>
-    <p class="item_title_show">Format</p>
-    <%= select_tag :format, options_for_select(["#{@item.format}", 'Instant Download', 'Both'].collect.with_index.to_a), id: "type_dropdown" %>
-    <p class="item_title_show">Qty</p>
-    <%= select_tag :quantity, options_for_select((1..10).step(1).collect.with_index.to_a), id: "quantity" %>
+    <p class="item_title_show">Format
+      <%= select_tag :format, options_for_select(["#{@item.format}", 'Instant Download', 'Both'].collect.with_index.to_a), id: "type_dropdown" %>
+    </p>
+    
+    <p class="item_title_show">Qty
+    <%= select_tag :quantity, options_for_select((1..10).step(1).collect.with_index.to_a), id: "quantity" %></p>
+    
     <br/>
-    <div align="left">
+    <div align="left" id="<%= @item.id %>">
     <%= submit_tag "ADD TO CART", class: "btn-blue" %>
   </div>
     <% end %>
+    </div>
+
 
     </div>
       

@@ -295,11 +295,12 @@ class ItemsController < ApplicationController
   end
 
   def remove  
-    @item = Item.find(params[:id])
-    @cart = Cart.find_by_cart_id(params[:cart_id])
-    @item.cart_items.where(:cart_id => @cart.id).destroy_all
+    @citem = CartItem.find(params[:id])
+    @cart = @citem.cart
+    @item = Item.find(params[:item])
+    @id = @citem.id
+    @citem.destroy
 
-    @price = @cart.items.map(&:price).inject(:+)
     
     respond_to do |format|
       format.js

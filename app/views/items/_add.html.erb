@@ -1,1 +1,1 @@
-<%= link_to "Remove", items_remove_path(item, :cart_id => @cart.cart_id), remote: true, class: "btn btn-danger" %>
+<%= link_to "Remove", items_remove_path(@cart_item.id, :item => @item.id), remote: true, class: "btn-red" %> 
