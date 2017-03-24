@@ -1,6 +1,20 @@
+<style>
+.alert {
+  font-size: 48px;
+}
+.container-fluid {
+  width: 100% !important;
+}
+</style>
 
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
 
-
+<div class="alert alert-danger" role="alert" align="center">
+  Do not use the back arrow on your browser
+</div>
 
 <% if @package.multiple? %>
 <br/><br/>
@@ -48,7 +62,7 @@
 
 <div class="animated fadeIn" id="mobile_package_selection">
 	
-		<br/><br/><br/><br/><br/>
+
 		<% unless @image.nil? %>
 			<% if @cart.id_supplied? %>
 				<%= image_tag(@image.watermark.url(:watermark), class: "select_package_image_mobile") %>
@@ -74,10 +88,10 @@
 				</div>
 				<div class="col-xs-1"></div>
 				<div class="col-xs-8" align="left">
-					<% if 2 >= i %>
-					<span class="mobile_yellow_text">
-					<strong>FREE</strong> DIGITAL IMAGE 
-					</span>
+					<% if option.download? %>
+					<p class="mobile_yellow_text">
+						Includes FREE Digital Image
+					</p>
 					<% end %><br/>
 					<span class="type_name_mobile"><%= option.image_types.map(&:name).join(", ") %></span>
 

@@ -1,0 +1,61 @@
+<style>
+.alert {
+  font-size: 48px;
+}
+.container-fluid {
+  width: 100% !important;
+}
+</style>
+
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+
+<% unless @images.nil? %>
+<% @images.each do |image| %>
+<% if image.options.any? %>
+<% if image.options.first.download? && image.student_image_id != nil %>
+<div class="row">
+	<div class="col-sm-1">
+	</div>
+	<div class="col-sm-11">
+		<%= DownloadImage.package_name(image.student_image_id) %><br/>
+		<%= image_tag(image.student_image.image.url, class: "img-rounded img-med") %><br/><br/>
+		<%= link_to "Download Image", student_push_image_path(image.student.id, :url => image.student_image.image.url), class: "btn-custom2" %>
+	</div>
+</div><br/> 
+<% end %>
+<% end %>
+
+<% end %> 
+<% end %>
+
+<% unless @gift_images.nil? %>
+<% @gift_images.each do |image| %>
+<% if image.gifts.any? %>
+<% if image.gifts.first.download? %>
+<div class="row">
+	<div class="col-sm-1">
+	</div>
+	<div class="col-sm-11">
+		<%= image_tag(image.student_image.image.url, class: "img-rounded img-med") %><br/><br/>
+		<%= link_to "Download Image", student_push_image_path(image.student.id, :url => image.student_image.image.url), class: "btn-custom2" %>
+	</div>
+</div><br/>
+<% end %>
+<% end %>
+
+<% end %> 
+<% end %>
+
+<script>
+
+
+$( document ).ready(function() {
+	$('#myModal').modal('show');
+$("#myModal").html("<%= escape_javascript(render 'notice') %>");
+});
+
+
+</script>
