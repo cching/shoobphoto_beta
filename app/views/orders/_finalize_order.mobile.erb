@@ -1,0 +1,16 @@
+<% if is_mobile_request? %>
+<%= submit_tag 'Confirm purchase', class: 'btn-blue_mobile btn-loading' %>
+<% else %>
+<%= submit_tag 'Confirm purchase', class: 'btn-blue btn-loading' %>
+<% end %>
+<script>
+
+$('.btn-loading').button();
+
+$(document).ready(function(){
+  $('.btn-loading').click(function() {
+    $(this).button('loading');
+  });
+});
+
+</script>

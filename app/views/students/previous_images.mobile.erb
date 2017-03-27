@@ -1,0 +1,75 @@
+ <style>
+.alert {
+  font-size: 48px;
+}
+.container-fluid {
+  width: 100% !important;
+}
+
+.inner {
+	font-size: 34px !important;
+}
+
+.image_text {
+	font-size: 30px !important;	
+}
+
+.col-sm-4 {
+	align-content: center !important;
+}
+</style>
+
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+
+<br/>
+<div class="alert alert-danger" role="alert" align="center">
+  Do not use the back arrow on your browser
+</div>
+
+ <div class="row">
+
+	<div class="col-sm-12">
+	<div id="scrolltable">
+		<div class="inner" align="center">
+			<span class="blue">
+			<strong>Purchase pictures and images from previous school years!</strong><br/>
+			Click an image below to view pricing and packages.</span><br/><br/>
+
+		<% unless @images.nil? %>
+
+			
+				<% @images.each_slice(2) do |images| %>
+				<div class="row">
+				<div class="col-sm-2"></div>
+
+				<% images.each do |image| %>
+				<% if image.watermark.exists? %>
+					<div class="col-sm-4" align="center">
+
+						<%= image_tag(image.watermark.url(:watermark), class: "img-proof", id: "png1") %> 
+					
+					<strong class="image_text"><%= DownloadImage.package_name(image.id) %></strong><br/><br/>
+					<%= link_to "Select", download_cart_path(@student.id, :cart_id => params[:id], :image => image.id, :i => @i), class: "btn-blue_mobile", remote: true %> 
+					</div>	
+					<% end %>
+				<% end %>
+				
+				</div> 
+				<br/><br/>
+				<% end %>
+				
+			
+		<% end %>
+	</div>
+	</div>
+</div>
+
+</div>
+<br/>
+<div class="row">
+	<div class="col-sm-9"></div>
+	<div class="col-sm-3" align="left"><%= link_to "Continue", student_final_path(@cart.cart_id, @cart.students.count - 1), class: "btn-blue_mobile" %></div>
+</div>
