@@ -286,7 +286,7 @@ end
 
 	def index
 		@search = Order.search(params[:q])
-    	@orders = @search.result.paginate(:page => params[:page], :per_page => 200).order(:processed, :id)
+    	@orders = @search.result.paginate(:page => params[:page], :per_page => 100).order(:processed, :id)
     	@search.build_condition
 
     	respond_to do |format|
