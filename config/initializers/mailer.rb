@@ -7,6 +7,6 @@ ActionMailer::Base.smtp_settings = {
   :domain => 'shoobphoto.com',
   :authentication => 'plain',
   :user_name => 'info@shoobphoto.com',
-  :password => 'can40d2011'
-}
+  :password => ENV['EMAIL_PASSWORD']
+} 
  
