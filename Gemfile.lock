@@ -153,6 +153,8 @@ GEM
       rails (>= 2.1)
     puma (2.16.0)
     rack (1.5.5)
+    rack-host-redirect (1.2.1)
+      rack
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -294,6 +296,7 @@ DEPENDENCIES
   prawn (= 1.0.0.rc1)
   prawnto
   puma
+  rack-host-redirect
   rack-timeout
   rails (= 4.1.4)
   rails_12factor
