@@ -91,7 +91,13 @@
       <%= f.hidden_field :email, :value => "#{@cart.email}" %>
     </div>
     <div id="shipping_hidden"></div>
+     <div id="notes_hidden" hidden>
+    <span class="note_title cart_title billing_info_title">Notes (optional): &nbsp;</span>
+    <%= f.text_field :notes, class: "enjoy-css" %>
   </div>
+  </div>
+
+ 
 
 
 
@@ -460,6 +466,7 @@ function validateForm(){isValid = false;
   if(isValid){
     $('#shipping_info').hide();
     $('#billing_info').hide();
+    $('#notes_hidden').show();
 
     $('#edit_shipping').html("<%= escape_javascript(button_tag 'Edit', type: 'button', onclick: 'editShipping()', class: 'btn-4') %>");
 

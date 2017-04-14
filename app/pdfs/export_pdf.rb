@@ -35,7 +35,7 @@ class ExportPdf < Prawn::Document
           @fields = @export_data.template.columns.all.map {|column| column.fields.where(:template_id => @export_data.template.id).where.not(x: nil).last }
 
 
-          @fields.each do |field|
+          @fields.each do |field| 
 
             # Handle image inserts.
             if ExportJob.image_columns.include? field.column.column_type
