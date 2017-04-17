@@ -17,7 +17,7 @@
 				<% if senior_image.watermark.exists? %>
 				<div class="col-xs-6" id="image_container">
 					<span class="small_text"><%= senior_image.url.downcase %></span>
-						<%= link_to image_tag(senior_image.watermark.url), :class => "img-rounded img-package image_#{senior_image.id} draggable image_container #{'img-package-custom' if @opackage.sheets.pluck(:senior_image_id).uniq.include?(senior_image.id)}", :id => "#{senior_image.id}"), student_preview_image_path(:image => senior_image.watermark.url), remote: true %><br/>
+						<%= link_to image_tag(senior_image.watermark.url, :class => "img-rounded img-package image_#{senior_image.id} draggable image_container #{'img-package-custom' if @opackage.sheets.pluck(:senior_image_id).uniq.include?(senior_image.id)}", :id => "#{senior_image.id}"), student_preview_image_path(:image => senior_image.watermark.url), remote: true %><br/>
 
 					<p id="text" class="text_<%= senior_image.id %>"><%= "Selected" if @opackage.sheets.pluck(:senior_image_id).uniq.include?(senior_image.id) %></p>
 				</div>
@@ -27,7 +27,7 @@
 		<% end %>
 	</div> 
 	<span id="senior_images">
-		<%= render 'senior_images' %> 
+		<%= render 'senior_images' %>
 	</span>
 </div><br/>
 <div class="row">
