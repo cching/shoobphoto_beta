@@ -91,7 +91,7 @@ class StudentsController < ApplicationController
 
   def add_pose
     @senior_image = SeniorImage.find(params[:url].to_i)
-    @image = @senior_image.watermark.url(:watermark) 
+    @image = @senior_image.watermark.url
     @index = params[:index]
     @image_type = ImageType.find(params[:image_type])
     @opackage = OrderPackage.find(params[:opackage])
@@ -105,7 +105,7 @@ class StudentsController < ApplicationController
     @sheet = AddonSheet.find(params[:addon_sheet])
     @senior_image = SeniorImage.find(params[:senior_image_id])
     @sheet.update(:index => params[:index], :senior_image_id => @senior_image.id)
-    @image = @senior_image.watermark.url(:watermark)
+    @image = @senior_image.watermark.url
   end
 
   def view_addons
@@ -139,7 +139,7 @@ class StudentsController < ApplicationController
 
   def update_senior_portraits
     @senior_image = SeniorImage.find(params[:url].to_i)
-    @image = @senior_image.watermark.url(:watermark)
+    @image = @senior_image.watermark.url
     @index = params[:index]
     @image_type = ImageType.find(params[:image_type])
     @opackage = OrderPackage.find(params[:opackage])
@@ -152,7 +152,7 @@ class StudentsController < ApplicationController
 
   def yearbook
     @senior_image = SeniorImage.find(params[:url].to_i)
-    @image = @senior_image.watermark.url(:watermark)
+    @image = @senior_image.watermark.url
     @opackage = OrderPackage.find(params[:opackage])
     @opackage.update(:senior_image_id => @senior_image.id)
     @type = "yearbook"
