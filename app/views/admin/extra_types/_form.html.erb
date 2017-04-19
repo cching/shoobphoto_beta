@@ -18,7 +18,7 @@
         </div>
       </div>
 
-      <%= f.association :options, as: :check_boxes, :label_method => lambda { |option| "#{option.package.name}: #{option.package.slug} | #{option.slug}" } %>
+      <%= f.association :options, as: :check_boxes, :label_method => lambda { |option| "#{option.package.try(:name)}: #{option.package.try(:package)} | #{option.slug}" } %>
       
 
   </div>

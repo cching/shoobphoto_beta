@@ -20,12 +20,12 @@ class ImageType < ActiveRecord::Base
 	def self.count_types id
 		image_type = ImageType.find(id)
 
-		if image_type.name.include? "5x7"
+		if image_type.name.include? "5x7" 
 			return image_type.name.gsub(/[\s+)(]/,"")[0,1].to_i/ImageType.count(image_type.id)
 		elsif image_type.name.include? "Wallets"
 			return image_type.name.gsub(/[\s+)(]/,"")[0,2].to_i/ImageType.count(image_type.id)
 		elsif image_type.name.include? "8x10"
-			return image_type.name.gsub(/[\s+)(]/,"")[0,2].to_i/ImageType.count(image_type.id)
+			return image_type.name.gsub(/[\s+)(]/,"")[0,1].to_i/ImageType.count(image_type.id)
 		else
 			return image_type.name.gsub(/[\s+)(]/,"")[0,1].to_i
 		end

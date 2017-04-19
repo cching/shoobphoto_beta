@@ -53,7 +53,7 @@ class OrderExport
                       opackage.sheets.where(:image_type_id => image_type.id).each do |sheet|
                         @sheet = @sheet + "(#{ImageType.count_types(image_type.id)}) #{ImageType.name_out(image_type.id)}:  #{sheet.senior_image.try(:url)},"
                       end
-                    end
+                    end 
                     @sheet = @sheet + "; "
                   end
 
