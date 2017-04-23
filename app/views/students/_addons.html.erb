@@ -1,12 +1,32 @@
-<div class="col-xs-7 animated fadeIn" id="senior_table">
+<div class="col-xs-6 animated fadeIn" id="senior_table">
 	<div class="row">
 		<div class="col-xs-6">
 			<h3>Select Your Add-ons:</h3>
 		</div>
-		<div class="col-xs-6" align="right">
+		<div class="col-xs-6" align="left">
 			<h3><%= link_to "View Package", view_package_path(@opackage.id), class: "btn-custom4", remote: true %></h3>
 		</div>
 	</div>
 	Add an add-on and drag a pose (left) to each sheet <br/> to create your add-on.
-	
+	<hr>
+	<% Addon.all.each_with_index do |addon| %>
+		<div class="row">
+			<div class="col-xs-2" id="add_<%= addon.id %>">
+				<%= link_to "Add", add_addon_path(@opackage.id, addon.id), class: "btn-custom4", remote: true %>
+			</div>
+			<div class="col-xs-2">
+				<strong>
+					<% if @opackage.options.pluck(:without).include? false %>
+						<%= number_to_currency(addon.price_with, :unit => "$") %>
+					<% else %>
+						<%= number_to_currency(addon.price_without, :unit => "$") %>
+					<% end %>
+				</strong>
+			</div>
+			<div class="col-xs-7">
+				<strong> <%= addon.name %></strong>
+			</div>
+		</div><br>
+		<span id="<%= addon.id %>"></span>
+	<% end %>
 </div>
