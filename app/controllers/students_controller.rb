@@ -269,6 +269,62 @@ class StudentsController < ApplicationController
          # have redirect here to final if no senior images exist. add redirect on previous page
   end
 
+    def senior_portrait_addons
+    @cart = Cart.find_by_cart_id(params[:cart_id])
+    @student = @cart.cart_students.order(:i).last.student
+    @i = params[:i]
+
+    @opackage = @cart.order_packages.where(:package_id => 6).last
+
+      @s_image = @opackage.package.student_images.where(:student_id => @student.id).last
+
+    bucket = AWS::S3::Bucket.new('shoobphoto')
+
+    @package = @opackage.package
+        image = @package.student_images.where(:student_id => @opackage.student.id).last
+
+        if @package.id == 6 && image.present? && @cart.id_supplied?
+          @boolean = false
+          image.senior_images.each do |senior_image|
+            if senior_image.image.exists?
+            @boolean = true
+            break
+            end 
+          end
+        end
+
+        @ids = []
+        if @student.student_images.any?
+
+        added_folder = []
+
+        @cart.order_packages.where(:student_id => @student.id).each do |opackage|
+          added_folder << @student.student_images.where(:package_id => opackage.package_id).order(:folder).last.try(:folder)
+        end
+
+        folder = @student.student_images.pluck(:folder).uniq
+        
+
+        folder.each do |folder|
+          unless added_folder.include?(folder)
+            @ids << @student.student_images.where("folder like ?", "%#{folder}%").last.watermark.exists?
+          end
+        end
+
+        else
+          @ids << false
+        end
+         
+        unless @boolean == true
+          if @ids.include?(true) && @cart.id_supplied?
+            redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
+          else
+            redirect_to student_final_path(@cart.cart_id, @cart.students.count - 1)
+          end
+        end
+         # have redirect here to final if no senior images exist. add redirect on previous page
+  end
+
   def add_option
     @op = OrderPackage.find(params[:order_package_id])
     @i = params[:i]

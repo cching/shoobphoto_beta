@@ -274,6 +274,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'students/packages/:id/select/:i/:package' => 'students#select_package', :via => 'GET', :as => 'student_select_package'
   match 'students/:id/calculate' => 'students#calculate', :via => 'GET', :as => 'student_calculate'
   match 'students/:cart_id/senior_portraits/:i' => 'students#senior_portraits', :via => 'GET', :as => 'senior_portraits'
+  match 'students/:cart_id/senior_portrait_addons/:i' => 'students#senior_portrait_addons', :via => 'GET', :as => 'senior_portrait_addons'
   match 'students/:cart_id/update_senior_portraits/:image_type/:index/:opackage' => 'students#update_senior_portraits', :via => 'GET', :as => 'update_senior_portraits'
   match 'students/add_addon_pose/:addon_sheet/:index/:senior_image_id' => 'students#add_addon_pose', :via => 'GET', :as => 'add_addon_pose'
   match 'students/yearbook/:opackage' => 'students#yearbook', :via => 'GET', :as => 'student_yearbook'

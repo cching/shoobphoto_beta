@@ -27,7 +27,7 @@
 		<% end %>
 	</div> 
 	<span id="senior_images">
-		<%= render 'senior_images' %> 
+		<%= render 'addons' %> 
 	</span>
 </div><br/>
 <div class="row">
@@ -37,7 +37,7 @@
 	</div>
 	<div class="col-xs-5" align="right">
 
-        <%= link_to "Continue", senior_portrait_addons_path(@cart.cart_id, @cart.students.count - 1), class: "btn-custom4" %>
+        <%= link_to "Add to Cart", student_final_path(@cart.cart_id, @cart.students.count - 1), class: "btn-custom4" %>
      <div class="col-xs-1"></div>
 </div>
 </div>
