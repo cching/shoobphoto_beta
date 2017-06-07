@@ -50,28 +50,6 @@
         </span>  
         </div>  
         </div>
-
-        <span class="dob">
-          DATE OF BIRTH
-        </span>
-        <div class="row">
-        <div class="col-xs-4">
-          <%= select_month(0, {:prompt => "Month"}, 
- 
-                       {:field_name => 'month', :id => 'date_month'}) %>
-        </div>
-        <div class="col-xs-3">
-          <%= select_day(0, {:prompt => "Day"}, 
- 
-                       {:field_name => 'day', :id => 'date_day'}) %>
-        </div>
-        <div class="col-xs-3">
-          <%= select_year(0, {:prompt => "Year", 
-                        :start_year => DateTime.now.year, 
-                        :end_year => DateTime.now.year - 115}, 
-                       {:field_name => 'year', :id => 'date_year'}) %>
-        </div>
-      </div>
         
         <div class="row">
         <div class="col-xs-8"></div>
