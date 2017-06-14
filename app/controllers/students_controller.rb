@@ -407,7 +407,11 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
 
    # @cart.order_packages.create(:package_id => id, :student_id => @student.id, :download_image_id => @dimage.id)
-   @package = Package.find(253)
+   if @dimage.package_id == 6
+    @package_id = 6
+  else
+    @package = Package.find(253)
+  end
 
    if OrderPackage.where(:student_id => @student.id).where(:cart_id => @cart.id).where(:student_image_id => @dimage.id).any?
     @opackage = OrderPackage.where(:student_id => @student.id).where(:cart_id => @cart.id).where(:student_image_id => @dimage.id).last
