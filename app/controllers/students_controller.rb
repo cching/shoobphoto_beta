@@ -408,7 +408,7 @@ class StudentsController < ApplicationController
 
    # @cart.order_packages.create(:package_id => id, :student_id => @student.id, :download_image_id => @dimage.id)
    if @dimage.package_id == 6
-    @package_id = 6
+    @package = 6
   else
     @package = Package.find(253)
   end
