@@ -1,0 +1,134 @@
+<%= form_tag(student_find_path, method: :get, :name => 'new_search_form', :id => "new_search_form") do %>
+	<div class="blue">
+		<strong>
+			Enter your student's information below:
+		</strong>
+	</div>
+    <span class="search_input">SCHOOL OR SPORT</span>
+    <select name="school[school_id]" id="dropdown" class="enjoy-css">
+      <option value="">Enter school name...</option> 
+
+        <% School.all.order(:name).where.not(school_type_id: nil).each do |school| %>
+            <option value="<%= school.id %>"><%= school.name.titleize %></option>
+        <% end %>
+        
+    </select>
+    <span id="school_error"></span>
+     <% unless cookies[:user_email].nil? %>
+
+        <%= text_field_tag :email, nil, placeholder: "Your email address", class: "enjoy-css", id: "input_email", value: "#{cookies[:user_email]}" %>
+        
+        <% else %>
+        <%= text_field_tag :email, nil, placeholder: "Your email address", class: "enjoy-css", id: "input_email" %>
+        <% end %><br/>
+
+        
+        <%= text_field_tag :student_id, nil, placeholder: "Student's ID or Access Code", class: "enjoy-css2", id: "input_student_id_custom" %>
+    <div class="row">
+        <div class="col-xs-10"></div>
+          <div class="col-xs-2" id="button_script" align="left">
+            <input class="btn-blue" name="commit" value="Continue" data-toggle="tooltip" title="No student has been found with the given ID or access code. Please verify the information is correct. If not, please continue on the previous screen without an ID or code." data-placement="top" readonly>
+          </div>
+    </div>
+
+    <%= hidden_field_tag "first_name", nil %>
+    <%= hidden_field_tag "last_name", nil %>
+    <%= hidden_field_tag "cart", @cart %>
+    <%= hidden_field_tag "i", @i %>
+<% end %>
+
+
+<script>
+	$("#input_student_id_custom").keyup(function() 
+	{
+		var d = document.getElementById("input_student_id_custom");
+        d.className += " error_field";
+		$.get('/students/findbyid/' + $("#dropdown").select2("val") + '?student_id=' + $("#input_student_id_custom").val()).success(function(data) { } )
+	});
+
+	$(document).ready(function() { 
+	  $( "#dropdown" ).select2({
+	    theme: "bootstrap",
+	    width: '103%',
+	    height: '20px',
+	});
+
+
+	$('.select2-selection').css('border-radius','0px')
+	$('.select2-selection').css('border','2px solid #9D9D9D')
+	$('.select2-selection').css('font','normal 16px/normal "Trebuchet MS", Helvetica, sans-serif')
+	$('.select2-selection').css('margin-bottom','20px') 
+	$('.select2-selection').css('padding-top','9px')
+	$('.select2-selection').css('height','44px')
+	$('.select2-container').children().css('border-radius','0px')
+
+	});
+
+	function validateForm(){isValid = false;
+  $(".btn-blue").prop("disabled", true );
+
+  var isValid = true;
+
+      var x = document.getElementById('dropdown').value;
+    if (x == null || x == "") {
+        isValid = false;
+        var d = document.getElementById("dropdown");
+
+        $("#school_error").html("<p>Please select a school</p>");
+      } else {
+
+      $("#school_error").html("");
+      }
+
+
+    var z = document.getElementById('input_email').value;
+    if (z == null || z == "") {
+        isValid = false; 
+        var d = document.getElementById("input_email");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_email").className = "";
+      document.getElementById("input_email").className = "enjoy-css";
+      }
+    
+
+    var emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; 
+
+      if(!emailReg.test(z)) {
+        isValid = false;
+        var d = document.getElementById("input_email");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_email").className = "";
+      document.getElementById("input_email").className = "enjoy-css";
+      }
+      
+
+    var y = document.getElementById('input_student_id_custom').value;
+    if (y == null || y == "") {
+        isValid = false;
+        var d = document.getElementById("input_student_id_custom");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_student_id_custom").className = "";
+      document.getElementById("input_student_id_custom").className = "enjoy-css";
+
+      }
+    
+  if(isValid){
+    document.getElementById('new_search_form').submit();
+  } else {
+    $(".btn-blue").prop("disabled", false );
+
+  }
+
+}
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+
+</script>

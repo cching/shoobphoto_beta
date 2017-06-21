@@ -2,6 +2,73 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#splash_gray {
+    background: #fff;
+    height: 100vh;
+    width:100vw;
+    position:absolute;
+
+    .center_space {
+    	padding-left:4%;
+    	padding-right:4%;
+    	border: solid 2px #396599;
+    	margin-left:15%;
+    	margin-right:15%;
+    	margin-top:100px;
+		align:center;
+	    height:45%;
+	    background: #F4F8FB;
+	    position:relative;
+	    text-align:center;
+    }
+	.btn_confirm {
+		  font-family: Arial !important;
+		  color: #ffffff !important;
+		  font-size: 1.1vw !important;
+		  background: #3ACE3A !important;
+		  padding: 20px 40px 20px 40px !important;
+		  text-decoration: none !important;
+		  border:none !important;
+		  line-height:22px !important;
+		  height:120px !important;
+		}
+
+	.btn_confirm:hover {
+		  background: #61D761 !important;
+		  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+		  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+		  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+		  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+		  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+		  text-decoration: none;
+		  outline: none;
+	}
+
+	.btn_no {
+		  font-family: Arial !important;
+		  color: #ffffff !important;
+		  font-size: 1.1vw !important;
+		  background: #999999 !important;
+		  padding: 20px 40px 20px 40px !important;
+		  text-decoration: none !important;
+		  border:none !important;
+		  line-height:22px !important;
+		  height:120px !important;
+		}
+
+	.btn_no:hover {
+		  background: #ADADAD !important;
+		  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+		  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+		  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+		  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+		  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+		  text-decoration: none;
+		  outline: none;
+	}
+}
+
+
 #image_container {
 
   position: relative;

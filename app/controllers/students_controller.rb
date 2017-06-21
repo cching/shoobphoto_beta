@@ -731,6 +731,10 @@ class StudentsController < ApplicationController
     redirect_to student_packages_path(@cart.cart_id, @i)
   end
 
+  def splash
+    @i = params[:i] unless params[:i].nil?
+    @cart = params[:cart] unless params[:cart].nil?
+  end
 
 
   def find

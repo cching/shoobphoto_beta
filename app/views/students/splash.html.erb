@@ -1,0 +1,31 @@
+<div id="splash_gray" class="animated fadeInUp">
+	<div class="center_space">
+		<div class="initial_text">
+			<%= render 'splash_text', :cart => @cart, :i => @i %>
+		</div>
+	</div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+
+$(".btn_confirm").click(function() {
+	$(".initial_text").addClass("animated fadeOut");
+	setTimeout(function(){
+		$('.initial_text').hide();
+	},400);
+
+	setTimeout(function(){
+		$(".initial_text").removeClass("animated fadeOut");
+	},400);
+	setTimeout(function(){
+		$('.initial_text').show();
+		$(".initial_text").html("<%= escape_javascript(render 'student_w_code', :cart => @cart, :i => @i) %>");
+		$(".initial_text").addClass("animated fadeIn");
+	},450);
+	
+
+});
+</script>

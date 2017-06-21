@@ -2,6 +2,15 @@ $("#gradedropdown").select2("trigger", "select", {
     data: { id: "<%= @student.grade %>" }
 });
 
+
+ $('#first_name').val("<%= @student.first_name %>");
+ $('#last_name').val("<%= @student.last_name %>");
  $('#student_first_name').val("<%= @student.first_name %>");
  $('#student_last_name').val("<%= @student.last_name %>");
  $('#input_student_teacher').val("<%= @student.teacher %>");
+
+
+ $('#input_student_id_custom').removeClass("error_field");
+
+ $('#input_student_id_custom').addClass("success_field");
+ $('#button_script').html('<input class="btn-blue" name="commit" value="Continue" onclick="return validateForm()" readonly>');

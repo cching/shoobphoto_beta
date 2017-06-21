@@ -1,0 +1,15 @@
+<h3>Do you know your student's ID or access code?</h3>
+<br/>
+<div class="row">
+	<div class="col-xs-3"></div>
+	<div class="col-xs-3">
+		<button class="btn_confirm">Yes, I know my student's ID or access code.</button>
+	</div>
+	<div class="col-xs-3">
+		<%= link_to student_search_path(:cart => @cart, :i => @i) do %>
+		<button class="btn_no" data-toggle="tooltip" title="For your security, we cannot display image previews of your student without this information." data-placement="bottom">No, I don't have either.</button>
+
+		<% end %>
+	</div>
+	<div class="col-xs-3"></div>
+</div>

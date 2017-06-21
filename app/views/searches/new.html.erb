@@ -98,7 +98,7 @@
   </div>
   <div class="field">
     <%= f.label :school_id %><br />
-    <%= f.collection_select :school_id, School.order(:name), :id, :name, include_blank: true %>
+    <%= f.collection_select :school_id, School.all.order(:name).where.not(school_type_id: nil).each, :id, :name, include_blank: true %>
   </div>
 
   <div class="field">

@@ -222,8 +222,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
 
   match 'export/clean_up' => 'export_list_items#clean_up', :via => 'GET', :as => 'export_clean_up'
 
-   match 'students/typeahead' => 'students#typeahead', :via => 'GET', :as => 'typeahead'
-
+  match 'students/typeahead' => 'students#typeahead', :via => 'GET', :as => 'typeahead'
+  match 'students/access_or_id' => 'students#splash', :via => 'GET', :as => 'student_splash'
   match 'export/remove/:id' => 'export_list_items#remove', :via => 'GET', :as => 'export_list_remove'
   match 'export/zip/:school/:package' => 'export_list_items#zip', :via => 'GET', :as => 'export_list_zip'
   match 'orders/add_image/:id/:index' => 'orders#add_image', :via => 'GET', :as => 'orders_add_image'
