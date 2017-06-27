@@ -128,7 +128,7 @@ class AutoImport
 	      if cart.orders.any?
 	        order = cart.orders.last #shouldn't loop through all order packages, just find order package that have packages from uploaded image
 
-	        order.order_packages.where(email_sent: false).where(:package_id => package_id).each do |op|
+	        order.order_packages.where(email_sent: false).where(:student_id => student.id).where(:package_id => package_id).each do |op|
 	        	if op.options.any?
 	        		if op.options.first.download? && op.student_image_id.nil?
 	        			ImageMailer.send_image(op, image).deliver
