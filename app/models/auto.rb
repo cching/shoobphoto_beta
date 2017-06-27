@@ -1,6 +1,9 @@
 class Auto < ActiveRecord::Base
 	has_many :student_errors
 
+	def check_orders
+	end
+
 	  def self.upload
 	    if Dir.glob("/Volumes/6TB-J-12-13/Diglab2017/Dbf/csv/*.csv").any?
 

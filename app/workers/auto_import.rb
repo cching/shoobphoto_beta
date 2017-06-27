@@ -23,7 +23,7 @@ class AutoImport
 					      	unless h[:rec_type].nil? || h[:rec_type] == "" 
 						        
 									unless h[:student_id].nil?
-										students = school.students.where(:student_id => "#{h[:student_id]}")
+										students = school.students.where(:student_id => "#{h[:student_id]}").where(:id_only => true)
 
 										@auto.increment!(:success_count) 
 
@@ -33,6 +33,7 @@ class AutoImport
 								        else
 								           	student = students.last
 								           	student.update(:student_id => h[:student_id], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :email => h[:email], :teacher => h[:teacher], :shoob_id => h[:shoob_id], :id_only => true)
+
 								        end
 
 
@@ -56,35 +57,42 @@ class AutoImport
 							        end
 						    	else #else rectype
 							    	unless h[:student_id].nil?
-							        students = school.students.where(:student_id => "#{h[:student_id]}")
+							        students = school.students.where(:student_id => "#{h[:student_id]}").where(:id_only => true)
 
 							        @auto.increment!(:success_count)
 
-								          unless students.any?     
-								            student = school.students.new(:student_id => h[:student_id], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :email => h[:email], :teacher => h[:teacher], :shoob_id => h[:shoob_id], :id_only => true)
-								            student.save
-								           else
-								           	student = students.last
-								           	student.update(:student_id => h[:student_id], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :email => h[:email], :teacher => h[:teacher], :shoob_id => h[:shoob_id], :id_only => true)
-								          end 
-				 
-								          images = student.student_images.where("lower(folder) like ?", "%#{h[:folder]}%")
+							          unless students.any?     
+							            student = school.students.new(:student_id => h[:student_id], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :email => h[:email], :teacher => h[:teacher], :shoob_id => h[:shoob_id], :id_only => true)
+							            student.save
+							           else
+							           	student = students.last
+							           	student.update(:student_id => h[:student_id], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :email => h[:email], :teacher => h[:teacher], :shoob_id => h[:shoob_id], :id_only => true)
+							          end 
+			 
+							          images = student.student_images.where("lower(folder) like ?", "%#{h[:folder]}%")
 
-								          	if images.any? #update
-									        		image = images.last
-									        		if h[:url].nil?
-								          				image.update(:accesscode => h[:accesscode], :package_id => package.id, :student_id => student.id, :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
-								          			else
-								          				image.update(:accesscode => h[:accesscode],:package_id => package.id, :student_id => student.id, :image_file_name => h[:url], :watermark_file_name => h[:url], :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
-								          			end
-									        else #create
-									        		if h[:url].nil?
-									        			image = StudentImage.new(:accesscode => h[:accesscode], :package_id => package.id, :student_id => student.id, :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
-									        		else
-									        			image = StudentImage.new(:accesscode => h[:accesscode], :package_id => package.id, :student_id => student.id, :image_file_name => h[:url], :watermark_file_name => h[:url], :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
+							          	if images.any? #update
+							        		image = images.last
+							        		if h[:url].nil?
+						          				image.update(:accesscode => h[:accesscode], :package_id => package.id, :student_id => student.id, :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
+						          			else
+						          				image.update(:accesscode => h[:accesscode],:package_id => package.id, :student_id => student.id, :image_file_name => h[:url], :watermark_file_name => h[:url], :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
+						          			end
+								        else #create
+							        		if h[:url].nil?
+							        			image = StudentImage.new(:accesscode => h[:accesscode], :package_id => package.id, :student_id => student.id, :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
+							        		else
+							        			image = StudentImage.new(:accesscode => h[:accesscode], :package_id => package.id, :student_id => student.id, :image_file_name => h[:url], :watermark_file_name => h[:url], :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
 
-									        		end
-									        		image.save
+							        		end
+							        		image.save
+								     	end
+
+									     	if image.image.exists?
+									           	if Student.qualified(student) && Order.qualified(student) 
+									           		filter_orders(student, package.id, image)
+									           	end
+								           		#need to check each order, mark order package as downloaded true
 									     	end
 
 
@@ -102,8 +110,6 @@ class AutoImport
 								    end#end if no student id
 							    end  # end rectype
 							end
-
-
 				     	end #end chunk loop
 		      end
 		 
@@ -116,6 +122,24 @@ class AutoImport
 
 
  	end #end def
+
+ 	def filter_orders(student, package_id, image)
+ 		student.carts.each do |cart|
+	      if cart.orders.any?
+	        order = cart.orders.last #shouldn't loop through all order packages, just find order package that have packages from uploaded image
+
+	        order.order_packages.where(email_sent: false).where(:package_id => package_id).each do |op|
+	        	if op.options.any?
+	        		if op.options.first.download? && op.student_image_id.nil?
+	        			ImageMailer.send_image(op, image).deliver
+	        		end
+	        	end
+	        end
+
+	      end
+	    end
+ 		#mark as email sent
+ 	end
 end #end class
 
 

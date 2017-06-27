@@ -1,13 +1,6 @@
 <h1>Shoob Photography</h1>
 <h1>Portraits</h1>
-<% unless @prompt.nil? %>
-<%= @prompt.join.html_safe %><br/><br/>
-<% end %>
-<% @images.each do |image| %>
-<% if image == false %>
-We were unable to find one of your student's portrait. Please email us for more information.
-<% else %>
-<img src="<%= image %>">
 
-<% end %><br/><br/>
-<% end %>
+
+<img src="<%= @image.image.url %>">
+

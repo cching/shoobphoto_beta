@@ -13,6 +13,23 @@ class Order < ActiveRecord::Base
     ['American Express', 'american_express']
   ]
 
+  def self.qualified(student) #check to see if order is qualified for a digital image while importing fall photos
+    array = []
+    student.carts.each do |cart|
+      if cart.orders.any?
+        order = cart.orders.last
+        any_download = order.order_packages.map{|o| o.options.first.download? if o.options.any?}
+        nil_image = order.order_packages.pluck(:student_image_id)
+
+        any_download.length.times do |i|
+          array << true if any_download[i] && nil_image[i].nil? 
+        end
+      end
+    end
+
+    return array.include? true
+  end
+
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
     order = find_by_id(row["id"])

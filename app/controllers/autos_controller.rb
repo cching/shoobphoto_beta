@@ -7,16 +7,10 @@ class AutosController < ApplicationController
       chunk = SmarterCSV.process("#{Rails.root}/public/csv/10.csv", {:chunk_size => 10000}) do |chunk|
         PackageImport.perform_async(chunk)
       end
-
-
-    
   end
 
 
   def start_auto
-
-    ##add error/success count
-
     @auto = Auto.create(:success_count => 0, :failed_count => 0)
     AutoImport.perform_async(@auto.id)
     

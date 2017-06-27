@@ -746,7 +746,7 @@ class StudentsController < ApplicationController
 
     if (params[:student_id].nil? || params[:student_id].strip == "") #if no student ID is entered
 
-      student = @school.students.where("lower(first_name) like ? and lower(last_name) like ?", "%#{params[:first_name].downcase}%", "%#{params[:last_name].downcase}%")
+      student = @school.students.where("lower(first_name) like ? and lower(last_name) like ? and grade = ? and id_only = ?", "#{params[:first_name].downcase}", "%#{params[:last_name].downcase}%", "#{params[:grade]}", "true")
       
       if student.count > 0
         @student = student.last
