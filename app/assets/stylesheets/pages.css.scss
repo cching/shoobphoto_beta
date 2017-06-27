@@ -167,6 +167,38 @@ width: 100%;
 
 }
 
+.enjoy-css-splash {
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  width: 30%;
+  height: 20px;
+  padding: 10px;
+  border: 2px solid #9D9D9D;
+  font: normal 16px/normal "Trebuchet MS", Helvetica, sans-serif;
+  color: rgba(96,96,96,1);
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  background: rgba(252,252,252,1);
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  margin-bottom:20px;
+  
+}
+
+
+input[type='text'].enjoy-css-splash:focus{
+width: 30%;
+  height: 20px;
+  padding: 10px;
+  border: 2px solid #000;
+
+}
+
 .enjoy-css {
   display: inline-block;
   -webkit-box-sizing: content-box;
@@ -230,6 +262,38 @@ width: 100%;
   border: 2px solid #000;
 
 }
+
+.enjoy-css2-splash {
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  width: 30%;
+  height: 20px;
+  padding: 10px;
+  border: 2px solid #9D9D9D;
+  font: normal 16px/normal "Trebuchet MS", Helvetica, sans-serif;
+  color: rgba(96,96,96,1);
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  background: rgba(252,252,252,1);
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  margin-bottom:20px;
+  
+}
+
+
+input[type='text'].enjoy-css2-splash:focus{
+width: 30%;
+  height: 20px;
+  padding: 10px;
+  border: 2px solid #000;
+
+  }
 .one-third-col {
 	max-width:33%;
 	display:inline-block;margin-right:10px;

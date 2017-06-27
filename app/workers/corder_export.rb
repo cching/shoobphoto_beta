@@ -25,14 +25,14 @@ class CorderExport
                 
               @items[0..4].each do |item|
                 citem = order.cart.cart_items.where(:item_id => item.id).last
-                @string1 = @string1 + "#{item.number}, #{item.name}, #{citem.quantity}; "
+                @string1 = @string1 + "#{item.number}, #{item.name}, #{citem.quantity}, #{render_quantity(citem)}; "
               end
 
               if @items.count > 5
 
               @items[5..9].each do |item|
                 citem = order.cart.cart_items.where(:item_id => item.id).last
-                @string2 = @string2 + "#{item.number}, #{item.name}, #{citem.quantity}; "
+                @string2 = @string2 + "#{item.number}, #{item.name}, #{citem.quantity}, #{render_quantity(citem)}; "
               end
               end
 
@@ -40,7 +40,7 @@ class CorderExport
 
               @items[10..14].each do |item|
                 citem = order.cart.cart_items.where(:item_id => item.id).last
-                @string3 = @string3 + "#{item.number}, #{item.name}, #{citem.quantity}; "
+                @string3 = @string3 + "#{item.number}, #{item.name}, #{citem.quantity}, #{render_quantity(citem)}; "
               end
               end
 
@@ -48,7 +48,7 @@ class CorderExport
 
               @items[15..19].each do |item|
                 citem = order.cart.cart_items.where(:item_id => item.id).last
-                @string4 = @string4 + "#{item.number}, #{item.name}, #{citem.quantity}; "
+                @string4 = @string4 + "#{item.number}, #{item.name}, #{citem.quantity}, #{render_quantity(citem)}; "
               end
               end
 
@@ -56,7 +56,7 @@ class CorderExport
 
               @items[20..24].each do |item|
                 citem = order.cart.cart_items.where(:item_id => item.id).last
-                @string5 = @string5 + "#{item.number}, #{item.name}, #{citem.quantity}; "
+                @string5 = @string5 + "#{item.number}, #{item.name}, #{citem.quantity}, #{render_quantity(citem)}; "
               end
               end
 
@@ -64,7 +64,7 @@ class CorderExport
 
               @items[25..29].each do |item|
                 citem = order.cart.cart_items.where(:item_id => item.id).last
-                @string6 = @string6 + "#{item.number}, #{item.name}, #{citem.quantity}; "
+                @string6 = @string6 + "#{item.number}, #{item.name}, #{citem.quantity}, #{render_quantity(citem)}; "
               end
               end
 
@@ -72,7 +72,7 @@ class CorderExport
 
               @items[30..34].each do |item|
                 citem = order.cart.cart_items.where(:item_id => item.id).last
-                @string7 = @string7 + "#{item.number}, #{item.name}, #{citem.quantity}; "
+                @string7 = @string7 + "#{item.number}, #{item.name}, #{citem.quantity}, #{render_quantity(citem)}; "
               end
               end
 
@@ -80,7 +80,7 @@ class CorderExport
 
               @items[35..39].each do |item|
                 citem = order.cart.cart_items.where(:item_id => item.id).last
-                @string8 = @string8 + "#{item.number}, #{item.name}, #{citem.quantity}; "
+                @string8 = @string8 + "#{item.number}, #{item.name}, #{citem.quantity}, #{render_quantity(citem)}; "
               end
               end
      
@@ -105,5 +105,15 @@ class CorderExport
           file.acl = :public_read
 
           export.update(:file_path => key)
+  end
+
+  def render_quantity(cart_item)
+    if cart_item.download?
+      return 1
+    elsif cart_item.product?
+      return 2
+    elsif cart_item.both? 
+      return 3
+    end
   end
 end

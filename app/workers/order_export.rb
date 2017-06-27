@@ -7,7 +7,7 @@ class OrderExport
 
       csv_file = ''
 
-          csv_file << CSV.generate_line(Order.all.first.attributes.keys[0..12].map{|column| column} + Order.all.first.attributes.keys[14..21].map{|column| column} + ['Price'] + ['Student First Name'] + ['Student Last Name'] + ['Student Teacher'] + ['Student ID']  + ['Student Grade'] + ['Student SChool']  + ['Type'] + ['Package'] + ['8x10 | 5x7 | 3x5 | Wallets | Image CD | Name on Wallets | Retouching'] + ['CA Code'] + ['Senior Image'] + ['Grad Image'] + ['Year'] + ['Extra Poses'] + ['Sheet Types'] + ['Yearbook Image']+ ['Access Code'] + ['Gift'])
+          csv_file << CSV.generate_line(Order.all.first.attributes.keys[0..12].map{|column| column} + Order.all.first.attributes.keys[14..21].map{|column| column} + ['Price'] + ['Student First Name'] + ['Student Last Name'] + ['Student Teacher'] + ['Student ID']  + ['Student Grade'] + ['Student School']  + ['Type'] + ['Package'] + ['8x10 | 5x7 | 3x5 | Wallets | Image CD | Name on Wallets | Retouching'] + ['CA Code'] + ['Senior Image'] + ['Grad Image'] + ['Year'] + ['Extra Poses'] + ['Sheet Types'] + ['Yearbook Image']+ ['Access Code'] + ['Gift'] + ['Download1 Images'])
 
             Order.all.where(:processed => false).order(:id).each do |order|
               #Order.where("created_at >= ?", Date.strptime("07/01/2016", "%m/%d/%Y")).each do |order|
@@ -16,6 +16,7 @@ class OrderExport
                 @string1 = ""
                 @string2 = ""
                 @string3 = ""
+                @string4 = ""
  
                 @year = ""
 
@@ -31,7 +32,7 @@ class OrderExport
 
               if order.cart.order_packages.where(:student_id => student.id).count > 1
 
-                @string = order.cart.order_packages.where(:student_id => student.id).collect { |w| w.package.try(:slug) }.join(", ")
+                @string = order.cart.order_packages.where(:student_id => student.id).collect { |w| w.package.try(:slug) if w.options.any? }.join(", ")
               else
                 @string = ""
                 order.cart.order_packages.where(:student_id => student.id).each do |opackage|
@@ -82,18 +83,23 @@ class OrderExport
                     end   #end loop
                   
 
-                  if opackage.gifts.any?
-                  opackage.gifts.each_with_index do |gift, i|
-                    @string3 = @string3 + "#{gift.number}, #{opackage.quantity}; "
-                  end   #end loop
-                  end
+                    if opackage.gifts.any?
+                    opackage.gifts.each_with_index do |gift, i|
+                      @string3 = @string3 + "#{gift.number}, #{opackage.quantity}; "
+                    end   #end loop
+                    end
+
+                    unless opackage.student_image_id.nil?
+                      @string4 = @string4 + "#{opackage.student_image.image.url};"
+                       #end loop
+                    end
 
 
                 end
 
               csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{Order.price(order.id, student.id)}"] +
                 ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.teacher}"] + ["#{student.student_id}"] + ["#{student.grade}"] + ["#{student.school.try(:name)}"]  +     
-                [@string] + [@string2] + [Package.concat(order.id, student.id)] + [order.cart.school.try(:ca_code)] + [order.cart.order_packages.where(:student_id => student.id).last.try(:url)] + [order.cart.order_packages.where(:student_id => student.id).last.try(:grad)] + [@year] + [@extra_poses] + [@sheet] + [@yearbook_pose] + ["#{student.try(:access_code)}"] + [@string3]
+                [@string] + [@string2] + [Package.concat(order.id, student.id)] + [order.cart.school.try(:ca_code)] + [order.cart.order_packages.where(:student_id => student.id).last.try(:url)] + [order.cart.order_packages.where(:student_id => student.id).last.try(:grad)] + [@year] + [@extra_poses] + [@sheet] + [@yearbook_pose] + ["#{student.try(:access_code)}"] + [@string3] + [@string4]
               ) 
             
           end
