@@ -7,6 +7,7 @@ class AutoImport
    		bucket = AWS::S3::Bucket.new('shoobphoto')
       	s3 = AWS::S3.new
       	    objects = bucket.objects.with_prefix('AutoCSV/output').collect(&:key).drop(1)
+      	    puts "found csv"
 
 		    objects.each do |object|
 		      csv_path  = "https://s3-us-west-1.amazonaws.com/shoobphoto/#{object}"
@@ -15,7 +16,11 @@ class AutoImport
 
 		      chunk = SmarterCSV.process(csv_file, {:file_encoding =>'iso-8859-1'}) do |chunk|
 		      	      	chunk.each do |h|
+		      	      		puts "looping through"
 		      	      		school = School.where(:id => h[:school_id].to_i)
+
+		      	      		puts "school first #{school}"
+		      	      		puts "#{h["school_id"]}"
 
 		      	      		puts "@@@@@ school found"
 				      		
