@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170627070038) do
+ActiveRecord::Schema.define(version: 20170629083611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -219,6 +219,7 @@ ActiveRecord::Schema.define(version: 20170627070038) do
     t.boolean  "parent"
     t.string   "district"
     t.string   "grade"
+    t.boolean  "residential"
   end
 
   create_table "districts", force: true do |t|
