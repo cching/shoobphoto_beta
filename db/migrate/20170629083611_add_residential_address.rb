@@ -3,3 +3,4 @@ class AddResidentialAddress < ActiveRecord::Migration
   	add_column :corders, :residential, :boolean
   end
 end
+ 

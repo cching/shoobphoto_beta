@@ -108,7 +108,7 @@ def export
 
 
     def require_admin
-      unless current_user.try(:admin)
+      unless current_user.try(:admin) 
         redirect_to root_path
       end
     end

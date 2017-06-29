@@ -86,7 +86,7 @@ class CorderExport
      
                 csv_file << CSV.generate_line(order.attributes.values[0..13] + order.attributes.values[14..21] + [order.try(:residential)] + [order.try(:grade)] + ["#{order.schools}"] +["#{order.district}"] + ["#{order.price.to_i}"] + [@string1] + [@string2] + [@string3] + [@string4] + [@string5] + [@string6] + [@string7] + [@string8] + ["#{order.processed}"]
 
-              ) 
+              )  
             
           end
           
