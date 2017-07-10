@@ -7,7 +7,7 @@ class OrderExport
 
       csv_file = ''
 
-          csv_file << CSV.generate_line(Order.all.first.attributes.keys[0..12].map{|column| column} + Order.all.first.attributes.keys[14..21].map{|column| column} + ['Price'] + ['Student First Name'] + ['Student Last Name'] + ['Student Teacher'] + ['Student ID']  + ['Student Grade'] + ['Student School']  + ['Type'] + ['Package'] + ['8x10 | 5x7 | 3x5 | Wallets | Image CD | Name on Wallets | Retouching'] + ['CA Code'] + ['Senior Image'] + ['Grad Image'] + ['Year'] + ['Extra Poses'] + ['Sheet Types'] + ['Yearbook Image']+ ['Access Code'] + ['Gift'] + ['Download1 Images'])
+          csv_file << CSV.generate_line(Order.all.first.attributes.keys[0..12].map{|column| column} + Order.all.first.attributes.keys[14..21].map{|column| column} + ['Price'] + ['Student First Name'] + ['Student Last Name'] + ['Student Teacher'] + ['Student ID']  + ['Student Grade'] + ['Student School']  + ['Type'] + ['Package'] + ['8x10 | 5x7 | 3x5 | Wallets | Image CD | Name on Wallets | Retouching'] + ['CA Code'] + ['Senior Image'] + ['Grad Image'] + ['Year'] + ['Extra Poses'] + ['Sheet Types'] + ['Yearbook Image']+ ['Access Code'] + ['Gift'] + ['Download1 Images'] + ['Download1 folder'])
 
             Order.all.where(:processed => false).order(:id).each do |order|
               #Order.where("created_at >= ?", Date.strptime("07/01/2016", "%m/%d/%Y")).each do |order|
@@ -17,7 +17,8 @@ class OrderExport
                 @string2 = ""
                 @string3 = ""
                 @string4 = ""
- 
+                @string5 = ""
+    
                 @year = ""
 
                 @extra_poses = ""
@@ -91,15 +92,17 @@ class OrderExport
 
                     unless opackage.student_image_id.nil?
                       @string4 = @string4 + "#{opackage.student_image.image.url};"
+                      @string5 = @string5 + "#{opackage.student_image.folder}, #{opackage.student_image.image_file_name};"
                        #end loop
                     end
+
 
 
                 end
 
               csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{Order.price(order.id, student.id)}"] +
                 ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.teacher}"] + ["#{student.student_id}"] + ["#{student.grade}"] + ["#{student.school.try(:name)}"]  +     
-                [@string] + [@string2] + [Package.concat(order.id, student.id)] + [order.cart.school.try(:ca_code)] + [order.cart.order_packages.where(:student_id => student.id).last.try(:url)] + [order.cart.order_packages.where(:student_id => student.id).last.try(:grad)] + [@year] + [@extra_poses] + [@sheet] + [@yearbook_pose] + ["#{student.try(:access_code)}"] + [@string3] + [@string4]
+                [@string] + [@string2] + [Package.concat(order.id, student.id)] + [order.cart.school.try(:ca_code)] + [order.cart.order_packages.where(:student_id => student.id).last.try(:url)] + [order.cart.order_packages.where(:student_id => student.id).last.try(:grad)] + [@year] + [@extra_poses] + [@sheet] + [@yearbook_pose] + ["#{student.try(:access_code)}"] + [@string3] + [@string4] + [@string5]
               ) 
             
           end
