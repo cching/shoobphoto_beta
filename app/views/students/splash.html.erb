@@ -1,17 +1,15 @@
 <div id="splash_gray" class="animated fadeInUp">
-	<div class="center_space">
 		<div class="initial_text">
 			<%= render 'splash_text', :cart => @cart, :i => @i %>
-		</div>
 	</div>
-</div>
+</div> 
 
 <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 
 });
 
-$(".btn_confirm").click(function() {
+$(".btn-with_id").click(function() {
 	$(".initial_text").addClass("animated fadeOut");
 	setTimeout(function(){
 		$('.initial_text').hide();

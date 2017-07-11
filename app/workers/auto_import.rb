@@ -20,7 +20,7 @@ class AutoImport
 				      		if school.any?
 				      			school = school.last
 				      		package = Package.find(h[:package_id].to_i)
-					      	unless h[:rec_type].nil? || h[:rec_type] == "" 
+					      	if package.id == 6
 						        
 									unless h[:student_id].nil?
 										students = school.students.where(:student_id => "#{h[:student_id]}").where(:id_only => true)

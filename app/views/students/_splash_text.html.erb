@@ -1,15 +1,37 @@
-<h3>Do you know your student's ID or access code?</h3>
-<br/>
+Please choose an option below to continue.
+
+<br/><br/>
+
 <div class="row">
 	<div class="col-xs-3"></div>
-	<div class="col-xs-3">
-		<button class="btn_confirm">Yes, I know my student's ID or access code.</button>
-	</div>
-	<div class="col-xs-3">
+	<div class="col-xs-3 without_id">
+		<%= image_tag("without_id.png", class: "img splash_responsive") %><br/>
+		<span class="splash_header">
+			I do not know my student's <br/> Access Code or I.D.<br>
+		</span>
+		<span class="splash_subtext">
+			(Portrait previews will not be shown.)
+		</span><br/><br/>
 		<%= link_to student_search_path(:cart => @cart, :i => @i) do %>
-		<button class="btn_no" data-toggle="tooltip" title="For your security, we cannot display image previews of your student without this information." data-placement="bottom">No, I don't have either.</button>
+		<button class="btn-without_id">CONTINUE WITHOUT I.D.</button>
 
 		<% end %>
 	</div>
+	<div class="col-xs-3 with_id">
+		<%= image_tag("with_id.png", class: "img splash_responsive") %><br/>
+		<span class="splash_header_id">
+			Yes, I know my student's <br/>
+			Access Code or I.D.
+		</span><br/>
+		<span class="splash_subtext">
+			(Located on your Picture Day ordr form)
+		</span><br/><br/>
+		<button class="btn-with_id">CONTINUE</button>
+
+	</div>
 	<div class="col-xs-3"></div>
 </div>
+
+
+
+

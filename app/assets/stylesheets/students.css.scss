@@ -2,11 +2,138 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.with_id_form {
+	margin-left:35%;
+	margin-right:35%;
+}
+
+.splash_header_id {
+	font-weight:bold;
+	font-size:1 vw;
+	color:#32557F;
+}
+
+.btn-with_id {
+
+	-webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-size: 14px;
+  background: #19BA1E;
+  padding: 5px 8px 5px 8px;
+  border: solid #19BA1E 1px;
+  text-decoration: none;
+  text-align:center;
+  color:#fff;
+}
+
+.btn-with_id:hover {
+background-color:#4ae269;
+color:#fff;
+}
+
+.btn-with_id:focus {
+  outline: none;
+}
+
+.without_id {
+	height: 53vh;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#EFEFEF));
+
+  /* Safari 5.1, Chrome 10+ */
+  background: -webkit-linear-gradient(top, #fff, #EFEFEF);
+
+  /* Firefox 3.6+ */
+  background: -moz-linear-gradient(top, #fff, #EFEFEF);
+
+  /* IE 10 */
+  background: -ms-linear-gradient(top, #fff, #EFEFEF);
+
+  /* Opera 11.10+ */
+  background: -o-linear-gradient(top, #fff, #EFEFEF);
+  margin-right:5px;
+}
+
+.btn-without_id {
+
+	-webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-size: 14px;
+  background: #fff;
+  padding: 5px 8px 5px 8px;
+  border: solid #000 1px;
+  text-decoration: none;
+  text-align:center;
+  color:#000;
+}
+
+.btn-without_id:hover {
+background-color:#000;
+color:#fff;
+}
+
+.btn-without_id:focus {
+  outline: none;
+}
+
+.without_id {
+	height: 53vh;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#EFEFEF));
+
+  /* Safari 5.1, Chrome 10+ */
+  background: -webkit-linear-gradient(top, #fff, #EFEFEF);
+
+  /* Firefox 3.6+ */
+  background: -moz-linear-gradient(top, #fff, #EFEFEF);
+
+  /* IE 10 */
+  background: -ms-linear-gradient(top, #fff, #EFEFEF);
+
+  /* Opera 11.10+ */
+  background: -o-linear-gradient(top, #fff, #EFEFEF);
+  margin-right:5px;
+}
+
+.splash_header {
+	font-weight:medium;
+	font-size:1 vw;
+}
+
+.splash_subtext {
+	font-size:0.8vw;
+}
+
+.splash_responsive {
+	padding-top:20px;
+	max-width:55%;
+}
+
+.with_id {
+	height: 53vh;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#DCEDFD));
+
+  /* Safari 5.1, Chrome 10+ */
+  background: -webkit-linear-gradient(top, #fff, #DCEDFD);
+
+  /* Firefox 3.6+ */
+  background: -moz-linear-gradient(top, #fff, #DCEDFD);
+
+  /* IE 10 */
+  background: -ms-linear-gradient(top, #fff, #DCEDFD);
+
+  /* Opera 11.10+ */
+  background: -o-linear-gradient(top, #fff, #DCEDFD);
+  margin-left:5px;
+}
+
 #splash_gray {
     background: #fff;
     height: 100vh;
     width:100vw;
     position:absolute;
+    text-align:center;
+    padding-top:10vh;
 
     .center_space {
     	padding-left:4%;

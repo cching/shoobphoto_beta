@@ -1,3 +1,4 @@
+<div class="with_id_form">
 <%= form_tag(student_find_path, method: :get, :name => 'new_search_form', :id => "new_search_form") do %>
 	<div class="blue">
 		<strong>
@@ -24,12 +25,11 @@
 
         
         <%= text_field_tag :student_id, nil, placeholder: "Student's ID or Access Code", class: "enjoy-css2", id: "input_student_id_custom" %>
-    <div class="row">
-        <div class="col-xs-10"></div>
-          <div class="col-xs-2" id="button_script" align="left">
+
+          <div id="button_script" align="center">
             <input class="btn-blue" name="commit" value="Continue" data-toggle="tooltip" title="No student has been found with the given ID or access code. Please verify the information is correct. If not, please continue on the previous screen without an ID or code." data-placement="top" readonly>
           </div>
-    </div>
+    
 
     <%= hidden_field_tag "first_name", nil %>
     <%= hidden_field_tag "last_name", nil %>
@@ -37,6 +37,7 @@
     <%= hidden_field_tag "i", @i %>
 <% end %>
 
+</div>
 
 <script>
 	$("#input_student_id_custom").keyup(function() 
