@@ -810,8 +810,8 @@ class StudentsController < ApplicationController
 
           @cart.cart_students.last.update(:i => @cart.students.count - 1)
           respond_to do |format|
-              format.html { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
-              format.mobile { redirect_to student_packages_path(@cart.cart_id, @cart.students.count - 1) }
+              format.html { redirect_to student_select_package_path(@cart.cart_id, @cart.students.count - 1, student_access.last.package_id) }
+              format.mobile { redirect_to student_select_package_path(@cart.cart_id, @cart.students.count - 1, student_access.last.package_id) }
           end
       elsif student_access_gift.count > 0 && gift_code.include?("g")
         AccessCodeLog.create(:access_code => "#{params[:student_id]}")
