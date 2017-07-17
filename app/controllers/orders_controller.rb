@@ -84,8 +84,8 @@ class OrdersController < ApplicationController
         @senior_id = []
           image.senior_images.each do |senior_image|
             unless senior_image.url.nil? || senior_image.url == ""
-              if AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{senior_image.url}.jpg").exists?
-                s3object = AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{senior_image.url}.jpg")
+              if AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{senior_image.url}.#{senior_image.extension}").exists?
+                s3object = AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{senior_image.url}.#{senior_image.extension}")
                 @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
                 @senior_id << "#{senior_image.id}"
                end
@@ -107,8 +107,8 @@ class OrdersController < ApplicationController
         @senior_id = []
           SeniorImage.find(@favorites.pluck(:senior_image_id)).each do |senior_image|
             unless senior_image.url.nil? || senior_image.url == ""
-              if AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{senior_image.url}.jpg").exists?
-                s3object = AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{senior_image.url}.jpg")
+              if AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{senior_image.url}.#{senior_image.extension}").exists?
+                s3object = AWS::S3::S3Object.new(bucket, "images/watermarks/#{image.id}/watermark/#{senior_image.url}.#{senior_image.extension}")
                 @senior_url << s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
                 @senior_id << "#{senior_image.id}"
                end
@@ -231,10 +231,10 @@ end
 		image = package.student_images.where(:student_id => student.id).last
 		  unless image.nil?
         unless image.image_file_name.nil? || image.image_file_name == ""
-          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg").exists?
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.jpg")
+          if AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.#{image.extension}").exists?
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.upcase}.#{image.extension}")
           else
-            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.jpg")
+            s3object = AWS::S3::S3Object.new(bucket, "images/#{image.folder}/#{image.image_file_name.downcase}.#{image.extension}")
           end
         else
           s3object = AWS::S3::S3Object.new(bucket, "images/package_types/#{image.package.id}/#{image.package.image_file_name}") #do default image in col later

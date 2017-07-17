@@ -36,3 +36,7 @@ end
 Paperclip.interpolates :scode do |attachment, style|
   attachment.instance.scode
 end
+
+Paperclip.interpolates :extension do |attachment, style|
+  attachment.instance.extension
+end

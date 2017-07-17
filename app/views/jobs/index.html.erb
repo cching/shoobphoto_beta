@@ -3,10 +3,12 @@
 <table>
   <thead>
     <tr>
-      <th>School</th>
-      <th>Jtype</th>
+      <th>Scode</th>
+      <th>Account</th>
+      <th>Date</th>
       <th>Job</th>
-      <th>Jdate</th>
+      <th>Jobtype</th>
+      <th>Package</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,10 +16,12 @@
   <tbody>
     <% @jobs.each do |job| %>
       <tr>
-        <td><%= job.school_id %></td>
-        <td><%= job.jtype_id %></td>
+        <td><%= job.scode %></td>
+        <td><%= job.account %></td>
+        <td><%= job.date %></td>
         <td><%= job.job %></td>
-        <td><%= job.jdate %></td>
+        <td><%= job.jobtype %></td>
+        <td><%= job.package_id %></td>
         <td><%= link_to 'Show', job %></td>
         <td><%= link_to 'Edit', edit_job_path(job) %></td>
         <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>

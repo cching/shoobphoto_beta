@@ -46,11 +46,11 @@ class AutoImport
 								        	image = images.last
 								        end
 
-								        senior_image = image.senior_images.create(:url => h[:url], :image_file_name => h[:url])
+								        senior_image = image.senior_images.create(:url => h[:url], :image_file_name => h[:url], :extension => h[:extension])
 
 							        	if senior_image.image.exists?
-							        		obj1 = bucket.objects["images/processed_watermarks/#{image.folder}/#{senior_image.image_file_name}.jpg"]
-							                obj2 = bucket.objects["images/watermarks/seniors/#{senior_image.id}/original/#{senior_image.image_file_name}.jpg"]
+							        		obj1 = bucket.objects["images/processed_watermarks/#{image.folder}/#{senior_image.image_file_name}.#{senior_image.extension}"]
+							                obj2 = bucket.objects["images/watermarks/seniors/#{senior_image.id}/original/#{senior_image.image_file_name}.#{senior_image.extension}"]
 							                obj1.copy_to(obj2)
 							                senior_image.update(:watermark_file_name => senior_image.image_file_name)
 							        	end
@@ -82,7 +82,7 @@ class AutoImport
 							        		if h[:url].nil?
 							        			image = StudentImage.new(:accesscode => h[:accesscode], :package_id => package.id, :student_id => student.id, :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
 							        		else
-							        			image = StudentImage.new(:accesscode => h[:accesscode], :package_id => package.id, :student_id => student.id, :image_file_name => h[:url], :watermark_file_name => h[:url], :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
+							        			image = StudentImage.new(:accesscode => h[:accesscode], :package_id => package.id, :student_id => student.id, :image_file_name => h[:url], :watermark_file_name => h[:url], :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id], :extension => h[:extension])
 
 							        		end
 							        		image.save
@@ -102,8 +102,8 @@ class AutoImport
 
 								          unless h[:url].nil? || h[:url] == ""
 
-								          obj1 = bucket.objects["images/processed_watermarks/#{image.folder}/#{image.image_file_name}.jpg"]
-							                  obj2 = bucket.objects["images/watermarks/#{image.id}/watermark/#{image.image_file_name}.jpg"]
+								          obj1 = bucket.objects["images/processed_watermarks/#{image.folder}/#{image.image_file_name}.#{image.extension}"]
+							                  obj2 = bucket.objects["images/watermarks/#{image.id}/watermark/#{image.image_file_name}.#{image.extension}"]
 							                  obj1.copy_to(obj2)
 							              end
 

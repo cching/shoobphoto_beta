@@ -42,6 +42,25 @@
 </div>
 </div>
 
+<div class="image_container_draggable draggable">
+	<%= image_tag("with_id.png", class: "image_responsive") %>
+		<%= image_tag("watermark.png", class: "image_responsive_watermark") %>
+
+	
+</div>
+<br/>
+<div class="image_container_draggable draggable">
+	<%= image_tag("with_id.png", class: "image_responsive") %>
+		<%= image_tag("watermark.png", class: "image_responsive_watermark") %>
+
+	
+</div>
+<style>
+.image_container_draggable{position:relative; width: 100px;}
+.image_responsive_watermark{position:absolute; top:0; left:0;max-width: 100%;}
+.image_responsive{max-width: 100%;}
+
+</style>
 
 <script>
 

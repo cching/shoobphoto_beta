@@ -35,7 +35,7 @@ class Auto < ActiveRecord::Base
 	                    @output = []
 	                    @failed = []
 
-	                        output <<  "url, student_id, accesscode, last_name, first_name, grade, folder, email, dob, teacher, school_id, package_id, shoob_id, rec_type, load_id"
+	                        output <<  "url, extension, student_id, accesscode, last_name, first_name, grade, folder, email, dob, teacher, school_id, package_id, shoob_id, rec_type, load_id"
 	                        output << "\n"
 	                        failed <<  "Reason, url, student_id, acesscode, last_name, first_name, grade, folder, email, dob, teacher, ca_code, rec_type, load_id"
 	                        failed << "\n"
@@ -56,7 +56,7 @@ class Auto < ActiveRecord::Base
 						      				package = packages.last
 				                            unless h[:url].nil? || h[:url] == ""
 				                            	url = "#{h[:url]}".gsub("\\","\/").to_s
-				                            	url_array = url.split("\/")
+				                            	url_array = url.split("\/") 
 				                            	url_path = "/Volumes/6TB-J-12-13" #convert windows path to mac
 
 				                            	url_index = 1
@@ -64,14 +64,15 @@ class Auto < ActiveRecord::Base
 				                            		url_path = url_path + "/#{url_array[url_index]}"
 				                            		url_index += 1
 				                            	end
-				                              if File.exists?("#{url_path}.jpg")
+				                              if File.exists?("#{url_path}")
 				                                file_name = File.basename(url_path)
+				                                extension = File.extname(url_path).downcase
 				                                basename = file_name.downcase
 
-				                                Auto.watermark_images(url_path, h[:folder], basename, s3, student_index, i, school)
+				                                Auto.watermark_images(url_path, h[:folder], basename, extension, s3, student_index, i, school)
 				                                @failed << false
 				                                @output << true
-				                                response = "#{basename}, #{h[:student_id]}, #{h[:accesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{school.id}, #{package.id}, #{h[:shoob_id]}, #{h[:rec_type]}, #{@load_id}".encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+				                                response = "#{basename}, #{extension}, #{h[:student_id]}, #{h[:accesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{school.id}, #{package.id}, #{h[:shoob_id]}, #{h[:rec_type]}, #{@load_id}".encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
 				                                output << response.encode(Encoding.find('ASCII'), encoding_options)
 				                                output << "\n"
 				                                
@@ -170,7 +171,7 @@ class Auto < ActiveRecord::Base
 	     
 	  end
 
-	  def self.watermark_images(url, folder, basename, s3, student_index, i, school)
+	  def self.watermark_images(url, folder, basename, extension, s3, student_index, i, school)
 	  	img = Magick::Image.read("#{url}.jpg").first
         mark = Magick::Image.read("/Users/alexshoob/load_station/watermark.png").first
         mark.background_color = "Transparent"
@@ -178,27 +179,27 @@ class Auto < ActiveRecord::Base
 
 
         img2 = img.dissolve(watermark, 0.75, 1, Magick::CenterGravity)
-        img2.write("/Users/alexshoob/load_station/watermarks/#{basename}.jpg")
+        img2.write("/Users/alexshoob/load_station/watermarks/#{basename}.#{extension}")
 
         img3 = img.resize_to_fit(28, 35)
         img3.write("/Users/alexshoob/load_station/index/#{basename}.jpg")
 
-        obj_watermark = s3.buckets['shoobphoto'].objects["images/processed_watermarks/#{folder}/#{basename}.jpg"] # no request made
+        obj_watermark = s3.buckets['shoobphoto'].objects["images/processed_watermarks/#{folder}/#{basename}.#{extension}"] # no request made
         File.open("/Users/alexshoob/load_station/watermarks/#{basename}.jpg", "rb") do |watermarked_image|
           obj_watermark.write(watermarked_image)
         end
 
-        obj_index = s3.buckets['shoobphoto'].objects["images/processed_index/#{folder}/#{basename}.jpg"] # no request made
+        obj_index = s3.buckets['shoobphoto'].objects["images/processed_index/#{folder}/#{basename}.#{extension}"] # no request made
         File.open("/Users/alexshoob/load_station/index/#{basename}.jpg", "rb") do |index_image|
           obj_index.write(index_image)
         end
 
-        File.delete("/Users/alexshoob/load_station/watermarks/#{basename}.jpg")
-        File.delete("/Users/alexshoob/load_station/index/#{basename}.jpg")
+        File.delete("/Users/alexshoob/load_station/watermarks/#{basename}.#{extension}")
+        File.delete("/Users/alexshoob/load_station/index/#{basename}.#{extension}")
 
         puts "Watermarking and indexing images for student #{student_index} for #{school.name}. Uploading to S3..."
 
-        obj = s3.buckets['shoobphoto'].objects["images/#{folder}/#{basename}.jpg"] # no request made
-        obj.write(File.open("#{url}.jpg")) #Writes image found to s3
+        obj = s3.buckets['shoobphoto'].objects["images/#{folder}/#{basename}.#{extension}"] # no request made
+        obj.write(File.open("#{url}")) #Writes image found to s3
 	  end
 end

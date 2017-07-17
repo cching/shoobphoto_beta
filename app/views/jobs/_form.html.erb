@@ -2,13 +2,12 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.association :school, :collection => School.all.where.not(school_type_id: nil).order(:name) %>
-    <!-- Changed f.input to f.association which pulls assoc from school and create dropdown -->
-
-    <%= f.input :jtype_id %>
+    <%= f.input :scode %>
+    <%= f.input :account %>
+    <%= f.input :date %>
     <%= f.input :job %>
-    <%= f.input :jdate %>
-    <%= f.input :location%>
+    <%= f.input :jobtype %>
+    <%= f.association :packages, as: :select %>
   </div>
 
   <div class="form-actions">

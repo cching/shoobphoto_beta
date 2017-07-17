@@ -1,13 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>School:</strong>
-  <%= @job.school_id %>
+  <strong>Scode:</strong>
+  <%= @job.scode %>
 </p>
 
 <p>
-  <strong>Jtype:</strong>
-  <%= @job.jtype_id %>
+  <strong>Account:</strong>
+  <%= @job.account %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @job.date %>
 </p>
 
 <p>
@@ -16,8 +21,13 @@
 </p>
 
 <p>
-  <strong>Jdate:</strong>
-  <%= @job.jdate %>
+  <strong>Jobtype:</strong>
+  <%= @job.jobtype %>
+</p>
+
+<p>
+  <strong>Package:</strong>
+  <%= @job.package_id %>
 </p>
 
 <%= link_to 'Edit', edit_job_path(@job) %> |

@@ -134,7 +134,7 @@ class ExportListItemsController < ApplicationController
       current_user.students.each do |student|
         image = @package.student_images.where(:student_id => student.id)
         if image.any?
-          unless AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name}.jpg").exists?
+          unless AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name}.#{image.last.extension}").exists?
             current_user.students.delete(student)
           end
         end
@@ -156,18 +156,18 @@ class ExportListItemsController < ApplicationController
             if image.any?
               title = "#{student.last_name}_#{student.first_name}.jpg"
               z.put_next_entry("images/#{title}")
-              if AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name}.jpg").exists?
-                s3object = AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name}.jpg")
+              if AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name}.#{image.last.extension}").exists?
+                s3object = AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name}.#{image.last.extension}")
                 url1 = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
                 url1_data = open(url1)
                 z.print IO.read(url1_data)
-              elsif AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name.upcase}.jpg").exists?
-                s3object = AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name.upcase}.jpg")
+              elsif AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name.upcase}.#{image.last.extension}").exists?
+                s3object = AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name.upcase}.#{image.last.extension}")
                 url1 = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
                 url1_data = open(url1)
                 z.print IO.read(url1_data)
-              elsif AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name.downcase}.jpg").exists?
-                s3object = AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name.downcase}.jpg")
+              elsif AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name.downcase}.#{image.last.extension}").exists?
+                s3object = AWS::S3::S3Object.new(bucket, "images/#{image.last.folder}/#{image.last.image_file_name.downcase}.#{image.last.extension}")
                 url1 = s3object.url_for(:read, :expires => 60.minutes, :use_ssl => true)
                 url1_data = open(url1)
                 z.print IO.read(url1_data)
@@ -239,7 +239,7 @@ class ExportListItemsController < ApplicationController
   @image = Package.find(params[:image_id])
   @student = Student.find(params[:student_id])
   bucket = AWS::S3::Bucket.new('shoobphoto')
-  if AWS::S3::S3Object.new(bucket, "images/#{@image.student_images.where(:student_id => @student.id).last.folder}/#{@image.student_images.where(:student_id => @student.id).last.image_file_name}.jpg").exists?
+  if AWS::S3::S3Object.new(bucket, "images/#{@image.student_images.where(:student_id => @student.id).last.folder}/#{@image.student_images.where(:student_id => @student.id).last.image_file_name}.#{image.last.extension}").exists?
   data = open("#{@image.student_images.where(:student_id => @student.id).last.image.url}")
   send_data data.read, filename: "#{@student.last_name}_#{@student.first_name}.jpg", type: "image/jpeg", :x_sendfile => true
   

@@ -1,4 +1,5 @@
 class Package < ActiveRecord::Base
+  belongs_to :job
 	has_many :order_packages, dependent: :destroy
 	has_many :carts, through: :order_packages
 	

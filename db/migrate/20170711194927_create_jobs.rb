@@ -1,11 +1,12 @@
 class CreateJobs < ActiveRecord::Migration
   def change
     create_table :jobs do |t|
-      t.integer :school_id
-      t.integer :jtype_id
+      t.integer :scode
+      t.string :account
+      t.date :date
       t.string :job
-      t.date :jdate
-      t.string :location
+      t.string :jobtype
+      t.integer :package_id
 
       t.timestamps
     end
