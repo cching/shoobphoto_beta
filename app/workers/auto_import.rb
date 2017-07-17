@@ -46,7 +46,7 @@ class AutoImport
 								        	image = images.last
 								        end
 
-								        senior_image = image.senior_images.create(:url => h[:url], :image_file_name => h[:url], :extension => h[:extension])
+								        senior_image = image.senior_images.create(:url => h[:url], :image_file_name => h[:url], :extension => h[:extension], :watermark_file_name => h[:url])
 
 							        	if senior_image.image.exists?
 							        		obj1 = bucket.objects["images/processed_watermarks/#{image.folder}/#{senior_image.image_file_name}#{senior_image.extension}"]
