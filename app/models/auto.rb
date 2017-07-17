@@ -180,27 +180,27 @@ class Auto < ActiveRecord::Base
 
 
         img2 = img.dissolve(watermark, 0.75, 1, Magick::CenterGravity)
-        img2.write("/Users/alexshoob/load_station/watermarks/#{basename}.#{extension}")
+        img2.write("/Users/alexshoob/load_station/watermarks/#{basename}#{extension}")
 
         img3 = img.resize_to_fit(28, 35)
-        img3.write("/Users/alexshoob/load_station/index/#{basename}.#{extension}")
+        img3.write("/Users/alexshoob/load_station/index/#{basename}#{extension}")
 
-        obj_watermark = s3.buckets['shoobphoto'].objects["images/processed_watermarks/#{folder}/#{basename}.#{extension}"] # no request made
-        File.open("/Users/alexshoob/load_station/watermarks/#{basename}.#{extension}", "rb") do |watermarked_image|
+        obj_watermark = s3.buckets['shoobphoto'].objects["images/processed_watermarks/#{folder}/#{basename}#{extension}"] # no request made
+        File.open("/Users/alexshoob/load_station/watermarks/#{basename}#{extension}", "rb") do |watermarked_image|
           obj_watermark.write(watermarked_image)
         end
 
-        obj_index = s3.buckets['shoobphoto'].objects["images/processed_index/#{folder}/#{basename}.#{extension}"] # no request made
-        File.open("/Users/alexshoob/load_station/index/#{basename}.#{extension}", "rb") do |index_image|
+        obj_index = s3.buckets['shoobphoto'].objects["images/processed_index/#{folder}/#{basename}#{extension}"] # no request made
+        File.open("/Users/alexshoob/load_station/index/#{basename}#{extension}", "rb") do |index_image|
           obj_index.write(index_image)
         end
 
-        File.delete("/Users/alexshoob/load_station/watermarks/#{basename}.#{extension}")
-        File.delete("/Users/alexshoob/load_station/index/#{basename}.#{extension}")
+        File.delete("/Users/alexshoob/load_station/watermarks/#{basename}#{extension}")
+        File.delete("/Users/alexshoob/load_station/index/#{basename}#{extension}")
 
         puts "Watermarking and indexing images for student #{student_index} for #{school.name}. Uploading to S3..."
 
-        obj = s3.buckets['shoobphoto'].objects["images/#{folder}/#{basename}.#{extension}"] # no request made
+        obj = s3.buckets['shoobphoto'].objects["images/#{folder}/#{basename}#{extension}"] # no request made
         obj.write(File.open("#{url}")) #Writes image found to s3
 	  end
 end
