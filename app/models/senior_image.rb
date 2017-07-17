@@ -6,7 +6,7 @@ class SeniorImage < ActiveRecord::Base
 
 	has_attached_file :image,
   	:url => ':s3_domain_url',
-  	:path => '/images/:student_image_folder/:url:extension',
+  	:path => '/images/:student_image_folder/:url:file_type',
                      :preserve_files => true
 
     has_attached_file :watermark,
@@ -17,7 +17,7 @@ class SeniorImage < ActiveRecord::Base
                                  :watermark => { :geometry => '800>', :watermark_path => "#{Rails.root}/public/images/watermark.png" } 
                                },
                     :url => ':s3_domain_url',
-                    :path => "/images/watermarks/seniors/:id/original/:filename:extension",
+                    :path => "/images/watermarks/seniors/:id/original/:filename:file_type",
                      :preserve_files => true
     validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 end

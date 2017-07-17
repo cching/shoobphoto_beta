@@ -65,7 +65,8 @@ class Auto < ActiveRecord::Base
 				                            		url_index += 1
 				                            	end
 				                              if File.exists?("#{url_path}")
-				                                file_name = File.basename(url_path)
+				                                file_name = File.basename(url_path, ".*")
+				                                file_name ||= ".jpg"
 				                                extension = File.extname(url_path).downcase
 				                                basename = file_name.downcase
 
@@ -172,7 +173,7 @@ class Auto < ActiveRecord::Base
 	  end
 
 	  def self.watermark_images(url, folder, basename, extension, s3, student_index, i, school)
-	  	img = Magick::Image.read("#{url}.jpg").first
+	  	img = Magick::Image.read("#{url}").first
         mark = Magick::Image.read("/Users/alexshoob/load_station/watermark.png").first
         mark.background_color = "Transparent"
         watermark = mark.resize_to_fit(img.rows, img.columns.to_f)
@@ -182,15 +183,15 @@ class Auto < ActiveRecord::Base
         img2.write("/Users/alexshoob/load_station/watermarks/#{basename}.#{extension}")
 
         img3 = img.resize_to_fit(28, 35)
-        img3.write("/Users/alexshoob/load_station/index/#{basename}.jpg")
+        img3.write("/Users/alexshoob/load_station/index/#{basename}.#{extension}")
 
         obj_watermark = s3.buckets['shoobphoto'].objects["images/processed_watermarks/#{folder}/#{basename}.#{extension}"] # no request made
-        File.open("/Users/alexshoob/load_station/watermarks/#{basename}.jpg", "rb") do |watermarked_image|
+        File.open("/Users/alexshoob/load_station/watermarks/#{basename}.#{extension}", "rb") do |watermarked_image|
           obj_watermark.write(watermarked_image)
         end
 
         obj_index = s3.buckets['shoobphoto'].objects["images/processed_index/#{folder}/#{basename}.#{extension}"] # no request made
-        File.open("/Users/alexshoob/load_station/index/#{basename}.jpg", "rb") do |index_image|
+        File.open("/Users/alexshoob/load_station/index/#{basename}.#{extension}", "rb") do |index_image|
           obj_index.write(index_image)
         end
 
