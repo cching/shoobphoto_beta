@@ -67,7 +67,9 @@ class Auto < ActiveRecord::Base
 				                              if File.exists?("#{url_path}")
 				                                file_name = File.basename(url_path, ".*")			                          
 				                                extension = File.extname(url_path).downcase
-				                                extension ||= ".jpg"
+				                                if extension == ""
+				                                	extension = ".jpg"
+				                                end
 				                                basename = file_name.downcase
 
 				                                Auto.watermark_images(url_path, h[:folder], basename, extension, s3, student_index, i, school)
@@ -189,6 +191,8 @@ class Auto < ActiveRecord::Base
         File.open("/Users/alexshoob/load_station/watermarks/#{basename}#{extension}", "rb") do |watermarked_image|
           obj_watermark.write(watermarked_image)
         end
+
+        puts "watermark uploaded to #{"images/processed_watermarks/#{folder}/#{basename}#{extension}"}"
 
         obj_index = s3.buckets['shoobphoto'].objects["images/processed_index/#{folder}/#{basename}#{extension}"] # no request made
         File.open("/Users/alexshoob/load_station/index/#{basename}#{extension}", "rb") do |index_image|
