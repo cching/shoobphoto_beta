@@ -49,8 +49,8 @@ class AutoImport
 								        senior_image = image.senior_images.create(:url => h[:url], :image_file_name => h[:url], :extension => h[:extension])
 
 							        	if senior_image.image.exists?
-							        		obj1 = bucket.objects["images/processed_watermarks/#{image.folder}/#{senior_image.image_file_name}.#{senior_image.extension}"]
-							                obj2 = bucket.objects["images/watermarks/seniors/#{senior_image.id}/original/#{senior_image.image_file_name}.#{senior_image.extension}"]
+							        		obj1 = bucket.objects["images/processed_watermarks/#{image.folder}/#{senior_image.image_file_name}#{senior_image.extension}"]
+							                obj2 = bucket.objects["images/watermarks/seniors/#{senior_image.id}/original/#{senior_image.image_file_name}#{senior_image.extension}"]
 							                obj1.copy_to(obj2)
 							                senior_image.update(:watermark_file_name => senior_image.image_file_name)
 							        	end
@@ -102,8 +102,8 @@ class AutoImport
 
 								          unless h[:url].nil? || h[:url] == ""
 
-								          obj1 = bucket.objects["images/processed_watermarks/#{image.folder}/#{image.image_file_name}.#{image.extension}"]
-							                  obj2 = bucket.objects["images/watermarks/#{image.id}/watermark/#{image.image_file_name}.#{image.extension}"]
+								          obj1 = bucket.objects["images/processed_watermarks/#{image.folder}/#{image.image_file_name}#{image.extension}"]
+							                  obj2 = bucket.objects["images/watermarks/#{image.id}/watermark/#{image.image_file_name}#{image.extension}"]
 							                  obj1.copy_to(obj2)
 							              end
 
