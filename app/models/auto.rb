@@ -65,9 +65,9 @@ class Auto < ActiveRecord::Base
 				                            		url_index += 1
 				                            	end
 				                              if File.exists?("#{url_path}")
-				                                file_name = File.basename(url_path, ".*")
-				                                file_name ||= ".jpg"
+				                                file_name = File.basename(url_path, ".*")			                          
 				                                extension = File.extname(url_path).downcase
+				                                extension ||= ".jpg"
 				                                basename = file_name.downcase
 
 				                                Auto.watermark_images(url_path, h[:folder], basename, extension, s3, student_index, i, school)
