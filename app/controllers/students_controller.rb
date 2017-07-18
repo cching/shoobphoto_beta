@@ -220,17 +220,15 @@ class StudentsController < ApplicationController
 
     @opackage = @cart.order_packages.where(:package_id => 6).last
 
-      @s_image = @opackage.package.student_images.where(:student_id => @student.id).last
-
-    bucket = AWS::S3::Bucket.new('shoobphoto')
+    @s_image = @opackage.package.student_images.where(:student_id => @student.id).last
 
     @package = @opackage.package
-        image = @package.student_images.where(:student_id => @opackage.student.id).last
+    image = @package.student_images.where(:student_id => @opackage.student.id).last
 
         if @package.id == 6 && image.present? && @cart.id_supplied?
           @boolean = false
           image.senior_images.each do |senior_image|
-            if senior_image.image.exists?
+            if senior_image.watermark.exists?
             @boolean = true
             break
             end 

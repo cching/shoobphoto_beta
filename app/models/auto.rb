@@ -192,8 +192,6 @@ class Auto < ActiveRecord::Base
           obj_watermark.write(watermarked_image)
         end
 
-        puts "watermark uploaded to #{"images/processed_watermarks/#{folder}/#{basename}#{extension}"}"
-
         obj_index = s3.buckets['shoobphoto'].objects["images/processed_index/#{folder}/#{basename}#{extension}"] # no request made
         File.open("/Users/alexshoob/load_station/index/#{basename}#{extension}", "rb") do |index_image|
           obj_index.write(index_image)
