@@ -22,7 +22,7 @@
   <div class="col-sm-4"></div>
   <div class="col-sm-4"> 
 
-    <%= button_to "Yes, add pose.", add_pose_path(@senior_image.id, @index, @image_type.id, @opackage.id), class: "btn-custom-continue", remote: true, :method => :get %>
+    <%= button_to "Yes, add pose.", add_pose_path(@senior_image.id, @index, @image_type.id, @opackage.id, :background => @background), class: "btn-custom-continue", remote: true, :method => :get %>
 
   </div>
 </div>
