@@ -237,8 +237,11 @@ class StudentsController < ApplicationController
 
     @opackage = @cart.order_packages.where(:package_id => 6).last
 
-    @s_image = @opackage.package.student_images.where(:student_id => @student.id).last
-    @senior_images = @s_image.senior_images.paginate(:per_page => 4, :page => params[:page])
+    @s_image = @opackage.student.student_images.where(:student_id => @student.id).last
+
+    unless @s_image.nil?
+      @senior_images = @s_image.senior_images.paginate(:per_page => 4, :page => params[:page])
+    end
 
     @package = @opackage.package
     image = @package.student_images.where(:student_id => @opackage.student.id).last
