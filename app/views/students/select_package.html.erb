@@ -11,7 +11,7 @@
 				<% slice.each do |senior_image| %>
 
 				<% if senior_image.watermark.exists? %>
-					<div class="col-sm-6">
+					<div class="col-sm-6 no_hover">
 						<span class="small_text_info"><%= senior_image.url.downcase %></span><br/><%= link_to image_tag(senior_image.watermark.url, :class => "img img-package"), student_preview_image_path(:image => senior_image.watermark.url), remote: true %>
 						</div>
 					<% end %>

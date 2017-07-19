@@ -1,13 +1,13 @@
 $('#myModal').modal('hide');
 
 	<% if @opackage.sheets.where(:index => @index.to_i).where(:senior_image_id => @senior_image.id).where(:image_type_id => @image_type.id).any? %>
-		$(".<%= @image_type.id %>_<%= @index %>").html("<%= escape_javascript(render partial: 'image', :locals => {:type_class => @type, :image => @image}) %>"); 
+		$(".<%= @image_type.id %>_<%= @index %>").html("<%= escape_javascript(render partial: 'image', :locals => {:type_class => @type, :image => @image, :background => @background}) %>"); 
 	<% elsif @opackage.sheets.where(:index => @index.to_i).where(:image_type_id => @image_type.id).any? %>
 		<% @opackage.sheets.where(:index => @index.to_i).where(:image_type_id => @image_type.id).last.update(:senior_image_id => @senior_image.id) %>
-	$(".<%= @image_type.id %>_<%= @index %>").html("<%= escape_javascript(render partial: 'image', :locals => {:type_class => @type, :image => @image}) %>"); 
+	$(".<%= @image_type.id %>_<%= @index %>").html("<%= escape_javascript(render partial: 'image', :locals => {:type_class => @type, :image => @image, :background => @background}) %>"); 
 	<% else %>
-		<% @opackage.sheets.create(:senior_image_id => @senior_image.id, :index => @index.to_i, :image_type_id => @image_type.id) %>
-		$(".<%= @image_type.id %>_<%= @index %>").html("<%= escape_javascript(render partial: 'image', :locals => {:type_class => @type, :image => @image}) %>"); 
+		<% @opackage.sheets.create(:senior_image_id => @senior_image.id, :index => @index.to_i, :image_type_id => @image_type.id, :background => @background) %>
+		$(".<%= @image_type.id %>_<%= @index %>").html("<%= escape_javascript(render partial: 'image', :locals => {:type_class => @type, :image => @image, :background => @background}) %>"); 
 	<% end %>
 
 
@@ -15,10 +15,8 @@ $('#myModal').modal('hide');
 
 <% @senior_image.student_image.senior_images.each do |senior_image| %>
 $(".text_<%= senior_image.id %>").html(""); 
-$("#<%= senior_image.id %>").removeClass("img-package-custom"); 
 <% if @opackage.sheets.pluck(:senior_image_id).uniq.include?(senior_image.id) %>
-$(".text_<%= senior_image.id %>").html("Selected"); 
-$("#<%= senior_image.id %>").addClass("img-package-custom"); 
+$(".text_<%= senior_image.id %>").html('<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'); 
 
 <% end %>
 <% end %> 

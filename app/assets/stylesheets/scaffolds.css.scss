@@ -12,6 +12,23 @@ p, ol, ul, td {
   line-height: 18px;
 }
 
+.next a {
+  background: #000 !important;
+}
+
+.prev a {
+  background: #000 !important;
+}
+
+.next a:hover {
+  background: #3F3F3F !important;
+}
+
+.prev a:hover {
+  background: #3F3F3F !important;
+}
+
+
 pre {
   background-color: #eee;
   padding: 10px;

@@ -11,6 +11,7 @@ class OrderPackage < ActiveRecord::Base
 	has_many :favorites
 	has_many :sheets
 	has_many :addon_sheets
+	has_many :backgrounds
 
 	has_many :order_package_gifts
     has_many :gifts, through: :order_package_gifts

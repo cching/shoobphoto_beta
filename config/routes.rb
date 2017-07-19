@@ -3,12 +3,14 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  resources :backgrounds
+
   resources :jobs
 
   resources :autos do
     collection do 
       get "start_auto"
-      get "start_import"
+      get "start_import" 
     end 
     member do
       get "process_auto"
@@ -238,6 +240,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'students/gift_packages/:cart_id/:i/' => 'students#gifts', :via => 'GET', :as => 'gift_packages'
   match 'students/add_gift/:cart_id/:i/:gift_id' => 'students#add_gift', :via => 'GET', :as => 'add_gift'
   match 'students/show_gift/:cart_id/:i/:gift_id' => 'students#show_gift', :via => 'GET', :as => 'show_gift'
+  match 'students/add_background/:op/:senior_image/:background' => 'students#add_background', :via => 'GET', :as => 'add_background' 
   match 'export/users' => 'export_list_items#users', :via => 'GET', :as => 'export_users'
   match 'export/schools' => 'export_list_items#schools', :via => 'GET', :as => 'export_schools'
   match 'export/school_user/:id' => 'export_list_items#school_user', :via => 'GET', :as => 'export_user_school'
@@ -310,6 +313,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'students/cart/:cart_id/update_cart/:i' => 'students#update_cart', :via => 'PATCH', :as => 'update_cart'
   match 'students/cart/:cart_id/select/:i' => 'students#select', :via => 'GET', :as => 'student_select'
   match 'students/preview_image' => 'students#preview_image', :via => 'GET', :as => 'student_preview_image'
+  match 'students/senior_image_preview' => 'students#senior_image_preview', :via => 'GET', :as => 'senior_preview_image'
   match 'students/cart/:cart_id/add_options/:i/:op_id/:option_id' => 'students#add_options', :via => 'PATCH', :as => 'add_options'
   match 'students/cart/:id/:i/update_download' => 'students#update_download', :via => 'PATCH', :as => 'update_download'
   match 'catalog' => 'items#index', :via => 'GET', :as => 'catalog'

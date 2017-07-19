@@ -1,0 +1,6 @@
+<% @image.student_image.senior_images.each do |senior_image| %>
+	$(".image_<%= senior_image.id %>").removeClass("img-package-custom"); 
+<% end %>  
+
+$(".image_<%= @image.id %>").addClass("img-package-custom"); 
+$("#image_preview").html("<%= escape_javascript(render 'senior_image_preview', :image => @image) %>");

@@ -96,6 +96,7 @@ class StudentsController < ApplicationController
     @image_type = ImageType.find(params[:image_type])
     @opackage = OrderPackage.find(params[:opackage])
     @type = ImageType.classname(@image_type.id)
+    @background = params[:background]
     
     OrderPackage.increment_counter(:extra_poses, @opackage.id)
 
@@ -141,9 +142,13 @@ class StudentsController < ApplicationController
     @senior_image = SeniorImage.find(params[:url].to_i)
     @image = @senior_image.watermark.url
     @index = params[:index]
+    @background = params[:background].to_i
     @image_type = ImageType.find(params[:image_type])
     @opackage = OrderPackage.find(params[:opackage])
     @type = ImageType.classname(@image_type.id)
+
+
+ 
 
     respond_to do |format|
       format.js 
@@ -154,6 +159,7 @@ class StudentsController < ApplicationController
     @senior_image = SeniorImage.find(params[:url].to_i)
     @image = @senior_image.watermark.url
     @opackage = OrderPackage.find(params[:opackage])
+    @background = params[:background]
     @opackage.update(:senior_image_id => @senior_image.id)
     @type = "yearbook"
     respond_to do |format|
@@ -213,6 +219,17 @@ class StudentsController < ApplicationController
     @image = params[:image] 
   end
 
+  def senior_image_preview
+    @image = SeniorImage.find(params[:image])
+    @opackage = OrderPackage.find(params[:opackage])
+  end
+
+  def add_background
+    @image = SeniorImage.find(params[:senior_image])
+    @opackage = OrderPackage.find(params[:op])
+    @background = Background.find(params[:background])
+  end
+
   def senior_portraits 
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @student = @cart.cart_students.order(:i).last.student
@@ -221,6 +238,7 @@ class StudentsController < ApplicationController
     @opackage = @cart.order_packages.where(:package_id => 6).last
 
     @s_image = @opackage.package.student_images.where(:student_id => @student.id).last
+    @senior_images = @s_image.senior_images.paginate(:per_page => 4, :page => params[:page])
 
     @package = @opackage.package
     image = @package.student_images.where(:student_id => @opackage.student.id).last

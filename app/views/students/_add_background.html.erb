@@ -1,0 +1,26 @@
+<div class="image_container_draggable <%= @background.id %>" id="<%= @image.id %>">
+	<%= image_tag(@background.image.url, class: "image_responsive") %>
+	<%= image_tag(@image.watermark.url, class: "image_responsive_watermark") %>
+</div>
+
+<style>
+.image_container_draggable{position:relative; max-width: 100%;}
+.image_responsive_watermark{position:absolute; top:0; left:0;max-width: 100%;}
+.image_responsive{max-width: 100%;}
+
+</style> 
+
+<script>
+$(function() {
+
+    $( ".image_container_draggable" ).draggable({helper : 'clone', revert: 'invalid',
+    appendTo: 'body', start: function(event, ui) {
+    $(ui.helper).css('width', "5%");
+  }  });
+
+
+   
+  });
+
+</script>
+

@@ -53,10 +53,9 @@ class OrderExport
                   if opackage.package.try(:id) == 6 && opackage.sheets.any?
                     ImageType.find(opackage.sheets.pluck(:image_type_id).uniq).each do |image_type|
                       opackage.sheets.where(:image_type_id => image_type.id).each do |sheet|
-                        @sheet = @sheet + "(#{ImageType.count_types(image_type.id)}) #{ImageType.name_out(image_type.id)}:  #{sheet.senior_image.try(:url)},"
+                        @sheet = @sheet + "(#{ImageType.count_types(image_type.id)}) #{ImageType.name_out(image_type.id)}, #{sheet.senior_image.try(:url)}, #{sheet.try(:background_id);}"
                       end
                     end 
-                    @sheet = @sheet + "; "
                   end
 
                   opackage.options.each_with_index do |option, i|

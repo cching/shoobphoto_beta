@@ -43490,6 +43490,10 @@ $(document).on('ready page:change', function() {
 
 
 }).call(this);
+(function() {
+
+
+}).call(this);
 /* headshot */
 /* Easily capture webcam images on Rails applications. */
 /* Initially based on JPEGCam v1.0.9 by Joseph Huckaby. */
@@ -43737,6 +43741,10 @@ var headshotInitializer = {
 
 }).call(this);
 (function() {
+
+
+}).call(this);
+(function() {
   $(document).on('click', 'form .remove_fields', function(event) {
     $(this).prev('input[type=hidden]').val('1');
     $(this).closest('fieldset').hide();
@@ -43856,6 +43864,7 @@ $(function() {
   return false;
 });
 });
+
 
 
 
