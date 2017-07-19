@@ -37,13 +37,13 @@ class AutoImport
 								        end
 
 
-								        images = student.student_images.where(:package_id => 6).where("load_id like ?", "%#{h[:load_id]}%")
-								        unless images.any?
-								            image = package.student_images.new(:package_id => 6, :load_id => h[:load_id],:student_id => student.id, :image_file_name => h[:url], :folder => h[:folder], :grade => h[:grade], :url => h[:url], :shoob_id => h[:shoob_id])
+								        images = student.student_images.where(:package_id => 6).where.not(load_id: nil).where("load_id = ?", "#{h[:load_id]}")
+								        if images.any?
+								            image = images.last
+								        else
+								        	image = package.student_images.new(:package_id => 6, :load_id => h[:load_id],:student_id => student.id, :image_file_name => h[:url], :folder => h[:folder], :grade => h[:grade], :url => h[:url], :shoob_id => h[:shoob_id])
 								            image.index_file_name = "#{image.image_file_name}-index" 
 								            image.save
-								        else
-								        	image = images.last
 								        end
 
 								        senior_image = image.senior_images.create(:url => h[:url], :image_file_name => h[:url], :extension => h[:extension])
