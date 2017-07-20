@@ -1,5 +1,4 @@
-<% if defined?(background) || background.nil? || background.to_i == 0 %>
- 
+<% if !defined?(background) || background.nil? || background.to_i == 0 %>
 	<% if type_class == "fivebyseven" %>
 				<table>
 					<tr>
