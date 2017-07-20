@@ -3,7 +3,7 @@ class Auto < ActiveRecord::Base
 
 	def check_orders
 	end
-
+ 
 	  def self.upload
 	    if Dir.glob("/Volumes/6TB-J-12-13/Diglab2017/Dbf/csv/*.csv").any?
 
@@ -96,7 +96,7 @@ class Auto < ActiveRecord::Base
 
 				                              @failed << false
 				                                @output << true
-				                                response = ", #{h[:student_id]}, #{h[:accesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{school.id}, #{package.id}, #{h[:shoob_id]}, #{h[:rec_type]}, #{@load_id}".encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+				                                response = ", , #{h[:student_id]}, #{h[:accesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{school.id}, #{package.id}, #{h[:shoob_id]}, #{h[:rec_type]}, #{@load_id}".encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
 				                                output << response.encode(Encoding.find('ASCII'), encoding_options)
 				                                output << "\n"
 
