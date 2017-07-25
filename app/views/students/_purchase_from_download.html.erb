@@ -1,0 +1,102 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div class="modal-title orange" id="myModalLabel">
+
+
+        </div>  
+      </div>
+      <div class="modal-body" align="center" id="margin">
+        
+
+<div class="animated fadeIn">
+
+
+  <div class="row" id="<%= @dimage.id %>">
+    <div class="col-sm-4" align="center">  
+      
+      <%= image_tag(StudentImage.find(@dimage.id).watermark.url(:watermark), class: "img-proof", id: "png1") %>
+    </div><br />
+    <div class="col-sm-8">
+
+      <%= @package.options.order(:name).each_slice(3) do |slice| %>
+          <div class="row buff">
+            <% slice.each do |option| %>
+              <div class="col-sm-4 <%= 'selectedbackground' if @opackage.options.include? option %>" id="option_<%= option.id %>">
+                <strong><%= "#{option.name} - #{number_to_currency(option.price(@student.school), :unit => "$")}" %></strong>
+                <ul class="options">
+                  <% option.image_types.each do |type| %>
+                    <li>
+                      <%= type.name %>
+                    </li>
+                  <% end %> 
+                </ul>
+              </div>
+            <% end %>
+          </div>
+          <div class="row buff">
+          <% slice.each do |option| %>
+          
+            <div class="col-sm-4" id="button_<%= option.id %>" align="center">
+              <% if @opackage.options.include? option %>
+                <%= link_to "Remove", remove_option_path(@opackage.id, option.id, :i => @i), class: "btn btn-danger", remote: true %>
+              <% else %>
+                <%= link_to "Add to Cart", add_option_path(@opackage.id, option.id, :i => @i), class: "btn btn-custom", remote: true %>
+              <% end %>
+            </div>
+          <% end %>
+          </div><br/>
+          
+        <% end %>
+      </div>
+
+  </div>
+  </div><br/>
+  <hr>
+
+<div class="row">
+  <div class="col-sm-2" align="left">
+
+    
+    
+  </div>
+  <div class="col-sm-8"></div>
+  <div class="col-sm-2" align="right">
+
+    <%= link_to "Continue", student_final_path(@cart.cart_id, @cart.students.count - 1), class: "btn btn-custom" %>
+
+  </div>
+</div>
+
+<br />
+
+<script>
+
+
+function select_option(i, packagei) {
+    $('#package_' + packagei + ' > select > option[value="' + i + '"]').attr("selected", "selected");
+    $('#package_' + packagei + '>.row>.row>.col-sm-4.selectedbackground').removeClass('selectedbackground animated fadeIn');
+
+    $('#option_' + i + '_' + packagei + '').addClass('selectedbackground animated fadeIn');
+    event.preventDefault();
+}
+function test(packagei, i) {
+  $('#package_' + packagei + '>.row>.row>.col-sm-4.selectedbackground').removeClass('selectedbackground animated fadeIn');
+
+    $('#option_' + i + '_' + packagei + '').addClass('selectedbackground animated fadeIn');
+    event.preventDefault();
+}
+
+</script>
+
+
+
+
+ 
+
+    </div>
+  </div>
+</div>
+</div>
+

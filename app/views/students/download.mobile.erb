@@ -1,0 +1,72 @@
+ <style>
+.alert {
+  font-size: 48px;
+}
+.container-fluid {
+  width: 100% !important;
+}
+
+.inner {
+	font-size: 34px !important;
+}
+
+.image_text {
+	font-size: 30px !important;	
+}
+
+.col-sm-4 {
+	align-content: center !important;
+}
+</style>
+
+<br/><br/>
+<br/><br/>
+<br/><br/>
+
+<br/>
+<% unless defined? @student %>
+<h3 align="center">We've had trouble finding the images for your student with <strong><%= @shoob_id.upcase %></strong>. Please try again <%= link_to "here", student_find_student_path %>.<br/> If trouble persists, please contact us. </h3>
+<% else%>
+<div align="center">
+<h3 class="blue">Click below to begin your <br/>image download.</h3>
+			<%= link_to student_push_image_path(@student.id, :url => @found_image.image.url) do %>
+				<%= image_tag(@found_image.image.url, class: "img-rounded img-med") %>
+				<br/><strong class="image_text"><%= StudentImage.package_name(@found_image.id) %></strong><br/>
+				
+			<% end %>
+<% end %>
+</div>
+ <div class="row">
+
+	<div class="col-sm-12">
+	<div id="scrolltable">
+		<div class="inner" align="center">
+			<span class="blue">
+			<strong>Purchase pictures and images from previous school years!</strong><br/>
+			Click an image below to view pricing and packages.</span><br/><br/>
+
+		<% unless @images.nil? %>
+
+			
+				<% @images.each do |image| %>
+
+				<% if image.watermark.exists? %>
+
+					<div align="center">
+					<%= image_tag(image.watermark.url(:watermark), class: "img-proof") %> <br/>
+					
+					<strong class="image_text"><%= StudentImage.package_name(image.id) %></strong><br/><br/>
+					<%= link_to "Select", purchase_from_download_path(@student.id, :cart_id => params[:cart_id], :image => image.id, :i => @i), class: "btn-blue_mobile", remote: true %> 
+					<% end %>
+				</div>
+				<br/>
+				<% end %>
+				
+			
+		<% end %>
+	</div>
+	</div>
+</div>
+
+</div>
+<br/>

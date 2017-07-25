@@ -419,6 +419,30 @@ class StudentsController < ApplicationController
 
   end
 
+  def purchase_from_download
+    @i = params[:i]
+    @cart = Cart.find_by_cart_id(params[:cart_id])
+    @dimage = StudentImage.find(params[:image])
+    @student = Student.find(params[:id])
+
+   # @cart.order_packages.create(:package_id => id, :student_id => @student.id, :download_image_id => @dimage.id)
+   if @dimage.package_id == 6
+    @package = Package.find(6)
+  else
+    @package = Package.find(253)
+  end
+
+   if OrderPackage.where(:student_id => @student.id).where(:cart_id => @cart.id).where(:student_image_id => @dimage.id).any?
+    @opackage = OrderPackage.where(:student_id => @student.id).where(:cart_id => @cart.id).where(:student_image_id => @dimage.id).last
+    else
+    @opackage = @package.order_packages.create(:student_id => @student.id, :cart_id => @cart.id, :student_image_id => @dimage.id)
+    end
+    #@cart.order_packages.last.update(:option_id => Package.find(id).options.first.id)
+    @image_url = []
+
+  end
+
+
   def purchase
     @i = params[:i]
     @cart = Cart.find_by_cart_id(params[:cart_id])
@@ -485,23 +509,33 @@ class StudentsController < ApplicationController
     if @shoob_id[4] == "5" || @shoob_id[4] == "1"
       @found_image = StudentImage.where("lower(shoob_id) = ?", "#{@shoob_id}").where(:folder => "fall2017").last
     elsif @shoob_id[4] == "2"
-      @found_image = StudentImage.where("lower(shoob_id) = ?", "#{@shoob_id}").where(:folder => "spring2016").last
+      @found_image = StudentImage.where("lower(shoob_id) = ?", "#{@shoob_id}").where(:folder => "spring2017").last
     elsif @shoob_id[4] == "3"
-      @found_image = StudentImage.where("lower(shoob_id) = ?", "#{@shoob_id}").where(:folder => "grad2016").last
+      @found_image = StudentImage.where("lower(shoob_id) = ?", "#{@shoob_id}").where(:folder => "grad2017").last
     end
-    unless @found_image.nil?
-      @student = @found_image.student
-      @ids = @student.download_images.pluck(:id) 
-      @images = DownloadImage.where(id: @ids)
- 
-      @images.each do |image|
-        if @images.where(:folder => image.folder).where(:year => image.year).count > 1
-          @ids = @ids - [@images.where(:folder => image.folder).where(:year => image.year).first.id]
-          @images = DownloadImage.where(id: @ids)
-        end
 
-      end
-      @images = DownloadImage.find(@ids - [@found_image.id]).sort_by {|x| x.year}.reverse
+    @student = @found_image.student 
+    unless @found_image.nil?
+      added_folder = []
+
+      added_folder << @found_image.try(:folder)
+      
+
+      folder = @found_image.student.student_images.pluck(:folder).uniq
+      @ids = []
+
+    folder.each do |folder|
+      unless added_folder.include?(folder)
+        @ids << @found_image.student.student_images.where("folder like ?", "%#{folder}%").last.id
+      end 
+    end
+
+    @images = StudentImage.find(@ids).sort_by {|x| x.folder}.reverse
+    end
+
+    respond_to do |format|
+      format.html
+      format.mobile
     end
   end
 
@@ -590,7 +624,7 @@ class StudentsController < ApplicationController
     folder.each do |folder|
       unless added_folder.include?(folder)
         @ids << @student.student_images.where("folder like ?", "%#{folder}%").last.id
-      end
+      end 
     end
 
     @images = StudentImage.find(@ids).sort_by {|x| x.folder}.reverse
