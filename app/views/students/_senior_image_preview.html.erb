@@ -5,18 +5,17 @@
 <br/>
 
 <% if @image.extension.include?("png") %>
+<% Background.where.not(hidden: true).each_slice(5) do |slice| %>
 	<div class="row">
 		<div class="col-xs-1"></div>
-		<% Background.all.each do |background| %>
+		<% slice.each do |background| %>
 		<div class="col-xs-2 nopaddingcol" align="center">
 			<%= link_to image_tag(background.image.url, class: "img-backgrounds-small", id: "#{background.id}"), add_background_path(@opackage.id, @image.id, background.id), remote: true %><br/>
-			<p class="background_text"><%= background.color %> </p>
-
 		</div>
 		<% end %>
 		<div class="col-xs-1"></div>
 	</div>
-
+<% end %>
 	<span align="center">Select a background, then drag the image with your selected background onto a desired image type.</span>
 <% else %>
 	<span align="center">Drag your selected image onto a desired image type.</span>
