@@ -1,4 +1,5 @@
 <div class="senior_image_border nil <%= "image_container_draggable" if @image.extension.include?("jpg") %>" id="<%= @image.id %>" >
+		<div align="center"><%= image.image_file_name.downcase %></div>
 		<%= image_tag(@image.watermark.url, class: "img-proof") %>
 </div>
 
@@ -16,7 +17,7 @@
 		<div class="col-xs-1"></div>
 	</div>
 <% end %>
-	<span align="center">Select a background, then drag the image with your selected background onto a desired image type.</span>
+	<span align="center">Click on a background, then drag the image with your selected background onto a desired image type.</span>
 <% else %>
 	<span align="center">Drag your selected image onto a desired image type.</span>
 <% end %>

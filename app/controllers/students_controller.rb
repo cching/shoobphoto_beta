@@ -17,7 +17,7 @@ class StudentsController < ApplicationController
       @schools = School.where("lower(name) like ?", "%#{params[:term].downcase}%").where.not(school_type_id: nil)
 
     end
-
+ 
     respond_to do |format|  
       format.html # index.html.erb  
   # Here is where you can specify how to handle the request for "/people.json"
