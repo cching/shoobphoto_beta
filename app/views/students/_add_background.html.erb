@@ -1,3 +1,5 @@
+	<div align="center"><%= @image.image_file_name.downcase %></div>
+
 <div class="image_container_draggable <%= @background.id %>" id="<%= @image.id %>">
 	<%= image_tag(@background.image.url, class: "image_responsive") %>
 	<%= image_tag(@image.watermark.url, class: "image_responsive_watermark") %>
