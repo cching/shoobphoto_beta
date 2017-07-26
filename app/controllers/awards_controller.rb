@@ -17,7 +17,7 @@ class AwardsController < ApplicationController
   end 
 
   def remove
-    @award_info = AwardInfo.find(params[:id])
+    @award_info = ExportList.find(params[:id])
     @award_info.delete
 
     redirect_to :back, notice: "Award was removed from your awards in progress."
@@ -148,7 +148,7 @@ class AwardsController < ApplicationController
 
   def in_progress
     @export_list = ExportList.find_by_uniq_id("#{params[:id]}")
-  end
+  end 
 
   def confirm
     @export_list = ExportList.find_by_uniq_id("#{params[:id]}")

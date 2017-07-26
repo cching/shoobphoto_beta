@@ -34,9 +34,8 @@
 		<% original_award_info = @original_list.award_infos.find(award_info.award_info_id) %>
 		<td> 
 			<div id="student_<%= student.id %>_<%= award_info.id %>_check" class="student_check">
-			<% if original_award_info.students.include?(student) %>
-				<span class="glyphicon glyphicon-check"></span>
-			<% elsif award_info.students.exists?(student) %>
+
+			<% if award_info.students.exists?(student) %>
 				<%= link_to export_remove_student_path(student.id, :award => award_info.id, :correction => true), remote: true, class: "correction-check" do %>  
 				    <span class="glyphicon glyphicon-check"></span>
 				<% end %>

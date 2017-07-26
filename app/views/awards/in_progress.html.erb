@@ -62,35 +62,29 @@
 
 <div class="row">
 	<div class="col-xs-1"></div>
-	<div class="col-xs-1 blue_text">AWARD</div>
+	<div class="col-xs-2 blue_text">AWARDS</div>
 	<div class="col-xs-2 blue_text">DATE STARTED</div>
-	<div class="col-xs-2 blue_text">AWARD DATE</div>
 	<div class="col-xs-2 blue_text">RECEIVE BY</div>
 	<div class="col-xs-2 blue_text">EDIT LIST</div>
 	<div class="col-xs-2 blue_text">REMOVE AWARD</div>
 </div>
 
 	<% current_user.export_lists.where(:submitted => false).where(:hidden => false).each do |export_list| %>
-	<% export_list.award_infos.order(:index).each_with_index do |award, i| %>
-	<% unless award.award.nil? %>
+	<% if export_list.award_infos.any? %>
 	<div class="row">
 	<div class="col-xs-1">
-		<% unless award.award.try(:image).nil? %>
-		<%= image_tag(award.award.image.url, class: "award_thumbnail") %>
-		<% end %>
+
 	</div>
-	<div class="col-xs-1 blue_text"><%= award.award.abbreviation %></div>
-	<div class="col-xs-2 blue_text"><%= award.created_at.strftime("%m/%d/%Y") unless award.created_at.nil? %></div>
-	<div class="col-xs-2 blue_text"><%= award.award_date.strftime("%m/%d/%Y") unless award.award_date.nil? %></div>
-	<div class="col-xs-2 blue_text"><%= award.receive_by.strftime("%m/%d/%Y") unless award.receive_by.nil? %></div>
+	<div class="col-xs-2 blue_text"><%= export_list.award_infos.order(:index).map {|a| a.award.abbreviation}.join(", ") %></div>
+	<div class="col-xs-2 blue_text"><%= export_list.award_infos.first.created_at.strftime("%m/%d/%Y") unless export_list.award_infos.first.created_at.nil? %></div>
+	<div class="col-xs-2 blue_text"><%= export_list.award_infos.first.receive_by.strftime("%m/%d/%Y") unless export_list.award_infos.first.receive_by.nil? %></div>
 	<% if export_list.multiple? %>
 	<div class="col-xs-2 blue_text"><%= link_to "EDIT AWARD LIST", award_multiple_add_info_path(export_list.uniq_id), class: "btn-awards-next-small" %></div>
 	<% else %>
-	<div class="col-xs-2 blue_text"><%= link_to "EDIT AWARD LIST", award_add_info_path(export_list.uniq_id, award.award.id, award.id, :i => i), class: "btn-awards-next-small" %></div>
+	<div class="col-xs-2 blue_text"><%= link_to "EDIT AWARD LIST", award_add_info_path(export_list.uniq_id, export_list.award_infos.first.award.id, export_list.award_infos.first.id, :i => 0), class: "btn-awards-next-small" %></div>
 	<% end %>
-	<div class="col-xs-2 blue_text"><%= link_to "REMOVE AWARD", award_remove_path(award.id), class: "btn-awards-next-small-danger", :data => {:confirm => "Are you sure? This will remove all progresson this award."} %></div>
+	<div class="col-xs-2 blue_text"><%= link_to "REMOVE AWARD LIST", award_remove_path(export_list.id), class: "btn-awards-next-small-danger", :data => {:confirm => "Are you sure? This will remove all progresson this award."} %></div>
 </div>
-	<% end %>
 	<% end %>
 	<% end %>
 <br/>

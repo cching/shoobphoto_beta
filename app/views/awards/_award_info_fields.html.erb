@@ -25,7 +25,10 @@
 				</div>
 
 				<% if f.object.award.add_period? %>
-				<%= f.input :time_period, :label => false, placeholder: "Time Period (April 2016/1st Trimester)", :input_html => { :class => 'awardform' } %>
+				Time Period:
+				<div class="time_period_<%= f.object.award.id %>">
+					<%= f.select :time_period, Award::TimePeriods %>
+				</div>
 				<% end %>
 				
             	<% if f.object.award.add_awarded_for? %>
@@ -45,3 +48,4 @@
 
 	</div>
 </div>
+
