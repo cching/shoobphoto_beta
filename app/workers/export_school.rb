@@ -7,18 +7,17 @@ class ExportSchool
 
       csv_file = ''
 
-        csv_file << CSV.generate_line(['Database ID'] + ['School Name'] +  ['CA Code'] + ['Type'] + ['Package Name'] + ['Slug']  + ['Shipping'])
-          School.all.order(:name).each do |school|
-            school.packages.each do |package|
-              if package.shippings.where(:school_id => school.id).any?
-                @price = package.shippings.where(:school_id => school.id).first.try(:price)
-              elsif package.shippings.where(:school_id => nil).any?
-                @price = package.shippings.where(:school_id => nil).first.try(:price)
-              end
+        csv_file << CSV.generate_line(['lastname'] + ['firstname'] +  ['image file name'])
+          School.find(198).students.where(id_only: true).each do |student|
 
-              csv_file << CSV.generate_line(["#{school.id}"] + ["#{school.name}"] + ["#{school.ca_code}"] + ["#{school.school_type.name}"] + ["#{package.name}"] + ["#{package.slug}"]+ ["#{@price}"])
-
+            student_images = student.student_images.where(:folder => "fall2017")
+            image = ""
+            if student_images.any?
+              image = student_images.last.image_file_name
             end
+            csv_file << CSV.generate_line(["#{student.last_name}"] + ["#{student.first_name}"] + ["#{image}"])
+
+            
           end
         
           file_name = Rails.root.join('tmp', "school_export_#{Time.now.day}-#{Time.now.month}-#{Time.now.year}_#{Time.now.hour}_#{Time.now.min}.csv");
