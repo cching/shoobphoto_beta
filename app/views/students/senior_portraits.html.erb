@@ -1,17 +1,11 @@
-<br/><br/><div class="row">
+<br/><div class="row">
 	<div class="col-xs-1"></div>
-	<div class="col-xs-3">
-		<% option = @opackage.options.first %>
-		<strong><%= option.name %> (<%= "#{option.poses} #{'Pose'.pluralize(option.poses)}"%>)</strong><br/><span class="currency"><%= "#{number_to_currency(option.price(@student.school), :unit => "$")}" %></span><br/>
-										<% option.image_types.each do |type| %>
-											
-												<span class="listing"><%= type.name %></span>
-											 
-										<% end %> 
-		<h3>Your Poses: (click to select)</h3>
-		<div class = "sort_paginate_ajax"><%= render 'senior_image_display', :opackage => @opackage %></div>
+	<div class="col-xs-3" align="center">
+
+		<h3>Your Poses: <br/>(click to select)</h3>
+		<div class = "sort_paginate_ajax" align="center"><%= render 'senior_image_display', :opackage => @opackage %></div>
 	</div> 
-	<div class="col-xs-3"><br/><br/><br/><br/><br/><br/>
+	<div class="col-xs-3">
 		<span id="image_preview"></span>
 	</div>
 	<span id="senior_images">
@@ -30,7 +24,7 @@
 </div>
 </div>
 
-<br/>
+<br/> 
 
 
 

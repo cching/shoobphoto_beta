@@ -1,5 +1,13 @@
-<div class="senior_image_border nil <%= "image_container_draggable" if @image.extension.include?("jpg") %>" id="<%= @image.id %>" >
-		<div align="center"><%= image.image_file_name.downcase %></div>
+<h3>Selected:</h3>
+<% if @image.extension.include?("png") %>
+
+<div class="instruction_background">Click on a background, then drag the image to the right to build your package.</div>
+<% else %>
+	<div class="instruction_background">Drag your selected image onto an 8x10, 5x7, or wallet size.</div>
+	<% end %>
+<strong><%= image.image_file_name.downcase %></strong>
+
+<div class="senior_image_border nil <%= "image_container_draggable" if @image.extension.include?("jpg") %>" id="<%= @image.id %>" align="left">
 		<%= image_tag(@image.watermark.url, class: "img-proof") %>
 </div>
 
@@ -8,7 +16,6 @@
 <% if @image.extension.include?("png") %>
 <% Background.where.not(hidden: true).each_slice(5) do |slice| %>
 	<div class="row">
-		<div class="col-xs-1"></div>
 		<% slice.each do |background| %>
 		<div class="col-xs-2 nopaddingcol" align="center">
 			<%= link_to image_tag(background.image.url, class: "img-backgrounds-small", id: "#{background.id}"), add_background_path(@opackage.id, @image.id, background.id), remote: true %><br/>
@@ -17,9 +24,6 @@
 		<div class="col-xs-1"></div>
 	</div>
 <% end %>
-	<span align="center">Click on a background, then drag the image with your selected background onto a desired image type.</span>
-<% else %>
-	<span align="center">Drag your selected image onto a desired image type.</span>
 <% end %>
 
 

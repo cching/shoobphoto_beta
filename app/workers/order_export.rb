@@ -7,7 +7,7 @@ class OrderExport
 
       csv_file = ''
 
-          csv_file << CSV.generate_line(Order.all.first.attributes.keys[0..12].map{|column| column} + Order.all.first.attributes.keys[14..21].map{|column| column} + ['Price'] + ['Student First Name'] + ['Student Last Name'] + ['Student Teacher'] + ['Student ID']  + ['Student Grade'] + ['Student School']  + ['Type'] + ['Package'] + ['8x10 | 5x7 | 3x5 | Wallets | Image CD | Name on Wallets | Retouching'] + ['CA Code'] + ['Senior Image'] + ['Grad Image'] + ['Year'] + ['Extra Poses'] + ['Sheet Types'] + ['Yearbook Image']+ ['Access Code'] + ['Gift'] + ['Download1 Images'] + ['Download1 folder'])
+          csv_file << CSV.generate_line(Order.all.first.attributes.keys[0..12].map{|column| column} + Order.all.first.attributes.keys[14..21].map{|column| column} + ['Price'] + ['Student First Name'] + ['Student Last Name'] + ['Student Teacher'] + ['Student ID']  + ['Student Grade'] + ['Student School']  + ['Type'] + ['Package'] + ['8x10 | 5x7 | 3x5 | Wallets | Image CD | Name on Wallets | Retouching'] + ['CA Code'] + ['Senior Image'] + ['Grad Image'] + ['Year'] + ['Extra Poses'] + ['Sheet Types'] + ['Yearbook Image']+ ['Access Code'] + ['Gift'] + ['Download1 Images'] + ['Download1 folder'] + ['Senior Addons'])
 
             Order.all.where(:processed => false).order(:id).each do |order|
               #Order.where("created_at >= ?", Date.strptime("07/01/2016", "%m/%d/%Y")).each do |order|
@@ -18,6 +18,7 @@ class OrderExport
                 @string3 = ""
                 @string4 = ""
                 @string5 = ""
+                @addon_sheets = ""
     
                 @year = ""
 
@@ -56,6 +57,12 @@ class OrderExport
                         @sheet = @sheet + "(#{ImageType.count_types(image_type.id)}) #{ImageType.name_out(image_type.id)}, #{sheet.senior_image.try(:url)}, #{sheet.try(:background_id)}; "
                       end
                     end 
+
+                    if opackage.addon_sheets.any?
+                      opackage.addon_sheets.each do |addon|
+                        @addon_sheets = @addon_sheets + "#{addon.addon.name}, #{addon.senior_image.image_file_name}; "
+                      end
+                    end
                   end
 
                   opackage.options.each_with_index do |option, i|
@@ -101,7 +108,7 @@ class OrderExport
 
               csv_file << CSV.generate_line(order.attributes.values[0..12] + order.attributes.values[14..21] + ["#{Order.price(order.id, student.id)}"] +
                 ["#{student.first_name}"] + ["#{student.last_name}"] + ["#{student.teacher}"] + ["#{student.student_id}"] + ["#{student.grade}"] + ["#{student.school.try(:name)}"]  +     
-                [@string] + [@string2] + [Package.concat(order.id, student.id)] + [order.cart.school.try(:ca_code)] + [order.cart.order_packages.where(:student_id => student.id).last.try(:url)] + [order.cart.order_packages.where(:student_id => student.id).last.try(:grad)] + [@year] + [@extra_poses] + [@sheet] + [@yearbook_pose] + ["#{student.try(:access_code)}"] + [@string3] + [@string4] + [@string5]
+                [@string] + [@string2] + [Package.concat(order.id, student.id)] + [order.cart.school.try(:ca_code)] + [order.cart.order_packages.where(:student_id => student.id).last.try(:url)] + [order.cart.order_packages.where(:student_id => student.id).last.try(:grad)] + [@year] + [@extra_poses] + [@sheet] + [@yearbook_pose] + ["#{student.try(:access_code)}"] + [@string3] + [@string4] + [@string5] + [@addon_sheets]
               ) 
             
           end
