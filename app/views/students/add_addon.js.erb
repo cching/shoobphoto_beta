@@ -1,3 +1,4 @@
-$("#<%= @addon.id %>").html("<%= escape_javascript(render 'addon_sheets') %>");
+$("#sheet_<%= @addon.id %>").html("<%= escape_javascript(render 'addon_sheets') %>");
 
 $("#add_<%= @addon.id %>").html("<%= escape_javascript(render 'remove_button') %>");
+ 

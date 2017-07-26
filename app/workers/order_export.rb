@@ -60,7 +60,7 @@ class OrderExport
 
                     if opackage.addon_sheets.any?
                       opackage.addon_sheets.each do |addon|
-                        @addon_sheets = @addon_sheets + "#{addon.addon.name}, #{addon.senior_image.image_file_name}; "
+                        @addon_sheets = @addon_sheets + "#{addon.addon.name}, #{addon.senior_image.image_file_name}, #{addon.background_id}; "
                       end
                     end
                   end

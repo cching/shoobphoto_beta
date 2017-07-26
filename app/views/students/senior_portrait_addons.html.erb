@@ -1,31 +1,13 @@
-<br/><br/><div class="row">
+<br/><div class="row">
 	<div class="col-xs-1"></div>
-	<div class="col-xs-5" id="senior_table">
-		<h3>Your Package:</h3>
+	<div class="col-xs-3" align="center">
 
-		<% option = @opackage.options.first %>
-		<strong><%= option.name %> (<%= "#{option.poses} #{'Pose'.pluralize(option.poses)}"%>)</strong><br/><span class="currency"><%= "#{number_to_currency(option.price(@student.school), :unit => "$")}" %></span><br/>
-										<% option.image_types.each do |type| %>
-											
-												<span class="listing"><%= type.name %></span>
-											
-										<% end %> 
-		<h3>Your Poses: (click to enlarge)</h3>
-		<% @s_image.senior_images.each_slice(2) do |slice| %>
-		<div class="row">
-			<% slice.each do |senior_image| %>
-				<% if senior_image.watermark.exists? %>
-				<div class="col-xs-6" id="image_container">
-					<span class="small_text"><%= senior_image.url.downcase %></span>
-						<%= link_to image_tag(senior_image.watermark.url, :class => "img-rounded img-package image_#{senior_image.id} draggable image_container #{'img-package-custom' if @opackage.sheets.pluck(:senior_image_id).uniq.include?(senior_image.id)}", :id => "#{senior_image.id}"), student_preview_image_path(:image => senior_image.watermark.url), remote: true %><br/>
-
-					<p id="text" class="text_<%= senior_image.id %>"><%= "Selected" if @opackage.sheets.pluck(:senior_image_id).uniq.include?(senior_image.id) %></p>
-				</div>
-				<% end %>
-			<% end %>
-		</div>
-		<% end %>
+		<h3>Your Poses: <br/>(click to select)</h3>
+		<div class = "sort_paginate_ajax" align="center"><%= render 'senior_image_display', :opackage => @opackage %></div>
 	</div> 
+	<div class="col-xs-3">
+		<span id="image_preview"></span>
+	</div>
 	<span id="senior_images">
 		<%= render 'addons' %> 
 	</span>
@@ -46,7 +28,14 @@
 <script>
 
 
+	$(function() {
+  $(".sort_paginate_ajax").on("click", ".pagination a", function(){
+    $.getScript(this.href);
+    return false;
+  });
+});
 $(function() {
+
     $( ".draggable" ).draggable({helper : 'clone', revert: 'invalid',
     appendTo: 'body' });
  

@@ -13,8 +13,9 @@ $(function() {
     $( ".droppable" ).droppable({
       drop: function( event, ui ) {
       	var classes = $(this).attr("class").split(/\s/); 
-		    $.get('/students/add_addon_pose/' + classes[1] + '/' + classes[2] + '/' + ui.draggable.attr("id")).success(function(data) { } )
+      	var draggable_classes = ui.draggable.attr("class").split(/\s/);
+		    $.get('/students/add_addon_pose/' + classes[1] + '/' + classes[2] + '/' + ui.draggable.attr("id") + '?background=' + draggable_classes[1]).success(function(data) { } )
       }
     });
   });
-</script>
+</script>   

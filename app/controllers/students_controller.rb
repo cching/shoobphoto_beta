@@ -105,7 +105,8 @@ class StudentsController < ApplicationController
   def add_addon_pose
     @sheet = AddonSheet.find(params[:addon_sheet])
     @senior_image = SeniorImage.find(params[:senior_image_id])
-    @sheet.update(:index => params[:index], :senior_image_id => @senior_image.id)
+    @background = params[:background].to_i
+    @sheet.update(:index => params[:index], :senior_image_id => @senior_image.id, :background_id => @background)
     @image = @senior_image.watermark.url
   end
 
@@ -295,17 +296,19 @@ class StudentsController < ApplicationController
 
     @opackage = @cart.order_packages.where(:package_id => 6).last
 
-      @s_image = @opackage.package.student_images.where(:student_id => @student.id).last
+    @s_image = @opackage.student.student_images.where(:student_id => @student.id).last
 
-    bucket = AWS::S3::Bucket.new('shoobphoto')
+    unless @s_image.nil?
+      @senior_images = @s_image.senior_images.paginate(:per_page => 4, :page => params[:page])
+    end
 
     @package = @opackage.package
-        image = @package.student_images.where(:student_id => @opackage.student.id).last
+    image = @package.student_images.where(:student_id => @opackage.student.id).last
 
         if @package.id == 6 && image.present? && @cart.id_supplied?
           @boolean = false
           image.senior_images.each do |senior_image|
-            if senior_image.image.exists?
+            if senior_image.watermark.exists?
             @boolean = true
             break
             end 
@@ -341,7 +344,6 @@ class StudentsController < ApplicationController
             redirect_to student_final_path(@cart.cart_id, @cart.students.count - 1)
           end
         end
-         # have redirect here to final if no senior images exist. add redirect on previous page
   end
 
   def add_option
