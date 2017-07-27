@@ -23,7 +23,7 @@ class Order < ActiveRecord::Base
 
         any_download.length.times do |i|
           array << true if any_download[i] && nil_image[i].nil? 
-        end
+        end 
       end
     end
 

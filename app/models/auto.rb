@@ -1,7 +1,20 @@
 class Auto < ActiveRecord::Base
 	has_many :student_errors
 
-	def check_orders
+	def self.check_orders
+		File.open("/Users/alexshoob/desktop/scanned_orders/result.csv", "w") do |result|
+			result << "order ID, school, student ID, firstname, lastname, pricelist, email"
+			OrderPackage.where("scanned = false OR qualified = true AND email_sent = false").each do |order_package|
+				order_package.update(:scanned => true)
+			    if Student.qualified(order_package.student) && Order.qualified(order_package.student) 
+			       	if order_package.options.any?
+		        		if order_package.options.first.download? && order_package.student_image_id.nil?
+		        			result << "#{order_package.cart.orders.first.id}, #{order_package.student.school.name}, #{order_package.student.student_id}, #{order_package.student.first_name}, #{order_package.student.last_name}, #{order_package.package.slug}, #{order_package.cart.orders.first.email}"
+		        		end
+		        	end
+			    end
+		 	end
+		 end
 	end
  
 	  def self.upload

@@ -38,7 +38,6 @@ class AutoImport
 
 
 								        images = student.student_images.where(["package_id = ? and load_id = ?", 6, "#{h[:load_id]}"])
-								        puts "@@@@@@@@@@@@@@@@@@ image found"
 								        if images.any?
 								            image = images.last
 								        else

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170726180722) do
+ActiveRecord::Schema.define(version: 20170727050106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -574,6 +574,8 @@ ActiveRecord::Schema.define(version: 20170726180722) do
     t.integer  "quantity"
     t.boolean  "email_sent"
     t.integer  "background_id"
+    t.boolean  "scanned",           default: false
+    t.boolean  "qualified",         default: false
   end
 
   create_table "orders", force: true do |t|
