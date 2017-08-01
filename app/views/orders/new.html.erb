@@ -62,6 +62,9 @@
 
     <div id="billing_hidden"></div>
 
+    <span class="label_header">Phone</span>
+      <%= f.text_field :phone, class: "enjoy-css", id: "phone" %>
+      <%= f.hidden_field :email, :value => "#{@cart.email}" %>
 
       <span class="cart_title">Shipping Info: &nbsp;</span><span id="edit_shipping"></span><br/>
     <div id="shipping_info" class="animated fadeIn">
@@ -86,10 +89,7 @@
     </div>
     </div>
 
-    <span class="label_header">Phone</span>
-      <%= f.text_field :phone, class: "enjoy-css", id: "phone" %>
-      <%= f.hidden_field :email, :value => "#{@cart.email}" %>
-    </div>
+        </div>
     <div id="shipping_hidden"></div>
      <div id="notes_hidden" hidden>
     <span class="note_title cart_title billing_info_title">Notes (optional): &nbsp;</span>

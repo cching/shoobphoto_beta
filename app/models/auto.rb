@@ -14,10 +14,10 @@ class Auto < ActiveRecord::Base
 		        	end
 			    end
 		 	end
-		 end
+		end
 	end
  
-	  def self.upload
+	def self.upload
 	    if Dir.glob("/Volumes/6TB-J-12-13/Diglab2017/Dbf/csv/*.csv").any?
 
 	      #clear previous images from transfer
