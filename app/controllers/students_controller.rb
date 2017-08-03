@@ -542,9 +542,10 @@ class StudentsController < ApplicationController
   end
 
   def download_image
-  @student = Student.find(params[:student])
-  data = open("#{params[:url]}")
-  send_data data.read, filename: "#{@student.last_name}_#{@student.first_name}.jpg", type: "image/jpeg", :x_sendfile => true
+    @student = Student.find(params[:student])
+    
+    data = open("#{params[:url]}")
+    send_data data.read, filename: "#{@student.last_name}_#{@student.first_name}.jpg", type: "image/jpeg", :x_sendfile => true
 
   end
 

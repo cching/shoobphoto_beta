@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     collection do 
       get "start_auto"
       get "start_import" 
-    end 
+    end  
     member do
       get "process_auto"
     end
@@ -258,6 +258,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'download' => 'students#find_student', :via => 'GET', :as => 'student_find_student'
   match 'download/images/:shoob_id/:cart_id' => 'students#download', :via => 'GET', :as => 'student_download'
   match 'download/download_image/:student/' => 'students#download_image', :via => 'GET', :as => 'student_push_image'
+  match 'order/download_image/:order_package/' => 'download#download_image', :via => 'GET', :as => 'download_push_image'
   match 'students' => 'students#schools', :via => 'GET', :as => 'student_schools'
   match 'students/cart/:id' => 'students#cart', :via => 'GET', :as => 'student_cart'
   match 'students/duplicate/:school' => 'students#duplicate', :via => 'GET', :as => 'student_duplicate'

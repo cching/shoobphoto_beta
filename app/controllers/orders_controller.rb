@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
 
 	before_action :require_admin, only: [:index, :processed, :unprocessed]
 	include Mobylette::RespondToMobileRequests
-
+ 
 	def download
 		@order = Order.find(params[:id])
 
@@ -15,10 +15,19 @@ class OrdersController < ApplicationController
 			@order.cart.order_packages.where.not(student_image_id: nil).map{ |o| @gift_images << o if o.gifts.first.download?}
 		end
 
-		if @images.nil?
+		if @images.nil? || @images.empty?
 			redirect_to after_purchase_pages_path
 		end
 	end
+
+	def download_image
+	  @order_package = OrderPackage.find(params[:order_package])
+	  
+	  @order_package.update(:email_sent => true)
+	  data = open("#{params[:url]}")
+	  send_data data.read, filename: "#{@order_package.student.last_name}_#{@order_package.student.first_name}.jpg", type: "image/jpeg", :x_sendfile => true
+
+  end
 
 	def create_package
 		@cart = Cart.find_by_cart_id(params[:cart_id])
