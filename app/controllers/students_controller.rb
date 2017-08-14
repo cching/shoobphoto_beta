@@ -765,7 +765,7 @@ class StudentsController < ApplicationController
   def packages
     @cart = Cart.find_by_cart_id(params[:id])
     @student = @cart.cart_students.order(:i).last.student
-    @packages = @student.school.packages.order(:id)
+    @packages = @student.school.packages.where(hidden: false).order(:id)
 
   end
 

@@ -2,22 +2,35 @@ class Auto < ActiveRecord::Base
 	has_many :student_errors
 
 	def self.check_orders
+		s3 = AWS::S3.new
 		File.open("/Users/alexshoob/desktop/scanned_orders/result.csv", "w") do |result|
-			result << "order ID, school, student ID, firstname, lastname, pricelist, email"
-			OrderPackage.where("scanned = false OR qualified = true AND email_sent = false").each do |order_package|
+			count = OrderPackage.where("scanned = false OR qualified = true AND email_sent = false").count
+			result << "order ID, school, student ID, firstname, lastname, pricelist, date, email, scanned, qualified"
+			result << "\n"
+			OrderPackage.where("scanned = false OR qualified = true AND email_sent = false").each_with_index do |order_package, i|
 				order_package.update(:scanned => true)
+				unless order_package.student.nil?
 			    if Student.qualified(order_package.student) && Order.qualified(order_package.student) 
 			       	if order_package.options.any?
-		        		if order_package.options.first.download? && order_package.student_image_id.nil?
-		        			result << "#{order_package.cart.orders.first.id}, #{order_package.student.school.name}, #{order_package.student.student_id}, #{order_package.student.first_name}, #{order_package.student.last_name}, #{order_package.package.slug}, #{order_package.cart.orders.first.email}"
+		        		if order_package.options.first.download? && order_package.student_image_id.nil? && order_package.cart.orders.any?
+		        			order_package.update(:qualified => true)
+
+		        			result << "#{order_package.cart.orders.first.id}, #{order_package.student.school.try(:name)}, #{order_package.student.student_id}, #{order_package.student.first_name}, #{order_package.student.last_name}, #{order_package.package.slug}, #{order_package.cart.created_at}, #{order_package.cart.orders.first.email}, true, #{order_package.qualified}"
+		        			puts "Qualified order found: #{i} added out of #{count} to scan"
+		        			result << "\n"
 		        		end
 		        	end
 			    end
+			end
 		 	end
-		end
+		 end
+
+		obj = s3.buckets['shoobphoto'].objects["AutoCSV/scan/result.csv"]
+	    obj.write(File.read("/Users/alexshoob/desktop/scanned_orders/result.csv"))
+	    puts "Uploading CSVs to S3..."
 	end
  
-	def self.upload
+	  def self.upload
 	    if Dir.glob("/Volumes/6TB-J-12-13/Diglab2017/Dbf/csv/*.csv").any?
 
 	      #clear previous images from transfer
@@ -36,12 +49,16 @@ class Auto < ActiveRecord::Base
 
 	      @load_id = SecureRandom.hex
 
+	      processed = []
+
 	      failed_filename = "#{@load_id}_failed.csv"
 	      output_filename = "#{@load_id}_output.csv"
 	          File.open("/Users/alexshoob/load_station/output/#{output_filename}", "w") do |output| #initiate output CSV 
 	            File.open("/Users/alexshoob/desktop/load_station_failed/#{failed_filename}", "w") do |failed| #initiate failed CSV 
 
 	              Dir.glob("/Volumes/6TB-J-12-13/Diglab2017/Dbf/csv/*.csv") do |fname|
+
+	              	processed << fname
 
 	                if i == 1 #set headers for first iteration
 
@@ -64,7 +81,7 @@ class Auto < ActiveRecord::Base
 						      		if schools.any?
 						      			school = schools.last
 						      			unless h[:slug].nil?
-						      			packages = school.packages.where("lower(slug) like ?", "%#{h[:slug].downcase}%")
+						      			packages = school.packages.where(hidden: false).where("lower(slug) like ?", "%#{h[:slug].downcase}%")
 						      			if packages.any? 
 						      				package = packages.last
 				                            unless h[:url].nil? || h[:url] == ""
@@ -117,7 +134,7 @@ class Auto < ActiveRecord::Base
 				                        else #if no packages found for school 
 				                        	@failed << true
 			                                @output << false
-			                                response = "No package found with slug #{h[:slug]} for school #{school.name} - availabile: #{school.packages.map(&:slug).join(', ')}, #{url_path}, #{h[:student_id]}, #{h[:acesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{h[:ca_code]}, #{h[:rec_type]}, h#{@load_id}"
+			                                response = "No package found with slug #{h[:slug]} for school #{school.name} - availabile: #{school.packages.where(hidden: false).map(&:slug).join(', ')}, #{url_path}, #{h[:student_id]}, #{h[:acesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{h[:ca_code]}, #{h[:rec_type]}, h#{@load_id}"
 
 			                                failed << response.encode(Encoding.find('ASCII'), encoding_options)
 			                                failed << "\n"
@@ -155,7 +172,7 @@ class Auto < ActiveRecord::Base
 	                end  #close failed
 	                end #close output
 
-	      #cleanup and uploa
+	      #cleanup and upload
 
 	      if @output.include? true
 	        obj = s3.buckets['shoobphoto'].objects["AutoCSV/output/#{output_filename}"]
@@ -178,11 +195,10 @@ class Auto < ActiveRecord::Base
 	    puts "All CSVs loaded successfully. They are currently being imported into the site."
 
 	    begin
-
-	    Dir.glob("/Volumes/6TB-J-12-13/Diglab2017/Dbf/csv/*.csv").each { |f| File.delete(f) } #cleanup
-	  	rescue
-	  		puts "ALERT: CSV and images were uploaded to site correctly. Unable to delete loaded CSVs from ~/Diglab2017/Dbf/csv/. Please manually delete CSVs before loading in more."
-	  	end
+		    processed.each { |f| File.delete(f) } #cleanup
+		rescue
+		  	puts "ALERT: CSV and images were uploaded to site correctly. Unable to delete loaded CSVs from ~/Diglab2017/Dbf/csv/. Please manually delete CSVs before loading in more."
+		end
 	    end # end if any csv files exist
 	     
 	  end

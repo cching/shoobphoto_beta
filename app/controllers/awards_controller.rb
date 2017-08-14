@@ -75,7 +75,7 @@ class AwardsController < ApplicationController
     @students = Student.searching_awards(@school.id, params[:first_name], params[:last_name], params[:grade], params[:educator], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
       
 
-    @image = @school.packages.where("name like ?", "%Fall%").last
+    @image = @school.packages.where(hidden: false).where("name like ?", "%Fall%").last
 
     if @image.nil?
       @image = @school.packages.first
@@ -222,7 +222,7 @@ class AwardsController < ApplicationController
     @students = Student.searching_awards(@school.id, params[:first_name], params[:last_name], params[:grade], params[:educator], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
       
 
-    @image = @school.packages.where("name like ?", "%Fall%").last
+    @image = @school.packages.where(hidden: false).where("name like ?", "%Fall%").last
 
     if @image.nil?
       @image = @school.packages.first
@@ -242,7 +242,7 @@ class AwardsController < ApplicationController
     @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
       
 
-    @image = @school.packages.where("name like ?", "%Fall%").last
+    @image = @school.packages.where(hidden: false).where("name like ?", "%Fall%").last
 
     if @image.nil?
       @image = @school.packages.first
@@ -254,7 +254,7 @@ class AwardsController < ApplicationController
     @award_info = AwardInfo.find(params[:award_id])
     @student = Student.new
     @school = current_user.school
-    @image = @school.packages.where("name like ?", "%Fall%").last
+    @image = @school.packages.where(hidden: false).where("name like ?", "%Fall%").last
 
     if @image.nil?
       @package = @school.packages.first

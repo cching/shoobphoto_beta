@@ -47,7 +47,7 @@ require 'smarter_csv'
   end
 
   def index
-    @packages = Package.all.order(:name)
+    @packages = Package.all.where(hidden: false).order(:name)
   end
 
   def carts 
@@ -86,7 +86,7 @@ require 'smarter_csv'
 
   def destroy
     @package = Package.find(params[:id])
-    @package.destroy
+    @package.update(hidden: true)
     redirect_to admin_packages_path
   end
 

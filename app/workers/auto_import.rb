@@ -96,7 +96,7 @@ class AutoImport
 									     	end
 
 
-								          if h[:folder] == "fall2017" || h[:folder] == "Fall2017"
+								          if h[:folder] == "fall2018" || h[:folder] == "Fall2018"
 								          	student.update(:enrolled => true)
 								          end
 

@@ -15,7 +15,7 @@ class ExportListItemsController < ApplicationController
       @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
       
 
-    @image = @school.packages.where("name like ?", "%Fall%").last
+    @image = @school.packages.where(hidden: false).where("name like ?", "%Fall%").last
 
     if @image.nil?
       @image = @school.packages.first
@@ -83,7 +83,7 @@ class ExportListItemsController < ApplicationController
       @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
       end
 
-    @image = @school.packages.where("name like ?", "%Fall%").last
+    @image = @school.packages.where(hidden: false).where("name like ?", "%Fall%").last
 
     if @image.nil?
       @image = @school.packages.first
@@ -130,7 +130,7 @@ class ExportListItemsController < ApplicationController
     else
     bucket = AWS::S3::Bucket.new('shoobphoto')
     @school = School.find(params[:school_id])
-    @package = @school.packages.where("name like ?", "%Fall%").last
+    @package = @school.packages.where(hidden: false).where("name like ?", "%Fall%").last
       current_user.students.each do |student|
         image = @package.student_images.where(:student_id => student.id)
         if image.any?
@@ -286,7 +286,7 @@ class ExportListItemsController < ApplicationController
   def school_user
     if current_user.try(:admin) || current_user.try(:school_admin)
     @school = School.find(params[:id])
-    @image = @school.packages.where("name like ?", "%Fall%").last
+    @image = @school.packages.where(hidden: false).where("name like ?", "%Fall%").last
     @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
 
     if @image.nil?

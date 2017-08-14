@@ -9,7 +9,7 @@ class ExportSchool
 
         csv_file << CSV.generate_line(['Database ID'] + ['School Name'] +  ['CA Code'] + ['Type'] + ['Package Name'] + ['Slug']  + ['Shipping'])
           School.all.order(:name).each do |school|
-            school.packages.each do |package|
+            school.packages.where(hidden: false).each do |package|
               if package.shippings.where(:school_id => school.id).any?
                 @price = package.shippings.where(:school_id => school.id).first.try(:price)
               elsif package.shippings.where(:school_id => nil).any?
