@@ -5,7 +5,5 @@
 							<%= link_to image_tag(package.image.url), student_select_package_path(@cart.cart_id, @cart.students.count - 1, package.id), class: "package_selection" %>
 						</div>
 	<% end %>
-	<div class="center-row animated fadeInUp">
-		<%= link_to image_tag("gift_package.jpg"), gift_packages_path(@cart.cart_id, @cart.students.count - 1), class: "package_selection" %>
-	</div>
+
 </div>   

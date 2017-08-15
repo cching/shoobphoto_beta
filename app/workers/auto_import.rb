@@ -16,11 +16,6 @@ class AutoImport
 		      chunk = SmarterCSV.process(csv_file, {:file_encoding =>'iso-8859-1'}) do |chunk|
 		      	      	chunk.each do |h|
 		      	      		school = School.where(:id => h[:school_id].to_i)
-
-		      	      		unless school.enrolled?
-		      	      			school.students.update_all(enrolled: false)
-		      	      			school.update(enrolled: true)
-		      	      		end
 				      		
 				      		if school.any?
 				      			school = school.last

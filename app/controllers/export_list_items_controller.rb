@@ -83,7 +83,7 @@ class ExportListItemsController < ApplicationController
       @students = Student.searching(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
       end
 
-    @image = @school.packages.where(hidden: false).where("name like ?", "%Fall%").last
+    @image = @school.packages.where("name like ?", "%Fall%").last
 
     if @image.nil?
       @image = @school.packages.first
