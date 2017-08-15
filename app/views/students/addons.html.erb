@@ -41,13 +41,14 @@
 		<div class="<%= @index.to_words %>_content">
 			<div class="scrollbox">
 			<% @option.image_types.each do |type| %>
+			<br/>
 
-				<%= type.name %><br/>
+				<%= type.name %>
 											
 			<% end %>
 			</div>
 			<div class="row bottom">
-				<div class="col-xs-3 bottom_text">
+				<div class="col-xs-3 <%= @index %>_bottom_text">
 				$<%= @option.price(@student.school.id).floor %>
 				</div>
 
