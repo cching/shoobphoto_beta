@@ -18,6 +18,10 @@ class AutoImport
 		      	      		school = School.where(:id => h[:school_id].to_i)
 				      		
 				      		if school.any?
+				      			unless school.enrolled?
+ 		      	      				school.students.update_all(enrolled: false)
+ 	      	      					school.update(enrolled: true)
+ 		      	      			end
 				      			school = school.last
 				      		package = Package.find(h[:package_id].to_i)
 					      	if package.id == 6
