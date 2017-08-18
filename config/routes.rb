@@ -5,8 +5,6 @@ Rails.application.routes.draw do
 
   resources :backgrounds
 
-  resources :jobs
-
   resources :autos do
     collection do 
       get "start_auto"

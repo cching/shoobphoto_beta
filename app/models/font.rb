@@ -5,7 +5,8 @@ class Font < ActiveRecord::Base
   :s3_host_name => 's3-us-west-1.amazonaws.com'
   
   validates_presence_of :name
-  validates_attachment :file, presence: true
+  validates_attachment :file, presence: true 
+  validates_attachment_file_name :file, :matches => [/ttf\Z/], region: 'us-west-1'
   
   before_destroy :ensure_no_fields
   

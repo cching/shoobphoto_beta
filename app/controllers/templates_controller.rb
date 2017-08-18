@@ -58,6 +58,7 @@ class TemplatesController < ApplicationController
         f = field.dup
         f.save
         f.update(:template_id => @template1.id)
+        @template1.columns << @template.columns
       end
     end
 
@@ -107,10 +108,6 @@ class TemplatesController < ApplicationController
 
       @export_data.export_data_students.new(:student_id => 129932)
       @export_data.save
-
-      @export_data.errors.full_messages.each do |error|
-        puts "@@@@@@@@#{error}"
-      end
 
       file_name = ["export-file-#{@export_data.id}", ".pdf"]
         Tempfile.open(file_name) do |file|
