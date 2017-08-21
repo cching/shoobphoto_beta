@@ -7,16 +7,12 @@ class ExportSchool
 
       csv_file = ''
 
-        csv_file << CSV.generate_line(['Database ID'] + ['School Name'] +  ['CA Code'] + ['Type'] + ['Package Name'] + ['Slug']  + ['Shipping'])
+        csv_file << CSV.generate_line(['cacode'] + ['school'] +  ['school type'] + ['Price Lists'])
           School.all.order(:name).each do |school|
             school.packages.where(hidden: false).each do |package|
-              if package.shippings.where(:school_id => school.id).any?
-                @price = package.shippings.where(:school_id => school.id).first.try(:price)
-              elsif package.shippings.where(:school_id => nil).any?
-                @price = package.shippings.where(:school_id => nil).first.try(:price)
-              end
 
-              csv_file << CSV.generate_line(["#{school.id}"] + ["#{school.name}"] + ["#{school.ca_code}"] + ["#{school.school_type.name}"] + ["#{package.name}"] + ["#{package.slug}"]+ ["#{@price}"])
+
+              csv_file << CSV.generate_line(["#{school.ca_code}"] + ["#{school.name}"] + ["#{school.school_type.name}"] + school.packages.map { |p| "[#{p.slug}]"}.join(" + "))
 
             end
           end

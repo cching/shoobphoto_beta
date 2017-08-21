@@ -29,7 +29,7 @@
 </div>
 <p>
   <b>Order Number:</b>
-  <%= @order.id %>
+  <%= @order.id %>, on <%= @order.created_at.strftime("%m/%d/%y") %>
 </p>
 
 <p>
@@ -41,7 +41,7 @@
 <% @cart.students.each do |student| %>
   <tr>
   <td>
-  <%= student.school.name %>: <%= student.first_name %> <%= student.last_name %>
+  <b><%= student.school.name %></b>: <%= student.first_name %> <%= student.last_name %>
   </td>
   <td>
   <% @cart.order_packages.where(:student_id => student.id).each do |o| %>
