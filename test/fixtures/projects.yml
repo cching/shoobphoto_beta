@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  school: MyString
+  email: MyString
+  name: MyString
+  position: MyString
+  phone: MyString
+  delivery: 2017-08-21
+  flexible: false
+
+two:
+  school: MyString
+  email: MyString
+  name: MyString
+  position: MyString
+  phone: MyString
+  delivery: 2017-08-21
+  flexible: false

@@ -50,7 +50,7 @@
 
   <%= f.association :school_type, as: :radio_buttons %>
 
-  <%= f.association :packages, collection: Package.all.order(:name), as: :check_boxes, :label_method => lambda { |package| "#{package.name} - #{package.slug}" } %>
+  <%= f.association :packages, collection: Package.order("lower(slug) ASC").all, as: :check_boxes, :label_method => lambda { |package| "#{package.name} - #{package.slug}" } %>
 
   <div class="actions">
     <%= f.submit %>

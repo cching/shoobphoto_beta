@@ -1,0 +1,13 @@
+<%= f.simple_fields_for :project_prints, @project.project_prints.new do |f| %>
+	<%= f.input :print_id, :as => :hidden, :input_html => { :value => id } %>
+	<%= f.input :quantity %>
+	
+
+	<%= f.input :file %>
+	<%= f.input :image %>
+
+	<%= f.input :description, label: "Notes" %>
+
+<% end %>
+
+<br/>

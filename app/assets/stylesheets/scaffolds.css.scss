@@ -15,7 +15,11 @@
   text-decoration: none;
 }
 
-
+.text {
+  padding-top: 0px !important;
+  width: 100% !important;
+  text-align:left !important;
+}
 
 .btn-custom:hover {
   background: #3cb0fd;

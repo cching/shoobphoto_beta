@@ -1,0 +1,24 @@
+<h1>Listing prints</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @prints.each do |print| %>
+      <tr>
+        <td><%= print.name %></td>
+        <td><%= link_to 'Show', admin_print_path(print) %></td>
+        <td><%= link_to 'Edit', edit_admin_print_path(print) %></td>
+        <td><%= link_to 'Destroy', admin_print_path(print), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Print', new_admin_print_path %>

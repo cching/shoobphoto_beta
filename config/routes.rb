@@ -3,6 +3,8 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  resources :projects
+
   resources :backgrounds
 
   resources :autos do
@@ -110,6 +112,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'emailers/' => 'emailers#index', :via => 'GET', :as => 'emailer'
   match 'emailers/csv' => 'emailers#import', :via => 'POST', :as => 'import_emailer'
   namespace :admin do
+    resources :prints
     resources :categories
     resources :dashboards do
         collection do

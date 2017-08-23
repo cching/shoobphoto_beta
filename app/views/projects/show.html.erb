@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>School:</strong>
+  <%= @project.school %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @project.email %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @project.name %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @project.position %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @project.phone %>
+</p>
+
+<p>
+  <strong>Delivery:</strong>
+  <%= @project.delivery %>
+</p>
+
+<p>
+  <strong>Flexible:</strong>
+  <%= @project.flexible %>
+</p>
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>

@@ -1,0 +1,46 @@
+<%= simple_form_for(@project) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :school, :input_html => {:value => "#{current_user.school.name}"} %>
+    <%= f.input :email, :input_html => {:value => "#{current_user.email}"} %>
+    <%= f.input :name, :input_html => {:value => "#{current_user.first_name} #{current_user.last_name}"} %>
+    <%= f.input :position %>
+    <%= f.input :phone %>
+
+      <% Print.all.order(:name).each do |print| %>
+        <%= check_box_tag("#{print.id}") %>
+        <%= print.name %><br/>
+        <span id="<%= print.id%>_after"></span>
+      <% end %>
+
+    <%= f.input :delivery, :as => :date_picker, :input_html => {:style => "width:99%;", :id => "datetimepicker"} %>
+    <%= f.input :flexible %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+
+  <script>
+  <% Print.all.each do |print| %> 
+
+    $("#<%= print.id %>").change(function() {
+      if (this.checked) {
+        $("#<%= print.id %>_after").html("<%= escape_javascript(render 'project_print_fields', :id => print.id, :f => f) %>");
+      } else {
+        $("#<%= print.id %>_after").html("");
+      }
+      
+
+    });
+  <% end %>
+</script>
+<% end %>
+
+<script>
+$('#datetimepicker').datetimepicker({
+  format: 'YYYY-MM-DD HH:mm'
+});
+</script>
+
