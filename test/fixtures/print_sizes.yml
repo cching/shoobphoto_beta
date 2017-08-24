@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  size: MyString
+  price: 1
+  print_id: 1
+
+two:
+  size: MyString
+  price: 1
+  print_id: 1

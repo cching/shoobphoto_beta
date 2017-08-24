@@ -19,6 +19,7 @@
 		<% slice.each do |background| %>
 		<div class="col-xs-2 nopaddingcol" align="center">
 			<%= link_to image_tag(background.image.url, class: "img-backgrounds-small", id: "#{background.id}"), add_background_path(@opackage.id, @image.id, background.id), remote: true %><br/>
+			<p class="background_color_small"><%= background.color %></p>
 		</div>
 		<% end %>
 		<div class="col-xs-1"></div>

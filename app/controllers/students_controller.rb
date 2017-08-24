@@ -28,7 +28,7 @@ class StudentsController < ApplicationController
 
   def showteacher 
     @school = School.find(params[:school]) 
-  end
+  end 
 
   def add_package
     @cart = Cart.find_by_cart_id(params[:cart])
@@ -305,7 +305,7 @@ class StudentsController < ApplicationController
     @package = @opackage.package
     image = @package.student_images.where(:student_id => @opackage.student.id).last
 
-        if @package.id == 6 && image.present? && @cart.id_supplied?
+        if @package.id == 6 && image.student_images.any? && @cart.id_supplied?
           @boolean = false
           image.senior_images.each do |senior_image|
             if senior_image.watermark.exists?
@@ -337,7 +337,7 @@ class StudentsController < ApplicationController
           @ids << false
         end
          
-        unless @boolean == true
+        if @boolean == false
           if @ids.include?(true) && @cart.id_supplied?
             redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
           else

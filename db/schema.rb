@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170822072757) do
+ActiveRecord::Schema.define(version: 20170824184632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -673,6 +673,14 @@ ActiveRecord::Schema.define(version: 20170822072757) do
     t.integer  "option_id"
     t.integer  "extra_id"
     t.integer  "package_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "print_sizes", force: true do |t|
+    t.string   "size"
+    t.integer  "price"
+    t.integer  "print_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
