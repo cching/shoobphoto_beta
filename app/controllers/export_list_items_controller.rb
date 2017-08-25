@@ -239,7 +239,7 @@ class ExportListItemsController < ApplicationController
   @image = Package.find(params[:image_id])
   @student = Student.find(params[:student_id])
   bucket = AWS::S3::Bucket.new('shoobphoto')
-  if AWS::S3::S3Object.new(bucket, "images/#{@image.student_images.where(:student_id => @student.id).last.folder}/#{@image.student_images.where(:student_id => @student.id).last.image_file_name}.#{image.last.extension}").exists?
+  if AWS::S3::S3Object.new(bucket, "images/#{@image.student_images.where(:student_id => @student.id).last.folder}/#{@image.student_images.where(:student_id => @student.id).last.image_file_name}.#{@image.last.extension}").exists?
   data = open("#{@image.student_images.where(:student_id => @student.id).last.image.url}")
   send_data data.read, filename: "#{@student.last_name}_#{@student.first_name}.jpg", type: "image/jpeg", :x_sendfile => true
   

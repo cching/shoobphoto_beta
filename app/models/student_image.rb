@@ -12,7 +12,8 @@ class StudentImage < ActiveRecord::Base
   	:url => ':s3_domain_url',
   	:path => '/images/:folder/:filename:file_type',
                      :preserve_files => true, 
-                     processors: [:no_rotation]
+                     processors: [:no_rotation],
+    :source_file_options =>  {:all => '-auto-orient'}
   	validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
 
