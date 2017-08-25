@@ -24,10 +24,12 @@
         <% end %><br/>
 
         
-        <%= text_field_tag :student_id, nil, placeholder: "Student's ID or Access Code", class: "enjoy-css2", id: "input_student_id_custom" %>
+        <%= text_field_tag :student_id, nil, placeholder: "Student's ID or Access Code", class: "enjoy-css2", id: "input_student_id_custom" %> 
+
+        <div id="student_found"></div>
 
           <div id="button_script" align="center">
-            <input class="btn-blue" name="commit" value="Continue" data-toggle="tooltip" title="No student has been found with the given ID or access code. Please verify the information is correct. If not, please continue on the previous screen without an ID or code." data-placement="top" readonly>
+            <input class="btn-blue" name="commit" value="Continue" readonly>
           </div>
     
 
@@ -37,10 +39,12 @@
     <%= hidden_field_tag "i", @i %>
 <% end %>
 
+<div id="student_failed"></div>
+
 </div>
 
 <script>
-	$("#input_student_id_custom").keyup(function() 
+	$("#input_student_id_custom").blur(function() 
 	{
 		var d = document.getElementById("input_student_id_custom");
         d.className += " error_field";
@@ -128,8 +132,5 @@
 
 }
 
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip(); 
-});
 
 </script>

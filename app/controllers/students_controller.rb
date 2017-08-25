@@ -502,7 +502,7 @@ class StudentsController < ApplicationController
       @student = @students_access_gift.last
       respond_to :js
     else
-      render :nothing => true
+      @student = nil
     end
   end 
 

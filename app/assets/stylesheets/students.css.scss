@@ -2,8 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.failed {
+	padding-top:10px;
+	height: 150px;
+	font-size:15px;
+	color: #fff;
+	background-color:#364B60;
+	width: 100%;
+}
+
 .background_color_small {
 	font-size:12px;
+}
+
+.blue_found {
+	color: #5392C8;
 }
 
 .with_id_form {
@@ -1041,6 +1054,20 @@ ul.options {
 	margin-right:30px;
 	padding-bottom:10px;
 }
+
+.btn-blue_failed {
+	-webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  color: #fff;
+  font-size: 14px;
+  background: #396599;
+  padding: 8px 12px 12px 8px;
+  text-decoration: none;
+  text-align:center;
+  color:#fff;
+}
+
 
 .btn-blue {
 	-webkit-border-radius: 0;
