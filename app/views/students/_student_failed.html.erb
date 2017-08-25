@@ -4,7 +4,7 @@
 
 	If unsuccessful, please continue without ID or access code.<br/><br/>
 
-	<%= link_to "Continue without ID or Access Code", student_search_path(:cart => @cart, :i => @i), class: "btn-blue_failed" %>
+	<%= link_to "Continue without ID or Access Code", student_search_path(:cart => @cart, :i => @i, :school_id => @school.id), class: "btn-blue_failed" %>
 
 
 

@@ -3,6 +3,7 @@
 	$("#student_failed").html("<%= escape_javascript(render 'student_failed') %>");
 
 <% else %>
+	$("#student_failed").html("");
 
 	$("#gradedropdown").select2("trigger", "select", {
 	    data: { id: "<%= @student.grade %>" }

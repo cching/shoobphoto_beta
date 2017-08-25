@@ -25,6 +25,7 @@ class AutoImport
  		      	      			end
 				      			
 				      		package = Package.find(h[:package_id].to_i)
+				      		## import senior images
 					      	if package.id == 6
 						        
 									unless h[:student_id].nil?
@@ -61,6 +62,7 @@ class AutoImport
 							        	end
 							        end
 						    	else #else rectype
+						    		#import normal student images
 							    	unless h[:student_id].nil?
 							        students = school.students.where(:student_id => "#{h[:student_id]}").where(:id_only => true)
 
@@ -73,6 +75,8 @@ class AutoImport
 							           	student = students.last
 							           	student.update(:student_id => h[:student_id], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :email => h[:email], :teacher => h[:teacher], :shoob_id => h[:shoob_id], :id_only => true)
 							          end 
+
+							          
 			 
 							          images = student.student_images.where("lower(folder) like ?", "%#{h[:folder]}%")
 

@@ -117,6 +117,10 @@ class Auto < ActiveRecord::Base
 				                                failed << response.encode(Encoding.find('ASCII'), encoding_options)
 				                                failed << "\n"
 
+				                                response = ", , #{h[:student_id]}, #{h[:accesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{school.id}, #{package.id}, #{h[:shoob_id]}, #{h[:rec_type]}, #{@load_id}".encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+				                                output << response.encode(Encoding.find('ASCII'), encoding_options)
+				                                output << "\n"
+
 				                                puts "Unable to locate student image #{student_index} for school #{school.name}"
 				                              end #end if file exists
 				                            else #url is blank, load empty kid

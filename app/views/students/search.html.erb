@@ -63,6 +63,7 @@
   <% end %>
   
 <script>
+
 $("#input_student_id").keyup(function() 
 {
 $.get('/students/findbyid/' + $("#dropdown").select2("val") + '?student_id=' + $("#input_student_id").val()).success(function(data) { } )
@@ -114,7 +115,15 @@ $(document).ready(function() {
   $('.select2-selection').css('height','44px')
   $('.select2-container').children().css('border-radius','0px')
 
+  <% if params[:school_id] %>
+$("#dropdown").select2("trigger", "select", {
+      data: { id: "<%= params[:school_id] %>" }
+  });
+
+<% end %>
+
  });
+
 
 function validateForm(){isValid = false;
   $(".btn-blue").prop("disabled", true );
@@ -200,6 +209,7 @@ function validateForm(){isValid = false;
   }
 
 }
+
 </script>
 
 
