@@ -9,11 +9,11 @@ class StudentImage < ActiveRecord::Base
   has_many :download_images
 
 	has_attached_file :image,
+    styles: { original: "" },
+    :convert_options => { :all => '-auto-orient' },   
   	:url => ':s3_domain_url',
   	:path => '/images/:folder/:filename:file_type',
-                     :preserve_files => true, 
-                     processors: [:no_rotation],
-    :source_file_options =>  {:all => '-auto-orient'}
+                     :preserve_files => true
   	validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
 
