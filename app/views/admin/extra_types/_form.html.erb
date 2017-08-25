@@ -18,9 +18,8 @@
         </div>
       </div>
 
-      <%= f.association :options, as: :check_boxes, :label_method => lambda { |option| "#{option.package.try(:name)}: #{option.package.try(:package)} | #{option.slug}" } %>
+      <%= f.association :options, collection: Option.includes(:package).order("packages.name ASC").order(:slug), as: :check_boxes, :label_method => lambda { |option| "#{option.package.try(:name)}: #{option.package.try(:slug)} | #{option.slug}" } %>
       
-
   </div>
 
   <div class="form-actions">
