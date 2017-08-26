@@ -20,7 +20,7 @@ class AutoImport
 		  	end
 
 		    s3_array.each do |s3_csv|
-		      csv_path  = "https://s3-us-west-1.amazonaws.com/shoobphoto/#{object}"
+		      csv_path  = "https://s3-us-west-1.amazonaws.com/shoobphoto/#{s3_csv}"
 
 		      csv_file  = open(csv_path,'r')
 
