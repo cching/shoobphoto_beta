@@ -5,6 +5,6 @@ class ImageMailer < ActionMailer::Base
     @order_package = op
     @image = image
     mail :to => @order_package.cart.email, :from => 'info@shoobphoto.com', :subject => 'Shoob Photography Digital Images'
-    op.update(:email_sent => true)
+    @order_package.update(:email_sent => true)
   end
-end 
+end  

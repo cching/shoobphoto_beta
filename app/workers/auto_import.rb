@@ -76,7 +76,7 @@ class AutoImport
 							           	student.update(:student_id => h[:student_id], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :email => h[:email], :teacher => h[:teacher], :shoob_id => h[:shoob_id], :id_only => true)
 							          end 
 
-							          
+
 			 
 							          images = student.student_images.where("lower(folder) like ?", "%#{h[:folder]}%")
 
@@ -140,7 +140,9 @@ class AutoImport
 	        order.order_packages.where(email_sent: false).where(:student_id => student.id).where(:package_id => package_id).each do |op|
 	        	if op.options.any?
 	        		if op.options.first.download? && op.student_image_id.nil?
-	        			ImageMailer.send_image(op, image).deliver
+	        			if op.cart.email.exists?
+	        				ImageMailer.send_image(op, image).deliver
+	        			end
 	        		end
 	        	end
 	        end
