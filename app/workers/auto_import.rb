@@ -8,7 +8,18 @@ class AutoImport
       	s3 = AWS::S3.new
       	    objects = bucket.objects.with_prefix('AutoCSV/output').collect(&:key).drop(1)
 
-		    objects.each do |object|
+      	    s3_array = []
+
+      	    objects.each do |object|
+		      s3_array << "AutoCSV/import/#{object}"
+
+		      obj1 = bucket.objects["#{object}"]
+	          obj2 = bucket.objects["AutoCSV/import/#{object}"]
+	          obj1.copy_to(obj2)
+	          obj1.delete
+		  	end
+
+		    s3_array.each do |s3_csv|
 		      csv_path  = "https://s3-us-west-1.amazonaws.com/shoobphoto/#{object}"
 
 		      csv_file  = open(csv_path,'r')
@@ -124,7 +135,7 @@ class AutoImport
 		 
 		    end 
 
-		    objects.each do |object| #clear database csv
+		    s3_array.each do |object| #clear database csv
 		      obj = s3.buckets['shoobphoto'].objects[object] # no request made
 		      obj.delete
 		    end

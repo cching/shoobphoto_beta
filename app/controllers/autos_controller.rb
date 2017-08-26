@@ -14,7 +14,7 @@ class AutosController < ApplicationController
     @auto = Auto.create(:success_count => 0, :failed_count => 0)
     AutoImport.perform_async(@auto.id)
     
-    redirect_to process_auto_auto_path(@auto.id)
+    redirect_to process_auto_auto_path(@auto.id) 
   end
 
   def process_auto
