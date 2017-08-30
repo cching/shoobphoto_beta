@@ -94,7 +94,6 @@ class AutoImport
 							          	if images.any? #update
 							        		image = images.last
 							        		if h[:url].nil?
-						          				image.update(:accesscode => h[:accesscode], :package_id => package.id, :student_id => student.id, :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
 						          			else
 						          				image.update(:accesscode => h[:accesscode],:package_id => package.id, :student_id => student.id, :image_file_name => h[:url], :watermark_file_name => h[:url], :url => h[:url], :folder => h[:folder], :shoob_id => h[:shoob_id])
 						          			end
