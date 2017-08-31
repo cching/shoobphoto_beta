@@ -23,7 +23,6 @@ class AutoImport
 		      csv_path  = "https://s3-us-west-1.amazonaws.com/shoobphoto/#{s3_csv}"
 
 		      csv_file  = open(csv_path,'r')
-		      puts "@@@@@@@@@ #{csv_path}"
 
 		      chunk = SmarterCSV.process(csv_file, {:file_encoding =>'iso-8859-1'}) do |chunk|
 		      	      	chunk.each do |h|
@@ -151,7 +150,7 @@ class AutoImport
 	        order.order_packages.where(email_sent: false).where(:student_id => student.id).where(:package_id => package_id).each do |op|
 	        	if op.options.any?
 	        		if op.options.first.download? && op.student_image_id.nil?
-	        			if op.cart.email.exists?
+	        			if !op.cart.email.nil?
 	        				ImageMailer.send_image(op, image).deliver
 	        			end
 	        		end
