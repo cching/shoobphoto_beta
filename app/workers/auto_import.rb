@@ -23,6 +23,7 @@ class AutoImport
 		      csv_path  = "https://s3-us-west-1.amazonaws.com/shoobphoto/#{s3_csv}"
 
 		      csv_file  = open(csv_path,'r')
+		      puts "@@@@@@@@@ #{csv_path}"
 
 		      chunk = SmarterCSV.process(csv_file, {:file_encoding =>'iso-8859-1'}) do |chunk|
 		      	      	chunk.each do |h|
