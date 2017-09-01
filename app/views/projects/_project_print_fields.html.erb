@@ -17,12 +17,12 @@
 	</div>
 	<div class="col-xs-4">
 		<% if Print.find(id).print_sizes.any? %>
-			<%= select_tag :print_size, options_for_select(Print.find(id).print_sizes.map { |p| ["#{p.size} (#{number_to_currency(p.price, :unit => "$")})", p.id]}), id: "size_dropdown", :prompt => "Select size" %>
+			<%= select_tag :print_size, options_for_select(Print.find(id).print_sizes.map { |p| ["#{p.size} (#{number_to_currency(p.price, :unit => "$")})", p.id]}), class: "size_dropdown", :prompt => "Select size" %>
 		<% end %>
 	</div>
 	<div class="col-xs-4">
 		<% if Print.find(id).print_styles.any? %>
-			<%= select_tag :print_style, options_for_select(Print.find(id).print_styles.map { |p| ["#{p.style} (#{number_to_currency(p.price, :unit => "$")})", p.id]}), id: "style_dropdown", :prompt => "Select style" %>
+			<%= select_tag :print_style, options_for_select(Print.find(id).print_styles.map { |p| ["#{p.style} (#{number_to_currency(p.price, :unit => "$")})", p.id]}), class: "style_dropdown", :prompt => "Select style" %>
 		<% end %>
 	</div>
 	<div class="col-xs-2">
@@ -63,13 +63,13 @@
 $('.datetimepicker').datetimepicker({
   format: 'YYYY-MM-DD HH:mm'
 });
-  $("#size_dropdown").select2({
+  $(".size_dropdown").select2({
     theme: "bootstrap",
     width: '106%',
     minimumResultsForSearch: Infinity
   });
 
-$("#style_dropdown").select2({
+$(".style_dropdown").select2({
     theme: "bootstrap",
     width: '100%',
     minimumResultsForSearch: Infinity
