@@ -1,13 +1,86 @@
 <%= f.simple_fields_for :project_prints, @project.project_prints.new do |f| %>
-	<%= f.input :print_id, :as => :hidden, :input_html => { :value => id } %>
-	<%= f.input :quantity %>
+<div class="row">
+	<div class="col-xs-2">
+	</div>
+	<div class="col-xs-4">
+		<%= f.text_field :quantity, placeholder: "Quantity", class: "enjoy-css" %>
+	</div>
+	<div class="col-xs-4">
+		<%= f.input :file, class: "enjoy-css", label: false %>
+	</div>
+	<div class="col-xs-2">
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-2">
+	</div>
+	<div class="col-xs-4">
+		<% if Print.find(id).print_sizes.any? %>
+			<%= select_tag :print_size, options_for_select(Print.find(id).print_sizes.map { |p| ["#{p.size} (#{number_to_currency(p.price, :unit => "$")})", p.id]}), id: "size_dropdown", :prompt => "Select size" %>
+		<% end %>
+	</div>
+	<div class="col-xs-4">
+		<% if Print.find(id).print_styles.any? %>
+			<%= select_tag :print_style, options_for_select(Print.find(id).print_styles.map { |p| ["#{p.style} (#{number_to_currency(p.price, :unit => "$")})", p.id]}), id: "style_dropdown", :prompt => "Select style" %>
+		<% end %>
+	</div>
+	<div class="col-xs-2">
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-2">
+	</div>
+	<div class="col-xs-4">
+    	<%= f.input :delivery, placeholder: "Delivery", label: false, :as => :date_picker, :input_html => {:style => "width:99%;", :class => "datetimepicker"} %>
+	</div>
+	<div class="col-xs-4">
+		
+		<%= f.check_box :flexible, label: false %> Delivery flexible?
+	</div>
+	<div class="col-xs-2">
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-2">
+	</div>
+	<div class="col-xs-8">
+	<%= f.text_field :description, label: false, placeholder: "Notes", class: "enjoy-css" %>
+	</div>
+	<div class="col-xs-2">
+	</div>
+</div>		
+
+			
+<%= f.input :print_id, :as => :hidden, :input_html => { :value => id } %>
+		<% end %>
 	
-
-	<%= f.input :file %>
-	<%= f.input :image %>
-
-	<%= f.input :description, label: "Notes" %>
-
-<% end %>
-
+</div>
 <br/>
+
+<script>
+$('.datetimepicker').datetimepicker({
+  format: 'YYYY-MM-DD HH:mm'
+});
+  $("#size_dropdown").select2({
+    theme: "bootstrap",
+    width: '106%',
+    minimumResultsForSearch: Infinity
+  });
+
+$("#style_dropdown").select2({
+    theme: "bootstrap",
+    width: '100%',
+    minimumResultsForSearch: Infinity
+  });
+
+  $('.select2-selection').css('border-radius','0px')
+  $('.select2-selection').css('border','2px solid #9D9D9D')
+  $('.select2-selection').css('font','normal 16px/normal "Trebuchet MS", Helvetica, sans-serif')
+  $('.select2-selection').css('margin-bottom','20px') 
+  $('.select2-selection').css('padding-top','9px')
+  $('.select2-selection').css('height','44px')
+  $('.select2-container').children().css('border-radius','0px')
+
+</script>

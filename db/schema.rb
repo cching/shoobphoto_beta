@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170824184632) do
+ActiveRecord::Schema.define(version: 20170901055043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -685,12 +685,21 @@ ActiveRecord::Schema.define(version: 20170824184632) do
     t.datetime "updated_at"
   end
 
+  create_table "print_styles", force: true do |t|
+    t.string   "style"
+    t.integer  "price"
+    t.integer  "print_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "prints", force: true do |t|
     t.string   "name"
     t.integer  "price"
     t.string   "price_description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "description"
   end
 
   create_table "project_prints", force: true do |t|
@@ -708,6 +717,8 @@ ActiveRecord::Schema.define(version: 20170824184632) do
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
+    t.date     "delivery"
+    t.boolean  "flexible"
   end
 
   create_table "projects", force: true do |t|
@@ -853,6 +864,14 @@ ActiveRecord::Schema.define(version: 20170824184632) do
     t.decimal  "price"
     t.integer  "school_id"
     t.integer  "package_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sizes", force: true do |t|
+    t.string   "name"
+    t.integer  "price"
+    t.integer  "print_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

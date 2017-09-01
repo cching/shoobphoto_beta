@@ -69,7 +69,7 @@ class Admin::PrintsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def print_params
-      params[:print].permit(:name, :price, :price_description)
+      params[:print].permit(:name, :price, :price_description, :print_sizes_attributes => [:id, :size, :price, :_destroy])
 
     end
 end

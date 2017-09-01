@@ -1,12 +1,28 @@
 <%= simple_form_for(@project) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :school, :input_html => {:value => "#{current_user.school.name}"} %>
-    <%= f.input :email, :input_html => {:value => "#{current_user.email}"} %>
-    <%= f.input :name, :input_html => {:value => "#{current_user.first_name} #{current_user.last_name}"} %>
-    <%= f.input :position %>
-    <%= f.input :phone %>
+  <div class="row">
+    <div class="col-xs-6">
+      <%= f.text_field :school, :value => "#{current_user.school.name}", :placeholder => "School", class: "enjoy-css" %>
+    </div>
+    <div class="col-xs-6">
+      <%= f.text_field :position, :placeholder => "Position", class: "enjoy-css" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <%= f.text_field :name, :value => "#{current_user.first_name} #{current_user.last_name}", :placeholder => "Name", class: "enjoy-css" %>
+    </div>
+    <div class="col-xs-6">
+      <%= f.text_field :email, :value => "#{current_user.email}", :placeholder => "Email", class: "enjoy-css" %>
+    </div>
+  </div>
+   <div class="row">
+    <div class="col-xs-6">
+      <%= f.text_field :phone, :placeholder => "Phone", class: "enjoy-css" %>
+    </div>
+  </div>
 
       <% Print.all.order(:name).each do |print| %>
         <%= check_box_tag("#{print.id}") %>
@@ -14,9 +30,7 @@
         <span id="<%= print.id%>_after"></span>
       <% end %>
 
-    <%= f.input :delivery, :as => :date_picker, :input_html => {:style => "width:99%;", :id => "datetimepicker"} %>
-    <%= f.input :flexible %>
-  </div>
+
 
   <div class="form-actions">
     <%= f.button :submit %>
@@ -38,9 +52,4 @@
 </script>
 <% end %>
 
-<script>
-$('#datetimepicker').datetimepicker({
-  format: 'YYYY-MM-DD HH:mm'
-});
-</script>
 
