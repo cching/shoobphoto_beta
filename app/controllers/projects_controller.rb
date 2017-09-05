@@ -23,7 +23,13 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.save
-    respond_with(@project)
+    respond_to do |format|
+      if @project.save
+        redirect_to new_porder_path(@project.id)
+      else
+        format.html {render :new, :project => @project}
+      end
+    end
   end
 
   def update

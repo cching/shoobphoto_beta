@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170901055043) do
+ActiveRecord::Schema.define(version: 20170905174948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -393,6 +393,7 @@ ActiveRecord::Schema.define(version: 20170901055043) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "column_id"
+    t.string   "permanent"
   end
 
   create_table "fonts", force: true do |t|
@@ -661,6 +662,26 @@ ActiveRecord::Schema.define(version: 20170901055043) do
   create_table "periods", force: true do |t|
     t.string   "name"
     t.integer  "school_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "porders", force: true do |t|
+    t.integer  "project_id"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip_code"
+    t.string   "card_type"
+    t.decimal  "price"
+    t.string   "shipping_address"
+    t.string   "shipping_city"
+    t.string   "shipping_zip"
+    t.string   "shipping_state"
+    t.boolean  "processed"
+    t.date     "card_expires_on"
+    t.string   "purchase_order"
+    t.boolean  "free"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

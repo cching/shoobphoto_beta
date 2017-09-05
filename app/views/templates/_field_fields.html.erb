@@ -23,8 +23,12 @@
 <td>
 <%= f.input :align, label: false, :collection => Field.align_options, input_html: { class: 'select_drop'} %>
 </td>
-<td>
+<td class="font_dropdown">
 <%= f.association :font, label: false, input_html: { class: 'select_drop'} %>
+</td>
+
+<td>
+<%= f.input :permanent, label: false, input_html: { class: 'field_field'} %>
 </td>
 
 

@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
 	has_many :project_prints
 	has_many :prints, through: :project_prints
+	has_many :porders
 
 	validates_presence_of :name, :email, :position, :school
 	validates_format_of :email, :with => /@/

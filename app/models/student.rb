@@ -160,6 +160,7 @@ def self.sort_options
       'Type' => 'type',
       'Barcode' => 'barcode',
       'Prompt' => 'prompt',
+      'Fixed Text' => 'fixed_text',
       'Data1' => 'data1',
       'Data2' => 'data2',
       'Data3' => 'data3',

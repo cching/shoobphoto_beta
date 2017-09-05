@@ -1,6 +1,5 @@
 <%= simple_form_for(@project) do |f| %>
   <%= f.error_notification %>
-
   <div class="row">
     <div class="col-xs-6">
       <%= f.text_field :school, :value => "#{current_user.school.name}", :placeholder => "School", class: "enjoy-css" %>
@@ -29,8 +28,6 @@
         <%= print.name %><br/>
         <span id="<%= print.id%>_after"></span>
       <% end %>
-
-
 
   <div class="form-actions">
     <%= f.button :submit %>

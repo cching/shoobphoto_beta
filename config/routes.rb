@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :projects
 
+  get 'porders/new/:id', :to => 'porders#new', :as => :new_porder
+
   resources :backgrounds
 
   resources :autos do
