@@ -49,16 +49,12 @@ class Auto < ActiveRecord::Base
 
 	      @load_id = SecureRandom.hex
 
-	      processed = []
-
 	      failed_filename = "#{@load_id}_failed.csv"
 	      output_filename = "#{@load_id}_output.csv"
 	          File.open("/Users/alexshoob/load_station/output/#{output_filename}", "w") do |output| #initiate output CSV 
 	            File.open("/Users/alexshoob/desktop/load_station_failed/#{failed_filename}", "w") do |failed| #initiate failed CSV 
 
 	              Dir.glob("/Volumes/6TB-J-12-13/Diglab2017/Dbf/csv/*.csv") do |fname|
-
-	              	processed << fname
 
 	                if i == 1 #set headers for first iteration
 
@@ -81,7 +77,7 @@ class Auto < ActiveRecord::Base
 						      		if schools.any?
 						      			school = schools.last
 						      			unless h[:slug].nil?
-						      			packages = school.packages.where(hidden: false).where("lower(slug) like ?", "%#{h[:slug].downcase}%")
+						      			packages = school.packages.where("lower(slug) like ?", "%#{h[:slug].downcase}%")
 						      			if packages.any? 
 						      				package = packages.last
 				                            unless h[:url].nil? || h[:url] == ""
@@ -94,6 +90,7 @@ class Auto < ActiveRecord::Base
 				                            		url_path = url_path + "/#{url_array[url_index]}"
 				                            		url_index += 1
 				                            	end
+
 				                              if File.exists?("#{url_path}")
 				                                file_name = File.basename(url_path, ".*")			                          
 				                                extension = File.extname(url_path).downcase
@@ -117,10 +114,6 @@ class Auto < ActiveRecord::Base
 				                                failed << response.encode(Encoding.find('ASCII'), encoding_options)
 				                                failed << "\n"
 
-				                                response = ", , #{h[:student_id]}, #{h[:accesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{school.id}, #{package.id}, #{h[:shoob_id]}, #{h[:rec_type]}, #{@load_id}".encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
-				                                output << response.encode(Encoding.find('ASCII'), encoding_options)
-				                                output << "\n"
-
 				                                puts "Unable to locate student image #{student_index} for school #{school.name}"
 				                              end #end if file exists
 				                            else #url is blank, load empty kid
@@ -138,7 +131,7 @@ class Auto < ActiveRecord::Base
 				                        else #if no packages found for school 
 				                        	@failed << true
 			                                @output << false
-			                                response = "No package found with slug #{h[:slug]} for school #{school.name} - availabile: #{school.packages.where(hidden: false).map(&:slug).join(', ')}, #{url_path}, #{h[:student_id]}, #{h[:acesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{h[:ca_code]}, #{h[:rec_type]}, h#{@load_id}"
+			                                response = "No package found with slug #{h[:slug]} for school #{school.name} - availabile: #{school.packages.map(&:slug).join(', ')}, #{url_path}, #{h[:student_id]}, #{h[:acesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{h[:ca_code]}, #{h[:rec_type]}, h#{@load_id}"
 
 			                                failed << response.encode(Encoding.find('ASCII'), encoding_options)
 			                                failed << "\n"
@@ -176,7 +169,7 @@ class Auto < ActiveRecord::Base
 	                end  #close failed
 	                end #close output
 
-	      #cleanup and upload
+	      #cleanup and uploa
 
 	      if @output.include? true
 	        obj = s3.buckets['shoobphoto'].objects["AutoCSV/output/#{output_filename}"]
@@ -199,10 +192,11 @@ class Auto < ActiveRecord::Base
 	    puts "All CSVs loaded successfully. They are currently being imported into the site."
 
 	    begin
-		    processed.each { |f| File.delete(f) } #cleanup
-		rescue
-		  	puts "ALERT: CSV and images were uploaded to site correctly. Unable to delete loaded CSVs from ~/Diglab2017/Dbf/csv/. Please manually delete CSVs before loading in more."
-		end
+
+	    Dir.glob("/Volumes/6TB-J-12-13/Diglab2017/Dbf/csv/*.csv").each { |f| File.delete(f) } #cleanup
+	  	rescue
+	  		puts "ALERT: CSV and images were uploaded to site correctly. Unable to delete loaded CSVs from ~/Diglab2017/Dbf/csv/. Please manually delete CSVs before loading in more."
+	  	end
 	    end # end if any csv files exist
 	     
 	  end
