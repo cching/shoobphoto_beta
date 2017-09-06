@@ -8,13 +8,11 @@ class ExportSchool
       csv_file = ''
 
         csv_file << CSV.generate_line(['cacode'] + ['school'] +  ['school type'] + ['Price Lists'])
-          School.all.order(:name).each do |school|
-            school.packages.where(hidden: false).each do |package|
+          School.all.where.not(school_type_id: nil).order(:name).each do |school|
 
 
-              csv_file << ["#{school.ca_code}", "#{school.name}", "#{school.school_type.name}", school.packages.map { |p| "#{p.slug}"}.join(", ")]
+              csv_file << CSV.generate_line(["#{school.ca_code}", "#{school.name}", "#{school.school_type.name}"] + school.packages.order(:slug).map {|p| p.slug})
 
-            end
           end
         
           file_name = Rails.root.join('tmp', "school_export_#{Time.now.day}-#{Time.now.month}-#{Time.now.year}_#{Time.now.hour}_#{Time.now.min}.csv");
