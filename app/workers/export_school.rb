@@ -9,9 +9,16 @@ class ExportSchool
 
         csv_file << CSV.generate_line(['cacode'] + ['school'] +  ['school type'] + ['Price Lists'])
           School.all.where.not(school_type_id: nil).order(:name).each do |school|
+            array = []
+            school.packages.each do |p|
+              p.options.each do |o|
+                o.extra_types.each do |et|
+                  array = et.extras.map {|e| "#{e.name}, #{e.prices.first.price}"}
+                end
+              end
+            end
 
-
-              csv_file << CSV.generate_line(["#{school.ca_code}", "#{school.name}", "#{school.school_type.name}"] + school.packages.order(:slug).map {|p| p.slug})
+              csv_file << CSV.generate_line(["#{school.ca_code}", "#{school.name}", "#{school.school_type.name}"] + school.packages.order(:slug).map {|p| "#{p.slug}, #{p.prices.first.price}"} + array) 
 
           end
         
@@ -32,3 +39,6 @@ class ExportSchool
           export.update(:file_file_name => key)
     end
 end
+
+
+
