@@ -13,12 +13,12 @@ class ExportSchool
             school.packages.each do |p|
               p.options.each do |o|
                 o.extra_types.each do |et|
-                  array = et.extras.map {|e| "#{e.name}, #{e.prices.first.price}"}
+                  array = et.extras.map {|e| "#{e.name}, #{e.prices.first.try(:price)}"}
                 end
               end
             end
 
-              csv_file << CSV.generate_line(["#{school.ca_code}", "#{school.name}", "#{school.school_type.name}"] + school.packages.order(:slug).map {|p| "#{p.slug}, #{p.prices.first.price}"} + array) 
+              csv_file << CSV.generate_line(["#{school.ca_code}", "#{school.name}", "#{school.school_type.name}"] + school.packages.order(:slug).map {|p| "#{p.slug}, #{p.prices.first.try(:price)}"} + array) 
 
           end
         
