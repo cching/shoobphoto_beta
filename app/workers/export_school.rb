@@ -12,7 +12,7 @@ class ExportSchool
             school.packages.where(hidden: false).each do |package|
 
 
-              csv_file << CSV.generate_line(["#{school.ca_code}"] + ["#{school.name}"] + ["#{school.school_type.name}"] + school.packages.map { |p| "[#{p.slug}]"}.join(" + "))
+              csv_file << ["#{school.ca_code}", "#{school.name}", "#{school.school_type.name}", school.packages.map { |p| "#{p.slug}"}.join(", ")]
 
             end
           end
