@@ -18,7 +18,7 @@ class ExportSchool
               end
             end
 
-              csv_file << CSV.generate_line(["#{school.ca_code}", "#{school.name}", "#{school.school_type.name}"] + school.packages.order(:slug).map {|p| "#{p.slug}, #{p.prices.first.try(:price)}"} + array) 
+              csv_file << CSV.generate_line(["#{school.ca_code}", "#{school.name}", "#{school.school_type.name}"] + school.packages.order(:slug).map {|p| "#{p.slug}"} + array) 
 
           end
         
