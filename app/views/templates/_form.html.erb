@@ -48,9 +48,7 @@
     <td>
       Font
     </td>
-    <td>
-      Fixed text
-    </td>
+
   </tr>
 <% Column.all.each_with_index do |column, index| %>
 <tr <%= "hidden" unless @template.columns.include? column %> id="column_template_<%= index %>">

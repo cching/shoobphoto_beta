@@ -58,8 +58,6 @@ class DownloadPdf < Prawn::Document
                 @export_data.prompt_values[field.name] || ""
               elsif field.column.column_type == 'type'
                 @export_data.type.name
-              elsif !field.permanent.nil?
-                field.permanent
               else
                 student.send(field.column.column_type)
               end

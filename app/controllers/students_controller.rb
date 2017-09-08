@@ -59,9 +59,6 @@ class StudentsController < ApplicationController
     unless @option.extra_types.any? 
       redirect_to student_update_path(@cart.cart_id, @cart.students.count - 1)
     end
-
-
-
   end
 
   def create_addons
