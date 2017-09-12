@@ -3,10 +3,6 @@ class ProjectsController < ApplicationController
 
   respond_to :html
 
-  def index
-    @projects = Project.all
-    respond_with(@projects)
-  end
 
   def show
     respond_with(@project)
@@ -23,13 +19,12 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.save
-    respond_to do |format|
       if @project.save
-        redirect_to new_porder_path(@project.id)
+        redirect_to new_porders_path(@project.id) 
       else
-        format.html {render :new, :project => @project}
+        render 'new'
       end
-    end
+    
   end
 
   def update
@@ -48,6 +43,6 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-      params.require(:project).permit(:school, :email, :name, :position, :phone, :delivery, :flexible, :project_prints_attributes => [:id, :project_id, :print_id, :quantity, :description, :file, :image])
+      params.require(:project).permit(:school, :email, :name, :position, :phone, :delivery, :flexible, :project_prints_attributes => [:id, :project_id, :print_id, :quantity, :description, :file, :image, :delivery, :flexible, :print_size_id, :print_type_id])
     end
 end

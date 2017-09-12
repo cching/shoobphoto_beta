@@ -10,4 +10,8 @@ class Print < ActiveRecord::Base
 	accepts_nested_attributes_for :print_styles, allow_destroy: true
 
 	validates :name, :price, :presence => true
+
+	def description
+		price > 0 ? "$#{price} #{price_description}" : "Free"
+	end
 end

@@ -13,7 +13,7 @@ class TemplatesController < ApplicationController
 
   def update_pdf
     @template.update(template_params)
-
+    @template.pdfs.map { |pdf| pdf.update(:name => @template.name) }
     if @template.errors.any?
       redirect_to :back
     else
@@ -35,23 +35,7 @@ class TemplatesController < ApplicationController
     @template = Template.find(params[:id])
     @template1 = @template.dup
     @template1.save
-    
-    @template.pdfs.each do |pdf|
-      unless pdf.nil?
-        p = pdf.dup
-        p.file = pdf.file
-        p.save
-        p.update(:template_id => @template1.id)
-        pdf.types.each do |type|
-          unless type.nil?
-            t = type.dup
-            t.save
-            t.schools = type.schools
-            t.update(:pdf_id => p.id)
-          end
-        end
-      end
-    end
+    @template1.update_attribute('name', "")
 
     @template.fields.each do |field|
       unless field.nil?
@@ -63,7 +47,7 @@ class TemplatesController < ApplicationController
     end
 
     
-    redirect_to edit_template_path(@template1.id)
+    redirect_to pdf_template_path(@template1.id)
 
   end
 

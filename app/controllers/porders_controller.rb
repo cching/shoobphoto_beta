@@ -14,8 +14,9 @@ class PordersController < ApplicationController
 
   # GET /porders/new
   def new
-    @project = Project.find(params[:id])
-    @porder = Porder.new(:project_id => @project.id)
+    @project = Project.find(params[:project_id])
+    @free = @project.price > 0 ? false : true
+    @porder = Porder.new(:project_id => @project.id, :free => @free, :price => @project.price)
   end
 
   # GET /porders/1/edit

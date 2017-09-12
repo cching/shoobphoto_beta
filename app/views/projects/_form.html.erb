@@ -24,13 +24,13 @@
   </div>
 
       <% Print.all.order(:name).each do |print| %>
-        <%= check_box_tag("#{print.id}") %>
-        <%= print.name %><br/>
+        <%= check_box_tag("#{print.id}", {:checked => @project.prints.include?(print) ? true : false}) %>
+        <%= print.name %> - <span style="font-weight:bold;"><%= print.description %></span><br/>
         <span id="<%= print.id%>_after"></span>
       <% end %>
-
+<br/>
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, "Continue" %>
   </div>
 
   <script>
@@ -42,9 +42,11 @@
       } else {
         $("#<%= print.id %>_after").html("");
       }
-      
-
     });
+
+    if ($("#<%= print.id %>").is(':checked')) {
+      $("#<%= print.id %>_after").html("<%= escape_javascript(render 'project_print_fields', :id => print.id, :f => f) %>");
+    }
   <% end %>
 </script>
 <% end %>

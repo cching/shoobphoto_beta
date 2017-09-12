@@ -4372,24 +4372,20 @@ font_dropdown {
 }
 
 /* line 15, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/templates.css.scss */
-.form-group .select {
-  width: 60px !important;
-}
-
-/* line 19, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/templates.css.scss */
-.select {
-  min-width: 60px !important;
-}
-
-/* line 23, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/templates.css.scss */
 .select_drop {
   max-width: 60px !important;
   width: 60px !important;
 }
 
-/* line 28, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/templates.css.scss */
+/* line 20, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/templates.css.scss */
 .field_field {
   width: 70px !important;
+}
+
+/* line 24, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/templates.css.scss */
+.select2-container {
+  max-width: 100% !important;
+  min-width: 100% !important;
 }
 /* line 5, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/yearbooks.css.scss */
 .btn-dash {

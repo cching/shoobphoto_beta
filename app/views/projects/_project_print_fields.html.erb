@@ -1,9 +1,10 @@
-<%= f.simple_fields_for :project_prints, @project.project_prints.new do |f| %>
+<br/>
+<%= f.simple_fields_for :project_prints, @project.project_prints.build do |f| %>
 <div class="row">
 	<div class="col-xs-2">
 	</div>
 	<div class="col-xs-4">
-		<%= f.text_field :quantity, placeholder: "Quantity", class: "enjoy-css" %>
+		<%= f.text_field :quantity, placeholder: "Quantity", class: "enjoy-css", :type => :number %>
 	</div>
 	<div class="col-xs-4">
 		<%= f.input :file, class: "enjoy-css", label: false %>
@@ -17,12 +18,12 @@
 	</div>
 	<div class="col-xs-4">
 		<% if Print.find(id).print_sizes.any? %>
-			<%= select_tag :print_size, options_for_select(Print.find(id).print_sizes.map { |p| ["#{p.size} (#{number_to_currency(p.price, :unit => "$")})", p.id]}), class: "size_dropdown", :prompt => "Select size" %>
+			<%= f.select :print_size_id, options_for_select(Print.find(id).print_sizes.map { |p| ["#{p.size} (#{number_to_currency(p.price, :unit => "$")})", p.id]}), {}, {class: "size_dropdown", :prompt => "Select size"} %>
 		<% end %>
 	</div>
 	<div class="col-xs-4">
 		<% if Print.find(id).print_styles.any? %>
-			<%= select_tag :print_style, options_for_select(Print.find(id).print_styles.map { |p| ["#{p.style} (#{number_to_currency(p.price, :unit => "$")})", p.id]}), class: "style_dropdown", :prompt => "Select style" %>
+			<%= f.select :print_style_id, options_for_select(Print.find(id).print_styles.map { |p| ["#{p.style} (#{number_to_currency(p.price, :unit => "$")})", p.id]}), {}, {class: "style_dropdown", :prompt => "Select style"} %>
 		<% end %>
 	</div>
 	<div class="col-xs-2">
@@ -32,7 +33,7 @@
 	<div class="col-xs-2">
 	</div>
 	<div class="col-xs-4">
-    	<%= f.input :delivery, placeholder: "Delivery", label: false, :as => :date_picker, :input_html => {:style => "width:99%;", :class => "datetimepicker"} %>
+    	<%= f.input :delivery, placeholder: "Delivery", label: false, :as => :date_picker, :input_html => {:style => "width:99%;", :class => "datetimepicker", id: "datetimepicker"}, data: { date_format: 'MM/DD/YYYY' } %>
 	</div>
 	<div class="col-xs-4">
 		
@@ -61,7 +62,6 @@
 
 <script>
 $('.datetimepicker').datetimepicker({
-  format: 'YYYY-MM-DD HH:mm'
 });
   $(".size_dropdown").select2({
     theme: "bootstrap",

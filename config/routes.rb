@@ -5,7 +5,12 @@ Rails.application.routes.draw do
 
   resources :projects
 
-  get 'porders/new/:id', :to => 'porders#new', :as => :new_porder
+  resources :porders do
+    collection do
+      get "new/:project_id" => :new, as: "new"
+      post "confirm/:project_id" => :confirm, as: "confirm"
+    end
+  end
 
   resources :backgrounds
 
