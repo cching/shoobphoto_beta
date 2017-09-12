@@ -13,7 +13,7 @@ class TemplatesController < ApplicationController
 
   def update_pdf
     @template.update(template_params)
-    @template.pdfs.map { |pdf| pdf.update(:name => @template.name) }
+    @template.pdfs.map { |pdf| pdf.types.map { |type| type.update(:name => @template.name) } }
     if @template.errors.any?
       redirect_to :back
     else
