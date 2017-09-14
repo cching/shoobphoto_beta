@@ -28,10 +28,10 @@
           
       <div class="row">
       <div class="col-xs-6">
-        <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "enjoy-css", id: "student_first_name" %>
+        <%= text_field_tag :first_name, nil, placeholder: "Student's First Name", class: "enjoy-css student_name", id: "student_first_name" %>
       </div>  
       <div class="col-xs-6">
-        <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "enjoy-css", id: "student_last_name" %>
+        <%= text_field_tag :last_name, nil, placeholder: "Student's Last Name", class: "enjoy-css student_name", id: "student_last_name" %>
       </div> 
       </div>
 
@@ -47,12 +47,16 @@
         </div>  
         </div>
         
+        <p class="p_bold">Note: Please enter your child's name as it appears in school records.</p>
+        
         <div class="row">
         <div class="col-xs-8"></div>
           <div class="col-xs-4" id="button_script">
             <input class="btn-blue" name="commit" value="Continue" onclick="return validateForm()" readonly>
           </div>
         </div>
+        <br/>
+
 
         <%= hidden_field_tag "cart", @cart %>
         <%= hidden_field_tag "i", @i %>

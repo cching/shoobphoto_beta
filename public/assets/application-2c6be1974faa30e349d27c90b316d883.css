@@ -2398,6 +2398,15 @@ ul.navigation li.current a {
 .duplicate td {
   padding-right: 5px;
 }
+/* line 5, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/searches.css.scss */
+.student_name::-webkit-input-placeholder {
+  color: red;
+}
+
+/* line 9, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/searches.css.scss */
+.p_bold {
+  font-weight: bold;
+}
 /* line 5, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/students.css.scss */
 .failed {
   padding-top: 10px;
@@ -4380,12 +4389,6 @@ font_dropdown {
 /* line 20, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/templates.css.scss */
 .field_field {
   width: 70px !important;
-}
-
-/* line 24, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/templates.css.scss */
-.select2-container {
-  max-width: 100% !important;
-  min-width: 100% !important;
 }
 /* line 5, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/yearbooks.css.scss */
 .btn-dash {

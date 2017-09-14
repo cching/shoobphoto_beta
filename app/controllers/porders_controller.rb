@@ -46,7 +46,7 @@ class PordersController < ApplicationController
     else
       free = false
     end
-    @porder = @project.porders.new (porder_params).merge(:price => @project.price, :free => free)
+    @porder = @project.porders.new(porder_params).merge(:price => @project.price, :free => free)
 
     if @porder.save
         CorderMailer.receipt(@porder).deliver
