@@ -17,6 +17,11 @@ class Admin::SchoolsController < ApplicationController
     respond_with(@schools)
   end
 
+  def all_schools
+    @schools = School.all.order(:name)
+    render 'index'
+  end
+
   def show 
     @school = School.find(params[:id])
   end

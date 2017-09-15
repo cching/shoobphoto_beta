@@ -133,6 +133,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
       collection do
         get 'export'
         get 'csv'
+        get 'all_schools'
       end
     end
 
