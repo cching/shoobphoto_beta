@@ -232,6 +232,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
 
 
   match 'export/clean_up' => 'export_list_items#clean_up', :via => 'GET', :as => 'export_clean_up'
+  match 'export/load_assets' => 'export_list_items#load_assets', :via => 'GET', :as => 'export_load_assets'
+  match 'export/load_school_user_assets' => 'export_list_items#load_school_user_assets', :via => 'GET', :as => 'export_load_school_user_assets'
 
   match 'students/typeahead' => 'students#typeahead', :via => 'GET', :as => 'typeahead'
   match 'students/access_or_id' => 'students#splash', :via => 'GET', :as => 'student_splash'

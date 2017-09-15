@@ -4,9 +4,10 @@
 
 <tr id="student_<%= student.id %>"  class="responsive-width">
 		<td style="padding-right:0px" style="padding-left:0px">
-			<% img = @image.student_images.where(:student_id => student.id) %>
-			<% if img.any? && img.last.try(:image).exists? %>
-				<%= image_tag("#{@image.student_images.where(:student_id => student.id).last.try(:image)}", class: "img-rounded img-index") %>
+			<% img = @image.student_images.where(:student_id => student.id).last %>
+			<% img_exists = img.image.exists? if !img.nil? %>
+			<% if !img.nil? && img_exists %>
+				<%= image_tag("#{img.image.url}", class: "img-rounded img-index") %>
 
 			<% else %>
 				<%= image_tag("default-user.jpg", class: "img-rounded img-index") %>
@@ -30,34 +31,33 @@
 			<%= link_to "Edit", export_show_path(student.id, :image => @image.id), remote: true, class: "btn btn-custom responsive-width" %>
 		</td>
 		<td class="button" style="padding-right:0px" style="padding-left:0px">
-
-			<% unless @image.student_images.where(:student_id => student.id).last.try(:image).nil? %>
-		<%= link_to "Download", export_download_path(student.id, @image.id), class: "btn btn-custom responsive-width"  %>
-		<% else %>
-		<button type="button" class="btn btn-danger responsive-width" data-container="body" data-toggle="popover" data-placement="top" data-content="This student is missing an image for an ID card. Please upload a portrait." data-original-title="" title="">Download</button>
-		<% end %>
-	</td>
+			<% if img_exists %>
+				<%= link_to "Download", export_download_path(student.id, @image.id), class: "btn btn-custom responsive-width"  %>
+			<% else %>
+				<button type="button" class="btn btn-danger responsive-width" data-container="body" data-toggle="popover" data-placement="top" data-content="This student is missing an image for an ID card. Please upload a portrait." data-original-title="" title="">Download</button>
+			<% end %>
+		</td>
 
 		<td class="button" style="padding-left:0px"  style="padding-right:0px">
-			<% if @image.student_images.where(:student_id => student.id).last.try(:image_file_name).nil? %>
-			<button type="button" class="btn btn-danger responsive-width" data-container="body" data-toggle="popover" data-placement="top" data-content="This student is missing an image for an ID card. Please upload a portrait." data-original-title="" title="">Print</button>
+			<% if !img_exists %>
+				<button type="button" class="btn btn-danger responsive-width" data-container="body" data-toggle="popover" data-placement="top" data-content="This student is missing an image for an ID card. Please upload a portrait." data-original-title="" title="">Print</button>
 			<% else %>
-			<%= link_to "Print", export_types_path(student.id, @school.id, :image => @image.id), remote: true, class: "btn btn-custom responsive-width" %>
+				<%= link_to "Print", export_types_path(student.id, @school.id, :image => @image.id), remote: true, class: "btn btn-custom responsive-width" %>
 			<% end %>
 		</td>
 		<td>
-			<% unless @image.student_images.where(:student_id => student.id).last.try(:image_file_name).nil? %>
-			<div id="student_<%= student.id %>_check" class="student_check">
-			<% if current_user.students.exists?(student) %>
-				<%= link_to export_remove_student_path(student.id), remote: true do %>
-				    <span class="glyphicon glyphicon-check"></span>
-				<% end %>
-			<% else %>
-				<%= link_to export_add_student_path(student.id), remote: true do %>
-				    <span class="glyphicon glyphicon-unchecked"></span>
-				<% end %>
-			<% end %>
-			</div>
+			<% if !img.nil? %>
+				<div id="student_<%= student.id %>_check" class="student_check">
+					<% if current_user.students.exists?(student) %>
+						<%= link_to export_remove_student_path(student.id), remote: true do %>
+						    <span class="glyphicon glyphicon-check"></span>
+						<% end %>
+					<% else %>
+						<%= link_to export_add_student_path(student.id), remote: true do %>
+				    		<span class="glyphicon glyphicon-unchecked"></span>
+						<% end %>
+					<% end %>
+				</div>
 			<% end %>
  		 </td>
 	</tr>

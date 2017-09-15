@@ -108,10 +108,11 @@ config.action_mailer.raise_delivery_errors = true
 }
 
 Rails.application.config.middleware.use ExceptionNotification::Rack,
+    :ignore_exceptions => ['ActionController::InvalidCrossOriginRequest'],
     :email => {
     :email_prefix => "[ERROR LOG] ",
      :sender_address => %{"Shoobphoto Notifier" <info@shoobphoto.com>},
-     :exception_recipients => %w{cching@live.com}
+     :exception_recipients => %w{shoobphotoerrors@gmail.com}
 
    }
    

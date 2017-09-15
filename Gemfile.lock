@@ -241,8 +241,6 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     ttfunk (1.0.3)
-    turbolinks (2.5.3)
-      coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.2)
@@ -304,7 +302,6 @@ DEPENDENCIES
   therubyracer
   to_words
   touchpunch-rails
-  turbolinks
   uglifier (>= 1.3.0)
   will_paginate (~> 3.0.6)
   will_paginate-bootstrap

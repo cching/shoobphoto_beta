@@ -6,11 +6,10 @@
   <div class="col-sm-10">
     <% if !@free %>
     	<h3>Credit Card Information</h3>
+      <hr >
     <% else %>
-    	<h3>Your information</h3>
+    	<h3>Your information:</h3>
     <% end %>
-
-<hr >
   </div>
 </div>
 
@@ -75,14 +74,17 @@
     <h3>Shipping Address    &nbsp; <label for="ship_to_billing_address"> <input type="checkbox" name="ship_to_billing_address" id="ship_to_billing_address" /> Check if the billing address is the same as your shipping address
             
         </label></h3>
-        <% else %>
+  <% else %>
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-xs-10">
         <h3>Shipping Address</h3>
-        <% end %>
         <hr >
       </div>
+    </div>
+  <% end %>        
+  </div>
 </div>
-
-
 
 <div class="row">
   <div class="col-sm-2"></div>
