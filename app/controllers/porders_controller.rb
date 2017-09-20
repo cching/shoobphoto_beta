@@ -40,21 +40,23 @@ class PordersController < ApplicationController
   end
 
   def confirm
-    @project = Project.find_by_cart_id(params[:project_id])
+    @project = Project.find(params[:project_id])
     if @project.price > 0
-      free = true
-    else
       free = false
+    else
+      free = true
     end
-    @porder = @project.porders.new(porder_params).merge(:price => @project.price, :free => free)
+
+    @porder = @project.porders.new(porder_params)
+    @porder.price = @project.price
+    @porder.free = free
 
     if @porder.save
-        CorderMailer.receipt(@porder).deliver
-        CorderMailer.send_receipt(@porder).deliver
-        redirect_to after_purchase_corder_path(@porder.cart.cart_id)
+        PorderMailer.receipt(@porder).deliver
+        redirect_to after_purchase_porders_path
       else
         respond_to do |format|
-        format.html { render 'new', :price => @porder.price }
+        format.html { render 'new', :price => @porder.price, :free => free, :project => @project }
           format.json { render json: @porder.errors, status: :unprocessable_entity }
 
           end 
@@ -79,6 +81,6 @@ class PordersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def porder_params
-      params.fetch(:porder, {})
+      params.require(:porder).permit(:project_id, :purchase_order, :price, :address, :city, :state, :zip_code, :card_type, :card_expires_on, :card_number, :card_verification, :shipping_state, :processed, :shipping_address, :shipping_zip, :shipping_city)
     end
 end

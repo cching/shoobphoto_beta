@@ -1,5 +1,6 @@
 class Porder < ActiveRecord::Base
   belongs_to :cart
+  belongs_to :project
 
   require "active_merchant/billing/rails"
 
@@ -9,14 +10,18 @@ class Porder < ActiveRecord::Base
     ['Discover', 'discover'],
     ['American Express', 'american_express']
   ]
-
+ 
 
   validates_presence_of :price, :shipping_state, :shipping_city, :shipping_address, :shipping_zip
-  validates_presence_of :address, :city, :state, :zip_code, :card_type, :card_expires_on, :if => :free?
+  validates_presence_of :address, :city, :state, :zip_code, :card_type, :card_expires_on, :if => :charge?
 
   attr_accessor :card_number, :card_verification, :clearance
   
-  before_create :send_purchase, :if => :free?
+  before_create :send_purchase, :if => :charge?
+
+  def charge?
+    !free && purchase_order.nil?
+  end
 
   private 
 
@@ -65,8 +70,8 @@ class Porder < ActiveRecord::Base
       :verification_value => card_verification,
       :month              => card_expires_on.month,
       :year               => card_expires_on.year,
-      :first_name         => first_name,
-      :last_name          => last_name
+      :first_name         => project.first_name,
+      :last_name          => project.last_name
     )
   end
 end

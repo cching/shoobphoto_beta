@@ -46,13 +46,24 @@ class Admin::SchoolsController < ApplicationController
 
   def create
     @school = School.new(school_params)
-    @school.save
-    redirect_to admin_schools_path
+
+    respond_to do |format|
+      if @school.save
+        format.html { redirect_to admin_schools_path, notice: 'School was successfully created.' }
+      else
+        format.html { render :new }
+      end
+    end
   end
 
   def update
-    @school.update(school_params)
-    redirect_to admin_schools_path
+    respond_to do |format|
+      if @school.update(school_params)
+        format.html { redirect_to redirect_to admin_schools_path, notice: 'School was successfully updated.' }
+      else
+        format.html { render :edit }
+      end
+    end
   end
 
   def destroy

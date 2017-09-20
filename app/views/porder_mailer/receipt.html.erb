@@ -1,0 +1,66 @@
+<h1>Shoob Photography</h1>
+<h1>Receipt</h1>
+<p>
+  Thank you for your order, <%= "#{@order.project.first_name.capitalize} #{@order.project.last_name.capitalize}" %>!
+</p>
+<div>
+  <div>
+    <b>Name:</b> <%= "#{@order.project.first_name} #{@order.project.last_name}" %>
+  </div>
+  <div>
+    <b>Phone:</b> <%= @order.project.phone %>
+  </div>
+  <div>
+    <b>Email:</b> <%= @order.project.email %>
+  </div>
+
+</div>
+<br />
+<% if !@order.free %>
+<div>
+  <div>
+    <b>Address:</b>
+    <%= "#{@order.address} #{@order.city}, #{@order.state} #{@order.zip_code}" %>
+  </div>
+  <div>
+    
+    <b>Paid with:</b>
+    <%= "#{@order.card_type.capitalize}" %>
+    
+  </div>
+
+</div>
+<% end %>
+<p>
+  <b>Order Number:</b>
+  <%= @order.id %>
+</p>
+
+<p>
+<table class="table">
+  <tr>
+    <td>Item</td>
+  </tr>
+<% @order.project.project_prints.each do |pprint| %>
+  <tr>
+  <td>
+    (<%= pprint.quantity %>) <%= pprint.print.name %>: <%= number_to_currency pprint.print.price, :unit => "$" %><br/>
+    <% if !pprint.print_size.nil? %>
+      <%= pprint.print_size.size %>: <%= number_to_currency pprint.print_size.price, :unit => "$" %><br/>
+    <% end %>
+
+    <% if !pprint.print_style.nil? %>
+      <%= pprint.print_style.style %>: <%= number_to_currency pprint.print_style.price, :unit => "$" %><br/>
+    <% end %>
+
+    Delivery by: <%= pprint.delivery %>
+  </td>
+ 
+   </tr>
+ <% end %>
+
+ </table>
+</p>
+
+<h3>Total: <%= number_to_currency @order.price %></h3>
+<br />

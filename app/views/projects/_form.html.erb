@@ -11,13 +11,16 @@
 
   <div class="row">
     <div class="col-xs-6">
-      <%= f.text_field :name, :value => "#{current_user.first_name} #{current_user.last_name}", :placeholder => "Name", class: "enjoy-css" %>
+      <%= f.text_field :first_name, :value => "#{current_user.first_name}", :placeholder => "First Name", class: "enjoy-css" %>
     </div>
     <div class="col-xs-6">
-      <%= f.text_field :email, :value => "#{current_user.email}", :placeholder => "Email", class: "enjoy-css" %>
+      <%= f.text_field :last_name, :value => "#{current_user.last_name}", :placeholder => "Last Name", class: "enjoy-css" %>
     </div>
   </div>
    <div class="row">
+    <div class="col-xs-6">
+      <%= f.text_field :email, :value => "#{current_user.email}", :placeholder => "Email", class: "enjoy-css" %>
+    </div>
     <div class="col-xs-6">
       <%= f.text_field :phone, :placeholder => "Phone", class: "enjoy-css" %>
     </div>
@@ -33,12 +36,11 @@
     <%= f.button :submit, "Continue" %>
   </div>
 
-  <script>
+<script>
   <% Print.all.each do |print| %> 
-
     $("#<%= print.id %>").change(function() {
       if (this.checked) {
-        $("#<%= print.id %>_after").html("<%= escape_javascript(render 'project_print_fields', :id => print.id, :f => f) %>");
+          $("#<%= print.id %>_after").html("<%= escape_javascript(render 'project_print_fields', :id => print.id, :f => f) %>");
       } else {
         $("#<%= print.id %>_after").html("");
       }

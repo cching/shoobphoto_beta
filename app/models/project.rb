@@ -3,7 +3,7 @@ class Project < ActiveRecord::Base
 	has_many :prints, through: :project_prints
 	has_many :porders
 
-	validates_presence_of :name, :email, :position, :school
+	validates_presence_of :first_name, :last_name, :email, :position, :school
 	validates_format_of :email, :with => /@/
     validates_length_of :phone, :minimum => 7, :too_short => 'must be at least 7 numbers'
 

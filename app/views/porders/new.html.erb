@@ -1,105 +1,125 @@
 <%= simple_form_for @porder, :url => {:action => "confirm", class: "form-control"} do |f| %>
+<%= f.hidden_field :project_id, :value => @project.id %>
 
 <%= errors_for(@porder) %>
-<div class="row">
-  <div class="col-sm-2"></div>
-  <div class="col-sm-10">
-    <% if !@free %>
-    	<h3>Credit Card Information</h3>
-      <hr >
-    <% else %>
-    	<h3>Your information:</h3>
-    <% end %>
-  </div>
-</div>
-
 
 <% if !@free %>
-<div class="row">
-  <div class="col-sm-2"></div>
-  <div class="col-sm-8">
-    <%= f.text_field :card_number, class: "enjoy-css", :placeholder => "Credit Card Number" %>
-  </div>
-  <div class="col-sm-2"></div>
-</div>
-
-<div class="row">
-  <div class="col-sm-2"></div>
-  <div class="col-xs-2">
-    <%= f.text_field :card_verification, class: "enjoy-css", :placeholder => "CVC" %>
-  </div>
-  <div class="col-sm-3">
-    <%= f.select :card_type, Order::CardTypes, id: "card_type" %>
-  </div>
-  <div class="col-sm-3">
-      <%= f.date_select :card_expires_on, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true %>
-  </div>
-   <div class="col-sm-2"></div>
-</div>
-          
-
-
-<div class="row">
-  <div class="col-sm-2"></div>
-  <div class="col-xs-10">
-    <h3>Billing Address</h3>
-    <hr >
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-2"></div>
-  <div class="col-sm-8">
-        <%= f.text_field :address, :placeholder => "Address", class: "enjoy-css" %>
-  </div>
-  <div class="col-sm-2"></div>
-</div>
-<div class="row">
-  <div class="col-sm-2"></div>
-  <div class="col-sm-3">
-        <%= f.text_field :city, :placeholder => "City", class: "enjoy-css" %>
-  </div>
-  <div class="col-sm-2">
-        <%= f.text_field :zip_code, :placeholder => "Zip Code", class: "enjoy-css", :type => :number %>
-  </div>
-  <div class="col-sm-3">
-        <%= f.select :state, options_for_select(us_states),{prompt: "State"}, id: "billingstate" %>
-  </div>
-  <div class="col-sm-2"></div>
-</div>
-
-<div class="row">
-  <div class="col-sm-2"></div>
-  <div class="col-xs-10">
-    <h3>Shipping Address    &nbsp; <label for="ship_to_billing_address"> <input type="checkbox" name="ship_to_billing_address" id="ship_to_billing_address" /> Check if the billing address is the same as your shipping address
-            
-        </label></h3>
-  <% else %>
-    <div class="row">
-      <div class="col-sm-2"></div>
-      <div class="col-xs-10">
-        <h3>Shipping Address</h3>
-        <hr >
-      </div>
+  <div class="porder_prompt">
+    <p>How would you like to pay for this project order?</p>
+    <div class="option_holder" id="credit_card">
+      Credit Card
     </div>
-  <% end %>        
+    <div class="option_holder" id="purchase_order">
+      Purchase Order
+    </div>
+  </div>
+<% end %>
+
+<div class="purchase_order">
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">
+        <h3>Purchase Order Information</h3>
+        <hr >
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <%= f.text_field :purchase_order, class: "enjoy-css", :placeholder => "Purchase Order Number" %>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+</div>
+<div class="credit_info">
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">
+      	<h3>Credit Card Information</h3>
+        <hr >
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <%= f.text_field :card_number, class: "enjoy-css", :placeholder => "Credit Card Number" %>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-xs-2">
+      <%= f.text_field :card_verification, class: "enjoy-css", :placeholder => "CVC" %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.select :card_type, Order::CardTypes, id: "card_type" %>
+    </div>
+    <div class="col-sm-3">
+        <%= f.date_select :card_expires_on, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true %>
+    </div>
+     <div class="col-sm-2"></div>
+  </div>
+            
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-xs-10">
+      <h3>Billing Address</h3>
+      <hr >
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+          <%= f.text_field :address, :placeholder => "Address", class: "enjoy-css", id: "billingaddress" %>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-3">
+          <%= f.text_field :city, :placeholder => "City", class: "enjoy-css", id: "billingcity" %>
+    </div>
+    <div class="col-sm-2">
+          <%= f.text_field :zip_code, :placeholder => "Zip Code", class: "enjoy-css", :type => :number, id: "billingzip" %>
+    </div>
+    <div class="col-sm-3">
+          <%= f.select :state, options_for_select(us_states),{prompt: "State"}, id: "billingstate" %>
+    </div>
+    <div class="col-sm-2"></div>
   </div>
 </div>
 
 <div class="row">
   <div class="col-sm-2"></div>
+  <div class="col-xs-10">
+    <% if !@free %>
+      <h3>Shipping Address    &nbsp; <label for="ship_to_billing_address"> <input type="checkbox" name="ship_to_billing_address" id="ship_to_billing_address" /> Check if the billing address is the same as your shipping address</label></h3>
+    <% else %>
+      <h3>Shipping Address</h3>
+    <% end %>
+        <hr >
+  </div>
+</div>
+      
+
+<div class="row">
+  <div class="col-sm-2"></div>
   <div class="col-sm-8">
-        <%= f.text_field :shipping_address, :placeholder => "Address", class: "enjoy-css" %>
+        <%= f.text_field :shipping_address, :placeholder => "Address", class: "enjoy-css", id: "shippingaddress" %>
   </div>
   <div class="col-sm-2"></div>
 </div>
 <div class="row">
   <div class="col-sm-2"></div>
   <div class="col-sm-3">
-        <%= f.text_field :shipping_city, :placeholder => "City", class: "enjoy-css" %>
+        <%= f.text_field :shipping_city, :placeholder => "City", class: "enjoy-css", id: "shippingcity" %>
   </div>
   <div class="col-sm-2">
-        <%= f.text_field :shipping_zip, :placeholder => "Zip Code", class: "enjoy-css", :type => :number %>
+        <%= f.text_field :shipping_zip, :placeholder => "Zip Code", class: "enjoy-css", :type => :number, id: "shippingzip" %>
   </div>
   <div class="col-sm-3">
         <%= f.select :shipping_state, options_for_select(us_states),{prompt: "State"}, id: "shippingstate" %>
@@ -127,6 +147,19 @@
 <br />
 
 <script type="text/javascript">
+$(".credit_info").hide();
+$(".purchase_order").hide();
+
+$("#purchase_order").click(function() {
+  $(".purchase_order").show();
+  $(".porder_prompt").hide();
+});
+
+$("#credit_card").click(function() {
+  $(".credit_info").show();
+  $(".porder_prompt").hide();
+});
+
 $("input#ship_to_billing_address").click(function(){ 
 if ($("input#ship_to_billing_address").is(':checked')) 
 { 

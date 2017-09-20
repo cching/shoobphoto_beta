@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :porders do
     collection do
+      get :after_purchase
       get "new/:project_id" => :new, as: "new"
       post "confirm/:project_id" => :confirm, as: "confirm"
     end

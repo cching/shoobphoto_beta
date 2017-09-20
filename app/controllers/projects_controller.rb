@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
     
   end
 
-  def update
+  def update 
     @project.update(project_params)
     respond_with(@project)
   end
@@ -43,6 +43,6 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-      params.require(:project).permit(:school, :email, :name, :position, :phone, :delivery, :flexible, :project_prints_attributes => [:id, :project_id, :print_id, :quantity, :description, :file, :image, :delivery, :flexible, :print_size_id, :print_type_id])
+      params.require(:project).permit(:school, :email, :first_name, :last_name, :position, :phone, :delivery, :flexible, :project_prints_attributes => [:id, :project_id, :print_id, :quantity, :description, :file, :image, :delivery, :flexible, :print_size_id, :print_type_id])
     end
 end

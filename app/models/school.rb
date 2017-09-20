@@ -1,4 +1,5 @@
 class School < ActiveRecord::Base
+	validates_uniqueness_of :name
 	has_many :students
 	has_many :student_images, through: :students
 
@@ -6,7 +7,7 @@ class School < ActiveRecord::Base
 
 	has_many :orders
 
-	has_many :awards
+	has_many :awards 
 
 	has_many :school_packages, dependent: :destroy
 	has_many :packages, through: :school_packages

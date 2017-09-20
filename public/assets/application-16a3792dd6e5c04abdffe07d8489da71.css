@@ -2102,6 +2102,32 @@ input[type=file]:hover {
   border-radius: 0px !important;
   border: 2px solid #9D9D9D !important;
 }
+
+/* line 22, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/projects.css.scss */
+.porder_prompt {
+  text-align: center;
+}
+
+/* line 26, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/projects.css.scss */
+.porder_prompt p {
+  font-size: 2em;
+}
+
+/* line 30, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/projects.css.scss */
+.option_holder {
+  font-size: 1.5em;
+  padding-top: 25px;
+  display: inline-block;
+  height: 100px;
+  width: 300px;
+  background-color: #396599;
+  color: #fff;
+}
+
+/* line 40, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/projects.css.scss */
+.option_holder:hover {
+  background-color: #5392C8;
+}
 /* line 1, /Users/chris/rails_projects/shoobphoto_beta-master/app/assets/stylesheets/scaffolds.css.scss */
 .btn-custom {
   background: #1289CD;
