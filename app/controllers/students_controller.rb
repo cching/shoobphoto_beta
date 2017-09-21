@@ -487,7 +487,6 @@ class StudentsController < ApplicationController
     @school = School.find(params[:school])
     @students = @school.students.where("student_id = ?", "#{params[:student_id].gsub(/\s+/, "")}").where(:id_only => true)
     @students_access = @school.student_images.where("accesscode = ?", "#{params[:student_id].gsub(/\s+/, "")}")
-    @students_access_gift = @school.students.where("access_code = ?", "#{params[:student_id].gsub(/\s+/, "")[1..-1]}").where(:id_only => true)
     if @students.any? && (params[:student_id].gsub(/\s+/, "") != "" && params[:student_id] != nil)
       @student = @students.last
       respond_to :js 
@@ -495,9 +494,7 @@ class StudentsController < ApplicationController
       @student = @students_access.last.student
 
       respond_to :js
-    elsif @students_access_gift.any? && (params[:student_id].gsub(/\s+/, "") != "" && params[:student_id] != nil)
-      @student = @students_access_gift.last
-      respond_to :js
+
     else
       @student = nil
     end
