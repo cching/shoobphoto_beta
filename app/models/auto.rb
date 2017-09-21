@@ -108,11 +108,11 @@ class Auto < ActiveRecord::Base
 				                                
 				                              else #no image found on local server
 				                                #write error file
-				                                @failed << true
-				                                @output << false
-				                                response = "Unable to locate student image in local path #{url_path} for school #{school.name}, #{url_path}, #{h[:student_id]}, #{h[:acesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{h[:ca_code]}, #{h[:rec_type]}, h#{@load_id}"
-				                                failed << response.encode(Encoding.find('ASCII'), encoding_options)
-				                                failed << "\n"
+				                                @output << true
+				                                @failed << false
+				                                response = "#{basename}, #{extension}, #{h[:student_id]}, #{h[:accesscode]}, #{h[:last_name]}, #{h[:first_name]}, #{h[:grade]}, #{h[:folder]}, #{h[:email]}, #{h[:dob]}, #{h[:teacher]}, #{school.id}, #{package.id}, #{h[:shoob_id]}, #{h[:rec_type]}, #{@load_id}".encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+				                                output << response.encode(Encoding.find('ASCII'), encoding_options)
+				                                output << "\n"
 
 				                                puts "Unable to locate student image #{student_index} for school #{school.name}"
 				                              end #end if file exists

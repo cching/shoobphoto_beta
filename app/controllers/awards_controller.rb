@@ -9,6 +9,20 @@ class AwardsController < ApplicationController
     end
   end
 
+  def add_student_trait
+    @student = Student.find(params[:student_id])
+    @award_info = AwardInfo.find(params[:award_info_id])
+
+    if @award_info.students.include? @student
+      @award_info.award_info_students.where(:student_id => @student.id).last.update(:trait => params[:trait])
+    else
+      @award_info.award_info_students.create(:trait => params[:trait], :student_id => @student.id)
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
 
   def clear
     @award_info = AwardInfo.find(params[:id])
@@ -219,9 +233,26 @@ class AwardsController < ApplicationController
     @export_list = ExportList.find_by_uniq_id("#{params[:id]}")
     @school = current_user.school
 
-    @students = Student.searching_awards(@school.id, params[:first_name], params[:last_name], params[:grade], params[:educator], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
+    @students = Student.searching_awards(@school.id, params[:first_name], params[:last_name], params[:grade], params[:educator], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 20,:page => params[:page])
       
+    @image = @school.packages.where(hidden: false).where("name like ?", "%Fall%").last
 
+    if @image.nil?
+      @image = @school.packages.first
+    end
+
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
+
+  def load_assets
+    @export_list = ExportList.find_by_uniq_id("#{params[:id]}")
+    @school = current_user.school
+
+    @students = Student.searching_awards(@school.id, params[:first_name], params[:last_name], params[:grade], params[:educator], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 20,:page => params[:page])
+      
     @image = @school.packages.where(hidden: false).where("name like ?", "%Fall%").last
 
     if @image.nil?

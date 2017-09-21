@@ -20,16 +20,21 @@
 			Edit
 		</th>
 		<%  @export_list.award_infos.each do |award| %>
-		<th style="padding-right:0px" style="padding-left:0px" class="responsive-th select-all"> 
-			
-			<%= award.award.abbreviation %>
-		</th>
+			<th style="padding-right:0px" style="padding-left:0px" class="responsive-th select-all"> 
+				<%= award.award.abbreviation %>
+			</th>
+
+			<% if award.award.trait_definition? %>
+				<th style="padding-right:0px" style="padding-left:0px" class="responsive-th select-all"> 
+					Trait
+				</th>
+			<% end %>
 		<% end %>
-	</tr>
-	</thead>
+	</tr> 
+	</thead> 
 	<tbody>
 		
-	<tr id="newstudentlist"></tr>
+	<tr id="newstudentlist"></tr> 
  
 <% @students.order(:last_name).each do |student| %>
 

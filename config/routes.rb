@@ -364,6 +364,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
 
   #awards
   match 'awards/' => 'awards#index', :via => 'GET', :as => "awards"
+  match 'awards/load_assets' => 'awards#load_assets', :via => 'GET', :as => "award_load_assets"
+  match 'awards/add_student_trait' => 'awards#add_student_trait', :via => 'POST', :as => "add_student_trait"
   match 'awards/new' => 'awards#new', :via => 'GET', :as => "new_award"
   match 'awards/:id/single_award' => 'awards#single', :via => 'GET', :as => "awards_single"
   match 'awards/:id/multiple_awards' => 'awards#multiple', :via => 'GET', :as => "awards_multiple" 

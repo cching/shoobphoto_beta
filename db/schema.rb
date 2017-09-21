@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170920080200) do
+ActiveRecord::Schema.define(version: 20170921041440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20170920080200) do
   create_table "award_info_students", force: true do |t|
     t.integer "student_id"
     t.integer "award_info_id"
+    t.string  "trait"
   end
 
   create_table "award_infos", force: true do |t|
@@ -97,6 +98,7 @@ ActiveRecord::Schema.define(version: 20170920080200) do
     t.datetime "image_updated_at"
     t.boolean  "add_awarded_for",    default: false
     t.boolean  "add_definition",     default: false
+    t.boolean  "trait_definition"
   end
 
   create_table "backgrounds", force: true do |t|

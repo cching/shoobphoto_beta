@@ -4,7 +4,7 @@
   text-align: right;
 }
 
-</style>
+</style> 
 
 <!-- The progress list at the top -->
 
@@ -104,13 +104,13 @@
 
 <br/><br/>
 
-<div id="student_search">
-<%= render "award_students" %>
-</div> 
+<div id="students_list"></div>
 
 <script>
-$( ".btn-orange" ).click(function() {
+var student_list = $("#students_list");
 
-    $("#student_search").html('Searching....');
-});
+if (!student_list.hasClass("loaded")) {
+    $.get("/awards/load_assets?id=<%= @export_list.uniq_id %>", {});
+    student_list.addClass("loaded");
+}
 </script>

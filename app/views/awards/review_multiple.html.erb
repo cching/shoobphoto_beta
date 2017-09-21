@@ -77,9 +77,15 @@
               <th><%= sort_link @search, :teacher, "Teacher",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
               <%  @export_list.award_infos.each do |award| %>
 				<th style="padding-right:0px" style="padding-left:0px" class="responsive-th select-all"> 
-					
 					<%= award.award.abbreviation %>
 				</th>
+
+				<% if award.award.trait_definition? %>
+					<th style="padding-right:0px" style="padding-left:0px" class="responsive-th select-all"> 
+						Trait
+					</th>
+				<% end %>
+
 				<% end %>
           </thead>
           <tbody>

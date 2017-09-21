@@ -7,19 +7,22 @@
   	<%= f.input :title %>
   	<%= f.input :abbreviation %>
   	<div class="row">
-  		<div class="col-xs-3">
-  			<%= f.input :add_awarded_for, label: "Add awarded for field?"%>
-  		</div>
-  		<div class="col-xs-3">
-  			<%= f.input :add_definition, label: "Add definition field?"%>
-  		</div>
-  		<div class="col-xs-3">
-  			<%= f.input :add_period, label: "Add time period field?" %>
-  		</div>
-  		<div class="col-xs-3">
-  			<%= f.input :add_date, label: "Add award date field?" %>
-  		</div>
-  	</div>
+      <div class="col-xs-2">
+        <%= f.input :add_awarded_for, label: "Add awarded for field?" %>
+      </div>
+      <div class="col-xs-2">
+        <%= f.input :add_definition, label: "Add definition field?" %>
+      </div>
+      <div class="col-xs-2">
+        <%= f.input :add_period, label: "Add time period field?" %>
+      </div>
+      <div class="col-xs-2">
+        <%= f.input :add_date, label: "Add award date field?" %>
+      </div>
+      <div class="col-xs-3">
+        <%= f.input :trait_definition, label: "Individual student trait definition?" %>
+      </div>
+    </div>
     <%= f.input :school_id, :collection => School.where.not(school_type_id: nil).order(:name), label: "School" %>
   	<hr>
   	<%= image_tag(@award.image.url, class: "school_logo") if @award.image.exists? %>

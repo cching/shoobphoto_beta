@@ -77,7 +77,7 @@
                     <% end %>
                     <% else %>
                     <%= link_to export_remove_student_path(student.id, :award => award_info.id), remote: true do %> 
-                    <span class="glyphicon glyphicon-check"></span>
+                      <span class="glyphicon glyphicon-check"></span>
                     <% end %>
                 <% end %>
               <% else %>
@@ -87,6 +87,14 @@
               <% end %>
               </div>
              </td>
+
+              <td style="padding-right:0px" style="padding-left:0px">
+                <%= form_tag(add_student_trait_path, method: :post, :id => "form_#{student.id}_#{award_info.id}", remote: true) do %>
+                  <%= hidden_field_tag :award_info_id, award_info.id %>
+                  <%= hidden_field_tag :student_id, student.id %>
+                  <%= text_field_tag :trait, award_info.placeholder(student.id), class: "trait_field" %>
+                <% end %>
+              </td>
              <% end %>
   
       </tr>

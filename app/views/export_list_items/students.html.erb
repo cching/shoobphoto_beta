@@ -3,7 +3,7 @@
         <h2><%= @school.name %></h2>
     </div>
     <div class="col-sm-2">
-    </div> 
+    </div>  
 </div>
 <hr />
 <div class="searchform" id="wide">
@@ -56,8 +56,6 @@
     if (!student_list.hasClass("loaded")) {
         $.get("/export/load_assets", {});
         student_list.addClass("loaded");
-    } else {
-        alert("has class");
     }
 </script>
 

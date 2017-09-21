@@ -106,6 +106,6 @@ class Admin::AwardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def award_params
-      params.require(:award).permit(:title, :abbreviation, :image, :add_period, :add_date, :add_awarded_for, :add_definition, :school_id)
+      params.require(:award).permit(:title, :trait_definition, :abbreviation, :image, :add_period, :add_date, :add_awarded_for, :add_definition, :school_id)
     end
 end
