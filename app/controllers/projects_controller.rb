@@ -4,16 +4,9 @@ class ProjectsController < ApplicationController
   respond_to :html
 
 
-  def show
-    respond_with(@project)
-  end
-
   def new
     @project = Project.new
     respond_with(@project)
-  end
-
-  def edit
   end
 
   def create
@@ -25,16 +18,6 @@ class ProjectsController < ApplicationController
         render 'new'
       end
     
-  end
-
-  def update 
-    @project.update(project_params)
-    respond_with(@project)
-  end
-
-  def destroy
-    @project.destroy
-    respond_with(@project)
   end
 
   private

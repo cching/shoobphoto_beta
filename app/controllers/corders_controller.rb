@@ -40,12 +40,12 @@ def import
   end
   end
 
-def export
+  def export
     export = Export.create
-      CorderExport.perform_async(export.id)
+    CorderExport.perform_async(export.id)
 
-      redirect_to corders_path, notice: "The new order CSV is currently being generated."
-    end
+    redirect_to corders_path, notice: "The new order CSV is currently being generated."
+  end
 
   def index 
     @corders = Corder.all.order(:processed, :id)

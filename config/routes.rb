@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       get :after_purchase
       get "new/:project_id" => :new, as: "new"
       post "confirm/:project_id" => :confirm, as: "confirm"
+      get :unprocessed
+      get :processed
     end
   end
 

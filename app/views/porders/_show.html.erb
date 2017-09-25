@@ -1,0 +1,123 @@
+<div class="modal-dialog" id="lesson_resources">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Order <%= @order.id %> Purchase Information</h4>
+      </div>
+      <div class="modal-body">
+      <div id="table">
+
+<table>
+  <th>
+    Item 
+  </th>
+  <th>
+    Quantity
+  </th>
+  <th>
+    Amount
+  </th>
+  <th>
+    Description
+  </th>
+  <th>
+    Print Size
+  </th>
+  <th>
+    Print Style
+  </th>
+<% @order.project.project_prints.each do |pprint| %>
+<tr>
+  <td>
+    <%= pprint.print.name %>
+  </td>
+  <td> 
+    <%= pprint.quantity %>
+  </td>
+  <td>
+    <%= "$#{pprint.quantity*pprint.print.price}" %>
+  </td>
+  <td>
+    <%= pprint.description %>
+  </td>
+  <td>
+    <% if !pprint.print_style_id.nil? %>
+      <%= "#{pprint.print_size.size} - $#{pprint.print_size.price}" %>
+    <% end %>
+  </td>
+  <td>
+    <% if !pprint.print_style_id.nil? %>
+      <%= "#{pprint.print_style.size} - $#{pprint.print_style.price}" %>
+    <% end %>
+  </td>
+
+</tr>
+<% end %>
+</table>
+      <div class="row">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-6"><strong>Total: <%= number_to_currency(@order.price, :unit => "$") %>
+        </strong>
+        </div>
+        </div>
+
+
+      
+      <hr >
+
+
+      <div class="row">
+        <div class="col-sm-6">
+        <h3>Shipping Information</h3>
+        <%= @order.project.first_name %> <%= @order.project.last_name %><br />
+        <%= @order.shipping_address %><br />
+        <%= @order.shipping_city %>, <%= @order.shipping_state.upcase %> <%= @order.shipping_zip %>
+
+        </div>
+        <div class="col-sm-6">
+        <% if !@order.free? %>
+        <h3>Billing Information</h3>
+        <%= @order.project.first_name %> <%= @order.project.last_name %><br />
+        <%= @order.address %><br >
+        <%= @order.city %>, <%= @order.state.upcase %> <%= @order.zip_code %><br />
+        <%= @order.card_type.humanize %>, expires on <%= @order.card_expires_on %><br />
+        <% end %>
+        
+        </div>
+
+      </div>
+      <hr >
+      
+      <h3>Contact</h3>
+      
+
+
+      <div class="row">
+        <div class="col-sm-6">
+        <strong>Phone:</strong> <%= @order.project.phone %>
+        </div>
+        <div class="col-sm-6">
+        <strong>Email:</strong> <%= @order.project.email %>
+        </div>
+
+      </div><br/>
+
+      </div>
+
+
+
+<div class="dropdown">
+
+
+
+
+      </div>
+      <div class="form-actions">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>   
+      </div>   
+
+    </div>
+  </div>
+</div>

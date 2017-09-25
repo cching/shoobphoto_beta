@@ -34,6 +34,11 @@ class AutoImport
  		      	      				school.students.update_all(enrolled: false)
  	      	      					school.update(enrolled: true)
  		      	      			end
+
+ 		      	      			if !school.clear_teachers?
+						          	school.educators.destroy_all
+						          	school.update(:clear_teachers => true)
+						        end
 				      			
 				      		package = Package.find(h[:package_id].to_i)
 				      		## import senior images
@@ -86,6 +91,8 @@ class AutoImport
 							           	student = students.last
 							           	student.update(:student_id => h[:student_id], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :email => h[:email], :teacher => h[:teacher], :shoob_id => h[:shoob_id], :id_only => true)
 							          end 
+
+							         
 
 							          if !student.teacher.nil?
 							          	teachers = school.educators.where("name like ?", "%#{student.teacher}%")

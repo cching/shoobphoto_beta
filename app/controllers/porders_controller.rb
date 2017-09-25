@@ -1,5 +1,12 @@
 class PordersController < ApplicationController
   before_action :set_porder, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin, only: [:index, :processed, :unprocessed]
+
+  def require_admin
+    unless current_user.try(:admin) 
+      redirect_to root_path
+    end
+  end
 
   # GET /porders
   # GET /porders.json
@@ -7,9 +14,33 @@ class PordersController < ApplicationController
     @porders = Porder.all
   end
 
+  def export
+    export = Export.create
+    PorderExport.perform_async(export.id)
+
+    redirect_to corders_path, notice: "The new order CSV is currently being generated."
+  end
+
   # GET /porders/1
   # GET /porders/1.json
   def show
+    @order = @porder
+  end
+
+  def processed
+    @porder = Porder.find(params[:id])
+    @porder.processed = true
+    @porder.save validate: false
+ 
+    respond_to :js
+  end
+
+  def unprocessed
+    @porder = Porder.find(params[:id])
+    @porder.processed = false
+    @porder.save validate: false
+
+    respond_to :js
   end
 
   # GET /porders/new
@@ -19,25 +50,6 @@ class PordersController < ApplicationController
     @porder = Porder.new(:project_id => @project.id, :free => @free, :price => @project.price)
   end
 
-  # GET /porders/1/edit
-  def edit
-  end
-
-  # POST /porders
-  # POST /porders.json
-  def create
-    @porder = Porder.new(porder_params)
-
-    respond_to do |format|
-      if @porder.save
-        format.html { redirect_to @porder, notice: 'Porder was successfully created.' }
-        format.json { render :show, status: :created, location: @porder }
-      else
-        format.html { render :new }
-        format.json { render json: @porder.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
   def confirm
     @project = Project.find(params[:project_id])
@@ -65,13 +77,7 @@ class PordersController < ApplicationController
 
   # DELETE /porders/1
   # DELETE /porders/1.json
-  def destroy
-    @porder.destroy
-    respond_to do |format|
-      format.html { redirect_to porders_url, notice: 'Porder was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

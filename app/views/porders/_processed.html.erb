@@ -1,0 +1,8 @@
+<style>
+
+.btn-success {
+  font-size: 11px; 
+}
+
+</style>
+<%= link_to "Processed", unprocessed_porders_path(:id => porder.id), remote: true, class: "btn btn-success" %>

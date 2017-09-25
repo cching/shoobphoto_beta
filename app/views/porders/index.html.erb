@@ -53,7 +53,6 @@ td {
       <td></td> 
       <td>ID</td>
       <td>Date</td>
-      <td>School</td>
       <td>First name</td>
       <td>Last name</td>
       <td>Email</td>
@@ -72,30 +71,29 @@ td {
   </thead>
 
   <tbody>
-    <% @corders.each do |corder| %>
+    <% @porders.each do |porder| %>
       <tr>
-        <td><%= link_to "More info", corder_show_path(corder.id), remote: true, class: "btn btn-primary" %></td>
-        <td><%= corder.id %></td>
-        <td><%= corder.created_at %></td>
-        <td><%= corder.schools %></td>
-        <td><%= corder.first_name %></td>
-        <td><%= corder.last_name %></td>
-        <td><%= corder.email %></td>
-        <td><%= corder.address %></td>
-        <td><%= corder.city %></td>
-        <td><%= corder.state %></td>
-        <td><%= corder.zip_code %></td>
-        <td><%= corder.price %></td>
-        <td><%= corder.shipping_address %></td>
-        <td><%= corder.shipping_city %></td>
-        <td><%= corder.shipping_zip %></td>
-        <td><%= corder.shipping_state %></td>
-        <td id="corder_<%= corder.id %>">
+        <td><%= link_to "More info", porder_path(porder.id), remote: true, class: "btn btn-primary" %></td>
+        <td><%= porder.id %></td>
+        <td><%= porder.created_at %></td>
+        <td><%= porder.project.first_name %></td>
+        <td><%= porder.project.last_name %></td>
+        <td><%= porder.project.email %></td>
+        <td><%= porder.address %></td>
+        <td><%= porder.city %></td>
+        <td><%= porder.state %></td>
+        <td><%= porder.zip_code %></td>
+        <td><%= porder.price %></td>
+        <td><%= porder.shipping_address %></td>
+        <td><%= porder.shipping_city %></td>
+        <td><%= porder.shipping_zip %></td>
+        <td><%= porder.shipping_state %></td>
+        <td id="porder_<%= porder.id %>">
 
-          <% if corder.processed? %>
-          <%= render :partial => 'processed', :locals => {:corder => corder} %>
+          <% if porder.processed? %>
+          <%= render :partial => 'processed', :locals => {:porder => porder} %>
           <% else %>
-          <%= render :partial => 'unprocessed', :locals => {:corder => corder} %>
+          <%= render :partial => 'unprocessed', :locals => {:porder => porder} %>
           <% end %>
         </td>
 
