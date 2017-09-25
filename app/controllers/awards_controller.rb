@@ -11,12 +11,12 @@ class AwardsController < ApplicationController
 
   def add_student_trait
     @student = Student.find(params[:student_id])
-    @award_info = AwardInfo.find(params[:award_info_id])
-
-    if @award_info.students.include? @student
-      @award_info.award_info_students.where(:student_id => @student.id).last.update(:trait => params[:trait])
+    @award = AwardInfo.find(params[:award_info_id])
+ 
+    if @award.students.include? @student
+      @award.award_info_students.where(:student_id => @student.id).last.update(:trait => params[:trait])
     else
-      @award_info.award_info_students.create(:trait => params[:trait], :student_id => @student.id)
+      @award.award_info_students.create(:trait => params[:trait], :student_id => @student.id)
     end
 
     respond_to do |format|

@@ -39,6 +39,15 @@
               <% end %>
               </div>
              </td>
+             <% if award_info.award.trait_definition? %>
+              <td style="padding-right:0px" style="padding-left:0px">
+                <%= form_tag(add_student_trait_path, method: :post, :id => "form_#{student.id}_#{award_info.id}", remote: true) do %>
+                  <%= hidden_field_tag :award_info_id, award_info.id %>
+                  <%= hidden_field_tag :student_id, student.id %>
+                  <%= text_field_tag :trait, award_info.placeholder(student.id), class: "trait_field" %>
+                <% end %>
+              </td>
+             <% end %>
              <% end %>
   
       </tr>
@@ -88,6 +97,7 @@
               </div>
              </td>
 
+             <% if award_info.award.trait_definition? %>
               <td style="padding-right:0px" style="padding-left:0px">
                 <%= form_tag(add_student_trait_path, method: :post, :id => "form_#{student.id}_#{award_info.id}", remote: true) do %>
                   <%= hidden_field_tag :award_info_id, award_info.id %>
@@ -96,7 +106,19 @@
                 <% end %>
               </td>
              <% end %>
+             <% end %>
   
       </tr>
  
 <% end %>
+
+<script>
+
+$(".trait_field").blur(function() {
+var form_id = $(this).parent().attr('id');
+
+$('form#' + form_id).trigger('submit.rails');
+
+});
+
+</script>
