@@ -87,6 +87,17 @@ class AutoImport
 							           	student.update(:student_id => h[:student_id], :last_name => h[:last_name], :first_name => h[:first_name], :grade => h[:grade], :email => h[:email], :teacher => h[:teacher], :shoob_id => h[:shoob_id], :id_only => true)
 							          end 
 
+							          if !student.teacher.nil?
+							          	teachers = school.educators.where("name like ?", "%#{student.teacher}%")
+							          	if teachers.any?
+							          		teacher = teachers.last
+							          	else
+							          		teacher = school.educators.create(:name => student.teacher)
+							          	end
+
+							          	student.update(:educator_id => teacher.id)
+							          end
+
 
 			 
 							          images = student.student_images.where("lower(folder) like ?", "%#{h[:folder]}%")
