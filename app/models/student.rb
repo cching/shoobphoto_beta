@@ -53,7 +53,7 @@ end
     students = students.where("lower(first_name) like ?", "%#{first_name.downcase}%") unless first_name.nil?
     students = students.where("lower(last_name) like ?", "%#{last_name.downcase}%") unless last_name.nil?
     students = students.where("grade = ?", "#{grade}") unless grade.nil? || grade == ""
-    students = students.where("teacher like ?", "%#{teacher}%") unless teacher.nil? || teacher == ""
+    students = students.joins(:educator).where(:educators => {:name => "#{teacher}"}) unless teacher.nil? || teacher == ""
     students = students.where("student_id like ?", "%#{student_id}")
     
   else

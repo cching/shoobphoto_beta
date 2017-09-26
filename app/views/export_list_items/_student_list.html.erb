@@ -21,7 +21,7 @@
 			<%= student.first_name %> <%= student.last_name %>
 		</td>
 		<td style="padding-right:0px" style="padding-left:0px"> 
-			<%= student.teacher %> 
+			<%= student.educator.try(:name) %> 
 		</td>
 		<td style="padding-right:0px" style="padding-left:0px">
 			<%= student.grade %>

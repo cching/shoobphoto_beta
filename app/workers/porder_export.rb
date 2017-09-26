@@ -7,11 +7,11 @@ class PorderExport
 
       csv_file = ''
 
-          csv_file << CSV.generate_line(Porder.first.attributes.keys[0..14].map{|column| column})
+          csv_file << CSV.generate_line(Porder.first.attributes.keys[0..14].map{|column| column} + ["First Name"] + ["Last Name"] + ["School"] + ["Email"])
             Porder.all.each do |order|
 
-     
-                csv_file << CSV.generate_line(order.attributes.values[0..13] + order.attributes.values[14..21] + [order.try(:residential)] + [order.try(:grade)] + ["#{order.schools}"] +["#{order.district}"] + ["#{order.price.to_i}"] + [@string1] + [@string2] + [@string3] + [@string4] + [@string5] + [@string6] + [@string7] + [@string8] + ["#{order.processed}"]
+                
+                csv_file << CSV.generate_line(order.attributes.values[0..14] + ["#{order.project.first_name}" + ["#{order.project.last_name}" + ["#{order.project.school}"] + ["#{order.project.email}"] + ["#{order.project.first_name}"] + [order.project.project_prints.map {|pprint| "#{pprint.print.name}, #{pprint.quantity, }"}]
 
               )  
             
