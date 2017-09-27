@@ -11,14 +11,25 @@
           <%= render 'print_size_fields', f: builder %>
   <% end %>
 
-  <%= link_to_add_fields "Add Sizes", f, :print_sizes %>
-
+  <div class="row">
+    <div class="col-xs-2">
+    </div>
+    <div class="col-xs-10">
+      <%= link_to_add_fields "Add Sizes", f, :print_sizes %>
+    </div>
+  </div>
 
   <%= f.simple_fields_for :print_styles do |builder| %>
           <%= render 'print_style_fields', f: builder %>
   <% end %>
 
-  <%= link_to_add_fields "Add Styles", f, :print_styles %>
+  <div class="row">
+    <div class="col-xs-2">
+    </div>
+    <div class="col-xs-10">
+      <%= link_to_add_fields "Add Styles", f, :print_styles %>
+    </div>
+  </div>
 
   <div class="form-actions">
     <%= f.button :submit %>

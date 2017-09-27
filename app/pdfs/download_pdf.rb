@@ -4,6 +4,7 @@ class DownloadPdf < Prawn::Document
     def initialize(export_data, package_id, path)
       @export_data = ExportData.find(export_data)
       @package = Package.find(package_id)
+      @custom_input = "Custom user input"
       @path = path
 
       super(skip_page_creation: true)
@@ -57,7 +58,9 @@ class DownloadPdf < Prawn::Document
               text = if field.column.column_type == 'prompt'
                 @export_data.prompt_values[field.name] || ""
               elsif field.column.column_type == 'type'
-                @export_data.type.name
+                @export_data.type.
+              elsif field.column.name == "Custom"
+                @custom_input
               else
                 student.send(field.column.column_type)
               end

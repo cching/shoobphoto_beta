@@ -12,15 +12,13 @@
     <% if @types.nil? %>
     <h3>This student is missing a correct image. Please upload another.</h3>
     <% else %>
-    <% if current_user.try(:admin) %>
-        <% @types.each do |type| %>
-            <%= link_to type.name, export_form_path(params[:id], type.id, @package.id), :target => "_blank", class: "btn btn-custom btn-centered", id: "submit" %><br/>
-        <% end %>
-    <% else %>
         <% @school.types.each do |type| %>
-            <%= link_to type.name, export_form_path(params[:id], type.id, @package.id), :target => "_blank", class: "btn btn-custom btn-centered", id: "submit" %><br/>
+          <% if !type.pdf.nil? && type.pdf.template.columns.include?(Column.find(20)) %>
+            <%= link_to type.name, export_custom_input_path(params[:id], type.id, @package.id), :target => "_blank", class: "btn btn-custom btn-centered", id: "type_#{type.id}", remote: true %>
+          <% else %>
+            <%= link_to type.name, export_form_path(params[:id], type.id, @package.id), :target => "_blank", class: "btn btn-custom btn-centered btn_no_custom", id: "submit" %>
+            <% end %><br/>
         <% end %>
-    <% end %>
     <% end %>
       </div>
   <div class="col-sm-3"></div>
@@ -37,7 +35,7 @@
   </div>
 
 <script>
-$(".btn-centered").on("click", function() {
+$(".btn_no_custom").on("click", function() {
   $('#myModal').modal('hide');
 
 });

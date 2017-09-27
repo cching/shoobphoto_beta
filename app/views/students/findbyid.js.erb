@@ -14,7 +14,7 @@
 	 $('#last_name').val("<%= @student.last_name %>");
 	 $('#student_first_name').val("<%= @student.first_name %>");
 	 $('#student_last_name').val("<%= @student.last_name %>");
-	 $('#input_student_teacher').val("<%= @student.teacher %>");
+	 $('#input_student_teacher').val("<%= @student.educator.try(:name) %>");
 
 
 	 $('#input_student_id_custom').removeClass("error_field");

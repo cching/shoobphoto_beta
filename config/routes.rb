@@ -265,6 +265,9 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'export/download/:student_id/:image_id' => 'export_list_items#download', :via => 'GET', :as => 'export_download'
   match 'export/delete/:id' => 'export_list_items#delete', :via => 'delete', :as => 'export_delete'
   match 'export/students/:id/type/:type_id/form/:package' => 'export_list_items#form', :via => 'GET', :as => 'export_form'
+
+  match 'export/custom_input/:id/type/:type_id/form/:package' => 'export_list_items#custom_input', :via => 'GET', :as => 'export_custom_input'
+
   match 'export/students/search/:school' => 'export_list_items#search', :via => 'GET', :as => 'export_search'
   match 'export/students/new/:school/:package' => 'export_list_items#new', :via => 'GET', :as => 'export_new'
   match 'export/students/create/:school/:package' => 'export_list_items#create', :via => 'POST', :as => 'export_create'

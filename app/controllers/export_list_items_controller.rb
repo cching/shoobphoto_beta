@@ -351,6 +351,33 @@ class ExportListItemsController < ApplicationController
     @types = Type.all.order(:name) if @image.image.exists?
     respond_to :js
   end
+
+  def custom_input
+    student_ids = current_user.students.pluck(:id)
+    @type = Type.find(params[:type_id])
+    @package = params[:package]
+
+
+    @export_data = ExportData.new(( {}).merge({
+      kind: 'print',
+      type_id: @type.id,
+      user_id: current_user.id
+    }))
+
+    if student_ids.count > 0
+      current_user.students.each do |student|
+      @export_data.export_data_students.new(:student_id => student.id)
+    end
+    else
+      @export_data.export_data_students.new(:student_id => params[:id])
+    end
+
+
+    @export_data.save 
+    current_user.students = []
+
+    respond_to :js
+  end
   
   def form
 
@@ -382,10 +409,11 @@ class ExportListItemsController < ApplicationController
   
   def waiting
     @export_data = ExportData.find(params[:id])
+    cookies[:custom_input] = { :value => "#{params[:custom_input]}", :expires => 5.years.from_now}
 
     respond_to do |format|
     format.pdf do
-      pdf = ExportPdf.new(@export_data, params[:package])
+      pdf = ExportPdf.new(@export_data, params[:package], params[:custom_input])
       send_data pdf.render, filename: "id_#{@export_data.id}",
                             type: "application/pdf",
                             disposition: "inline" 

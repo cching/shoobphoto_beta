@@ -1,9 +1,10 @@
 class ExportPdf < Prawn::Document
   require 'prawn'
     
-    def initialize(export_data, package_id)
+    def initialize(export_data, package_id, custom_input = nil)
       @export_data = ExportData.find(export_data)
       @package = Package.find(package_id)
+      @custom_input = custom_input
 
       super(skip_page_creation: true)
       generate
@@ -45,7 +46,6 @@ class ExportPdf < Prawn::Document
                   width: field.width,
                   height: field.height
               end
-
             # Handle colors.
             elsif ExportJob.color_columns.include? field.column.column_type
               self.fill_color student.send(field.column.column_type)
@@ -58,6 +58,8 @@ class ExportPdf < Prawn::Document
                 @export_data.prompt_values[field.name] || ""
               elsif field.column.column_type == 'type'
                 @export_data.type.name
+              elsif field.column.name == "Custom"
+                @custom_input
               else
                 student.send(field.column.column_type)
               end

@@ -1,0 +1,11 @@
+<%= form_tag(export_waiting_path(@export_data.id, @package, :format => 'pdf'), method: :get) do %>
+	<%= text_field_tag :custom_input, nil, placeholder: "Custom Input", class: "enjoy-css", value: "#{cookies[:custom_input]}" %>
+	<%= submit_tag "Submit", :formtarget => "_blank", class: "submit" %>
+<% end %>
+
+<script>
+$(".submit").on("click", function() {
+  $('#myModal').modal('hide');
+
+});
+</script>
