@@ -383,7 +383,6 @@ class ExportListItemsController < ApplicationController
 
   student_ids = current_user.students.pluck(:id)
 
-
     @export_data = ExportData.new(( {}).merge({
       kind: 'print',
       type_id: params[:type_id],

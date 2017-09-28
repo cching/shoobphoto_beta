@@ -48,7 +48,7 @@ end
   school = School.find(school_id)
   unless first_name.nil? || last_name.nil? || grade.nil? || teacher.nil?
     
-    students = school.students.where(:id_only => true).includes(:educators)
+    students = school.students.where(:id_only => true).includes(:educator)
 
     students = students.where("lower(first_name) like ?", "%#{first_name.downcase}%") unless first_name.nil?
     students = students.where("lower(last_name) like ?", "%#{last_name.downcase}%") unless last_name.nil?
