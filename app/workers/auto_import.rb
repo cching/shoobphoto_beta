@@ -95,14 +95,19 @@ class AutoImport
 							         
 
 							          unless h[:teacher].nil?
-							          	teachers = school.educators.where("name like ?", "%#{student.teacher}%")
+							          	educators = school.educators.where("name like ?", "%#{student.teacher}%")
 							          	if teachers.any?
-							          		teacher = teachers.last
+							          		educator = educators.last
+							          		puts "@@@@@ educator found #{educator.id}"
 							          	else
-							          		teacher = school.educators.create(:name => h[:teacher])
+							          		educator = school.educators.create(:name => h[:teacher])
+							          		puts "@@@@@@@@ educator created #{educator.id}"
 							          	end
 
 							          	student.update(:educator_id => teacher.id)
+							          		puts "@@@@@@@@@ student #{student.id} updated with #{educator.id}"
+							          else 
+							          	puts "@@@@@@@@ teacher nil"
 							          end
 
 
