@@ -35,10 +35,6 @@ class AutoImport
  	      	      					school.update(enrolled: true)
  		      	      			end
 
- 		      	      			unless school.clear_teachers?
-						          	school.educators.destroy_all
-						          	school.update(clear_teachers: true)
-						        end
 				      			
 				      		package = Package.find(h[:package_id].to_i)
 				      		## import senior images
