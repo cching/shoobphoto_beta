@@ -26,8 +26,6 @@ class AutoImport
 
 		      chunk = SmarterCSV.process(csv_file, {:file_encoding =>'iso-8859-1'}) do |chunk|
 		      	      	chunk.each do |h|
-		      	      		puts "@@@@@@@ #{h["school_id"]}"
-		      	      		puts "@@@@@@@ symbol #{h[:school_id]}"
 		      	      		school = School.where(:id => h[:school_id].to_i)
 				      		
 				      		if school.any?
@@ -37,9 +35,9 @@ class AutoImport
  	      	      					school.update(enrolled: true)
  		      	      			end
 
- 		      	      			if !school.clear_teachers?
+ 		      	      			unless school.clear_teachers?
 						          	school.educators.destroy_all
-						          	school.update(:clear_teachers => true)
+						          	school.update(clear_teachers: true)
 						        end
 				      			
 				      		package = Package.find(h[:package_id].to_i)
