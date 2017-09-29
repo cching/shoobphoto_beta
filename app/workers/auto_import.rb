@@ -99,7 +99,7 @@ class AutoImport
 							          	if teachers.any?
 							          		teacher = teachers.last
 							          	else
-							          		teacher = school.educators.create(:name => student.teacher)
+							          		teacher = school.educators.create(:name => h[:teacher])
 							          	end
 
 							          	student.update(:educator_id => teacher.id)
