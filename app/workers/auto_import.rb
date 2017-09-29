@@ -26,6 +26,8 @@ class AutoImport
 
 		      chunk = SmarterCSV.process(csv_file, {:file_encoding =>'iso-8859-1'}) do |chunk|
 		      	      	chunk.each do |h|
+		      	      		puts "@@@@@@@ #{h["school_id"]}"
+		      	      		puts "@@@@@@@ symbol #{h[:school_id]}"
 		      	      		school = School.where(:id => h[:school_id].to_i)
 				      		
 				      		if school.any?
