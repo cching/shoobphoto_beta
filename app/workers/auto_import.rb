@@ -94,7 +94,7 @@ class AutoImport
 
 							         
 
-							          unless h[:teacher]
+							          unless h[:teacher].nil?
 							          	teachers = school.educators.where("name like ?", "%#{student.teacher}%")
 							          	if teachers.any?
 							          		teacher = teachers.last
