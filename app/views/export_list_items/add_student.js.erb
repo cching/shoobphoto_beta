@@ -1,6 +1,15 @@
-<% if @userstudent.nil? %>
-$("#student_<%= @student.id %>_<%= @award.id %>_check").html("<%= escape_javascript(render 'add_student', :locals => {:student => @student}) %>");
-<% else %>
-$("#student_<%= @student.id %>_<%= @award.id %>_check").html("<%= escape_javascript(render 'add_student', :locals => {:student => @student}) %>");
+<% if @award.nil? %>
+	<% if @userstudent.nil? %>
+		$("#student_<%= @student.id %>_check").html("<%= escape_javascript(render 'add_student', :locals => {:student => @student}) %>");
+	<% else %>
+		$("#student_<%= @student.id %>_check").html("<%= escape_javascript(render 'add_student', :locals => {:student => @student}) %>");
 
-<% end %>  
+	<% end %>   
+<% else %>
+	<% if @userstudent.nil? %>
+		$("#student_<%= @student.id %>_<%= @award.id %>_check").html("<%= escape_javascript(render 'add_student', :locals => {:student => @student}) %>");
+	<% else %>
+		$("#student_<%= @student.id %>_<%= @award.id %>_check").html("<%= escape_javascript(render 'add_student', :locals => {:student => @student}) %>");
+
+	<% end %>   
+<% end %>
