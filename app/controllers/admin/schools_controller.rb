@@ -59,7 +59,7 @@ class Admin::SchoolsController < ApplicationController
   def update
     respond_to do |format|
       if @school.update(school_params)
-        format.html { redirect_to redirect_to admin_schools_path, notice: 'School was successfully updated.' }
+        format.html { redirect_to admin_schools_path, notice: 'School was successfully updated.' }
       else
         format.html { render :edit }
       end

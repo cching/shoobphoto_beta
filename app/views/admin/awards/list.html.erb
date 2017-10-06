@@ -67,7 +67,7 @@
         <td><%= award_info.id %></td>
         <td><%= award_info.export_list.user.school.name %></td>
         <td><%= "#{award_info.export_list.user.first_name} #{award_info.export_list.user.last_name}" %></td>
-        <td><%= award_info.award.abbreviation %></td>
+        <td><%= award_info.try(:award).try(:abbreviation) %></td>
         <td id="button_<%= award_info.id %>">
         <% if award_info.processed? %>
           <%= link_to "Processed", notprocessed_admin_award_path(award_info.id), class: "btn btn-success", remote: true %>

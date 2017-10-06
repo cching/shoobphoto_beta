@@ -12,9 +12,9 @@
 	<tbody>
 		<% Award.where.not(image_file_name: nil).includes(:school).order("schools.name").order(:title).each do |award| %>
 			<tr>
-				<td><%= award.title %></td>
-				<td><%= award.school.name %></td>
-				<td><%= award.abbreviation %></td>
+				<td><%= award.try(:title) %></td>
+				<td><%= award.try(:school).try(:name) %></td>
+				<td><%= award.try(:abbreviation) %></td>
 				<td><%= link_to "Edit", edit_admin_award_path(award), class: "btn btn-primary" %></td>
 				<td><%= link_to "Delete", admin_award_path(award), method: :delete, class: "btn btn-danger", :data => {:confirm => "Are you sure?"} %></td>
 			</tr>
