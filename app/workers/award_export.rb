@@ -2,7 +2,7 @@ class AwardExport
   include Sidekiq::Worker
   sidekiq_options queue: "package_import"
     def perform(id)
-      export = Export.find(id)
+      export = Export.find(id) 
       require 'csv'
 
       csv_file_setup = ''
@@ -11,7 +11,9 @@ class AwardExport
 
           ExportList.all.where(:submitted => true).where(:hidden => false).each do |export_list|
             export_list.award_infos.where(:processed => false).each do |award|
-               csv_file_setup << CSV.generate_line(["#{export_list.user.school.scode}"] + ["#{award.award.title}"] + ["#{award.award.abbreviation}"] + ["#{award.time_period}"] + ["#{award.award_date}"]+  ["#{award.receive_by}"] + ["#{File.basename award.award.image_file_name, '.jpg'}"] + ["#{award.award.abbreviation.humanize}#{award.id}"] + ["#{award.awarded_for}"])
+              unless award.award.nil?
+               csv_file_setup << CSV.generate_line(["#{export_list.user.school.scode}"] + ["#{award.award.try(:title)}"] + ["#{award.award.try(:abbreviation)}"] + ["#{award.time_period}"] + ["#{award.award_date}"]+  ["#{award.receive_by}"] + ["#{File.basename award.award.try(:image_file_name), '.jpg'}"] + ["#{award.award.try(:abbreviation)}#{award.id}"] + ["#{award.awarded_for}"])
+             end
             end
           end
 
@@ -34,7 +36,9 @@ class AwardExport
                   @string2 = "#{img.last.image.url}"
                   @string = "#{img.last.try(:image_file_name)}"
                 end
-               csv_file << CSV.generate_line(["#{award_student.student.school.scode}"] + ["#{award_student.student.shoob_id}"] + ["#{award_student.student.student_id}"] + ["#{award_student.student.first_name}"] + ["#{award_student.student.last_name}"] + ["#{award_student.student.grade}"] + ["#{award_student.student.teacher}"] + ["#{@string2}"] + ["#{File.basename award.award.image_file_name, '.jpg'}"] + ["#{@string}"] + ["#{award_student.trait}"])
+                unless award.award.nil?
+                  csv_file << CSV.generate_line(["#{award_student.student.school.scode}"] + ["#{award_student.student.shoob_id}"] + ["#{award_student.student.student_id}"] + ["#{award_student.student.first_name}"] + ["#{award_student.student.last_name}"] + ["#{award_student.student.grade}"] + ["#{award_student.student.teacher}"] + ["#{@string2}"] + ["#{File.basename award.award.try(:image_file_name), '.jpg'}"] + ["#{@string}"] + ["#{award_student.trait}"])
+                end
              end
             end
           end
