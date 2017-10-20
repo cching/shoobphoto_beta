@@ -25,7 +25,7 @@
 				</div>
 
 				<% if f.object.award.add_period? %>
-				Time Period:
+				Ceremony Date:
 				<div class="time_period_<%= f.object.award.id %>">
 					<%= f.select :time_period, Award::TimePeriods, {}, { :class => "date_dropdown" } %>
 				</div>
