@@ -191,7 +191,8 @@ class AwardsController < ApplicationController
     
     params[:award_ids].each do |val|
       unless award_ids.include?(val.to_i)
-        @award_info = AwardInfo.create(:export_list_id => @export_list.id, :award_id => val.to_i) 
+        @award_info = AwardInfo.new(:export_list_id => @export_list.id, :award_id => val.to_i) 
+        @award_info.save(validate: false)
       end
       vals << val.to_i
     end
@@ -224,9 +225,15 @@ class AwardsController < ApplicationController
 
   def update_multiple_award_info
     @export_list = ExportList.find(params[:id])
-    @export_list.update(export_list_params)
-
-    redirect_to award_multiple_students_path(@export_list.uniq_id)
+    
+    respond_to do |format|
+      if @export_list.update(export_list_params)
+        format.html { redirect_to award_multiple_students_path(@export_list.uniq_id) }
+      else
+        flash.now[:alert] = 'Please make sure all of the fields are completely filled out.'
+        format.html { render :multiple_add_info }
+      end
+    end
   end
 
   def multiple_students
