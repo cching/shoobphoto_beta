@@ -13,10 +13,12 @@ class UserImport
 
       	chunk.each do |h|
           item = Item.find(h["id"])  
-          item.update(:format => h["format"])
+          schools = School.where(ca_code: "#{h["ca_code"]}")
 
-          puts "@@@@@@@@@@ #{h["format"]} #{h[:id]} #{h["id"]}"
-          puts "this one #{h[:format]}"
+          if schools.any?
+            schools.update_all(scode: "#{h["scode"]}")
+
+          end
 
      	end #end chunk
 

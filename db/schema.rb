@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170925183023) do
+ActiveRecord::Schema.define(version: 20171030042121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -820,7 +820,7 @@ ActiveRecord::Schema.define(version: 20170925183023) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
-    t.integer  "scode"
+    t.string   "scode"
     t.boolean  "enrolled",          default: false
     t.boolean  "clear_teachers"
   end

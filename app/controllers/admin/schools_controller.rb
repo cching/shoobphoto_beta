@@ -77,6 +77,6 @@ class Admin::SchoolsController < ApplicationController
     end
 
     def school_params
-      params[:school].permit(:name, :multiple, :district_id, :city_id, :principal, :secretary, :address, :phone, :cdscode, :school_type_id, :ca_code, :package_ids => [])
+      params[:school].permit(:name, :scode, :multiple, :district_id, :city_id, :principal, :secretary, :address, :phone, :cdscode, :school_type_id, :ca_code, :package_ids => [])
     end
 end

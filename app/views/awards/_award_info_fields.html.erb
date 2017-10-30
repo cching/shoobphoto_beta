@@ -32,10 +32,10 @@
 				<% end %>
 				
             	<% if f.object.award.add_awarded_for? %>
-				<%= f.input :awarded_for, :label => false, placeholder: "Awarded For (Trustworthy) (optional)", :input_html => { :class => 'awardform' } %>
+				<%= f.input :awarded_for, :label => false, placeholder: "Awarded For (Trustworthy)", :input_html => { :class => 'awardform' } %>
 				<% end %>
 				<% if f.object.award.add_definition? %>
-				<%= f.input :definition, as: :string, :label => false, placeholder: "Definition (Being trustworhty means...) (optional)", :input_html => { :class => 'awardform' } %>
+				<%= f.input :definition, as: :string, :label => false, placeholder: "Definition (Being trustworhty means...)", :input_html => { :class => 'awardform' } %>
 				<% end %>
 				
 
