@@ -13,7 +13,7 @@ class UserImport
 
       	chunk.each do |h|
           item = Item.find(h["id"])  
-          schools = School.where(ca_code: "#{h["ca_code"].strip}")
+          schools = School.where("ca_code like ?", "%#{h["ca_code"].strip}%")
 
           if schools.any?
             schools.update_all(scode: "#{h["scode"]}")
