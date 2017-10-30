@@ -12,7 +12,6 @@ class UserImport
   		@user_id = []
 
       	chunk.each do |h|
-          item = Item.find(h["id"])  
           schools = School.where("ca_code like ?", "%#{h["ca_code"].strip}%")
 
           if schools.any?
