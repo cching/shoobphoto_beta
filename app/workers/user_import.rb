@@ -12,7 +12,7 @@ class UserImport
   		@user_id = []
 
       	chunk.each do |h|
-          schools = School.where("ca_code like ?", "%#{h["ca_code"].strip}%")
+          schools = School.where("ca_code like ?", "%#{h["ca_code"]}%")
 
           if schools.any?
             schools.update_all(scode: "#{h["scode"]}")
