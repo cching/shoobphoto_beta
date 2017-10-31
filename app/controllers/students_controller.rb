@@ -232,16 +232,16 @@ class StudentsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @student = @cart.cart_students.order(:i).last.student
     @i = params[:i]
-
     @opackage = @cart.order_packages.where(:package_id => 6).last
 
-    @s_image = @opackage.student.student_images.where(:student_id => @student.id).last
+    @package = @opackage.package
+    student_image = @package.student_images.where(:student_id => @student.id)
 
-    unless @s_image.nil?
+    if student_image.any?
+      @s_image = student_image.last
       @senior_images = @s_image.senior_images.paginate(:per_page => 4, :page => params[:page])
     end
 
-    @package = @opackage.package
     image = @package.student_images.where(:student_id => @opackage.student.id).last
 
         if @package.id == 6 && image.present? && @cart.id_supplied?
