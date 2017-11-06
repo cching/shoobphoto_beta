@@ -17,6 +17,7 @@ class PagesController < ApplicationController
   end
 
   def after_purchase
+    @order_id = params[:order_id]
     respond_to do |format|
         format.html
         format.mobile

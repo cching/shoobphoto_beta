@@ -62,16 +62,16 @@ end
   return students.order(:last_name)
 end
 
-def self.searching_awards(school_id, first_name, last_name, grade, educator, student_id)
+def self.searching_awards(school_id, first_name, last_name, grade, teacher, student_id)
   school = School.find(school_id)
-  unless first_name.nil? || last_name.nil? || grade.nil? || educator.nil?
+  unless first_name.nil? || last_name.nil? || grade.nil? || teacher.nil?
     
     students = school.students.where(:id_only => true)
 
     students = students.where("lower(first_name) like ?", "%#{first_name.downcase}%") unless first_name.nil?
     students = students.where("lower(last_name) like ?", "%#{last_name.downcase}%") unless last_name.nil?
     students = students.where("grade = ?", "#{grade}") unless grade.nil? || grade == ""
-    students = students.where("educator_id = ?", "#{educator}") unless educator.nil? || educator == ""
+    students = students.where("teacher = ?", "#{teacher}") unless teacher.nil? || teacher == ""
     students = students.where("student_id like ?", "%#{student_id}")
     
   else

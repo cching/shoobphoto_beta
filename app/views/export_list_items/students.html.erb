@@ -26,7 +26,7 @@
     </div>
     <div class="col-sm-2" id="nospace">
         Teacher:
-    <%= select_tag :teacher, options_for_select( @school.students.where(:id_only => true).where(:enrolled => true).collect { |student| student.educator.try(:name) }.uniq.compact.sort_by { |word| word }), class: "form-control", id: "input_student_teacher", :prompt => "Teacher" %>
+    <%= select_tag :teacher, options_for_select(current_user.school.students.where(enrolled: true).map { |student| student.teacher}.uniq.compact.sort), class: "form-control", id: "input_student_teacher", :prompt => "Teacher" %>
 
     </div> 
     

@@ -4,4 +4,4 @@ $(".<%= @op.id %>_<%= @option.id %>").hide();
 $("#myModal").modal('hide');
 <% end %>
 
-
+$("#cart_total").html("<%= number_to_currency(@cart.price, :show_zero => false) %>");

@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
 		end
 
 		if @images.nil? || @images.empty?
-			redirect_to after_purchase_pages_path
+			redirect_to after_purchase_pages_path(order_id: @order.id)
 		end
 	end
 
@@ -213,7 +213,7 @@ end
 			elsif @order.cart.order_packages.map{ |o| o.gifts.map {|x| x.download }}.any?
 				redirect_to order_download_path(@order.id)
 			else
-		    	redirect_to after_purchase_pages_path
+		    	redirect_to after_purchase_pages_path(order_id: @order.id)
 	    	end
 	    else
 	    	respond_to do |format|

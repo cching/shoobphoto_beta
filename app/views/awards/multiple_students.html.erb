@@ -80,7 +80,7 @@
     </div>
     <div class="col-sm-2" id="nospace">
         
-    <%= select_tag :educator, options_for_select( current_user.school.educators.collect{ |u| [u.name, u.id]}), class: "form-control", id: "input_student_teacher", :prompt => "Teacher" %>
+    <%= select_tag :teacher, options_for_select(current_user.school.students.where(enrolled: true).map { |student| student.teacher}.uniq.compact.sort), class: "form-control", id: "input_student_teacher", :prompt => "Teacher" %>
 
     </div>
     

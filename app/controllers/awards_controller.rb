@@ -86,7 +86,7 @@ class AwardsController < ApplicationController
 
     @school = current_user.school
 
-    @students = Student.searching_awards(@school.id, params[:first_name], params[:last_name], params[:grade], params[:educator], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
+    @students = Student.searching_awards(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 25,:page => params[:page])
       
 
     @image = @school.packages.where(hidden: false).where("name like ?", "%Fall%").last
@@ -240,7 +240,7 @@ class AwardsController < ApplicationController
     @export_list = ExportList.find_by_uniq_id("#{params[:id]}")
     @school = current_user.school
 
-    @students = Student.searching_awards(@school.id, params[:first_name], params[:last_name], params[:grade], params[:educator], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 20,:page => params[:page])
+    @students = Student.searching_awards(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 20,:page => params[:page])
       
     @image = @school.packages.where(hidden: false).where("name like ?", "%Fall%").last
 
@@ -258,7 +258,7 @@ class AwardsController < ApplicationController
     @export_list = ExportList.find_by_uniq_id("#{params[:id]}")
     @school = current_user.school
 
-    @students = Student.searching_awards(@school.id, params[:first_name], params[:last_name], params[:grade], params[:educator], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 20,:page => params[:page])
+    @students = Student.searching_awards(@school.id, params[:first_name], params[:last_name], params[:grade], params[:teacher], params[:student_id]).where(:id_only => true).where(:enrolled => true).paginate(:per_page => 20,:page => params[:page])
       
     @image = @school.packages.where(hidden: false).where("name like ?", "%Fall%").last
 
