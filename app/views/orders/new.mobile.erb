@@ -27,7 +27,7 @@ input[type='checkbox'] {
 </div>
 
 <%= form_for @order, :url => {:action => "confirm", class: "form-control"} do |f| %>
-
+<%= f.invisible_captcha :user_agreement %>
 <%= errors_for(@order) %>
   <span class="cart_title-mobile billing_info_title">Billing Info: &nbsp;</span>
     <span id="edit_billing"></span> <br/>
