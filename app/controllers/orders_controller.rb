@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
 	before_filter :authenticate_user!, only: [:index, :processed, :unprocessed]
+	invisible_captcha only: [:confirm], honeypot: :user_agreement
 
 	before_action :require_admin, only: [:index, :processed, :unprocessed]
 	include Mobylette::RespondToMobileRequests

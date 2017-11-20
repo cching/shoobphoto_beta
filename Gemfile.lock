@@ -84,6 +84,8 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
+    invisible_captcha (0.9.3)
+      rails (>= 3.2.0)
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -269,6 +271,7 @@ DEPENDENCIES
   exception_notification!
   execjs
   headshot
+  invisible_captcha
   jbuilder (~> 2.0)
   jquery-easing-rails
   jquery-minicolors-rails

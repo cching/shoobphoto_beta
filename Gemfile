@@ -86,6 +86,7 @@ gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
 
 gem 'mobylette'
+gem 'invisible_captcha'
 
 
 

@@ -3,7 +3,7 @@
 <%= errors_for(@order) %>
 <div class="row animated fadeIn">
   <div class="col-xs-6">
-
+    <%= f.invisible_captcha :user_agreement %>
     <span class="cart_title billing_info_title">Billing Info: &nbsp;</span><span id="edit_billing"></span><br/>
     <div id="billing_info" >
     
