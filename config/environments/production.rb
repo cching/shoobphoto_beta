@@ -121,9 +121,8 @@ Rails.application.config.middleware.use ExceptionNotification::Rack,
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :production
     ::GATEWAY = ActiveMerchant::Billing::ElavonGateway.new(
-      :login => "630049",
-      :password => "FKYK1T",
-      :user => "webpage"
+      :login => ENV['VM_USER'],
+      :password => ENV['VM_PIN']
     )
   end
 end
