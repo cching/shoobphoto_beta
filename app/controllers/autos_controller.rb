@@ -15,6 +15,7 @@ class AutosController < ApplicationController
     AutoImport.perform_async(@auto.id)
     
     redirect_to process_auto_auto_path(@auto.id) 
+    #test
   end
 
   def process_auto
