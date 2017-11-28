@@ -26,6 +26,7 @@
 //= require pickers
 //= require stickyfill
 //= require_tree .
+//= require garlic
 
 
 

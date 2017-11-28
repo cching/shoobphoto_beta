@@ -77,6 +77,8 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.6.0)
+    garlicjs-rails (1.2.2)
+      railties (>= 3.1)
     hashery (2.1.1)
     headshot (0.1.6)
     hike (1.2.3)
@@ -188,7 +190,6 @@ GEM
     remotipart (1.2.1)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
-    rmagick (2.13.3)
     roo (2.3.2)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
@@ -270,6 +271,7 @@ DEPENDENCIES
   devise
   exception_notification!
   execjs
+  garlicjs-rails
   headshot
   invisible_captcha
   jbuilder (~> 2.0)
@@ -292,7 +294,6 @@ DEPENDENCIES
   rails_12factor
   ransack
   remotipart (~> 1.2)
-  rmagick (= 2.13.3)
   roo
   rubyzip
   sass-rails (~> 4.0.3)
