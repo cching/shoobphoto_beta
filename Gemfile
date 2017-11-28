@@ -19,7 +19,7 @@ gem 'will_paginate-bootstrap'
 gem 'sass-rails', '~> 4.0.3'
 gem 'rack-host-redirect'
 
-gem "rmagick", "2.13.3", :require => "RMagick"
+#gem "rmagick", "2.13.3", :require => "RMagick"
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
