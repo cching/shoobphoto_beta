@@ -7,9 +7,7 @@
                 <li><%= link_to "ORDER ONLINE", student_splash_path(:i => nil, :cart => nil)%></li>
                 <li><%= link_to "SCHOOL RESOURCES", '/school_support' %></li>
                 <li><%= link_to "ABOUT US", new_contact_path %></li>
-                <li><%= link_to "SCHEDULE", '/scheduling' %></li>
            
-
                 <li class="gold"> 
                     <% if current_user %>
                     <%= link_to dashboard_pages_path do %>
