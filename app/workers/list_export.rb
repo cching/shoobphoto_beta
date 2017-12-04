@@ -66,7 +66,6 @@ class ListExport
           export_list.update(:file_path => key)
 
 
-          ExportMailer.send_mail(export_list).deliver 
 
   end
 end

@@ -472,12 +472,13 @@ class StudentsController < ApplicationController
   def create_cart
     @shoob_id = "#{params[:shoob_id].gsub(/\s+/, "").downcase}"
     if @shoob_id[4] == "5" || @shoob_id[4] == "1"
-      @found_image = StudentImage.where("lower(shoob_id) = ?", "#{@shoob_id}").where(:folder => "fall2017").last
+      @found_image = StudentImage.where("lower(shoob_id) = ?", "#{@shoob_id}").where(:folder => "fall2018").last
     elsif @shoob_id[4] == "2"
       @found_image = StudentImage.where("lower(shoob_id) = ?", "#{@shoob_id}").where(:folder => "spring2016").last
     elsif @shoob_id[4] == "3"
       @found_image = StudentImage.where("lower(shoob_id) = ?", "#{@shoob_id}").where(:folder => "grad2016").last
     end
+
     unless @found_image.nil?
       @student = @found_image.student
       @cart = @student.carts.create(:cart_id => (0...8).map { (65 + rand(26)).chr }.join, :id_supplied => false, :school_id => @student.school.id, :shoob_id => @shoob_id)
