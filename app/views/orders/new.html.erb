@@ -18,6 +18,13 @@
     </div>  
     </div>
 
+    <div class="row">
+      <div class="col-xs-12">
+        <span class="label_header">Email</span>
+        <%= f.text_field :email, class: "enjoy-css" if cookies[:email].nil? %>
+      </div>
+    </div>
+
       <div class="row">
         <div class="col-xs-4">
           <span class="label_header">Card Number</span> <br/>
@@ -64,7 +71,7 @@
 
     <span class="label_header">Phone</span>
       <%= f.text_field :phone, class: "enjoy-css", id: "phone" %>
-      <%= f.hidden_field :email, :value => "#{@cart.email}" %>
+      <%= f.hidden_field :email, :value => "#{@cart.email}" unless @cart.email.nil? %>
 
       <span class="cart_title">Shipping Info: &nbsp;</span><span id="edit_shipping"></span><br/>
     <div id="shipping_info" class="animated fadeIn">
