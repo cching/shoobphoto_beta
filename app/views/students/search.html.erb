@@ -20,6 +20,7 @@
 
         <% unless cookies[:user_email].nil? %>
 
+
         <%= text_field_tag :email, nil, placeholder: "Your email address", class: "enjoy-css", id: "input_email", value: "#{cookies[:user_email]}" %>
         
         <% else %>
