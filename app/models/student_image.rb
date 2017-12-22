@@ -41,8 +41,12 @@ class StudentImage < ActiveRecord::Base
     def self.package_name(id)
       folder = StudentImage.find(id).folder
       name = folder.match(/([A-Za-z]+)(\d+)/)
-      @out = "#{name[1].humanize} #{name[2]} Portraits"
-
+      @out = "#{name[1].humanize} #{name[2].humanize} Portraits"
+      if "#{name[1]}".include? "fall"
+        downloadYear = "#{name[2]}"
+        downloadYears = downloadYear.to_i
+        @out = "#{name[1].humanize} #{downloadYears-1} Portraits"
+      end
       return @out  
  
     end
