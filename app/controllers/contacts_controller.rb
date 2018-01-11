@@ -8,6 +8,13 @@ layout 'fullwidth'
     respond_with(@contacts)
   end
 
+  def csv
+    export = ContactExport.create
+      ExportContact.perform_async(export.id)
+
+      redirect_to export_admin_schools_path, notice: "The new order CSV is currently being generated."
+  end
+
   def scheduling
   end
 

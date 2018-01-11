@@ -18,3 +18,18 @@
 </div>
 
 </div>
+
+<div class="row">
+<div class="col-sm-6">
+
+<%= link_to 'Generate CSV file', csv_admin_schools_path %><br />
+
+<% if ContactExport.last.file_file_name.nil? %>
+<a href="#" download class="btn btn-disabled btn-primary">The CSV is still being processed. Please refresh in a few minutes.</a>
+<% else %>
+<a href="<%= @image_url %>" download class="btn btn-primary">Download <%= ContactExport.last.file_file_name %></a>
+<% end %>
+</div>
+
+</div>
+
