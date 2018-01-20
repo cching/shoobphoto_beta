@@ -314,6 +314,13 @@ end
     	redirect_to orders_path, notice: "The new order CSV is currently being generated."
     end
 
+    def yearbook_export
+		export = Export.create
+    	YearbookExport.perform_async(export.id)
+
+    	redirect_to orders_path, notice: "The new order CSV is currently being generated."
+    end
+
 	def import
 	unless params[:file].nil?
 	  file = File.open(params[:file].tempfile, "r:ISO-8859-1")

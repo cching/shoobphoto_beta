@@ -14,6 +14,7 @@
 <div class="row">
 <div class="col-sm-6">
 <%= link_to 'Generate the latest CSV File of Orders', order_export_path(Order.first.id) %><br />
+<%= link_to 'Generate the latest CSV File of Orders of Yearbooks', yearbooks_export_path(Order.first.id) %><br />
 
 <% if Export.last.file_path.nil? %>
 <a href="#" download class="btn btn-disabled btn-primary">The CSV is still being processed. Please refresh in a few minutes.</a>

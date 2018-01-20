@@ -94,13 +94,22 @@
         <%= f.input :phone %>
       </div>
     </div>
+    <div class="row">
+    <div class="col-sm-5">
+        <%= f.input :phone%>
+      </div>
+      <div class="col-sm-2"></div>
+    <div class="col-sm-5">
+        <%= f.input :phone%>
+      </div>
+    </div>
     Message: <br/>
     <%= f.text_area :message, :input_html => {:cols => 1, :style => "min-width:100%;"}, as: :text  %>
 
   </div>
 
   <% if params[:school_use] == "true" %>
-  <%= f.input :file %>
+  <%= f.input :file%>
   <% end %>
 
   <div class="form-actions">
