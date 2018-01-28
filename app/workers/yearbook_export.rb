@@ -1,4 +1,4 @@
-class OrderExport
+class YearbookExport
   include Sidekiq::Worker
   sidekiq_options queue: "package_import"
     def perform(id)
