@@ -20,7 +20,7 @@ class ListExport
 
             export_list.award_infos.where(:processed => false).each do |award|
               award.award_info_students.each do |award_student|
-                @image = student.school.packages.where(hidden: false).where("name like ?", "%Fall%").last
+                @image = award_student.student.school.packages.where(hidden: false).where("name like ?", "%Fall%").last
 
                 if @image.nil?
                   @image = award_student.student.school.packages.first
