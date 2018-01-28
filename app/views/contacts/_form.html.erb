@@ -51,11 +51,11 @@
     <div class="row">
       
       <div class="col-sm-5">
-        <%= f.input :name %>
+        <%= f.input :name, :label => "Name" %>
       </div>
       <div class="col-sm-2"></div>
       <div class="col-sm-5">
-        <%= f.input :school %>
+        <%= f.input :school, :label => "*School" %>
       </div>
     </div>
     <div  id="student" <%= "hidden" unless @contact.parent? %>>
@@ -63,11 +63,11 @@
     <div class="row" >
       
       <div class="col-sm-3">
-        <%= f.input :student, :label => "Student/Player" %>
+        <%= f.input :student, :label => "*Student/Player" %>
       </div>
       <div class="col-sm-1"></div>
       <div class="col-sm-1">
-        <%= f.input :grade, :label => "Grade/Team" %>
+        <%= f.input :grade, :label => "*Grade/Team" %>
       </div>
       <div class="col-sm-2"></div>
       <div class="col-sm-5">
@@ -75,10 +75,24 @@
     <%= f.input :teacher_name %>
     </div>
   </div>
+
+  <div class="row" >
+      
+      <div class="col-sm-1"></div>
+      <div class="col-sm-4">
+        <%= f.input :order_number %>
+      </div>
+      <div class="col-sm-2"></div>
+      <div class="col-sm-4">
+        <%= f.input :package_type, :label => "*Package Type" %>
+      </div>
+      <div class="col-sm-1"></div>
+  </div>
+
 </div>
     <div class="row">
     <div class="col-sm-5">
-        <%= f.input :address%>
+        <%= f.input :address, :label => "Address" %>
       </div>
       <div class="col-sm-2"></div>
     <div class="col-sm-5">
@@ -87,11 +101,11 @@
     </div>
     <div class="row">
     <div class="col-sm-5">
-        <%= f.input :email%>
+        <%= f.input :email, :label => "Email" %>
       </div>
       <div class="col-sm-2"></div>
     <div class="col-sm-5">
-        <%= f.input :phone %>
+        <%= f.input :phone, :label => "Phone" %>
       </div>
     </div>
     Message: <br/>
