@@ -11,7 +11,7 @@ class AwardExport
 
           ExportList.all.where(:submitted => true).where(:hidden => false).each do |export_list|
             export_list.award_infos.where(:processed => false).each do |award|
-              unless award.award.nil?
+              unless award.award.nil? 
                 scode = export_list.user.school.scode if !export_list.user.nil?
                csv_file_setup << CSV.generate_line(["#{scode}"] + ["#{award.award.try(:title)}"] + ["#{award.award.try(:abbreviation)}"] + ["#{award.time_period}"] + ["#{award.award_date}"]+  ["#{award.receive_by}"] + ["#{File.basename award.award.try(:image_file_name), '.jpg'}"] + ["#{award.award.try(:abbreviation)}#{award.id}"] + ["#{award.awarded_for}"] + ["#{export_list.user.email}"])
              end
@@ -25,7 +25,7 @@ class AwardExport
           ExportList.all.where(:submitted => true).where(:hidden => false).each do |export_list|
             export_list.award_infos.where(:processed => false).each do |award|
               award.award_info_students.each do |award_student|
-                @image = award_student.student.school.packages.where(hidden: false).where("name like ?", "%Fall%").last if !award_student.student.nil?
+                @image = award_student.student.school.packages.where(hidden: false).where("name like ?", "%Fall%").last
 
                 if @image.nil?
                   @image = award_student.student.school.packages.first
@@ -38,7 +38,7 @@ class AwardExport
                   @string = "#{img.last.try(:image_file_name)}"
                 end
                 unless award.award.nil?
-                  csv_file << CSV.generate_line(["#{award_student.student&.school&.scode}"] + ["#{award_student.student.shoob_id}"] + ["#{award_student.student.student_id}"] + ["#{award_student.student.first_name}"] + ["#{award_student.student.last_name}"] + ["#{award_student.student.grade}"] + ["#{award_student.student.teacher}"] + ["#{@string2}"] + ["#{File.basename award.award.try(:image_file_name), '.jpg'}"] + ["#{@string}"] + ["#{award_student.trait}"] + ["#{award.award.try(:abbreviation)}#{award.id}"])
+                  csv_file << CSV.generate_line(["#{award_student.student.school.scode}"] + ["#{award_student.student.shoob_id}"] + ["#{award_student.student.student_id}"] + ["#{award_student.student.first_name}"] + ["#{award_student.student.last_name}"] + ["#{award_student.student.grade}"] + ["#{award_student.student.teacher}"] + ["#{@string2}"] + ["#{File.basename award.award.try(:image_file_name), '.jpg'}"] + ["#{@string}"] + ["#{award_student.trait}"] + ["#{award.award.try(:abbreviation)}#{award.id}"])
                 end
              end
             end
