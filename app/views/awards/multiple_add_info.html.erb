@@ -52,7 +52,7 @@
 
 <% @export_list.award_infos.includes(:award).order('awards.title').each_with_index do |award_info, i| %>
 <%= f.simple_fields_for :award_infos, award_info do |builder| %>
-	<%= render "award_info_fields", :f => builder, :i => i %>
+	<%= render "award_info_fields", :f => builder, :i => i%>
 <% end %>
 <% end %>
 <br/>

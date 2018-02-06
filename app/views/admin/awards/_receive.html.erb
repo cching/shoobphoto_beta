@@ -1,0 +1,38 @@
+<% AwardInfo.where(:processed => false).includes(:award).eager_load(export_list: {user: :school}).where("export_lists.submitted = ? AND export_lists.hidden = ?", true, false).order('award_infos.receive_by').order('awards.abbreviation').each do |award_info| %>
+
+      <tr class=<%= award_info.processed? ? "success" : "danger" %> id="award_<%= award_info.id %>" >
+        <td><%= award_info.export_list.submit_date %></td>
+        <td><%= award_info.receive_by %></td>
+        <td><%= award_info.id %></td>
+        <td><%= award_info.export_list.user.school.name %></td>
+        <td><%= "#{award_info.export_list.user.first_name} #{award_info.export_list.user.last_name}" %></td>
+        <td><%= award_info.award.try(:abbreviation) %></td>
+        <td id="button_<%= award_info.id %>">
+        <% if award_info.processed? %>
+          <%= link_to "Processed", notprocessed_admin_award_path(award_info.id), class: "btn btn-success", remote: true %>
+        <% else %>
+          <%= link_to "Not Processed", processed_admin_award_path(award_info.id), remote: true, class: "btn btn-danger" %>
+          <% end %>
+        </td>
+      </tr>
+<% end %>
+
+
+
+<% AwardInfo.where(:processed => true).includes(:award).eager_load(export_list: {user: :school}).where("export_lists.submitted = ? AND export_lists.hidden = ?", true, false).order('award_infos.receive_by').order('awards.abbreviation').each do |award_info| %>
+      <tr class=<%= award_info.processed? ? "success" : "danger" %> id="award_<%= award_info.id %>" >
+        <td><%= award_info.export_list.submit_date %></td>
+        <td><%= award_info.receive_by %></td>
+        <td><%= award_info.id %></td>
+        <td><%= award_info.export_list.user.school.name %></td>
+        <td><%= "#{award_info.export_list.user.first_name} #{award_info.export_list.user.last_name}" %></td>
+        <td><%= award_info.try(:award).try(:abbreviation) %></td>
+        <td id="button_<%= award_info.id %>">
+        <% if award_info.processed? %>
+          <%= link_to "Processed", notprocessed_admin_award_path(award_info.id), class: "btn btn-success", remote: true %>
+        <% else %>
+          <%= link_to "Not Processed", processed_admin_award_path(award_info.id), remote: true, class: "btn btn-danger" %>
+          <% end %>
+        </td>
+      </tr>
+<% end %>
