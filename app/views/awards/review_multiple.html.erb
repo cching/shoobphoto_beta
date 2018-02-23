@@ -4,11 +4,16 @@
   text-align: right;
 }
 
+.someClass {}
+@media print {
+    .noPrint { display: none; }
+} 
+
 </style>
 
 <!-- The progress list at the top -->
 
-<div class="row">
+<div class="row noPrint">
 <div class="col-xs-1">
 </div>
 	<div class="award_header">
@@ -36,7 +41,7 @@
 
 <!-- The line with the school logo and school name -->
 
-<div class="row">
+<div class="row noPrint">
 	<div class="col-xs-2" align="right">
 	<%= image_tag(current_user.school.logo, class: "school_logo") %>
 	</div>
@@ -46,7 +51,7 @@
 </div>
 
 <br/>
-<div class="row">
+<div class="row noPrint">
 	<div class="col-xs-4" align="center"><%= link_to "CLEAR LIST", award_multiple_clear_path(@export_list.id), class: "btn-awards-clear", data: {confirm: "Are you sure you want to clear all #{@export_list.award_infos.count} lists?"} %></div>
 	<div class="col-xs-4" align="center"><%= link_to "ADD MORE STUDENTS", award_multiple_students_path(@export_list.uniq_id), class: "btn-awards-next3" %></div>
 	
@@ -56,19 +61,21 @@
 <br/>
 <!-- The 'Student Search' forms -->
 
-<div class="row">
+<div class="row noPrint">
 	<div class="col-xs-3"></div>
 	<div class="col-xs-3" align="center"><%= link_to "Sort by student name", award_multiple_review_path(@export_list.uniq_id, :sort => "student"), class: "btn-awards-next"%></div>
 	<div class="col-xs-3" align="center"><%= link_to "Sort by teacher", award_multiple_review_path(@export_list.uniq_id, :sort => "teacher"), class: "btn-awards-next"%></div>
 	<div class="col-xs-3"></div>
 </div>
 
+</br>
+   <button class="noPrint btn-awards-next3" onclick="window.print();">Print List of Students</button>
 <!-- The student select list -->
 
 <br/><br/>
 <div id="table">
         <table class="table">
-          <thead>
+          <thead class="noPrint">
             <th>Remove</th> 
               <th><%= sort_link @search, :student_id, "Student ID",{}, { :remote => true, :method => :post }, class: "sorting" %></th>
               <th><%= sort_link @search, :first_name, "First Name",{}, { :remote => true, :method => :post }, class: "sorting" %></th>

@@ -1,7 +1,7 @@
 <div id="content"><%= link_to image_tag("logo_main.png", class: "ribbon"), root_url %></div>
 
 <nav class="navbar navbar-default" id="blue">
-  <div class="container-fluid">
+  <div class="container-fluid noPrint">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav" style="float:right;">
                 <li><%= link_to "PURCHASE PICTURES & YEARBOOKS", student_splash_path(:i => nil, :cart => nil)%></li>
@@ -35,4 +35,9 @@ body {
     padding: 0px;
     margin: 0 0 100px; /* bottom = footer height */
 }
+
+.someClass {}
+@media print {
+    .noPrint { display: none; }
+} 
 </style>

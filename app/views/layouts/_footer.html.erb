@@ -1,5 +1,5 @@
 <footer>
-<div class="footer">
+<div class="footer noPrint">
 	<div class="row">
 		<div class="col-xs-1"></div>
 		<div class="col-xs-2 small_footer">
@@ -56,4 +56,10 @@ footer {
     margin-top:0px;
     padding-top:0px;
 }
+
+.someClass {}
+@media print {
+    .noPrint { display: none; }
+} 
+
 </style>
