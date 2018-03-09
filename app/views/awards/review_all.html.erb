@@ -4,11 +4,23 @@
   text-align: right;
 }
 
+.someClass {}
+
+.print_this {
+	display: none;
+}
+@media print {
+    .noPrint { display: none; }
+    .print_this { 
+    	display: block; 
+    }
+} 
+
 </style>
 
 <!-- The progress list at the top -->
 
-<div class="row">
+<div class="row noPrint">
 <div class="col-xs-1">
 </div>
 	<div class="award_header">
@@ -36,7 +48,7 @@
 
 <!-- The line with the school logo and school name -->
 
-<div class="row">
+<div class="row noPrint">
 	<div class="col-xs-2" align="right">
 	<%= image_tag(current_user.school.logo, class: "school_logo") %>
 	</div>
@@ -52,7 +64,7 @@
 
 <!-- The student select list -->
 
-<div class="row">
+<div class="row noPrint">
 	<div class="col-xs-1">
 	</div>
 	<div class="col-xs-10">
@@ -60,7 +72,7 @@
 	</div>
 </div>
 
-<div class="row">
+<div class="row noPrint">
 	<div class="col-xs-1"></div>
 	<div class="col-xs-2 blue_text">AWARD</div>
 	<div class="col-xs-3 blue_text">DATE STARTED</div>
@@ -70,7 +82,7 @@
  
 
 	<% @export_list.award_infos.order(:index).each_with_index do |award, i| %>
-	<div class="row">
+	<div class="row noPrint">
 	<div class="col-xs-1">
 		<%= image_tag(award.award.image.url, class: "award_thumbnail") %>
 	</div>
@@ -81,7 +93,7 @@
 </div>
 	<% end %>
 <br/>
-<div class="row">
+<div class="row noPrint">
 
 	
 	<div class="col-xs-4">
@@ -94,5 +106,42 @@
 	</div>
 	<div class="col-xs-4">
 		<%= link_to "SUBMIT LIST", award_submit_path(@export_list.uniq_id), class: "btn-awards-next" %>
+	</div>
+</div>
+</br>
+<div class="row noPrint">
+<div class="col-xs-4">
+		<button class="noPrint btn-awards-next2" onclick="window.print();">PRINT LIST</button>
+	</div>
+</div>
+<div class="row print_this">
+
+	<div class="col-xs-3">
+	AWARD: 
+	<%  @export_list.award_infos.each do |award| %>
+		<%= award.award.title %>
+	<% end %>
+	</div>
+
+	<div class="col-xs-3">
+	AWARD DATE: 
+	<%  @export_list.award_infos.each do |award| %>
+		<%= award.award_date %>
+	<% end %>
+	</div>
+
+	<div class="col-xs-3">
+	RECEIVE BY: 
+	<%  @export_list.award_infos.each do |award| %>
+		<%= award.receive_by %>
+	<% end %>
+	</div>
+
+	<div class="col-xs-3">
+	AWARDED FOR: 
+	<%  @export_list.award_infos.each do |award| %>
+		<%= award.awarded_for %>
+	<% end %>
+	
 	</div>
 </div>

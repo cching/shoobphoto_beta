@@ -5,8 +5,15 @@
 }
 
 .someClass {}
+
+.print_this {
+	display: none;
+}
 @media print {
     .noPrint { display: none; }
+    .print_this { 
+    	display: block; 
+    }
 } 
 
 </style>
@@ -70,9 +77,41 @@
 
 </br>
    <button class="noPrint btn-awards-next3" onclick="window.print();">Print List of Students</button>
+   </br>
+<div class="row print_this">
+
+	<div class="col-xs-3">
+	AWARD: 
+	<%  @export_list.award_infos.each do |award| %>
+		<%= award.award.title %>
+	<% end %>
+	</div>
+
+	<div class="col-xs-3">
+	AWARD DATE: 
+	<%  @export_list.award_infos.each do |award| %>
+		<%= award.award_date %>
+	<% end %>
+	</div>
+
+	<div class="col-xs-3">
+	RECEIVE BY: 
+	<%  @export_list.award_infos.each do |award| %>
+		<%= award.receive_by %>
+	<% end %>
+	</div>
+
+	<div class="col-xs-3">
+	AWARDED FOR: 
+	<%  @export_list.award_infos.each do |award| %>
+		<%= award.awarded_for %>
+	<% end %>
+	
+	</div>
+</div>
 <!-- The student select list -->
 
-<br/><br/>
+<br/>
 <div id="table">
         <table class="table">
           <thead class="noPrint">
