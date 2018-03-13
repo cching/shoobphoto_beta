@@ -20,7 +20,7 @@ class AwardExport
 
           csv_file = ''
 
-          csv_file << CSV.generate_line(['scode'] + ['shoob_id'] + ['st_stu_id'] + ['st_fname'] + ['st_lname'] + ['st_grade'] + ['st_teacher'] + ['image'] + ['award'] + ['st_id'] + ['trait'] + ['award_id'] + ['characetr trait'])
+          csv_file << CSV.generate_line(['scode'] + ['shoob_id'] + ['st_stu_id'] + ['st_fname'] + ['st_lname'] + ['st_grade'] + ['st_teacher'] + ['image'] + ['award'] + ['st_id'] + ['trait'] + ['award_id'] + ['character trait'])
 
           ExportList.all.where(:submitted => true).where(:hidden => false).each do |export_list|
             export_list.award_infos.where(:processed => false).each do |award|
