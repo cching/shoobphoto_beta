@@ -154,6 +154,7 @@ class AwardsController < ApplicationController
       @student_list = Student.where(id: @student_list.uniq).includes(:educator).order("educators.name").order(:last_name)
 
     end
+
   end
 
   def review_all

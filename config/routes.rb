@@ -196,6 +196,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
         post :import
       end
     end
+
     match 'items/all/' => 'items#all', :via => 'GET', :as => 'items_all'
     match 'items/filter/:subcat' => 'items#filter', :via => 'GET', :as => 'items_filter'
 
