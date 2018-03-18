@@ -7,13 +7,13 @@ class AwardExport
 
       csv_file_setup = ''
 
-          csv_file_setup << CSV.generate_line(['scode'] + ['name'] + ['abbrev'] + ['time_per'] + ['awd_date'] + ['rec_by'] + ['labelfile'] + ['award_id'] + ['trait'] + ['email'])
+          csv_file_setup << CSV.generate_line(['scode'] + ['name'] + ['abbrev'] + ['time_per'] + ['awd_date'] + ['rec_by'] + ['labelfile'] + ['award_id'] + ['trait'] + ['email']+ ['definition'])
 
           ExportList.all.where(:submitted => true).where(:hidden => false).each do |export_list|
             export_list.award_infos.where(:processed => false).each do |award|
               unless award.award.nil? 
                 scode = export_list.user.school.scode if !export_list.user.nil?
-               csv_file_setup << CSV.generate_line(["#{scode}"] + ["#{award.award.try(:title)}"] + ["#{award.award.try(:abbreviation)}"] + ["#{award.time_period}"] + ["#{award.award_date}"]+  ["#{award.receive_by}"] + ["#{File.basename award.award.try(:image_file_name), '.jpg'}"] + ["#{award.award.try(:abbreviation)}#{award.id}"] + ["#{award.awarded_for}"] + ["#{export_list.user.email}"])
+               csv_file_setup << CSV.generate_line(["#{scode}"] + ["#{award.award.try(:title)}"] + ["#{award.award.try(:abbreviation)}"] + ["#{award.time_period}"] + ["#{award.award_date}"] + ["#{award.receive_by}"] + ["#{File.basename award.award.try(:image_file_name), '.jpg'}"] + ["#{award.award.try(:abbreviation)}#{award.id}"] + ["#{award.awarded_for}"] + ["#{export_list.user.email}"]+ ["#{award.definition}"])
              end
             end
           end
