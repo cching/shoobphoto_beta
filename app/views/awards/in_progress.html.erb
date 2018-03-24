@@ -53,16 +53,13 @@
 <!-- The student select list -->
 
 <div class="row">
-	<div class="col-xs-1">
-	</div>
 	<div class="col-xs-10">
 		<span style="font-size:30px; color:#396599">REVIEW ALL LISTS TO BE SUBMITTED</span>
 	</div>
 </div>
 
 <div class="row">
-	<div class="col-xs-1"></div>
-	<div class="col-xs-2 blue_text">AWARDS</div>
+	<div class="col-xs-3 blue_text">AWARDS</div>
 	<div class="col-xs-2 blue_text">DATE STARTED</div>
 	<div class="col-xs-2 blue_text">RECEIVE BY</div>
 	<div class="col-xs-2 blue_text">EDIT LIST</div>
@@ -72,10 +69,8 @@
 	<% current_user.export_lists.where(:submitted => false).where(:hidden => false).each do |export_list| %>
 	<% if export_list.award_infos.any? %>
 	<div class="row">
-	<div class="col-xs-1">
 
-	</div>
-	<div class="col-xs-2 blue_text"><%= export_list.award_infos.order(:index).map {|a| a.award.abbreviation}.join(", ") %></div>
+	<div class="col-xs-3 blue_text"><%= export_list.award_infos.order(:index).map {|a| a.award.try(:title)}.join(", ") %></div>
 	<div class="col-xs-2 blue_text"><%= export_list.award_infos.first.created_at.strftime("%m/%d/%Y") unless export_list.award_infos.first.created_at.nil? %></div>
 	<div class="col-xs-2 blue_text"><%= export_list.award_infos.first.receive_by.strftime("%m/%d/%Y") unless export_list.award_infos.first.receive_by.nil? %></div>
 	<% if export_list.multiple? %>
