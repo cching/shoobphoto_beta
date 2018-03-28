@@ -22,7 +22,7 @@
 	 $('#input_student_id_custom').addClass("success_field");
 	 $('#button_script').html('<input class="btn-blue" name="commit" value="Continue" onclick="return validateForm()" readonly>');
 
-	 $("#student_found").html("<p class='blue_found'>Student found <br/> ID: <%= @student.student_id %>, <%= @student.first_name %> <%= @student.last_name %>, Grade <%= @student.grade %></p>");
+	 $("#student_found").html("<p class='blue_found'>Student found <br/><%= @student.first_name %> <%= @student.last_name %>, Grade <%= @student.grade %></p>");
 	 
 
  <% end %>
