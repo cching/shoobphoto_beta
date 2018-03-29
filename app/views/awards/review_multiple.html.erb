@@ -16,7 +16,21 @@
     }
 } 
 
+th {
+	background-color: white;
+}
+
 </style>
+
+<script src="https://unpkg.com/sticky-table-headers"></script>
+
+<script>
+
+$(function() {
+  $("table").stickyTableHeaders();
+});
+
+</script>
 
 <!-- The progress list at the top -->
 
@@ -76,7 +90,7 @@
 </div>
 
 </br>
-   <!-- <button class="noPrint btn-awards-next3" onclick="window.print();">Print List of Students</button> -->
+   <button class="noPrint btn-awards-next3" onclick="window.print();">Print List of Students</button>
    </br>
 <div class="row print_this">
 
@@ -112,7 +126,7 @@
 <!-- The student select list -->
 
 <br/>
-<div id="table">
+
         <table class="table">
           <thead class="noPrint">
             <th>Remove</th> 
@@ -140,4 +154,3 @@
             </div>
           </tbody>
      </table>
-   </div>

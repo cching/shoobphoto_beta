@@ -65,7 +65,7 @@
 <% @student_list.each do |student| %>
 
        <tr id="student_<%= student.id %>">
-          <td id="button_<%= student.id %>">
+          <td id="button_<%= student.id %>" class="noPrint">
             <%= link_to "Remove", export_list_remove_path(student.id, :award => @export_list.id), remote: true, class: "btn btn-danger" %>
           </td>
           <td>
