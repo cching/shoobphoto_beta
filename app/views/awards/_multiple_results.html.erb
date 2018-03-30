@@ -1,121 +1,149 @@
 <style>
 
 .someClass {}
+
 @media print {
     .noPrint { display: none; }
+    .printThisAgain { 
+      display: block; 
+    }
+    a[href]:after {
+    content: none !important;
+    }
 } 
 
+.printThisAgain {
+  display: none;
+}
+
 </style>
+
+<!-- Sort by teacher -->
+
 <% @student_list_teacher.each do |student| %>
 
-       <tr id="student_<%= student.id %>">
-          <td id="button_<%= student.id %>" class="noPrint">
-            <%= link_to "Remove", export_list_remove_path(student.id, :award => @export_list.id), remote: true, class: "btn btn-danger" %>
-          </td>
-          <td>
-            <%= student.student_id %>  
-          </td> 
-           <td>
-            <%= student.first_name %>
-          </td> 
-           <td>
-            <%= student.last_name %>
-          </td>
-           <td>
-            <%= student.grade %> 
-          </td>
-           <td>
-            <%= student.teacher %>
-          </td>
-          <% @export_list.award_infos.each do |award_info| %>
-            <td> 
-              <div id="student_<%= student.id %>_<%= award_info.id %>_check" class="student_check noPrint">
-              <% if award_info.students.exists?(student) %>
-                <% if @export_list.correction? %>
-                <%= link_to export_remove_student_path(student.id, :award => award_info.id), class: "correction-check noPrint", remote: true do %> 
-                    <span class="glyphicon glyphicon-check"></span>
-                    <% end %>
-                    <% else %>
-                    <%= link_to export_remove_student_path(student.id, :award => award_info.id), remote: true do %> 
-                    <span class="glyphicon glyphicon-check"></span>
-                    <% end %>
+<tr id="student_<%= student.id %>">
+  <td id="button_<%= student.id %>" class="noPrint">
+      <%= link_to "Remove", export_list_remove_path(student.id, :award => @export_list.id), remote: true, class: "btn btn-danger" %>
+  </td>
+  <td>
+    <%= student.student_id %>  
+  </td> 
+  <td>
+    <%= student.first_name %>
+  </td> 
+  <td>
+    <%= student.last_name %>
+  </td>
+  <td>
+    <%= student.grade %> 
+  </td>
+  <td>
+    <%= student.teacher %>
+  </td>
+
+    <% @export_list.award_infos.each do |award_info| %>
+
+      <td> 
+        <div id="student_<%= student.id %>_<%= award_info.id %>_check" class="student_check">
+          <% if award_info.students.exists?(student) %>
+
+            <% if @export_list.correction? %>
+                <%= link_to export_remove_student_path(student.id, :award => award_info.id), class: "correction-check", remote: true do %>
+                  <span class="glyphicon glyphicon-check"></span>
                 <% end %>
-              <% else %>
-                <%= link_to export_add_student_path(student.id, :award => award_info.id), remote: true do %>
-                    <span class="glyphicon glyphicon-unchecked"></span>
-                <% end %>
+
+            <% else %>
+              <%= link_to export_remove_student_path(student.id, :award => award_info.id), remote: true do %>
+                <span class="glyphicon glyphicon-check"></span>
               <% end %>
-              </div>
-             </td>
-             <% if award_info.award.trait_definition? %>
-              <td style="padding-right:0px" style="padding-left:0px">
-                <%= form_tag(add_student_trait_path, method: :post, :id => "form_#{student.id}_#{award_info.id}", remote: true) do %>
-                  <%= hidden_field_tag :award_info_id, award_info.id %>
-                  <%= hidden_field_tag :student_id, student.id %>
-                  <%= text_field_tag :trait, award_info.placeholder(student.id), class: "trait_field noPrint" %>
-                <% end %>
-              </td>
-             <% end %>
-             <% end %>
-      </tr>
- 
+            <% end %>
+
+          <% else %>
+            <%= link_to export_add_student_path(student.id, :award => award_info.id), remote: true do %>
+              <span class="glyphicon glyphicon-unchecked"></span>
+            <% end %>
+          <% end %>
+
+        </div>
+      </td>
+
+      <% if award_info.award.trait_definition? %>
+        <td style="padding-right:0px" style="padding-left:0px" class="noPrint">
+          <%= form_tag(add_student_trait_path, method: :post, :id => "form_#{student.id}_#{award_info.id}", remote: true) do %>
+            <%= hidden_field_tag :award_info_id, award_info.id %>
+            <%= hidden_field_tag :student_id, student.id %>
+            <%= text_field_tag :trait, award_info.placeholder(student.id), class: "trait_field" %>
+          <% end %>
+        </td>
+      <% end %>
+
+    <% end %>
+</tr> 
 <% end %>
 
+<!-- Sort by students -->
 
 <% @student_list.each do |student| %>
 
-       <tr id="student_<%= student.id %>">
-          <td id="button_<%= student.id %>" class="noPrint">
-            <%= link_to "Remove", export_list_remove_path(student.id, :award => @export_list.id), remote: true, class: "btn btn-danger" %>
-          </td>
-          <td>
-            <%= student.student_id %>  
-          </td> 
-           <td>
-            <%= student.first_name %>
-          </td> 
-           <td>
-            <%= student.last_name %>
-          </td>
-           <td>
-            <%= student.grade %> 
-          </td>
-           <td>
-            <%= student.teacher%>
-          </td>
-          <% @export_list.award_infos.each do |award_info| %>
-            <td class="noPrint"> 
-              <div id="student_<%= student.id %>_<%= award_info.id %>_check" class="student_check noPrint">
-              <% if award_info.students.exists?(student) %>
-                <% if @export_list.correction? %>
-                <%= link_to export_remove_student_path(student.id, :award => award_info.id), class: "correction-check", remote: true do %> 
-                    <span class="glyphicon glyphicon-check"></span>
-                    <% end %>
-                    <% else %>
-                    <%= link_to export_remove_student_path(student.id, :award => award_info.id), remote: true do %> 
-                      <span class="glyphicon glyphicon-check"></span>
-                    <% end %>
-                <% end %>
-              <% else %>
-                <%= link_to export_add_student_path(student.id, :award => award_info.id), remote: true do %>
-                    <span class="glyphicon glyphicon-unchecked"></span>
-                <% end %>
-              <% end %>
-              </div>
-             </td>
+<tr id="student_<%= student.id %>">
+  <td id="button_<%= student.id %>" class="noPrint">
+      <%= link_to "Remove", export_list_remove_path(student.id, :award => @export_list.id), remote: true, class: "btn btn-danger" %>
+  </td>
+  <td>
+    <%= student.student_id %>  
+  </td> 
+  <td>
+    <%= student.first_name %>
+  </td> 
+  <td>
+    <%= student.last_name %>
+  </td>
+  <td>
+    <%= student.grade %> 
+  </td>
+  <td>
+    <%= student.teacher %>
+  </td>
 
-             <% if award_info.award.trait_definition? %>
-              <td style="padding-right:0px" style="padding-left:0px" class="noPrint">
-                <%= form_tag(add_student_trait_path, method: :post, :id => "form_#{student.id}_#{award_info.id}", remote: true) do %>
-                  <%= hidden_field_tag :award_info_id, award_info.id %>
-                  <%= hidden_field_tag :student_id, student.id %>
-                  <%= text_field_tag :trait, award_info.placeholder(student.id), class: "trait_field" %>
+    <% @export_list.award_infos.each do |award_info| %>
+
+      <td> 
+        <div id="student_<%= student.id %>_<%= award_info.id %>_check" class="student_check">
+          <% if award_info.students.exists?(student) %>
+
+            <% if @export_list.correction? %>
+                <%= link_to export_remove_student_path(student.id, :award => award_info.id), class: "correction-check", remote: true do %>
+                  <span class="glyphicon glyphicon-check"></span>
                 <% end %>
-              </td>
-             <% end %>
-             <% end %>
-      </tr>
- 
+
+            <% else %>
+              <%= link_to export_remove_student_path(student.id, :award => award_info.id), remote: true do %>
+                <span class="glyphicon glyphicon-check"></span>
+              <% end %>
+            <% end %>
+
+          <% else %>
+            <%= link_to export_add_student_path(student.id, :award => award_info.id), remote: true do %>
+              <span class="glyphicon glyphicon-unchecked"></span>
+            <% end %>
+          <% end %>
+
+        </div>
+      </td>
+
+      <% if award_info.award.trait_definition? %>
+        <td style="padding-right:0px" style="padding-left:0px" class="noPrint">
+          <%= form_tag(add_student_trait_path, method: :post, :id => "form_#{student.id}_#{award_info.id}", remote: true) do %>
+            <%= hidden_field_tag :award_info_id, award_info.id %>
+            <%= hidden_field_tag :student_id, student.id %>
+            <%= text_field_tag :trait, award_info.placeholder(student.id), class: "trait_field" %>
+          <% end %>
+        </td>
+      <% end %>
+
+    <% end %>
+</tr> 
 <% end %>
 
 <script>

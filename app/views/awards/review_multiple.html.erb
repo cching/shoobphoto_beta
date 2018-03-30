@@ -6,12 +6,13 @@
 
 .someClass {}
 
-.print_this {
+.printThis {
 	display: none;
 }
+
 @media print {
     .noPrint { display: none; }
-    .print_this { 
+    .printThis { 
     	display: block; 
     }
 } 
@@ -84,45 +85,54 @@ $(function() {
 
 <div class="row noPrint">
 	<div class="col-xs-3"></div>
-	<div class="col-xs-3" align="center"><%= link_to "Sort by student name", award_multiple_review_path(@export_list.uniq_id, :sort => "student"), class: "btn-awards-next"%></div>
-	<div class="col-xs-3" align="center"><%= link_to "Sort by teacher", award_multiple_review_path(@export_list.uniq_id, :sort => "teacher"), class: "btn-awards-next"%></div>
+	<div class="col-xs-3" align="center"><%= link_to "Sort by student name", award_multiple_review_path(@export_list.uniq_id, :sort => "student"), class: "btn-awards-next2"%></div>
+	<div class="col-xs-3" align="center"><%= link_to "Sort by teacher", award_multiple_review_path(@export_list.uniq_id, :sort => "teacher"), class: "btn-awards-next2"%></div>
 	<div class="col-xs-3"></div>
 </div>
 
 </br>
    <button class="noPrint btn-awards-next3" onclick="window.print();">Print List of Students</button>
    </br>
-<div class="row print_this">
+<div class="row printThis">
 
 	<div class="col-xs-3">
 	AWARD: 
+	</br>
 	<%  @export_list.award_infos.each do |award| %>
 		<%= award.award.title %>
+	</br> 
 	<% end %>
 	</div>
 
 	<div class="col-xs-3">
 	AWARD DATE: 
+	</br>
 	<%  @export_list.award_infos.each do |award| %>
 		<%= award.award_date %>
+	</br> 
 	<% end %>
 	</div>
 
 	<div class="col-xs-3">
 	RECEIVE BY: 
+	</br>
 	<%  @export_list.award_infos.each do |award| %>
 		<%= award.receive_by %>
+	</br> 
 	<% end %>
 	</div>
 
 	<div class="col-xs-3">
-	AWARDED FOR: 
+	AWARDED FOR:
+	</br> 
 	<%  @export_list.award_infos.each do |award| %>
 		<%= award.awarded_for %>
+	</br> 
 	<% end %>
 	
 	</div>
 </div>
+
 <!-- The student select list -->
 
 <br/>
