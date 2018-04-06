@@ -210,7 +210,7 @@ end
 
 	    	if @order.cart.order_packages.map(&:student_image_id).any? && @order.cart.order_packages.map{ |o| o.options.map {|x| x.download }}.any? 
 				@images = @order.cart.order_packages.where.not(student_image_id: nil).all
-				redirect_to order_download_path(@order.id), notice: "You order has been successfully placed! A copy of your receipt has been emailed. Here are your available digital images."
+				redirect_to order_download_path(@order.id), notice: "You order has been successfully placed! Here are your available digital images."
 			elsif @order.cart.order_packages.map{ |o| o.gifts.map {|x| x.download }}.any?
 				redirect_to order_download_path(@order.id)
 			else

@@ -1,4 +1,12 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" />
+
 <style>
+
+.row {
+	font-family: Lato !important;
+}
 
 .award_header {	
   text-align: right;
@@ -33,26 +41,47 @@ $(function() {
 
 </script>
 
-<!-- The progress list at the top -->
+  <div id="id01" class="w3-modal noPrint">
+    <div class="w3-modal-content noPrint">
+      <div class="w3-container noPrint" style="text-align:center">
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright noPrint">&times;</span>
+        </br>
+        <p><b>Would you like to print a list of students added to the award?</p>
+        <p style="color:red">(This <i>cannot</i> be done later)</b></p></br>
+        <div class="row">
+        	<div class="col-xs-5">
+        		<button class="noPrint btn-awards-next3" onclick="window.print();">Print List of Students</button>
+        	</div>
+        	<div class="col-xs-2"></div>
+        	<div class="col-xs-5">
+        		<button class="noPrint btn-awards-next"><%= link_to "Save and Continue", award_review_all_path(@export_list.uniq_id), class: "btn-awards-next"%></button>
+        	</div>
+        </div>
+        </br>
+      </div>
+    </div>
+  </div>
 
+<!-- The progress list at the top -->
+</br>
 <div class="row noPrint">
 <div class="col-xs-1">
 </div>
 	<div class="award_header">
 	<div class="col-xs-2">
-		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> SELECT AWARD</b>
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00; font-size:14px;"></span></small><b style="font-size:14px; color:#FFBB00;"> SELECT AWARD</b>
 	</div>
 	<div class="col-xs-2">
-		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> ADD INFORMATION</b>
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00; font-size:14px;"></span></small><b style="font-size:14px; color:#FFBB00;"> ADD INFORMATION</b>
 	</div>
 	<div class="col-xs-2">
-		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> SELECT STUDENTS</b>
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00; font-size:14px;"></span></small><b style="font-size:14px; color:#FFBB00;"> SELECT STUDENTS</b>
 	</div>
 	<div class="col-xs-2">
-		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00"></span></small><b style="font-size:14px; color:#FFBB00;"> REVIEW LISTS</b>
+		<small><span class="glyphicon glyphicon-ok-sign" style="color:#FFBB00; font-size:14px;"></span></small><b style="font-size:14px; color:#FFBB00;"> REVIEW LISTS</b>
 	</div>
 	<div class="col-xs-2">
-		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599"></span></small><b style="font-size:14px; color:#396599;"> SUBMIT LISTS</b>
+		<small><span class="glyphicon glyphicon-ok-circle" style="color:#396599; font-size:14px;"></span></small><b style="font-size:14px; color:#396599;"> SUBMIT LISTS</b>
 	</div>
 	</div>
 <div class="col-xs-1">
@@ -74,10 +103,14 @@ $(function() {
 
 <br/>
 <div class="row noPrint">
-	<div class="col-xs-4" align="center"><%= link_to "CLEAR LIST", award_multiple_clear_path(@export_list.id), class: "btn-awards-clear", data: {confirm: "Are you sure you want to clear all #{@export_list.award_infos.count} lists?"} %></div>
-	<div class="col-xs-4" align="center"><%= link_to "ADD MORE STUDENTS", award_multiple_students_path(@export_list.uniq_id), class: "btn-awards-next3" %></div>
+	<div class="col-xs-4" align="center">
+		<button class="noPrint btn-awards-clear"><%= link_to "CLEAR LIST", award_multiple_clear_path(@export_list.id), class: "btn-awards-clear", data: {confirm: "Are you sure you want to clear all #{@export_list.award_infos.count} lists?"} %></button>
+		</div>
+	<div class="col-xs-4" align="center">
+		<button class="noPrint btn-awards-next3"><%= link_to "ADD MORE STUDENTS", award_multiple_students_path(@export_list.uniq_id), class: "btn-awards-next3" %></button>
+	</div>
 	
-	<div class="col-xs-4" align="center"><%= link_to "SAVE AND CONTINUE", award_review_all_path(@export_list.uniq_id), class: "btn-awards-next"%></div>
+	<div class="col-xs-4" align="center"><button onclick="document.getElementById('id01').style.display='block'" class="btn-awards-next">SAVE AND CONTINUE</button></div>
 
 </div>
 <br/>
@@ -90,8 +123,6 @@ $(function() {
 	<div class="col-xs-3"></div>
 </div>
 
-</br>
-   <button class="noPrint btn-awards-next3" onclick="window.print();">Print List of Students</button>
    </br>
 <div class="row printThis">
 
@@ -164,3 +195,4 @@ $(function() {
             </div>
           </tbody>
      </table>
+     </br></br></br></br></br></br>
