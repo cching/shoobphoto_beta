@@ -24,7 +24,7 @@
         <% end %><br/>
 
         
-        <%= text_field_tag :student_id, nil, placeholder: "Student's ID or Access Code (Case Sensitive)", class: "enjoy-css2", id: "input_student_id_custom" %> 
+        <%= text_field_tag :student_id, nil, placeholder: "Student's ID or Access Code", class: "enjoy-css2", id: "input_student_id_custom" %> 
 
         <div id="student_found"></div>
 
@@ -46,9 +46,9 @@
 <script>
 	$("#input_student_id_custom").blur(function() 
 	{
-		var d = document.getElementById("input_student_id_custom");
+		var d = document.getElementById("input_student_id_custom").value.toUpperCase();
         d.className += " error_field";
-		$.get('/students/findbyid/' + $("#dropdown").select2("val") + '?student_id=' + $("#input_student_id_custom").val()).success(function(data) { } )
+		$.get('/students/findbyid/' + $("#dropdown").select2("val") + '?student_id=' + $("#input_student_id_custom").val().toUpperCase()).success(function(data) { } )
 	});
 
 	$(document).ready(function() { 
@@ -111,10 +111,10 @@
       }
       
 
-    var y = document.getElementById('input_student_id_custom').value;
+    var y = document.getElementById('input_student_id_custom').value.toUpperCase();
     if (y == null || y == "") {
         isValid = false;
-        var d = document.getElementById("input_student_id_custom");
+        var d = document.getElementById("input_student_id_custom").toUpperCase();
         d.className += " error_field";
         } else {
 
