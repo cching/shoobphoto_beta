@@ -29,7 +29,7 @@ window.onclick = function(event) {
       <span class="glyphicon glyphicon-menu-hamburger" style="color:white"></span> &nbsp; MENU
     </button>
       <div id="myDropdown" class="dropdown-content">
-        <a href="/students/search">PURCHASE PICTURES/a>
+        <%= link_to "PURCHASE PICTURES & YEARBOOKS", student_splash_path(:i => nil, :cart => nil)%>
         <a href="/school_support">TEACHER RESOURCES</a>
         <a href="/contacts/new">CONTACT US</a>
         <%= link_to "LOGIN", new_user_session_path  %>

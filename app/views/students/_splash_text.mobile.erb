@@ -1,0 +1,47 @@
+<br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/>
+Please choose an option below to continue.
+
+<br/>
+<div class="mobile-padding">
+<div class="row">
+	<div class="col-xs-3"></div>
+	<%= link_to student_search_path(:cart => @cart, :i => @i) do %>
+		<div class="col-xs-3 without_id">
+			<%= image_tag("without_id.png", class: "img splash_responsive") %><br/>
+			<span class="splash_header">
+				I do not know my student's <br/> Access Code or I.D.<br>
+			</span>
+			<span class="splash_subtext">
+				(Portrait previews will not be shown.)
+			</span><br/>
+			
+			<button class="btn-without_id">CONTINUE WITHOUT I.D.</button>
+		</div>
+	<% end %>
+	<div class="col-xs-3 with_id">
+		<%= image_tag("with_id.png", class: "img splash_responsive") %><br/>
+		<span class="splash_header_id">
+			Yes, I know my student's <br/>
+			Access Code or I.D.
+		</span><br/>
+		<span class="splash_subtext">
+			(Located on your Picture Day order form)
+		</span><br/>
+		<button class="btn-with_id">CONTINUE</button>
+
+	</div>
+	<div class="col-xs-3"></div>
+</div>
+</div>
+
+<br/>
+<br/>
+<br/>
+
+
+
+
