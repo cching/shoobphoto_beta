@@ -95,23 +95,20 @@
 <br/>
 <div class="row noPrint">
 
-	
-	<div class="col-xs-4">
-		<%= link_to "ADD ANOTHER AWARD", awards_multiple_path(@export_list.uniq_id), class: "btn-awards-next2" %>
-	</div>
-	<div class="col-xs-4">
+
+	<div class="col-xs-6">
 		<% if @export_list.multiple? %>
 			<%= link_to "EDIT AWARD LIST", award_multiple_add_info_path(@export_list.uniq_id), class: "btn-awards-next2" %>
 		<% end %>
 	</div>
-	<div class="col-xs-4">
+	<div class="col-xs-6">
 		<%= link_to "SUBMIT LIST", award_submit_path(@export_list.uniq_id), class: "btn-awards-next" %>
 	</div>
 </div>
 </br>
 <div class="row noPrint">
 <div class="col-xs-4">
-		<button class="noPrint btn-awards-next2" onclick="window.print();">PRINT LIST</button>
+		<!-- <button class="noPrint btn-awards-next2" onclick="window.print();">PRINT LIST</button>
 	</div>
 </div>
 <div class="row print_this">
@@ -144,4 +141,4 @@
 	<% end %>
 	
 	</div>
-</div>
+</div> -->
