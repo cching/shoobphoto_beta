@@ -206,7 +206,8 @@ end
 	    			op.extras << Extra.find(42)
 	    		end
 	    	end
-	    	#OrderMailer.receipt(@order).deliver
+	    	
+	    	OrderReceipt.perform_async(@order.id)
 
 	    	if @order.cart.order_packages.map(&:student_image_id).any? && @order.cart.order_packages.map{ |o| o.options.map {|x| x.download }}.any? 
 				@images = @order.cart.order_packages.where.not(student_image_id: nil).all
