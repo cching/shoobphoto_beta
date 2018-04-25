@@ -135,7 +135,7 @@ $(function() {
 	<% end %>
 	</div>
 
-	<div class="col-xs-3">
+	<div class="col-xs-2">
 	AWARD DATE: 
 	</br>
 	<%  @export_list.award_infos.each do |award| %>
@@ -144,7 +144,7 @@ $(function() {
 	<% end %>
 	</div>
 
-	<div class="col-xs-3">
+	<div class="col-xs-2">
 	RECEIVE BY: 
 	</br>
 	<%  @export_list.award_infos.each do |award| %>
@@ -160,8 +160,17 @@ $(function() {
 		<%= award.awarded_for %>
 	</br> 
 	<% end %>
-	
 	</div>
+
+	<div class="col-xs-2">
+	TIME PERIOD: 
+	</br>
+	<%  @export_list.award_infos.each do |award| %>
+		<%= award.time_period %>
+	</br> 
+	<% end %>
+	</div>
+
 </div>
 
 <!-- The student select list -->
