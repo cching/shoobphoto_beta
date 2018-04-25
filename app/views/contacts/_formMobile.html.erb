@@ -1,0 +1,215 @@
+<style>
+
+.choicebutton {
+  width: 30%;
+  font-size: 45px;
+  text-align: left;
+}
+
+.choicedivs {
+  width: 100%;
+  font-size: 38px;
+}
+
+.enjoy-css_mobile {
+  font-size: 35px;
+  height: 50px;
+}
+
+</style>
+<br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+
+<div class="mobile-padding">
+<%= simple_form_for(@contact) do |f| %>
+<%= f.error_notification %>
+
+<h2>I am a(n):</h2></br>
+
+<button type='button' onclick="admin()" class="choicebutton">Administrator</button></br>
+
+<div id="adminDIV" style="display:none" class="choicedivs">
+
+<p style="font-size:35px">Name:</p>
+<%= f.input :name, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">School:</p>
+<%= f.input :school, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Address:</p>
+<%= f.input :address, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">City, State, Zip:</p>
+<%= f.input :city, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Email:</p>
+<%= f.input :email, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Phone:</p>
+<%= f.input :phone, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Message:</p>
+<%= f.input :message, label: false, :as => :text, :input_html => {:rows => 3, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+</div>
+
+<button type='button' onclick="teach()" class="choicebutton">Teacher/Coach</button></br>
+
+<div id="teachDIV" style="display:none" class="choicedivs">
+
+<p style="font-size:35px">Name:</p>
+<%= f.input :name, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">School:</p>
+<%= f.input :school, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Address:</p>
+<%= f.input :address, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">City, State, Zip:</p>
+<%= f.input :city, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Email:</p>
+<%= f.input :email, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Phone:</p>
+<%= f.input :phone, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Message:</p>
+<%= f.input :message, label: false, :as => :text, :input_html => {:rows => 3, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+</div>
+
+<button type='button' onclick="parent()" class="choicebutton">Parent</button></br>
+
+<div id="parentDIV" style="display:none" class="choicedivs">
+
+<p style="font-size:35px">Name:</p>
+<%= f.input :name, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">School:</p>
+<%= f.input :school, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<hr><hr>
+<p style="font-size:35px">Enter NA if not applicable</p>
+
+<p style="font-size:35px">Student/Player:</p>
+<%= f.input :student, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Grade/Team:</p>
+<%= f.input :grade, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Teacher Name:</p>
+<%= f.input :teacher_name, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Order Number:</p>
+<%= f.input :order_number, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Package Type:</p>
+<%= f.input :package_type, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<hr><hr>
+
+<p style="font-size:35px">Address:</p>
+<%= f.input :address, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">City, State, Zip:</p>
+<%= f.input :city, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Email:</p>
+<%= f.input :email, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Phone:</p>
+<%= f.input :phone, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Message:</p>
+<%= f.input :message, label: false, :as => :text, :input_html => {:rows => 3, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+</div>
+
+<button type='button' onclick="job()" class="choicebutton">Jobseeker</button></br>
+
+<div id="jobDIV" style="display:none" class="choicedivs">
+
+<p style="font-size:35px">Name:</p>
+<%= f.input :name, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">School:</p>
+<%= f.input :school, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Address:</p>
+<%= f.input :address, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">City, State, Zip:</p>
+<%= f.input :city, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Email:</p>
+<%= f.input :email, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Phone:</p>
+<%= f.input :phone, label: false, :as => :text, :input_html => {:rows => 1, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+<p style="font-size:35px">Message:</p>
+<%= f.input :message, label: false, :as => :text, :input_html => {:rows => 3, :style => 'font-size: 35px;'}, class: "enjoy-css_mobile" %>
+
+</div>
+
+ <% if params[:school_use] == "true" %>
+  <%= f.input :file %>
+  <% end %>
+
+</div>
+
+</br>
+
+<%= f.button :submit, "Send", :as => :text, :html => {:style => 'width: 100%;'}, class: "enjoy-css_mobile"  %>
+
+<% end %>
+</div>
+
+<script type="text/javascript">
+
+$('#parent').click(function () {
+    $('#student').show();
+});
+$(".multiple").select2();
+
+function admin() {
+    var x = document.getElementById("adminDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+function teach() {
+    var x = document.getElementById("teachDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+function parent() {
+    var x = document.getElementById("parentDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+function job() {
+    var x = document.getElementById("jobDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+</script>
