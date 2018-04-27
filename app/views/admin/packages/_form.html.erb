@@ -11,18 +11,31 @@
     </div>
   <% end %>
 <fieldset>
-  <%= f.input :name %>
-  <%= f.input :slug %>
-  <%= image_tag @package.image.url if @package.image? %>
 
-  <%= f.input :image, as: :file %>
+<div class="row">
+  <div class="col-xs-6">
+    <%= f.input :name %>
+  </div>
+  <div class="col-xs-6">
+    <%= f.input :slug %>
+  </div>
+</div>
 
-  <%= image_tag @package.banner.url, class: "img-rounded img-cust" if @package.banner? %>
+<div class="row">
+  <div class="col-xs-6">
+   <%= image_tag @package.image.url, height: '200' if @package.image? %>
+   <%= f.input :image, as: :file %>
+  </div>
+  <div class="col-xs-6">
+    <%= image_tag @package.banner.url, width: '100%', class: "img-rounded img-cust" if @package.banner? %>
+    <%= f.input :banner, as: :file %>
+    <%= f.input :multiple %>
+  </div>
+</div>
 
-  <%= f.input :banner, as: :file %>
-  <%= f.input :multiple %>
-    <hr>
-  <h4>Shipping</h4>
+<hr>
+
+<h4>Shipping</h4>
 
   <%= f.simple_fields_for :shippings do |builder| %>
           <%= render 'shipping_fields', f: builder %>
