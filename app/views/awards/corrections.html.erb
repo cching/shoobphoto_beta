@@ -95,10 +95,10 @@
 
 <!-- The student select list -->
 <div class="row">
-	<div class="col-xs-4" align="center"><%= link_to "ADD MORE AWARDS", awards_multiple_path(@export_list.uniq_id), class: "btn-awards-next2" %></div>
+
 	
-	<div class="col-xs-4" align="center"><%= link_to "ADD NEW STUDENT", award_multiple_new_student_path(@export_list.id), class: "btn-awards-next3", remote: true %></div>
-	<div class="col-xs-4" align="center"><%= link_to "SAVE AND CONTINUE", award_multiple_review_path(@export_list.uniq_id), class: "btn-awards-next"%></div>
+	<div class="col-xs-6" align="center"><%= link_to "ADD NEW STUDENT", award_multiple_new_student_path(@export_list.id), class: "btn-awards-next3", remote: true %></div>
+	<div class="col-xs-6" align="center"><%= link_to "SAVE AND CONTINUE", award_multiple_review_path(@export_list.uniq_id), class: "btn-awards-next"%></div>
 
 </div>
 
