@@ -80,6 +80,12 @@ def self.searching_awards(school_id, first_name, last_name, grade, teacher, stud
   return students.order(:last_name)
 end
 
+    Teachers = [
+      ['teacher'],
+      ['teacher2'],
+      ['teacher3']
+    ]
+
 
     Grades = [
     ['Preschool', 'PS'],
