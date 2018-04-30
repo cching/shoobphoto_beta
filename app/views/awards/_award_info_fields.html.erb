@@ -28,11 +28,11 @@
 
 				<% if f.object.award.add_period? %>
 				Time Period:
-				<div class="time_period_<%= f.object.award.id %>">
-					<%= f.select :time_period, Award::TimePeriods, {}, { :class => "date_dropdown" } %>
+				<div class="time_period_<%= f.object.award.id %>" id="otherBoolID">
+					<%= f.select :time_period, Award::TimePeriods, {:include_blank => true}, { :class => "date_dropdown"} %>
 				</div>
 				<% end %>
-				
+
             	<% if f.object.award.add_awarded_for? %>
 				<%= f.input :awarded_for, :label => false, placeholder: "Awarded For (Trustworthy)", :input_html => { :class => 'awardform' } %>
 				<% end %>
@@ -49,10 +49,11 @@
 
 
 	</div>
-</div>
+</div>	
 
-<script>
+<script>	
 
+document.getElementById("otherBoolID").selectedIndex = -1;
 
 $(".date_dropdown").select2({
     theme: "bootstrap",
