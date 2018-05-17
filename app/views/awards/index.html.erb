@@ -8,6 +8,10 @@
   font-size: 20px;
 }
 
+.sub-awards {
+
+}
+
 </style>
 
 <!-- The line with the school logo and school name -->
@@ -48,9 +52,10 @@
 <br/>
 
 <div class="row">
-  <div class="col-xs-12" align="center">
-    <%= link_to "ADD STUDENTS TO EXISTING AWARDS", award_correction_list_path, class: "btn-awards" %>
-  </div>
+  <div class="col-xs-12 sub-awards" align="center">
+    <%= link_to "ADD STUDENTS TO SUBMITTED AWARD SET*", award_correction_list_path, class: "btn-awards" %>
+    </br> *previously selected students will not display
+  </div>  
 </div>
 
 <div class="row">
