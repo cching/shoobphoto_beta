@@ -41,7 +41,7 @@
     </p>
     
     <p class="item_title_show">Qty
-    <%= select_tag :quantity, options_for_select((1..10).step(1).collect.with_index.to_a), id: "quantity" %></p>
+    <%= select_tag :quantity, options_for_select((1..100).step(1).collect.with_index.to_a), id: "quantity" %></p>
     
     <br/>
     <div align="left" id="<%= @item.id %>">
