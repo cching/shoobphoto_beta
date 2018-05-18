@@ -32,7 +32,8 @@ class Award < ActiveRecord::Base
     ['First Semester 2017-2018'],
     ['Second Semester 2017-2018'],
     ['Entire 2017-2018 School Year'],
-    ['Other']
+    ['Other'],
+    ['None']
   ]
 
 end
