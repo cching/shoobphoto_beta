@@ -1,0 +1,140 @@
+<br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/>
+<div class="mobile-padding">
+<%= form_tag(student_find_path, method: :get, :name => 'new_search_form', :id => "new_search_form") do %>
+	<div class="blue">
+		<h1>
+			Enter your student's information below:
+		</h1>
+	</div>
+    <span class="search_input" style="font-size: 40px;">SCHOOL OR SPORT</span>
+    <select name="school[school_id]" id="dropdown" class="enjoy-css_mobile" style="font-size: 40px;">
+      <option style="font-size: 40px;" class="enjoy-css_mobile">Select a school...</option> 
+
+        <% School.all.order(:name).where.not(school_type_id: nil).each do |school| %>
+            <option value="<%= school.id %>" style="font-size: 40px;" class="enjoy-css_mobile"><%= school.name.titleize %></option>
+        <% end %>
+        
+    </select>
+    <span id="school_error"></span>
+     <% unless cookies[:user_email].nil? %>
+
+        <%= text_field_tag :email, nil, placeholder: "Your email address", class: "enjoy-css_mobile", id: "input_email", value: "#{cookies[:user_email]}" %>
+        
+        <% else %>
+        <%= text_field_tag :email, nil, placeholder: "Your email address", class: "enjoy-css_mobile", id: "input_email" %>
+        <% end %><br/>
+
+        
+        <%= text_field_tag :student_id, nil, placeholder: "Student's ID or Access Code", class: "enjoy-css_mobile", id: "input_student_id_custom" %> 
+
+        <div id="student_foundm"></div>
+
+          <div id="button_script" align="center">
+            <input class="btn-blue_mobile" name="commit" value="Continue" readonly>
+          </div>
+    
+
+    <%= hidden_field_tag "first_name", nil %>
+    <%= hidden_field_tag "last_name", nil %>
+    <%= hidden_field_tag "cart", @cart %>
+    <%= hidden_field_tag "i", @i %>
+<% end %>
+
+<div id="student_failedm"></div>
+
+</div>
+
+<script>
+	$("#input_student_id_custom").blur(function() 
+	{
+		var d = document.getElementById("input_student_id_custom").value.toUpperCase();
+        d.className += " error_field";
+		$.get('/students/findbyid/' + $("#dropdown").select2("val") + '?student_id=' + $("#input_student_id_custom").val().toUpperCase()).success(function(data) { } )
+	});
+
+	$(document).ready(function() { 
+	  $( "#dropdown" ).select2({
+	    theme: "bootstrap",
+	    width: '103%',
+	    height: '20px',
+	});
+
+
+	$('.select2-selection').css('border-radius','0px')
+  $('.select2-selection').css('background-color','White')
+	$('.select2-selection').css('border','1px solid #9D9D9D')
+	$('.select2-selection').css('font','normal 45px/normal "Trebuchet MS", Helvetica, sans-serif')
+	$('.select2-selection').css('margin-bottom','20px') 
+	$('.select2-selection').css('padding-top','18px')
+	$('.select2-selection').css('height','85px')
+	$('.select2-container').children().css('border-radius','0px')
+
+	});
+
+	function validateForm(){isValid = false;
+  $(".btn-blue_mobile").prop("disabled", true );
+
+  var isValid = true;
+
+      var x = document.getElementById('dropdown').value;
+    if (x == null || x == "") {
+        isValid = false;
+        var d = document.getElementById("dropdown");
+
+        $("#school_error").html("<p>Please select a school</p>");
+      } else {
+
+      $("#school_error").html("");
+      }
+
+
+    var z = document.getElementById('input_email').value;
+    if (z == null || z == "") {
+        isValid = false; 
+        var d = document.getElementById("input_email");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_email").className = "";
+      document.getElementById("input_email").className = "enjoy-cs_mobile";
+      }
+    
+
+    var emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; 
+
+      if(!emailReg.test(z)) {
+        isValid = false;
+        var d = document.getElementById("input_email");
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_email").className = "";
+      document.getElementById("input_email").className = "enjoy-css_mobile";
+      }
+      
+
+    var y = document.getElementById('input_student_id_custom').value.toUpperCase();
+    if (y == null || y == "") {
+        isValid = false;
+        var d = document.getElementById("input_student_id_custom").toUpperCase();
+        d.className += " error_field";
+        } else {
+
+      document.getElementById("input_student_id_custom").className = "";
+      document.getElementById("input_student_id_custom").className = "enjoy-css_mobile";
+
+      }
+    
+  if(isValid){
+    document.getElementById('new_search_form').submit();
+  } else {
+    $(".btn-blue_mobile").prop("disabled", false );
+
+  }
+
+}
+</script>
