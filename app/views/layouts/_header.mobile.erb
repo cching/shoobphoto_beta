@@ -1,3 +1,10 @@
+<style>
+
+.mobile_header_text {
+  font-size: 35px !important;
+}
+
+</style>
 <script>
 
 function myFunction() {
@@ -28,11 +35,11 @@ window.onclick = function(event) {
     <button onclick="myFunction()" class="dropbtn">
       <span class="glyphicon glyphicon-menu-hamburger" style="color:white"></span> &nbsp; MENU
     </button>
-      <div id="myDropdown" class="dropdown-content">
-        <%= link_to "PURCHASE PICTURES & YEARBOOKS", student_splash_path(:i => nil, :cart => nil)%>
-        <a href="/school_support">TEACHER RESOURCES</a>
-        <a href="/contacts/new">CONTACT US</a>
-        <%= link_to "LOGIN", new_user_session_path  %>
+      <div id="myDropdown" class="dropdown-content" style="font-size: 40px;">
+        <%= link_to "PURCHASE PICTURES & YEARBOOKS", student_splash_path(:i => nil, :cart => nil), {:style=>'font-size: 35px;'} %>
+        <a href="/school_support" style="font-size: 35px;">TEACHER RESOURCES</a>
+        <a href="/contacts/new" style="font-size: 35px;">CONTACT US</a>
+        <%= link_to "LOGIN", new_user_session_path, {:style=>'font-size: 35px;'} %>
     </div>
   </div>
   </div>
