@@ -3,6 +3,8 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  get 'dprojects/index'
+
   resources :projects
 
   resources :porders do
@@ -402,6 +404,9 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
    match 'awards/multiple_students/create/:school/:package/:id' => 'awards#multiple_create_student', :via => 'POST', :as => 'award_multiple_student_create'
    match 'awards/add_student/:student_id' => 'awards#add_student', :via => 'GET', :as => 'award_add_student'
   match 'awards/remove_student/:student_id' => 'awards#remove_student', :via => 'GET', :as => 'award_remove_student'
+
+  get 'dprojects' => 'dprojects#index'
+  get 'dprojects/search' => 'dprojects#search'
 
   resources :searches
 

@@ -5,4 +5,3 @@ class SchoolNote < ActiveRecord::Base
 
 	accepts_nested_attributes_for :notes, allow_destroy: true
 end
-  

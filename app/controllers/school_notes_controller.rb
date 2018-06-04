@@ -49,6 +49,10 @@ class SchoolNotesController < ApplicationController
     end
   end
 
+  def schools
+    @schools = School.all
+  end
+
   def district
     @district = District.find(params[:districts][:id])
     District.update_all(:last => false)
