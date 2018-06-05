@@ -407,9 +407,6 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
    match 'awards/add_student/:student_id' => 'awards#add_student', :via => 'GET', :as => 'award_add_student'
   match 'awards/remove_student/:student_id' => 'awards#remove_student', :via => 'GET', :as => 'award_remove_student'
 
-  get 'dprojects' => 'dprojects#index'
-  get 'dprojects/search' => 'dprojects#search'
-
   resources :searches
 
   root :to => 'pages#home'
