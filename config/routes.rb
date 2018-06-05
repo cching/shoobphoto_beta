@@ -3,6 +3,8 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  resources :dprojects
+
   resources :tests
 
   get 'dprojects/index'

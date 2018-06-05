@@ -1,0 +1,23 @@
+<h1>Listing dprojects</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dprojects.each do |dproject| %>
+      <tr>
+        <td><%= link_to 'Show', dproject %></td>
+        <td><%= link_to 'Edit', edit_dproject_path(dproject) %></td>
+        <td><%= link_to 'Destroy', dproject, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dproject', new_dproject_path %>
