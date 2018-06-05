@@ -3,7 +3,6 @@
 <table>
   <thead>
     <tr>
-      <th>Id</th>
       <th>Scode</th>
       <th>Completed at</th>
       <th>Description</th>
@@ -14,7 +13,6 @@
   <tbody>
     <% @dprojects.each do |dproject| %>
       <tr>
-        <td><%= dproject.id %></td>
         <td><%= dproject.scode %></td>
         <td><%= dproject.completed_at %></td>
         <td><%= dproject.description %></td>

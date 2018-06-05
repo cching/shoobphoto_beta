@@ -1,13 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  id: 1
   scode: MyString
-  completed_at: 2018-06-05 13:10:07
+  completed_at: 2018-06-05 13:22:40
   description: MyText
 
 two:
-  id: 1
   scode: MyString
-  completed_at: 2018-06-05 13:10:07
+  completed_at: 2018-06-05 13:22:40
   description: MyText
