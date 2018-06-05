@@ -1,4 +1,24 @@
 <p id="notice"><%= notice %></p>
 
+<p>
+  <strong>Id:</strong>
+  <%= @dproject.id %>
+</p>
+
+<p>
+  <strong>Scode:</strong>
+  <%= @dproject.scode %>
+</p>
+
+<p>
+  <strong>Completed at:</strong>
+  <%= @dproject.completed_at %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @dproject.description %>
+</p>
+
 <%= link_to 'Edit', edit_dproject_path(@dproject) %> |
 <%= link_to 'Back', dprojects_path %>
