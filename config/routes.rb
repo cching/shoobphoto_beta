@@ -3,6 +3,8 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+  resources :dschools
+
   resources :dprojects
 
   resources :projects

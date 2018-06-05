@@ -14,10 +14,21 @@ class DprojectsController < ApplicationController
 
   def new
     @dproject = Dproject.new
+    @options = Dschool.find(:all,
+      :order => "name").
+    collect do |s|
+      [s.name, s.id]
+    end
     respond_with(@dproject)
   end
 
   def edit
+    @dproject = Dproject.find(params[:id])
+    @options = Dschool.find(:all,
+      :order => "name").
+    collect do |s|
+      [s.name, s.id]
+    end
   end
 
   def create

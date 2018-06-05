@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  scode: MyString
+  name: MyString
+
+two:
+  scode: MyString
+  name: MyString

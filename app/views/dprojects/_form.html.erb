@@ -2,7 +2,8 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :scode %>
+  	Scode: <br />
+    <%= f.select :scode, @options %>
     <%= f.input :completed_at %>
     <%= f.input :description %>
   </div>
