@@ -1,6 +1,6 @@
 class School < ActiveRecord::Base
 	validates_uniqueness_of :name
-	has_many :dprojects
+	has_many :dprojects, foreign_key: 'scode'
 	has_many :students
 	has_many :student_images, through: :students
 
@@ -38,5 +38,9 @@ class School < ActiveRecord::Base
   	:url => ':s3_domain_url',
   	:path => '/images/logos/:scode.png'
   	validates_attachment_content_type :logo, :content_type => /\Aimage\/.*\Z/
+
+  	def dname
+  		return name
+  	end
 
 end

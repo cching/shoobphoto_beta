@@ -1,19 +1,37 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Scode:</strong>
-  <%= @dproject.scode %>
+  <strong>School:</strong>
+  <%= @dproject.scode %> | <%= @dproject.school.dname %>
 </p>
-
-<p>
-  <strong>Completed at:</strong>
-  <%= @dproject.completed_at %>
-</p>
-
-<p>
+<hr>
+<div class="row">
+	<div class="col-xs-4">
+		<b>Created:</b>
+		<%= @dproject.created_at.to_formatted_s(:short) %>
+	</div>
+	<div class="col-xs-4">
+		<b>Requested by:</b>
+		<%= @dproject.requested_by %>
+	</div>
+	<div class="col-xs-4">
+		<b>Assigned to:</b>
+		<%= @dproject.assigned_to %>
+	</div>
+</div>
+<br />
+<div class="row">
+<p style="border: 1px solid black; border-radius: 5px; padding: 0px 0px 20% 0px">
   <strong>Description:</strong>
+  <br />
   <%= @dproject.description %>
 </p>
+</div>
+<p>
+  <strong>Completed:</strong>
+  <%= @dproject.completed_at.to_formatted_s(:short) %>
+</p>
+
 
 <%= link_to 'Edit', edit_dproject_path(@dproject) %> |
 <%= link_to 'Back', dprojects_path %>

@@ -13,7 +13,7 @@
   <tbody>
     <% @dprojects.each do |dproject| %>
       <tr>
-        <td><%= dproject.dschool.dname %></td>
+        <td><%= dproject.school.dname %></td>
         <td><%= dproject.completed_at %></td>
         <td><%= dproject.description %></td>
         <td><%= link_to 'Show', dproject %></td>
