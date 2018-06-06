@@ -14,8 +14,7 @@ class DprojectsController < ApplicationController
 
   def new
     @dproject = Dproject.new
-    @options = Dschool.find(:all,
-      :order => "name").
+    @options = School.order(:name).where.not(school_type_id: nil).
     collect do |s|
       [s.name, s.id]
     end
@@ -24,8 +23,7 @@ class DprojectsController < ApplicationController
 
   def edit
     @dproject = Dproject.find(params[:id])
-    @options = Dschool.find(:all,
-      :order => "name").
+    @options = School.order(:name).where.not(school_type_id: nil).
     collect do |s|
       [s.name, s.id]
     end

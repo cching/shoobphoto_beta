@@ -1,8 +1,8 @@
 class Dschool < ActiveRecord::Base
 	has_many :dprojects, foreign_key: 'scode'
 
-	def name
-		return name + "test"
+	def dname
+		return name
 	end
 end
 
