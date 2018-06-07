@@ -1,0 +1,29 @@
+<%= simple_form_for(@dproject) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+
+<div class="row">
+  <div class="col-xs-1">
+  </div>
+  <div class=col-xs-4>
+  	School <br />
+    <%= f.select :scode, @options %>
+  </div>
+  <div class=col-xs-2>
+    Assigned to <br />
+    <%= f.select :assigned_to, ["Katie", "Sydnee", "Erin", "Ethan"] %>
+  </div>
+  <div class=col-xs-4>
+    Requested by
+    <%= f.input :requested_by, :label => false %>
+  </div>
+</div>
+    <%= f.input :description %>
+</div>
+<br />
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

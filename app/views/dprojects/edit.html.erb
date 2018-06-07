@@ -1,7 +1,7 @@
-<h1>Editing Project</h1>
+<h2>Editing Project</h2>
 
-<%= render 'form' %>
+<%= render 'formEdit' %>
 
 <%= link_to 'Show', @dproject %> |
 <%= link_to 'Back', dprojects_path %> |
-<%= link_to 'Destroy', @dproject, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Delete', @dproject, method: :delete, data: { confirm: 'Are you sure?' } %>
