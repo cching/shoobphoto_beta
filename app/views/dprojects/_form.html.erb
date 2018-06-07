@@ -20,7 +20,9 @@
   </div>
 </div>
     <%= f.input :description %>
-    <%= f.input :completed_at, as: :date, html5: true %>
+    Completed at <br />
+    <%= f.datetime_local_field :completed_at, :include_blank => true %>
+    <br />
 </div>
 
   <div class="form-actions">
