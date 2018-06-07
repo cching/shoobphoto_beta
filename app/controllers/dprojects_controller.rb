@@ -51,6 +51,6 @@ class DprojectsController < ApplicationController
     end
 
     def dproject_params
-      params.require(:dproject).permit(:scode, :completed_at, :description)
+      params.require(:dproject).permit(:scode, :description)
     end
 end
