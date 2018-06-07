@@ -37,7 +37,8 @@ class DprojectsController < ApplicationController
 
   def update
     @dproject.update(dproject_params)
-    respond_with(@dproject)
+    redirect_to "/dprojects"
+    # respond_with(@dproject)
   end
 
   def destroy
@@ -51,6 +52,6 @@ class DprojectsController < ApplicationController
     end
 
     def dproject_params
-      params.require(:dproject).permit(:scode, :description, :requested_by, :assigned_to, :completed_at)
+      params.require(:dproject).permit(:scode, :description, :requested_by, :assigned_to, :completed_at, :order_num, :contact, :contact_email, :ptype, :due_date, :must_date, :print_date, :proofs_out, :proofs_in, :status)
     end
 end

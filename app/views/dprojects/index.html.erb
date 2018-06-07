@@ -7,36 +7,39 @@
 </style>
 
 <h2>Diglab Projects</h2>
+<br />
+<%= link_to 'New Project', new_dproject_path, class: "btn btn-primary"  %>
+<br /><br />
 
 <table>
   <thead>
     <tr style="border-bottom: 2px solid black;">
       <th>School</th>
-      <th>Orig Date</th>
-      <th>Description</th>
       <th>Assigned to</th>
-      <th style="text-align: right;">Complete date</th>
+      <th>Orig Date</th>
+      <th>Due Date</th>
+      <th>Must Del</th>
+      <th>Age</th>
+      <th>Description</th>
+      <th>Status</th>
     </tr>
   </thead>
 
   <tbod>
     <% @dprojects.each do |dproject| %>
       <tr>
-        <td width="35%" class="dotted"><%= dproject.school.dname %></td>
-        <td width="15%" class="dotted"><%= dproject.created_at.try(:to_formatted_s, :short) %></td>
-        <td width="25%" class="dotted"><%= dproject.description[0, 30] + "..." %></td>
+        <td width="20%" class="dotted"><%= dproject.school.dname[0,20] + "..." %></td>
         <td width="10%" class="dotted"><%= dproject.assigned_to %></td>
-        <td width="15%" class="dotted" style="text-align: right;"><%= dproject.completed_at.try(:to_formatted_s, :short) %></td>
-        <td width="5%"> </td>
-        <td width="5%" style="text-align: center;"><%= link_to 'Show', dproject %></td>
-        <td width="2%"> </td>
-        <td width="5%" style="text-align: center;"><%= link_to 'Edit', edit_dproject_path(dproject) %></td>
-        <!-- <td style="text-align: right;"><%= link_to 'Destroy', dproject, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+        <td width="12%" class="dotted"><%= dproject.created_at.try(:to_formatted_s, :short) %></td>
+        <td width="12%" class="dotted"><%= dproject.due_date.try(:to_formatted_s, :short) %></td>
+        <td width="12%" class="dotted"><%= dproject.must_date.try(:to_formatted_s, :short) %></td>
+        <td width="10%" class="dotted"><%= ((Time.now - dproject.created_at)/86400).round %></td>
+        <td width="15%" class="dotted"><%= dproject.description[0, 15] + "..." %></td>
+        <td width="20%" class="dotted"><%= dproject.status %></td>
+        <td width="5%" style="text-align: right;"><%= link_to 'Edit', edit_dproject_path(dproject) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Project', new_dproject_path %>
