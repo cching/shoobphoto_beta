@@ -2,11 +2,26 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-  	Scode: <br />
-    <%= f.select :scode, @options %>
-    <%= f.input :completed_at %>
-    <%= f.input :description %>
+
+<div class="row">
+  <div class="col-xs-1">
   </div>
+  <div class=col-xs-4>
+  	School <br />
+    <%= f.select :scode, @options %>
+  </div>
+  <div class=col-xs-2>
+    Assigned to <br />
+    <%= f.select :assigned_to, ["Katie", "Sydnee", "Erin", "Ethan"] %>
+  </div>
+  <div class=col-xs-4>
+    Requested by
+    <%= f.input :requested_by, :label => false %>
+  </div>
+</div>
+    <%= f.input :description %>
+    <%= f.input :completed_at, as: :date, html5: true %>
+</div>
 
   <div class="form-actions">
     <%= f.button :submit %>
