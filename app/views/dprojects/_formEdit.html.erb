@@ -21,8 +21,21 @@
 </div>
     Description <br />
     <%= f.input :description, :input_html => {:rows => 10}, :label => false %>
-    Completed at <br />
-    <%= f.datetime_local_field :completed_at %>
+<div class="row">
+  <div class="col-xs-1">
+  </div>
+  <div class=col-xs-3>
+    Due date <br />
+    <%= f.datetime_local_field :due_date %>
+  </div>
+  <div class=col-xs-3>
+    Must deliver date <br />
+    <%= f.datetime_local_field :must_date %>
+  </div>
+  <div class=col-xs-3>
+    Status <br />
+    <%= f.select :status, ["Ready to Proof", "Proof sent", "Changes", "New proof ready", "New proof sent", "Follow up sent", "Ready to print", "Completed"] %>
+  </div>
 </div>
 <br />
 

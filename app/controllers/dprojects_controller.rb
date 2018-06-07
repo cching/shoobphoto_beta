@@ -32,7 +32,8 @@ class DprojectsController < ApplicationController
   def create
     @dproject = Dproject.new(dproject_params)
     @dproject.save
-    respond_with(@dproject)
+    redirect_to "/dprojects"
+    # respond_with(@dproject)
   end
 
   def update
