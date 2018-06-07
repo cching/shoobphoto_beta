@@ -29,7 +29,7 @@
 </div>
 <p>
   <strong>Completed:</strong>
-  <%= @dproject.completed_at.to_formatted_s(:short) %>
+  <%= @dproject.completed_at.try(:to_formatted_s, :short) %>
 </p>
 
 
