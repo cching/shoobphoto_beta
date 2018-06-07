@@ -22,7 +22,7 @@
   <tbod>
     <% @dprojects.each do |dproject| %>
       <tr>
-        <td width="25%" class="dotted"><%= dproject.school.dname %></td>
+        <td width="35%" class="dotted"><%= dproject.school.dname %></td>
         <td width="15%" class="dotted"><%= dproject.created_at.try(:to_formatted_s, :short) %></td>
         <td width="25%" class="dotted"><%= dproject.description[0, 30] + "..." %></td>
         <td width="10%" class="dotted"><%= dproject.assigned_to %></td>
