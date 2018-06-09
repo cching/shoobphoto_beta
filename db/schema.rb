@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180608224046) do
+ActiveRecord::Schema.define(version: 20180609043035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -283,7 +283,7 @@ ActiveRecord::Schema.define(version: 20180608224046) do
     t.datetime "proofs_out"
     t.datetime "proofs_in"
     t.string   "status"
-    t.string   "delivery_method"
+    t.string   "delivery_type"
     t.string   "route"
     t.datetime "delivery_date"
     t.integer  "tracking_number"
