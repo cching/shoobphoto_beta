@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180607211652) do
+ActiveRecord::Schema.define(version: 20180608224046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -283,6 +283,14 @@ ActiveRecord::Schema.define(version: 20180607211652) do
     t.datetime "proofs_out"
     t.datetime "proofs_in"
     t.string   "status"
+    t.string   "delivery_method"
+    t.string   "route"
+    t.datetime "delivery_date"
+    t.integer  "tracking_number"
+    t.string   "shipping_instructions"
+    t.boolean  "invoicing"
+    t.boolean  "delivered"
+    t.text     "printing_instructions"
   end
 
   create_table "dschools", force: true do |t|
