@@ -6,7 +6,7 @@
 <div class="row">
   <div class=col-xs-3>
     School <br />
-    <%= f.select(:scode, @options, {}, {:class => 'form-control'}) %>
+    <%= @dproject.school.dname %>
   </div>
   <div class=col-xs-1>
     Account <br />
@@ -28,7 +28,7 @@
 <hr>
 <div class="row">
   <div class=col-xs-2>
-    Date Originated <br />
+    Date Originated
     <%= @dproject.created_at.try(:to_formatted_s, :short) %>
   </div>
   <div class=col-xs-2>
@@ -43,11 +43,11 @@
   </div>
   <div class=col-xs-3>
     Delivery Method <br />
-    <%= f.select(:delivery_type, ["Hand Deliver"], {}, {:class => "form-control"}) %>
+    <%= f.select(:delivery_type, ["Hand Deliver", "Ship", "Pick Up"], {}, {:class => "form-control"}) %>
   </div>
   <div class=col-xs-2>
     Route <br />
-    <%= f.input :route, :label => false %>
+    <%= f.select(:route, ["North", "East", "South", "West", "UPS"], {}, {:class => "form-control"}) %>
   </div>
   <div class=col-xs-6>
     Shipping instructions <br />
@@ -68,20 +68,29 @@
     Tracking #<br />
     <%= f.input :tracking_number, :label => false %>
   </div>
+  <div class="col-xs-12">
+    Printing Instructions <br />
+    <%= f.input :printing_instructions, :input_html => {:rows => 1}, :label => false %>
+  </div>
 </div>
 <hr>
 <div class="row">
   <div class="col-xs-6">
     Request <br />
-    <%= f.input :description, :input_html => {:rows => 10}, :label => false %>
+    <%= f.input :description, :input_html => {:rows => 9}, :label => false %>
   </div>
   <div class="col-xs-6">
-    Printing Instructions <br />
-    <%= f.input :printing_instructions, :input_html => {:rows => 5}, :label => false %>
+    Changes <br />
+    <%= f.input :project_changes, :input_html => {:rows => 5}, :label => false %>
   </div>
   <div class="col-xs-3">
     Invoicing <%= f.check_box :invoicing %><br />
-    <%= f.input :printing_instructions, :input_html => {:rows => 2}, :label => false %>
+      <div class="col-xs-4">
+        <%= f.input :invoice_quantity, :label => false, placeholder: "#" %>
+      </div>
+      <div class="col-xs-8">
+        <%= f.select(:route, ["Poster(s)", "Banner(s)"], {:prompt => "Select item"}, {:class => "form-control"}) %>
+      </div>
   </div>
   <div class="col-xs-3" style="text-align: center;"">
     <br />
@@ -91,7 +100,7 @@
 </div>
   <div class=col-xs-3>
     Status <br />
-    <%= f.select(:status, ["Ready to Proof", "Proof sent", "Changes", "New proof ready", "New proof sent", "Follow up sent", "Ready to print", "Completed"], {}, {:class => 'form-control'}) %>
+    <%= f.select(:status, ["Started", "Ready to Proof", "Proof sent", "Changes", "New proof ready", "New proof sent", "Follow up sent", "Ready to print", "Completed"], {}, {:class => 'form-control'}) %>
   </div>
 </div>
 <br />

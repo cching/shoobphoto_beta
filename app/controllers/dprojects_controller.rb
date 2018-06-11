@@ -4,7 +4,7 @@ class DprojectsController < ApplicationController
   respond_to :html
 
   def index
-    @dprojects = Dproject.all
+    @dprojects = Dproject.order(params[:sort])
     respond_with(@dprojects)
   end
 
@@ -51,8 +51,7 @@ class DprojectsController < ApplicationController
     def set_dproject
       @dproject = Dproject.find(params[:id])
     end
-
     def dproject_params
-      params.require(:dproject).permit(:scode, :description, :requested_by, :assigned_to, :completed_at, :order_num, :contact, :contact_email, :ptype, :due_date, :must_date, :print_date, :proofs_out, :proofs_in, :status, :delivery_type, :route, :delivery_date, :tracking_number, :shipping_instructions, :invoicing, :delivered, :printing_instructions)
+      params.require(:dproject).permit(:scode, :description, :requested_by, :assigned_to, :completed_at, :order_num, :contact, :contact_email, :ptype, :due_date, :must_date, :print_date, :proofs_out, :proofs_in, :status, :delivery_type, :route, :delivery_date, :tracking_number, :shipping_instructions, :invoicing, :delivered, :printing_instructions, :project_changes, :invoice_quantity, :invoice_price)
     end
 end
