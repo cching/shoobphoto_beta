@@ -53,6 +53,6 @@ class DprojectsController < ApplicationController
     end
 
     def dproject_params
-      params.require(:dproject).permit(:scode, :description, :requested_by, :assigned_to, :completed_at, :order_num, :contact, :contact_email, :ptype, :due_date, :must_date, :print_date, :proofs_out, :proofs_in, :status)
+      params.require(:dproject).permit(:scode, :description, :requested_by, :assigned_to, :completed_at, :order_num, :contact, :contact_email, :ptype, :due_date, :must_date, :print_date, :proofs_out, :proofs_in, :status, :delivery_type, :route, :delivery_date, :tracking_number, :shipping_instructions, :invoicing, :delivered, :printing_instructions)
     end
 end
