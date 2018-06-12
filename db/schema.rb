@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180611212513) do
+ActiveRecord::Schema.define(version: 20180612203343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -286,7 +286,7 @@ ActiveRecord::Schema.define(version: 20180611212513) do
     t.string   "delivery_type"
     t.string   "route"
     t.datetime "delivery_date"
-    t.integer  "tracking_number"
+    t.string   "tracking_number"
     t.string   "shipping_instructions"
     t.boolean  "invoicing"
     t.boolean  "delivered"
@@ -294,6 +294,7 @@ ActiveRecord::Schema.define(version: 20180611212513) do
     t.text     "project_changes"
     t.integer  "invoice_quantity"
     t.integer  "invoice_price"
+    t.text     "project_path"
   end
 
   create_table "dschools", force: true do |t|

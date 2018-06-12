@@ -33,11 +33,11 @@
   </div>
   <div class=col-xs-2>
     Due date <br />
-    <%= f.datetime_local_field(:due_date, {:class => "form-control"}) %>
+    <%= f.date_field(:due_date, {:class => "form-control"}) %>
   </div>
   <div class=col-xs-2>
     Must deliver date <br />
-    <%= f.datetime_local_field(:must_date, {:class => "form-control"}) %>
+    <%= f.date_field(:must_date, {:class => "form-control"}) %>
   </div>
   <div class="col-xs-1">
   </div>
@@ -49,11 +49,13 @@
     Route <br />
     <%= f.select(:route, ["North", "East", "South", "West", "UPS"], {}, {:class => "form-control"}) %>
   </div>
-  <div class=col-xs-6>
+  <div class=col-xs-7>
+  </div>
+  <div class=col-xs-5>
     Shipping instructions <br />
     <%= f.input :shipping_instructions, :label => false %>
   </div>
-  <div class="col-xs-1">
+  <div class="col-xs-7">
   </div>
   <div class="col-xs-3">
     Delivered/Shipped <br />
@@ -61,7 +63,7 @@
       <%= f.check_box :delivered %>
     </div>
     <div class="col-xs-10">
-      <%= f.datetime_local_field(:delivery_date, {:class => "form-control"}) %>
+      <%= f.date_field(:delivery_date, {:class => "form-control"}) %>
       </div>
   </div>
   <div class=col-xs-2>
@@ -69,8 +71,8 @@
     <%= f.input :tracking_number, :label => false %>
   </div>
   <div class="col-xs-12">
-    Printing Instructions <br />
-    <%= f.input :printing_instructions, :input_html => {:rows => 1}, :label => false %>
+    Project path <br />
+    <%= f.input :project_path, :input_html => {:rows => 1}, :label => false %>
   </div>
 </div>
 <hr>
@@ -79,12 +81,16 @@
     Request <br />
     <%= f.input :description, :input_html => {:rows => 9}, :label => false %>
   </div>
-  <div class="col-xs-6">
+  <div class="col-xs-3">
     Changes <br />
     <%= f.input :project_changes, :input_html => {:rows => 5}, :label => false %>
   </div>
   <div class="col-xs-3">
-    Invoicing <%= f.check_box :invoicing %><br />
+    Printing Instructions <br />
+    <%= f.input :printing_instructions, :input_html => {:rows => 5}, :label => false %>
+  </div>
+  <div class="col-xs-3">
+    Item Details<br />
       <div class="col-xs-4">
         <%= f.input :invoice_quantity, :label => false, placeholder: "#" %>
       </div>
@@ -93,7 +99,7 @@
       </div>
   </div>
   <div class="col-xs-3" style="text-align: center;"">
-    <br />
+    Invoicing <%= f.check_box :invoicing %><br />
     <%= f.button :submit, "Create Invoice", {:style => "background-color: lightblue; color: black;"} %>
     <br />
   </div>

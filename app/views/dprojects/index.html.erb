@@ -4,42 +4,113 @@
   border-bottom: 1px dotted black;
 }
 
+td, th{
+  font-size: 16px;
+}
+
+.filterDiv {
+	display: none;
+}
+
+#notcompleted {
+	display: block;
+}
+
+button {
+	border-radius: 5px;
+	background-color: lightgray;
+	width: 15%;
+}
+
 </style>
 
 <h2>Diglab Projects</h2>
 <br />
-<%= link_to 'New Project', new_dproject_path, class: "btn btn-primary"  %>
+<%= link_to 'New Project', new_dproject_path, class: "btn btn-primary"  %> <button onclick="notcompletedFunction()">Not Completed</button> <button onclick="allFunction()">All</button> <button onclick="katieFunction()">Katie</button> <button onclick="erinFunction()">Erin</button> <button onclick="sydneeFunction()">Sydnee</button>
 <br /><br />
 
-<table>
-  <thead>
-    <tr style="border-bottom: 2px solid black;">
-      <th> <%= sortable "scode", "School" %></th>
-      <th> <%= sortable "assigned_to" %></th>
-      <th> <%= sortable "created_at", "Orig Date" %></th>
-      <th> <%= sortable "due_date" %></th>
-      <th> <%= sortable "must_date", "Must Del" %></th>
-      <th> Age </th>
-      <th> Request </th>
-      <th> <%= sortable "status" %></th>
-    </tr>
-  </thead>
-
-  <tbod>
-    <% @dprojects.each do |dproject|%>
-      <tr>
-        <td width="20%" class="dotted"><%= dproject.school.dname[0,20] + "..." %></td>
-        <td width="10%" class="dotted"><%= dproject.assigned_to %></td>
-        <td width="12%" class="dotted"><%= dproject.created_at.try(:to_formatted_s, :short) %></td>
-        <td width="12%" class="dotted"><%= dproject.due_date.try(:to_formatted_s, :short) %></td>
-        <td width="12%" class="dotted"><%= dproject.must_date.try(:to_formatted_s, :short) %></td>
-        <td width="10%" class="dotted"><%= ((Time.now - dproject.created_at)/86400).round %></td>
-        <td width="15%" class="dotted"><%= dproject.description[0, 15] + "..." %></td>
-        <td width="20%" class="dotted"><%= dproject.status %></td>
-        <td width="5%" style="text-align: right;"><%= link_to 'Edit', edit_dproject_path(dproject) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div id="notcompleted" class="filterDiv NotCompleted">
+	<%= render 'indexNotCompleted' %>
+</div>
+<div id="all" class="filterDiv indexAll">
+	<%= render 'indexAll' %>
+</div>
+<div id="katie" class="filterDiv Katie">
+	<%= render 'indexKatie' %>
+</div>
+<div id="sydnee" class="filterDiv Sydnee">
+	<%= render 'indexSydnee' %>
+</div>
+<div id="erin" class="filterDiv Erin">
+	<%= render 'indexErin' %>
+</div>
 
 <br>
+
+<script>
+function notcompletedFunction() {
+    var x = document.getElementById("notcompleted");
+    x.display == "none";
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+    var y = document.getElementById("all");
+        y.style.display = "none";
+}
+
+function allFunction() {
+    var x = document.getElementById("all");
+    x.display == "none";
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+    var z = document.getElementById("notcompleted");
+        z.style.display = "none";
+}
+
+function katieFunction() {
+    var x = document.getElementById("katie");
+    x.display == "none";
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+    var y = document.getElementById("all");
+        y.style.display = "none";
+    var z = document.getElementById("notcompleted");
+        z.style.display = "none";
+}
+
+function erinFunction() {
+    var x = document.getElementById("erin");
+    x.display == "none";
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+    var y = document.getElementById("all");
+        y.style.display = "none";
+    var z = document.getElementById("notcompleted");
+        z.style.display = "none";
+}
+
+function sydneeFunction() {
+    var x = document.getElementById("sydnee");
+    x.display == "none";
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+    var y = document.getElementById("all");
+        y.style.display = "none";
+    var z = document.getElementById("notcompleted");
+        z.style.display = "none";
+}
+</script>
