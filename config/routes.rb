@@ -408,6 +408,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'awards/remove_student/:student_id' => 'awards#remove_student', :via => 'GET', :as => 'award_remove_student'
 
   get 'dprojects' => 'dprojects#index'
+  get 'dprojects/:id/packingslip' => 'dprojects#packingslip', :via => 'GET', :as => 'dproject_packingslip'
 
   resources :searches
 

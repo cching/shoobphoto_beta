@@ -51,6 +51,7 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
+    barby (0.6.5)
     bcrypt (3.1.10)
     bootstrap3-datetimepicker-rails (4.17.43)
       momentjs-rails (>= 2.8.1)
@@ -193,6 +194,7 @@ GEM
     roo (2.3.2)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
+    rqrcode (0.4.2)
     ruby-rc4 (0.1.5)
     rubyzip (1.2.0)
     sass (3.2.19)
@@ -266,6 +268,7 @@ DEPENDENCIES
   american_date
   awesome_nested_set
   aws-sdk (~> 1.6.0)
+  barby (~> 0.6.2)
   bootstrap3-datetimepicker-rails (~> 4.17.43)
   coffee-rails (~> 4.0.0)
   devise
@@ -295,6 +298,7 @@ DEPENDENCIES
   ransack
   remotipart (~> 1.2)
   roo
+  rqrcode (~> 0.4.2)
   rubyzip
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)

@@ -88,7 +88,8 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
 gem 'mobylette'
 gem 'invisible_captcha'
 gem 'garlicjs-rails'
-
+gem 'barby',  '~> 0.6.2'
+gem 'rqrcode','~> 0.4.2'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

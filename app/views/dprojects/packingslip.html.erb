@@ -1,0 +1,84 @@
+<div class="row">
+	<div class="col-xs-12" style="text-align: right;">
+		<%= Time.now.try(:strftime, '%b %e, %Y')%>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-6">
+		<%= @dproject.requested_by %>
+	</div> 
+	<!-- <div class="col-xs-6">
+
+	</div> -->
+</div>
+<div class="row">
+	<div class="col-xs-6">
+		<b><%= @dproject.school.dname %></b>
+	</div>
+	<div class="col-xs-6">
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-6">
+		<%= @dproject.school.address %>
+	</div>
+	<div class="col-xs-6">
+	</div>
+</div>
+<br />
+<div class="row">
+	<div class="col-xs-3">
+		<b>Assign to: </b><%= @dproject.assigned_to %>
+	</div>
+	<div class="col-xs-3">
+		<b>Orig date: </b><%= @dproject.created_at.try(:strftime, '%m/%e/%y') %>
+	</div>
+	<div class="col-xs-3">
+		<b>Due date: </b><%= @dproject.due_date.try(:strftime, '%m/%e/%y') %>
+	</div>
+	<div class="col-xs-3">
+		<b>Must deliver by: </b><%= @dproject.must_date.try(:strftime, '%m/%e/%y') %>
+	</div>
+</div>
+<br />
+<div class="row">
+	<div class="col-xs-12">
+		<b>Route: </b> <%= @dproject.route %>
+	</div>
+	<div class="col-xs-12">
+		<b>Shipping Instructions: </b> <%= @dproject.shipping_instructions %>
+	</div>
+</div>
+<br />
+<div class="row">
+	<div class="col-xs-12">
+		<b>Delivery Note: </b> <%= @dproject.route %>
+	</div>
+	<div class="col-xs-12">
+		<b>Request: </b> <%= @dproject.description %>
+	</div>
+</div>
+<br /><br />
+<div class="row">
+	<div class="col-xs-12">
+		<b>Status: </b> <%= @dproject.status %>
+	</div>
+</div>
+<br />
+<div class="row">
+	<div class="col-xs-3">
+		Delivery Date:__________________
+	</div>
+	<div class="col-xs-3">
+		Delivery Time:__________________
+	</div>
+	<div class="col-xs-6">
+		Delivered by:_______________________________________________
+	</div>
+	<div class="col-xs-12">
+		<b>Received by: </b>(Please print):_____________________________________________________
+	</div>
+	<div class="col-xs-12">
+		Notes:______________________________________________________________________________________________________________________________
+	</div>
+</div>
