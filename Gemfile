@@ -1,10 +1,7 @@
 source 'https://rubygems.org'
 
-ruby '2.2.2'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'
-gem 'bundler', '~>1.16.2'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
@@ -91,8 +88,8 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
 gem 'mobylette'
 gem 'invisible_captcha'
 gem 'garlicjs-rails'
-# gem 'barby',  '~> 0.6.2'
-# gem 'rqrcode','~> 0.4.2'
+gem 'barby',  '~> 0.6.2'
+gem 'rqrcode','~> 0.4.2'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -105,4 +102,3 @@ gem 'garlicjs-rails'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-

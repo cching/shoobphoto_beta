@@ -95,7 +95,7 @@
         <%= f.input :invoice_quantity, :label => false, placeholder: "#" %>
       </div>
       <div class="col-xs-8">
-        <%= f.select(:invoice_price, ["Poster(s)", "Banner(s)"], {:prompt => "Select item"}, {:class => "form-control"}) %>
+        <%= @dproject.project_type %>
       </div>
   </div>
   <div class="col-xs-2" style="text-align: center;"">
