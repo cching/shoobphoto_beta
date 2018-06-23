@@ -104,14 +104,21 @@
     <br />
   </div>
 </div>
+<div class="row">
   <div class=col-xs-3>
     Status <br />
     <%= f.select(:status, ["", "Started", "Ready to Proof", "Proof sent", "Changes", "New proof ready", "New proof sent", "Follow up sent", "Ready to print", "Completed"], {}, {:class => 'form-control'}) %>
   </div>
-</div>
 <br />
 
-  <div class="form-actions">
+  <div class="form-actions col-xs-3">
     <%= f.button :submit, "Update Project" %>
   </div>
+  <br /><br />
+  <div class="form-actions col-xs-4">
+    <%= link_to("Previous Project", @dproject.previous_dproject), if @dproject.previous_dproject %> |
+    <%= link_to("Next Project", @dproject.next_dproject) if @dproject.next_dproject %>
+  </div>
+</div>
+</div>
 <% end %> 

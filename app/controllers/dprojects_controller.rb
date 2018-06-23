@@ -24,7 +24,7 @@ class DprojectsController < ApplicationController
   end
 
   def show
-    respond_with(@dproject)
+    redirect_to request.path + "/edit", :status => :moved_permanently 
   end
 
   def new
