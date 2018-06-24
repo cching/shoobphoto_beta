@@ -26,7 +26,9 @@ button {
 
 <h4>Projects</h4>
 <br />
-<%= link_to 'New Project', new_dproject_path, class: "btn btn-primary"  %> <button onclick="notcompletedFunction()">Not Completed</button> <button onclick="allFunction()">All</button> <button onclick="katieFunction()">Katie</button> <button onclick="erinFunction()">Erin</button> <button onclick="sydneeFunction()">Sydnee</button>
+<%= link_to 'New Project', new_dproject_path, class: "btn btn-primary"  %> 
+<br /><br />
+<button onclick="notcompletedFunction()">Not Completed</button> <button onclick="allFunction()">All</button> <button onclick="katieFunction()">Katie</button> <button onclick="erinFunction()">Erin</button> <button onclick="sydneeFunction()">Sydnee</button> <button onclick="kemoyahFunction()">Kemoyah</button>
 <br /><br />
 
 <div id="notcompleted" class="filterDiv NotCompleted">
@@ -43,6 +45,9 @@ button {
 </div>
 <div id="erin" class="filterDiv Erin">
 	<%= render 'indexErin' %>
+</div>
+<div id="kemoyah" class="filterDiv Kemoyah">
+    <%= render 'indexKemoyah' %>
 </div>
 
 <br>
@@ -102,6 +107,20 @@ function erinFunction() {
 
 function sydneeFunction() {
     var x = document.getElementById("sydnee");
+    x.display == "none";
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+    var y = document.getElementById("all");
+        y.style.display = "none";
+    var z = document.getElementById("notcompleted");
+        z.style.display = "none";
+}
+
+function kemoyahFunction() {
+    var x = document.getElementById("kemoyah");
     x.display == "none";
     if (x.style.display === "none") {
         x.style.display = "block";
