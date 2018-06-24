@@ -1,14 +1,22 @@
+<style>
+
+.red {
+	background-color: red;
+	color: white;
+}
+
+</style>
 <div class="row">
 	<div class="col-xs-11">
 		<h2>Editing Project</h2>
 	</div>
 	<div class="col-xs-1">
 	<br /><br />
-		<%= button_to 'Delete', @dproject, method: :delete, data: { confirm: 'Are you sure?' } %>
+		<%= button_to 'Delete', @dproject, method: :delete, class: 'form-control red', data: { confirm: 'Are you sure?' } %>
 	</div>
 </div>
 
 <%= render 'formEdit' %>
 
 <!-- <%= link_to 'Show', @dproject %> | -->
-<%= link_to 'Back', dprojects_path %> | <%= link_to 'Packing Slip', dproject_packingslip_path(@dproject.id) %>
+<%= link_to 'Back', dprojects_path %>
