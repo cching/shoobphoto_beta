@@ -124,6 +124,9 @@
   <div class="form-actions col-xs-2">
     <%= f.button :submit, "Update Project" %>
   </div>
+  <div class="form-actions col-xs-3">
+    <%= image_tag(@dproject.attachment.url) if @dproject.attachment.exists? %>
+  </div>
   <div class="form-actions col-xs-2" style="text-align: center;">
     <%= link_to 'Packing Slip', dproject_packingslip_path(@dproject.id), {class: 'form-control'} %>
   </div>

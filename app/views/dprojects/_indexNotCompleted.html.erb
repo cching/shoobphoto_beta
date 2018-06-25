@@ -1,7 +1,7 @@
 <table>
   <thead>
     <tr style="border-bottom: 2px solid black;">
-      <th> <%= sortable "scode", "School" %></th>
+      <th> <%= link_to "School", :sort => "dproject.by_school" %></th>
       <th> Request </th>
       <th> <%= sortable "assigned_to" %></th>
       <th> <%= sortable "created_at", "Orig Date" %></th>

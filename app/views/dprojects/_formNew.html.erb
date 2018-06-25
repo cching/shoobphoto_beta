@@ -119,6 +119,10 @@
     Status <br />
     <%= f.select(:status, ["", "Started", "Ready to Proof", "Proof sent", "Changes", "New proof ready", "New proof sent", "Follow up sent", "Ready to print", "Completed"], {}, {:class => 'form-control'}) %>
   </div>
+  <div class=col-xs-3>
+    Attachment <br />
+    <%= f.input :attachment, as: :file, :label => false %>
+  </div>
 <br />
 
   <div class="form-actions">
