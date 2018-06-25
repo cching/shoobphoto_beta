@@ -2,13 +2,13 @@ class Dproject < ActiveRecord::Base
 	belongs_to :dschool, foreign_key: 'scode'
 	belongs_to :school, foreign_key: 'scode', :touch => true
 
-	scope :by_school, -> {joins(:school).reorder('school.name')}
+	# scope :by_school, -> {joins(:scode).reorder('school.dname')}
 
-	has_attached_file :attachment,
-  	:styles => { :medium => "300x300>", :thumb => "100x100>" },
+	has_attached_file :dfile,
+  	# :styles => { :medium => "300x300>", :thumb => "100x100>" },
   	:url => ':s3_domain_url',
-  	:path => '/images/banners_front/:id/:style/:filename'
-  	validates_attachment_content_type :attachment, :content_type => /\Aimage\/.*\Z/
+  	:path => '/images/projects/:id/:style/:filename'
+  	do_not_validate_attachment_file_type :dfile
 
 	def previous_dproject
   		Dproject.where(["id < ?", id]).last
