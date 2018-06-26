@@ -27,6 +27,12 @@ class ApplicationController < ActionController::Base
 	    @nav_links = NavLink.order(:position).roots
 	end
 
+  def require_admin
+    unless current_user.try(:admin)
+      redirect_to root_path
+    end
+  end
+
   def headshot_post_save(file_path)
     @headshot_photo = HeadshotPhoto.last
     @headshot_photo.update(:user_id => current_user.id, :image_file_name => file_path)

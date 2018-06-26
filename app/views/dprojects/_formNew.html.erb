@@ -126,7 +126,15 @@
 <br />
 
   <div class="form-actions">
-<!--     <%= f.submit 'Please work' %> -->
     <%= f.button :submit, "Create Project" %>
   </div>
 <% end %>
+ 
+<script>
+// Warning before leaving the page (back button, or outgoinglink)
+window.onbeforeunload = function() {
+   return "Do you really want to leave our brilliant application?";
+   //if we return nothing here (just calling return;) then there will be no pop-up question at all
+   //return;
+};
+</script>

@@ -1,19 +1,9 @@
 class DprojectsController < ApplicationController
   before_action :set_dproject, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin
 
   respond_to :html
 
-#  def generate_qr(text)
-#   require 'barby'
-#   require 'barby/barcode'
-#   require 'barby/barcode/code_128'
-#   require 'barby/outputter/png_outputter'
-
-#   barcode = Barby::Code128B.new(text)
-#   base64_output = Base64.encode64(barcode.to_png({ xdim: 5 }))
-#   "data:image/png;base64,#{base64_output}"
-# end
-    
   def packingslip
     @dproject = Dproject.find(params[:id])
   end
@@ -53,6 +43,7 @@ class DprojectsController < ApplicationController
 
   def update
     @dproject.update(dproject_params)
+    @dproject.save
     redirect_to "/dprojects"
     # respond_with(@dproject)
   end

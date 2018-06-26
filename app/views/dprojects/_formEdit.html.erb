@@ -119,14 +119,17 @@
     Status <br />
     <%= f.select(:status, ["", "Started", "Ready to Proof", "Proof sent", "Changes", "New proof ready", "New proof sent", "Follow up sent", "Ready to print", "Completed"], {}, {:class => 'form-control'}) %>
   </div>
+    <div class=col-xs-3>
+    Attachment <br />
+    <%= f.input :dfile, as: :file, :label => false %>
+  </div>
 <br />
 
   <div class="form-actions col-xs-2">
     <%= f.button :submit, "Update Project" %>
   </div>
-<!--   <div class="form-actions col-xs-3">
-    <%= image_tag(@dproject.dfile.url) if @dproject.dfile.exists? %>
-  </div> -->
+  <div class="form-actions col-xs-3">
+  </div>
   <div class="form-actions col-xs-2" style="text-align: center;">
     <%= link_to 'Packing Slip', dproject_packingslip_path(@dproject.id), {class: 'form-control'} %>
   </div>
@@ -138,3 +141,12 @@
 </div>
 </div>
 <% end %> 
+
+<script>
+// Warning before leaving the page (back button, or outgoinglink)
+window.onbeforeunload = function() {
+   return "Do you really want to leave our brilliant application?";
+   //if we return nothing here (just calling return;) then there will be no pop-up question at all
+   //return;
+};
+</script>
