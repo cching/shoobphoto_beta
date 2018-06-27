@@ -16,7 +16,7 @@
   <tbody>
     <% @dprojects.where(assigned_to: "Erin").where.not(status: "Completed").each do |dproject| %>
       <tr>
-        <td width="20%" class="dotted"><%= dproject.school.dname[0,25] + "..." %></td>
+        <td width="20%" class="dotted"><%= dproject.school.name[0,25] + "..." %></td>
         <td width="15%" class="dotted"><%= dproject.description[0, 20] + "..." %></td>
         <td width="10%" class="dotted"><%= dproject.assigned_to %></td>
         <td width="10%" class="dotted"><%= dproject.created_at.try(:strftime, '%b %e') %></td>
