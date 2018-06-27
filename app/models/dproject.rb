@@ -1,8 +1,8 @@
 class Dproject < ActiveRecord::Base
 	belongs_to :dschool, foreign_key: 'scode'
-	belongs_to :school, foreign_key: 'scode', :touch => true
+	belongs_to :school
 
-	# scope :by_school, -> {joins(:scode).reorder('school.dname')}
+	scope :by_school, -> {joins(:school).reorder('schools.name')}
 
 	has_attached_file :dfile,
   	:url => ':s3_domain_url',
