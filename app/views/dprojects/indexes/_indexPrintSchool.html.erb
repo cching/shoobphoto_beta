@@ -1,20 +1,20 @@
 <table>
   <thead>
     <tr style="border-bottom: 2px solid black;">
-      <th> <%= link_to "School", :sort => "scode" %></th>
+      <th> School </th>
       <th> Request </th>
-      <th> <%= sortable "assigned_to" %></th>
-      <th> <%= sortable "created_at", "Orig Date" %></th>
-      <th> <%= sortable "due_date" %></th>
-      <th> <%= sortable "must_date", "Must Del" %></th>
+      <th> Assigned To </th>
+      <th> Orig Date </th>
+      <th> Due Date </th>
+      <th> Must Del </th>
       <th> Age </th>
-      <th> <%= sortable "status" %></th>
-      <th> <%= sortable "project_type", "Type" %></th>
+      <th> Status </th>
+      <th> Type </th>
     </tr>
   </thead>
 
   <tbody>
-    <% @dprojects.by_school.where.not(status: "Completed").each do |dproject| %>
+    <% @dprojects.by_school.where(assigned_to: "Print").where.not(status: "Completed").each do |dproject| %>
       <tr>
         <td width="20%" class="dotted"><%= dproject.school.dname[0,25] + "..." %></td>
         <td width="15%" class="dotted"><%= dproject.description[0, 20] + "..." %></td>

@@ -22,37 +22,124 @@ button {
 	width: 15%;
 }
 
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 7px;
+    font-size: 16px;
+    border: none;
+    width: 100% !important;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    box-shadow: 0px 8px 2px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    text-align: center;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 2px 2px;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    text-align: center;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
 </style>
 
 <h4>Projects</h4>
 <br />
-<%= link_to 'New Project', new_dproject_path, class: "btn btn-primary"  %> 
+
+<%= link_to 'New Project', new_dproject_path, class: "btn btn-primary" %> 
+
 <br /><br />
+        <div class="dropdown">
+            <button class="dropbtn">Sort by...</button>
+            <div class="dropdown-content">
+                <a><%= sortable "assigned_to" %></a>
+                <a><%= sortable "created_at", "Orig Date" %></a>
+                <a><%= sortable "due_date" %></a>
+                <a><%= sortable "must_date", "Must Del" %></a>
+                <a><%= sortable "status" %></a>
+                <a><%= sortable "project_type", "Type" %></a>
+                <a>School</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">For...</button>
+            <div class="dropdown-content">
+                <a onclick="notcompletedFunction()">Not Completed</a>
+                <a onclick="allFunction()">All</a>
+                <a onclick="printFunction()">Print</a>
+                <a onclick="katieFunction()">Katie</a>
+                <a onclick="erinFunction()">Erin</a>
+                <a onclick="sydneeFunction()">Sydnee</a>
+                <a onclick="kemoyahFunction()">Kemoyah</a>
+            </div>
+        </div>
+<!-- <br /><br />
 <button onclick="notcompletedFunction()">Not Completed</button> <button onclick="allFunction()">All</button> <button onclick="printFunction()">Print</button> 
 <br /><br />
-<button onclick="katieFunction()">Katie</button> <button onclick="erinFunction()">Erin</button> <button onclick="sydneeFunction()">Sydnee</button> <button onclick="kemoyahFunction()">Kemoyah</button>
+<button onclick="katieFunction()">Katie</button> <button onclick="erinFunction()">Erin</button> <button onclick="sydneeFunction()">Sydnee</button> <button onclick="kemoyahFunction()">Kemoyah</button> -->
 <br /><br />
 
 <div id="notcompleted" class="filterDiv NotCompleted">
-	<%= render 'indexNotCompleted' %>
+	<%= render 'dprojects/indexes/indexNotCompleted' %>
 </div>
 <div id="all" class="filterDiv indexAll">
-	<%= render 'indexAll' %>
+	<%= render 'dprojects/indexes/indexAll' %>
 </div>
 <div id="katie" class="filterDiv Katie">
-	<%= render 'indexKatie' %>
+	<%= render 'dprojects/indexes/indexKatie' %>
 </div>
 <div id="sydnee" class="filterDiv Sydnee">
-	<%= render 'indexSydnee' %>
+	<%= render 'dprojects/indexes/indexSydnee' %>
 </div>
 <div id="erin" class="filterDiv Erin">
-	<%= render 'indexErin' %>
+	<%= render 'dprojects/indexes/indexErin' %>
 </div>
 <div id="kemoyah" class="filterDiv Kemoyah">
-    <%= render 'indexKemoyah' %>
+    <%= render 'dprojects/indexes/indexKemoyah' %>
 </div>
 <div id="print" class="filterDiv Print">
-    <%= render 'indexPrint' %>
+    <%= render 'dprojects/indexes/indexPrint' %>
+</div>
+
+<div id="notcompletedS" class="filterDiv NotCompletedS">
+    <%= render 'dprojects/indexes/indexNotCompletedSchool' %>
+</div>
+<div id="allS" class="filterDiv indexAllS">
+    <%= render 'dprojects/indexes/indexAllSchool' %>
+</div>
+<div id="katieS" class="filterDiv KatieS">
+    <%= render 'dprojects/indexes/indexKatieSchool' %>
+</div>
+<div id="sydneeS" class="filterDiv SydneeS">
+    <%= render 'dprojects/indexes/indexSydneeSchool' %>
+</div>
+<div id="erinS" class="filterDiv ErinS">
+    <%= render 'dprojects/indexes/indexErinSchool' %>
+</div>
+<div id="kemoyahS" class="filterDiv KemoyahS">
+    <%= render 'dprojects/indexes/indexKemoyahSchool' %>
+</div>
+<div id="printS" class="filterDiv PrintS">
+    <%= render 'dprojects/indexes/indexPrintSchool' %>
 </div>
 
 <br>
