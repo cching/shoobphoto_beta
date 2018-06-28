@@ -68,34 +68,30 @@ button {
 <%= link_to 'New Project', new_dproject_path, class: "btn btn-primary" %> 
 
 <br /><br />
-        <div class="dropdown">
-            <button class="dropbtn">Sort by...</button>
-            <div class="dropdown-content">
-                <a><%= sortable "assigned_to" %></a>
-                <a><%= sortable "created_at", "Orig Date" %></a>
-                <a><%= sortable "due_date" %></a>
-                <a><%= sortable "must_date", "Must Del" %></a>
-                <a><%= sortable "status" %></a>
-                <a><%= sortable "project_type", "Type" %></a>
-                <a>School</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn">For...</button>
-            <div class="dropdown-content">
-                <a onclick="notcompletedFunction()">Not Completed</a>
-                <a onclick="allFunction()">All</a>
-                <a onclick="printFunction()">Print</a>
-                <a onclick="katieFunction()">Katie</a>
-                <a onclick="erinFunction()">Erin</a>
-                <a onclick="sydneeFunction()">Sydnee</a>
-                <a onclick="kemoyahFunction()">Kemoyah</a>
-            </div>
-        </div>
-<!-- <br /><br />
-<button onclick="notcompletedFunction()">Not Completed</button> <button onclick="allFunction()">All</button> <button onclick="printFunction()">Print</button> 
-<br /><br />
-<button onclick="katieFunction()">Katie</button> <button onclick="erinFunction()">Erin</button> <button onclick="sydneeFunction()">Sydnee</button> <button onclick="kemoyahFunction()">Kemoyah</button> -->
+<div class="dropdown">
+    <button class="dropbtn">Sort by...</button>
+    <div class="dropdown-content">
+        <a><%= sortable "assigned_to" %></a>
+        <a><%= sortable "created_at", "Orig Date" %></a>
+        <a><%= sortable "due_date" %></a>
+        <a><%= sortable "must_date", "Must Del" %></a>
+        <a><%= sortable "status" %></a>
+        <a><%= sortable "project_type", "Type" %></a>            
+        <a onclick="schoolBool()">School</a>
+    </div>
+</div>
+<div class="dropdown">
+    <button class="dropbtn">For...</button>
+    <div class="dropdown-content">
+        <a onclick="notcompletedFunction()">Not Completed</a>
+        <a onclick="allFunction()">All</a>
+        <a onclick="printFunction()">Print</a>
+        <a onclick="katieFunction()">Katie</a>
+        <a onclick="erinFunction()">Erin</a>
+        <a onclick="sydneeFunction()">Sydnee</a>
+        <a onclick="kemoyahFunction()">Kemoyah</a>
+    </div>
+</div>
 <br /><br />
 
 <div id="notcompleted" class="filterDiv NotCompleted">
@@ -141,10 +137,21 @@ button {
 <div id="printS" class="filterDiv PrintS">
     <%= render 'dprojects/indexes/indexPrintSchool' %>
 </div>
-
-<br>
+<br />
 
 <script>
+
+var schoolSort = 0
+
+function schoolBool() {
+    if (schoolSort == 0) {
+        schoolSort = 1;
+    } 
+    else {
+        schoolSort = 0;
+    }
+}
+
 function notcompletedFunction() {
     var x = document.getElementById("notcompleted");
     x.display == "none";

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180627003506) do
+ActiveRecord::Schema.define(version: 20180628201438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -237,6 +237,17 @@ ActiveRecord::Schema.define(version: 20180627003506) do
     t.string   "district"
     t.string   "grade"
     t.boolean  "residential"
+  end
+
+  create_table "dattachments", force: true do |t|
+    t.integer  "dproject_id"
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "project_attachment_file_name"
+    t.string   "project_attachment_content_type"
+    t.integer  "project_attachment_file_size"
+    t.datetime "project_attachment_updated_at"
   end
 
   create_table "districts", force: true do |t|
