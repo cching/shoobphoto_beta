@@ -128,11 +128,12 @@
   <div class="form-actions col-xs-2">
     <%= f.button :submit, "Update Project" %>
   </div>
-<!--   <div class="form-actions col-xs-2">
-    <a href= <%=  %> download>
+  <div class="form-actions col-xs-2">
+    <a href=<%= @dproject.dfile.url %> download>
+
       <p> Attachment #1 </p>
     </a>
-  </div> -->
+  </div>
   <div class="form-actions col-xs-2" style="text-align: center;">
     <%= link_to 'Packing Slip', dproject_packingslip_path(@dproject.id), {class: 'form-control'} %>
   </div>
@@ -144,12 +145,3 @@
 </div>
 </div>
 <% end %> 
-
-<script>
-// Warning before leaving the page (back button, or outgoinglink)
-window.onbeforeunload = function() {
-   return "Do you really want to leave our brilliant application?";
-   //if we return nothing here (just calling return;) then there will be no pop-up question at all
-   //return;
-};
-</script>
