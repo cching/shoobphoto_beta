@@ -15,9 +15,15 @@
 		</div> 
 	<% end %>
 
+	<%= link_to dprojects_path do %>
+		<div class="mobile_package even_blue">
+			<p>PROJECTS</p>
+		</div> 
+	<% end %>
+
 	<% if current_user.try(:admin) %>
 	<%= link_to admin_dashboards_path do %>
-		<div class="mobile_package even_blue">
+		<div class="mobile_package odd_blue">
 			<p>DASHBOARD</p>
 		</div> 
 	<% end %>
