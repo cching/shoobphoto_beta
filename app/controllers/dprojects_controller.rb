@@ -26,6 +26,18 @@ class DprojectsController < ApplicationController
     respond_with(@dproject)
   end
 
+  def sort
+    if params[:query] == 'by_school'
+      @dprojects.by_school.where.not(status: "Completed")
+    else
+      @dproject.select { |dproject| dproject.assigned_to == param } # column name
+    end
+
+    respond_with :js
+
+  end
+
+
   def edit
     @dproject = Dproject.find(params[:id])
     @options = School.order(:name).where.not(school_type_id: nil).

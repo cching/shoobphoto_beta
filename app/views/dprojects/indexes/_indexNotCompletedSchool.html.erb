@@ -1,7 +1,7 @@
 <table>
   <thead>
     <tr style="border-bottom: 2px solid black;">
-      <th> School </th>
+      <th> <%= link_to 'School', sort_dprojects_path(query: 'by_school'), remote: true %> </th>
       <th> Request </th>
       <th> Assigned To </th>
       <th> Orig Date </th>
@@ -14,7 +14,7 @@
   </thead>
 
   <tbody>
-    <% @dprojects.by_school.where.not(status: "Completed").each do |dproject| %>
+    <% @dprojects.each do |dproject| %>
       <tr>
         <td width="20%" class="dotted"><%= dproject.school.dname[0,25] + "..." %></td>
         <td width="15%" class="dotted"><%= dproject.description[0, 20] + "..." %></td>

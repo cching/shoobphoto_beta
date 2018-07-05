@@ -5,7 +5,13 @@ Rails.application.routes.draw do
 
   resources :dschools
 
-  resources :dprojects
+  resources :dprojects do
+    collection do
+      get 'sort'
+    end
+
+  end
+
 
   resources :projects
 

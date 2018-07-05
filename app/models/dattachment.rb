@@ -1,5 +1,5 @@
 class Dattachment < ActiveRecord::Base
-	belongs_to :dattachment
+	belongs_to :dproject
 
 		has_attached_file :project_attachment,
   	:url => ':s3_domain_url',

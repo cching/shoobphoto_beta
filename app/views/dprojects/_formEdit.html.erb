@@ -121,18 +121,12 @@
   </div>
     <div class=col-xs-3>
     Attachment <br />
-    <%= f.input :dfile, as: :file, :label => false %>
+    <%= f.input :project_attachment, as: :file, :label => false %>
   </div>
 <br />
 
   <div class="form-actions col-xs-2">
     <%= f.button :submit, "Update Project" %>
-  </div>
-  <div class="form-actions col-xs-2">
-    <a href=<%= @dproject.dfile.url %> download>
-
-      <p> Attachment #1 </p>
-    </a>
   </div>
   <div class="form-actions col-xs-2" style="text-align: center;">
     <%= link_to 'Packing Slip', dproject_packingslip_path(@dproject.id), {class: 'form-control'} %>
