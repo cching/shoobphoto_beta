@@ -87,6 +87,6 @@ class Admin::UsersController < ApplicationController
     end
 
     def user_params
-      params[:user].permit(:first_name, :school_id, :last_name, :password, :password_confirmation, :school_admin, :principal, :parent, :secretary, :teacher, :email)
+      params[:user].permit(:first_name, :school_id, :last_name, :password, :password_confirmation, :school_admin, :principal, :parent, :secretary, :teacher, :email, :developer, :photographer, :employee)
     end
 end

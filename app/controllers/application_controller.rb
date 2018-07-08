@@ -33,6 +33,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_developer
+    unless current_user.try(:developer)
+      redirect_to root_path
+    end
+  end
+
+  def require_employee
+    unless current_user.try(:employee)
+      redirect_to root_path
+    end
+  end
+
   def headshot_post_save(file_path)
     @headshot_photo = HeadshotPhoto.last
     @headshot_photo.update(:user_id => current_user.id, :image_file_name => file_path)
