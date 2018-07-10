@@ -107,7 +107,7 @@
   </div>
   <div class="col-xs-3" style="text-align: center;"">
     Invoicing <br /><br />
-    <%= f.button :submit, "Create Invoice", {:style => "background-color: lightblue; color: black;"} %>
+    <%= link_to 'Create Invoice', dproject_invoice_path(@dproject.id), {class: 'form-control', style: 'background-color: #98DCE6; color: white;'} %>
     <br />
   </div>
 </div>
