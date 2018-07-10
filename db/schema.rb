@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180708204355) do
+ActiveRecord::Schema.define(version: 20180710210353) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -299,12 +299,9 @@ ActiveRecord::Schema.define(version: 20180708204355) do
     t.datetime "delivery_date"
     t.string   "tracking_number"
     t.string   "shipping_instructions"
-    t.boolean  "invoicing"
     t.boolean  "delivered"
     t.text     "printing_instructions"
     t.text     "project_changes"
-    t.integer  "invoice_quantity"
-    t.integer  "invoice_price"
     t.text     "project_path"
     t.string   "project_type"
     t.string   "assigned_by"
@@ -314,6 +311,17 @@ ActiveRecord::Schema.define(version: 20180708204355) do
     t.integer  "dfile_file_size"
     t.datetime "dfile_updated_at"
     t.integer  "school_id"
+    t.datetime "invoice_date"
+    t.string   "invoice_addressee"
+    t.text     "invoice_description"
+    t.decimal  "invoice_subtotal"
+    t.decimal  "invoice_credit"
+    t.decimal  "invoice_shipping"
+    t.decimal  "invoice_sales_tax"
+    t.decimal  "invoice_total"
+    t.decimal  "invoice_paid"
+    t.datetime "invoice_payment_date"
+    t.text     "invoice_notes"
   end
 
   create_table "dschools", force: true do |t|

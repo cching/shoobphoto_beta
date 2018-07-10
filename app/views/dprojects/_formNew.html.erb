@@ -90,11 +90,8 @@
     <%= f.input :project_changes, :input_html => {:rows => 5}, :label => false %>
   </div>
   <div class="col-xs-3">
-    Item Details<br />
-      <div class="col-xs-4">
-        <%= f.input :invoice_quantity, :label => false, placeholder: "#" %>
-      </div>
-      <div class="col-xs-8">
+    Item Type<br />
+      <div class="col-xs-12">
         <%= f.select(:project_type, ["Award", "Background", "Banner", "Brochure", "Calendar", "Catalog", "Flyer", "ID Cards", "Large Poster", "Misc", "Notepads", "Pads", "Planner/Handbook", "Postcard", "Posters", "Stickers", "Ticket", "Yearbook"], {:prompt => "Select item"}, {:class => "form-control"}) %>
       </div>
   </div>
@@ -108,8 +105,8 @@
     Printing Instructions <br />
     <%= f.input :printing_instructions, :input_html => {:rows => 5}, :label => false %>
   </div>
-  <div class="col-xs-2" style="text-align: center;"">
-    Invoicing <%= f.check_box :invoicing %><br />
+  <div class="col-xs-3" style="text-align: center;"">
+    Invoicing <br /><br />
     <%= f.button :submit, "Create Invoice", {:style => "background-color: lightblue; color: black;"} %>
     <br />
   </div>
@@ -128,4 +125,5 @@
   <div class="form-actions">
     <%= f.button :submit, "Create Project" %>
   </div>
+</div>
 <% end %>
