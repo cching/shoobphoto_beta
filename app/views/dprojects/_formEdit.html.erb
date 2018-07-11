@@ -106,9 +106,8 @@
     <%= f.input :printing_instructions, :input_html => {:rows => 5}, :label => false %>
   </div>
   <div class="col-xs-3" style="text-align: center;"">
-    Invoicing <br />
-    <%= link_to 'Create Invoice', dproject_invoice_path(@dproject.id), {class: 'form-control', style: 'background-color: #98DCE6; color: white;'} %><br />
-    <%= link_to 'Edit Invoice', dproject_invoice_path(@dproject.id), {class: 'form-control', style: 'background-color: #76A1A8; color: white;'} %>
+    Invoicing <br /><br />
+    <%= link_to 'Create/Edit Invoice', dproject_invoice_path(@dproject.id), {class: 'form-control', style: 'background-color: #98DCE6; color: white;'} %><br />
     <br />
   </div>
 </div>
