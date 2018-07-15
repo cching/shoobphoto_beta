@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dproject_id: 1
+  quantity: 1
+  product_code: 1
+  product: MyString
+  price: 9.99
+  extended_price: 9.99
+
+two:
+  dproject_id: 1
+  quantity: 1
+  product_code: 1
+  product: MyString
+  price: 9.99
+  extended_price: 9.99

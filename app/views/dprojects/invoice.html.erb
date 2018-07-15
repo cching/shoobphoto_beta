@@ -36,14 +36,12 @@
 
   <tbody>
     <% #@dprojects.lineitems.where(dproject_id: 1).each do |lineitem| %>
-      <tr>
-        <td width="20%" class="dotted">4500</td>
-        <td width="50%" class="dotted">Report to the Community - 16 pages - English</td>
-        <td width="25%" class="dotted">$0.51</td>
-        <td width="25%" class="dotted">$2295.00</td>
-      </tr>
+      	<%= #f.simple_fields_for :lineitems do |builder| %>
+        	<%= #render 'lineitem_fields', f: builder %>
+  		<% #end %>
     <% #end %>
   </tbody>
+  <%= #link_to_add_fields "Add Line-item", f, :lineitems %>
 </table>
 <br />
 <div class="row" style="text-align: right;">
