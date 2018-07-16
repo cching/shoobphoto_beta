@@ -106,8 +106,9 @@
     <%= f.input :printing_instructions, :input_html => {:rows => 5}, :label => false %>
   </div>
   <div class="col-xs-3" style="text-align: center;"">
-    Invoicing <br /><br />
-    <%= link_to 'Create/Edit Invoice', dproject_invoice_path(@dproject.id), {class: 'form-control', style: 'background-color: #98DCE6; color: white;'} %><br />
+    Invoicing <%= f.check_box :invoice_bool %><br />
+    <%= f.input :invoice_notes, :input_html => {:rows => 5}, :label => false %>
+
     <br />
   </div>
 </div>
