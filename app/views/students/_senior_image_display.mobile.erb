@@ -1,0 +1,25 @@
+<% @senior_images.each_slice(4) do |slice| %>
+	<div class="row">
+		<% slice.each do |senior_image| %>
+			<% if senior_image.watermark.exists? %>
+			<div class="col-xs-3" id="image_container" align="center">
+				<span class="small_text"><%= senior_image.url.downcase %></span><br/>
+					<%= link_to image_tag(senior_image.watermark.url, :class => "img-rounded img-package image_#{senior_image.id}", :id => "#{senior_image.id}"), senior_preview_image_path(:image => senior_image.id, :opackage => @opackage.id), remote: true %><br/>
+				<p id="text" class="text_<%= senior_image.id %>"><% if @opackage.sheets.pluck(:senior_image_id).uniq.include?(senior_image.id) %><span class="glyphicon glyphicon-star" aria-hidden="true"></span><% end %></p>
+			</div>
+			<% end %>
+		<% end %>
+	</div>
+<% end %>
+<div class="row" align="center">
+	<% params[:page] ||= 1 %>
+	<% remainder = 4*params[:page].to_i % @senior_images.count %>
+	<% a = 4*params[:page].to_i > @senior_images.count ? @senior_images.count - remainder + 1 : 4*params[:page].to_i - 3 %>
+	<% b = 4*params[:page].to_i > @senior_images.count ? @senior_images.count : 4*params[:page].to_i %>
+	<%= "#{a} to #{b} of #{@senior_images.count}" %> 
+</div>
+<div class="row">
+	<div class="col-xs-10">
+		<%= will_paginate @senior_images, renderer: BootstrapPagination::Rails, page_links: false %>
+	</div>
+</div> 

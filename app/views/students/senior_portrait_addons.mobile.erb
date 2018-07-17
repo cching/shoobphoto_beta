@@ -1,0 +1,50 @@
+<br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<div class="row">
+	<div class="col-xs-1"></div>
+	<div class="col-xs-10" align="center">
+
+		<h2>Your Poses: <br/>(click to select)</h2>
+		<div class = "sort_paginate_ajax" align="center"><%= render 'senior_image_display', :opackage => @opackage %></div>
+	</div> 
+	<div class="col-xs-1"></div>
+	<div class="col-xs-1"></div>
+	<div class="col-xs-5">
+		<span id="image_preview"></span>
+	</div>
+	<span id="senior_images">
+		<%= render 'addons' %> 
+	</span>
+</div><br/>
+<div class="row">
+	<div class="col-xs-1"></div>
+	<div class="col-xs-5" align="left">
+		<%= link_to "Back", student_select_package_path(@cart.cart_id, @cart.students.count - 1, 6), class: " btn-custom4", style:"font-size: 25px" %>
+	</div>
+	<div class="col-xs-5" align="right">
+
+        <%= link_to "Add to Cart", student_final_path(@cart.cart_id, @cart.students.count - 1), class: "btn-custom4", style:"font-size: 25px" %>
+     <div class="col-xs-1"></div>
+</div>
+</div>
+
+
+<script>
+
+
+	$(function() {
+  $(".sort_paginate_ajax").on("click", ".pagination a", function(){
+    $.getScript(this.href);
+    return false;
+  });
+});
+$(function() {
+
+    $( ".draggable" ).draggable({helper : 'clone', revert: 'invalid',
+    appendTo: 'body' });
+ 
+  });
+</script>
+

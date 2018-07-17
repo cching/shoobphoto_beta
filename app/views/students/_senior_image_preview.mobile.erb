@@ -1,0 +1,44 @@
+<h2>Selected :(:</h2>
+<% if @image.extension.include?("png") %>
+
+<div class="instruction_background" style="font-size: 25px">Click on a background, then drag the image to the right to build your package.</div>
+<% else %>
+	<div class="instruction_background" style="font-size: 25px">Drag your selected image to the right to build your package.</div>
+	<% end %>
+<strong><%= image.image_file_name.downcase %></strong>
+
+<div class="senior_image_border nil <%= "image_container_draggable" if @image.extension.include?("jpg") %>" id="<%= @image.id %>" align="left">
+		<%= image_tag(@image.watermark.url, class: "img-proof") %>
+</div>
+
+<br/>
+
+<% if @image.extension.include?("png") %>
+<% Background.where.not(hidden: true).each_slice(3) do |slice| %>
+	<div class="row">
+		<% slice.each do |background| %>
+		<div class="col-xs-4 nopaddingcol" align="center">
+			<%= link_to image_tag(background.image.url, class: "img-backgrounds-small", id: "#{background.id}"), add_background_path(@opackage.id, @image.id, background.id), remote: true %><br/>
+			<p class="background_color_small"><%= background.color %></p>
+		</div>
+		<% end %>
+		<div class="col-xs-1"></div>
+	</div>
+<% end %>
+<% end %>
+
+
+<script>
+$(function() {
+
+    $( ".image_container_draggable" ).draggable({helper : 'clone', revert: 'invalid',
+    appendTo: 'body', start: function(event, ui) {
+    $(ui.helper).css('width', "5%");
+  }  });
+
+
+   
+  });
+
+
+</script>

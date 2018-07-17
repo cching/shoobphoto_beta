@@ -19,19 +19,18 @@
 <% if @package.multiple? %>
 <br/><br/>
 	<% images = @package.student_images.where(:student_id => @student.id) %>
-
 	<div class="row">
 		<div class="col-sm-5" align="center"  id="senior_table">
 			<% if @cart.id_supplied? && images.any? %>
-			<% image = images.last %>
-			<h3>Preview Your Poses: (click to enlarge)</h3>
-			<% image.senior_images.each_slice(2) do |slice| %>
+				<% image = images.last %>
+			<h2>Preview Your Poses: (click to enlarge)</h2>
+			<% image.senior_images.each_slice(1) do |slice| %>
 			<div class="row" align="center">
 				<% slice.each do |senior_image| %>
 
 				<% if senior_image.watermark.exists? %>
-					<div class="col-sm-6">
-						<span class="small_text_info"><%= senior_image.url.downcase %></span><br/><%= link_to image_tag(senior_image.watermark.url(:watermark), :class => "img img-package"), student_preview_image_path(:image => senior_image.watermark.url(:watermark)), remote: true %>
+					<div class="col-sm-12">
+						<span class="small_text_info" style="font-size: 20px"><%= senior_image.url.downcase %></span><br/><%= link_to image_tag(senior_image.watermark.url(:watermark), :class => "img img-package", style: "font-size: 25px"), student_preview_image_path(:image => senior_image.watermark.url(:watermark)), remote: true %>
 						</div>
 					<% end %>
 				<% end %>
@@ -41,16 +40,16 @@
 		</div>
 		<div class="col-sm-1"></div>
 		<div class="col-sm-6"  id="senior_table">
-			<h3>Choose Your Package</h3>
+			<h2 style="text-align: center;">Choose Your Package</h2>
 			<% @package.options.order(:name).each do |option| %>
 			<div class="row">
-				<div class="col-sm-3"><%= link_to "Select", student_select_path(@cart.cart_id, @cart.students.count - 1, :option => option.id, :package => @package.id), class: "btn-custom4 btn-loading" %></div>
+				<div class="col-sm-3"><br /><%= link_to "Select", student_select_path(@cart.cart_id, @cart.students.count - 1, :option => option.id, :package => @package.id), class: "btn-custom4 btn-loading", style: "font-size: 25px" %></div>
 				<div class="col-sm-9">
 
-									<strong><%= option.name %> (<%= "#{option.poses} #{'Pose'.pluralize(option.poses)}"%>)</strong><br/><span class="currency"><%= "#{number_to_currency(option.price(@student.school), :unit => "$")}" %></span><br/>
+									<strong style="font-size: 35px"><%= option.name %> (<%= "#{option.poses} #{'Pose'.pluralize(option.poses)}"%>)</strong><br/><span class="currency" style="font-size: 30px"><%= "#{number_to_currency(option.price(@student.school), :unit => "$")}" %></span><br/>
 										<% option.image_types.each do |type| %>
 											
-												<span class="listing"><%= type.name %></span>
+												<span class="listing" style="font-size: 30px"><%= type.name %></span>
 											
 										<% end %> 
 				</div>

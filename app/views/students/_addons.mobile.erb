@@ -1,0 +1,30 @@
+<div class="col-xs-5 animated fadeIn" id="senior_table">
+	<div class="row">
+
+			<h2 style="text-align: center;">Select Your Add-ons:</h2>
+
+	</div>
+	<span style="font-size: 25px">Add an add-on and drag a selected pose to each sheet <br/> to create your add-on.</span>
+	<hr>
+	<% Addon.all.each_with_index do |addon| %>
+		<div class="row">
+			<div class="col-xs-3" id="add_<%= addon.id %>">
+				<%= link_to "Add", add_addon_path(@opackage.id, addon.id), class: "btn-custom4", style: "font-size: 25px", remote: true %>
+			</div>
+
+			<div class="col-xs-3">
+				<strong style="font-size: 25px">
+					<% if @opackage.options.pluck(:without).include? false %>
+						<%= number_to_currency(addon.price_with, :unit => "$") %>
+					<% else %>
+						<%= number_to_currency(addon.price_without, :unit => "$") %>
+					<% end %>
+				</strong>
+			</div>
+			<div class="col-xs-6">
+				<strong style="font-size: 25px"> <%= addon.name %></strong>
+			</div>
+		</div><br>
+		<span id="sheet_<%= addon.id %>"></span>
+	<% end %>
+</div> 
