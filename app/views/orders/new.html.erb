@@ -1,10 +1,10 @@
 <%= form_for @order, :url => {:action => "confirm", class: "form-control"} do |f| %>
-
 <%= errors_for(@order) %>
 <div class="row animated fadeIn">
   <div class="col-xs-6">
     <%= f.invisible_captcha :user_agreement %>
-    <span class="cart_title billing_info_title">Billing Info: &nbsp;</span><span id="edit_billing"></span><br/>
+    <%= content_tag :span, @order.free? ? 'Name and Email' : 'Billing Info', class: 'cart_title billing_info_title' %>
+    <span id="edit_billing"></span><br/>
     <div id="billing_info" >
     
     <div class="row">
@@ -25,6 +25,7 @@
       </div>
     </div>
 
+    <% unless @order.free? %>
       <div class="row">
         <div class="col-xs-4">
           <span class="label_header">Card Number</span> <br/>
@@ -64,6 +65,7 @@
       <%= f.text_field :zip_code, class: "enjoy-css", id: "billing_zip" %>
     </div>
     </div>
+  <% end %>
       
     </div>
 
@@ -76,7 +78,13 @@
       <span class="cart_title">Shipping Info: &nbsp;</span><span id="edit_shipping"></span><br/>
     <div id="shipping_info" class="animated fadeIn">
 
-    <span class="label_header">Address</span><label for="ship_to_billing_address"> <input type="checkbox" name="ship_to_billing_address" id="ship_to_billing_address" /> Check if the billing address is the same as your shipping address</span>
+    <span class="label_header">Address</span>
+      <label for="ship_to_billing_address"> 
+      <% unless @order.free? %>
+        <input type="checkbox" name="ship_to_billing_address" id="ship_to_billing_address" /> 
+        Check if the billing address is the same as your shipping address
+      <% end %>
+    </span>
     <%= f.text_field :shipping_address, class: "enjoy-css", id: "shipping_address" %>
     <%= f.text_field :shipping_address2, class: "enjoy-css", id: "shipping_address2" %>
 
@@ -322,6 +330,8 @@ $(document).ready(function() {
 function validateForm(){isValid = false;
   var isValid = true;
 
+  <% unless @order.free? %>
+
   var x = document.getElementById('billing_first_name').value;
     if (x == null || x == "") {
         isValid = false;
@@ -400,6 +410,19 @@ function validateForm(){isValid = false;
       document.getElementById("billing_zip").className = "enjoy-css";
       }
 
+       var x = document.getElementById('billing_state').value;
+    if (x == null || x == "") {
+        isValid = false;
+
+        
+        $("#billing_state_error").html("<p>Please select a state</p>");
+      } else {
+
+
+      $("#billing_state_error").html("");
+      }
+
+  <% end %>
  
       var z = document.getElementById('phone').value;
     if (z == null || z == "") {
@@ -445,18 +468,6 @@ function validateForm(){isValid = false;
       document.getElementById("shipping_zip").className = "enjoy-css";
       }
 
-      var x = document.getElementById('billing_state').value;
-    if (x == null || x == "") {
-        isValid = false;
-
-        
-        $("#billing_state_error").html("<p>Please select a state</p>");
-      } else {
-
-
-      $("#billing_state_error").html("");
-      }
-
       var x = document.getElementById('shipping_state').value;
     if (x == null || x == "") {
         isValid = false;
@@ -478,7 +489,9 @@ function validateForm(){isValid = false;
     $('#edit_shipping').html("<%= escape_javascript(button_tag 'Edit', type: 'button', onclick: 'editShipping()', class: 'btn-4') %>");
 
     $('#shipping_hidden').html("<p class='shipping_info'>" + $('#billing_first_name').val() + " " + $('#billing_last_name').val() + "<br/>" + $('#shipping_address').val() + " " + $('#shipping_address2').val() + "<br/>" + $('#shipping_city').val() + ", " + $('#shipping_state').val() + " " + $('#shipping_zip').val() + "</p>");
+    <% unless @order.free? %>
     $('#billing_hidden').html("<p class='shipping_info'>" + $('#billing_first_name').val() + " " + $('#billing_last_name').val() + "<br/>" + "Paid with: " + $('#order_card_type').val() + "<br/>" + $('#billing_address').val() + " " + $('#billing_address2').val() + "<br/>" + $('#billing_city').val() + ", " + $('#billing_state').val() + " " + $('#shipping_zip').val() + "</p>");
+    <% end %>
     $("#button_continue").html("<%= escape_javascript(render 'finalize_order') %>");
     $('#edit_billing').html("<%= escape_javascript(button_tag 'Edit', type: 'button', onclick: 'editBilling()', class: 'btn-4') %>");
 

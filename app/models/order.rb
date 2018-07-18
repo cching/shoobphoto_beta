@@ -38,14 +38,14 @@ class Order < ActiveRecord::Base
     end
   end
 
-  validates_presence_of :first_name, :last_name, :phone, :email
-  validates_presence_of :address, :city, :state, :zip_code, :card_type, :card_expires_on, :price
+  validates_presence_of :first_name, :last_name, :phone, :email, :price
+  validates_presence_of :address, :city, :state, :zip_code, :card_type, :card_expires_on, unless: :free?
   validates_format_of :email, :with => /@/
   validates_length_of :phone, :minimum => 7, :too_short => 'must be at least 7 numbers'
   
   attr_accessor :card_number, :card_verification, :clearance
   
-  before_create :send_purchase
+  before_create :send_purchase, unless: :free?
 
   def self.price oid, sid
     order = Order.find(oid)
@@ -82,6 +82,10 @@ class Order < ActiveRecord::Base
     return @price
   end
 
+  def free?
+    price == 0
+  end
+
   private 
 
   def purchase_address
@@ -94,7 +98,6 @@ class Order < ActiveRecord::Base
       :phone => phone
     }
   end
-
 
   def options
      {:address => {}, :billing_address => purchase_address, :invoice => Order.last.id + 1}
@@ -120,7 +123,6 @@ class Order < ActiveRecord::Base
   def price_in_cents
     (price*100).round
   end
-  
   
   # returns credit card object
   
