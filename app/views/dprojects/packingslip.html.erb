@@ -1,3 +1,6 @@
+<%= simple_form_for(@dproject) do |f| %>
+  <%= f.error_notification %>
+
 <div class="row">
 	<div class="col-xs-12" style="text-align: right;">
 		<%= Time.now.try(:strftime, '%b %e, %Y')%>
@@ -52,7 +55,7 @@
 		<b>Delivery Note: </b> <%= @dproject.route %>
 	</div>
 	<div class="col-xs-12">
-		<b>Request: </b> <%= @dproject.description %>
+		<b>Request: </b> <%= f.input :description, :input_html => {:rows => 5}, :label => false %>
 	</div>
 </div>
 <br /><br />
@@ -79,3 +82,5 @@
 		Notes:______________________________________________________________________________________________________________________________
 	</div>
 </div>
+
+<% end %>
