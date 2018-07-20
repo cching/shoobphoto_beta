@@ -158,7 +158,7 @@ class StudentsController < ApplicationController
     @image = @senior_image.watermark.url
     @opackage = OrderPackage.find(params[:opackage])
     @background = params[:background]
-    @opackage.update(:senior_image_id => @senior_image.id)
+    @opackage.update(:senior_image_id => @senior_image.id, background_id: @background.to_i)
     @type = "yearbook"
     respond_to do |format|
       format.js
