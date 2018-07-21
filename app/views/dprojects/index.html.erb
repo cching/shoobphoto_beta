@@ -68,19 +68,7 @@ button {
 <%= link_to 'New Project', new_dproject_path, class: "btn btn-primary" %> 
 
 <br /><br />
-<div class="dropdown">
-    <button class="dropbtn">Sort by...</button>
-    <div class="dropdown-content">
-        <a onclick="schoolOff()"><%= sortable "assigned_to" %></a>
-        <a onclick="schoolOff()"><%= sortable "created_at", "Orig Date" %></a>
-        <a onclick="schoolOff()"><%= sortable "due_date" %></a>
-        <a onclick="schoolOff()"><%= sortable "must_date", "Must Del" %></a>
-        <a onclick="schoolOff()"><%= sortable "status" %></a>
-        <a onclick="schoolOff()"><%= sortable "project_type", "Type" %></a>  
-        <a onclick="schoolOff()"><%= sortable "invoice_bool", "Invoicing" %></a>             
-        <a onclick="schoolBool()">School</a>
-    </div>
-</div>
+
 <div class="dropdown">
     <button class="dropbtn">For...</button>
     <div class="dropdown-content">

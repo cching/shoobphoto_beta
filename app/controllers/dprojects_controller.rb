@@ -13,7 +13,7 @@ class DprojectsController < ApplicationController
   end
 
   def index
-    @dprojects = Dproject.order(params[:sort])
+    @dprojects = Dproject.joins(:school).order("#{params[:sort]} #{params[:direction]}")
     respond_with(@dprojects)
   end
 
