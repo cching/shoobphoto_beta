@@ -74,10 +74,12 @@ button {
     <div class="dropdown-content">
         <a onclick="allFunction()">All</a>
         <a onclick="printFunction()">Print</a>
+        <a onclick="completeFunction()">Complete</a>
         <a onclick="katieFunction()">Katie</a>
         <a onclick="erinFunction()">Erin</a>
         <a onclick="sydneeFunction()">Sydnee</a>
         <a onclick="kemoyahFunction()">Kemoyah</a>
+        <a onclick="invFunction()">Invoice</a>
     </div>
 </div>
 <br /><br />
@@ -87,6 +89,9 @@ button {
 </div>
 <div id="all" class="filterDiv indexAll">
 	<%= render 'dprojects/indexes/indexAll' %>
+</div>
+<div id="complete" class="filterDiv indexComplete">
+    <%= render 'dprojects/indexes/indexComplete' %>
 </div>
 <div id="katie" class="filterDiv Katie">
 	<%= render 'dprojects/indexes/indexKatie' %>
@@ -102,6 +107,9 @@ button {
 </div>
 <div id="print" class="filterDiv Print">
     <%= render 'dprojects/indexes/indexPrint' %>
+</div>
+<div id="inv" class="filterDiv Inv">
+    <%= render 'dprojects/indexes/indexInv' %>
 </div>
 <br />
 
@@ -127,6 +135,20 @@ button {
      } else {
          x.style.display = "none";
      }
+     var z = document.getElementById("notcompleted");
+         z.style.display = "none";
+ }
+
+  function completeFunction() {
+     var x = document.getElementById("complete");
+     x.display == "none";
+     if (x.style.display === "none") {
+         x.style.display = "block";
+     } else {
+         x.style.display = "none";
+     }
+    var y = document.getElementById("all");
+         y.style.display = "none";
      var z = document.getElementById("notcompleted");
          z.style.display = "none";
  }
@@ -189,6 +211,20 @@ button {
  
  function printFunction() {
      var x = document.getElementById("print");
+     x.display == "none";
+     if (x.style.display === "none") {
+         x.style.display = "block";
+     } else {
+         x.style.display = "none";
+     }
+     var y = document.getElementById("all");
+         y.style.display = "none";
+     var z = document.getElementById("notcompleted");
+         z.style.display = "none";
+ }
+
+  function invFunction() {
+     var x = document.getElementById("inv");
      x.display == "none";
      if (x.style.display === "none") {
          x.style.display = "block";

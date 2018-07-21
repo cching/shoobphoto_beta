@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180716230742) do
+ActiveRecord::Schema.define(version: 20180721210845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -323,6 +323,7 @@ ActiveRecord::Schema.define(version: 20180716230742) do
     t.datetime "invoice_payment_date"
     t.text     "invoice_notes"
     t.boolean  "invoice_bool"
+    t.string   "recieved_by"
   end
 
   create_table "dschools", force: true do |t|

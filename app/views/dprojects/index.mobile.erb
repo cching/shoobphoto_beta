@@ -1,0 +1,25 @@
+<br/><br/>
+<br/><br/>
+<br/><br/>
+
+<h1>Projects</h1>
+<br />
+
+<table>
+  <thead>
+    <tr style="border-bottom: 2px solid black; font-size: 50px;">
+      <th> <%= sortable "schools.name", params[:sort], title: 'School', direction: params[:direction] %></th>
+      <th> <%= sortable "id", params[:sort], direction: params[:direction], title: "ID" %> </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dprojects.where(status: "In Transit").each do |dproject| %>
+      <tr style="font-size: 35px;">
+        <td width="45%" class="dotted"><%= dproject.school.dname[0,25] + "..." %></td>
+        <td width="45%" class="dotted"><%= dproject.id %></td>
+        <td width="10%" style="text-align: right;"><%= link_to 'Ship', dproject_ship_path(dproject.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

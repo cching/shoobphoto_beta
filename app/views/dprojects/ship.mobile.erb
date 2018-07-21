@@ -1,0 +1,49 @@
+<%= simple_form_for(@dproject) do |f| %>
+  <%= f.error_notification %>
+
+<style>
+
+.form-control {
+	font-size: 40px !important;
+}
+
+</style>
+
+<br/><br/>
+<br/><br/>
+<br/><br/>
+
+<div class="row" style="font-size: 45px">
+	<div class="col-xs-12">
+		<b><%= @dproject.school.dname %></b>
+	</div>
+	<div class="col-xs-12">
+		Project #<%= @dproject.id %>
+	</div>
+</div>
+<div class="row">
+	<br /><br />
+	<div class="col-xs-12" style="font-size: 40px">
+		<b>Request: </b><br />
+		<%= @dproject.description %>
+	</div>
+</div>
+<div class="row">
+	<br /><br />
+	<div class="col-xs-12" style="font-size: 40px">
+		<b>Date Delivered: </b><br />
+		<%= f.date_field(:delivery_date, {:class => "form-control", :style => "font-size: 40px"}) %>
+	</div>
+</div>
+<div class="row">
+	<br /><br />
+	<div class="col-xs-12" style="font-size: 40px">
+		<b>Recieved By: </b><br />
+		<%= f.input :recieved_by, {:label => false, :class => "form-control"} %>
+	</div>
+</div>
+
+<br /><br />
+<%= f.button :submit, "Update Shipment", :style => 'font-size: 35px' %>
+
+<% end %>
