@@ -9,8 +9,8 @@ module DprojectsHelper
 
 	def sorting_arrows(column, direction, sorted_column)
 		content_tag :span, nil, class: 'sort-container' do
-			concat content_tag(:span, nil, class: "glyphicon glyphicon-chevron-up arrow-up #{'active' if direction == 'desc' && column == sorted_column}")
-			concat content_tag(:span, nil, class: "glyphicon glyphicon-chevron-down arrow-down #{'active' if direction == 'asc' && column == sorted_column}")
+			concat content_tag(:span, nil)
+			concat content_tag(:span, nil)
 		end
 	end
 end

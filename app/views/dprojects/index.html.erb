@@ -72,7 +72,6 @@ button {
 <div class="dropdown">
     <button class="dropbtn">For...</button>
     <div class="dropdown-content">
-        <a onclick="notcompletedFunction()">Not Completed</a>
         <a onclick="allFunction()">All</a>
         <a onclick="printFunction()">Print</a>
         <a onclick="katieFunction()">Katie</a>
@@ -104,292 +103,101 @@ button {
 <div id="print" class="filterDiv Print">
     <%= render 'dprojects/indexes/indexPrint' %>
 </div>
-
-<div id="notcompletedS" class="filterDiv NotCompletedS">
-    <%= render 'dprojects/indexes/indexNotCompletedSchool' %>
-</div>
-<div id="allS" class="filterDiv indexAllS">
-    <%= render 'dprojects/indexes/indexAllSchool' %>
-</div>
-<div id="katieS" class="filterDiv KatieS">
-    <%= render 'dprojects/indexes/indexKatieSchool' %>
-</div>
-<div id="sydneeS" class="filterDiv SydneeS">
-    <%= render 'dprojects/indexes/indexSydneeSchool' %>
-</div>
-<div id="erinS" class="filterDiv ErinS">
-    <%= render 'dprojects/indexes/indexErinSchool' %>
-</div>
-<div id="kemoyahS" class="filterDiv KemoyahS">
-    <%= render 'dprojects/indexes/indexKemoyahSchool' %>
-</div>
-<div id="printS" class="filterDiv PrintS">
-    <%= render 'dprojects/indexes/indexPrintSchool' %>
-</div>
 <br />
 
 <script>
 
-var schoolSort = 0
-
-function schoolBool() {
-    if (schoolSort == 0) {
-        schoolSort = 1;
-    } 
-    else {
-        schoolSort = 0;
-    }
-}
-
-function schoolOff() {
-    schoolSort = 0;
-}
-
-function notcompletedFunction() {
-    var x = document.getElementById("notcompleted");
-    var x2 = document.getElementById("notcompletedS");
-    x.display == "none";
-    x2.display == "none";
-    if (x.style.display === "none" && schoolSort == 0) {
-        x.style.display = "block";
-    } else if (x.style.display === "none" && schoolSort == 1){
-        x.style.display = "none";
-    } else if (x.style.display === "block" && schoolSort == 0){
-        x.style.display = "none";
-    } else if (x.style.display === "block" && schoolSort == 1) {
-        x.style.display = "none"
-    } else {
-        x.style.display = "none";
-        x2.style.display = "none";
-    } 
-
-    if (x2.style.display === "none" && schoolSort == 0){
-        x2.style.display = "none";
-    } else if (x2.style.display === "none" && schoolSort == 1){
-        x2.style.display = "block";
-    } else if (x2.style.display === "block" && schoolSort == 0){
-        x2.style.display = "none";
-    } else if (x2.style.display === "block" && schoolSort == 1) {
-        x2.style.display = "none";
-    } else {
-        x.style.display = "none";
-        x2.style.display = "none";
-    }
-    var y = document.getElementById("all");
-        y.style.display = "none";
-}
-
-function allFunction() {
-    var x = document.getElementById("all");
-    var x2 = document.getElementById("allS");
-    x.display == "none";
-    x2.display == "none";
-    if (x.style.display === "none" && schoolSort == 0) {
-        x.style.display = "block";
-    } else if (x.style.display === "none" && schoolSort == 1){
-        x.style.display = "none";
-    } else if (x.style.display === "block" && schoolSort == 0){
-        x.style.display = "none";
-    } else if (x.style.display === "block" && schoolSort == 1) {
-        x.style.display = "none"
-    } else {
-        x.style.display = "none";
-        x2.style.display = "none";
-    } 
-
-    if (x2.style.display === "none" && schoolSort == 0){
-        x2.style.display = "none";
-    } else if (x2.style.display === "none" && schoolSort == 1){
-        x2.style.display = "block";
-    } else if (x2.style.display === "block" && schoolSort == 0){
-        x2.style.display = "none";
-    } else if (x2.style.display === "block" && schoolSort == 1) {
-        x2.style.display = "none";
-    } else {
-        x.style.display = "none";
-        x2.style.display = "none";
-    }
-    var z = document.getElementById("notcompleted");
-        z.style.display = "none";
-}
-
-function katieFunction() {
-    var x = document.getElementById("katie");
-    var x2 = document.getElementById("katieS");
-    x.display == "none";
-    x2.display == "none";
-    if (x.style.display === "none" && schoolSort == 0) {
-        x.style.display = "block";
-    } else if (x.style.display === "none" && schoolSort == 1){
-        x.style.display = "none";
-    } else if (x.style.display === "block" && schoolSort == 0){
-        x.style.display = "none";
-    } else if (x.style.display === "block" && schoolSort == 1) {
-        x.style.display = "none"
-    } else {
-        x.style.display = "none";
-        x2.style.display = "none";
-    } 
-
-    if (x2.style.display === "none" && schoolSort == 0){
-        x2.style.display = "none";
-    } else if (x2.style.display === "none" && schoolSort == 1){
-        x2.style.display = "block";
-    } else if (x2.style.display === "block" && schoolSort == 0){
-        x2.style.display = "none";
-    } else if (x2.style.display === "block" && schoolSort == 1) {
-        x2.style.display = "none";
-    } else {
-        x.style.display = "none";
-        x2.style.display = "none";
-    }
-    var y = document.getElementById("all");
-        y.style.display = "none";
-    var z = document.getElementById("notcompleted");
-        z.style.display = "none";
-}
-
-function erinFunction() {
-    var x = document.getElementById("erin");
-    var x2 = document.getElementById("erinS");
-    x.display == "none";
-    x2.display == "none";
-    if (x.style.display === "none" && schoolSort == 0) {
-        x.style.display = "block";
-    } else if (x.style.display === "none" && schoolSort == 1){
-        x.style.display = "none";
-    } else if (x.style.display === "block" && schoolSort == 0){
-        x.style.display = "none";
-    } else if (x.style.display === "block" && schoolSort == 1) {
-        x.style.display = "none"
-    } else {
-        x.style.display = "none";
-        x2.style.display = "none";
-    } 
-
-    if (x2.style.display === "none" && schoolSort == 0){
-        x2.style.display = "none";
-    } else if (x2.style.display === "none" && schoolSort == 1){
-        x2.style.display = "block";
-    } else if (x2.style.display === "block" && schoolSort == 0){
-        x2.style.display = "none";
-    } else if (x2.style.display === "block" && schoolSort == 1) {
-        x2.style.display = "none";
-    } else {
-        x.style.display = "none";
-        x2.style.display = "none";
-    }
-    var y = document.getElementById("all");
-        y.style.display = "none";
-    var z = document.getElementById("notcompleted");
-        z.style.display = "none";
-}
-
-function sydneeFunction() {
-    var x = document.getElementById("sydnee");
-    var x2 = document.getElementById("sydneeS");
-    x.display == "none";
-    x2.display == "none";
-    if (x.style.display === "none" && schoolSort == 0) {
-        x.style.display = "block";
-    } else if (x.style.display === "none" && schoolSort == 1){
-        x.style.display = "none";
-    } else if (x.style.display === "block" && schoolSort == 0){
-        x.style.display = "none";
-    } else if (x.style.display === "block" && schoolSort == 1) {
-        x.style.display = "none"
-    } else {
-        x.style.display = "none";
-        x2.style.display = "none";
-    } 
-
-    if (x2.style.display === "none" && schoolSort == 0){
-        x2.style.display = "none";
-    } else if (x2.style.display === "none" && schoolSort == 1){
-        x2.style.display = "block";
-    } else if (x2.style.display === "block" && schoolSort == 0){
-        x2.style.display = "none";
-    } else if (x2.style.display === "block" && schoolSort == 1) {
-        x2.style.display = "none";
-    } else {
-        x.style.display = "none";
-        x2.style.display = "none";
-    }
-    var y = document.getElementById("all");
-        y.style.display = "none";
-    var z = document.getElementById("notcompleted");
-        z.style.display = "none";
-}
-
-function kemoyahFunction() {
-    var x = document.getElementById("kemoyah");
-    var x2 = document.getElementById("kemoyahS");
-    x.display == "none";
-    x2.display == "none";
-    if (x.style.display === "none" && schoolSort == 0) {
-        x.style.display = "block";
-    } else if (x.style.display === "none" && schoolSort == 1){
-        x.style.display = "none";
-    } else if (x.style.display === "block" && schoolSort == 0){
-        x.style.display = "none";
-    } else if (x.style.display === "block" && schoolSort == 1) {
-        x.style.display = "none"
-    } else {
-        x.style.display = "none";
-        x2.style.display = "none";
-    } 
-
-    if (x2.style.display === "none" && schoolSort == 0){
-        x2.style.display = "none";
-    } else if (x2.style.display === "none" && schoolSort == 1){
-        x2.style.display = "block";
-    } else if (x2.style.display === "block" && schoolSort == 0){
-        x2.style.display = "none";
-    } else if (x2.style.display === "block" && schoolSort == 1) {
-        x2.style.display = "none";
-    } else {
-        x.style.display = "none";
-        x2.style.display = "none";
-    }
-    var y = document.getElementById("all");
-        y.style.display = "none";
-    var z = document.getElementById("notcompleted");
-        z.style.display = "none";
-}
-
-function printFunction() {
-    var x = document.getElementById("print");
-    var x2 = document.getElementById("printS");
-    x.display == "none";
-    x2.display == "none";
-    if (x.style.display === "none" && schoolSort == 0) {
-        x.style.display = "block";
-    } else if (x.style.display === "none" && schoolSort == 1){
-        x.style.display = "none";
-    } else if (x.style.display === "block" && schoolSort == 0){
-        x.style.display = "none";
-    } else if (x.style.display === "block" && schoolSort == 1) {
-        x.style.display = "none"
-    } else {
-        x.style.display = "none";
-        x2.style.display = "none";
-    } 
-
-    if (x2.style.display === "none" && schoolSort == 0){
-        x2.style.display = "none";
-    } else if (x2.style.display === "none" && schoolSort == 1){
-        x2.style.display = "block";
-    } else if (x2.style.display === "block" && schoolSort == 0){
-        x2.style.display = "none";
-    } else if (x2.style.display === "block" && schoolSort == 1) {
-        x2.style.display = "none";
-    } else {
-        x.style.display = "none";
-        x2.style.display = "none";
-    }
-    var y = document.getElementById("all");
-        y.style.display = "none";
-    var z = document.getElementById("notcompleted");
-        z.style.display = "none";
-}
-</script>
+ function notcompletedFunction() {
+     var x = document.getElementById("notcompleted");
+     x.display == "none";
+     if (x.style.display === "none") {
+         x.style.display = "block";
+     } else {
+         x.style.display = "none";
+     }
+     var y = document.getElementById("all");
+         y.style.display = "none";
+ }
+ 
+ function allFunction() {
+     var x = document.getElementById("all");
+     x.display == "none";
+     if (x.style.display === "none") {
+         x.style.display = "block";
+     } else {
+         x.style.display = "none";
+     }
+     var z = document.getElementById("notcompleted");
+         z.style.display = "none";
+ }
+ 
+ function katieFunction() {
+     var x = document.getElementById("katie");
+     x.display == "none";
+     if (x.style.display === "none") {
+         x.style.display = "block";
+     } else {
+         x.style.display = "none";
+     }
+     var y = document.getElementById("all");
+         y.style.display = "none";
+     var z = document.getElementById("notcompleted");
+         z.style.display = "none";
+ }
+ 
+ function erinFunction() {
+     var x = document.getElementById("erin");
+     x.display == "none";
+     if (x.style.display === "none") {
+         x.style.display = "block";
+     } else {
+         x.style.display = "none";
+     }
+     var y = document.getElementById("all");
+         y.style.display = "none";
+     var z = document.getElementById("notcompleted");
+         z.style.display = "none";
+ }
+ 
+ function sydneeFunction() {
+     var x = document.getElementById("sydnee");
+     x.display == "none";
+     if (x.style.display === "none") {
+         x.style.display = "block";
+     } else {
+         x.style.display = "none";
+     }
+     var y = document.getElementById("all");
+         y.style.display = "none";
+     var z = document.getElementById("notcompleted");
+         z.style.display = "none";
+ }
+ 
+ function kemoyahFunction() {
+     var x = document.getElementById("kemoyah");
+     x.display == "none";
+     if (x.style.display === "none") {
+         x.style.display = "block";
+     } else {
+         x.style.display = "none";
+     }
+     var y = document.getElementById("all");
+         y.style.display = "none";
+     var z = document.getElementById("notcompleted");
+         z.style.display = "none";
+ }
+ 
+ function printFunction() {
+     var x = document.getElementById("print");
+     x.display == "none";
+     if (x.style.display === "none") {
+         x.style.display = "block";
+     } else {
+         x.style.display = "none";
+     }
+     var y = document.getElementById("all");
+         y.style.display = "none";
+     var z = document.getElementById("notcompleted");
+         z.style.display = "none";
+ }
+ </script>
