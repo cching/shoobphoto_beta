@@ -17,7 +17,10 @@ class DprojectsController < ApplicationController
   end
 
   def index
-    @dprojects = Dproject.joins(:school).order("#{params[:sort]} #{params[:direction]}")
+    params[:q].reject { |_, v| v.blank? } if params[:q]
+
+    @q = Dproject.ransack(params[:q])
+    @dprojects = @q.result.includes(:school)
     respond_with(@dprojects)
   end
 
