@@ -49,6 +49,7 @@ class DprojectsController < ApplicationController
   end
 
 
+
   def edit
     @dproject = Dproject.find(params[:id])
     @options = School.order(:name).where.not(school_type_id: nil).
@@ -65,9 +66,12 @@ class DprojectsController < ApplicationController
   end
 
   def update
+    q = {}
+    q[:assigned_to_eq] = params[:dproject].delete(:assigned_to_eq)
+    q[:s] = params[:dproject].delete(:s)
     @dproject.update(dproject_params)
     @dproject.save
-    redirect_to "/dprojects"
+    redirect_to dprojects_path(q: q)
     # respond_with(@dproject)
   end
 

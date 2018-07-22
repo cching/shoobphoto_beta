@@ -1,5 +1,8 @@
 <%= simple_form_for(@dproject) do |f| %>
   <%= f.error_notification %>
+  <%= f.input :assigned_to_eq, as: :hidden, input_html: { value: params[:q][:assigned_to_eq] } if params[:q] && params[:q][:assigned_to_eq] %>
+
+  <%= f.input :s, as: :hidden, input_html: { value: params[:q][:s] } if params[:q] && params[:q][:s] %>
 
 <div class="form-inputs">
 

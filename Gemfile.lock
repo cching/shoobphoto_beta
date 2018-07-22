@@ -61,6 +61,7 @@ GEM
       activesupport (>= 3.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
+    coderay (1.1.2)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -108,6 +109,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.9.0)
     mime-types (1.25.1)
     mimemagic (0.3.0)
     mini_portile2 (2.0.0)
@@ -149,6 +151,9 @@ GEM
     prawnto (0.1.1)
       prawn
       rails (>= 2.1)
+    pry (0.11.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
     puma (2.16.0)
     rack (1.5.5)
     rack-host-redirect (1.2.1)
@@ -291,6 +296,7 @@ DEPENDENCIES
   pg
   prawn (= 1.0.0.rc1)
   prawnto
+  pry
   puma
   rack-host-redirect
   rack-timeout
@@ -317,4 +323,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   1.16.2
+   1.16.3

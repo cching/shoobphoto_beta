@@ -28,7 +28,7 @@
         <td width="10%" class="dotted"><%= dproject.status %></td>
         <td width="10%" class="dotted"><%= dproject.project_type %></td>
         <td width="5%" class="dotted"><%= dproject.id %></td>
-        <td width="5%" style="text-align: right;"><%= link_to 'Edit', edit_dproject_path(dproject) %></td>
+        <td width="5%" style="text-align: right;"><%= link_to 'Edit', edit_dproject_path(dproject, q: params[:q]) %></td>
       </tr>
     <% end %>
   </tbody>

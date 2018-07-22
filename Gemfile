@@ -18,6 +18,7 @@ gem 'will_paginate-bootstrap'
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'rack-host-redirect'
+gem 'pry'
 
 #gem 'rmagick', "2.13.3", :require => "RMagick"
 
