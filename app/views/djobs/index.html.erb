@@ -1,0 +1,145 @@
+<h1>Listing djobs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Scode</th>
+      <th>Job</th>
+      <th>Jobtype</th>
+      <th>Date</th>
+      <th>Starttime</th>
+      <th>Trigs</th>
+      <th>Pricelist</th>
+      <th>Rigs</th>
+      <th>Photog1</th>
+      <th>Photog note</th>
+      <th>Job notes</th>
+      <th>Lab note</th>
+      <th>Pack notes</th>
+      <th>Location</th>
+      <th>Projsale</th>
+      <th>Sale</th>
+      <th>Estshots</th>
+      <th>Flyers</th>
+      <th>Notices</th>
+      <th>Posters</th>
+      <th>Notice note</th>
+      <th>Conf call</th>
+      <th>Reconfirm call</th>
+      <th>Data call</th>
+      <th>Data rec</th>
+      <th>Data setup</th>
+      <th>Data2web</th>
+      <th>Laptops</th>
+      <th>Crop date</th>
+      <th>Crop note</th>
+      <th>Type date</th>
+      <th>Typed by</th>
+      <th>Corr date</th>
+      <th>Corr by</th>
+      <th>Data clean</th>
+      <th>Img2web</th>
+      <th>Print date</th>
+      <th>Print by</th>
+      <th>Id ship</th>
+      <th>Pks ship</th>
+      <th>Pks note</th>
+      <th>Mug ship</th>
+      <th>Cr ship</th>
+      <th>Pics4tea</th>
+      <th>Cp proof printed</th>
+      <th>Cp proof shipped</th>
+      <th>Cp notes</th>
+      <th>Cp proof ret</th>
+      <th>Cp corr</th>
+      <th>Cp printed</th>
+      <th>Cp ship</th>
+      <th>Admin cd</th>
+      <th>Yb ug cd</th>
+      <th>Yb senr cd</th>
+      <th>Prin album</th>
+      <th>Tshots</th>
+      <th>Tpks</th>
+      <th>Zpks</th>
+      <th>Avpk</th>
+      <th>Conf yn</th>
+      <th>Conf</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @djobs.each do |djob| %>
+      <tr>
+        <td><%= djob.SCODE %></td>
+        <td><%= djob.JOB %></td>
+        <td><%= djob.JOBTYPE %></td>
+        <td><%= djob.DATE %></td>
+        <td><%= djob.STARTTIME %></td>
+        <td><%= djob.TRIGS %></td>
+        <td><%= djob.PRICELIST %></td>
+        <td><%= djob.RIGS %></td>
+        <td><%= djob.PHOTOG1 %></td>
+        <td><%= djob.PHOTOG_NOTE %></td>
+        <td><%= djob.JOB_NOTES %></td>
+        <td><%= djob.LAB_NOTE %></td>
+        <td><%= djob.PACK_NOTES %></td>
+        <td><%= djob.LOCATION %></td>
+        <td><%= djob.PROJSALE %></td>
+        <td><%= djob.SALE %></td>
+        <td><%= djob.ESTSHOTS %></td>
+        <td><%= djob.FLYERS %></td>
+        <td><%= djob.NOTICES %></td>
+        <td><%= djob.POSTERS %></td>
+        <td><%= djob.NOTICE_NOTE %></td>
+        <td><%= djob.CONF_CALL %></td>
+        <td><%= djob.RECONFIRM_CALL %></td>
+        <td><%= djob.DATA_CALL %></td>
+        <td><%= djob.DATA_REC %></td>
+        <td><%= djob.DATA_SETUP %></td>
+        <td><%= djob.DATA2WEB %></td>
+        <td><%= djob.LAPTOPS %></td>
+        <td><%= djob.CROP_DATE %></td>
+        <td><%= djob.CROP_NOTE %></td>
+        <td><%= djob.TYPE_DATE %></td>
+        <td><%= djob.TYPED_BY %></td>
+        <td><%= djob.CORR_DATE %></td>
+        <td><%= djob.CORR_BY %></td>
+        <td><%= djob.DATA_CLEAN %></td>
+        <td><%= djob.IMG2WEB %></td>
+        <td><%= djob.PRINT_DATE %></td>
+        <td><%= djob.PRINT_BY %></td>
+        <td><%= djob.ID_SHIP %></td>
+        <td><%= djob.PKS_SHIP %></td>
+        <td><%= djob.PKS_NOTE %></td>
+        <td><%= djob.MUG_SHIP %></td>
+        <td><%= djob.CR_SHIP %></td>
+        <td><%= djob.PICS4TEA %></td>
+        <td><%= djob.CP_PROOF_PRINTED %></td>
+        <td><%= djob.CP_PROOF_SHIPPED %></td>
+        <td><%= djob.CP_NOTES %></td>
+        <td><%= djob.CP_PROOF_RET %></td>
+        <td><%= djob.CP_CORR %></td>
+        <td><%= djob.CP_PRINTED %></td>
+        <td><%= djob.CP_SHIP %></td>
+        <td><%= djob.ADMIN_CD %></td>
+        <td><%= djob.YB_UG_CD %></td>
+        <td><%= djob.YB_SENR_CD %></td>
+        <td><%= djob.PRIN_ALBUM %></td>
+        <td><%= djob.TSHOTS %></td>
+        <td><%= djob.TPKS %></td>
+        <td><%= djob.ZPKS %></td>
+        <td><%= djob.AVPK %></td>
+        <td><%= djob.CONF_YN %></td>
+        <td><%= djob.CONF %></td>
+        <td><%= link_to 'Show', djob %></td>
+        <td><%= link_to 'Edit', edit_djob_path(djob) %></td>
+        <td><%= link_to 'Destroy', djob, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Djob', new_djob_path %>

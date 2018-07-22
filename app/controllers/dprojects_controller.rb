@@ -66,6 +66,7 @@ class DprojectsController < ApplicationController
   end
 
   def update
+
     q = {}
     q[:assigned_to_eq] = params[:dproject].delete(:assigned_to_eq)
     q[:s] = params[:dproject].delete(:s)
