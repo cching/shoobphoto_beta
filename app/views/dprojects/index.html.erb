@@ -8,10 +8,6 @@ td, th{
   font-size: 16px;
 }
 
-.filterDiv {
-	display: none;
-}
-
 #notcompleted {
 	display: block;
 }
@@ -69,171 +65,20 @@ button {
 
 <br /><br />
 
-<div class="dropdown">
-    <button class="dropbtn">For...</button>
-    <div class="dropdown-content">
-        <a onclick="allFunction()">All</a>
-        <a onclick="printFunction()">Print</a>
-        <a onclick="completeFunction()">Complete</a>
-        <a onclick="katieFunction()">Katie</a>
-        <a onclick="erinFunction()">Erin</a>
-        <a onclick="sydneeFunction()">Sydnee</a>
-        <a onclick="kemoyahFunction()">Kemoyah</a>
-        <a onclick="invFunction()">Invoice</a>
-    </div>
-</div>
+<%= search_form_for @q do |f| %>
+  <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
+  <%= f.label :assigned_to %>
+  <%= f.select :assigned_to_eq, Dproject.all.order(:assigned_to).pluck(:assigned_to).uniq, selected: (params[:q] ? params[:q][:assigned_to_eq] : nil), include_blank: true %>
+  <br/>
+
+  <%= f.label :status %>
+  <%= f.select :status_eq, Dproject.all.order(:status).pluck(:status).uniq, selected: (params[:q] ? params[:q][:status_eq] : nil), include_blank: true %>
+
+  <br/>
+  <%= f.submit %>
+<% end %>
 <br /><br />
 
-<div id="notcompleted" class="filterDiv NotCompleted">
-	<%= render 'dprojects/indexes/indexNotCompleted' %>
-</div>
 <div id="all" class="filterDiv indexAll">
 	<%= render 'dprojects/indexes/indexAll' %>
 </div>
-<div id="complete" class="filterDiv indexComplete">
-    <%= render 'dprojects/indexes/indexComplete' %>
-</div>
-<div id="katie" class="filterDiv Katie">
-	<%= render 'dprojects/indexes/indexKatie' %>
-</div>
-<div id="sydnee" class="filterDiv Sydnee">
-	<%= render 'dprojects/indexes/indexSydnee' %>
-</div>
-<div id="erin" class="filterDiv Erin">
-	<%= render 'dprojects/indexes/indexErin' %>
-</div>
-<div id="kemoyah" class="filterDiv Kemoyah">
-    <%= render 'dprojects/indexes/indexKemoyah' %>
-</div>
-<div id="print" class="filterDiv Print">
-    <%= render 'dprojects/indexes/indexPrint' %>
-</div>
-<div id="inv" class="filterDiv Inv">
-    <%= render 'dprojects/indexes/indexInv' %>
-</div>
-<br />
-
-<script>
-
- function notcompletedFunction() {
-     var x = document.getElementById("notcompleted");
-     x.display == "none";
-     if (x.style.display === "none") {
-         x.style.display = "block";
-     } else {
-         x.style.display = "none";
-     }
-     var y = document.getElementById("all");
-         y.style.display = "none";
- }
- 
- function allFunction() {
-     var x = document.getElementById("all");
-     x.display == "none";
-     if (x.style.display === "none") {
-         x.style.display = "block";
-     } else {
-         x.style.display = "none";
-     }
-     var z = document.getElementById("notcompleted");
-         z.style.display = "none";
- }
-
-  function completeFunction() {
-     var x = document.getElementById("complete");
-     x.display == "none";
-     if (x.style.display === "none") {
-         x.style.display = "block";
-     } else {
-         x.style.display = "none";
-     }
-    var y = document.getElementById("all");
-         y.style.display = "none";
-     var z = document.getElementById("notcompleted");
-         z.style.display = "none";
- }
- 
- function katieFunction() {
-     var x = document.getElementById("katie");
-     x.display == "none";
-     if (x.style.display === "none") {
-         x.style.display = "block";
-     } else {
-         x.style.display = "none";
-     }
-     var y = document.getElementById("all");
-         y.style.display = "none";
-     var z = document.getElementById("notcompleted");
-         z.style.display = "none";
- }
- 
- function erinFunction() {
-     var x = document.getElementById("erin");
-     x.display == "none";
-     if (x.style.display === "none") {
-         x.style.display = "block";
-     } else {
-         x.style.display = "none";
-     }
-     var y = document.getElementById("all");
-         y.style.display = "none";
-     var z = document.getElementById("notcompleted");
-         z.style.display = "none";
- }
- 
- function sydneeFunction() {
-     var x = document.getElementById("sydnee");
-     x.display == "none";
-     if (x.style.display === "none") {
-         x.style.display = "block";
-     } else {
-         x.style.display = "none";
-     }
-     var y = document.getElementById("all");
-         y.style.display = "none";
-     var z = document.getElementById("notcompleted");
-         z.style.display = "none";
- }
- 
- function kemoyahFunction() {
-     var x = document.getElementById("kemoyah");
-     x.display == "none";
-     if (x.style.display === "none") {
-         x.style.display = "block";
-     } else {
-         x.style.display = "none";
-     }
-     var y = document.getElementById("all");
-         y.style.display = "none";
-     var z = document.getElementById("notcompleted");
-         z.style.display = "none";
- }
- 
- function printFunction() {
-     var x = document.getElementById("print");
-     x.display == "none";
-     if (x.style.display === "none") {
-         x.style.display = "block";
-     } else {
-         x.style.display = "none";
-     }
-     var y = document.getElementById("all");
-         y.style.display = "none";
-     var z = document.getElementById("notcompleted");
-         z.style.display = "none";
- }
-
-  function invFunction() {
-     var x = document.getElementById("inv");
-     x.display == "none";
-     if (x.style.display === "none") {
-         x.style.display = "block";
-     } else {
-         x.style.display = "none";
-     }
-     var y = document.getElementById("all");
-         y.style.display = "none";
-     var z = document.getElementById("notcompleted");
-         z.style.display = "none";
- }
- </script>
