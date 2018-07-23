@@ -1,0 +1,58 @@
+<%= simple_form_for(@dproject) do |f| %>
+  <%= f.error_notification %>
+
+<div class="row">
+	<div class="col-xs-12">
+		<b><%= @dproject.school.dname %></b>
+	</div>
+	<div class="col-xs-12">
+		Project #<%= @dproject.id %>
+	</div>
+	<div class="col-xs-1">
+		<%= f.input :boxes, {:label => false, :class => "form-control"} %>
+	</div>
+	<div class="col-xs-11">
+		boxes
+	</div>
+</div>
+<div class="row">
+	<div class=col-xs-4>
+    	Delivery Method <br />
+    	<%= f.select(:delivery_type, ["Hand Deliver", "Ship", "Pick Up"], {}, {:class => "form-control"}) %>
+  	</div>
+  	<div class=col-xs-4>
+    	Route <br />
+    	<%= f.select(:route, ["North", "East", "South", "West", "UPS"], {}, {:class => "form-control"}) %>
+  	</div>
+  	<div class=col-xs-4>
+    	Tracking #<br />
+    	<%= f.input :tracking_number, :label => false %>
+  	</div>
+</div>
+<div class="row">
+	<br />
+	<div class="col-xs-12">
+		Request <br />
+		<%= f.input :description, :input_html => {:rows => 5}, :label => false %>
+	</div>
+</div>
+<div class="row">
+	<br />
+	<div class="col-xs-3">
+	</div>
+	<div class="col-xs-3">
+		Status <br />
+		<%= f.select(:status, ["In Transit"], {}, {:class => 'form-control'}) %>
+	</div>
+	<div class="col-xs-3">
+		Date Shipped <br />
+		<%= f.date_field(:status_date, :value => Time.now.strftime('%Y-%m-%d'), :class => "form-control") %>
+	</div>
+	<div class="col-xs-3">
+	</div>
+</div>
+
+<br /><br />
+<%= f.button :submit, "Update Shipment" %>
+
+<% end %>
