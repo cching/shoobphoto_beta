@@ -61,7 +61,19 @@ button {
 <h4>Projects</h4>
 <br />
 
-<%= link_to 'New Project', new_dproject_path, class: "btn btn-primary" %> 
+<div class="row">
+  <div class="col-xs-2">
+    <%= link_to 'New Project', new_dproject_path, class: "btn btn-primary" %> 
+  </div>
+  <div class="col-xs-2">
+    <div class="dropdown">
+      <button class="dropbtn">Reports</button>
+        <div class="dropdown-content">
+          <!-- <a href="dprojects/shipreport">Shipping</a> -->
+        </div>
+    </div>
+  </div>
+</div>
 
 <br /><br />
 

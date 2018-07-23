@@ -16,6 +16,10 @@ class DprojectsController < ApplicationController
     @dproject = Dproject.find(params[:id])
   end
 
+  def shipreport
+
+  end
+
   def index
     params[:q].reject { |_, v| v.blank? } if params[:q]
 

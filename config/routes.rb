@@ -419,6 +419,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   get 'dprojects/:id/packingslip' => 'dprojects#packingslip', :via => 'GET', :as => 'dproject_packingslip'
   get 'dprojects/:id/invoice' => 'dprojects#invoice', :via => 'GET', :as => 'dproject_invoice'
   get 'dprojects/:id/ship' => 'dprojects#ship', :via => 'GET', :as => 'dproject_ship'
+  get 'dprojects/shipreport' => 'dprojects#shipreportx`'
 
   resources :searches
 
