@@ -7,6 +7,10 @@
 	font-size: 40px !important;
 }
 
+.bigger-text {
+	font-size: 50px !important;
+}
+
 </style>
 
 <br/><br/>
@@ -20,12 +24,15 @@
 	<div class="col-xs-12">
 		Project #<%= @dproject.id %>
 	</div>
+	<div class="col-xs-12">
+		<%= @dproject.boxes %> boxes
+	</div>
 </div>
 <div class="row">
 	<br /><br />
 	<div class="col-xs-12" style="font-size: 40px">
 		<b>Request: </b><br />
-		<%= @dproject.description %>
+		<%= f.input :description, :input_html => {:rows => 5}, :label => false %>
 	</div>
 </div>
 <div class="row">
@@ -39,7 +46,11 @@
 	<br /><br />
 	<div class="col-xs-12" style="font-size: 40px">
 		<b>Recieved By: </b><br />
-		<%= f.input :recieved_by, {:label => false, :class => "form-control"} %>
+		<%= f.input :recieved_by, {:label => false, :input_html => {:rows => 2}, :class => "form-control bigger-text"} %>
+	</div>
+	<div class="col-xs-12" style="font-size: 40px; display: none;">
+		<b>Status: </b><br />
+		<%= f.select(:status, ["In Transit"], {}, {:class => 'form-control bigger-text'}) %>
 	</div>
 </div>
 

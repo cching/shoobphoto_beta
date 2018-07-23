@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
 
   mobylette_config do |config|
-    config[:skip_user_agents] = [:ipad]
+    config[:skip_user_agents] = []
   end
 
 
