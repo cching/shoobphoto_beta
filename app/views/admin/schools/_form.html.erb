@@ -42,11 +42,15 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <%= f.association :district, collection: District.all.order(:name) %>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <%= f.association :city, collection: City.all.order(:name) %>
+      </div>
+      <div class="col-sm-4">
+        Route<br />
+        <%= f.select(:route, ["", "North", "East", "South", "West", "UPS"], {}, {:class => "form-control"}) %>
       </div>
     </div>
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180723004741) do
+ActiveRecord::Schema.define(version: 20180723170631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -973,6 +973,7 @@ ActiveRecord::Schema.define(version: 20180723004741) do
     t.string   "scode"
     t.boolean  "enrolled",          default: false
     t.boolean  "clear_teachers"
+    t.string   "route"
   end
 
   create_table "searches", force: true do |t|
