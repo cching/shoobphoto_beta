@@ -1,0 +1,470 @@
+Searching 3670 files for "resources"
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/admin/items/_show.html.erb:
+    1  <% unless @cart.nil? %>
+    2: <div class="modal-dialog" id="lesson_resources">
+    3      <div class="modal-content">
+    4        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/awards/_newstudent.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/corders/_show.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/export_list_items/_batch_award.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/export_list_items/_batch_types.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/export_list_items/_batch_zip.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/export_list_items/_download_error.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/export_list_items/_newstudent.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/export_list_items/_schools.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/export_list_items/_search.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/export_list_items/_types.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/export_list_items/_users.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/export_lists/_final.html.erb:
+    1  
+    2: <div class="modal-dialog" id="lesson_resources">
+    3      <div class="modal-content">
+    4        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/export_lists/_form.html.erb:
+    1  <%= simple_form_for(@export_list) do |f| %>
+    2: <div class="modal-dialog" id="lesson_resources">
+    3      <div class="modal-content">
+    4        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/items/_show.html.erb:
+    1  <% unless @cart.nil? %>
+    2: <div class="modal-dialog" id="lesson_resources">
+    3      <div class="modal-content">
+    4        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/layouts/_footer.html.erb:
+    5  		<div class="col-xs-2 small_footer">
+    6  			<%= image_tag("logo_bottom.png", class: "bottom_logo", style: "height: 70px") %><br/>
+    7: 			In addition to quality school photography, we also provide FREE support materials and resources to schools.
+    8  		</div>
+    9  		<div class="col-xs-2 small_footer"><br/>
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/layouts/_header.html.erb:
+    6                <ul class="nav navbar-nav" style="float:right;">
+    7                  <li><%= link_to "PURCHASE PICTURES & YEARBOOKS", student_splash_path(:i => nil, :cart => nil)%></li>
+    8:                 <li><%= link_to "TEACHER RESOURCES", '/school_support' %></li>
+    9                  <li><%= link_to "CONTACT US", new_contact_path %></li>
+   10             
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/layouts/_header.mobile.erb:
+   38        <div id="myDropdown" class="dropdown-content" style="font-size: 40px;">
+   39          <%= link_to "PURCHASE PICTURES & YEARBOOKS", student_splash_path(:i => nil, :cart => nil), {:style=>'font-size: 35px;'} %>
+   40:         <a href="/school_support" style="font-size: 35px;">TEACHER RESOURCES</a>
+   41          <a href="/contacts/new" style="font-size: 35px;">CONTACT US</a>
+   42          <%= link_to "LOGIN", new_user_session_path, {:style=>'font-size: 35px;'} %>
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/orders/_notice.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/orders/_show.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/porders/_show.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/students/_extras.html.erb:
+    1   <%= simple_form_for @cart, url: add_options_path(@cart.cart_id, @i, @op.id, @option.id), remote: true do |f| %>
+    2  
+    3: <div class="modal-dialog" id="lesson_resources">
+    4      <div class="modal-content">
+    5      <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/webcams/_types.html.erb:
+    1: <div class="modal-dialog animated fadeIn" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/webcams/select.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/yearbooks/_form.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/yearbooks/_schools.html.erb:
+    1: <div class="modal-dialog" id="lesson_resources">
+    2      <div class="modal-content">
+    3        <div class="modal-header">
+
+/Users/XDaniel/Desktop/shoobphoto_beta/config/routes.rb:
+    4  
+    5  
+    6:   resources :djobs do 
+    7      collection { post :import }
+    8    end
+    9  
+   10  
+   11:   resources :dschools
+   12  
+   13:   resources :dprojects do
+   14      collection do
+   15        get 'sort'
+   ..
+   19  
+   20  
+   21:   resources :projects
+   22  
+   23:   resources :porders do
+   24      collection do
+   25        get :after_purchase
+   ..
+   31    end
+   32  
+   33:   resources :backgrounds
+   34  
+   35:   resources :autos do
+   36      collection do 
+   37        get "start_auto"
+   ..
+   44  
+   45    post "headshot/capture" => 'headshot#capture', :as => :headshot_capture
+   46:   resources :webcams do
+   47      collection do 
+   48        post 'save_image'
+   ..
+   58  
+   59  
+   60:   resources :yearbooks do
+   61      member do
+   62        get :buy 
+   ..
+   69    end
+   70  
+   71:   resources :export_lists
+   72  
+   73:   resources :school_notes do
+   74      member do
+   75        patch :updatenote
+   ..
+   87  match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'note'
+   88  
+   89:   resources :contacts 
+   90  
+   91    match 'scheduling' => 'contacts#scheduling', :via => 'GET', :as => 'scheduling'
+   ..
+   94    match 'contact' => 'contacts#new', :via => 'GET'
+   95  
+   96:   resources :types
+   97  
+   98:   resources :templates do
+   99      member do
+  100        get 'copy'
+  ...
+  102        patch 'update_pdf'
+  103      end
+  104:     resources :fields
+  105:     resources :pdfs do
+  106:       resources :types
+  107      end
+  108    end
+  ...
+  111    
+  112  
+  113:   resources :pages do
+  114      collection do
+  115        get :menu
+  ...
+  120    end
+  121  
+  122:   resources :student_images
+  123  
+  124:   resources :schools
+  125  
+  126:   resources :items do
+  127      collection do
+  128        get :download_pdf
+  ...
+  138    match 'emailers/csv' => 'emailers#import', :via => 'POST', :as => 'import_emailer'
+  139    namespace :admin do
+  140:     resources :prints
+  141:     resources :categories
+  142:     resources :dashboards do
+  143          collection do
+  144            get :console
+  ...
+  148          end
+  149        end
+  150:     resources :schools do
+  151        collection do
+  152          get 'export'
+  ...
+  156      end
+  157  
+  158:     resources :addons
+  159  
+  160:     resources :awards do
+  161        collection do
+  162          get :list
+  ...
+  170      end
+  171  
+  172:     resources :gifts
+  173  
+  174:     resources :items do
+  175        member do
+  176          get 'search_term'
+  ...
+  184      end
+  185  
+  186:     resources :packages do
+  187        collection do
+  188          get :carts
+  ...
+  193        end
+  194      end
+  195:     resources :pages 
+  196:     resources :nav_links
+  197:     resources :banners
+  198  
+  199:     resources :extra_types
+  200  
+  201:     resources :extras
+  202:     resources :users do
+  203        member do 
+  204          get :sync
+  ...
+  425    get 'dprojects/shipreport' => 'dprojects#shipreportx`'
+  426  
+  427:   resources :searches
+  428  
+  429    root :to => 'pages#home'
+  ...
+  444  
+  445    # Example resource route (maps HTTP verbs to controller actions automatically):
+  446:   #   resources :products
+  447   
+  448    # Example resource route with options:
+  449:   #   resources :products do
+  450    #     member do
+  451    #       get 'short'
+  ...
+  458    #   end
+  459  
+  460:   # Example resource route with sub-resources:
+  461:   #   resources :products do
+  462:   #     resources :comments, :sales
+  463    #     resource :seller
+  464    #   end
+  465  
+  466:   # Example resource route with more complex sub-resources:
+  467:   #   resources :products do
+  468:   #     resources :comments
+  469:   #     resources :sales do
+  470    #       get 'recent', on: :collection
+  471    #     end
+  ...
+  476    #     post 'toggle'
+  477    #   end
+  478:   #   resources :posts, concerns: :toggleable
+  479:   #   resources :photos, concerns: :toggleable
+  480  
+  481    # Example resource route within a namespace:
+  ...
+  483    #     # Directs /admin/products/* to Admin::ProductsController
+  484    #     # (app/controllers/admin/products_controller.rb)
+  485:   #     resources :products
+  486    #   end
+  487  end
+
+75 matches across 27 files
+
+
+Searching 3670 files for "djobs"
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/assets/stylesheets/djobs.css.scss:
+    1: // Place all the styles related to the Djobs controller here.
+    2  // They will automatically be included in application.css.
+    3  // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/controllers/djobs_controller.rb:
+    1: class DjobsController < ApplicationController
+    2    before_action :set_djob, only: [:show, :edit, :update, :destroy]
+    3  
+    .
+    5  
+    6    def index
+    7:     @djobs = Djob.all
+    8:     respond_with(@djobs)
+    9    end
+   10  
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/helpers/djobs_helper.rb:
+    1: module DjobsHelper
+    2  end
+    3  
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/djobs/edit.html.erb:
+    4  
+    5  <%= link_to 'Show', @djob %> |
+    6: <%= link_to 'Back', djobs_path %>
+    7  
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/djobs/index.html.erb:
+    1: <h1>Listing djobs</h1>
+    2  
+    3  <div class = "media">
+    .
+   72  
+   73        <tbody>
+   74:         <% @djobs.each do |djob| %>
+   75            <tr>
+   76              <td><%= djob.SCODE %></td>
+   ..
+  146  
+  147  <h3>Import Jobs</h3>
+  148: <%= form_tag import_djobs_path, multipart: true do %>
+  149    <%= file_field_tag :file %>
+  150    <%= submit_tag "Upload Jobs" %>
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/djobs/index.json.jbuilder:
+    1: json.array!(@djobs) do |djob|
+    2    json.extract! djob, :id, :SCODE, :JOB, :JOBTYPE, :DATE, :STARTTIME, :TRIGS, :PRICELIST, :RIGS, :PHOTOG1, :PHOTOG_NOTE, :JOB_NOTES, :LAB_NOTE, :PACK_NOTES, :LOCATION, :PROJSALE, :SALE, :ESTSHOTS, :FLYERS, :NOTICES, :POSTERS, :NOTICE_NOTE, :CONF_CALL, :RECONFIRM_CALL, :DATA_CALL, :DATA_REC, :DATA_SETUP, :DATA2WEB, :LAPTOPS, :CROP_DATE, :CROP_NOTE, :TYPE_DATE, :TYPED_BY, :CORR_DATE, :CORR_BY, :DATA_CLEAN, :IMG2WEB, :PRINT_DATE, :PRINT_BY, :ID_SHIP, :PKS_SHIP, :PKS_NOTE, :MUG_SHIP, :CR_SHIP, :PICS4TEA, :CP_PROOF_PRINTED, :CP_PROOF_SHIPPED, :CP_NOTES, :CP_PROOF_RET, :CP_CORR, :CP_PRINTED, :CP_SHIP, :ADMIN_CD, :YB_UG_CD, :YB_SENR_CD, :PRIN_ALBUM, :TSHOTS, :TPKS, :ZPKS, :AVPK, :CONF_YN, :CONF
+    3    json.url djob_url(djob, format: :json)
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/djobs/new.html.erb:
+    3  <%= render 'form' %>
+    4  
+    5: <%= link_to 'Back', djobs_path %>
+    6  
+
+/Users/XDaniel/Desktop/shoobphoto_beta/app/views/djobs/show.html.erb:
+  307  
+  308  <%= link_to 'Edit', edit_djob_path(@djob) %> |
+  309: <%= link_to 'Back', djobs_path %>
+  310  
+
+/Users/XDaniel/Desktop/shoobphoto_beta/config/routes.rb:
+    4  
+    5  
+    6:   resources :djobs do 
+    7      collection { post :import }
+    8    end
+    9  
+   10:   root to: "djobs#index"
+   11  
+   12    resources :dschools
+
+/Users/XDaniel/Desktop/shoobphoto_beta/db/schema.rb:
+  258    end
+  259  
+  260:   create_table "djobs", id: false, force: true do |t|
+  261      t.string   "SCODE"
+  262      t.string   "JOB"
+
+/Users/XDaniel/Desktop/shoobphoto_beta/db/migrate/20180722222729_create_djobs.rb:
+    1: class CreateDjobs < ActiveRecord::Migration
+    2    def change
+    3:     create_table :djobs do |t|
+    4        t.string :SCODE
+    5        t.string :JOB
+
+/Users/XDaniel/Desktop/shoobphoto_beta/log/development.log:
+    <binary>
+
+/Users/XDaniel/Desktop/shoobphoto_beta/test/controllers/djobs_controller_test.rb:
+    1  require 'test_helper'
+    2  
+    3: class DjobsControllerTest < ActionController::TestCase
+    4    setup do
+    5:     @djob = djobs(:one)
+    6    end
+    7  
+    .
+    9      get :index
+   10      assert_response :success
+   11:     assert_not_nil assigns(:djobs)
+   12    end
+   13  
+   ..
+   45      end
+   46  
+   47:     assert_redirected_to djobs_path
+   48    end
+   49  end
+
+/Users/XDaniel/Desktop/shoobphoto_beta/test/helpers/djobs_helper_test.rb:
+    1  require 'test_helper'
+    2  
+    3: class DjobsHelperTest < ActionView::TestCase
+    4  end
+    5  
+
+/Users/XDaniel/Desktop/shoobphoto_beta/tmp/cache/assets/development/sass/dab4db87e61fd0214dcbb9eb8209dca75506d177/djobs.css.scssc:
+    <binary>
+
+/Users/XDaniel/Desktop/shoobphoto_beta/tmp/cache/assets/development/sprockets/13fe41fee1fe35b49d145bcc06610705:
+    <binary>
+
+/Users/XDaniel/Desktop/shoobphoto_beta/tmp/cache/assets/development/sprockets/2f5173deea6c795b8fdde723bb4b63af:
+    <binary>
+
+/Users/XDaniel/Desktop/shoobphoto_beta/tmp/cache/assets/development/sprockets/58c29659fee39116da1fd4a0a3388a41:
+    <binary>
+
+/Users/XDaniel/Desktop/shoobphoto_beta/tmp/cache/assets/development/sprockets/58fcb90a9c81c4b6d1ddd88c3c55ed1c:
+    <binary>
+
+
+
+Searching 3670 files for "djov"
+
+/Users/XDaniel/Desktop/shoobphoto_beta/log/development.log:
+    <binary>
+
+2 matches in 1 file

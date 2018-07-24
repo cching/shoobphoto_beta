@@ -257,7 +257,7 @@ ActiveRecord::Schema.define(version: 20180723170631) do
     t.boolean  "last",       default: false
   end
 
-  create_table "djobs", force: true do |t|
+  create_table "djobs", id: false, force: true do |t|
     t.string   "SCODE"
     t.string   "JOB"
     t.string   "JOBTYPE"

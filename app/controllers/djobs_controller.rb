@@ -5,7 +5,7 @@ class DjobsController < ApplicationController
 
   def index
     @djobs = Djob.all
-    respond_with(@djobs)
+    respond_with(@djob)
   end
 
   def show
@@ -34,6 +34,13 @@ class DjobsController < ApplicationController
   def destroy
     @djob.destroy
     respond_with(@djob)
+  end
+
+  def import
+    Djobs.import(params[:file])
+    #After import, redirects and lets us know it worked
+    redirect_to djob_path, notice: "Jobs added successfully"
+
   end
 
   private

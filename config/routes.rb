@@ -3,7 +3,9 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
-  resources :djobs
+  resources :djobs do 
+    collection { post :import }
+  end
 
   resources :dschools
 
