@@ -81,9 +81,15 @@ button {
   <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
   <%= f.label :assigned_to %>
   <%= f.select :assigned_to_eq, Dproject.all.order(:assigned_to).pluck(:assigned_to).uniq, selected: (params[:q] ? params[:q][:assigned_to_eq] : nil), include_blank: true %>
+<br />
 
-  <%= f.submit %>
+  <%= f.label :status %>
+  <%= f.select :status_eq, Dproject.all.order(:status).pluck(:status).uniq, selected: (params[:q] ? params[:q][:status_eq] : nil), include_blank: true %>
+<br />
+
+    <%= f.submit %>
 <% end %>
+
 <br /><br />
 
 <div id="notCompleted" class="filterDiv indexNotCompleted">
