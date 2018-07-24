@@ -1,21 +1,21 @@
 <table>
   <thead>
     <tr style="border-bottom: 2px solid black;">
-      <th> <%= sortable "schools.name", params[:sort], title: 'School', direction: params[:direction] %></th>
+      <th> <%= sort_link(@q, :school_name, 'School') %> </th>
       <th> Request </th>
-      <th> <%= sortable "assigned_to", params[:sort], direction: params[:direction] %> </th>
-      <th> <%= sortable "created_at", params[:sort], title: "Orig Date", direction: params[:direction] %> </th>
-      <th> <%= sortable "due_date", params[:sort], direction: params[:direction] %> </th>
-      <th> <%= sortable "must_date", params[:sort], title: "Must Del", direction: params[:direction] %> </th>
+      <th> <%= sort_link(@q, :assigned_to) %> </th>
+      <th> <%= sort_link(@q, :created_at, 'Orig Date') %> </th>
+      <th> <%= sort_link(@q, :due_date) %>  </th>
+      <th> <%= sort_link(@q, :must_date, 'Must Del') %>  </th>
       <th> Age </th>
-      <th> <%= sortable "status", params[:sort], direction: params[:direction] %> </th>
-      <th> <%= sortable "project_type", params[:sort], direction: params[:direction], title: "Type" %> </th>
-      <th> <%= sortable "id", params[:sort], direction: params[:direction], title: "ID" %> </th>
+      <th> <%= sort_link(@q, :status) %>  </th>
+      <th> <%= sort_link(@q, :project_type, 'Type') %> </th>
+      <th> <%= sort_link(@q, :id, 'ID') %> </th>
     </tr>
   </thead>
 
   <tbody>
-    <% @dprojects.where.not(status: "Completed").each do |dproject| %>
+    <% @dprojects.where.not(status: "Completed").where.not(status: "In Transit").where.not(status: "Printed").where.not(status: "Packaged").where.not(status: "Delivered").each do |dproject| %>
       <tr>
         <td width="18%" class="dotted"><%= dproject.school.dname[0,25] + "..." %></td>
         <td width="15%" class="dotted"><%= dproject.description[0, 20] + "..." %></td>
@@ -27,7 +27,7 @@
         <td width="10%" class="dotted"><%= dproject.status %></td>
         <td width="10%" class="dotted"><%= dproject.project_type %></td>
         <td width="5%" class="dotted"><%= dproject.id %></td>
-        <td width="5%" style="text-align: right;"><%= link_to 'Edit', edit_dproject_path(dproject) %></td>
+        <td width="5%" style="text-align: right;"><%= link_to 'Edit', edit_dproject_path(dproject, q: params[:q]) %></td>
         <td width="5%" style="text-align: right;"><%= link_to 'Ship', dproject_ship_path(dproject.id) %></td>
       </tr>
     <% end %>

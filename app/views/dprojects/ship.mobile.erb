@@ -46,11 +46,19 @@
 	<br /><br />
 	<div class="col-xs-12" style="font-size: 40px">
 		<b>Recieved By: </b><br />
-		<%= f.input :recieved_by, {:label => false, :input_html => {:rows => 2}, :class => "form-control bigger-text"} %>
+		<%= f.input :recieved_by, :input_html => {:rows => 2}, :label => false %>
 	</div>
-	<div class="col-xs-12" style="font-size: 40px; display: none;">
+	<div class="col-xs-12" style="font-size: 40px">
+		<b>Delivered By: </b><br />
+		<%= f.input :delivered_by, :input_html => {:rows => 2}, :label => false %>
+	</div>
+	<div class="col-xs-12" style="font-size: 40px">
+		<b>Note to lab: </b><br />
+		<%= f.input :note_to_lab, :input_html => {:rows => 2}, :label => false %>
+	</div>
+	<div class="col-xs-12" style="font-size: 40px;">
 		<b>Status: </b><br />
-		<%= f.select(:status, ["In Transit"], {}, {:class => 'form-control bigger-text'}) %>
+		<%= f.select(:status, ["Delivered", "Note to Lab"], {}, {:class => 'form-control bigger-text'}) %>
 	</div>
 </div>
 
