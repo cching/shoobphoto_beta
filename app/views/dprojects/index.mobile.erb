@@ -8,8 +8,8 @@
 <table>
   <thead>
     <tr style="border-bottom: 2px solid black; font-size: 50px;">
-      <th> <%= sortable "schools.name", params[:sort], title: 'School', direction: params[:direction] %></th>
-      <th> <%= sortable "id", params[:sort], direction: params[:direction], title: "ID" %> </th>
+      <th> <%= sort_link(@q, :school_name, 'School') %> </th>
+      <th> <%= sort_link(@q, :id, 'ID') %> </th>
     </tr>
   </thead>
 

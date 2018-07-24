@@ -46,7 +46,7 @@
   </div>
   <div class=col-xs-2>
     Route <br />
-    <%= f.select(:route, ["North", "East", "South", "West", "UPS"], {}, {:class => "form-control"}) %>
+    <%= @dproject.school.route %>
   </div>
   <div class=col-xs-2>
     Assigned to <br />
@@ -115,7 +115,7 @@
 <div class="row">
   <div class=col-xs-3>
     Status <br />
-    <%= f.select(:status, ["", "Started", "Ready to Proof", "Proof sent", "Changes", "New proof ready", "New proof sent", "Follow up sent", "Ready to print", "On Hold", "Completed", "In Transit", "Delivered"], {}, {:class => 'form-control'}) %>
+    <%= f.select(:status, ["", "Started", "Ready to Proof", "Proof sent", "Changes", "New proof ready", "New proof sent", "Follow up sent", "Ready to print", "On Hold", "Printed", "Packaged", "In Transit", "Delivered"], {}, {:class => 'form-control'}) %>
   </div>
     <div class=col-xs-3>
     Attachment <br />
