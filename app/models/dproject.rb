@@ -1,6 +1,5 @@
 class Dproject < ActiveRecord::Base
 	has_many :dattachments
-	belongs_to :dschool, foreign_key: 'scode'
 	belongs_to :school
 
 	scope :by_school, -> {joins(:school).reorder('schools.name')}

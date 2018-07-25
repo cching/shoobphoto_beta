@@ -1,6 +1,7 @@
 class School < ActiveRecord::Base
 	validates_uniqueness_of :name
 	has_many :dprojects
+	has_many :djobs
 	has_many :students
 	has_many :student_images, through: :students
 
