@@ -1,3 +1,6 @@
+<%= simple_form_for(@dproject) do |f| %>
+  <%= f.error_notification %>
+
 <style>
 
 .red {
@@ -15,8 +18,11 @@
 		<%= button_to 'Delete', @dproject, method: :delete, class: 'form-control red', data: { confirm: 'Are you sure?' } %>
 	</div>
 </div>
+<br />
 
 <%= render 'formEdit' %>
 
 <!-- <%= link_to 'Show', @dproject %> | -->
 <%= link_to 'Back', dprojects_path %>
+
+<% end %>

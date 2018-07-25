@@ -1,5 +1,6 @@
 class Admin::ExtrasController < ApplicationController
   before_action :set_extra, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin
 
   respond_to :html
 

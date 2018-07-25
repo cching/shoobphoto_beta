@@ -1,5 +1,6 @@
 class Admin::ExtraTypesController < ApplicationController
   before_action :set_extra_type, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin
 
   respond_to :html
 

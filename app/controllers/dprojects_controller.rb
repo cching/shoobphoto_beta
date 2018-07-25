@@ -1,6 +1,6 @@
 class DprojectsController < ApplicationController
   before_action :set_dproject, only: [:show, :edit, :update, :destroy]
-  before_action :require_admin
+  before_action :require_employee
 
   respond_to :html
 

@@ -1,5 +1,6 @@
 class Admin::CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin
 
   # GET /categories
   # GET /categories.json

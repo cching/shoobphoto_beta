@@ -60,6 +60,10 @@
 		<b>Status: </b><br />
 		<%= f.select(:status, ["Delivered", "Note to Lab"], {}, {:class => 'form-control bigger-text'}) %>
 	</div>
+	<div class="col-xs-12" style="font-size: 40px; display: none;">
+		<b>Status Changed: </b><br />
+		<%= f.date_field(:status_date, :value => Time.now.strftime('%Y-%m-%d'), :class => "form-control") %>
+	</div>
 </div>
 
 <br /><br />

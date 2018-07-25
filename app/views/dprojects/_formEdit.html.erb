@@ -121,11 +121,15 @@
   </div>
 </div>
 <div class="row">
-  <div class=col-xs-3>
+  <div class=col-xs-2>
     Status <br />
     <%= f.select(:status, ["", "Started", "Ready to Proof", "Proof sent", "Changes", "New proof ready", "New proof sent", "Follow up sent", "Ready to print", "On Hold", "Printed", "Packaged", "In Transit", "Delivered"], {}, {:class => 'form-control'}) %>
   </div>
-    <div class=col-xs-3>
+  <div class=col-xs-2>
+    Status Changed<br />
+    <%= f.date_field(:status_date, {:class => "form-control"}) %>
+  </div>
+    <div class=col-xs-2>
     Attachment <br />
     <%= f.input :project_attachment, as: :file, :label => false %>
   </div>
