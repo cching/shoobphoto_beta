@@ -15,13 +15,19 @@
     Account <br />
     <%= @dproject.school.scode %>
   </div>
-  <div class=col-xs-4>
+  <div class=col-xs-2>
     Requested by
     <%= f.input :requested_by, :label => false %>
   </div>
-  <div class=col-xs-4>
+  <div class=col-xs-3>
     Contact Email
     <%= f.input :contact_email, :label => false %>
+  </div>
+  <div class="col-xs-3">
+    Item Type<br />
+      <div class="col-xs-12">
+        <%= f.select(:project_type, ["Award", "Background", "Banner", "Brochure", "Calendar", "Catalog", "Flyer", "ID Cards", "Large Poster", "Misc", "Notepads", "Pads", "Planner/Handbook", "Postcard", "Posters", "Stickers", "Ticket", "Yearbook"], {:prompt => "Select item"}, {:class => "form-control"}) %>
+      </div>
   </div>
 </div>
 <hr>
@@ -98,10 +104,8 @@
     <%= f.input :project_changes, :input_html => {:rows => 5}, :label => false %>
   </div>
   <div class="col-xs-3">
-    Item Type<br />
-      <div class="col-xs-12">
-        <%= f.select(:project_type, ["Award", "Background", "Banner", "Brochure", "Calendar", "Catalog", "Flyer", "ID Cards", "Large Poster", "Misc", "Notepads", "Pads", "Planner/Handbook", "Postcard", "Posters", "Stickers", "Ticket", "Yearbook"], {:prompt => "Select item"}, {:class => "form-control"}) %>
-      </div>
+    Change Log <br />
+    
   </div>
 </div>
 <div class="row">

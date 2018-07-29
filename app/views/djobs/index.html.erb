@@ -25,7 +25,7 @@
       <tbody>
         <% @djobs.each do |djob| %>
           <tr>
-            <td width="8%" class="dotted" ><%= djob.school.dname%></td>
+            <td width="8%" class="dotted" ><%= djob.school.name %></td>
             <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%b %e') %></td>
             <td width="8%" class="dotted" ><%= djob.STARTTIME %></td>
             <td width="8%" class="dotted" ><%= djob.JOB %></td>

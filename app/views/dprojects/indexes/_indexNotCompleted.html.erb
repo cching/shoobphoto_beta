@@ -1,6 +1,7 @@
 <table>
   <thead>
     <tr style="border-bottom: 2px solid black;">
+      <th></th>
       <th> <%= sort_link(@q, :school_name, 'School') %> </th>
       <th> Request </th>
       <th> <%= sort_link(@q, :assigned_to) %> </th>
@@ -13,13 +14,15 @@
       <th> <%= sort_link(@q, :project_type, 'Type') %> </th>
       <th> <%= sort_link(@q, :school_route, 'Route') %> </th>
       <th> <%= sort_link(@q, :id, 'ID') %> </th>
+      <th>
     </tr>
   </thead>
 
   <tbody>
     <% @dprojects.each do |dproject| %>
       <tr>
-        <td width="18%" class="dotted"><%= dproject.school.dname[0,25] + "..." %></td>
+        <td width="5%" style="text-align: left;"><%= link_to 'Edit', edit_dproject_path(dproject, q: params[:q]) %></td>
+        <td width="15%" class="dotted"><%= dproject.school.dname[0,20] + "..." %></td>
         <td width="15%" class="dotted"><%= dproject.description[0, 20] + "..." %></td>
         <td width="8%" class="dotted"><%= dproject.assigned_to %></td>
         <td width="5%" class="dotted"><%= dproject.created_at.try(:strftime, '%b %e') %></td>
@@ -31,7 +34,6 @@
         <td width="10%" class="dotted"><%= dproject.project_type %></td>
         <td width="9%" class="dotted"><%= dproject.school.route %></td>
         <td width="5%" class="dotted"><%= dproject.id %></td>
-        <td width="5%" style="text-align: right;"><%= link_to 'Edit', edit_dproject_path(dproject, q: params[:q]) %></td>
         <td width="5%" style="text-align: right;"><%= link_to 'Ship', dproject_ship_path(dproject.id) %></td>
       </tr>
     <% end %>
