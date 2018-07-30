@@ -39,7 +39,7 @@ class DjobsController < ApplicationController
   def import
     Djob.import(params[:file])
     #After import, redirects and lets us know it worked
-    redirect_to djob_path, notice: "Jobs added successfully"
+    redirect_to "/djobs", notice: "Jobs added successfully"
 
   end
 

@@ -2,6 +2,12 @@
 <br>
 <%= link_to 'New Djob', new_djob_path %>
 <br>
+
+<h3>Import Jobs</h3>
+<%= form_tag import_djobs_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Upload Jobs" %>
+
 <div class = "media">
   <div class="media-body">
     <table class="table table-hover">
@@ -36,6 +42,7 @@
             <td width="8%" class="dotted" ><%= djob.PHOTOG1 %></td>
             <td width="8%" class="dotted" ><%= djob.RECONFIRM_CALL %></td>
             <td width="18%" class="dotted" ><%= djob.JOB_NOTES %></td>
+            <td><%= link_to 'Edit', edit_djob_path(djob) %></td>
           </tr>
         <% end %>
       </tbody>
@@ -45,10 +52,6 @@
 <br>
 
 
-<h3>Import Jobs</h3>
-<%= form_tag import_djobs_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Upload Jobs" %>
 <%end%> 
 
 
