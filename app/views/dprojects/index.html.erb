@@ -87,6 +87,10 @@ button {
   <%= f.select :status_eq, Dproject.all.order(:status).pluck(:status).uniq, selected: (params[:q] ? params[:q][:status_eq] : nil), include_blank: true %>
 <br />
 
+  <%= f.label :school %>
+  <%= f.select :school_name_eq, Dproject.includes(:school).order('schools.name').all.map { |dproject| dproject.school.name }.uniq, selected: (params[:q] ? params[:q][:status_eq] : nil), include_blank: true %>
+<br />
+
     <%= f.submit %>
 <% end %>
 
