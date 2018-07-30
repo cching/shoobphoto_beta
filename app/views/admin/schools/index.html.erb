@@ -1,4 +1,14 @@
 <h1>Listing schools</h1>
+
+<%= search_form_for @q do |f| %>
+  <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
+  School:
+  <%= f.select :name_eq, School.all.order(:name).pluck(:name).uniq, selected: (params[:q] ? params[:q][:name_eq] : nil), include_blank: true %>
+<br />
+
+    <%= f.submit %>
+<% end %>
+
 <%= link_to "Export schools", export_admin_schools_path  %>
 
 <table>
@@ -13,7 +23,7 @@
       <tr>
         <td><%= school.name %></td>
         <td><%= link_to 'Show', admin_school_path(school) %></td>
-        <td><%= link_to 'Edit', edit_admin_school_path(school) %></td>
+        <td><%= link_to 'Edit', edit_admin_school_path(school, q: params[:q]) %></td>
         <td><%= link_to 'Destroy', admin_school_path(school), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

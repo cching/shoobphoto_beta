@@ -79,16 +79,20 @@ button {
 
 <%= search_form_for @q do |f| %>
   <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
-  <%= f.label :assigned_to %>
+  Assigned to:
   <%= f.select :assigned_to_eq, Dproject.all.order(:assigned_to).pluck(:assigned_to).uniq, selected: (params[:q] ? params[:q][:assigned_to_eq] : nil), include_blank: true %>
 <br />
 
-  <%= f.label :status %>
+  Status:
   <%= f.select :status_eq, Dproject.all.order(:status).pluck(:status).uniq, selected: (params[:q] ? params[:q][:status_eq] : nil), include_blank: true %>
 <br />
 
-  <%= f.label :school %>
+  School:
   <%= f.select :school_name_eq, Dproject.includes(:school).order('schools.name').all.map { |dproject| dproject.school.name }.uniq, selected: (params[:q] ? params[:q][:school_name_eq] : nil), include_blank: true %>
+<br />
+
+  Route:
+  <%= f.select :school_route_eq, Dproject.includes(:school).order('schools.route').all.map { |dproject| dproject.school.route }.uniq, selected: (params[:q] ? params[:q][:school_route_eq] : nil), include_blank: true %>
 <br />
 
     <%= f.submit %>
@@ -97,5 +101,5 @@ button {
 <br /><br />
 
 <div id="notCompleted" class="filterDiv indexNotCompleted">
-	<%= render 'dprojects/indexes/indexNotCompleted' %>
+	<%= render 'index' %>
 </div>
