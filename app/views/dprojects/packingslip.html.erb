@@ -50,7 +50,7 @@
 <br />
 <div class="row">
 	<div class="col-xs-12">
-		<b>Route: </b> <%= @dproject.route %>
+		<b>Route: </b> <%= @dproject.school.route %>
 	</div>
 	<div class="col-xs-12">
 		<b>Shipping Instructions: </b> <%= @dproject.shipping_instructions %>
@@ -59,7 +59,7 @@
 <br />
 <div class="row">
 	<div class="col-xs-12">
-		<b>Delivery Note: </b> <%= @dproject.route %>
+		<b>Delivery Note: </b> <%= @dproject.school.route %>
 	</div>
 	<div class="col-xs-12">
 		<b>Request: </b> <%= f.input :description, :input_html => {:rows => 10}, :label => false %>
