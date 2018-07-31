@@ -73,6 +73,9 @@ class DprojectsController < ApplicationController
 
     q = {}
     q[:assigned_to_eq] = params[:dproject].delete(:assigned_to_eq)
+    q[:status_eq] = params[:dproject].delete(:status_eq)
+    q[:school_name_eq] = params[:dproject].delete(:school_name_eq)
+    q[:school_route_eq] = params[:dproject].delete(:school_route_eq)
     q[:s] = params[:dproject].delete(:s)
     @dproject.update(dproject_params)
     @dproject.save

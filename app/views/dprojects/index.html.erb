@@ -95,7 +95,7 @@ button {
   <%= f.select :school_route_eq, Dproject.includes(:school).order('schools.route').all.map { |dproject| dproject.school.route }.uniq, selected: (params[:q] ? params[:q][:school_route_eq] : nil), include_blank: true %>
 <br />
 
-    <%= f.submit %>
+  <%= f.submit %>
 <% end %>
 
 <br /><br />
