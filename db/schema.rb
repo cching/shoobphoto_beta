@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180725185757) do
+ActiveRecord::Schema.define(version: 20180731181039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -276,7 +276,7 @@ ActiveRecord::Schema.define(version: 20180725185757) do
     t.integer  "SALE"
     t.integer  "ESTSHOTS"
     t.datetime "FLYERS"
-    t.datetime "NOTICES"
+    t.string   "NOTICES"
     t.datetime "POSTERS"
     t.string   "NOTICE_NOTE"
     t.string   "CONF_CALL"
@@ -390,7 +390,7 @@ ActiveRecord::Schema.define(version: 20180725185757) do
     t.datetime "invoice_payment_date"
     t.text     "invoice_notes"
     t.boolean  "invoice_bool"
-    t.string   "recieved_by"
+    t.text     "recieved_by"
     t.integer  "boxes"
     t.datetime "status_date"
     t.text     "note_to_lab"
