@@ -151,25 +151,25 @@
     <%= f.label(:shipping_address, "Address")%>
   </div>
   <div class="col-sm-2">
-    <%= f.text_field :shipping_address, class: "form-control", id: "billingaddress" %>
+    <%= f.text_field :shipping_address, class: "form-control", id: "shippingaddress" %>
   </div>
   <div class="col-sm-1">
     <%= f.label(:shipping_city, "City")%>
   </div>
   <div class="col-sm-2">
-    <%= f.text_field :shipping_city, class: "form-control", id: "billingcity" %>
+    <%= f.text_field :shipping_city, class: "form-control", id: "shippongcity" %>
   </div>
   <div class="col-sm-1">
     <%= f.label(:shipping_state, "State")%>
   </div>
   <div class="col-sm-2">
-    <%= f.select :shipping_state, options_for_select(us_states),{prompt: "Select State"}, id: "billingstate" %>
+    <%= f.select :shipping_state, options_for_select(us_states),{prompt: "Select State"}, id: "shippingstate" %>
   </div>
   <div class="col-sm-1">
     <%= f.label(:shipping_zip, "Zip Code")%>
   </div>
   <div class="col-sm-2">
-    <%= f.text_field :shipping_zip, class: "form-control", id: "billingzip" %>
+    <%= f.text_field :shipping_zip, class: "form-control", id: "shippingzip" %>
   </div>
 </div>
 <br /> 
