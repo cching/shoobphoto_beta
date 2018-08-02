@@ -9,238 +9,188 @@
 <% end %>
 <hr >
 <div class="row">
-<div class="col-sm-2">
-<%= f.label(:first_name, "First Name")%>
-</div>
-<div class="col-sm-10">
-      <%= f.text_field :first_name, class: "form-control" %>
-</div>
-</div>
-<br />
-<div class="row">
-<div class="col-sm-2">
-<%= f.label(:last_name, "Last Name")%> 
-</div>
-<div class="col-sm-10">
-      <%= f.text_field :last_name, class: "form-control" %>
-</div>
-</div>
-<br />
-<div class="row">
-<div class="col-sm-2">
-Phone number
-</div>
-<div class="col-sm-10">
-      <%= f.text_field :phone, class: "form-control" %>
-</div>
-</div>
-
-<div class="row">
-<div class="col-sm-2">
-Grade
-</div>
-<div class="col-sm-10">
-      <%= f.select :grade, options_for_select(Student::CorderGrades), :include_blank => true, id: "gradedropdown" %>
-
-</div>
+  <div class="col-sm-1">
+    <%= f.label(:first_name, "First Name")%>
+  </div>
+  <div class="col-sm-3">
+    <%= f.text_field :first_name, class: "form-control" %>
+  </div>
+  <div class="col-sm-1">
+    <%= f.label(:last_name, "Last Name")%> 
+  </div>
+  <div class="col-sm-3">
+    <%= f.text_field :last_name, class: "form-control" %>
+  </div>
+  <div class="col-sm-1">
+    <%= f.label(:phone, "Phone Number")%>
+  </div>
+  <div class="col-sm-3">
+    <%= f.text_field :phone, class: "form-control" %>
+  </div>
 </div>
 <br />
 <div class="row">
-<div class="col-sm-2">
-Email
-</div>
-<div class="col-sm-10">
-      <%= f.text_field :email, class: "form-control" %>
-</div>
-</div>
-<br />
-
-<div class="row">
-<div class="col-sm-2">
-You are a:
-</div>
-<div class="col-sm-10">
-<div class="row">
+  <div class="col-sm-1">
+    <%= f.label(:admin, "You are a(n):")%>
+  </div>
+  <div class="col-sm-1">
+    <%= f.label :admin, class: 'checkbox' do %>
+      <%= f.check_box :admin %>
+      Administrator
+    <% end %>
+  </div>
+  <div class="col-sm-1">
+    <%= f.label :teacher, class: 'checkbox' do %>
+      <%= f.check_box :teacher %>
+      Teacher
+    <% end %>
+  </div>
+    <div class="col-sm-1">
+  </div>
+  <div class="col-sm-1">
+    <%= f.label(:grade, "Grade")%>
+  </div>
   <div class="col-sm-2">
-  <%= f.label :admin, class: 'checkbox' do %>
-  <%= f.check_box :admin %>
-  Administrator
-<% end %>
+    <%= f.select :grade, options_for_select(Student::CorderGrades), :include_blank => true, id: "gradedropdown" %>
+  </div>
+  <div class="col-sm-1">
+  </div>
+  <div class="col-sm-1">
+    <%= f.label(:email, "Email")%>
+  </div>
+  <div class="col-sm-3">
+    <%= f.text_field :email, class: "form-control" %>
+  </div>
 </div>
-
-  <div class="col-sm-2">
-  <%= f.label :teacher, class: 'checkbox' do %>
-  <%= f.check_box :teacher %>
-  Teacher
-<% end %>
-</div>
-
-  <div class="col-sm-2">
-
-</div>
-</div>
-
-</div>
-</div>
-<br/>
-
-
-<% if @free %>
+<br /><br />
 <div class="row">
-<div class="col-sm-2">
-Card number
-</div>
-<div class="col-sm-5">
-      <%= f.text_field :card_number, class: "form-control" %>
-</div>
-<div class="col-sm-2">
-Card Type
-</div>
-<div class="col-sm-3">
-      <%= f.select :card_type, Order::CardTypes %>
-      </div>
-</div>
- <br />
- <div class="row">
- <div class="col-sm-2">
- Expires on
- </div>
-<div class="col-sm-3">
-          <%= f.date_select :card_expires_on, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true %>
-
-
-</div>
-<div class="col-sm-3">
-Card Verification (number on back)
-</div>
-<div class="col-sm-4">
-      <%= f.text_field :card_verification, class: "form-control" %>
-      </div>
+  <% if @free %>
+  <div class="col-sm-1">
+    <%= f.label(:card_number, "Card Number")%>
+  </div>
+  <div class="col-sm-2">
+    <%= f.text_field :card_number, class: "form-control" %>
+  </div>
+  <div class="col-sm-1">
+    <%= f.label(:card_type, "Card Type")%>
+  </div>
+  <div class="col-sm-2">
+    <%= f.select :card_type, Order::CardTypes %>
+  </div>
+  <div class="col-sm-1">
+    <%= f.label(:card_expires_on, "Expires on")%>
+  </div>
+  <div class="col-sm-2">
+    <%= f.date_select :card_expires_on, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true %>
+  </div>
+  <div class="col-sm-2">
+    <%= f.label(:card_verification, "Card Verification (numbers on back)")%>
+  </div>
+  <div class="col-sm-1">
+    <%= f.text_field :card_verification, class: "form-control" %>
+  </div>
 </div>
 
 <h3>Billing Address</h3>
 <hr >
-
 <div class="row">
-<div class="col-sm-2">
-Address
-</div>
-<div class="col-sm-10">
-      <%= f.text_field :address, class: "form-control", id: "billingaddress" %>
-</div>
-</div> 
-<br />
-<div class="row">
-<div class="col-sm-2">
-City
-</div>
-<div class="col-sm-3">
-      <%= f.text_field :city, class: "form-control", id: "billingcity" %>
-</div>
-<div class="col-sm-1">
-State
-</div>
-<div class="col-sm-2">
-<%= f.select :state, options_for_select(us_states),{prompt: "Select State"}, id: "billingstate" %></div>
-<div class="col-sm-1">
-Zip code
-</div>
-<div class="col-sm-3">
-      <%= f.text_field :zip_code, class: "form-control", id: "billingzip" %>
-
-</div>
+  <div class="col-sm-1">
+    <%= f.label(:address, "Address")%>
+  </div>
+  <div class="col-sm-2">
+    <%= f.text_field :address, class: "form-control", id: "billingaddress" %>
+  </div>
+  <div class="col-sm-1">
+    <%= f.label(:city, "City")%>
+  </div>
+  <div class="col-sm-2">
+    <%= f.text_field :city, class: "form-control", id: "billingcity" %>
+  </div>
+  <div class="col-sm-1">
+    <%= f.label(:state, "State")%>
+  </div>
+  <div class="col-sm-2">
+    <%= f.select :state, options_for_select(us_states),{prompt: "Select State"}, id: "billingstate" %>
+  </div>
+  <div class="col-sm-1">
+    <%= f.label(:zip_code, "Zip Code")%>
+  </div>
+  <div class="col-sm-2">
+    <%= f.text_field :zip_code, class: "form-control", id: "billingzip" %>
+  </div>
 </div>
 
-<h3>Shipping Address    &nbsp; <label for="ship_to_billing_address"> <input type="checkbox" name="ship_to_billing_address" id="ship_to_billing_address" /> Check if the billing address is the same as your shipping address
-        
-    </label></h3>
-    <% else %>
-    <h3>Shipping Address</h3>
-    <% end %>
-<hr >
-
-<div class="row">
-<div class="col-sm-2">
-School
-</div>
-<div class="col-sm-10">
-      <%= f.text_field :schools, class: "form-control" %>
-</div>
-</div><br/>
-
-<div class="row">
-<div class="col-sm-2">
-District
-</div>
-<div class="col-sm-10">
-      <%= f.text_field :district, class: "form-control" %>
-</div>
-</div>
-
-<br /> 
-
-<div class="row">
-<div class="col-sm-2">
-
-</div>
-<div class="col-sm-10">
-      Please enter home address if the school is closed for the summer. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= f.check_box :residential %> Address is a residential address.
-</div>
-</div> 
-
-<div class="row">
-<div class="col-sm-2">
-Address
-</div>
-<div class="col-sm-10">
-      <%= f.text_field :shipping_address, class: "form-control", id: "shippingaddress" %>
-</div>
-</div>
-<br />
-<div class="row">
-<div class="col-sm-2">
-City
-</div>
-<div class="col-sm-3">
-      <%= f.text_field :shipping_city, class: "form-control", id: "shippingcity" %>
-</div>
-<div class="col-sm-1">
-State
-</div>
-<div class="col-sm-2">
-<%= f.select :shipping_state, options_for_select(us_states),{prompt: "Select State"}, :include_blank => true, id: "shippingstate" %>
-</div>
-<div class="col-sm-1">
-Zip code
-</div>
-<div class="col-sm-3">
-      <%= f.text_field :shipping_zip, class: "form-control", id: "shippingzip" %>
-
-</div>
-</div>
-
-<%= f.label :notes, "Extra notes" %>
-<%= f.text_field :notes, class: "form-control", :rows => "100" %>
-<br />
-
-<div class="row">
-<div class="col-sm-8">
-
-</div>
-<div class="col-sm-2">
-  <% unless Zipcode.pluck(:zip_code).include? @cart.zip_code %>
-  <strong>Total: <%= number_to_currency (@order.price - 12)  %> + $12 shipping out of state</strong>
+<h3>Shipping Address &nbsp; <label for="ship_to_billing_address"> <input type="checkbox" name="ship_to_billing_address" id="ship_to_billing_address" /> Check if the billing address is the same as your shipping address</label></h3>
   <% else %>
-  <strong>Total: <%= number_to_currency @order.price %></strong>
+<h3>Shipping Address</h3>
   <% end %>
-
+<hr >
+<div class="row">
+  <div class="col-sm-1">
+    <%= f.label(:schools, "School")%>
+  </div>
+  <div class="col-sm-5">
+    <%= f.text_field :schools, class: "form-control" %>
+  </div>
+  <div class="col-sm-1">
+    <%= f.label(:district, "District")%>
+  </div>
+  <div class="col-sm-5">
+    <%= f.text_field :district, class: "form-control" %>
+  </div>
 </div>
-<div class="col-sm-2">
-  <%= f.submit 'Confirm purchase', class: "btn btn-custom btn-loading" %>
+<br/><br />
+<div class="row">
+  <div class="col-sm-12">
+    Please enter home address if the school is closed for the summer. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= f.check_box :residential %> Address is a residential address.
   </div>
+</div>
+<br />
+<div class="row">
+  <div class="col-sm-1">
+    <%= f.label(:shipping_address, "Address")%>
   </div>
+  <div class="col-sm-2">
+    <%= f.text_field :shipping_address, class: "form-control", id: "billingaddress" %>
+  </div>
+  <div class="col-sm-1">
+    <%= f.label(:shipping_city, "City")%>
+  </div>
+  <div class="col-sm-2">
+    <%= f.text_field :shipping_city, class: "form-control", id: "billingcity" %>
+  </div>
+  <div class="col-sm-1">
+    <%= f.label(:shipping_state, "State")%>
+  </div>
+  <div class="col-sm-2">
+    <%= f.select :shipping_state, options_for_select(us_states),{prompt: "Select State"}, id: "billingstate" %>
+  </div>
+  <div class="col-sm-1">
+    <%= f.label(:shipping_zip, "Zip Code")%>
+  </div>
+  <div class="col-sm-2">
+    <%= f.text_field :shipping_zip, class: "form-control", id: "billingzip" %>
+  </div>
+</div>
+<br /> 
+<div class="row">
+  <%= f.label :notes, "Extra notes" %>
+  <%= f.text_field :notes, class: "form-control", :rows => "100" %>
+</div>
+<br />
+<div class="row">
+  <div class="col-sm-2">
+    <% unless Zipcode.pluck(:zip_code).include? @cart.zip_code %>
+      <strong>Total: <%= number_to_currency (@order.price - 12)  %> + $12 shipping out of state</strong>
+    <% else %>
+      <strong>Total: <%= number_to_currency @order.price %></strong>
+    <% end %>
+  </div>
+  <div class="col-sm-2">
+    <%= f.submit 'Confirm purchase', class: "btn btn-custom btn-loading" %>
+  </div>
+</div>
 <% end %>
-
 <br />
 
 <script type="text/javascript">
