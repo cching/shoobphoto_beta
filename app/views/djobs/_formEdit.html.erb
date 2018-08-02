@@ -1,0 +1,85 @@
+<%= simple_form_for(@djob) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+
+<div class = "row">    
+ <div class = col-xs-4>
+        School <br />
+        <%= @djob.school.dname %>
+ </div>
+ <div class=col-xs-2>
+        Account <br />
+        <%= @djob.school.scode %>
+ </div>    
+ <div class=col-xs-3>
+        Principal <br />
+        <%@djob.school.principal %>
+ </div>    
+ <div class = col-xs-3>
+        Secretary <br />
+        <%@djob.school.secretary %>
+    </div>
+  </div>
+</div>
+<hr>
+<div class = "row">
+    <div class = col-xs-3>
+        City <br />
+        <%@djob.school.city_id %>
+   </div>
+    <div class= col-xs-3>
+        Phone <br />
+        <%@djob.school.phone %>
+        </div>
+    <div class = col-xs-3>
+        Route <br />
+        <%@djob.school.route %>
+    </div>
+
+    </div>
+<hr>       
+
+<div class = "row">
+    <div class = col-xs-1>  
+    <%= f.input :JOB %>
+</div>
+    <div class = col-xs-1>
+    <%= f.input :JOBTYPE %>
+</div>
+    <div class = col-xs-3>  
+    <%= f.input :DATE %>
+</div>
+    <div class = col-xs-3>        
+    <%= f.input :STARTTIME %>
+</div>
+    <div class = col-xs-1>
+    <%= f.input :TRIGS %>    
+</div>
+</div>
+<hr>
+<div class = "row">
+    <div class = col-xs-1>
+    <%= f.input :PRICELIST %>
+</div>
+    <div class = col-xs-2>
+    <%= f.input :RIGS %>
+</div>
+    <div class = col-xs-4>
+    <%= f.input :PHOTOG1 %>
+</div>
+    <div class = col-xs-1>
+    <%= f.input :PHOTOG_NOTE %>
+</div>
+    <div class = col-xs-4>
+    <%= f.input :JOB_NOTES %>
+</div>
+
+
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Update Job" %>
+  </div>
+<% end %>
