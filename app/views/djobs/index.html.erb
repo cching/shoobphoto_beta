@@ -1,22 +1,105 @@
+<style>
+
+.dotted{
+  border-bottom: 1px dotted black;
+}
+
+td, th{
+  font-size: 16px;
+}
+
+#notcompleted {
+  display: block;
+}
+
+button {
+  border-radius: 5px;
+  background-color: lightgray;
+  width: 15%;
+}
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 7px;
+    font-size: 16px;
+    border: none;
+    width: 100% !important;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    box-shadow: 0px 8px 2px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    text-align: center;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 2px 2px;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    text-align: center;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+</style>
+
 <h1>Jobs</h1>
 <br>
 <%= link_to 'New Djob', new_djob_path %>
 <br>
+<div></div>
+<%= search_form_for @q do |f| %>
+   <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
+  School:
+  <%= f.select :school_name_eq, Djob.includes(:school).order('schools.name').all.map { |djob| djob.school.name }.uniq, selected: (params[:q] ? params[:q][:school_name_eq] : nil), include_blank: true %>
+ <br /> 
+<div class = "Date">
+  <div class="col-md-2">
+Date:
+  <%= f.date_field :DATE_eq, class: 'form-control input-sm', 'datepicker' => true%>
+</div>
+<br />
+  <%= f.submit %>
+  
 
+<br />
+ 
+ 
+<br />
 <h3>Import Jobs</h3>
 <%= form_tag import_djobs_path, multipart: true do %>
   <%= file_field_tag :file %>
   <%= submit_tag "Upload Jobs" %>
+<br></br>
+
+<% end %>
+
+  
 
 <div class = "media">
   <div class="media-body">
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>School</th>
-          <th>Date</th>
-          <th>Starttime</th>        
-          <th>Job</th>
+          <th></th>
+          <th> <%= sort_link(@q, :school_name, "School") %> </th>
+          <th> <%= sort_link(@q, :DATE, 'Date') %> </th>        
+          <th> <%= sort_link(@q, :JOB, "Job") %> </th>
           <th>Jobtype</th>
           <th>Location</th>
           <th>Trigs</th>          
@@ -31,8 +114,9 @@
       <tbody>
         <% @djobs.each do |djob| %>
           <tr>
+            <td><%= link_to 'Edit', edit_djob_path(djob) %></td>
             <td width="8%" class="dotted" ><%= djob.school.name %></td>
-            <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%b %e') %></td>
+            <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%b %e, %Y') %></td>
             <td width="8%" class="dotted" ><%= djob.STARTTIME %></td>
             <td width="8%" class="dotted" ><%= djob.JOB %></td>
             <td width="8%" class="dotted" ><%= djob.JOBTYPE %></td>
@@ -42,7 +126,7 @@
             <td width="8%" class="dotted" ><%= djob.PHOTOG1 %></td>
             <td width="8%" class="dotted" ><%= djob.RECONFIRM_CALL %></td>
             <td width="18%" class="dotted" ><%= djob.JOB_NOTES %></td>
-            <td><%= link_to 'Edit', edit_djob_path(djob) %></td>
+            
           </tr>
         <% end %>
       </tbody>
@@ -53,5 +137,7 @@
 
 
 <%end%> 
+
+
 
 

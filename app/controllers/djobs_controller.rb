@@ -4,7 +4,11 @@ class DjobsController < ApplicationController
   respond_to :html
 
   def index
-    @djobs = Djob.all
+    params[:q].reject { |_, v| v.blank?} if params[:q]
+
+    @q = Djob.ransack(params[:q])
+    @djobs = @q.result.includes(:school)
+    require 'date'
     respond_with(@djob)
   end
 
