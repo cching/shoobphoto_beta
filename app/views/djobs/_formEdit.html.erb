@@ -48,7 +48,8 @@
     <%= f.input :JOBTYPE %>
 </div>
     <div class = col-xs-3>  
-    <%= f.input :DATE %>
+    Date <br />
+    <%= f.date_field(:DATE, {:class => "form-control"}) %>
 </div>
     <div class = col-xs-3>        
     <%= f.input :STARTTIME %>
