@@ -1,4 +1,23 @@
+<style>
+
+.enjoy-css {
+  background-color: white !important;
+  color: black !important;
+  height: 20px !important;
+  padding: 4px !important;
+  border: 1px !important;
+  width: 20% !important;
+  border-radius: 2px !important;
+}
+
+</style>
+
 <h1>Listing schools</h1>
+
+<%= form_tag(admin_schools_path, :method => "get") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Schools", :class => "enjoy-css" %>
+  <%= submit_tag "Search" %>
+<% end %>
 
 <%= link_to "Export schools", export_admin_schools_path  %>
 

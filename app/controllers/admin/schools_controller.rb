@@ -12,8 +12,16 @@ class Admin::SchoolsController < ApplicationController
     end
   end
 
+
+
   def index
-    @schools = School.where.not(school_type: nil).order(:name)
+    if params[:search]
+      @schools = School.search(params[:search]).order("created_at DESC")
+    else
+      @schools = School.where.not(school_type: nil).order(:name)
+    end
+
+    @options = School.order(:name).where.not(school_type_id: nil)
     respond_with(@schools)
   end
 
