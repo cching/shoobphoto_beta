@@ -13,10 +13,7 @@ class Admin::SchoolsController < ApplicationController
   end
 
   def index
-    params[:q].reject { |_, v| v.blank? } if params[:q]
-
-    @q = School.ransack(params[:q])
-    @schools = @q.result
+    @schools = School.where.not(school_type: nil).order(:name)
     respond_with(@schools)
   end
 
