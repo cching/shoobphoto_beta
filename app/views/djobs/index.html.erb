@@ -71,15 +71,21 @@ button {
 <div class = "Date">
   <div class="col-md-2">
 Date:
-  <%= f.date_field :DATE_eq, class: 'form-control input-sm', 'datepicker' => true%>
-</div>
-<br />
-  <%= f.submit %>
-  
+  <%= f.date_field :DATE_eq, class: 'form-control input-sm', id: 'datetimepicker1', 'datepicker' => true %>
+
+
+
+  </div>
 
 <br />
- 
- 
+
+  <%= f.submit %>
+  <%= link_to 'Previous', bydate_djobs_path(q: params[:q], direction: -1)  %>
+  <%= link_to 'Next', bydate_djobs_path(q: params[:q], direction: 1)  %>
+<br />
+
+
+
 <br />
 <h3>Import Jobs</h3>
 <%= form_tag import_djobs_path, multipart: true do %>
@@ -137,7 +143,4 @@ Date:
 
 
 <%end%> 
-
-
-
 

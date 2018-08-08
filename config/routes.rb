@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 
 
   resources :djobs do 
+    collection do
+      get :bydate
+    end 
     collection { post :import }
   end
 

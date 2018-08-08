@@ -18,7 +18,22 @@ class DjobsController < ApplicationController
 
   def new
     @djob = Djob.new
+    @options = School.order(:name).where.not(school_type_id: nil)
     respond_with(@djob)
+  end
+
+  def bydate
+    new_params = params[:q] || { q: nil }
+    date = new_params[:DATE_eq]
+    direction = params[:direction].to_i
+
+
+    new_date = date.nil? ? Time.now : Date.parse(date)
+
+  
+    new_params[:DATE_eq] = (new_date + direction).strftime('%Y-%m-%d')
+
+    redirect_to djobs_path(q: new_params)
   end
 
   def edit
