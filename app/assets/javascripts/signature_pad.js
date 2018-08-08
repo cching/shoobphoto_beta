@@ -204,7 +204,8 @@ SignaturePad.prototype._strokeUpdate = function (event) {
   const y = event.clientY;
 
   const point = this._createPoint(x, y);
-  const { curve, widths } = this._addPoint(point);
+  const curve = this._addPoint(point);
+  const widths = this._addPoint(point);
 
   if (curve && widths) {
     this._drawCurve(curve, widths.start, widths.end);
