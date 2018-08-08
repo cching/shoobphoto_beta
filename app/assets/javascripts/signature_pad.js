@@ -1,3 +1,4 @@
+alert("sign");
 function Point(x, y, time) {
   this.x = x;
   this.y = y;
