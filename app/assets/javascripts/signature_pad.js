@@ -287,8 +287,7 @@ SignaturePad.prototype._addPoint = function (point) {
     // Remove the first element from the list,
     // so that we always have no more than 4 points in points array.
     points.shift();
-
-    return { curve, widths };
+    return {curve,widths};
   }
 
   return {};
