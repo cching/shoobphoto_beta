@@ -8,7 +8,6 @@
   <%= f.input :s, as: :hidden, input_html: { value: params[:q][:s] } if params[:q] && params[:q][:s] %>
 
 <div class="form-inputs">
-
 <div class="row">
   <div class=col-xs-3>
     School <br />
@@ -108,7 +107,7 @@
   </div>
   <div class="col-xs-3">
     Change Log <br />
-    
+    <%= @dproject.change_log %>
   </div>
 </div>
 <div class="row">
@@ -134,7 +133,7 @@
   </div>
   <div class=col-xs-2>
     Status Changed<br />
-    <%= f.date_field(:status_date, {:class => "form-control"}) %>
+    <%= @dproject.status_date.try(:strftime, '%b %e, %Y') %>
   </div>
     <div class=col-xs-2>
     Attachment <br />

@@ -1,6 +1,12 @@
 class Dproject < ActiveRecord::Base
 	has_many :dattachments
 	belongs_to :school
+	
+	before_save :set_status_date
+
+	def set_status_date
+	  self.status_date = Time.now if status_changed?
+	end
 
 	validates :school_id, numericality: { other_than: 999, :message => "cannot be blank" }
 	validates_presence_of :assigned_to

@@ -71,7 +71,6 @@ class DprojectsController < ApplicationController
   end
 
   def update
-
     q = {}
     q[:assigned_to_eq] = params[:dproject].delete(:assigned_to_eq)
     q[:status_eq] = params[:dproject].delete(:status_eq)
@@ -80,6 +79,7 @@ class DprojectsController < ApplicationController
     q[:s] = params[:dproject].delete(:s)
     @dproject.update(dproject_params)
     @dproject.save
+    @dproject.change_log = @dproject.status
     redirect_to dprojects_path(q: q)
     # respond_with(@dproject)
   end
