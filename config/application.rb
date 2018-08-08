@@ -18,7 +18,7 @@ module Shoobphoto
 
     config.filter_parameters += [:password, :card_number, :card_verification]
     config.autoload_paths << "#{config.root}/lib/export"
-     config.action_view.embed_authenticity_token_in_remote_forms = true
+    config.action_view.embed_authenticity_token_in_remote_forms = true
  
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -31,5 +31,6 @@ module Shoobphoto
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    config.serve_static_assets = true
   end
 end
