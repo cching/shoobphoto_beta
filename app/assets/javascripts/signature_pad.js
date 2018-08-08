@@ -160,12 +160,12 @@ SignaturePad.prototype.fromDataURL = function (dataUrl) {
   this._isEmpty = false;
 };
 
-SignaturePad.prototype.toDataURL = function (type, ...options) {
+SignaturePad.prototype.toDataURL = function (type, options) {
   switch (type) {
     case 'image/svg+xml':
       return this._toSVG();
     default:
-      return this._canvas.toDataURL(type, ...options);
+      return this._canvas.toDataURL(type, options);
   }
 };
 
