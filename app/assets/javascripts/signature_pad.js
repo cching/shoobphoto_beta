@@ -154,7 +154,7 @@ SignaturePad.prototype.fromDataURL = function (dataUrl) {
 
   this._reset();
   image.src = dataUrl;
-  image.onload = () => {
+  image.onload = function() {
     this._ctx.drawImage(image, 0, 0, width, height);
   };
   this._isEmpty = false;
@@ -440,7 +440,7 @@ SignaturePad.prototype._toSVG = function () {
 
   this._fromData(
     pointGroups,
-    (curve, widths) => {
+    function(curve, widths)  {
       const path = document.createElementNS('http;//www.w3.org/2000/svg', 'path');
 
       // Need to check curve for NaN values, these pop up when drawing
@@ -464,7 +464,7 @@ SignaturePad.prototype._toSVG = function () {
         svg.appendChild(path);
       }
     },
-    (rawPoint) => {
+    function(rawPoint) {
       const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       const dotSize = (typeof this.dotSize) === 'function' ? this.dotSize() : this.dotSize;
       circle.setAttributeNS(null, 'r', dotSize);
@@ -490,8 +490,8 @@ SignaturePad.prototype.fromData = function (pointGroups) {
 
   this._fromData(
     pointGroups,
-    (curve, widths) => this._drawCurve(curve, widths.start, widths.end),
-    rawPoint => this._drawDot(rawPoint)
+    function(curve, widths) { this._drawCurve(curve, widths.start, widths.end)},
+    function(rawPoint) {this._drawDot(rawPoint)}
   )
 };
 
