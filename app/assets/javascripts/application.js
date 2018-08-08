@@ -26,9 +26,9 @@
 //= require pickers
 //= require stickyfill
 //= require garlic
-//= require john_hancock
 //= require signature_pad
 //= require_tree .
+//= require john_hancock
 
 
 
