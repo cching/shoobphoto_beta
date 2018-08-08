@@ -2,6 +2,8 @@ class Dproject < ActiveRecord::Base
 	has_many :dattachments
 	belongs_to :school
 
+	validates :school_id, numericality: { other_than: 999, :invalid_project => "School must be valid" } 
+
 	scope :by_school, -> {joins(:school).reorder('schools.name')}
 
 	has_attached_file :dfile,
