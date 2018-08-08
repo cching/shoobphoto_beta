@@ -451,10 +451,7 @@ SignaturePad.prototype._toSVG = function () {
           !isNaN(curve.control1.y) &&
           !isNaN(curve.control2.x) &&
           !isNaN(curve.control2.y)) {
-        const attr = `M ${curve.startPoint.x.toFixed(3)},${curve.startPoint.y.toFixed(3)} `
-                   + `C ${curve.control1.x.toFixed(3)},${curve.control1.y.toFixed(3)} `
-                   + `${curve.control2.x.toFixed(3)},${curve.control2.y.toFixed(3)} `
-                   + `${curve.endPoint.x.toFixed(3)},${curve.endPoint.y.toFixed(3)}`;
+        const attr = ${curve.startPoint.x.toFixed(3)},${curve.startPoint.y.toFixed(3)},${curve.control1.x.toFixed(3)},${curve.control1.y.toFixed(3)}, ${curve.control2.x.toFixed(3)}, ${curve.control2.y.toFixed(3)}, ${curve.endPoint.x.toFixed(3)}, ${curve.endPoint.y.toFixed(3)} ;
 
         path.setAttribute('d', attr);
         path.setAttributeNS(null, 'stroke-width', (widths.end * 2.25).toFixed(3));
