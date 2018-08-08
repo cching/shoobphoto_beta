@@ -2,7 +2,8 @@ class Dproject < ActiveRecord::Base
 	has_many :dattachments
 	belongs_to :school
 
-	validates :school_id, numericality: { other_than: 999, :invalid_project => "School must be valid" } 
+	validates :school_id, numericality: { other_than: 999, :message => "cannot be blank" }
+	validates_presence_of :assigned_to
 
 	scope :by_school, -> {joins(:school).reorder('schools.name')}
 

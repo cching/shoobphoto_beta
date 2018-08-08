@@ -52,8 +52,6 @@ class DprojectsController < ApplicationController
 
   end
 
-
-
   def edit
     @dproject = Dproject.find(params[:id])
     @options = School.order(:name).where.not(school_type_id: nil).
@@ -64,8 +62,11 @@ class DprojectsController < ApplicationController
 
   def create
     @dproject = Dproject.new(dproject_params)
-    @dproject.save
-    redirect_to "/dprojects"
+    if @dproject.save
+      redirect_to "/dprojects"
+    else
+      redirect_to "/dprojects/new"
+    end
     # respond_with(@dproject)
   end
 
