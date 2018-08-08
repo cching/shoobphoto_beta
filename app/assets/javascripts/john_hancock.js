@@ -1,6 +1,7 @@
 //= require signature_pad
 $( document ).ready(function() {
   if(document.getElementById("JohnHancock-canvas")){
+    alert("in pad");
     var canvas = document.getElementById("JohnHancock-canvas"),
         hidden_field = document.getElementById("JohnHancock-hidden"),
         parent_form = $(canvas).closest("form"),
@@ -19,8 +20,10 @@ $( document ).ready(function() {
       canvas.getContext("2d").scale(ratio, ratio);
       signaturePad.clear();
     }
-
+    alert("event listener");
     window.addEventListener("resize", resizeCanvas);
+    alert("event 2");
+
     resizeCanvas();
   }
 })
