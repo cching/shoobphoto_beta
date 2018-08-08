@@ -478,7 +478,7 @@ SignaturePad.prototype._toSVG = function () {
   );
 
   const prefix = 'data:image/svg+xml;base64,';
-  const header = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="${minX} ${minY} ${maxX} ${maxY}">`;
+  const header = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="${minX} ${minY} ${maxX} ${maxY}">';
   const body = svg.innerHTML;
   const footer = '</svg>';
   const data = header + body + footer;
