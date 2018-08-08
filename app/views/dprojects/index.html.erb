@@ -8,13 +8,9 @@ td, th{
   font-size: 16px;
 }
 
-#notcompleted {
-	display: block;
-}
-
 button {
 	border-radius: 5px;
-	background-color: lightgray;
+	background-color: white;
 	width: 15%;
 }
 
@@ -56,6 +52,14 @@ button {
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 
+#all {
+  display: none;
+}
+
+#filtered {
+	display: block;
+}
+
 </style>
 
 <h4>Projects</h4>
@@ -75,7 +79,9 @@ button {
   </div>
 </div>
 
-<br /><br />
+<br />
+<button id="btnAll" onclick="toggleAll()">Show All</button>
+<br />
 
 <%= search_form_for @q do |f| %>
   <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
@@ -100,6 +106,31 @@ button {
 
 <br /><br />
 
-<div id="notCompleted" class="filterDiv indexNotCompleted">
+<div id="filtered" class="filterDiv indexFiltered">
 	<%= render 'index' %>
 </div>
+
+<div id="all" class="filterDiv indexAll">
+	<%= render 'indexAll' %>
+</div>
+
+<script>
+function toggleAll() {
+    var x = document.getElementById("filtered");
+    var y = document.getElementById("all");
+    var btn = document.getElementById("btnAll");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+        y.style.display = "none";
+        btn.innerHTML = "Show All";
+        btn.style.color = "black";
+        btn.style.backgroundColor = "white";
+    } else {
+        x.style.display = "none";
+        y.style.display = "block"
+        btn.innerHTML = "Show Filtered";
+        btn.style.color = "white";
+        btn.style.backgroundColor = "grey";
+    }
+}
+</script>
