@@ -1,4 +1,3 @@
-//= require signature_pad
 $( document ).ready(function() {
   if(document.getElementById("JohnHancock-canvas")){
     alert("in pad");
