@@ -19,8 +19,10 @@ gem 'will_paginate-bootstrap'
 gem 'sass-rails', '~> 4.0.3'
 gem 'rack-host-redirect'
 gem 'pry'
-
+gem 'barby' #, require: %w(barby 'barby/barcode/EAN13' barby/outputter/png_outputter)
+# gem 'barby/barcode/EAN13'
 #gem 'rmagick', "2.13.3", :require => "RMagick"
+gem 'john_hancock'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

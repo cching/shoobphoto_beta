@@ -38,8 +38,7 @@
 </div>
 <div class="row">
 	<br />
-	<div class="col-xs-3">
-	</div>
+	
 	<div class="col-xs-3">
 		Status <br />
 		<%= f.select(:status, ["In Transit"], {}, {:class => 'form-control'}) %>
@@ -50,9 +49,18 @@
 	</div>
 	<div class="col-xs-3">
 	</div>
+	<div class="col-xs-3">
+		Signature <br />
+		<%= f.signature_field :signature%>
+	</div>
 </div>
 
 <br /><br />
 <%= f.button :submit, "Update Shipment" %>
 
 <% end %>
+<style type="text/css">
+	#JohnHancock-canvas{
+		background: grey;
+	}
+</style>

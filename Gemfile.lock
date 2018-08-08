@@ -94,6 +94,7 @@ GEM
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
+    john_hancock (0.1.2)
     jquery-easing-rails (0.0.2)
       railties (>= 3.1.0)
     jquery-minicolors-rails (2.2.2.0)
@@ -284,6 +285,7 @@ DEPENDENCIES
   headshot
   invisible_captcha
   jbuilder (~> 2.0)
+  john_hancock
   jquery-easing-rails
   jquery-minicolors-rails
   jquery-rails

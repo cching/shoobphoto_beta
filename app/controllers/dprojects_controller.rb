@@ -1,11 +1,20 @@
+require 'barby'
+require 'barby/barcode/ean_13'
+require 'barby/outputter/ascii_outputter'
+require 'barby/outputter/html_outputter'
+
 class DprojectsController < ApplicationController
   before_action :set_dproject, only: [:show, :edit, :update, :destroy]
   before_action :require_employee
 
   respond_to :html
 
+
   def packingslip
     @dproject = Dproject.find(params[:id])
+    @barcode = Barby::EAN13.new('000000000000')
+    @barcode_for_html = Barby::HtmlOutputter.new(@barcode)
+    # generate_barcodes(@dproject)
   end
 
   def invoice
