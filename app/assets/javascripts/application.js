@@ -27,6 +27,7 @@
 //= require stickyfill
 //= require garlic
 //= require john_hancock
+//= require signature_pad
 //= require_tree .
 
 
