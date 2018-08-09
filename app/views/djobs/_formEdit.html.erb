@@ -72,8 +72,9 @@
     <div class = col-xs-4>
     <%= f.input :PHOTOG1 %>
 </div>
-    <div class = col-xs-1>
-    <%= f.input :PHOTOG_NOTE %>
+    <div class = col-xs-1>  
+    Notes <br />
+    <%= f.input :PHOTOG_NOTE, :label => false %>
 </div>
     <div class = col-xs-4>
     <%= f.input :JOB_NOTES %>
@@ -86,4 +87,9 @@
   <div class="form-actions">
     <%= f.button :submit, "Update Job" %>
   </div>
+  <%= link_to("Previous Job", @djob.prev_djob) if @djob.prev_djob %> |
+  <%= link_to("Next Job", @djob.next_djob) if @djob.next_djob %>
+  </div>
+ 
+
 <% end %>

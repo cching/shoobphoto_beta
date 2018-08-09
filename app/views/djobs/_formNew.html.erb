@@ -8,39 +8,48 @@
   <%= f.select(:school_id, @options, {}, {:class => 'form-control'}) %>
   </div>
     <div class = col-xs-1>  
-    <%= f.input :JOB %>
+    Job <br />
+    <%= f.input :JOB, :label => false %>
 </div>
     <div class = col-xs-1>
-    <%= f.input :JOBTYPE %>
+    Job type <br />
+    <%= f.input :JOBTYPE, :label => false %>
 </div>
     <div class = col-xs-3>  
     Date <br />
     <%= f.date_field(:DATE, {:class => "form-control"}) %>
 </div>
     <div class = col-xs-3>        
-    <%= f.input :STARTTIME %>
+    Start time <br />
+    <%= f.input :STARTTIME, :label => false %>
 </div>
 <div class = "row">
     <div class = col-xs-1>
-    <%= f.input :TRIGS %>    
+    Trigs <br />
+    <%= f.input :TRIGS, :label => false %>    
 </div>
 </div>
 <hr>
 <div class = "row">
-    <div class = col-xs-1>
-    <%= f.input :PRICELIST %>
+    <div class = col-xs-2>
+    Price List <br />
+    <%= f.input :PRICELIST, :label => false %>
 </div>
     <div class = col-xs-2>
-    <%= f.input :RIGS %>
-</div>
-    <div class = col-xs-4>
-    <%= f.input :PHOTOG1 %>
+    Rigs <br />
+    <%= f.input :RIGS, :label => false %>
 </div>
     <div class = col-xs-1>
-    <%= f.input :PHOTOG_NOTE %>
+    PhotoG1 <br />
+    <%= f.input :PHOTOG1, :label => false %>
 </div>
     <div class = col-xs-4>
-    <%= f.input :JOB_NOTES %>
+    Notes <br />
+    <%= f.input :PHOTOG_NOTE, :label => false %>
+</div>
+    <div class = col-xs-3>
+    Job Notes <br />
+    <%= f.input :JOB_NOTES, :label => false %>
 </div>
 
 

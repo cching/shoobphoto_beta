@@ -13,7 +13,7 @@ class DjobsController < ApplicationController
   end
 
   def show
-    respond_with(@djob)
+    redirect_to request.path + "/edit", :status => :moved_permanently 
   end
 
   def new
@@ -22,14 +22,13 @@ class DjobsController < ApplicationController
     respond_with(@djob)
   end
 
+  
   def bydate
     new_params = params[:q] || { q: nil }
     date = new_params[:DATE_eq]
     direction = params[:direction].to_i
 
-
     new_date = date.nil? ? Time.now : Date.parse(date)
-
   
     new_params[:DATE_eq] = (new_date + direction).strftime('%Y-%m-%d')
 
