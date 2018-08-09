@@ -79,7 +79,6 @@ class DprojectsController < ApplicationController
     q[:s] = params[:dproject].delete(:s)
     @dproject.update(dproject_params)
     @dproject.save
-    @dproject.change_log = @dproject.status
     redirect_to dprojects_path(q: q)
     # respond_with(@dproject)
   end
