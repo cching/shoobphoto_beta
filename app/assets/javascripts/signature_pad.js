@@ -1,3 +1,4 @@
+alert("sign");
 function Point(x, y, time) {
   this.x = x;
   this.y = y;
@@ -22,11 +23,11 @@ function Bezier(startPoint, control1, control2, endPoint) {
 // Returns approximated length.
 Bezier.prototype.length = function () {
   const steps = 10;
-  let length = 0;
-  let px;
-  let py;
+  var length = 0;
+  var px;
+  var py;
 
-  for (let i = 0; i <= steps; i += 1) {
+  for (var i = 0; i <= steps; i += 1) {
     const t = i / steps;
     const cx = this._point(
       t,
@@ -153,18 +154,18 @@ SignaturePad.prototype.fromDataURL = function (dataUrl) {
 
   this._reset();
   image.src = dataUrl;
-  image.onload = () => {
+  image.onload = function() {
     this._ctx.drawImage(image, 0, 0, width, height);
   };
   this._isEmpty = false;
 };
 
-SignaturePad.prototype.toDataURL = function (type, ...options) {
+SignaturePad.prototype.toDataURL = function (type, options) {
   switch (type) {
     case 'image/svg+xml':
       return this._toSVG();
     default:
-      return this._canvas.toDataURL(type, ...options);
+      return this._canvas.toDataURL(type, options);
   }
 };
 
@@ -203,7 +204,7 @@ SignaturePad.prototype._strokeUpdate = function (event) {
   const y = event.clientY;
 
   const point = this._createPoint(x, y);
-  const { curve, widths } = this._addPoint(point);
+  const  curve = this._addPoint(point) , widths  = this._addPoint(point);
 
   if (curve && widths) {
     this._drawCurve(curve, widths.start, widths.end);
@@ -266,7 +267,7 @@ SignaturePad.prototype._createPoint = function (x, y, time) {
 
 SignaturePad.prototype._addPoint = function (point) {
   const points = this.points;
-  let tmp;
+  var tmp;
 
   points.push(point);
 
@@ -285,8 +286,7 @@ SignaturePad.prototype._addPoint = function (point) {
     // Remove the first element from the list,
     // so that we always have no more than 4 points in points array.
     points.shift();
-
-    return { curve, widths };
+    return [curve,widths];
   }
 
   return {};
@@ -353,11 +353,11 @@ SignaturePad.prototype._drawPoint = function (x, y, size) {
 SignaturePad.prototype._drawCurve = function (curve, startWidth, endWidth) {
   const ctx = this._ctx;
   const widthDelta = endWidth - startWidth;
-  const drawSteps = Math.floor(curve.length());
+  const drawSteps = Math.floor(curve.length);
 
   ctx.beginPath();
 
-  for (let i = 0; i < drawSteps; i += 1) {
+  for (var i = 0; i < drawSteps; i += 1) {
     // Calculate the Bezier (x, y) coordinate for this step.
     const t = i / drawSteps;
     const tt = t * t;
@@ -366,12 +366,12 @@ SignaturePad.prototype._drawCurve = function (curve, startWidth, endWidth) {
     const uu = u * u;
     const uuu = uu * u;
 
-    let x = uuu * curve.startPoint.x;
+    var x = uuu * curve.startPoint.x;
     x += 3 * uu * t * curve.control1.x;
     x += 3 * u * tt * curve.control2.x;
     x += ttt * curve.endPoint.x;
 
-    let y = uuu * curve.startPoint.y;
+    var y = uuu * curve.startPoint.y;
     y += 3 * uu * t * curve.control1.y;
     y += 3 * u * tt * curve.control2.y;
     y += ttt * curve.endPoint.y;
@@ -395,11 +395,11 @@ SignaturePad.prototype._drawDot = function (point) {
 };
 
 SignaturePad.prototype._fromData = function (pointGroups, drawCurve, drawDot) {
-  for (let i = 0; i < pointGroups.length; i += 1) {
+  for (var i = 0; i < pointGroups.length; i += 1) {
     const group = pointGroups[i];
 
     if (group.length > 1) {
-      for (let j = 0; j < group.length; j += 1) {
+      for (var j = 0; j < group.length; j += 1) {
         const rawPoint = group[j];
         const point = new Point(rawPoint.x, rawPoint.y, rawPoint.time);
 
@@ -409,7 +409,7 @@ SignaturePad.prototype._fromData = function (pointGroups, drawCurve, drawDot) {
           this._addPoint(point);
         } else if (j !== group.length - 1) {
           // Middle point in a group.
-          const { curve, widths } = this._addPoint(point);
+          const  curve = this._addPoint(point) , widths  = this._addPoint(point);
           if (curve && widths) {
             drawCurve(curve, widths);
           }
@@ -439,7 +439,7 @@ SignaturePad.prototype._toSVG = function () {
 
   this._fromData(
     pointGroups,
-    (curve, widths) => {
+    function(curve, widths)  {
       const path = document.createElementNS('http;//www.w3.org/2000/svg', 'path');
 
       // Need to check curve for NaN values, these pop up when drawing
@@ -449,10 +449,10 @@ SignaturePad.prototype._toSVG = function () {
           !isNaN(curve.control1.y) &&
           !isNaN(curve.control2.x) &&
           !isNaN(curve.control2.y)) {
-        const attr = `M ${curve.startPoint.x.toFixed(3)},${curve.startPoint.y.toFixed(3)} `
-                   + `C ${curve.control1.x.toFixed(3)},${curve.control1.y.toFixed(3)} `
-                   + `${curve.control2.x.toFixed(3)},${curve.control2.y.toFixed(3)} `
-                   + `${curve.endPoint.x.toFixed(3)},${curve.endPoint.y.toFixed(3)}`;
+        const attr = 'M ${curve.startPoint.x.toFixed(3)},${curve.startPoint.y.toFixed(3)}'
+                   + 'C ${curve.control1.x.toFixed(3)},${curve.control1.y.toFixed(3)}'
+                   + '${curve.control2.x.toFixed(3)},${curve.control2.y.toFixed(3)}'
+                   + '${curve.endPoint.x.toFixed(3)},${curve.endPoint.y.toFixed(3)}';
 
         path.setAttribute('d', attr);
         path.setAttributeNS(null, 'stroke-width', (widths.end * 2.25).toFixed(3));
@@ -463,7 +463,7 @@ SignaturePad.prototype._toSVG = function () {
         svg.appendChild(path);
       }
     },
-    (rawPoint) => {
+    function(rawPoint) {
       const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       const dotSize = (typeof this.dotSize) === 'function' ? this.dotSize() : this.dotSize;
       circle.setAttributeNS(null, 'r', dotSize);
@@ -476,7 +476,7 @@ SignaturePad.prototype._toSVG = function () {
   );
 
   const prefix = 'data:image/svg+xml;base64,';
-  const header = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="${minX} ${minY} ${maxX} ${maxY}">`;
+  const header = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="${minX} ${minY} ${maxX} ${maxY}">';
   const body = svg.innerHTML;
   const footer = '</svg>';
   const data = header + body + footer;
@@ -489,8 +489,8 @@ SignaturePad.prototype.fromData = function (pointGroups) {
 
   this._fromData(
     pointGroups,
-    (curve, widths) => this._drawCurve(curve, widths.start, widths.end),
-    rawPoint => this._drawDot(rawPoint)
+    function(curve, widths) { this._drawCurve(curve, widths.start, widths.end)},
+    function(rawPoint) {this._drawDot(rawPoint)}
   )
 };
 
