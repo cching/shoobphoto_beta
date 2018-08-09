@@ -409,7 +409,7 @@ SignaturePad.prototype._fromData = function (pointGroups, drawCurve, drawDot) {
           this._addPoint(point);
         } else if (j !== group.length - 1) {
           // Middle point in a group.
-          const { curve, widths } = this._addPoint(point);
+          const  curve = this._addPoint(point) , widths  = this._addPoint(point);
           if (curve && widths) {
             drawCurve(curve, widths);
           }
