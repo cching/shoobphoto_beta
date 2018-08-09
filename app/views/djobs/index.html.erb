@@ -60,7 +60,7 @@ button {
 
 <h1>Jobs</h1>
 <br>
-<%= link_to 'New Djob', new_djob_path %>
+<%= link_to 'New Job', new_djob_path %>
 <br>
 <div></div>
 <%= search_form_for @q do |f| %>
@@ -73,20 +73,22 @@ button {
 Date:
   <%= f.date_field :DATE_eq, class: 'form-control input-sm', id: 'datetimepicker1', 'datepicker' => true %>
 
-
-
   </div>
 
 <br />
 
   <%= f.submit %>
-  <%= link_to 'Previous', bydate_djobs_path(q: params[:q], direction: -1)  %>
-  <%= link_to 'Next', bydate_djobs_path(q: params[:q], direction: 1)  %>
+
+  <br />
+<div class = "row">
+<div class = col-xs-1>
+  <%= button_to 'Previous', bydate_djobs_path(q: params[:q], direction: -1)  %>
+  </div>
+ <div class = col-xs-1> 
+  <%= button_to 'Next', bydate_djobs_path(q: params[:q], direction: 1)  %>
+  </div>
 <br />
 
-
-
-<br />
 <h3>Import Jobs</h3>
 <%= form_tag import_djobs_path, multipart: true do %>
   <%= file_field_tag :file %>
