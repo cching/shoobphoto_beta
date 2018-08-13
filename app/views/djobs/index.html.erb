@@ -122,7 +122,7 @@ Date:
       <tbody>
         <% @djobs.each do |djob| %>
           <tr>
-            <td><%= link_to 'Edit', edit_djob_path(djob) %></td>
+            <td><%= link_to 'Edit', edit_djob_path(djob, q: params[:q]) %></td>
             <td width="8%" class="dotted" ><%= djob.school.name %></td>
             <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%b %e, %Y') %></td>
             <td width="8%" class="dotted" ><%= djob.STARTTIME %></td>

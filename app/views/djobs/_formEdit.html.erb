@@ -1,5 +1,10 @@
 <%= simple_form_for(@djob) do |f| %>
   <%= f.error_notification %>
+  <%= f.input :DATE_eq, as: :hidden, input_html: { value: params[:q][:DATE_eq] } if params[:q] && params[:q][:DATE_eq] %>
+  <%= f.input :school_name_eq, as: :hidden, input_html: { value: params[:q][:school_name_eq] } if params[:q] && params[:q][:school_name_eq] %>
+
+  <%= f.input :s, as: :hidden, input_html: { value: params[:q][:s] } if params[:q] && params[:q][:s] %>
+
 
   <div class="form-inputs">
 
@@ -69,31 +74,32 @@
     <div class = col-xs-2>
     <%= f.input :RIGS %>
 </div>
-    <div class = col-xs-3>
+    <div class = col-xs-5>
     <%= f.input :PHOTOG1 %>
+
 
 </div>
     <div class = col-xs-4>
-    <%= f.input :JOB_NOTES %>
-</div>
-    <div class = col-xs-2>
     <%= f.input :status %>
 </div>
 <hr>
 <div class = "row">
-    <div class = col-xs-12>  
+    <div class = col-xs-4>  
     Notes <br />
-    <%= f.input :PHOTOG_NOTE, :label => false %>
-
-
-  </div>
+    <%= f.input :PHOTOG_NOTE,:as => :text, :input_html => {:rows => 4}, :label => false %>
+    </div>
+    <div class = col-xs-4>
+    Job Notes <br />
+    <%= f.input :JOB_NOTES, :as => :text, :input_html => {:Rows => 4}, :label => false%>
+    </div>
+<hr>
+</br></br>
 
   <div class="form-actions">
     <%= f.button :submit, "Update Job" %>
   </div>
-  <%= link_to("Previous Job", @djob.prev_djob) if @djob.prev_djob %> |
-  <%= link_to("Next Job", @djob.next_djob) if @djob.next_djob %>
-  </div>
+  <%= link_to("Previous Job", @djob.prev_djob, q: params[:q]) if @djob.prev_djob %> |
+  <%= link_to("Next Job", @djob.next_djob, q: params[:q]) if @djob.next_djob %>
  
 
 <% end %>
