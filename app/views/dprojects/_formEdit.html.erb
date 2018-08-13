@@ -4,6 +4,7 @@
   <%= f.input :status_eq, as: :hidden, input_html: { value: params[:q][:status_eq] } if params[:q] && params[:q][:status_eq] %>
   <%= f.input :school_name_eq, as: :hidden, input_html: { value: params[:q][:school_name_eq] } if params[:q] && params[:q][:school_name_eq] %>
   <%= f.input :school_route_eq, as: :hidden, input_html: { value: params[:q][:school_route_eq] } if params[:q] && params[:q][:school_route_eq] %>
+  <%= f.input :id_eq, as: :hidden, input_html: { value: params[:q][:id_eq] } if params[:q] && params[:q][:id_eq] %>
 
   <%= f.input :s, as: :hidden, input_html: { value: params[:q][:s] } if params[:q] && params[:q][:s] %>
 

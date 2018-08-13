@@ -60,22 +60,28 @@ button {
 	display: block;
 }
 
+.printThis {
+	display: none;
+}
+
+@media print {
+    .noPrint { display: none; }
+    .printThis { 
+    	display: block; 
+    }
+} 
+
 </style>
 
 <h4>Projects</h4>
 <br />
 
-<div class="row">
+<div class="row noPrint">
   <div class="col-xs-2">
     <%= link_to 'New Project', new_dproject_path, class: "btn btn-primary" %> 
   </div>
-  <div class="col-xs-2">
-    <div class="dropdown">
-      <button class="dropbtn">Reports</button>
-        <div class="dropdown-content">
-          <!-- <a href="dprojects/shipreport">Shipping</a> -->
-        </div>
-    </div>
+  <div class="col-xs-10">
+    <button onclick="printPage()">Print Report</button>
   </div>
 </div>
 
@@ -99,6 +105,10 @@ button {
 
   Route:
   <%= f.select :school_route_eq, Dproject.includes(:school).order('schools.route').all.map { |dproject| dproject.school.route }.uniq, selected: (params[:q] ? params[:q][:school_route_eq] : nil), include_blank: true %>
+<br />
+
+  ID:
+  <%= f.select :id_eq, Dproject.all.order(:id).pluck(:id).uniq, selected: (params[:q] ? params[:q][:id_eq] : nil), include_blank: true %>
 <br />
 
   <%= f.submit %>
@@ -127,10 +137,14 @@ function toggleAll() {
         btn.style.backgroundColor = "white";
     } else {
         x.style.display = "none";
-        y.style.display = "block"
+        y.style.display = "block";
         btn.innerHTML = "Show Filtered";
         btn.style.color = "white";
         btn.style.backgroundColor = "grey";
     }
+}
+
+function printPage() {
+    window.print();
 }
 </script>
