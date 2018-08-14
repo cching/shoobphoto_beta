@@ -5,19 +5,19 @@
 
 
 <div class="row">
-  <div class=col-xs-3>
+  <div class="col-xs-3">
     School <br />
     <%= f.select(:school_id, @options, {}, {:class => 'form-control'}) %>
   </div>
-  <div class=col-xs-1>
+  <div class="col-xs-1">
     Account <br />
     
   </div>
-  <div class=col-xs-2>
+  <div class="col-xs-2">
     Requested by
     <%= f.input :requested_by, :label => false %>
   </div>
-  <div class=col-xs-3>
+  <div class="col-xs-3">
     Contact Email
     <%= f.input :contact_email, :label => false %>
   </div>
@@ -32,15 +32,15 @@
 
 <hr>
 <div class="row">
-  <div class=col-xs-2>
+  <div class="col-xs-2">
     Date Originated <br />
     
   </div>
-  <div class=col-xs-2>
+  <div class="col-xs-2">
     Due date <br />
     <%= f.date_field(:due_date, {:class => "form-control"}) %>
   </div>
-  <div class=col-xs-2>
+  <div class="col-xs-2">
     Must deliver date <br />
     <%= f.date_field(:must_date, {:class => "form-control"}) %>
   </div>
@@ -48,7 +48,7 @@
     Assigned to <br />
     <%= f.select(:assigned_to, ["", "Katie", "Sydnee", "Kemoyah", "Ethan", "Alex P", "Grace", "Lacey", "Ashley", "Print"], {}, {:class => "form-control"}) %>
   </div>
-  <div class=col-xs-3>
+  <div class="col-xs-3">
     Assigned by <br />
     <%= f.select(:assigned_by, ["", "Katie", "Sydnee", "Kemoyah", "Alex", "Nick"], {}, {:class => "form-control"}) %>
   </div>
@@ -56,15 +56,15 @@
 <br />
 <hr>
 <div class="row">
-  <div class=col-xs-3>
+  <div class="col-xs-3">
     Delivery Method <br />
     <%= f.select(:delivery_type, ["Hand Deliver", "Ship", "Pick Up"], {}, {:class => "form-control"}) %>
   </div>
-  <div class=col-xs-2>
+  <div class="col-xs-2">
     Route <br />
     
   </div>
-  <div class=col-xs-7>
+  <div class="col-xs-7">
     Shipping instructions <br />
     <%= f.input :shipping_instructions, :label => false %>
   </div>
@@ -74,15 +74,15 @@
     Delivered <br />
     <%= f.date_field(:delivery_date, {:class => "form-control"}) %>
   </div>
-  <div class=col-xs-3>
+  <div class="col-xs-3">
     Tracking #<br />
     <%= f.input :tracking_number, :label => false %>
   </div>
-  <div class=col-xs-3>
+  <div class="col-xs-3">
     Delivered by<br />
     <%= f.input :delivered_by, :label => false %>
   </div>
-  <div class=col-xs-3>
+  <div class="col-xs-3">
     Recieved by<br />
     <%= f.input :recieved_by, :label => false %>
   </div>
@@ -117,17 +117,17 @@
     Printing Instructions <br />
     <%= f.input :printing_instructions, :input_html => {:rows => 5}, :label => false %>
   </div>
-  <div class="col-xs-3" style="text-align: center;"">
+  <div class="col-xs-3" style="text-align: center;">
     Invoicing <br /><br />
     <br />
   </div>
 </div>
 <div class="row">
-  <div class=col-xs-3>
+  <div class="col-xs-3">
     Status <br />
     <%= f.select(:status, ["", "Started", "Ready to Proof", "Proof sent", "Changes", "New proof ready", "New proof sent", "Follow up sent", "Ready to print", "On Hold", "Printed", "Packaged", "In Transit", "Delivered"], {}, {:class => 'form-control'}) %>
   </div>
-  <div class=col-xs-3>
+  <div class="col-xs-3">
     Attachment <br />
     <%= f.input :project_attachment, as: :file, :label => false %>
   </div>
