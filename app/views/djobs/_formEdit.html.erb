@@ -1,105 +1,113 @@
 <%= simple_form_for(@djob) do |f| %>
-  <%= f.error_notification %>
-  <%= f.input :DATE_eq, as: :hidden, input_html: { value: params[:q][:DATE_eq] } if params[:q] && params[:q][:DATE_eq] %>
-  <%= f.input :school_name_eq, as: :hidden, input_html: { value: params[:q][:school_name_eq] } if params[:q] && params[:q][:school_name_eq] %>
-
-  <%= f.input :s, as: :hidden, input_html: { value: params[:q][:s] } if params[:q] && params[:q][:s] %>
-
-
-  <div class="form-inputs">
-
-<div class = "row">    
- <div class = col-xs-4>
-        School <br />
-        <%= @djob.school.dname %>
- </div>
- <div class=col-xs-2>
-        Account <br />
-        <%= @djob.school.scode %>
- </div>    
- <div class=col-xs-3>
-        Principal <br />
-        <%= @djob.school.principal %>
- </div>    
- <div class = col-xs-3>
-        Secretary <br />
-        <%= @djob.school.secretary %>
-    </div>
-  </div>
-</div>
-<hr>
-<div class = "row">
-    <div class = col-xs-3>
-        City <br />
-        <%= @djob.school.city_id %>
+    <%= f.error_notification %>
+    <%= f.input :DATE_eq, as: :hidden, input_html: { value: params[:q][:DATE_eq] } if params[:q] && params[:q][:DATE_eq] %>
+    <%= f.input :school_name_eq, as: :hidden, input_html: { value: params[:q][:school_name_eq] } if params[:q] && params[:q][:school_name_eq] %>
+  
+    <%= f.input :s, as: :hidden, input_html: { value: params[:q][:s] } if params[:q] && params[:q][:s] %>
+  
+  
+    <div class="form-inputs">
+  
+  <div class = "row">    
+   <div class = "col-xs-4">
+          School <br />
+          <%= @djob.school.dname %>
    </div>
-    <div class= col-xs-3>
-        Phone <br />
-        <%= @djob.school.phone %>
-        </div>
-    <div class = col-xs-3>
-        Route <br />
-        <%= @djob.school.route %>
+   <div class = "col-xs-2">
+          Account <br />
+          <%= @djob.school.scode %>
+   </div>    
+   <div class = "col-xs-3">
+          Principal <br />
+          <%= @djob.school.principal %>
+   </div>    
+   <div class = "col-xs-3">
+          Secretary <br />
+          <%= @djob.school.secretary %>
+      </div>
     </div>
-
-
-
-    
-    </div>
-<hr>       
-
-<div class = "row">
-    <div class = col-xs-1>  
-    <%= f.input :JOB %>
-</div>
-    <div class = col-xs-1>
-    <%= f.input :JOBTYPE %>
-</div>
-    <div class = col-xs-3>  
-    Date <br />
-    <%= f.date_field(:DATE, {:class => "form-control"}) %>
-</div>
-    <div class = col-xs-3>        
-    <%= f.input :STARTTIME %>
-</div>
-    <div class = col-xs-1>
-    <%= f.input :TRIGS %>    
-</div>
-</div>
-<hr>
-<div class = "row">
-    <div class = col-xs-1>
-    <%= f.input :PRICELIST %>
-</div>
-    <div class = col-xs-2>
-    <%= f.input :RIGS %>
-</div>
-    <div class = col-xs-5>
-    <%= f.input :PHOTOG1 %>
-
-
-</div>
-    <div class = col-xs-4>
-    <%= f.input :status %>
-</div>
-<hr>
-<div class = "row">
-    <div class = col-xs-4>  
-    Notes <br />
-    <%= f.input :PHOTOG_NOTE,:as => :text, :input_html => {:rows => 4}, :label => false %>
-    </div>
-    <div class = col-xs-4>
-    Job Notes <br />
-    <%= f.input :JOB_NOTES, :as => :text, :input_html => {:Rows => 4}, :label => false%>
-    </div>
-<hr>
-</br></br>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Update Job" %>
   </div>
-  <%= link_to("Previous Job", @djob.prev_djob, q: params[:q]) if @djob.prev_djob %> |
-  <%= link_to("Next Job", @djob.next_djob, q: params[:q]) if @djob.next_djob %>
- 
-
-<% end %>
+  <hr>
+  <div class = "row">
+      <div class = "col-xs-3">
+          City <br />
+          <%= @djob.school.city_id %>
+     </div>
+      <div class= "col-xs-3">
+          Phone <br />
+          <%= @djob.school.phone %>
+          </div>
+      <div class = "col-xs-3">
+          Route <br />
+          <%= @djob.school.route %>
+      </div>
+  
+  
+  
+      
+      </div>
+  <hr>       
+  
+  <div class = "row">
+      <div class = "col-xs-2">  
+      Job <br />
+      <%= f.input :JOB, :label => false %>
+  </div>
+      <div class = "col-xs-2">
+      Job Type <br />
+      <%= f.input :JOBTYPE, :label => false %>
+  </div>
+      <div class = "col-xs-3">  
+      Date <br />
+      <%= f.date_field(:DATE, {:class => "form-control"}) %>
+  </div>
+      <div class = "col-xs-3"> 
+      Start Time <br />       
+      <%= f.input :STARTTIME, :label => false %>
+  </div>
+      <div class = "col-xs-2">
+      Trigs <br />
+      <%= f.input :TRIGS, :label => false %>    
+  </div>
+  </div>
+  <hr>
+  <div class = "row">
+      <div class = "col-xs-2">
+      Price List <br />
+      <%= f.input :PRICELIST, :label => false %>
+  </div>
+      <div class = "col-xs-2">
+      Rigs <br />
+      <%= f.input :RIGS, :label => false %>
+  </div>
+      <div class = "col-xs-4">
+      PhotoG1 <br />
+      <%= f.input :PHOTOG1, :label => false %>
+  
+  
+  </div>
+      <div class = "col-xs-4">
+      Status <br />
+      <%= f.input :status, :label => false %>
+  </div>
+  <hr>
+  <div class = "row">
+      <div class = "col-xs-4">  
+      Notes <br />
+      <%= f.input :PHOTOG_NOTE,:as => :text, :input_html => {:rows => 4}, :label => false %>
+      </div>
+      <div class = "col-xs-4">
+      Job Notes <br />
+      <%= f.input :JOB_NOTES, :as => :text, :input_html => {:Rows => 4}, :label => false%>
+      </div>
+  <hr>
+  </br></br>
+  
+    <div class="form-actions">
+      <%= f.button :submit, "Update Job" %>
+    </div>
+    <%= link_to("Previous Job", @djob.prev_djob, q: params[:q]) if @djob.prev_djob %> |
+    <%= link_to("Next Job", @djob.next_djob, q: params[:q]) if @djob.next_djob %>
+   
+  
+  <% end %>
