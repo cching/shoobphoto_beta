@@ -50,9 +50,6 @@
 <br />
 <div class="row">
 	<div class="col-xs-12">
-		<b>Route: </b> <%= @dproject.school.route %>
-	</div>
-	<div class="col-xs-12">
 		<b>Shipping Instructions: </b> <%= @dproject.shipping_instructions %>
 	</div>
 </div>
@@ -68,7 +65,6 @@
 		<b>Printing Instructions: </b> <%= f.input :printing_instructions, :input_html => {:rows => 5}, :label => false %>
 	</div>
 </div>
-<br /><br />
 <div class="row">
 	<div class="col-xs-12">
 		<b>Status: </b> <%= @dproject.status %>

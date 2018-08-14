@@ -1,4 +1,4 @@
-<table>
+<table class="noPrint">
   <thead>
     <tr style="border-bottom: 2px solid black;">
       <th></th>
@@ -6,15 +6,15 @@
       <th> Request </th>
       <th> <%= sort_link(@q, :assigned_to) %> </th>
       <th> <%= sort_link(@q, :created_at, 'Orig Date') %> </th>
-      <th> <%= sort_link(@q, :due_date) %>  </th>
-      <th> <%= sort_link(@q, :must_date, 'Must Del') %>  </th>
+      <th> <%= sort_link(@q, :due_date) %> </th>
+      <th> <%= sort_link(@q, :must_date, 'Must Del') %> </th>
       <th> Age </th>
-      <th> <%= sort_link(@q, :status) %>  </th>
-      <th> <%= sort_link(@q, :status_date) %>  </th>
+      <th> <%= sort_link(@q, :status) %> </th>
+      <th> <%= sort_link(@q, :status_date) %> </th>
       <th> <%= sort_link(@q, :project_type, 'Type') %> </th>
       <th> <%= sort_link(@q, :school_route, 'Route') %> </th>
       <th> <%= sort_link(@q, :id, 'ID') %> </th>
-      <th>
+      <th></th>
     </tr>
   </thead>
 
@@ -38,4 +38,38 @@
       </tr>
     <% end %>
   </tbody>
-</table>
+  </table>
+  
+  <table class="printThis">
+    <thead>
+      <tr style="border-bottom: 2px solid black;">
+        <th> School </th>
+        <th> Request </th>
+        <th> Assigned to </th>
+        <th> Orig Date </th>
+        <th> Due Date </th>
+        <th> Must Del </th>
+        <th> Status </th>
+        <th> Type </th>
+        <th> Route </th>
+        <th> ID </th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @dprojects.each do |dproject| %>
+        <tr>
+          <td width="20%" class="dotted"><%= dproject.school.dname[0,10] %></td>
+          <td width="15%" class="dotted"><%= dproject.description[0,10] %></td>
+          <td width="8%" class="dotted"><%= dproject.assigned_to %></td>
+          <td width="20%" class="dotted"><%= dproject.created_at.try(:strftime, '%b %e') %></td>
+          <td width="20%" class="dotted"><%= dproject.due_date.try(:strftime, '%b %e') %></td>
+          <td width="20%" class="dotted"><%= dproject.must_date.try(:strftime, '%b %e') %></td>
+          <td width="25%" class="dotted"><%= dproject.status[0, 7] %></td>
+          <td width="5%" class="dotted"><%= dproject.project_type[0, 10] %></td>
+          <td width="9%" class="dotted"><%= dproject.school.route %></td>
+          <td width="5%" class="dotted"><%= dproject.id %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    </table>
