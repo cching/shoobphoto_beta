@@ -76,10 +76,10 @@ class DprojectsController < ApplicationController
     q[:status_eq] = params[:dproject].delete(:status_eq)
     q[:school_name_eq] = params[:dproject].delete(:school_name_eq)
     q[:school_route_eq] = params[:dproject].delete(:school_route_eq)
-    q[:id_eq] = params[:dproject].delete(:id_eq)
     q[:s] = params[:dproject].delete(:s)
     @dproject.update(dproject_params)
     @dproject.save
+    @dproject.change_log = @dproject.status
     redirect_to dprojects_path(q: q)
     # respond_with(@dproject)
   end
