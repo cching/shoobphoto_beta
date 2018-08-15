@@ -122,9 +122,8 @@
     <%= f.input :printing_instructions, :input_html => {:rows => 5}, :label => false %>
   </div>
   <div class="col-xs-3" style="text-align: center;">
-    Invoicing <%= f.check_box :invoice_bool %><br />
-    <%= f.input :invoice_notes, :input_html => {:rows => 5}, :label => false %>
-
+    Invoicing <br />
+    <%= f.select(:invoice_status, ["", "Needs Invoice", "Has Invoice", "Invoice Paid"], {}, {:class => 'form-control'}) %>
     <br />
   </div>
 </div>
