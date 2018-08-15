@@ -28,8 +28,6 @@
 //= require garlic
 //= require_tree .
 
-
-
 $('.btn-loading').button();
 
 $(document).ready(function(){
