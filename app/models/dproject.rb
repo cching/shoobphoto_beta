@@ -11,7 +11,7 @@ class Dproject < ActiveRecord::Base
 	end
 
 	def update_change_log
-      self.change_log = self.change_log.to_s + " | " + self.status.to_s + " " + self.status_date.try(:strftime, '%b %e, %Y').to_s if status_changed?
+      self.change_log = self.change_log.to_s + "\n" + self.status.to_s + " " + self.status_date.try(:strftime, '%b %e, %Y').to_s if status_changed?
     end
 
 	validates :school_id, numericality: { other_than: 999, :message => "cannot be blank" }
