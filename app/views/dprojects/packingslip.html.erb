@@ -11,11 +11,22 @@
 	}
 } 
 
+#label {
+	display: none;
+}
+
 </style>
 
 <%= simple_form_for(@dproject) do |f| %>
   <%= f.error_notification %>
 
+<div id="label">
+	<%= @dproject.school.dname %> <br />
+	<b>Due date:</b> <%= @dproject.due_date.try(:strftime, '%b %e, %Y') %> <br />
+	<b>Must del:</b> <%= @dproject.must_date.try(:strftime, '%b %e, %Y') %>
+</div>
+
+<div id="noLabel">
 <div class="row">
 	<div class="col-xs-12" style="text-align: right;">
 		<%= Time.now.try(:strftime, '%b %e, %Y')%>
@@ -109,6 +120,7 @@
 		<button onclick="printShoob()">Print Slips/Label</button>
 	</div>
 </div>
+</div>
 
 <% end %>
 
@@ -122,6 +134,11 @@ function printShoob() {
     } else {
         x.style.display = "none";
     }
+	window.print();
+	var y = document.getElementById("label");
+	var z = document.getElementById("noLabel");
+	y.style.display = "block";
+	z.style.display = "none";
 	window.print();
 }
 
