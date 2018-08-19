@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180815173158) do
+ActiveRecord::Schema.define(version: 20180819203534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -239,17 +239,6 @@ ActiveRecord::Schema.define(version: 20180815173158) do
     t.boolean  "residential"
   end
 
-  create_table "dattachments", force: true do |t|
-    t.integer  "dproject_id"
-    t.text     "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "project_attachment_file_name"
-    t.string   "project_attachment_content_type"
-    t.integer  "project_attachment_file_size"
-    t.datetime "project_attachment_updated_at"
-  end
-
   create_table "districts", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -374,10 +363,6 @@ ActiveRecord::Schema.define(version: 20180815173158) do
     t.string   "project_type"
     t.string   "assigned_by"
     t.text     "design_instructions"
-    t.string   "dfile_file_name"
-    t.string   "dfile_content_type"
-    t.integer  "dfile_file_size"
-    t.datetime "dfile_updated_at"
     t.integer  "school_id"
     t.datetime "invoice_date"
     t.string   "invoice_addressee"
