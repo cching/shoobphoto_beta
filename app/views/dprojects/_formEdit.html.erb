@@ -137,10 +137,6 @@
     Status Changed<br />
     <%= @dproject.status_date.try(:strftime, '%b %e, %Y') %>
   </div>
-    <div class="col-xs-2">
-    Attachment <br />
-    <%= f.input :project_attachment, as: :file, :label => false %>
-  </div>
   <br />
   <div class="form-actions col-xs-2">
     <%= f.button :submit, "Update Project" %>
