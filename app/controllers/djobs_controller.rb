@@ -7,7 +7,7 @@ class DjobsController < ApplicationController
     params[:q].reject { |_, v| v.blank?} if params[:q]
 
     @q = Djob.ransack(params[:q])
-    @djobs = @q.result.includes(:school)
+    @djob = @q.result.includes(:school)
     require 'date'
     respond_with(@djob)
   end
@@ -18,8 +18,13 @@ class DjobsController < ApplicationController
 
   def new
     @djob = Djob.new
-    @options = School.order(:name).where.not(school_type_id: nil)
+    @options = School.order(:name).where.not(school_type_id: nil).
+    collect do |s|
+      [s.name, s.id]
+    end
+
     respond_with(@djob)
+
   end
 
   
@@ -28,11 +33,14 @@ class DjobsController < ApplicationController
     date = new_params[:DATE_eq]
     direction = params[:direction].to_i
 
+
     new_date = date.nil? ? Time.now : Date.parse(date)
-  
+   
     new_params[:DATE_eq] = (new_date + direction).strftime('%Y-%m-%d')
 
+    
     redirect_to djobs_path(q: new_params)
+
   end
 
   def edit
@@ -76,3 +84,4 @@ class DjobsController < ApplicationController
       params.require(:djob).permit(:SCODE, :JOB, :JOBTYPE, :DATE, :STARTTIME, :TRIGS, :PRICELIST, :RIGS, :PHOTOG1, :PHOTOG_NOTE, :JOB_NOTES, :LAB_NOTE, :PACK_NOTES, :LOCATION, :PROJSALE, :SALE, :ESTSHOTS, :FLYERS, :NOTICES, :POSTERS, :NOTICE_NOTE, :CONF_CALL, :RECONFIRM_CALL, :DATA_CALL, :DATA_REC, :DATA_SETUP, :DATA2WEB, :LAPTOPS, :CROP_DATE, :CROP_NOTE, :TYPE_DATE, :TYPED_BY, :CORR_DATE, :CORR_BY, :DATA_CLEAN, :IMG2WEB, :PRINT_DATE, :PRINT_BY, :ID_SHIP, :PKS_SHIP, :PKS_NOTE, :MUG_SHIP, :CR_SHIP, :PICS4TEA, :CP_PROOF_PRINTED, :CP_PROOF_SHIPPED, :CP_NOTES, :CP_PROOF_RET, :CP_CORR, :CP_PRINTED, :CP_SHIP, :ADMIN_CD, :YB_UG_CD, :YB_SENR_CD, :PRIN_ALBUM, :TSHOTS, :TPKS, :ZPKS, :AVPK, :CONF_YN, :CONF, :school_id, :status)
     end
 end
+

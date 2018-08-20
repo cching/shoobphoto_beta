@@ -70,7 +70,7 @@ button {
  <br /> 
 <div class = "Date">
   <div class="col-md-2">
-Date:
+  Date:
   <%= f.date_field :DATE_eq, class: 'form-control input-sm', id: 'datetimepicker1', 'datepicker' => true %>
 
   </div>
@@ -82,10 +82,10 @@ Date:
   <br />
 <div class = "row">
 <div class = col-xs-1>
-  <%= button_to 'Previous', bydate_djobs_path(q: params[:q], direction: -1)  %>
+  <%= link_to 'Previous', bydate_djobs_path(q: params[:q], direction: -1)  %>
   </div>
  <div class = col-xs-1> 
-  <%= button_to 'Next', bydate_djobs_path(q: params[:q], direction: 1)  %>
+  <%= link_to 'Next', bydate_djobs_path(q: params[:q], direction: 1)  %>
   </div>
 <br />
 
@@ -120,7 +120,7 @@ Date:
       </thead>
 
       <tbody>
-        <% @djobs.each do |djob| %>
+        <% @djob.each do |djob| %>
           <tr>
             <td><%= link_to 'Edit', edit_djob_path(djob, q: params[:q]) %></td>
             <td width="8%" class="dotted" ><%= djob.school.name %></td>
