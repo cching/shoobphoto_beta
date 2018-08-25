@@ -6,9 +6,11 @@ Rails.application.routes.draw do
   resources :djobs do 
     collection do
       get :bydate
+      get :bysearch
     end 
     collection { post :import }
   end
+  
 
   resources :dschools
 

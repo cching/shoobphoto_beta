@@ -5,7 +5,6 @@
   
     <%= f.input :s, as: :hidden, input_html: { value: params[:q][:s] } if params[:q] && params[:q][:s] %>
   
-  
     <div class="form-inputs">
   
   <div class = "row">    
@@ -106,8 +105,8 @@
     <div class="form-actions">
       <%= f.button :submit, "Update Job" %>
     </div>
-    <%= link_to("Previous Job", @djob.prev_djob, q: params[:q]) if @djob.prev_djob %> |
-    <%= link_to("Next Job", @djob.next_djob, q: params[:q]) if @djob.next_djob %>
+    <%= link_to("Previous Job", bysearch_djobs_path(q: @q, id: @djob.id, direction: -1)) if @djob.sequential_djob(@q, -1) %> |
+    <%= link_to("Next Job", bysearch_djobs_path(q: @q, id: @djob.id, direction: 1)) if @djob.sequential_djob(@q, 1) %> 
    
   
   <% end %>

@@ -16,6 +16,17 @@ class DjobsController < ApplicationController
     redirect_to request.path + "/edit", :status => :moved_permanently 
   end
 
+  def bysearch
+    # sending q as params
+   
+    # @ djob = finds id that is included in the parameters 
+    current_djob = Djob.find(params[:id])
+    sequential_djob = current_djob.sequential_djob(params[:q], params[:direction].to_i)
+
+    redirect_to edit_djob_path(sequential_djob, q: params[:q])
+  end
+    
+
   def new
     @djob = Djob.new
     @options = School.order(:name).where.not(school_type_id: nil).
@@ -44,6 +55,7 @@ class DjobsController < ApplicationController
   end
 
   def edit
+    @q = params[:q]
   end
 
   def create
