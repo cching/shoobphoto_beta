@@ -8,6 +8,14 @@ class DprojectsController < ApplicationController
     @dproject = Dproject.find(params[:id])
   end
 
+  def bysearch
+    current_dproject = Dproject.find(params[:id])
+    sequential_dproject = current_dproject.sequential_dproject(params[:q], params[:direction].to_i)
+
+    redirect_to edit_dproject_path(sequential_dproject, q: params[:q])
+  
+  end
+
   def invoice
     @dproject = Dproject.find(params[:id])
   end
@@ -57,6 +65,7 @@ class DprojectsController < ApplicationController
     @options = School.order(:name).where.not(school_type_id: nil).
     collect do |s|
       [s.name, s.id]
+    @q = params[:q]
     end
   end
 

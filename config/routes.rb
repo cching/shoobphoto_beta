@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :dprojects do
     collection do
+      get :bysearch
       get 'sort'
     end
 

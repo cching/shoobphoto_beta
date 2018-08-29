@@ -5,6 +5,17 @@ class Dproject < ActiveRecord::Base
 	before_save :set_status_date
     before_save :update_change_log
 
+	def sequential_dproject(q, direction)
+		ordered_dprojects = Dproject.ransack(q)
+		dprojects = ordered_dprojects.result.includes(:school)
+		
+		index = dprojects.index self
+		next_index = index + direction
+	
+		return false if next_index < 0 || dprojects.length < next_index
+	
+		dprojects[next_index]
+	end
 
 	def set_status_date
 	  self.status_date = Time.now if status_changed?
