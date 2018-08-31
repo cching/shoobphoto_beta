@@ -29,8 +29,6 @@
 //= require john_hancock
 //= require_tree .
 
-
-
 $('.btn-loading').button();
 
 $(document).ready(function(){

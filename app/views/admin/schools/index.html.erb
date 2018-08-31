@@ -1,12 +1,22 @@
+<style>
+
+.enjoy-css {
+  background-color: white !important;
+  color: black !important;
+  height: 20px !important;
+  padding: 4px !important;
+  border: 1px !important;
+  width: 20% !important;
+  border-radius: 2px !important;
+}
+
+</style>
+
 <h1>Listing schools</h1>
 
-<%= search_form_for @q do |f| %>
-  <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
-  School:
-  <%= f.select :name_eq, School.all.order(:name).pluck(:name).uniq, selected: (params[:q] ? params[:q][:name_eq] : nil), include_blank: true %>
-<br />
-
-    <%= f.submit %>
+<%= form_tag(admin_schools_path, :method => "get") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Schools", :class => "enjoy-css" %>
+  <%= submit_tag "Search" %>
 <% end %>
 
 <%= link_to "Export schools", export_admin_schools_path  %>
@@ -14,7 +24,13 @@
 <table>
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th colspan="4"></th>
+    </tr>
+    <tr>
+      <th colspan="4"></th>
+    </tr>
+    <tr>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
@@ -22,6 +38,8 @@
     <% @schools.each do |school| %>
       <tr>
         <td><%= school.name %></td>
+        <td><%= school.route %></td>
+        <td><%= school.district_id %></td>
         <td><%= link_to 'Show', admin_school_path(school) %></td>
         <td><%= link_to 'Edit', edit_admin_school_path(school, q: params[:q]) %></td>
         <td><%= link_to 'Destroy', admin_school_path(school), method: :delete, data: { confirm: 'Are you sure?' } %></td>

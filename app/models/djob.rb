@@ -1,5 +1,7 @@
 class Djob < ActiveRecord::Base
+	has_many :dattachments
 	belongs_to :school
+
 
 	scope :by_school, -> {joins(:school).reorder('schools.name')}
 
@@ -12,5 +14,24 @@ class Djob < ActiveRecord::Base
 		end
 	end
 
+	def prev_djob
+		Djob.where(["id < ?", id]).order(:id).last
+  end
+
+  def next_djob
+		Djob.where(["id > ?", id]).order(:id).first
+  end
+  #(q)=params
+  def sequential_djob(q, direction)
+	ordered_djobs = Djob.ransack(q)
+	djobs = ordered_djobs.result.includes(:school)
+	
+	index = djobs.index self
+	next_index = index + direction
+
+	return false if next_index < 0 || djobs.length < next_index
+
+	djobs[next_index]
+  end
 
 end

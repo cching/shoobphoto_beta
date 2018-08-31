@@ -1,6 +1,33 @@
+<style>
+
+.printThis {
+	display: none;
+}
+
+@media print {
+	.noPrint { display: none; }
+	.printThis { 
+		display: block; 
+	}
+} 
+
+#label {
+	display: none;
+	font-size: 15px;
+}
+
+</style>
+
 <%= simple_form_for(@dproject) do |f| %>
   <%= f.error_notification %>
 
+<div id="label">
+	<%= @dproject.school.dname %> <br />
+	<b>Due date:</b> <%= @dproject.due_date.try(:strftime, '%b %e, %Y') %> <br />
+	<b>Must del:</b> <%= @dproject.must_date.try(:strftime, '%b %e, %Y') %>
+</div>
+
+<div id="noLabel">
 <div class="row">
 	<div class="col-xs-12" style="text-align: right;">
 		<%= Time.now.try(:strftime, '%b %e, %Y')%>
@@ -50,9 +77,6 @@
 <br />
 <div class="row">
 	<div class="col-xs-12">
-		<b>Route: </b> <%= @dproject.school.route %>
-	</div>
-	<div class="col-xs-12">
 		<b>Shipping Instructions: </b> <%= @dproject.shipping_instructions %>
 	</div>
 </div>
@@ -63,6 +87,9 @@
 	</div>
 	<div class="col-xs-12">
 		<b>Request: </b> <%= f.input :description, :input_html => {:rows => 10}, :label => false %>
+	</div>
+	<div id="printInstructions" class="col-xs-12">
+		<b>Printing Instructions: </b> <%= f.input :printing_instructions, :input_html => {:rows => 5}, :label => false %>
 	</div>
 </div>
 
@@ -94,6 +121,33 @@
 		Notes:______________________________________________________________________________________________________________________________
 	</div>
 </div>
+<br />
+<div class="row noPrint">
+	<div class="col-xs-4">
+		<button onclick="printShoob()">Print Slips/Label</button>
+	</div>
+</div>
+</div>
+
+<% end %>
+
+<script>
+
+function printShoob() {
+	window.print();
+	var x = document.getElementById("printInstructions");
+	if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+	window.print();
+	var y = document.getElementById("label");
+	var z = document.getElementById("noLabel");
+	y.style.display = "block";
+	z.style.display = "none";
+	window.print();
+}
 
 <% end %>
 
@@ -103,3 +157,4 @@ tr.barby-row {}
 td.barby-cell { width: 3px; height: 100px; }
 td.barby-cell.on { background: #000; }
 </style>
+</script>

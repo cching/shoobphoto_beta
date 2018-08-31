@@ -5,6 +5,17 @@
 <h1>Projects</h1>
 <br />
 
+<%= search_form_for @q do |f| %>
+  <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
+
+  <span style="font-size:40px"> School: </span>
+  <%= f.select :school_name_eq, Dproject.includes(:school).order('schools.name').all.map { |dproject| dproject.school.name }.uniq, selected: (params[:q] ? params[:q][:school_name_eq] : nil), include_blank: true %>
+<br />
+
+  <%= f.submit 'Search', :style => 'font-size:35px;', :class => 'btn btn-primary' %>
+<% end %>
+<br />
+
 <table>
   <thead>
     <tr style="border-bottom: 2px solid black; font-size: 50px;">
@@ -16,9 +27,9 @@
   <tbody>
     <% @dprojects.where(status: "In Transit").each do |dproject| %>
       <tr style="font-size: 35px;">
-        <td width="45%" class="dotted"><%= dproject.school.dname[0,25] + "..." %></td>
-        <td width="45%" class="dotted"><%= dproject.id %></td>
-        <td width="10%" style="text-align: right;"><%= link_to 'Delivery', dproject_ship_path(dproject.id) %></td>
+        <td width="65%" class="dotted"><%= dproject.school.dname[0,25] + "..." %></td>
+        <td width="20%" class="dotted"><%= dproject.id %></td>
+        <td width="10%" style="text-align: right;"><%= link_to 'Delivery', dproject_ship_path(dproject.id, q: params[:q]) %></td>
       </tr>
     <% end %>
   </tbody>

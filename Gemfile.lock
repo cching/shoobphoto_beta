@@ -44,6 +44,7 @@ GEM
     afm (0.2.2)
     american_date (1.1.1)
     arel (5.0.1.20140414130214)
+    autosize (2.4.0.0)
     awesome_nested_set (3.0.3)
       activerecord (>= 4.0.0, < 5)
     aws-sdk (1.6.9)
@@ -272,6 +273,7 @@ PLATFORMS
 DEPENDENCIES
   activemerchant
   american_date
+  autosize
   awesome_nested_set
   aws-sdk (~> 1.6.0)
   barby

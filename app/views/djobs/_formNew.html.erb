@@ -1,0 +1,62 @@
+<%= simple_form_for(@djob) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+<div class = "row">    
+ <div class = col-xs-3>
+ School <br />
+  <%= f.select(:school_id, @options, {}, {:class => 'form-control'}) %>
+  </div>
+    <div class = col-xs-1>  
+    Job <br />
+    <%= f.input :JOB, :label => false %>
+</div>
+    <div class = col-xs-1>
+    Job type <br />
+    <%= f.input :JOBTYPE, :label => false %>
+</div>
+    <div class = col-xs-3>  
+    Date <br />
+    <%= f.date_field(:DATE, {:class => "form-control"}) %>
+</div>
+    <div class = col-xs-2>        
+    Start time <br />
+    <%= f.input :STARTTIME, :label => false %>
+</div>
+<div class = "row">
+    <div class = col-xs-1>
+    Trigs <br />
+    <%= f.input :TRIGS, :label => false %>    
+</div>
+</div>
+<hr>
+<div class = "row">
+    <div class = col-xs-2>
+    Price List <br />
+    <%= f.input :PRICELIST, :label => false %>
+</div>
+    <div class = col-xs-2>
+    Rigs <br />
+    <%= f.input :RIGS, :label => false %>
+</div>
+    <div class = col-xs-1>
+    PhotoG1 <br />
+    <%= f.input :PHOTOG1, :label => false %>
+</div>
+    <div class = col-xs-4>
+    Notes <br />
+    <%= f.input :PHOTOG_NOTE, :as => :text, :input_html => {:Rows => 4},  :label => false %>
+</div>
+    <div class = col-xs-3>
+    Job Notes <br />
+    <%= f.input :JOB_NOTES, :as => :text, :input_html => {:Rows => 4}, :label => false %>
+</div>
+
+
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

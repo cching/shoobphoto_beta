@@ -8,13 +8,9 @@ td, th{
   font-size: 16px;
 }
 
-#notcompleted {
-	display: block;
-}
-
 button {
 	border-radius: 5px;
-	background-color: lightgray;
+	background-color: white;
 	width: 15%;
 }
 
@@ -56,26 +52,42 @@ button {
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 
+#all {
+  display: none;
+}
+
+#filtered {
+  display: block;
+}
+
+.printThis {
+  display: none;
+}
+
+@media print {
+    .noPrint { display: none; }
+    .printThis { 
+        display: block; 
+    }
+} 
+
 </style>
 
 <h4>Projects</h4>
 <br />
 
-<div class="row">
+<div class="row noPrint">
   <div class="col-xs-2">
     <%= link_to 'New Project', new_dproject_path, class: "btn btn-primary" %> 
   </div>
-  <div class="col-xs-2">
-    <div class="dropdown">
-      <button class="dropbtn">Reports</button>
-        <div class="dropdown-content">
-          <!-- <a href="dprojects/shipreport">Shipping</a> -->
-        </div>
-    </div>
+  <div class="col-xs-10">
+    <button onclick="printPage()">Print Report</button>
   </div>
 </div>
 
-<br /><br />
+<br />
+<button id="btnAll" onclick="toggleAll()">Show All</button>
+<br />
 
 <%= search_form_for @q do |f| %>
   <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
@@ -95,11 +107,48 @@ button {
   <%= f.select :school_route_eq, Dproject.includes(:school).order('schools.route').all.map { |dproject| dproject.school.route }.uniq, selected: (params[:q] ? params[:q][:school_route_eq] : nil), include_blank: true %>
 <br />
 
+ ID:
+  <%= f.select :id_eq, Dproject.all.order(:id).pluck(:id).uniq, selected: (params[:q] ? params[:q][:id_eq] : nil), include_blank: true %>
+
+<br />
+
   <%= f.submit %>
 <% end %>
 
 <br /><br />
 
-<div id="notCompleted" class="filterDiv indexNotCompleted">
+<div id="filtered" class="filterDiv indexFiltered">
 	<%= render 'index' %>
 </div>
+
+<div id="all" class="filterDiv indexAll">
+	<%= render 'indexAll' %>
+</div>
+
+<script>
+
+function toggleAll() {
+    var x = document.getElementById("filtered");
+    var y = document.getElementById("all");
+    var btn = document.getElementById("btnAll");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+        y.style.display = "none";
+        btn.innerHTML = "Show All";
+        btn.style.color = "black";
+        btn.style.backgroundColor = "white";
+    } else {
+        x.style.display = "none";
+        y.style.display = "block";
+        btn.innerHTML = "Show Filtered";
+        btn.style.color = "white";
+        btn.style.backgroundColor = "grey";
+    }
+}
+
+
+function printPage() {
+    window.print();
+}
+
+</script>
