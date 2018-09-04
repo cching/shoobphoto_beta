@@ -48,7 +48,11 @@
 	</div>
 	<div class="col-xs-3">
 	Signature <br />
-		<%= f.signature_field :signature%>
+	<%= form_for @dproject do |f| %>
+		<%= f.signature_canvas %>
+		<%= f.hidden_signature_field :signature %>
+		<%= f.submit %>
+	  <% end %>
 	</div>
 </div>
 
