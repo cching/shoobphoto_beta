@@ -92,6 +92,12 @@
 		<b>Printing Instructions: </b> <%= f.input :printing_instructions, :input_html => {:rows => 5}, :label => false %>
 	</div>
 </div>
+
+<br /><br />
+<!-- To display the barcode -->
+<%= raw @barcode_for_html.to_html %>
+
+<br /><br />
 <div class="row">
 	<div class="col-xs-12">
 		<b>Status: </b> <%= @dproject.status %>
@@ -142,5 +148,11 @@ function printShoob() {
 	z.style.display = "none";
 	window.print();
 }
-
 </script>
+
+<style type="text/css">
+	table.barby-barcode { border-spacing: 0; }
+tr.barby-row {}
+td.barby-cell { width: 3px; height: 100px; }
+td.barby-cell.on { background: #000; }
+</style>
