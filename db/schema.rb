@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180819203534) do
+ActiveRecord::Schema.define(version: 20180904214453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -384,6 +384,7 @@ ActiveRecord::Schema.define(version: 20180819203534) do
     t.boolean  "finish"
     t.text     "change_log"
     t.string   "invoice_status"
+    t.text     "signature"
   end
 
   create_table "dschools", force: true do |t|
