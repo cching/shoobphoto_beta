@@ -11,7 +11,8 @@ class DprojectsController < ApplicationController
 
   def packingslip
     @dproject = Dproject.find(params[:id])
-    @barcode = Barby::EAN13.new('000000000000')
+    @barcodenumber = @dproject.id.to_s.rjust(12, "0")
+    @barcode = Barby::EAN13.new(@barcodenumber)
     @barcode_for_html = Barby::HtmlOutputter.new(@barcode)
     # generate_barcodes(@dproject)
   end
