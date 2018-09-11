@@ -2,6 +2,7 @@ require 'barby'
 require 'barby/barcode/ean_13'
 require 'barby/outputter/ascii_outputter'
 require 'barby/outputter/html_outputter'
+require 'barby/outputter/png_outputter'
 
 class DprojectsController < ApplicationController
   before_action :set_dproject, only: [:show, :edit, :update, :destroy]
@@ -14,6 +15,7 @@ class DprojectsController < ApplicationController
     @barcodenumber = @dproject.id.to_s.rjust(12, "0")
     @barcode = Barby::EAN13.new(@barcodenumber)
     @barcode_for_html = Barby::HtmlOutputter.new(@barcode)
+    @barcode_for_PNG = Barby::PngOutputter.new(@barcode)
     # generate_barcodes(@dproject)
   end
 

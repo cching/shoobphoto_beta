@@ -93,11 +93,14 @@
 	</div>
 </div>
 
-<br /><br />
-<!-- To display the barcode -->
-<%= raw @barcode_for_html.to_html %>
+<br />
+<div class="row">
+	<div class="col-xs-12">
+		<%= raw @barcode_for_html.to_html %>
+	</div>
+</div>
 
-<br /><br />
+<br />
 <div class="row">
 	<div class="col-xs-12">
 		<b>Status: </b> <%= @dproject.status %>
@@ -115,7 +118,7 @@
 		Delivered by:_______________________________________________
 	</div>
 	<div class="col-xs-12">
-		<b>Received by: </b>(Please print):_____________________________________________________
+		<b>Recieved by: </b>(Please print):_____________________________________________________
 	</div>
 	<div class="col-xs-12">
 		Notes:______________________________________________________________________________________________________________________________
