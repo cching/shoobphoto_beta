@@ -14,9 +14,14 @@ class DprojectsController < ApplicationController
     @dproject = Dproject.find(params[:id])
     @barcodenumber = @dproject.id.to_s.rjust(12, "0")
     @barcode = Barby::EAN13.new(@barcodenumber)
-    @barcode_for_html = Barby::HtmlOutputter.new(@barcode)
-    @barcode_for_PNG = Barby::PngOutputter.new(@barcode)
+    @barcode_for_html =Barby::PngOutputter.new(@barcode).to_png
     # generate_barcodes(@dproject)
+    respond_to do |format|
+      format.html
+      format.png do
+        send_data @barcode_for_html, type: "image/png", disposition: "inline"
+      end
+    end
   end
 
   def bysearch

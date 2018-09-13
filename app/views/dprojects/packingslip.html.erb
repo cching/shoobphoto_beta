@@ -96,7 +96,8 @@
 <br />
 <div class="row">
 	<div class="col-xs-12">
-		<%= raw @barcode_for_html.to_html %>
+	<%#= raw @barcode_for_html.to_html %>
+	<%= image_tag(url_for({:controller => 'dprojects', :action => 'packingslip', :format => 'png' }) ) %>
 	</div>
 </div>
 
