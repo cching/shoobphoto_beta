@@ -22,9 +22,17 @@
   <%= f.error_notification %>
 
 <div id="label">
-	<%= @dproject.school.dname %> <br />
-	<b>Due date:</b> <%= @dproject.due_date.try(:strftime, '%b %e, %Y') %> <br />
-	<b>Must del:</b> <%= @dproject.must_date.try(:strftime, '%b %e, %Y') %>
+	<div class="row">
+		<div class="col-xs-4">
+			<%= @dproject.school.dname %> <br />
+			<b>Due date:</b> <%= @dproject.due_date.try(:strftime, '%b %e, %Y') %> <br />
+			<b>Must del:</b> <%= @dproject.must_date.try(:strftime, '%b %e, %Y') %>
+		</div>
+		<div class="col-xs-8">
+			<%#= raw @barcode_for_html.to_html %>
+			<%= image_tag(url_for({:controller => 'dprojects', :action => 'packingslip', :format => 'png' }) ) %>
+		</div>
+	</div>
 </div>
 
 <div id="noLabel">
