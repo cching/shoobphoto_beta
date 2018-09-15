@@ -27,30 +27,20 @@
 <table>
   <thead>
     <tr>
-      <th colspan="4"></th>
-    </tr>
-    <tr>
-      <th colspan="4"></th>
-    </tr>
-    <tr>
-      <th colspan="4"></th>
+      <th>School</th>
+      <th>Route</th>
+      <th>District ID</th>
+      <th colspan="5"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @schools.each do |school| %>
       <tr>
-        <td><%= school.name %></td>
-        <td><%= school.route %></td>
-        <td><%= school.district_id %></td>
-        <td><%= link_to 'Show', admin_school_path(school) %></td>
-        <td><%= link_to 'Edit', edit_admin_school_path(school, q: params[:q]) %></td>
-        <td><%= link_to 'Destroy', admin_school_path(school), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td width="30%" class="dotted" > <%= school.name %></td>
+      <td width="10%" class="dotted" > <%= school.route %></td>
+      <td width="10%" class="dotted" > <%= school.district_id %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
 
-<br>
 
-<%= link_to 'New School', new_admin_school_path %>
