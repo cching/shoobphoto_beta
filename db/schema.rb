@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180911191016) do
+ActiveRecord::Schema.define(version: 20180914071522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -968,6 +968,49 @@ ActiveRecord::Schema.define(version: 20180911191016) do
     t.boolean  "enrolled",          default: false
     t.boolean  "clear_teachers"
     t.string   "route"
+    t.string   "Nscode"
+    t.string   "county"
+    t.string   "school"
+    t.string   "district"
+    t.string   "greatschools"
+    t.string   "m_address"
+    t.string   "ncounty"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "data_sys"
+    t.string   "prin_fname"
+    t.string   "prin_lname"
+    t.string   "prin_email"
+    t.datetime "prin_upd"
+    t.string   "vp_fname"
+    t.string   "vp_lname"
+    t.string   "vp_email"
+    t.datetime "vp_upd"
+    t.string   "yb_fname"
+    t.string   "yb_lname"
+    t.string   "yb_email"
+    t.datetime "yb_upd"
+    t.string   "awd_fname"
+    t.string   "awd_lname"
+    t.string   "awd_email"
+    t.datetime "awd_upd"
+    t.string   "sec1_lname"
+    t.string   "sec1_fname"
+    t.string   "sec1_email"
+    t.datetime "sec1_upd"
+    t.string   "data_fname"
+    t.string   "data_lname"
+    t.string   "data_email"
+    t.datetime "data_upd"
+    t.string   "category"
+    t.string   "grades"
+    t.string   "sales_stat"
+    t.string   "enrollment"
+    t.datetime "pic_date"
+    t.string   "cur_vendor"
+    t.datetime "start_date"
+    t.datetime "end_date"
   end
 
   create_table "searches", force: true do |t|
