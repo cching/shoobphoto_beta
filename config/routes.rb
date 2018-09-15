@@ -126,7 +126,6 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
 
   resources :student_images
 
-  resources :schools
 
   resources :items do
     collection do
