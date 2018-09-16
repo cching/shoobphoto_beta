@@ -112,6 +112,10 @@ button {
 
 <br />
 
+Invoice:
+  <%= f.select :invoice_status_eq, Dproject.all.order(:invoice_status).pluck(:invoice_status).uniq, selected: (params[:q] ? params[:q][:invoice_status_eq] : nil), include_blank: true %>
+<br />
+
   <%= f.submit %>
 <% end %>
 
