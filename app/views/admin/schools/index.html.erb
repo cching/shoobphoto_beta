@@ -1,5 +1,4 @@
 <style>
-
 .enjoy-css {
   background-color: white !important;
   color: black !important;
@@ -9,7 +8,6 @@
   width: 20% !important;
   border-radius: 2px !important;
 }
-
 </style>
 
 <h1>Listing schools</h1>
@@ -24,29 +22,30 @@
 <table>
   <thead>
     <tr>
-      <th>School</th>
-      <th>Route</th>
-      <th>District ID</th>
-      <th colspan="5"></th>
+      <th colspan="4"></th>
+    </tr>
+    <tr>
+      <th colspan="4"></th>
+    </tr>
+    <tr>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @schools.each do |school| %>
       <tr>
-       <td><%= school.name %></td>
-       <td><%= school.route %></td>
-       <td><%= school.district_id %></td>
-       <td><%= link_to 'Show', admin_school_path(school) %></td>
-       <td><%= link_to 'Edit', edit_admin_school_path(school, q: params[:q]) %></td>
-       <td><%= link_to 'Destroy', admin_school_path(school), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= school.name %></td>
+        <td><%= school.route %></td>
+        <td><%= school.district_id %></td>
+        <td><%= link_to 'Show', admin_school_path(school) %></td>
+        <td><%= link_to 'Edit', edit_admin_school_path(school, q: params[:q]) %></td>
+        <td><%= link_to 'Destroy', admin_school_path(school), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
-    </tbody>
-    </table>
-     
-    <br>
-     
-    <%= link_to 'New School', new_admin_school_path %>
+  </tbody>
+</table>
 
+<br>
 
+<%= link_to 'New School', new_admin_school_path %>
