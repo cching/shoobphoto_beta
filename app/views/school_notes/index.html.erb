@@ -1,4 +1,4 @@
-<h2>Projects</h2>
+<h1>Notes</h1>
 
 <% @school_notes.each do |school| %>
   <h4><%= school.name %></h4>
@@ -6,22 +6,20 @@
   <% school.notes.each do |note| %>
   <div class="row">
     <div class="col-sm-2">
-      <b>Created at: </b></br>
-      <%= note.created_at.to_date %> </br>
-      <b>Due by: </b></br>
+      <%= note.created_at.to_time %>
     </div>
     <div class="col-sm-8">
       <%= note.note %>
     </div>
     <div class="col-sm-2">
       Status: <%= note.complete? ? 'Completed' : 'Incomplete' %><br/>
-      <%= link_to "View Project", note_path(school.id, note.id), class: "btn btn-primary" %>
+      <%= link_to "View", note_path(school.id, note.id), class: "btn btn-primary" %>
 
     </div>
   </div><br/>
   <div class="row">
     <div class="col-sm-2"></div>
-    <div class="col-sm-10"><strong>Additional notes:</strong> <%= note.action %></div>
+    <div class="col-sm-10"><strong>Response:</strong> <%= note.action %></div>
   </div><br/>
   <hr>
   <% end %>

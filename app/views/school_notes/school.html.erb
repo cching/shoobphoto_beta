@@ -8,13 +8,13 @@ Principal: <%= @school.principal %><br/>
 Secretary: <%= @school.secretary %><br/>
 <hr>
 
-<h4>Projects:</h4>
+<h4>Notes:</h4>
 
 <%= form_for(@school, :url => updatenote_school_note_path(@school)) do |f| %>
 	<%= f.fields_for :notes do |builder| %>
 	  <%= render 'note_fields', f: builder %>
 	<% end %>
-	  <%= link_to_add_fields "Add New Project", f, :notes %><br/>
+	  <%= link_to_add_fields "Add New Note", f, :notes %><br/>
 	  <hr>
 <%= f.submit %>
 <% end %>
