@@ -508,7 +508,7 @@ class StudentsController < ApplicationController
   def download
     @shoob_id = "#{params[:shoob_id].gsub(/\s+/, "").downcase}"
     if @shoob_id[4] == "5" || @shoob_id[4] == "1"
-      @found_image = StudentImage.where("lower(shoob_id) = ?", "#{@shoob_id}").where(:folder => "fall2018").last
+      @found_image = StudentImage.where("lower(shoob_id) = ?", "#{@shoob_id}").where(:folder => "fall2019").last
     elsif @shoob_id[4] == "2"
       @found_image = StudentImage.where("lower(shoob_id) = ?", "#{@shoob_id}").where(:folder => "spring2017").last
     elsif @shoob_id[4] == "3"
