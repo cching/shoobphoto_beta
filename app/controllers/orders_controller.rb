@@ -207,8 +207,6 @@ end
 	    		end
 	    	end
 	    	
-	    	OrderReceipt.perform_async(@order.id)
-
 	    	if @order.cart.order_packages.map(&:student_image_id).any? && @order.cart.order_packages.map{ |o| o.options.map {|x| x.download }}.any? 
 				@images = @order.cart.order_packages.where.not(student_image_id: nil).all
 				redirect_to order_download_path(@order.id), notice: "You order has been successfully placed! Here are your available digital images."
