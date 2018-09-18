@@ -6,7 +6,7 @@
   <% school.notes.each do |note| %>
   <div class="row">
     <div class="col-sm-2">
-      <%= note.created_at.to_time %>
+      <%= note.created_at.to_time.try(:strftime, '%B %e %Y') %>
     </div>
     <div class="col-sm-8">
       <%= note.note %>
