@@ -1,0 +1,12 @@
+<%= form_for @dproject, url: save_file_upload_dproject_path(@dproject), :method=>"PATCH", html: { multipart: true } do |form| %>
+    <div class="field">
+      <%= form.file_field :avatar %>
+    </div>
+    <br />
+    <div class="field">
+      <label>Description</label>
+      <%= form.text_area :file_description %>
+    </div>
+      <%= form.submit %>
+  <% end %>
+  
