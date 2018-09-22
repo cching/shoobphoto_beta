@@ -6,7 +6,7 @@ class Search < ActiveRecord::Base
   
 private
   def find_orders
-    orders = Order.order("processed ASC")
+    orders = Order.where('created_at >= :ninety_days_ago', :ninety_days_ago  => Time.now - 90.days).order("processed ASC")
     students = Student.all
 
     students = students.where('lower(students.first_name) like ?', "%#{student_first_name.downcase}%") if student_first_name.present?
