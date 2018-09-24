@@ -1,4 +1,5 @@
 class Dproject < ActiveRecord::Base
+	has_paper_trail on: [:update], only: [:status]
 	has_many :dattachments
 	belongs_to :school
 	
@@ -6,7 +7,7 @@ class Dproject < ActiveRecord::Base
     before_save :update_change_log
 
 	def sequential_dproject(q, direction)
-		ordered_dprojects = Dproject.ransack(q)
+		ordered_dprojects = Dproject.where.not(status:'Delivered').ransack(q)
 		dprojects = ordered_dprojects.result.includes(:school)
 		
 		index = dprojects.index self
@@ -16,6 +17,7 @@ class Dproject < ActiveRecord::Base
 	
 		dprojects[next_index]
 	end
+	
 
 	def set_status_date
 	  self.status_date = Time.now if status_changed?
