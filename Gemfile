@@ -16,6 +16,8 @@ gem 'paypal-sdk-rest'
 gem 'will_paginate-bootstrap'
 gem 'autosize'
 
+gem "paper_trail"
+
 gem 'sass-rails', '~> 4.0.3'
 gem 'rack-host-redirect'
 gem 'pry'
