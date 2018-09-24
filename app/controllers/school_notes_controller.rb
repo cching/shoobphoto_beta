@@ -6,7 +6,7 @@ class SchoolNotesController < ApplicationController
 
   def index
     @notes = Note.all.pluck(:school_id).uniq
-    @school_notes = School.find(@notes)
+    @school_notes = School.order('name ASC').find(@notes)
     
     respond_to do |format|
       format.html

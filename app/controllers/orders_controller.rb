@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
 	include Mobylette::RespondToMobileRequests
  
 	def download
-		@order = Order.where('created_at => ?', 2018, 6, 30).find(params[:id])
+		@order = Order.find(params[:id])
 
 		if @order.cart.order_packages.map(&:student_image_id).any? && @order.cart.order_packages.map{ |o| o.options.map {|x| x.download }}.any? 
 			@images = []
@@ -207,8 +207,6 @@ end
 	    		end
 	    	end
 	    	
-	    	OrderReceipt.perform_async(@order.id)
-
 	    	if @order.cart.order_packages.map(&:student_image_id).any? && @order.cart.order_packages.map{ |o| o.options.map {|x| x.download }}.any? 
 				@images = @order.cart.order_packages.where.not(student_image_id: nil).all
 				redirect_to order_download_path(@order.id), notice: "You order has been successfully placed! Here are your available digital images."
