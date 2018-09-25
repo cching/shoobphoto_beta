@@ -1,5 +1,4 @@
 class Dproject < ActiveRecord::Base
-	has_paper_trail on: [:update], only: [:status]
 	has_many :dattachments
 	belongs_to :school
 	
