@@ -130,8 +130,12 @@ $(function() {
 	AWARD: 
 	</br>
 	<%  @export_list.award_infos.each do |award| %>
-		<%= award.award.title %>
+		<%= award.award.title %> 
 	</br> 
+	<% end %>
+	<br />
+	<%  @export_list.award_infos.each do |award_info| %>
+		Award Num: <%= award_info.id %> 
 	<% end %>
 	</div>
 

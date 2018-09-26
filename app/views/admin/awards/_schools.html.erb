@@ -1,4 +1,4 @@
-<% AwardInfo.where(:processed => false).includes(:award).eager_load(export_list: {user: :school}).where("export_lists.submitted = ? AND export_lists.hidden = ?", true, false).order('schools.name').order('awards.abbreviation').each do |award_info| %>
+<% AwardInfo.where(:processed => false).includes(:award).eager_load(export_list: {user: :school}).where("export_lists.submitted = ? AND export_lists.hidden = ?", true, false).where('award_infos.created_at >= :ninety_days_ago', :ninety_days_ago  => Time.now - 90.days).order('schools.name').order('award_infos.receive_by').order('awards.abbreviation').each do |award_info| %>
 
       <tr class=<%= award_info.processed? ? "success" : "danger" %> id="award_<%= award_info.id %>" >
         <td><%= award_info.export_list.submit_date %></td>
@@ -19,7 +19,7 @@
 
 
 
-<% AwardInfo.where(:processed => true).includes(:award).eager_load(export_list: {user: :school}).where("export_lists.submitted = ? AND export_lists.hidden = ?", true, false).order('schools.name').order('awards.abbreviation').each do |award_info| %>
+<% AwardInfo.where(:processed => true).includes(:award).eager_load(export_list: {user: :school}).where("export_lists.submitted = ? AND export_lists.hidden = ?", true, false).where('award_infos.created_at >= :ninety_days_ago', :ninety_days_ago  => Time.now - 90.days).order('schools.name').order('award_infos.receive_by').order('awards.abbreviation').each do |award_info| %>
       <tr class=<%= award_info.processed? ? "success" : "danger" %> id="award_<%= award_info.id %>" >
         <td><%= award_info.export_list.submit_date %></td>
         <td><%= award_info.receive_by %></td>
