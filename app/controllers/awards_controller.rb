@@ -53,7 +53,7 @@ class AwardsController < ApplicationController
       if current_user.school.multiple?
         redirect_to awards_multiple_path(@export_list.uniq_id)
       else
-        redirect_to awards_single_path(@export_list.uniq_id)
+        redirect_to awards_multiple_path(@export_list.uniq_id)
       end
     else
       redirect_to new_user_session_path
