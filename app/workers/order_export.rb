@@ -9,7 +9,7 @@ class OrderExport
 
           csv_file << CSV.generate_line(Order.all.first.attributes.keys[0..12].map{|column| column} + Order.all.first.attributes.keys[14..21].map{|column| column} + ['Price'] + ['Student First Name'] + ['Student Last Name'] + ['Student Teacher'] + ['Student ID']  + ['Student Grade'] + ['Student School']  + ['Type'] + ['Package'] + ['8x10 | 5x7 | 3x5 | Wallets | Image CD | Name on Wallets | Retouching'] + ['CA Code'] + ['Senior Image'] + ['Grad Image'] + ['Year'] + ['Extra Poses'] + ['Sheet Types'] + ['Yearbook Image']+ ['Access Code'] + ['Gift'] + ['Download1 Images'] + ['Download1 folder'] + ['Senior Addons'])
 
-            Order.all.where(:processed => false).order(:id).each do |order| 
+            Order.all.where('created_at >= :ninety_days_ago', :ninety_days_ago  => Time.now - 90.days).where(:processed => false).order(:id).each do |order| 
               #Order.where("created_at >= ?", Date.strptime("07/01/2016", "%m/%d/%Y")).each do |order|
               order.cart.students.each do |student|
 
