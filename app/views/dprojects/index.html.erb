@@ -116,6 +116,10 @@ Invoice:
   <%= f.select :invoice_status_eq, Dproject.all.order(:invoice_status).pluck(:invoice_status).uniq, selected: (params[:q] ? params[:q][:invoice_status_eq] : nil), include_blank: true %>
 <br />
 
+Item Type:
+  <%= f.select :project_type_eq, Dproject.all.order(:project_type).pluck(:project_type).uniq, selected: (params[:q] ? params[:q][:project_type_eq] : nil), include_blank: true %>
+<br />
+
   <%= f.submit %>
 <% end %>
 

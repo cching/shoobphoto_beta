@@ -103,6 +103,7 @@ class DprojectsController < ApplicationController
     q[:school_route_eq] = params[:dproject].delete(:school_route_eq)
     q[:id_eq] = params[:dproject].delete(:id_eq)
     q[:invoice_status_eq] = params[:dproject].delete(:invoice_status_eq)
+    q[:project_type_eq] = params[:dproject].delete(:project_type_eq)
 
     q[:s] = params[:dproject].delete(:s)
     @dproject.update(dproject_params)
