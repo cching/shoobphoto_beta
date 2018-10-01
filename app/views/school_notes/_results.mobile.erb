@@ -25,14 +25,7 @@
 <h2 align="center">Which school?</h2>
 	<%= form_tag(school_school_notes_path, method: :get) do %>
        <div class="field">
-	    <%= 
-	    collection_select(
-	    :school,
-	    :id,
-	    @schools.all, 
-	    :id, 
-	    :name,
-	    {:prompt => false}, {:class => "form-control"}) %>
+	    <%= collection_select(:school, :id, @schools.all, :id, :name, {:prompt => false}, {:class => "form-control", :style => "font-size: 20px !important;"}) %>
 
 
   </div>

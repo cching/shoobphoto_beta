@@ -39,7 +39,11 @@ window.onclick = function(event) {
         <%= link_to "PURCHASE PICTURES & YEARBOOKS", student_splash_path(:i => nil, :cart => nil), {:style=>'font-size: 35px;'} %>
         <a href="/school_support" style="font-size: 35px;">TEACHER RESOURCES</a>
         <a href="/contacts/new" style="font-size: 35px;">CONTACT US</a>
-        <%= link_to "LOGIN", new_user_session_path, {:style=>'font-size: 35px;'} %>
+        <% if current_user %>
+          <%= link_to "LOGIN", new_user_session_path, {:style=>'font-size: 35px;'} %>
+        <% else %>
+          <%= link_to "DASHBOARD", new_user_session_path, {:style=>'font-size: 35px;'} %>
+        <% end %>
     </div>
   </div>
   </div>
