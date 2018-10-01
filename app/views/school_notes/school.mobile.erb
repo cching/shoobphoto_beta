@@ -26,10 +26,10 @@
    	
 </style>
 
-<div class="mobile_note_form">
-<span style ="font-size:60px"><b><%= @school.name %></b></span>
+<br /><br /><br />
+<span style ="font-size:40px"><b><%= @school.name %></b></span>
 <hr>
-<div class="mobile_school_font">
+<div style ="font-size:30px">
 <%= @school.city.try(:name) %>: <%= @school.district.try(:name) %><br/>
 Address: <%= @school.address %><br/>
 Phone: <%= @school.phone %><br/>
@@ -39,7 +39,7 @@ Secretary: <%= @school.secretary %><br/>
 </div>
 <hr>
 
-<span style ="font-size:60px"><b>Notes</b></span>
+<span style ="font-size:40px"><b>Notes</b></span>
 
 <%= form_for(@school, :url => updatenote_school_note_path(@school)) do |f| %>
 	<%= f.fields_for :notes do |builder| %>
