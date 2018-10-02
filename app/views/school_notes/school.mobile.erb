@@ -30,7 +30,7 @@
 <span style ="font-size:40px"><b><%= @school.name %></b></span>
 <hr>
 <div style ="font-size:30px">
-<%= @school.city.try(:name) %>: <%= @school.district.try(:name) %><br/>
+<%= @school.city.try(:name) %>, <%= @school.district.try(:name) %><br/>
 Address: <%= @school.address %><br/>
 Phone: <%= @school.phone %><br/>
 

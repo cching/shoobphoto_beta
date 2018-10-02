@@ -12,13 +12,17 @@
 .mobile_large {
    line-height: 100px;
 }
+
+textarea {
+  font-size: 30px !important;
+}
     
 </style>
 
 <div class="mobile_note_form2">
 <fieldset>
-	<%= f.date_select :created_at %><br/><br/>
-  <%= f.text_area :note, class: "mobile_note_form2", :size => "10x10", :height => "40px" %><br/>
+	<%= f.date_field(:created_at, {:style => "font-size: 30px !important;"}) %><br/>
+  <%= f.text_area :note, class: "mobile_note_form2", :size => "10x2", :height => "40px" %><br/>
   <%= f.label :_destroy, "Remove Note", class: "mobile_remove" %>
   <%= f.check_box :_destroy %>
 </fieldset>
