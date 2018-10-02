@@ -966,7 +966,6 @@ class StudentsController < ApplicationController
 
     @i = params[:i] unless params[:i].nil?
     @cart = params[:cart] unless params[:cart].nil?
-
     respond_to do |format|
       format.html   
       format.mobile 

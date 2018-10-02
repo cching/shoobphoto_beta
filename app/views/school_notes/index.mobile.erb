@@ -40,6 +40,16 @@
 .mobile_status_right {
   width: auto;
 }
+
+.enjoy-css {
+  background-color: white !important;
+  color: black !important;
+  height: 20px !important;
+  padding: 4px !important;
+  border: 1px !important;
+  width: 20% !important;
+  border-radius: 2px !important;
+}
   
 </style>
 
@@ -48,9 +58,14 @@
 
 <br/>
 
+<%= form_tag(school_notes_path, :method => "get") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Schools", :class => "enjoy-css" %>
+  <%= submit_tag "Search" %>
+<% end %>
+
 <% @school_notes.each do |school| %>
-  <span style ="font-size:30px"><b><%= school.name %></b></span><br/>
- 
+  <span style ="font-size:30px"><b><%= school.name %></b></span><br/><br/>
+
   <% school.notes.each do |note| %>
   
 <div class="mobile_status_left">
@@ -64,7 +79,6 @@
 </div>  
 
   <br/>
-  <hr>
 
   <div style ="font-size:25px">[<i><%= note.created_at.to_time.try(:strftime, '%B %e %Y') %></i>]</div>
   <br/>  
@@ -77,7 +91,7 @@
     <div style ="font-size:25px"><strong>Response:</strong> <%= note.action %></div>
   <br/>
   
-  <hr><hr>
+  <hr>
   <% end %>
 
 <% end %>

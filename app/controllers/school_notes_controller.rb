@@ -7,6 +7,12 @@ class SchoolNotesController < ApplicationController
   def index
     @notes = Note.all.pluck(:school_id).uniq
     @school_notes = School.order('name ASC').find(@notes)
+
+    if params[:search]
+      @school_notes = School.search(params[:search]).order("created_at DESC")
+    else
+      @school_notes = School.where.not(school_type: nil).order(:name)
+    end
     
     respond_to do |format|
       format.html
