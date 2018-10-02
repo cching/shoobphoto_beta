@@ -40,9 +40,13 @@ window.onclick = function(event) {
         <a href="/school_support" style="font-size: 35px;">TEACHER RESOURCES</a>
         <a href="/contacts/new" style="font-size: 35px;">CONTACT US</a>
         <% if current_user %>
-          <%= link_to "LOGIN", new_user_session_path, {:style=>'font-size: 35px;'} %>
+          <%= link_to dashboard_pages_path do %>
+            <%= link_to "DASHBOARD", new_user_session_path, {:style=>'font-size: 35px;'} %>
+          <% end %>
         <% else %>
-          <%= link_to "DASHBOARD", new_user_session_path, {:style=>'font-size: 35px;'} %>
+          <%= link_to new_user_session_path do %>
+            <%= link_to "DASHBOARD", new_user_session_path, {:style=>'font-size: 35px;'} %>
+          <% end %>
         <% end %>
     </div>
   </div>
