@@ -15,6 +15,15 @@
 <%= form_tag(admin_schools_path, :method => "get") do %>
   <%= text_field_tag :search, params[:search], placeholder: "Search Schools", :class => "enjoy-css" %>
   <%= submit_tag "Search" %>
+</br>
+
+<% end %>
+
+<%= form_tag import_admin_schools_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Upload Schools" %>
+</br>
+
 <% end %>
 
 <%= link_to "Export schools", export_admin_schools_path  %>
@@ -49,3 +58,4 @@
 <br>
 
 <%= link_to 'New School', new_admin_school_path %>
+

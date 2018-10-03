@@ -48,4 +48,34 @@ class School < ActiveRecord::Base
   		where("name LIKE ?", "%#{search}%")
 	end
 
+	def self.import(file)
+		#A block that runs through a loop in our CSV data
+		CSV.foreach(file.path, headers: true, skip_blanks: true) do |row|
+			#Creates a user for each row in the CSV file	
+			
+			hashed_row = row.to_hash
+			district_name = hashed_row.delete('district')
+			city_name = hashed_row.delete('city')
+			school_name = hashed_row.delete('name')
+			district = District.find_by('name like ?', '%#{district_name}%')
+			city = City.find_by('name like?', '%#{district_name}%')
+			
+			school = School.find_by('name like ?', '%#{school_name}%')
+
+			found_school = if school.present?
+							school.assign_attributes(hashed_row)
+							school
+						   else
+							school = School.create(hashed_row)
+							school.update(name: school_name)
+							school
+						   end
+			found_school.update(district: district, city: city)
+
+			
+		end
+		
+
+	end
+
 end
