@@ -41,13 +41,6 @@ class Admin::SchoolsController < ApplicationController
       redirect_to export_admin_schools_path, notice: "The new order CSV is currently being generated."
   end
 
-  def import
-    School.import(params[:file])
-    #After import, redirects and lets us know it worked
-    redirect_to "/admin/schools", notice: "Schools added successfully"
-  
-  end
-
   def export
   end
 

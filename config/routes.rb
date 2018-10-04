@@ -156,7 +156,6 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
         get 'export'
         get 'csv'
         get 'all_schools'
-        post :import
       end
     end
 
