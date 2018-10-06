@@ -51,7 +51,6 @@ class School < ActiveRecord::Base
 			#A block that runs through a loop in our CSV data
 			CSV.foreach(file.path, headers: true, skip_blanks: true) do |row|
 			#Creates a user for each row in the CSV file  
-			  
 					hashed_row = row.to_hash
 					district_name = hashed_row.delete('district')
 					city_name = hashed_row.delete('city')
