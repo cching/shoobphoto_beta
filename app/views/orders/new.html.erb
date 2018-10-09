@@ -9,23 +9,6 @@
 
     <div class="row">
     <div class="col-xs-6">  
-    <%= form_tag(student_find_path, method: :get, :name => 'new_search_form', :id => "new_search_form") do %>
-    <% @cart.students.each do |student| %>
-      <span class="label_header">Student's First Name</span>
-      <%= text_field_tag :first_name, student.first_name, class: "enjoy-css student_name", id: "student_first_name" %>
-
-    </div>
-    <div class="col-xs-6"> 
-    <span class="label_header"> Student's Last Name</span> 
-    <%= text_field_tag :first_name, student.last_name, class: "enjoy-css student_name", id: "student_first_name" %>
-    </div>
-    </div>
-    <% end %>
-    <% end %>
-
-    <hr>
-    <div class="row">
-    <div class="col-xs-6">  
       <span class="label_header">Cardholder's First Name</span>
       <%= f.text_field :first_name, class: "enjoy-css", id: "billing_first_name" %>
     </div>
