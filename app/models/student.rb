@@ -89,6 +89,7 @@ end
 
     Grades = [
     ['Preschool', 'PS'],
+    ['Transitional Kindergarten', 'TK'],
     ['Kindergarten', 'K'],
     ['First Grade', 1],
     ['Second Grade', 2],
