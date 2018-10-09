@@ -86,6 +86,11 @@ class StudentsController < ApplicationController
     end
   end
 
+  def add_background_simple
+    @opackage = OrderPackage.find(params[:opackage])
+    @opackage.update(background: params[:background])
+  end
+
   def add_pose
     @senior_image = SeniorImage.find(params[:url].to_i)
     @image = @senior_image.watermark.url
@@ -966,6 +971,7 @@ class StudentsController < ApplicationController
 
     @i = params[:i] unless params[:i].nil?
     @cart = params[:cart] unless params[:cart].nil?
+
     respond_to do |format|
       format.html   
       format.mobile 
