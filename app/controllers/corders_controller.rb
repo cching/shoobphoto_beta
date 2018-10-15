@@ -91,6 +91,8 @@ def import
         @cart.purchased = true
         @cart.cart_type = "catalog"
         @cart.save
+        CorderMailer.receipt(@order).deliver
+        CorderMailer.send_receipt(@order).deliver
         redirect_to after_purchase_corder_path(@order.cart.cart_id)
       else
         respond_to do |format|
