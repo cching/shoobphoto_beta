@@ -7,7 +7,7 @@ class CorderExport
 
       csv_file = ''
 
-          csv_file << CSV.generate_line(Corder.all.first.attributes.keys[0..13].map{|column| column} + Corder.all.first.attributes.keys[14..21].map{|column| column} + ['Address residential?'] + ['Grade'] + ['School'] + ['District'] + ['Price'] + ['Items1to5'] + ['Items 6 to 10'] + ['Items 11 to 15'] + ['Items 16 to 20'] + ['Items 21 to 25'] + ['Items 26 to 30'] + ['Items 31 to 35'] + ['Items 36 to 40']  + ['Processed'])
+          #csv_file << CSV.generate_line(Corder.all.first.attributes.keys[0..13].map{|column| column} + Corder.all.first.attributes.keys[14..21].map{|column| column} + ['Address residential?'] + ['Grade'] + ['School'] + ['District'] + ['Price'] + ['Items1to5'] + ['Items 6 to 10'] + ['Items 11 to 15'] + ['Items 16 to 20'] + ['Items 21 to 25'] + ['Items 26 to 30'] + ['Items 31 to 35'] + ['Items 36 to 40']  + ['Processed'])
             Corder.all.each do |order|
 
               
