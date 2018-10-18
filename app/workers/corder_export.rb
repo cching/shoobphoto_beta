@@ -17,11 +17,11 @@ class CorderExport
 
         @items[0..39].each do |item|
           citem = order.cart.cart_items.where(:item_id => item.id).last
-          @string1 = "#{item.number}, #{item.name}, #{citem.quantity}, #{render_quantity(citem)}\n"
+          @string1 = @string1 + "#{item.number}, #{item.name}, #{citem.quantity}, #{render_quantity(citem)}\n"
         end
         @i = @i + 1
 
-        csv_file << CSV.generate_line([@string1] + [@string2] + [@string3] + [@string4] + [@string5] + [@string6] + [@string7] + [@string8])
+        csv_file << CSV.generate_line([@string1])
       end
           
       file_name = Rails.root.join('tmp', "order_#{Time.now.day}-#{Time.now.month}-#{Time.now.year}_#{Time.now.hour}_#{Time.now.min}.csv");
