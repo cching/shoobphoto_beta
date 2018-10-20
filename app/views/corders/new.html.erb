@@ -163,7 +163,7 @@
     <%= f.label(:shipping_state, "State")%>
   </div>
   <div class="col-sm-2">
-    <%= f.select :shipping_state, options_for_select(us_states),{prompt: "California"}, id: "shippingstate" %>
+    <%= f.select :shipping_state, options_for_select(us_states),{prompt: "Select State"}, id: "shippingstate" %>
   </div>
   <div class="col-sm-1">
     <%= f.label(:shipping_zip, "Zip Code")%>
@@ -181,7 +181,7 @@
 <div class="row">
   <div class="col-sm-2">
     <% unless Zipcode.pluck(:zip_code).include? @cart.zip_code %>
-      <strong>Total: <%= number_to_currency (@order.price - 12)  %> + $12 shipping out of state</strong>
+      <strong>Total: <%= number_to_currency (@order.price - 15)  %> + $15 shipping out of state</strong>
     <% else %>
       <strong>Total: <%= number_to_currency @order.price %></strong>
     <% end %>

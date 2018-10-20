@@ -327,7 +327,7 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'students/view_package/:order_package' => 'students#view_package', :via => 'GET', :as => 'view_package'
   match 'students/add_addon/:order_package/:addon' => 'students#add_addon', :via => 'GET', :as => 'add_addon'
   match 'students/remove_addon/:order_package/:addon' => 'students#remove_addon', :via => 'GET', :as => 'remove_addon'
-  match 'students/add_addon/:order_package/:background' => 'students#add_background_simple', :via => 'GET', :as => 'add_background_simple'
+  match 'students/add_background_elementary/:order_package/:background' => 'students#add_background_simple', :via => 'GET', :as => 'add_background_simple'
 
   match 'students/:id/update/:i' => 'students#update', :via => 'GET', :as => 'student_update'
   match 'students/:id/previous_images/:i' => 'students#previous_images', :via => 'GET', :as => 'previous_images'
