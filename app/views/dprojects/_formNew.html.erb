@@ -120,7 +120,7 @@
   </div>
   <div class="col-xs-3">
     Invoicing <br />
-    <%= f.input :invoice_status, :input_html => {:rows => 5}, :label => false %>
+    <%= f.select(:invoice_status, ["", "Needs Invoice", "Has Invoice", "Invoice Paid"], {}, {:class => 'form-control'}) %>
   </div>
     <br />
   </div>
