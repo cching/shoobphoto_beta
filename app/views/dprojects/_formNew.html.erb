@@ -1,5 +1,6 @@
 <%= simple_form_for(@dproject) do |f| %>
   <%= f.error_notification %>
+  
 
 <div class="form-inputs">
 
@@ -117,8 +118,10 @@
     Printing Instructions <br />
     <%= f.input :printing_instructions, :input_html => {:rows => 5}, :label => false %>
   </div>
-  <div class="col-xs-3" style="text-align: center;">
-    Invoicing <br /><br />
+  <div class="col-xs-3">
+    Invoicing <br />
+    <%= f.input :invoice_status, :input_html => {:rows => 5}, :label => false %>
+  </div>
     <br />
   </div>
 </div>
@@ -134,6 +137,7 @@
 <br />
 
   <div class="form-actions">
+    <%= f.error :base %>
     <%= f.button :submit, "Create Project" %>
   </div>
 </div>
