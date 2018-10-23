@@ -50,7 +50,21 @@
 <hr></div>
 </div>
 
+<%= f.fields_for :prices, f.object.prices do |builder| %>
+      <% if builder.object.school_id.nil? %>
+          <%= render 'price_fields', f: builder %>
+          <% end %>
+  <% end %>
 
+<%= f.fields_for :prices, f.object.prices.joins(:school).order("schools.name asc") do |builder| %>
+          <%= render 'price_fields', f: builder %>
+  <% end %>
+
+<div class="row">
+<div class="col-sm-8"> 
+  <%= link_to_add_fields "Add Prices", f, :prices %>
+ </div>
+</div>
  <br/>
  <hr/><hr/>
 </fieldset>
