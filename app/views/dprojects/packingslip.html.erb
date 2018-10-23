@@ -94,7 +94,9 @@
 	<div id="printInstructions" class="col-xs-12">
 		<b>Printing Instructions: </b> <%= f.input :printing_instructions, :input_html => {:rows => 5}, :label => false %>
 	</div>
-</div>
+	<div id="designInstructions" class="col-xs-12">
+		<b>Design Instructions: </b> <%= f.input :design_instructions, :input_html => {:rows => 5}, :label => false %>
+	</div>
 
 <br />
 <div class="row">
@@ -147,7 +149,14 @@ function printShoob() {
         x.style.display = "block";
     } else {
         x.style.display = "none";
-    }
+	}
+	window.print();
+	var t = document.getElementById("designInstructions");
+	if (t.style.display === "none"){
+		t.style.display = "block";
+	} else {
+		t.style.display = "none";
+	}
 	window.print();
 	var y = document.getElementById("label");
 	var z = document.getElementById("noLabel");
