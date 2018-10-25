@@ -83,6 +83,7 @@ GEM
     execjs (2.6.0)
     garlicjs-rails (1.2.2)
       railties (>= 3.1)
+    get_process_mem (0.2.3)
     hashery (2.1.1)
     headshot (0.1.6)
     hike (1.2.3)
@@ -160,6 +161,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     puma (2.16.0)
+    puma_worker_killer (0.1.0)
+      get_process_mem (~> 0.2)
+      puma (>= 2.7, < 4)
     rack (1.5.5)
     rack-host-redirect (1.2.1)
       rack
@@ -308,6 +312,7 @@ DEPENDENCIES
   prawnto
   pry
   puma
+  puma_worker_killer
   rack-host-redirect
   rack-timeout
   rails (= 4.1.4)

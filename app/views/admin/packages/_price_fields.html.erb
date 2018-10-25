@@ -3,7 +3,7 @@
 	<div class="col-sm-2">Price <%= f.input :price, label: false %></div>
 	<div class="col-sm-3">Begin<%= f.datetime_local_field :begin, :include_blank => true %></div>
 	<div class="col-sm-3">Enddate<%= f.datetime_local_field :enddate, :include_blank => true %></div>
-	<div class="col-sm-3">School<br/><%= f.association :school, label: false, :collection => School.all.order(:name), as: :select %></div>
+	<div class="col-sm-3">School<br/><%= f.association :school, label: false, :collection => School.all.order(:name).where.not(school_type_id: nil), as: :select %></div>
   	<div class="col-sm-1">
   		Remove
  		<%= f.check_box :_destroy %>
