@@ -4,7 +4,6 @@
 
 <div class="form-inputs">
 
-
 <div class="row">
   <div class="col-xs-3">
     School <br />
@@ -121,6 +120,8 @@
   <div class="col-xs-3">
     Invoicing <br />
     <%= f.select(:invoice_status, ["", "Needs Invoice", "Has Invoice", "Invoice Paid"], {}, {:class => 'form-control'}) %>
+    Invoice Notes <br />
+    <%= f.input :invoice_notes, :input_html => {:rows => 2}, :label => false %>
   </div>
     <br />
   </div>
