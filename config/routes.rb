@@ -430,6 +430,8 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   get 'dprojects/:id/ship' => 'dprojects#ship', :via => 'GET', :as => 'dproject_ship'
   get 'dprojects/shipreport' => 'dprojects#shipreportx`'
 
+  get 'yorders' => 'yorders#index'
+
   resources :searches
 
   root :to => 'pages#home'
