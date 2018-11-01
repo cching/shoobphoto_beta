@@ -1,39 +1,81 @@
 <%= simple_form_for(@dproject) do |f| %>
 
+<!-- Basic header code -->
 <div class="row">
+
+	<!-- Empty div for spacing -->
 	<div class="col-xs-9">
 	</div>
+
+	<!-- Project number -->
 	<div class="col-xs-3" style="text-align: right;">
 		<b>Project #<%= @dproject.id %></b>
 	</div>
+
 </div>
 
 <div class="row">
+
+	<!-- School name -->
 	<div class="col-xs-3">
-		<%= @dproject.school.dname %>
+		<%= @dproject.school.name %>
 	</div>
+
+	<!-- Scode -->
+	<div class="col-xs-1">
+		<%= @dproject.school.scode %>
+	</div>
+
+	<!-- Requested by name -->
 	<div class="col-xs-3">
 		Requested by: <%= @dproject.requested_by %>
 	</div>
+
+	<!-- Address (CITY NAME NEEDS FIXING) -->
+	<div class="col-xs-5">
+		<%= @dproject.school.address %>, <%= @dproject.school.dcity %>, <%= @dproject.school.state %>, <%= @dproject.school.zip %>
+	</div>
+
 </div>
 <hr></br>
+<!-- End of header -->
 
+<!-- Table code -->
 <table>
+
+	<!-- Table header -->
 	<th style="border-bottom: 2px solid black;" >Item</th>
 	<th style="border-bottom: 2px solid black;" >Unit Price</th>
 	<th style="border-bottom: 2px solid black;" >Quantity</th>
 	<th style="border-bottom: 2px solid black;" >Line Total</th>
-	<%= render 'lineitem_fields' %>
-</table>
 
+	<!-- NEED DISPLAY OF ALL EXISTING LINEITEMS HERE -->
+
+	<!-- Builder for a lineitem, renders the _lineitem_fields.html.erb partial -->
+	<%= f.simple_fields_for :lineitems do |builder| %>
+		<%= render 'lineitem_fields', f: builder %>
+	<% end %>
+	<!-- End of builder for lineitems -->
+	
+</table>
+<!-- End of table -->
+
+<!-- Button to add more lineitems -->
+<%= link_to_add_fields "Add Lineitem", f, :lineitems %>
+
+<!-- Footer code for back and update buttons -->
 </br></br>
 <div class="row">
+
+	<!-- Back button -->
 	<div class="col-xs-1">
 		<%= link_to 'Back', dprojects_path %>
 	</div>
+
+	<!-- UPDATE BUTTON THAT NEEDS FIXING -->
 	<div class="col-xs-1">
 		<%= f.button :submit, "Update Invoice" %>
 	</div>
 </div>
 
-<% end %> 
+<% end %>

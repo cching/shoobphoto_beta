@@ -1,5 +1,6 @@
 class Dproject < ActiveRecord::Base
 	has_many :dattachments
+	has_many :lineitems
 	belongs_to :school
 	
 	before_save :set_status_date

@@ -44,6 +44,10 @@ class School < ActiveRecord::Base
   		return name
   	end
 
+	def dcity
+		return city
+	end
+
   	def self.search(search)
   		where("name LIKE ?", "%#{search}%")
 	end
