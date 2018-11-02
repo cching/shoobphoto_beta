@@ -1,5 +1,6 @@
 require 'barby'
 require 'barby/barcode/ean_13'
+require 'barby/barcode/code_39'
 require 'barby/outputter/ascii_outputter'
 require 'barby/outputter/html_outputter'
 require 'barby/outputter/png_outputter'
@@ -13,7 +14,7 @@ class DprojectsController < ApplicationController
   def packingslip
     @dproject = Dproject.find(params[:id])
     @barcodenumber = @dproject.id.to_s.rjust(12, "0")
-    @barcode = Barby::EAN13.new(@barcodenumber)
+    @barcode = Barby::Code39.new(@barcodenumber)
     @barcode_for_html =Barby::PngOutputter.new(@barcode).to_png
     # generate_barcodes(@dproject)
     respond_to do |format|
