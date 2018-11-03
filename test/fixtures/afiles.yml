@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  dproject_id: 1
+  attachment_id: 1
 
 two:
-  dproject_id: 1
+  attachment_id: 1

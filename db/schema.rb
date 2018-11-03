@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181004023842) do
+ActiveRecord::Schema.define(version: 20181103201315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,12 @@ ActiveRecord::Schema.define(version: 20181004023842) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "css_name"
+  end
+
+  create_table "afiles", force: true do |t|
+    t.integer  "attachment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "autos", force: true do |t|
@@ -237,6 +243,12 @@ ActiveRecord::Schema.define(version: 20181004023842) do
     t.string   "district"
     t.string   "grade"
     t.boolean  "residential"
+  end
+
+  create_table "dattachments", force: true do |t|
+    t.integer  "dproject_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "districts", force: true do |t|
