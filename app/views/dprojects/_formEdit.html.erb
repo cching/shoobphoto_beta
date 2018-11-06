@@ -139,8 +139,8 @@
     <%= @dproject.status_date.try(:strftime, '%b %e, %Y') %>
   </div>
   <br />
-  <div class="form-actions col-xs-2">
-    <%= f.button :submit, "Update Project" %>
+  <div class="form-actions col-xs-2" style="text-align: center;">
+    <%= link_to 'Attach Files', dproject_attachment_path(@dproject.id), {class: 'form-control'} %>
   </div>
   <div class="form-actions col-xs-3" style="text-align: center;">
     <%= link_to 'Packing Slip', dproject_packingslip_path(@dproject.id), {class: 'form-control'} %>
@@ -154,6 +154,8 @@
 
   <br /><br />
 </div>
+<%= f.button :submit, "Update Project" %>
+<br /><br />
 <%= link_to("Previous Project", bysearch_dprojects_path(q: @q, id: @dproject.id, direction: -1)) if @dproject.sequential_dproject(@q, -1) %> |
 <%= link_to("Next Project", bysearch_dprojects_path(q: @q, id: @dproject.id, direction: 1)) if @dproject.sequential_dproject(@q, 1) %> 
 </div>

@@ -37,6 +37,10 @@ class DprojectsController < ApplicationController
     @dproject = Dproject.find(params[:id])
   end
 
+  def attachment
+    @dproject = Dproject.find(params[:id])
+  end
+
   def ship
     @dproject = Dproject.find(params[:id])
   end

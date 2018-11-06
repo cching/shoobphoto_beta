@@ -1,4 +1,5 @@
 class Afile < ActiveRecord::Base
+  belongs_to :dattachment
       # This method associates the attribute ":avatar" with a file attachment
   has_attached_file :dfile, styles: {
     thumb: '100x100>',
