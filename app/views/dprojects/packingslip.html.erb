@@ -33,19 +33,32 @@
 <div id="noLabel">
 <div class="row">
 	<div class="col-xs-6">
-		Project #<%= @dproject.id %>
 	</div>
 	<div class="col-xs-6" style="text-align: right;">
 		<%= Time.now.try(:strftime, '%b %e, %Y')%>
 	</div>
 </div>
+
 <div class="row">
-	
+	<div class="col-xs-9">
+	</div>
+	<div class="col-xs-3" style="text-align: right;">
+		<%#= raw @barcode_for_html.to_html %>
+		<%= image_tag(url_for({:controller => 'dprojects', :action => 'packingslip', :format => 'png' }) ) %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-3">
+		Project #<%= @dproject.id %>
+	</div>
 	<div class="col-xs-3">
 		<b><%= @dproject.school.dname %></b>
 	</div> 
 	<div class="col-xs-3">
 	<%= @dproject.requested_by %>
+	</div>
+	<div class="col-xs-3">
 	</div>
 </div>
 <div class="row">
@@ -91,12 +104,6 @@
 	</div>
 
 <br />
-<div class="row">
-	<div class="col-xs-12">
-	<%#= raw @barcode_for_html.to_html %>
-	<%= image_tag(url_for({:controller => 'dprojects', :action => 'packingslip', :format => 'png' }) ) %>
-	</div>
-</div>
 
 <br />
 <div class="row">
