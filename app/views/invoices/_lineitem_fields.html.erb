@@ -1,0 +1,17 @@
+
+<!-- Table row for a lineitem-->
+<tr style="border-bottom: 2px dotted black;">
+
+    <!-- ITEM NAME FORM -->
+    <td width="60%" class="dotted"><%= f.input :product, label: false  %></td>
+
+    <!-- UNIT PRICE FORM -->
+    <td width="20%" class="dotted"><%= f.input :price, label: false %></td>
+
+    <!-- QUANTITY FORM -->
+    <td width="20%" class="dotted"><%= f.input :quantity, label: false %></td>
+
+    <!-- PRICE * QUANTITY AMOUNT -->
+	<td width="25%" class="dotted">Total</td>
+</tr>
+<!-- End of table row -->

@@ -146,11 +146,10 @@
     <%= link_to 'Packing Slip', dproject_packingslip_path(@dproject.id), {class: 'form-control'} %>
   </div>
 
-<!-- Invoicing div, this buttion takes you to the invoice.html.erb code -->
+  <!-- Invoicing div, this buttion takes you to the invoice.html.erb code -->
   <div class="form-actions col-xs-3" style="text-align: center;">
-    <%= link_to 'Invoicing', dproject_invoice_path(@dproject.id), {class: 'form-control'} %>
+    <%= link_to 'Invoicing', dproject_invoices_path(@dproject, @invoice), {class: 'form-control'} %>
   </div>
-
 
   <br /><br />
 </div>
@@ -160,3 +159,5 @@
 <%= link_to("Next Project", bysearch_dprojects_path(q: @q, id: @dproject.id, direction: 1)) if @dproject.sequential_dproject(@q, 1) %> 
 </div>
 <% end %> 
+
+

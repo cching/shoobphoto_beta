@@ -1,0 +1,123 @@
+<style>
+
+.printThis {
+	display: none;
+}
+
+@media print {
+	.noPrint { display: none; }
+	.printThis { 
+		display: block; 
+	}
+} 
+
+#label {
+	display: none;
+	font-size: 15px;
+}
+
+</style>
+
+<%= simple_form_for ([@dproject, @invoice]) do |f| %>
+<div id="noLabel">
+<div class="row">
+	<div class="col-xs-6">
+	</div>
+	<div class="col-xs-6" style="text-align: right;">
+		<%= Time.now.try(:strftime, '%b %e, %Y')%>
+
+	</div>
+</div>
+<div class="row">
+	<div class ="col-xs-5">
+4640 Spyres Way, Suite 1, Modesto, CA 95356
+<br>
+shoobphoto.com | 209.567.0748
+	</div>
+</div>
+<br>
+<br />
+	INVOICE TO:
+<br>
+<br />
+	School: <%= @dproject.school.dname %></b>
+	<br>
+	Phone: <%= @dproject.school.phone %>
+<br>
+	<%= @dproject.school.address %>
+<br>
+<br/>
+<div class = "container">
+	<div class="row">
+		<div class="col-xs-12">
+
+  <table class="table table-striped">
+	<tr class="success">
+	<thead>
+	  <tr>
+		<th>Item</th>
+		<th>Unit Price </th>
+		<th>QTY </th>
+		<th>Line Total </th>
+	   
+		<th colspan="3"></th>
+	  </tr>
+	</thead>
+
+	<tbody>
+	<% @invoice.lineitems.each do |lineitem| %>
+		<tr>
+		<td width="50%" class="dotted"><%= lineitem.product %></td>
+		<td width="20%" class="dotted"><%= number_to_currency  lineitem.price %></td>
+		<td width="10%" class="dotted"><%= lineitem.quantity %></td>
+		<td width="20%" class="dotted"><%= number_to_currency  lineitem.total %></td>
+
+		  
+	</tr>
+	</tbody>
+	<% end %>
+  </table>
+  </div>
+</div> 
+Comments:  
+<% @invoice.lineitems.each do |lineitem| %>
+<div class ="row">
+		<div class ="col-md-2 col-md-offset-8">
+			Subtotal: <%= number_to_currency lineitem.total %>
+			</div>
+		</div>
+	<br>
+<div class ="row">
+		<div class ="col-md-2 col-md-offset-8">	
+			Tax: <%= number_to_currency lineitem.tax %>
+			</div>
+		</div>
+	<br>
+<div class ="row">
+		<div class ="col-md-2 col-md-offset-8">
+				Total: <%= number_to_currency lineitem.final %>
+			</div>
+		</br>
+	<br><br />
+<% end %>
+<% end %>
+
+<div class="row noPrint">
+	<div class="col-xs-4">
+		<button onclick="printShoob()">Print Invoice</button>
+	</div>
+</div>
+</div>
+
+<br><br/>
+<br><br/>
+
+
+
+<script>
+
+function printShoob() {
+	window.print();
+	
+	}
+</script>
