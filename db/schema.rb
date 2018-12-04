@@ -599,10 +599,6 @@ ActiveRecord::Schema.define(version: 20181106192805) do
     t.datetime "updated_at"
   end
 
-  create_table "invoices", force: true do |t|
-    t.integer "dproject_id"
-  end
-
   create_table "item_categories", force: true do |t|
     t.integer  "item_id"
     t.integer  "category_id"
@@ -645,6 +641,7 @@ ActiveRecord::Schema.define(version: 20181106192805) do
   end
 
   create_table "lineitems", force: true do |t|
+    t.integer  "dproject_id"
     t.integer  "quantity"
     t.integer  "product_code"
     t.string   "product"
@@ -652,9 +649,6 @@ ActiveRecord::Schema.define(version: 20181106192805) do
     t.decimal  "extended_price"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "invoice_id"
-    t.integer  "sales_tax"
-    t.integer  "final_price"
   end
 
   create_table "missings", force: true do |t|
