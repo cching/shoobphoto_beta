@@ -1,7 +1,7 @@
 class CreateInvoices < ActiveRecord::Migration
   def change
     create_table :invoices do |t|
-      t.integer :dpoject_id
+      t.integer :dproject_id
 
       t.timestamps
     end
