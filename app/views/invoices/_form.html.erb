@@ -57,12 +57,13 @@
         <!-- NEED DISPLAY OF ALL EXISTING LINEITEMS HERE -->
     
         <!-- Builder for a lineitem, renders the _lineitem_fields.html.erb partial -->
-        <%= f.simple_fields_for :lineitem do |builder| %>
+        <%= f.simple_fields_for :lineitems do |builder| %>
             
-            <%= render 'lineitem_fields', f: builder %>
+            <%= render 'lineitems_fields', f: builder %>
         </tbody>
         <% end %>
         <!-- End of builder for lineitems -->
+        <%= link_to_add_fields "Add Lineitems", f, :lineitems %>
         
     </table>
     <!-- End of table -->

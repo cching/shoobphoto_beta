@@ -65,38 +65,41 @@ shoobphoto.com | 209.567.0748
 	</thead>
 
 	<tbody>
+	<% @invoice.lineitems.each do |lineitem| %>
 		<tr>
-		<td width="50%" class="dotted"><%= @invoice.lineitems.product %></td>
-		<td width="20%" class="dotted"><%= number_to_currency  @invoice.lineitems.price %></td>
-		<td width="10%" class="dotted"><%= @invoice.lineitems.quantity %></td>
-		<td width="20%" class="dotted"><%= number_to_currency  @invoice.lineitems.total %></td>
+		<td width="50%" class="dotted"><%= lineitem.product %></td>
+		<td width="20%" class="dotted"><%= number_to_currency  lineitem.price %></td>
+		<td width="10%" class="dotted"><%= lineitem.quantity %></td>
+		<td width="20%" class="dotted"><%= number_to_currency  lineitem.total %></td>
 
 		  
 	</tr>
 	</tbody>
+	<% end %>
   </table>
   </div>
 </div> 
 Comments:  
+<% @invoice.lineitems.each do |lineitem| %>
 <div class ="row">
 		<div class ="col-md-2 col-md-offset-8">
-			Subtotal: <%= number_to_currency @invoice.lineitem.total %>
+			Subtotal: <%= number_to_currency lineitem.total %>
 			</div>
 		</div>
 	<br>
 <div class ="row">
 		<div class ="col-md-2 col-md-offset-8">	
-			Tax: <%= number_to_currency @invoice.lineitem.tax %>
+			Tax: <%= number_to_currency lineitem.tax %>
 			</div>
 		</div>
 	<br>
 <div class ="row">
 		<div class ="col-md-2 col-md-offset-8">
-				Total: <%= number_to_currency @invoice.lineitem.final %>
+				Total: <%= number_to_currency lineitem.final %>
 			</div>
 		</br>
 	<br><br />
-
+<% end %>
 <% end %>
 
 <div class="row noPrint">
