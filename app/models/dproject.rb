@@ -1,7 +1,11 @@
 class Dproject < ActiveRecord::Base
 	has_many :dattachments
-	has_many :lineitems
+	has_many :invoices, dependent: :destroy
+	has_many :lineitems, through: :invoices
 	belongs_to :school
+
+ 	accepts_nested_attributes_for :invoices
+	accepts_nested_attributes_for :lineitems
 	
 	before_save :set_status_date
     before_save :update_change_log
