@@ -402,6 +402,7 @@ ActiveRecord::Schema.define(version: 20181106192805) do
     t.string   "invoice_status"
     t.text     "signature"
     t.string   "file_description"
+    t.string   "event_type"
   end
 
   create_table "dschools", force: true do |t|

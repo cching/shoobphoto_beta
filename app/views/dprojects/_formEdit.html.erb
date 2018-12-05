@@ -31,10 +31,19 @@
   <div class="col-xs-3">
     Item Type<br />
       <div class="col-xs-12">
-        <%= f.select(:project_type, ["Award", "Background", "Banner", "Brochure", "Calendar", "Catalog", "Flyer", "ID Cards", "Large Poster", "Misc", "Notepads", "Pads", "Planner/Handbook", "Postcard", "Posters", "Stickers", "Ticket", "Yearbook"], {:prompt => "Select item"}, {:class => "form-control"}) %>
+      <%= f.select(:project_type, ["Award", "Background", "Banner", "Brochure", "Calendar", "Catalog", "Flyer", "ID Cards", "Large Poster", "Misc", "Notepads", "Pads", "Planner/Handbook", "Postcard", "Posters", "Stickers", "Ticket", "Yearbook"], {:prompt => "Select item"}, {:class => "form-control"}) %>
       </div>
   </div>
 </div>
+<div class ="row">
+<div class="col-xs-3">
+  Event Type<br />
+  <div class="col-xs-12">
+  <%= f.select(:event_type, ["Sales Call", "Project"], {:prompt => "Select event"}, {:class => "form-control"}) %>
+   </div>
+  </div>
+</div> 
+<br />
 <hr>
 <div class="row">
   <div class="col-xs-2">
