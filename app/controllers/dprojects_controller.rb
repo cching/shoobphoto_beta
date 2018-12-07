@@ -34,9 +34,6 @@ class DprojectsController < ApplicationController
   end
 
   def invoice
-    @dproject = dproject.new 
-    @invoice = Invoice.find(params[:id])
-    @invoice = Invoice.new 
     @dproject = Dproject.find(params[:id])
   end
 
@@ -130,16 +127,6 @@ class DprojectsController < ApplicationController
       @dproject = Dproject.find(params[:id])
     end
     def dproject_params
-      params.require(:dproject).permit(:scode, :description, :requested_by, :assigned_to, 
-      :completed_at, :order_num, :contact, :contact_email, :ptype, :due_date, :must_date, 
-      :print_date, :proofs_out, :proofs_in, :status, :delivery_type, :route, :delivery_date, 
-      :tracking_number, :shipping_instructions, :delivered, :printing_instructions, 
-      :project_changes, :project_path, :project_type, :assigned_by, :design_instructions, 
-      :dfile, :school_id, :invoice_date, :invoice_addressee, :invoice_description, 
-      :invoice_subtotal, :invoice_credit, :invoice_credit, :invoice_shipping, 
-      :invoice_sales_tax, :invoice_total, :invoice_paid, :invoice_payment_date, 
-      :invoice_notes, :invoice_bool, :recieved_by, :boxes, :status_date, 
-      :note_to_lab, :delivered_by, :invoice_status, :signature, invoices: [:id,
-      lineitems: [:invoice_id, :id, :quantity, :product, :price, :extended_price, :sales_tax, :final_price]])
+      params.require(:dproject).permit(:scode, :description, :requested_by, :assigned_to, :completed_at, :order_num, :contact, :contact_email, :ptype, :due_date, :must_date, :print_date, :proofs_out, :proofs_in, :status, :delivery_type, :route, :delivery_date, :tracking_number, :shipping_instructions, :delivered, :printing_instructions, :project_changes, :project_path, :project_type, :assigned_by, :design_instructions, :dfile, :school_id, :invoice_date, :invoice_addressee, :invoice_description, :invoice_subtotal, :invoice_credit, :invoice_credit, :invoice_shipping, :invoice_sales_tax, :invoice_total, :invoice_paid, :invoice_payment_date, :invoice_notes, :invoice_bool, :recieved_by, :boxes, :status_date, :note_to_lab, :delivered_by, :invoice_status, :signature)
     end
 end
