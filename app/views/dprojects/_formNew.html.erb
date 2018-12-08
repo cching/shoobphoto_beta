@@ -22,9 +22,9 @@
     <%= f.input :contact_email, :label => false %>
   </div>
   <div class="col-xs-3">
-    Event Type<br />
-      <div class="col-xs-12">
-        <%= f.select(:event_type, ["Sales Call", "Project"], {:prompt => "Select event"}, {:class => "form-control"}) %>
+    Item Type<br />
+    <div class="col-xs-12">
+      <%= f.select(:project_type, ["Award", "Background", "Banner", "Brochure", "Calendar", "Catalog", "Flyer", "ID Cards", "Large Poster", "Misc", "Notepads", "Pads", "Planner/Handbook", "Postcard", "Posters", "Stickers", "Ticket", "Yearbook"], {:prompt => "Select item"}, {:class => "form-control"}) %>
       </div>
   </div>
 </div>
@@ -32,12 +32,6 @@
 
 <hr>
 <div class="row">
-<div class="col-xs-2">
-  Item Type<br />
-    <div class="col-xs-12">
-      <%= f.select(:project_type, ["Award", "Background", "Banner", "Brochure", "Calendar", "Catalog", "Flyer", "ID Cards", "Large Poster", "Misc", "Notepads", "Pads", "Planner/Handbook", "Postcard", "Posters", "Stickers", "Ticket", "Yearbook"], {:prompt => "Select item"}, {:class => "form-control"}) %>
-    </div>
-  </div>
   <div class="col-xs-2">
     Due date <br />
     <%= f.date_field(:due_date, {:class => "form-control"}) %>
