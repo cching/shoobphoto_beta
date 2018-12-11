@@ -1,4 +1,4 @@
-class Invoices::LineitemsController < ApplicationController
+class Invoice::LineitemsController < ApplicationController
     def show
     end
     def new
