@@ -22,6 +22,7 @@ end
     end 
     def lineitem_params
         params.require(:lineitems).permit(:id, :quantity, :product, :price, 
-        :extended_price, :created_at, :updated_at, :invoice_id, :sales_tax, :final_price, invoices_attributes: [:id])
+        :extended_price, :created_at, :updated_at, :invoice_id, :sales_tax, :final_price,  
+        :p_code, invoices_attributes: [:id])
     end 
 end 
