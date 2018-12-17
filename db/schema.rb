@@ -253,6 +253,7 @@ ActiveRecord::Schema.define(version: 20181213014724) do
     t.integer  "dproject_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "dcomment"
   end
 
   create_table "districts", force: true do |t|
@@ -403,11 +404,6 @@ ActiveRecord::Schema.define(version: 20181213014724) do
     t.text     "signature"
     t.string   "file_description"
     t.string   "event_type"
-    t.date     "date_of_call"
-    t.string   "sc_notes"
-    t.date     "follow_up_date"
-    t.string   "follow_up_action"
-    t.string   "priority"
   end
 
   create_table "dschools", force: true do |t|
@@ -1000,11 +996,11 @@ ActiveRecord::Schema.define(version: 20181213014724) do
     t.string   "route"
     t.string   "Nscode"
     t.string   "county"
-    t.string   "ncounty"
+    t.string   "school"
     t.string   "district"
     t.string   "greatschools"
-    t.string   "s_address"
     t.string   "m_address"
+    t.string   "ncounty"
     t.string   "city"
     t.string   "state"
     t.string   "zip"
@@ -1041,6 +1037,7 @@ ActiveRecord::Schema.define(version: 20181213014724) do
     t.string   "cur_vendor"
     t.datetime "start_date"
     t.datetime "end_date"
+    t.string   "s_address"
   end
 
   create_table "searches", force: true do |t|
@@ -1273,22 +1270,10 @@ ActiveRecord::Schema.define(version: 20181213014724) do
     t.boolean  "developer"
     t.boolean  "photographer"
     t.boolean  "employee"
-    t.string   "s_address"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  create_table "versions", force: true do |t|
-    t.string   "item_type",  null: false
-    t.integer  "item_id",    null: false
-    t.string   "event",      null: false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.datetime "created_at"
-  end
-
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   create_table "webcams", force: true do |t|
     t.datetime "created_at"
