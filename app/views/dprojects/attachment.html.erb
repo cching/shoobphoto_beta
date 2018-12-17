@@ -12,6 +12,15 @@
             Project #<%= @dproject.id %>
         </div>
         <div class="col-xs-6">
+        <%= form_for(@dproject, multipart: true) do |f| %>
+            <div class="field">
+              <%= f.label :sfile %>
+              <%= f.file_field :sfile %>
+            </div>
+            <div class="actions">
+              <%= f.submit 'Submit' %>
+            </div>
+          <% end %>
         </div>
      </div>
 

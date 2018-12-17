@@ -139,7 +139,7 @@ class DprojectsController < ApplicationController
       :invoice_subtotal, :invoice_credit, :invoice_credit, :invoice_shipping, 
       :invoice_sales_tax, :invoice_total, :invoice_paid, :invoice_payment_date, 
       :invoice_notes, :invoice_bool, :recieved_by, :boxes, :status_date, 
-      :note_to_lab, :delivered_by, :invoice_status, :signature, invoices_attributes: [:id,
+      :note_to_lab, :delivered_by, :invoice_status, :signature, dattachments_attributes: [:id, :dproject_id, :created_at, :updated_at, :dcomment, :sfile_file_name, :sfile_content_type, :sfile_file_size, :sfile_updated_at], invoices_attributes: [:id,
       lineitems_attributes: [:invoice_id, :id, :quantity, :product, :price, :extended_price, :sales_tax, :final_price]])
     end
 end
