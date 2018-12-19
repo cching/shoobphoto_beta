@@ -1,6 +1,9 @@
 class Lineitem < ActiveRecord::Base
     belongs_to :invoice
     belongs_to :dprojects
+
+    validates_presence_of :quantity
+    validates_presence_of :price
      
      def total
         self.extended_price ||=0.0 

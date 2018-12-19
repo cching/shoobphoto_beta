@@ -33,7 +33,7 @@ class InvoicesController < ApplicationController
             flash[:success] = "Invoice saved"
             redirect_to dproject_invoices_path
         else
-            redirect_to new_dproject_invoices_path
+            redirect_to new_dproject_invoice_path
         
       end
     end 
@@ -51,6 +51,7 @@ private
     end 
     def invoice_params
         params.require(:invoice).permit(:id, :dproject_id,
-        lineitems_attributes: [:invoice_id, :id, :quantity, :product, :price, :extended_price, :sales_tax, :final_price])
+        lineitems_attributes: [:invoice_id, :id, :quantity, :product, :price, 
+        :extended_price, :sales_tax, :final_price])
     end 
 end
