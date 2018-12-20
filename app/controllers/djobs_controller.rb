@@ -75,9 +75,15 @@ class DjobsController < ApplicationController
     redirect_to djobs_path(q: q)
   end
 
+  def delete
+    @djob = Djob.find(params[:id])
+  end 
+
   def destroy
+
+    @djob = Djob.find(params[:id])
     @djob.destroy
-    respond_with(@djob)
+    redirect_to djobs_path(q: q)
   end
 
   def import
