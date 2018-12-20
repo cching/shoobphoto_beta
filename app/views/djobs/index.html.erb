@@ -68,11 +68,14 @@ button {
   School:
   <%= f.select :school_name_eq, Djob.includes(:school).order('schools.name').all.map { |djob| djob.school.name }.uniq, selected: (params[:q] ? params[:q][:school_name_eq] : nil), include_blank: true %>
  <br /> 
+  Job Type:
+  <%= f.select :JOBTYPE_eq, Djob.all.order(:JOBTYPE).pluck(:JOBTYPE).uniq, selected: (params[:q] ? params[:q][:JOBTYPE_eq] : nil), include_blank: true %>
+<br />
+
 <div class = "Date">
   <div class="col-md-2">
   Date:
   <%= f.date_field :DATE_eq, class: 'form-control input-sm', id: 'datetimepicker1', 'datepicker' => true %>
-
   </div>
 
 <br />
@@ -106,7 +109,8 @@ button {
         <tr>
           <th></th>
           <th> <%= sort_link(@q, :school_name, "School") %> </th>
-          <th> <%= sort_link(@q, :DATE, 'Date') %> </th>        
+          <th> <%= sort_link(@q, :DATE, 'Date') %> </th>   
+          <th>Start Time     
           <th> <%= sort_link(@q, :JOB, "Job") %> </th>
           <th>Jobtype</th>
           <th>Location</th>
@@ -115,6 +119,8 @@ button {
           <th>Photog1</th>
           <th>Reconfirm call</th>
           <th>Job notes</th>
+          <th></th>
+
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -134,7 +140,7 @@ button {
             <td width="8%" class="dotted" ><%= djob.PHOTOG1 %></td>
             <td width="8%" class="dotted" ><%= djob.RECONFIRM_CALL %></td>
             <td width="18%" class="dotted" ><%= djob.JOB_NOTES %></td>
-            
+            <td><%= link_to 'Destroy', djob, method: :delete, data:{confirm: "Are you sure?"} %></td>
           </tr>
         <% end %>
       </tbody>
