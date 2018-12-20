@@ -68,6 +68,7 @@ class DjobsController < ApplicationController
     q ={}
     q[:DATE_eq] = params[:djob].delete(:DATE_eq)
     q[:school_name_eq] = params[:djob].delete(:school_name_eq)
+    q[:JOBTYPE_eq] = params[:djob].delete(:JOBTYPE_eq)
     q[:s] = params[:djob].delete(:s)
 
 
