@@ -2,7 +2,7 @@ class Djob < ActiveRecord::Base
 	has_many :dattachments
 	belongs_to :school
 
-
+	default_scope { order(CONF: :desc)}
 	scope :by_school, -> {joins(:school).reorder('schools.name')}
 
 	#A class method import, with file passed through as an argument

@@ -67,9 +67,10 @@ button {
    <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
   School:
   <%= f.select :school_name_eq, Djob.includes(:school).order('schools.name').all.map { |djob| djob.school.name }.uniq, selected: (params[:q] ? params[:q][:school_name_eq] : nil), include_blank: true %>
- <br /> 
+<br /> 
   Job Type:
   <%= f.select :JOBTYPE_eq, Djob.all.order(:JOBTYPE).pluck(:JOBTYPE).uniq, selected: (params[:q] ? params[:q][:JOBTYPE_eq] : nil), include_blank: true %>
+<div></div>
 <br />
 
 <div class = "Date">
@@ -116,7 +117,7 @@ button {
           <th>Location</th>
           <th>Trigs</th>          
           <th>Rigs</th>
-          <th>Photog1</th>
+          <th> <%= sort_link(@q, :CONF, "Confirm", default_order: :desc) %> </th>
           <th>Reconfirm call</th>
           <th>Job notes</th>
           <th></th>
@@ -137,10 +138,10 @@ button {
             <td width="8%" class="dotted" ><%= djob.LOCATION %></td>
             <td width="8%" class="dotted" ><%= djob.TRIGS %></td>
             <td width="8%" class="dotted" ><%= djob.RIGS %></td>
-            <td width="8%" class="dotted" ><%= djob.PHOTOG1 %></td>
+            <td width="8%" class="dotted" ><%= djob.CONF %></td>
             <td width="8%" class="dotted" ><%= djob.RECONFIRM_CALL %></td>
             <td width="18%" class="dotted" ><%= djob.JOB_NOTES %></td>
-            <td><%= link_to 'Destroy', djob, method: :delete, data:{confirm: "Are you sure?"} %></td>
+            <td><%= button_to 'Destroy', djob, method: :delete, data:{confirm: "Are you sure?"} %></td>
           </tr>
         <% end %>
       </tbody>
