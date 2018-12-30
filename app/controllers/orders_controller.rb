@@ -296,7 +296,7 @@ end
 	
 
 	def index
-		@search = Order.search(params[:q])
+		@search = Order.order('processed ASC, created_at DESC').search(params[:q])
     	@orders = @search.result.paginate(:page => params[:page], :per_page => 100).order(:processed, :id)
     	@search.build_condition
 
