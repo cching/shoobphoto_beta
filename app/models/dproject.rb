@@ -11,9 +11,8 @@ class Dproject < ActiveRecord::Base
 	before_save :update_change_log
 
 	has_attached_file :testattachment,
-  	# :styles => { :medium => "300x300>", :thumb => "100x100>" },
   	:url => ':s3_domain_url',
-  	:path => '/images/projects/:id/:style/:filename'
+  	:path => '/images/projects/:id/:updated_at/:filename'
   	do_not_validate_attachment_file_type :testattachment
 
 	def sequential_dproject(q, direction)
