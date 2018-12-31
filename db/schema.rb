@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181217204339) do
+ActiveRecord::Schema.define(version: 20181231000746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -243,7 +243,10 @@ ActiveRecord::Schema.define(version: 20181217204339) do
     t.integer  "dproject_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "dcomment"
+    t.string   "afile_file_name"
+    t.string   "afile_content_type"
+    t.integer  "afile_file_size"
+    t.datetime "afile_updated_at"
     t.string   "sfile_file_name"
     t.string   "sfile_content_type"
     t.integer  "sfile_file_size"
@@ -398,6 +401,10 @@ ActiveRecord::Schema.define(version: 20181217204339) do
     t.text     "signature"
     t.string   "file_description"
     t.string   "event_type"
+    t.string   "testattachment_file_name"
+    t.string   "testattachment_content_type"
+    t.integer  "testattachment_file_size"
+    t.datetime "testattachment_updated_at"
   end
 
   create_table "dschools", force: true do |t|

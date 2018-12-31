@@ -8,7 +8,13 @@ class Dproject < ActiveRecord::Base
 	accepts_nested_attributes_for :lineitems
 
 	before_save :set_status_date
-    before_save :update_change_log
+	before_save :update_change_log
+
+	has_attached_file :testattachment,
+  	# :styles => { :medium => "300x300>", :thumb => "100x100>" },
+  	:url => ':s3_domain_url',
+  	:path => '/images/projects/:id/:style/:filename'
+  	do_not_validate_attachment_file_type :testattachment
 
 	def sequential_dproject(q, direction)
 		ordered_dprojects = Dproject.ransack(q)
