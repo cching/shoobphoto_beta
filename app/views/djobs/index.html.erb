@@ -76,7 +76,7 @@ button {
 <div class = "Date">
   <div class="col-md-2">
   Date:
-  <%= f.date_field :DATE_eq, class: 'form-control input-sm', id: 'datetimepicker1', 'datepicker' => true %>
+  <%= f.date_field :DATE_eq, class: 'form-control input-sm', :value => Time.now.strftime('%Y-%m-%d'), 'datepicker' => true %>
   </div>
 
 <br />
