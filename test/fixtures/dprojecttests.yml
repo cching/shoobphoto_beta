@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dproject_id: 1
+  comments: MyString
+
+two:
+  dproject_id: 1
+  comments: MyString

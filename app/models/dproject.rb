@@ -1,5 +1,6 @@
 class Dproject < ActiveRecord::Base
 	has_many :dattachments
+	has_many :dprojecttests
 	has_many :invoices, dependent: :destroy
 	has_many :lineitems, through: :invoices	
 	belongs_to :school
