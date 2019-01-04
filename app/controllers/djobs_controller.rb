@@ -4,13 +4,18 @@ class DjobsController < ApplicationController
   respond_to :html
 
   def index
+    @djobs = Djob.all.order(:id)
+    respond_to do |format|
+        format.html
+        format.csv {send_data @djobs.to_csv, filename: "Djobs.csv"}
+
     params[:q].reject { |_, v| v.blank?} if params[:q]
 
     @q = Djob.ransack(params[:q])
     @djob = @q.result.includes(:school)
     require 'date'
-    respond_with(@djob)
   end
+end
 
   def show
     redirect_to request.path + "/edit", :status => :moved_permanently 

@@ -79,22 +79,15 @@ button {
 
 <div class="Date">
   <div class="col-md-2">
-    <%= f.date_field :DATE_gteq, class: "form-control input-sm", 'datepicker' => true %>
+    <%= f.date_field :DATE_gteq, class: "form-control input-sm", :value => (Time.now - 4.weeks.to_i).strftime('%Y-%m-%d'), 'datepicker' => true %>
   </div>
 <div class="Date">
   <div class="col-md-2">
-    <%= f.date_field :DATE_lteq, class: "form-control input-sm", 'datepicker' => true %>
+    <%= f.date_field :DATE_lteq, class: "form-control input-sm", :value => (Time.now + 52.weeks.to_i).strftime('%Y-%m-%d'), 'datepicker' => true %>
   </div>
-  <br />
-  <%= f.submit %>
-  <br />
-<div class = "row">
-<div class = col-xs-1>
-  <%= link_to 'Previous', bydate_djobs_path(q: params[:q], direction: -1)  %>
-  </div>
- <div class = col-xs-1> 
-  <%= link_to 'Next', bydate_djobs_path(q: params[:q], direction: 1)  %>
-  </div>
+<br />
+<br />
+<%= f.submit %>
 <br />
 
 <h3>Import Jobs</h3>
@@ -102,7 +95,8 @@ button {
   <%= file_field_tag :file %>
   <%= submit_tag "Upload Jobs" %>
 <br></br>
-
+<%= link_to("Generate CSV", djobs_path(params.merge(format: 'csv')), class: "btn btn-success",) %>
+<br />
 <% end %>
 
   
