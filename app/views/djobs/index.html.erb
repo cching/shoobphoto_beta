@@ -70,19 +70,23 @@ button {
 <br /> 
   Job Type:
   <%= f.select :JOBTYPE_eq, Djob.all.order(:JOBTYPE).pluck(:JOBTYPE).uniq, selected: (params[:q] ? params[:q][:JOBTYPE_eq] : nil), include_blank: true %>
-<div></div>
+<br />
+  Confirmed?:
+  <%= f.select :CONF_YN_eq, Djob.all.order(:CONF_YN).pluck(:CONF_YN).uniq, selected: (params[:q] ? params[:q][:CONF_YN_eq] : nil), include_blank: true %>
+  <div></div>
+
 <br />
 
-<div class = "Date">
+<div class="Date">
   <div class="col-md-2">
-  Date:
-  <%= f.date_field :DATE_eq, class: 'form-control input-sm', :value => Time.now.strftime('%Y-%m-%d'), 'datepicker' => true %>
+    <%= f.date_field :DATE_gteq, class: "form-control input-sm", 'datepicker' => true %>
   </div>
-
-<br />
-
+<div class="Date">
+  <div class="col-md-2">
+    <%= f.date_field :DATE_lteq, class: "form-control input-sm", 'datepicker' => true %>
+  </div>
+  <br />
   <%= f.submit %>
-
   <br />
 <div class = "row">
 <div class = col-xs-1>
@@ -118,6 +122,7 @@ button {
           <th>Trigs</th>          
           <th>Rigs</th>
           <th> <%= sort_link(@q, :CONF, "Confirm", default_order: :desc) %> </th>
+          <th> Confirmed Y/N </th>
           <th>Reconfirm call</th>
           <th>Job notes</th>
           <th></th>
@@ -127,7 +132,7 @@ button {
       </thead>
 
       <tbody>
-        <% @djob.each do |djob| %>
+        <% @djob.where.not('"CONF" like ?', "%Conf.downcase%").each do |djob| %>
           <tr>
             <td><%= link_to 'Edit', edit_djob_path(djob, q: params[:q]) %></td>
             <td width="8%" class="dotted" ><%= djob.school.name %></td>
@@ -139,6 +144,7 @@ button {
             <td width="8%" class="dotted" ><%= djob.TRIGS %></td>
             <td width="8%" class="dotted" ><%= djob.RIGS %></td>
             <td width="8%" class="dotted" ><%= djob.CONF %></td>
+            <td width="8%" class="dotted" ><%= djob.CONF_YN %></td>
             <td width="8%" class="dotted" ><%= djob.RECONFIRM_CALL %></td>
             <td width="18%" class="dotted" ><%= djob.JOB_NOTES %></td>
             <td><%= button_to 'Destroy', djob, method: :delete, data:{confirm: "Are you sure?"} %></td>
