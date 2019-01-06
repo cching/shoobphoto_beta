@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   resources :dschools
 
   resources :dprojects do
+    resources :dattachments
+    resources :dprojecttests
     collection do
       get :bysearch
       get 'sort'
@@ -27,7 +29,7 @@ Rails.application.routes.draw do
 
   end
 
-  resources :dattachments
+  
 
   resources :projects
 

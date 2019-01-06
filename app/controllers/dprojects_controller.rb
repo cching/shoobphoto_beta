@@ -57,6 +57,7 @@ class DprojectsController < ApplicationController
 
     @q = Dproject.ransack(params[:q])
     @dprojects = @q.result.includes(:school)
+    @dproject.dprojecttest = Dprojecttest.new
     respond_with(@dprojects)
   end
 
@@ -66,6 +67,7 @@ class DprojectsController < ApplicationController
 
   def new
     @dproject = Dproject.new
+    @dprojecttest = Dprojecttest.new
     @options = School.order(:name).where.not(school_type_id: nil).
     collect do |s|
       [s.name, s.id]
@@ -86,6 +88,7 @@ class DprojectsController < ApplicationController
 
   def edit
     @dproject = Dproject.find(params[:id])
+    @dprojecttests = Dprojecttest.where("dproject_id = ?", params(:dproject_id))
     @options = School.order(:name).where.not(school_type_id: nil).
     collect do |s|
       [s.name, s.id]
@@ -141,6 +144,7 @@ class DprojectsController < ApplicationController
       :invoice_notes, :invoice_bool, :recieved_by, :boxes, :status_date, 
       :note_to_lab, :delivered_by, :invoice_status, :signature, :testattachment,
       dattachments_attributes: [:id, :dproject_id, :created_at, :updated_at, :dcomment, :sfile_file_name, :sfile_content_type, :sfile_file_size, :sfile_updated_at], invoices_attributes: [:id,
-      lineitems_attributes: [:invoice_id, :id, :quantity, :product, :price, :extended_price, :sales_tax, :final_price]])
+      lineitems_attributes: [:invoice_id, :id, :quantity, :product, :price, :extended_price, :sales_tax, :final_price]],
+      dprojecttests_attributes: [:id, :dproject_id, comments])
     end
 end
