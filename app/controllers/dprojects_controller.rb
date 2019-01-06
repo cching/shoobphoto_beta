@@ -57,7 +57,6 @@ class DprojectsController < ApplicationController
 
     @q = Dproject.ransack(params[:q])
     @dprojects = @q.result.includes(:school)
-    @dproject.dprojecttest = Dprojecttest.new
     respond_with(@dprojects)
   end
 
@@ -67,7 +66,6 @@ class DprojectsController < ApplicationController
 
   def new
     @dproject = Dproject.new
-    @dprojecttest = Dprojecttest.new
     @options = School.order(:name).where.not(school_type_id: nil).
     collect do |s|
       [s.name, s.id]
@@ -88,7 +86,6 @@ class DprojectsController < ApplicationController
 
   def edit
     @dproject = Dproject.find(params[:id])
-    @dprojecttests = Dprojecttest.where("dproject_id = ?", params(:dproject_id))
     @options = School.order(:name).where.not(school_type_id: nil).
     collect do |s|
       [s.name, s.id]
