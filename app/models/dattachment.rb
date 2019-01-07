@@ -1,7 +1,9 @@
 class Dattachment < ActiveRecord::Base
     belongs_to :dproject
 
-        # This method associates the attribute ":avatar" with a file attachment
-        has_attached_file :sfile
+    has_attached_file :afile,
+    :url => ':s3_domain_url',
+    :path => '/images/projects/:id/:updated_at/:filename'
+    do_not_validate_attachment_file_type :afile
 
 end
