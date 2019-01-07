@@ -127,10 +127,6 @@
     Status <br />
     <%= f.select(:status, ["", "Started", "Ready to Proof", "Proof sent", "Changes", "New proof ready", "New proof sent", "Follow up sent", "Ready to print", "On Hold", "Printed", "Packaged", "In Transit", "Delivered"], {}, {:class => 'form-control'}) %>
   </div>
-  <div class="col-xs-3">
-  Attachment <br />
-  <%= f.input :testattachment, as: :file, :label => false %>
-  </div>
 <br />
 
   <div class="form-actions">
@@ -138,4 +134,29 @@
     <%= f.button :submit, "Create Project" %>
   </div>
 </div>
+
+<br /><br />
+
+<div class="row">
+    <div class="col-sm-3">
+        Attach
+    </div>
+    <div class="col-sm-3">
+        Comment
+    </div>
+    <div class="col-sm-4">
+        Download Link
+    </div>
+    <div class="col-sm-2">
+        Delete?
+    </div>
+</div>
+
+<%= f.simple_fields_for :dattachments do |builder| %>
+  <%= render 'dattachment_fields', f: builder %>
+<% end %>
+
+<%= link_to_add_fields "Add Attachments", f, :dattachments %>
+
+<br /><br />
 <% end %>

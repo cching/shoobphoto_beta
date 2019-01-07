@@ -6,15 +6,16 @@ class Dproject < ActiveRecord::Base
 	belongs_to :school
 	
 	accepts_nested_attributes_for :invoices
+	accepts_nested_attributes_for :dattachments
 	accepts_nested_attributes_for :lineitems
 
 	before_save :set_status_date
 	before_save :update_change_log
 
-	has_attached_file :testattachment,
-  	:url => ':s3_domain_url',
-  	:path => '/images/projects/:id/:updated_at/:filename'
-  	do_not_validate_attachment_file_type :testattachment
+	# has_attached_file :testattachment,
+  	# :url => ':s3_domain_url',
+  	# :path => '/images/projects/:id/:updated_at/:filename'
+  	# do_not_validate_attachment_file_type :testattachment
 
 	def sequential_dproject(q, direction)
 		ordered_dprojects = Dproject.ransack(q)
