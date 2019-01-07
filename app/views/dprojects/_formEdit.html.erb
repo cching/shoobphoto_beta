@@ -158,15 +158,28 @@
 <%= f.button :submit, "Update Project" %>
 <br /><br />
 
+<div class="row">
+    <div class="col-sm-3">
+        Attach
+    </div>
+    <div class="col-sm-3">
+        Comment
+    </div>
+    <div class="col-sm-4">
+        Download Link
+    </div>
+    <div class="col-sm-2">
+        Delete?
+    </div>
+</div>
+
 <%= f.simple_fields_for :dattachments do |builder| %>
-  <%= render 'attachment_fields', f: builder %>
+  <%= render 'dattachment_fields', f: builder %>
 <% end %>
 
-<br />
+<%= link_to_add_fields "Add Attachments", f, :dattachments %>
 
-<!--  link_to_add_fields "Add Attachments", f, :dattachments  -->
-
-<br />
+<br /><br />
 <%= link_to("Previous Project", bysearch_dprojects_path(q: @q, id: @dproject.id, direction: -1)) if @dproject.sequential_dproject(@q, -1) %> |
 <%= link_to("Next Project", bysearch_dprojects_path(q: @q, id: @dproject.id, direction: 1)) if @dproject.sequential_dproject(@q, 1) %> 
 </div>
