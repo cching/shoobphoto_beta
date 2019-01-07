@@ -45,6 +45,14 @@
       </div>
     </div>
     <div class="row">
+    <div class="col-sm-6">
+      <%= f.input :prin_email %>
+    </div>
+    <div class="col-sm-6">
+      <%= f.input :sec1_email %>
+    </div>
+  </div>
+    <div class="row">
       <div class="col-sm-4">
         <%= f.association :district, collection: District.all.order(:name) %>
       </div>

@@ -92,6 +92,10 @@ class Admin::SchoolsController < ApplicationController
     end
 
     def school_params
-      params[:school].permit(:name, :scode, :multiple, :district_id, :city_id, :principal, :secretary, :sales_stat, :address, :phone, :cdscode, :school_type_id, :route, :ca_code, :package_ids => [])
+      params[:school].permit(:name, :scode, :multiple, :district_id, :city_id, :principal, :secretary, :sales_stat, :address, :phone, :cdscode, 
+      :school_type_id, :route, :ca_code, :Nscode, :county, :ncounty, :district, :greatschools, :s_address, :m_address, :city, :state, :zip,
+      :data_sys, :prin_fname, :prin_lname, :prin_email, :prin_upd, :vp_fname, :vp_lname, :vp_email, :vp_upd, :yb_fname, :yb_lname, :yb_email, :yb_upd,
+      :awd_fname, :awd_lname, :sec1_lname, :sec1_fname, :sec1_email, :sec1_upd, :data_fname, :data_lname, :data_email, :data_upd, :category, :grades,
+      :sales_stat, :enrollment, :pic_date, :cur_vendor, :start_date, :end_date, :package_ids => [])
     end
 end
