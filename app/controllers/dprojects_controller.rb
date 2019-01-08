@@ -86,6 +86,7 @@ class DprojectsController < ApplicationController
 
   def edit
     @dproject = Dproject.find(params[:id])
+    @dattachment = Dattachment.all
     @options = School.order(:name).where.not(school_type_id: nil).
     collect do |s|
       [s.name, s.id]

@@ -15,7 +15,12 @@ class Dproject < ActiveRecord::Base
 	# has_attached_file :testattachment,
   	# :url => ':s3_domain_url',
   	# :path => '/images/projects/:id/:updated_at/:filename'
-  	# do_not_validate_attachment_file_type :testattachment
+	# do_not_validate_attachment_file_type :testattachment
+	  
+	has_attached_file :afile,
+    :url => ':s3_domain_url',
+    :path => '/images/projects/:id/:updated_at/:filename'
+    do_not_validate_attachment_file_type :afile
 
 	def sequential_dproject(q, direction)
 		ordered_dprojects = Dproject.ransack(q)
