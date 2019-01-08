@@ -68,26 +68,30 @@ button {
   School:
   <%= f.select :school_name_eq, Djob.includes(:school).order('schools.name').all.map { |djob| djob.school.name }.uniq, selected: (params[:q] ? params[:q][:school_name_eq] : nil), include_blank: true %>
 <br /> 
+
   Job Type:
   <%= f.select :JOBTYPE_eq, Djob.all.order(:JOBTYPE).pluck(:JOBTYPE).uniq, selected: (params[:q] ? params[:q][:JOBTYPE_eq] : nil), include_blank: true %>
 <br />
   Confirmed?:
   <%= f.select :CONF_YN_eq, Djob.all.order(:CONF_YN).pluck(:CONF_YN).uniq, selected: (params[:q] ? params[:q][:CONF_YN_eq] : nil), include_blank: true %>
-  <div></div>
+  <div class = "Date">
+  <div class="col-md-2">
+  Date:
+  <%= f.date_field :DATE_eq, class: 'form-control input-sm', 'datepicker' => true %>
+  </div>
 
 <br />
 
-<div class="Date">
-  <div class="col-md-2">
-    <%= f.date_field :DATE_gteq, class: "form-control input-sm", :value => (Time.now - 4.weeks.to_i).strftime('%Y-%m-%d'), 'datepicker' => true %>
+  <%= f.submit %>
+
+  <br />
+<div class = "row">
+<div class = col-xs-1>
+  <%= link_to 'Previous', bydate_djobs_path(q: params[:q], direction: -1)  %>
   </div>
-<div class="Date">
-  <div class="col-md-2">
-    <%= f.date_field :DATE_lteq, class: "form-control input-sm", :value => (Time.now + 52.weeks.to_i).strftime('%Y-%m-%d'), 'datepicker' => true %>
+ <div class = col-xs-1> 
+  <%= link_to 'Next', bydate_djobs_path(q: params[:q], direction: 1)  %>
   </div>
-<br />
-<br />
-<%= f.submit %>
 <br />
 
 <h3>Import Jobs</h3>
