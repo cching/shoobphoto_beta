@@ -3,6 +3,7 @@
     <%= f.input :DATE_eq, as: :hidden, input_html: { value: params[:q][:DATE_eq] } if params[:q] && params[:q][:DATE_eq] %>
     <%= f.input :school_name_eq, as: :hidden, input_html: { value: params[:q][:school_name_eq] } if params[:q] && params[:q][:school_name_eq] %>
     <%= f.input :JOBTYPE_eq, as: :hidden, input_html: { value: params[:q][:JOBTYPE_eq] } if params[:q] && params[:q][:JOBTYPE_eq] %>
+    <%= f.input :CONF_YN_eq, as: :hidden, input_html: { value: params[:q][:CONF_YN_eq] } if params[:q] && params[:q][:JOBTYPE_eq] %>
     <%= f.input :s, as: :hidden, input_html: { value: params[:q][:s] } if params[:q] && params[:q][:s] %>
   
     <div class="form-inputs">

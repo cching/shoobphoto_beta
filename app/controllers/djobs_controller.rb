@@ -74,6 +74,7 @@ end
     q[:DATE_eq] = params[:djob].delete(:DATE_eq)
     q[:school_name_eq] = params[:djob].delete(:school_name_eq)
     q[:JOBTYPE_eq] = params[:djob].delete(:JOBTYPE_eq)
+    q[:CONF_YN_eq] = params[:djob].delete(:CONF_YN_eq)
     q[:s] = params[:djob].delete(:s)
 
 
