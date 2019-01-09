@@ -2,6 +2,8 @@ class Djob < ActiveRecord::Base
 	has_many :dattachments
 	belongs_to :school
 	
+	validates :school_id, numericality: { other_than: 999, :message => "cannot be blank" }
+
 	scope :by_school, -> {joins(:school).reorder('schools.name')}
 
 	#A class method import, with file passed through as an argument

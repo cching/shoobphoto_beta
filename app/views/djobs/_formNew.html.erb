@@ -1,7 +1,7 @@
 <%= simple_form_for(@djob) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
+<div class="form-inputs">
 <div class = "row">    
  <div class = col-xs-3>
  School <br />
@@ -52,11 +52,9 @@
     <%= f.input :JOB_NOTES, :as => :text, :input_html => {:Rows => 4}, :label => false %>
 </div>
 
-
-
-  </div>
-
   <div class="form-actions">
-    <%= f.button :submit %>
+  <%= f.error :base %>
+    <%= f.button :submit, 'Create Job' %>
   </div>
+</div>
 <% end %>
