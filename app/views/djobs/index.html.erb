@@ -8,14 +8,10 @@ td, th{
   font-size: 16px;
 }
 
-#notcompleted {
-  display: block;
-}
-
 button {
-  border-radius: 5px;
-  background-color: lightgray;
-  width: 15%;
+	border-radius: 5px;
+	background-color: white;
+	width: 15%;
 }
 
 .dropbtn {
@@ -56,19 +52,42 @@ button {
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 
+#all {
+  display: none;
+}
+
+#filtered {
+  display: block;
+}
+
+.printThis {
+  display: none;
+}
+
+@media print {
+    .noPrint { display: none; }
+    .printThis { 
+        display: block; 
+    }
+} 
+
 </style>
 
 <h1>Jobs</h1>
 <br>
-<%= link_to 'New Job', new_djob_path %>
-<br>
-<div></div>
+<div class="row noPrint">
+  <div class="col-xs-2">
+    <%= link_to 'New djob', new_djob_path, class: "btn btn-primary" %> 
+  </div>
+  <div class="col-xs-10">
+    <button onclick="printPage()">Print Report</button>
+  </div>
+</div>
 <%= search_form_for @q do |f| %>
    <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
   School:
-  <%= f.select :school_name_eq, Djob.includes(:school).order('schools.name').all.map { |djob| djob.school.name }.uniq, selected: (params[:q] ? params[:q][:school_name_eq] : nil), include_blank: true %>
-<br /> 
-
+   <%= f.select :school_name_eq, Djob.includes(:school).order('schools.name').all.map { |djob| djob.school.name }.uniq, selected: (params[:q] ? params[:q][:school_name_eq] : nil), include_blank: true %>
+ <br />
   Job Type:
   <%= f.select :JOBTYPE_eq, Djob.all.order(:JOBTYPE).pluck(:JOBTYPE).uniq, selected: (params[:q] ? params[:q][:JOBTYPE_eq] : nil), include_blank: true %>
 <br />
@@ -85,7 +104,7 @@ button {
   <%= f.submit %>
 
   <br />
-<div class = "row">
+<div class = "row noPrint">
 <div class = col-xs-1>
   <%= link_to 'Previous', bydate_djobs_path(q: params[:q], direction: -1)  %>
   </div>
@@ -101,19 +120,18 @@ button {
 <br></br>
 <%= link_to("Generate CSV", djobs_path(params.merge(format: 'csv')), class: "btn btn-success",) %>
 <br />
+<div></div>
 <% end %>
 
   
 
-<div class = "media">
-  <div class="media-body">
-    <table class="table table-hover">
+<table class ="noPrint">
       <thead>
-        <tr>
+      <tr style="border-bottom: 2px solid black;">
           <th></th>
           <th> <%= sort_link(@q, :school_name, "School") %> </th>
           <th> <%= sort_link(@q, :DATE, 'Date') %> </th>   
-          <th>Start Time     
+          <th>Start Time </th>
           <th> <%= sort_link(@q, :JOB, "Job") %> </th>
           <th>Jobtype</th>
           <th>Location</th>
@@ -130,7 +148,7 @@ button {
       </thead>
 
       <tbody>
-        <% @djob.where.not('"CONF" like ?', "%Conf.downcase%").each do |djob| %>
+        <% @djobs.where.not('"CONF" like ?', "%Conf.downcase%").each do |djob| %>
           <tr>
             <td><%= link_to 'Edit', edit_djob_path(djob, q: params[:q]) %></td>
             <td width="8%" class="dotted" ><%= djob.school.name %></td>
@@ -150,10 +168,56 @@ button {
         <% end %>
       </tbody>
     </table>
-    </div>
-  </div>    
-<br>
 
+<table class = "printThis">
+ <thead>      
+      <tr style="border-bottom: 2px solid black;">
+          <th></th>
+          <th>School</th>
+          <th>Date</th>   
+          <th>Start Time</th>   
+          <th>Job</th>
+          <th>Jobtype</th>
+          <th>Location</th>
+          <th>Trigs</th>          
+          <th>Rigs</th>
+          <th>Confirmed</th>
+          <th>Confirmed Y/N</th>
+          <th>Reconfirm call</th>
+          <th>Job notes</th>
+          <th></th>
 
-<%end%> 
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @djobs.each do |djob| %>
+          <tr>
+            <td width="8%" class="dotted" ><%= djob.school.name %></td>
+            <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%b %e, %Y') %></td>
+            <td width="8%" class="dotted" ><%= djob.STARTTIME %></td>
+            <td width="8%" class="dotted" ><%= djob.JOB %></td>
+            <td width="8%" class="dotted" ><%= djob.JOBTYPE %></td>
+            <td width="8%" class="dotted" ><%= djob.LOCATION %></td>
+            <td width="8%" class="dotted" ><%= djob.TRIGS %></td>
+            <td width="8%" class="dotted" ><%= djob.RIGS %></td>
+            <td width="8%" class="dotted" ><%= djob.CONF %></td>
+            <td width="8%" class="dotted" ><%= djob.CONF_YN %></td>
+            <td width="8%" class="dotted" ><%= djob.RECONFIRM_CALL %></td>
+            <td width="18%" class="dotted" ><%= djob.JOB_NOTES %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
+<% end %>
+
+<script>
+
+function printPage() {
+    window.print();
+}
+
+</script>
 
