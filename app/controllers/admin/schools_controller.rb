@@ -20,6 +20,10 @@ class Admin::SchoolsController < ApplicationController
     else
       @schools = School.where.not(school_type: nil).order(:name)
     end
+    params[:q].reject { |_, v| v.blank?} if params[:q]
+
+    @search = School.ransack(params[:q])
+    @schools = @search.result
 
     @options = School.order(:name).where.not(school_type_id: nil)
     respond_with(@schools)
