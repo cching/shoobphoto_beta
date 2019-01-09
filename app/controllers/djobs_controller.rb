@@ -34,7 +34,7 @@ end
 
   def new
     @djob = Djob.new
-    @options = School.order(:name).where.not(school_type_id: nil).
+    @options = School.order(:name).
     collect do |s|
       [s.name, s.id]
     end
