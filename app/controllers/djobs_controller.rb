@@ -12,7 +12,7 @@ class DjobsController < ApplicationController
     params[:q].reject { |_, v| v.blank?} if params[:q]
 
     @q = Djob.ransack(params[:q])
-    @djob = @q.result.includes(:school)
+    @djobs = @q.result.includes(:school)
     require 'date'
   end
 end
