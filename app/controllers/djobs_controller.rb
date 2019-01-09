@@ -64,11 +64,14 @@ end
   end
 
   def create
-    @djob = Djob.new(djob_params)
-    @djob.save
-    respond_with(@djob)
-  end
-
+      @djob = Djob.new(djob_params)
+      if @djob.save
+        redirect_to "/djobs"
+      else
+        redirect_to "/djobs/new"
+      end
+      # respond_with(@djob)
+    end
   def update
     q ={}
     q[:DATE_eq] = params[:djob].delete(:DATE_eq)
