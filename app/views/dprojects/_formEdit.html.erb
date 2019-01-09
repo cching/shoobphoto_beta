@@ -52,7 +52,7 @@
   </div>
   <div class="col-xs-3">
     Assigned to <br />
-    <%= f.select(:assigned_to, ["", "Katie", "Sydnee", "Kemoyah", "Ethan", "Alex P", "Grace", "Lacey", "Ashley", "Heather", "Zaira", "Astrid", "Sunshine", "Jordan", "Erinn", "Developer", "Print"], {}, {:class => "form-control"}) %>
+    <%= f.select(:assigned_to, ["Unassigned", "Katie", "Sydnee", "Kemoyah", "Ethan", "Alex P", "Grace", "Lacey", "Ashley", "Heather", "Zaira", "Astrid", "Sunshine", "Jordan", "Erinn", "Developer", "Print"], {}, {:class => "form-control"}) %>
   </div>
   <div class="col-xs-3">
     Assigned by <br />
@@ -156,6 +156,11 @@
   <br /><br />
 </div>
 <%= f.button :submit, "Update Project" %>
+<br /><br />
+
+<%= f.input :testattachment, as: :file, :label => false %>
+<%= link_to @dproject.testattachment_file_name, @dproject.testattachment.url(:original, false) %>
+
 <br /><br />
 
 <div class="row">

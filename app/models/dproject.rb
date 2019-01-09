@@ -12,10 +12,10 @@ class Dproject < ActiveRecord::Base
 	before_save :set_status_date
 	before_save :update_change_log
 
-	# has_attached_file :testattachment,
-  	# :url => ':s3_domain_url',
-  	# :path => '/images/projects/:id/:updated_at/:filename'
-	# do_not_validate_attachment_file_type :testattachment
+	has_attached_file :testattachment,
+  	:url => ':s3_domain_url',
+  	:path => '/images/projects/:id/:updated_at/:filename'
+	do_not_validate_attachment_file_type :testattachment
 	  
 	has_attached_file :afile,
     :url => ':s3_domain_url',
