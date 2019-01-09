@@ -12,13 +12,13 @@
 
 <h1>Listing schools</h1>
 
-<br>
-<%= search_form_for [:admin, @search] do |f| %>
-<div class="field">
-  <%= f.label :name_cont, "Name contains" %>
-  <%= f.text_field :name_cont %>
-</div>
-<div class="actions"><%= f.submit "Search" %></div>>
+<%= form_tag(admin_schools_path, :method => "get") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Schools", :class => "enjoy-css" %>
+  <%= submit_tag "Search" %>
+
+  </br>
+
+<% end %>
 
 <%= form_tag import_admin_schools_path, multipart: true do %>
   <%= file_field_tag :file %>
