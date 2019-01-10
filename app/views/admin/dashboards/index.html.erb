@@ -1,55 +1,62 @@
-<div class="row" style="text-align:center;">
-	<div class="col-sm-2">
-	<%= link_to "View Orders", orders_path, class: "btn btn-primary" %>
-	</div>
-	<div class="col-sm-2">
-	<%= link_to "View Students", admin_students_path, class: "btn btn-primary" %>
-	</div>
-	<div class="col-sm-2">
-	<%= link_to "View Schools", admin_schools_path, class: "btn btn-primary" %>
-	</div>
-	<div class="col-sm-2">
-	<%= link_to "View Packages", admin_packages_path, class: "btn btn-primary" %>
-	</div>
-	<div class="col-sm-2">
-	<%= link_to "View Pages", admin_pages_path, class: "btn btn-primary" %>
-	</div>
-	<div class="col-sm-2">
-	<%= link_to "View Navigation", admin_nav_links_path, class: "btn btn-primary" %>
-	</div>
-</div><br/>
+<style>
+
+.btn-primary {
+	width: 100% !important;
+}
+.btn-primary:hover {
+	background-color: white !important;
+	color: black !important;
+	font-weight: bold !important;
+}
+.a {
+	background-color: #0094aa !important
+}
+.b {
+	background-color: #017182 !important;
+}
+
+</style>
 
 <div class="row" style="text-align:center;">
-<div class="col-sm-2"><%= link_to "Banners", admin_banners_path, class: "btn btn-primary" %></div>
-<div class="col-sm-2"><%= link_to "Extra Types", admin_extra_types_path, class: "btn btn-primary" %></div>
-<div class="col-sm-2"><%= link_to "ID cards", export_students_path, class: "btn btn-primary" %></div>
-<div class="col-sm-2"><%= link_to "Templates", templates_path, class: "btn btn-primary" %></div>
-<div class="col-sm-2"><%= link_to "Project Prints", admin_prints_path, class: "btn btn-primary" %></div>
-<div class="col-sm-2"><%= link_to "Project Orders", porders_path, class: "btn btn-primary" %></div>
+	<div class="col-sm-2"><%= link_to "Users", admin_users_path, class: "btn btn-primary a" %></div>
+	<div class="col-sm-2"><%= link_to "Awards", list_admin_awards_path, class: "btn btn-primary a" %></div>
+	<div class="col-sm-2"><%= link_to "Diglab Projects", dprojects_path, class: "btn btn-primary a" %></div>
+	<div class="col-sm-2"><%= link_to "Diglab Jobs", djobs_path, class: "btn btn-primary a" %></div>
+	<div class="col-sm-2"><%= link_to "Sales Call", search_school_notes_path, class: "btn btn-primary a" %></div>
+	<div class="col-sm-2"><%= link_to "Notes", school_notes_path, class: "btn btn-primary a" %></div>
 </div>
 
 <br/>
 <div class="row" style="text-align:center;">
-		<div class="col-sm-2"><%= link_to "Users", admin_users_path, class: "btn btn-primary" %></div>
-		<div class="col-sm-2"><%= link_to "Catalog Orders", corders_path, class: "btn btn-primary" %></div>
-	<div class="col-sm-2"><%= link_to "Create Projects", search_school_notes_path, class: "btn btn-primary" %></div>
-	<div class="col-sm-2"><%= link_to "View Projects", school_notes_path, class: "btn btn-primary" %></div>
-	<div class="col-sm-2"><%= link_to "Export Carts", carts_admin_packages_path, class: "btn btn-primary" %></div>
-		<div class="col-sm-2"><%= link_to "Catalog Items", new_item_path, class: "btn btn-primary" %></div>
+	<div class="col-sm-2"><%= link_to "View Orders", orders_path, class: "btn btn-primary b" %></div>
+	<div class="col-sm-2"><%= link_to "View Students", admin_students_path, class: "btn btn-primary b" %></div>
+	<div class="col-sm-2"><%= link_to "View Schools", admin_schools_path, class: "btn btn-primary b" %></div>
+	<div class="col-sm-2"><%= link_to "View Packages", admin_packages_path, class: "btn btn-primary b" %></div>
+	<div class="col-sm-2"><%= link_to "Catalog Orders", corders_path, class: "btn btn-primary b" %></div>
+	<div class="col-sm-2"><%= link_to "Project Orders", porders_path, class: "btn btn-primary b" %></div>
+</div>
 
-</div>
 <br/>
 <div class="row" style="text-align:center;">
-	<div class="col-sm-2"><%= link_to "Download Image Import", csv_admin_dashboards_path, class: "btn btn-primary" %></div>
-	<div class="col-sm-2"><%= link_to "Items", admin_items_path, class: "btn btn-primary" %></div>
-	<div class="col-sm-2"><%= link_to "Gift Items", admin_gifts_path, class: "btn btn-primary" %></div>
-	<div class="col-sm-2"><%= link_to "Awards", list_admin_awards_path, class: "btn btn-primary" %></div>
-	<div class="col-sm-2"><%= link_to "Carts", carts_admin_packages_path, class: "btn btn-primary" %></div>
+	<div class="col-sm-2"><%= link_to "Templates", templates_path, class: "btn btn-primary a" %></div>
+	<div class="col-sm-2"><%= link_to "Extra Types", admin_extra_types_path, class: "btn btn-primary a" %></div>
+	<div class="col-sm-2"><%= link_to "ID cards", export_students_path, class: "btn btn-primary a" %></div>
+	<div class="col-sm-2"><%= link_to "Banners", admin_banners_path, class: "btn btn-primary a" %></div>
+	<div class="col-sm-2"><%= link_to "View Pages", admin_pages_path, class: "btn btn-primary a" %></div>
+	<div class="col-sm-2"><%= link_to "View Navigation", admin_nav_links_path, class: "btn btn-primary a" %></div>
 </div>
+
 <br/>
 <div class="row" style="text-align:center;">
-	<div class="col-sm-2"><%= link_to "Diglab Projects", dprojects_path, class: "btn btn-primary" %></div>
-	<div class="col-sm-2"><%= link_to "Diglab Jobs", djobs_path, class: "btn btn-primary" %></div>
-	<div class="col-sm-2"><%= link_to "Sales Call", search_school_notes_path, class: "btn btn-primary" %></div>
-	<div class="col-sm-2"><%= link_to "Notes", school_notes_path, class: "btn btn-primary" %></div>
+	<div class="col-sm-2"><%= link_to "Catalog Items", new_item_path, class: "btn btn-primary b" %></div>
+	<div class="col-sm-2"><%= link_to "Items", admin_items_path, class: "btn btn-primary b" %></div>
+	<div class="col-sm-2"><%= link_to "Gift Items", admin_gifts_path, class: "btn btn-primary b" %></div>
+	<div class="col-sm-2"><%= link_to "Carts", carts_admin_packages_path, class: "btn btn-primary b" %></div>
+	<div class="col-sm-2"><%= link_to "Export Carts", carts_admin_packages_path, class: "btn btn-primary b" %></div>
+	<div class="col-sm-2"><%= link_to "Project Prints", admin_prints_path, class: "btn btn-primary b" %></div>
+</div>
+
+<br/>
+<div class="row" style="text-align:center;">
+	<div class="col-sm-2"><%= link_to "Download Img Import", csv_admin_dashboards_path, class: "btn btn-primary a" %></div>
 </div>
