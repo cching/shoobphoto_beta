@@ -120,7 +120,8 @@ button {
 <br></br>
 <%= link_to("Generate CSV", djobs_path(params.merge(format: 'csv')), class: "btn btn-success",) %>
 <br />
-<div></div>
+</div>
+</div>
 <% end %>
 
   
@@ -172,7 +173,6 @@ button {
 <table class = "printThis">
  <thead>      
       <tr style="border-bottom: 2px solid black;">
-          <th></th>
           <th>School</th>
           <th>Date</th>   
           <th>Start Time</th>   
@@ -185,8 +185,6 @@ button {
           <th>Confirmed Y/N</th>
           <th>Reconfirm call</th>
           <th>Job notes</th>
-          <th></th>
-
           <th colspan="3"></th>
         </tr>
       </thead>
