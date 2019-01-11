@@ -141,7 +141,6 @@
   </div>
   <br />
   <div class="form-actions col-xs-2" style="text-align: center;">
-    <%= link_to 'Attach Files', dproject_attachment_path(@dproject.id), {class: 'form-control'} %>
   </div>
   <div class="form-actions col-xs-3" style="text-align: center;">
     <%= link_to 'Packing Slip', dproject_packingslip_path(@dproject.id), {class: 'form-control'} %>
@@ -152,8 +151,7 @@
   <%= link_to 'Invoicing', dproject_invoices_path(@dproject, @invoice), {class: 'form-control'} %>
 </div>
 
-
-  <br /><br />
+<br /><br />
 </div>
 <%= f.button :submit, "Update Project" %>
 <br /><br />
