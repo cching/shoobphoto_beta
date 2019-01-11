@@ -8,7 +8,7 @@
         <%= f.input :dcomment, :label => false %>
     </div>
     <div class="col-sm-4">
-        
+        <a href = <%= f.object.afile.url %> download = <%= f.object.afile_file_name %> > <%= f.object.afile_file_name %> </a>
     </div>
     <div class="col-sm-2">
         <%= f.check_box :_destroy %>

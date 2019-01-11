@@ -6,7 +6,7 @@ class Dproject < ActiveRecord::Base
 	belongs_to :school
 	
 	accepts_nested_attributes_for :invoices
-	accepts_nested_attributes_for :dattachments
+	accepts_nested_attributes_for :dattachments, allow_destroy: true
 	accepts_nested_attributes_for :lineitems
 
 	before_save :set_status_date

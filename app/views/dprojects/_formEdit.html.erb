@@ -158,11 +158,6 @@
 <%= f.button :submit, "Update Project" %>
 <br /><br />
 
-<%= f.input :testattachment, as: :file, :label => false %>
-<%= link_to @dproject.testattachment_file_name, @dproject.testattachment.url(:original, false) %>
-
-<br /><br />
-
 <div class="row">
     <div class="col-sm-3">
         Attach
