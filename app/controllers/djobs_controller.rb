@@ -4,22 +4,24 @@ class DjobsController < ApplicationController
   respond_to :html
 
   def index
-    @djobs = Djob.all.order(:id)
-    respond_to do |format|
-        format.html
-        format.csv {send_data @djobs.to_csv, filename: "Djobs.csv"}
-
     params[:q].reject { |_, v| v.blank?} if params[:q]
 
     @q = Djob.ransack(params[:q])
     @djobs = @q.result.includes(:school)
-    require 'date'
-  end
+    respond_with(@djobs)
 end
 
   def show
-    redirect_to request.path + "/edit", :status => :moved_permanently 
   end
+
+  def photographerIndex
+    params[:q].reject { |_, v| v.blank?} if params[:q]
+
+    @q = Djob.ransack(params[:q])
+    @djobs = @q.result.includes(:school)
+    respond_with(@djobs)
+
+  end 
 
   def bysearch
     # sending q as params
@@ -72,6 +74,7 @@ end
       end
       # respond_with(@djob)
     end
+
   def update
     q ={}
     q[:DATE_eq] = params[:djob].delete(:DATE_eq)
@@ -87,15 +90,9 @@ end
     redirect_to djobs_path(q: q)
   end
 
-  def delete
-    @djob = Djob.find(params[:id])
-  end 
-
   def destroy
-
-    @djob = Djob.find(params[:id])
     @djob.destroy
-    redirect_to djobs_path(q: q)
+    redirect_to djobs_path
   end
 
   def import
