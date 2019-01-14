@@ -4,13 +4,17 @@ class DjobsController < ApplicationController
   respond_to :html
 
   def index
+    @djobs = Djob.all.order(:id)
+    respond_to do |format|
+        format.html
+        format.csv {send_data @djobs.to_csv, filename: "Djobs.csv"}
+
     params[:q].reject { |_, v| v.blank?} if params[:q]
 
     @q = Djob.ransack(params[:q])
     @djobs = @q.result.includes(:school)
-    respond_with(@djobs)
-end
-
+    end
+  end 
   def show
   end
 
