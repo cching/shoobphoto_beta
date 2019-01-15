@@ -51,6 +51,19 @@
     Job Notes <br />
     <%= f.input :JOB_NOTES, :as => :text, :input_html => {:Rows => 4}, :label => false %>
 </div>
+</div>
+<hr>
+<div class ="row">
+    <div class = col-xs-5>
+    Confirmed by <br />
+    <%= f.input :CONF, :as => :text, :input_html => {:rows =>4}, :label => false %>
+</div>
+    <div class = col-xs-2>
+    Confirmed? <br />
+    <%= f.select(:CONF_YN, ["", "True", "False"], {}, {:class => 'form-control'}) %>
+</div>
+</div>
+
 
   <div class="form-actions">
   <%= f.error :base %>
