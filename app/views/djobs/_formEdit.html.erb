@@ -53,28 +53,58 @@
       </div>
   <hr>       
   
+<% if current_user.admin? %>
+
   <div class = "row">
       <div class = "col-xs-2">  
       Job <br />
       <%= f.input :JOB, :label => false %>
-  </div>
+    </div>
       <div class = "col-xs-2">
       Job Type <br />
       <%= f.input :JOBTYPE, :label => false %>
-  </div>
+    </div>
       <div class = "col-xs-3">  
       Date <br />
       <%= f.date_field(:DATE, {:class => "form-control"}) %>
-  </div>
+    </div>
       <div class = "col-xs-3"> 
       Start Time <br />       
       <%= f.input :STARTTIME, :label => false %>
-  </div>
+    </div>
       <div class = "col-xs-2">
       Trigs <br />
       <%= f.input :TRIGS, :label => false %>    
+    </div>
   </div>
-  </div>
+
+<% else %>
+
+<div class = "row">
+    <div class = "col-xs-2">  
+        Job <br />
+        <%= @djob.JOB %>
+    </div>
+    <div class = "col-xs-2">
+        Job Type <br />
+        <%= @djob.JOBTYPE %>
+    </div>
+    <div class = "col-xs-3">  
+        Date <br />
+        <%= @djob.DATE %>
+    </div>
+    <div class = "col-xs-3"> 
+        Start Time <br />       
+        <%= @djob.STARTTIME %>
+    </div>
+    <div class = "col-xs-2">
+        Trigs <br />
+        <%= @djob.TRIGS %>  
+    </div>
+</div>
+
+<% end %>
+
   <hr>
   <div class = "row">
       <div class = "col-xs-2">
