@@ -1,3 +1,4 @@
+<h4 style="text-align: center;">Production</h4>
 <div class="row">
 <div class="col-xs-1">
 </div>
@@ -40,7 +41,7 @@
             <td width="8%" class="dotted" ><%= djob.CONF_YN %></td>
             <td width="8%" class="dotted" ><%= djob.RECONFIRM_CALL %></td>
             <td width="18%" class="dotted" ><%= djob.JOB_NOTES %></td>
-            <td></td>
+            <td><%= button_to 'Destroy', djob, method: :delete, data:{confirm: "Are you sure?"} %></td>
           </tr>
         <% end %>
       </tbody>

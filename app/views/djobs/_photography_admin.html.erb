@@ -1,0 +1,90 @@
+<h4 style="text-align: center;">Photography</h4>
+<div class="row">
+<div class="col-xs-1">
+</div>
+<div class="col-xs-10">
+<table class ="noPrint">
+      <thead>
+      <tr style="border-bottom: 2px solid black;">
+          <th></th>
+          <th> <%= sort_link(@q, :school_name, "School") %> </th>
+          <th> <%= sort_link(@q, :DATE, 'Date') %> </th>   
+          <th>Start Time </th>
+          <th> <%= sort_link(@q, :JOB, "Job") %> </th>
+          <th>Jobtype</th>
+          <th>Location</th>
+          <th>Trigs</th>          
+          <th>Rigs</th>
+          <th> <%= sort_link(@q, :CONF, "Confirm", default_order: :desc) %> </th>
+          <th> Confirmed Y/N </th>
+          <th>Reconfirm call</th>
+          <th>Job notes</th>
+          <th></th>
+
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @djobs.each do |djob| %>
+          <tr>
+            <td><%= link_to 'Edit', edit_djob_path(djob, q: params[:q]) %></td>
+            <td width="8%" class="dotted" ><%= djob.school.dname %></td>
+            <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%a, %b %e, %Y') %></td>
+            <td width="8%" class="dotted" ><%= djob.STARTTIME %></td>
+            <td width="8%" class="dotted" ><%= djob.JOB %></td>
+            <td width="8%" class="dotted" ><%= djob.JOBTYPE %></td>
+            <td width="8%" class="dotted" ><%= djob.LOCATION %></td>
+            <td width="8%" class="dotted" ><%= djob.TRIGS %></td>
+            <td width="8%" class="dotted" ><%= djob.RIGS %></td>
+            <td width="8%" class="dotted" ><%= djob.CONF %></td>
+            <td width="8%" class="dotted" ><%= djob.CONF_YN %></td>
+            <td width="8%" class="dotted" ><%= djob.RECONFIRM_CALL %></td>
+            <td width="18%" class="dotted" ><%= djob.JOB_NOTES %></td>
+            <td><%= button_to 'Destroy', djob, method: :delete, data:{confirm: "Are you sure?"} %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+<table class = "printThis">
+ <thead>      
+      <tr style="border-bottom: 2px solid black;">
+          <th>School</th>
+          <th>Date</th>   
+          <th>Start Time</th>   
+          <th>Job</th>
+          <th>Jobtype</th>
+          <th>Location</th>
+          <th>Trigs</th>          
+          <th>Rigs</th>
+          <th>Confirmed</th>
+          <th>Confirmed Y/N</th>
+          <th>Reconfirm call</th>
+          <th>Job notes</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @djobs.each do |djob| %>
+          <tr>
+            <td width="8%" class="dotted" ><%= djob.school.name %></td>
+            <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%a, %b %e, %Y') %></td>
+            <td width="8%" class="dotted" ><%= djob.STARTTIME %></td>
+            <td width="8%" class="dotted" ><%= djob.JOB %></td>
+            <td width="8%" class="dotted" ><%= djob.JOBTYPE %></td>
+            <td width="8%" class="dotted" ><%= djob.LOCATION %></td>
+            <td width="8%" class="dotted" ><%= djob.TRIGS %></td>
+            <td width="8%" class="dotted" ><%= djob.RIGS %></td>
+            <td width="8%" class="dotted" ><%= djob.CONF %></td>
+            <td width="8%" class="dotted" ><%= djob.CONF_YN %></td>
+            <td width="8%" class="dotted" ><%= djob.RECONFIRM_CALL %></td>
+            <td width="18%" class="dotted" ><%= djob.JOB_NOTES %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="col-xs-1">
+    </div>
+</div>

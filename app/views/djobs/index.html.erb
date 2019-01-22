@@ -52,12 +52,16 @@ button {
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 
-#all {
+#photography {
   display: none;
 }
 
-#filtered {
-  display: block;
+#production {
+  display: none;
+}
+
+#confirms {
+  display: none;
 }
 
 .printThis {
@@ -83,6 +87,10 @@ button {
     <div class="col-xs-8">
       <button onclick="printPage()">Print</button>
     </div>
+    </br></br>
+    <button id="btnConfirms" onclick="toggleConfirms()">Confirms</button>
+    <button id="btnPhotography" onclick="togglePhotography()">Photography</button>
+    <button id="btnProduction" onclick="toggleProduction()">Production</button>
     </br></br>
     <%= search_form_for @q do |f| %>
     <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
@@ -129,17 +137,111 @@ button {
 </br></br>
 
 <% if current_user.admin? %>
-
-<%= render 'index_admin' %>
-
+  <div id="confirms" class="filterDiv indexConfirms">
+    <%= render 'confirms_admin' %>
+  </div>
 <% else %>
-
-<%= render 'index_nonadmin' %>
-
+  <div id="confirms" class="filterDiv indexConfirms">
+    <%= render 'confirms_nonadmin' %>
+  </div>
 <% end %>
+
+<% if current_user.admin? %>
+  <div id="photography" class="filterDiv indexPhotography">
+    <%= render 'photography_admin' %>
+  </div>
+<% else %>
+  <div id="photography" class="filterDiv indexPhotography">
+    <%= render 'photography_nonadmin' %>
+  </div>
+<% end %>
+
+<% if current_user.admin? %>
+  <div id="production" class="filterDiv indexProduction">
+    <%= render 'production_admin' %>
+  </div>
+<% else %>
+  <div id="production" class="filterDiv indexProduction">
+    <%= render 'production_nonadmin' %>
+  </div>
+<% end %>
+
 <% end %>
 
 <script>
+
+function toggleConfirms() {
+    var x = document.getElementById("confirms");
+    var y = document.getElementById("photography");
+    var z = document.getElementById("production");
+    var btnx = document.getElementById("btnConfirms");
+    var btny = document.getElementById("btnPhotography");
+    var btnz = document.getElementById("btnProduction");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+        y.style.display = "none";
+        z.display = "none";
+        btnx.style.color = "white";
+        btnx.style.backgroundColor = "black";
+        btny.style.color = "black";
+        btny.style.backgroundColor = "white";
+        btnz.style.color = "black";
+        btnz.style.backgroundColor = "white";
+    } else {
+        x.style.display = "none";
+        btnx.style.color = "black";
+        btnx.style.backgroundColor = "white";
+    }
+}
+
+function togglePhotography() {
+    var x = document.getElementById("confirms");
+    var y = document.getElementById("photography");
+    var z = document.getElementById("production");
+    var btnx = document.getElementById("btnConfirms");
+    var btny = document.getElementById("btnPhotography");
+    var btnz = document.getElementById("btnProduction");
+    if (y.style.display === "none") {
+        x.style.display = "none";
+        y.style.display = "block";
+        z.display = "none";
+        btnx.style.color = "black";
+        btnx.style.backgroundColor = "white";
+        btny.style.color = "white";
+        btny.style.backgroundColor = "black";
+        btnz.style.color = "black";
+        btnz.style.backgroundColor = "white";
+    } else {
+        y.style.display = "none";
+        btny.style.color = "black";
+        btny.style.backgroundColor = "white";
+    }
+}
+
+function toggleProduction() {
+    var x = document.getElementById("confirms");
+    var y = document.getElementById("photography");
+    var z = document.getElementById("production");
+    var btnx = document.getElementById("btnConfirms");
+    var btny = document.getElementById("btnPhotography");
+    var btnz = document.getElementById("btnProduction");
+    if (z.style.display === "none") {
+        x.style.display = "none";
+        y.style.display = "none";
+        z.display = "block";
+        btnx.style.color = "black";
+        btnx.style.backgroundColor = "white";
+        btny.style.color = "black";
+        btny.style.backgroundColor = "white";
+        btnz.style.color = "white";
+        btnz.style.backgroundColor = "black";
+    } else {
+        z.style.display = "none";
+        btnz.style.color = "black";
+        btnz.style.backgroundColor = "white";
+    }
+}
+
 
 function printPage() {
     window.print();
