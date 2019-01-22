@@ -149,6 +149,12 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   match 'emailers/' => 'emailers#index', :via => 'GET', :as => 'emailer'
   match 'emailers/csv' => 'emailers#import', :via => 'POST', :as => 'import_emailer'
   namespace :admin do
+    resources :texts do
+      collection do
+        post :import
+        get :upload
+      end
+    end
     resources :prints
     resources :categories
     resources :dashboards do

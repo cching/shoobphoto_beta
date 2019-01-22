@@ -1,0 +1,7 @@
+<div align="left">
+  <%= form_tag import_admin_texts_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <br />
+    <%= submit_tag "Send Texts", class: "btn btn-primary" %>
+  <% end %>
+</div>
