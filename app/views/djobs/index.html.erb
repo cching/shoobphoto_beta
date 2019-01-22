@@ -61,7 +61,12 @@ button {
 }
 
 #confirms {
-  display: none;
+  display: block;
+}
+
+#btnConfirms {
+  color: white;
+  background-color: black;
 }
 
 .printThis {
@@ -136,35 +141,32 @@ button {
 </div>
 </br></br>
 
-<% if current_user.admin? %>
-  <div id="confirms" class="filterDiv indexConfirms">
+<div id="confirms">
+  <% if current_user.admin? %>
     <%= render 'confirms_admin' %>
-  </div>
-<% else %>
-  <div id="confirms" class="filterDiv indexConfirms">
+  <% else %>
     <%= render 'confirms_nonadmin' %>
-  </div>
-<% end %>
+  <% end %>
+</div>
+</div>
 
-<% if current_user.admin? %>
-  <div id="photography" class="filterDiv indexPhotography">
+<div id="photography">
+  <% if current_user.admin? %>
     <%= render 'photography_admin' %>
-  </div>
-<% else %>
-  <div id="photography" class="filterDiv indexPhotography">
+  <% else %>
     <%= render 'photography_nonadmin' %>
-  </div>
-<% end %>
+  <% end %>
+</div>
+</div>
 
-<% if current_user.admin? %>
-  <div id="production" class="filterDiv indexProduction">
+<div id="production">
+  <% if current_user.admin? %>
     <%= render 'production_admin' %>
-  </div>
-<% else %>
-  <div id="production" class="filterDiv indexProduction">
+  <% else %>
     <%= render 'production_nonadmin' %>
-  </div>
-<% end %>
+  <% end %>
+</div>
+</div>
 
 <% end %>
 
@@ -177,16 +179,10 @@ function toggleConfirms() {
     var btnx = document.getElementById("btnConfirms");
     var btny = document.getElementById("btnPhotography");
     var btnz = document.getElementById("btnProduction");
-    if (x.style.display === "none") {
+    if (x.style.display == "none") {
         x.style.display = "block";
-        y.style.display = "none";
-        z.display = "none";
         btnx.style.color = "white";
         btnx.style.backgroundColor = "black";
-        btny.style.color = "black";
-        btny.style.backgroundColor = "white";
-        btnz.style.color = "black";
-        btnz.style.backgroundColor = "white";
     } else {
         x.style.display = "none";
         btnx.style.color = "black";
@@ -201,16 +197,10 @@ function togglePhotography() {
     var btnx = document.getElementById("btnConfirms");
     var btny = document.getElementById("btnPhotography");
     var btnz = document.getElementById("btnProduction");
-    if (y.style.display === "none") {
-        x.style.display = "none";
+    if (y.style.display == "none") {
         y.style.display = "block";
-        z.display = "none";
-        btnx.style.color = "black";
-        btnx.style.backgroundColor = "white";
         btny.style.color = "white";
         btny.style.backgroundColor = "black";
-        btnz.style.color = "black";
-        btnz.style.backgroundColor = "white";
     } else {
         y.style.display = "none";
         btny.style.color = "black";
@@ -225,14 +215,8 @@ function toggleProduction() {
     var btnx = document.getElementById("btnConfirms");
     var btny = document.getElementById("btnPhotography");
     var btnz = document.getElementById("btnProduction");
-    if (z.style.display === "none") {
-        x.style.display = "none";
-        y.style.display = "none";
-        z.display = "block";
-        btnx.style.color = "black";
-        btnx.style.backgroundColor = "white";
-        btny.style.color = "black";
-        btny.style.backgroundColor = "white";
+    if (z.style.display == "none") {
+        z.style.display = "block";
         btnz.style.color = "white";
         btnz.style.backgroundColor = "black";
     } else {
@@ -241,7 +225,6 @@ function toggleProduction() {
         btnz.style.backgroundColor = "white";
     }
 }
-
 
 function printPage() {
     window.print();

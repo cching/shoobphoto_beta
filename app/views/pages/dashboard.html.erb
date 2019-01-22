@@ -1,32 +1,49 @@
-<br/>
-<br/>
+<style>
 
-<div class="animated fadeInUp">
+p {
+	font-size: 35px !important;
+	height: 80px !important;
+	color: white !important;
+	text-align: center;
+}
+
+</style>
+
+</br>
 
 	<%= link_to export_students_path do %>
-		<div class="mobile_package even_blue">
+		<div class="even_blue">
 			<p>STUDENTS</p>
 		</div> 
 	<% end %>
+	</br>
 
 	<%= link_to awards_path, id: "my-link" do %>
-		<div class="mobile_package odd_blue">
+		<div class="odd_blue">
 			<p>AWARDS</p>
 		</div> 
 	<% end %>
+	</br>
 
 	<%= link_to dprojects_path do %>
-		<div class="mobile_package even_blue">
+		<div class="even_blue">
 			<p>PROJECTS</p>
 		</div> 
 	<% end %>
+	</br>
+
+	<%= link_to djobs_path do %>
+		<div class="odd_blue">
+			<p>JOBS</p>
+		</div> 
+	<% end %>
+	</br>
 
 	<% if current_user.try(:admin) %>
 	<%= link_to admin_dashboards_path do %>
-		<div class="mobile_package odd_blue">
+		<div class="even_blue">
 			<p>DASHBOARD</p>
 		</div> 
 	<% end %>
 	<% end %>
-</div>
 
