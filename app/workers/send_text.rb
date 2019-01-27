@@ -27,20 +27,22 @@ class SendText
    def send_mms(client, cart, phone, image)
     url = "https://www.shoobphoto.com/students/packages/#{cart.cart_id}/select/0/#{image.package.id}"
 
+    image.watermark.reprocess!
+
     client
       .messages
       .create(
-        body: "Shoob Photography: Order #{image.package.name} now at #{url}",
+        body: "Shoob Photography: Order #{image.package.name.strip} now at #{url}",
         from: ENV['TWILIO_NUMBER'],
         media_url: image.watermark.url,
         to: phone
       )
-   end
+  end
 
-   private
+  private
 
   def api_client
     Twilio::REST::Client.new(ENV['TWILIO_SID'], 
                              ENV['TWILIO_TOKEN'])
   end
- end
+end

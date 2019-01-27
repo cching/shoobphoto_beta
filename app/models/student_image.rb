@@ -24,13 +24,8 @@ class StudentImage < ActiveRecord::Base
   	validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
     has_attached_file :watermark,
-    :processors => [:watermark],
-                    :styles => { 
-                                 :thumb => '150x150>', 
-                                 :original => "800>",
-                                 :watermark => { :geometry => '800>', :watermark_path => "#{Rails.root}/public/images/watermark.png" } 
-                               },
                     :url => ':s3_domain_url',
+                    :s3_headers =>  { "Content-Type" => "image/png" },
                     :path => "/images/watermarks/:id/watermark/:url:file_type",
                     :default_url => "https://shoobphoto.s3.amazonaws.com/images/package_types/:package_id/:package_image_file_name",
                      :preserve_files => true 
