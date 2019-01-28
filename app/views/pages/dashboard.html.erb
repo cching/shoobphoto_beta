@@ -32,16 +32,9 @@ p {
 	<% end %>
 	</br>
 
-	<%= link_to djobs_path do %>
-		<div class="odd_blue">
-			<p>JOBS</p>
-		</div> 
-	<% end %>
-	</br>
-
 	<% if current_user.try(:admin) %>
 	<%= link_to admin_dashboards_path do %>
-		<div class="even_blue">
+		<div class="odd_blue">
 			<p>DASHBOARD</p>
 		</div> 
 	<% end %>

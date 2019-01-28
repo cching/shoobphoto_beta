@@ -444,6 +444,10 @@ match 'school_notes/:id/:note' => 'school_notes#note', :via => 'GET', :as => 'no
   get 'dprojects/shipreport' => 'dprojects#shipreportx`'
   get 'dprojects/:id/attachment' => 'dprojects#attachment', :via => 'GET', :as => 'dproject_attachment'
 
+  get 'djobsconfirms' => 'djobs#indexConfirms'
+  get 'djobsphotography' => 'djobs#indexPhotography'
+  get 'djobsproduction' => 'djobs#indexProduction'
+
   get 'yorders' => 'yorders#index'
 
   resources :searches

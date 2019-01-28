@@ -3,7 +3,7 @@ class DjobsController < ApplicationController
 
   respond_to :html
 
-  def index
+  def indexConfirms
     @djobs = Djob.all.order(:id)
     respond_to do |format|
         format.html
@@ -14,18 +14,36 @@ class DjobsController < ApplicationController
     @q = Djob.ransack(params[:q])
     @djobs = @q.result.includes(:school)
     end
-  end 
-  def show
   end
 
-  def photographerIndex
+  def indexPhotography
+    @djobs = Djob.all.order(:id)
+    respond_to do |format|
+        format.html
+        format.csv {send_data @djobs.to_csv, filename: "Djobs.csv"}
+
     params[:q].reject { |_, v| v.blank?} if params[:q]
 
     @q = Djob.ransack(params[:q])
     @djobs = @q.result.includes(:school)
-    respond_with(@djobs)
+    end
+  end
 
-  end 
+  def indexProduction
+    @djobs = Djob.all.order(:id)
+    respond_to do |format|
+        format.html
+        format.csv {send_data @djobs.to_csv, filename: "Djobs.csv"}
+
+    params[:q].reject { |_, v| v.blank?} if params[:q]
+
+    @q = Djob.ransack(params[:q])
+    @djobs = @q.result.includes(:school)
+    end
+  end
+
+  def show
+  end
 
   def bysearch
     # sending q as params

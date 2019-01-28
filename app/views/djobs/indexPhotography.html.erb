@@ -1,0 +1,147 @@
+<style>
+
+.dotted{
+  border-bottom: 1px dotted black;
+}
+
+td, th{
+  font-size: 16px;
+}
+
+button {
+	border-radius: 5px;
+	background-color: white;
+	width: 15%;
+}
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 7px;
+    font-size: 16px;
+    border: none;
+    width: 100% !important;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    box-shadow: 0px 8px 2px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    text-align: center;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 2px 2px;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    text-align: center;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+#photography {
+  display: none;
+}
+
+#production {
+  display: none;
+}
+
+#confirms {
+  display: block;
+}
+
+#btnConfirms {
+  color: white;
+  background-color: black;
+}
+
+.printThis {
+  display: none;
+}
+
+@media print {
+    .noPrint { display: none; }
+    .printThis { 
+        display: block; 
+    }
+} 
+
+</style>
+
+<div class="row noPrint">
+  <div class="col-xs-8">
+    <h4>Jobs</h4>
+    <br>
+    <div class="col-xs-4">
+      <%= link_to 'New djob', new_djob_path, class: "btn btn-primary" %>
+      </div>
+    <div class="col-xs-8">
+      <button onclick="printPage()">Print</button>
+    </div>
+    </br></br>
+    <%= search_form_for @q do |f| %>
+    <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
+      School:
+      <%= f.select :school_name_eq, Djob.includes(:school).order('schools.name').all.map { |djob| djob.school.name }.uniq, selected: (params[:q] ? params[:q][:school_name_eq] : nil), include_blank: true %>
+      <br />
+      Job Type:
+      <%= f.select :JOBTYPE_eq, Djob.all.order(:JOBTYPE).pluck(:JOBTYPE).uniq, selected: (params[:q] ? params[:q][:JOBTYPE_eq] : nil), include_blank: true %>
+      <br />
+      Confirmed?:
+      <%= f.select :CONF_YN_eq, Djob.all.order(:CONF_YN).pluck(:CONF_YN).uniq, selected: (params[:q] ? params[:q][:CONF_YN_eq] : nil), include_blank: true %>
+      <div class = "Date">
+        <div class="col-xs-6">
+          Date:
+          <%= f.date_field :DATE_eq, class: 'form-control input-sm', 'datepicker' => true %>
+        </div>
+      </div>
+      </br>
+      <div class="col-xs-6">
+        <%= f.submit %>
+      </div>
+      <br />
+      <div class = "col-xs-2">
+        <%= link_to 'Previous', bydate_djobs_path(q: params[:q], direction: -1)  %>
+      </div>
+        <div class = "col-xs-2"> 
+          <%= link_to 'Next', bydate_djobs_path(q: params[:q], direction: 1)  %>
+        </div>
+        <br />
+      </div>
+      </br>
+      </br>
+  <h3>Import Jobs</h3>
+  <%= form_tag import_djobs_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Upload Jobs" %>
+  <br></br>
+  <%= link_to("Generate CSV", djobs_path(params.merge(format: 'csv')), class: "btn btn-success",) %>
+  <br />
+</div>
+</div>
+<% end %>
+</div>
+</br>
+
+  <% if current_user.admin? %>
+    <%= render 'photography_admin' %>
+  <% else %>
+    <%= render 'photography_nonadmin' %>
+  <% end %>
+
+<% end %>
+

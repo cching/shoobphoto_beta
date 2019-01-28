@@ -93,10 +93,6 @@ button {
       <button onclick="printPage()">Print</button>
     </div>
     </br></br>
-    <button id="btnConfirms" onclick="toggleConfirms()">Confirms</button>
-    <button id="btnPhotography" onclick="togglePhotography()">Photography</button>
-    <button id="btnProduction" onclick="toggleProduction()">Production</button>
-    </br></br>
     <%= search_form_for @q do |f| %>
     <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
       School:
@@ -139,96 +135,13 @@ button {
 </div>
 <% end %>
 </div>
-</br></br>
+</br>
 
-<div id="confirms">
-  <% if current_user.admin? %>
-    <%= render 'confirms_admin' %>
-  <% else %>
-    <%= render 'confirms_nonadmin' %>
-  <% end %>
-</div>
-</div>
-
-<div id="photography">
-  <% if current_user.admin? %>
-    <%= render 'photography_admin' %>
-  <% else %>
-    <%= render 'photography_nonadmin' %>
-  <% end %>
-</div>
-</div>
-
-<div id="production">
   <% if current_user.admin? %>
     <%= render 'production_admin' %>
   <% else %>
     <%= render 'production_nonadmin' %>
   <% end %>
-</div>
-</div>
 
 <% end %>
-
-<script>
-
-function toggleConfirms() {
-    var x = document.getElementById("confirms");
-    var y = document.getElementById("photography");
-    var z = document.getElementById("production");
-    var btnx = document.getElementById("btnConfirms");
-    var btny = document.getElementById("btnPhotography");
-    var btnz = document.getElementById("btnProduction");
-    if (x.style.display == "none") {
-        x.style.display = "block";
-        btnx.style.color = "white";
-        btnx.style.backgroundColor = "black";
-    } else {
-        x.style.display = "none";
-        btnx.style.color = "black";
-        btnx.style.backgroundColor = "white";
-    }
-}
-
-function togglePhotography() {
-    var x = document.getElementById("confirms");
-    var y = document.getElementById("photography");
-    var z = document.getElementById("production");
-    var btnx = document.getElementById("btnConfirms");
-    var btny = document.getElementById("btnPhotography");
-    var btnz = document.getElementById("btnProduction");
-    if (y.style.display == "none") {
-        y.style.display = "block";
-        btny.style.color = "white";
-        btny.style.backgroundColor = "black";
-    } else {
-        y.style.display = "none";
-        btny.style.color = "black";
-        btny.style.backgroundColor = "white";
-    }
-}
-
-function toggleProduction() {
-    var x = document.getElementById("confirms");
-    var y = document.getElementById("photography");
-    var z = document.getElementById("production");
-    var btnx = document.getElementById("btnConfirms");
-    var btny = document.getElementById("btnPhotography");
-    var btnz = document.getElementById("btnProduction");
-    if (z.style.display == "none") {
-        z.style.display = "block";
-        btnz.style.color = "white";
-        btnz.style.backgroundColor = "black";
-    } else {
-        z.style.display = "none";
-        btnz.style.color = "black";
-        btnz.style.backgroundColor = "white";
-    }
-}
-
-function printPage() {
-    window.print();
-}
-
-</script>
 
