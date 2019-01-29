@@ -17,6 +17,8 @@
           <th>Rigs</th>
           <th> <%= sort_link(@q, :CONF, "Confirm", default_order: :desc) %> </th>
           <th> Confirmed Y/N </th>
+          <th> <%= sort_link(@q, :RECONF, "ReConfirm", default_order: :desc) %> </th>
+          <th> ReConfirmed Y/N </th>
           <th>Reconfirm call</th>
           <th>Job notes</th>
           <th></th>
@@ -39,6 +41,8 @@
             <td width="8%" class="dotted" ><%= djob.RIGS %></td>
             <td width="8%" class="dotted" ><%= djob.CONF %></td>
             <td width="8%" class="dotted" ><%= djob.CONF_YN %></td>
+            <td width="8%" class="dotted" ><%= djob.RECONF %></td>
+            <td width="8%" class="dotted" ><%= djob.RECONFYN %></td>
             <td width="8%" class="dotted" ><%= djob.RECONFIRM_CALL %></td>
             <td width="18%" class="dotted" ><%= djob.JOB_NOTES %></td>
             <td></td>
@@ -60,6 +64,8 @@
           <th>Rigs</th>
           <th>Confirmed</th>
           <th>Confirmed Y/N</th>
+          <th>ReConfirmed</th>
+          <th>ReConfirmed Y/N</th>
           <th>Reconfirm call</th>
           <th>Job notes</th>
           <th colspan="3"></th>
@@ -79,6 +85,8 @@
             <td width="8%" class="dotted" ><%= djob.RIGS %></td>
             <td width="8%" class="dotted" ><%= djob.CONF %></td>
             <td width="8%" class="dotted" ><%= djob.CONF_YN %></td>
+            <td width="8%" class="dotted" ><%= djob.RECONF %></td>
+            <td width="8%" class="dotted" ><%= djob.RECONFYN %></td>
             <td width="8%" class="dotted" ><%= djob.RECONFIRM_CALL %></td>
             <td width="18%" class="dotted" ><%= djob.JOB_NOTES %></td>
           </tr>
