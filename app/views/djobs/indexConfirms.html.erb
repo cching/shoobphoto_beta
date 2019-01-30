@@ -103,6 +103,9 @@ button {
       <br />
       Confirmed?:
       <%= f.select :CONF_YN_eq, Djob.all.order(:CONF_YN).pluck(:CONF_YN).uniq, selected: (params[:q] ? params[:q][:CONF_YN_eq] : nil), include_blank: true %>
+      <br/>
+      Reconfirmed?:
+      <%= f.select :RECONFYN_eq, Djob.all.order(:RECONFYN).pluck(:RECONFYN).uniq, selected: (params[:q] ? params[:q][:RECONFYN_eq] : nil), include_blank: true %>
       <div class = "Date">
         <div class="col-xs-6">
           Date:
