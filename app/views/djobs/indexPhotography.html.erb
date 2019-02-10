@@ -93,7 +93,7 @@ button {
       <button onclick="printPage()">Print</button>
     </div>
     </br></br>
-    <%= search_form_for @q do |f| %>
+    <%= search_form_for @q, url: djobsphotography_path do |f| %>
     <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
       School:
       <%= f.select :school_name_eq, Djob.includes(:school).order('schools.name').all.map { |djob| djob.school.name }.uniq, selected: (params[:q] ? params[:q][:school_name_eq] : nil), include_blank: true %>

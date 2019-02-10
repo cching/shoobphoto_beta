@@ -7,23 +7,21 @@
       <thead>
       <tr style="border-bottom: 2px solid black;">
           <th></th>
+          <th> Scode </th>
           <th> <%= sort_link(@q, :school_name, "School") %> </th>
-          <th> <%= sort_link(@q, :DATE, 'Date') %> </th>   
-          <th>Start Time </th>
           <th> <%= sort_link(@q, :JOB, "Job") %> </th>
           <th>Jobtype</th>
-          <th>Location</th>
-          <th>Trigs</th>          
-          <th>Rigs</th>
-          <th> <%= sort_link(@q, :CONF, "Confirm", default_order: :desc) %> </th>
-          <th> Confirmed Y/N </th>
-          <th> <%= sort_link(@q, :RECONF, "ReConfirm", default_order: :desc) %> </th>
-          <th> ReConfirmed Y/N </th>
-          <th>Reconfirm call</th>
-          <th>Job notes</th>
+          <th> <%= sort_link(@q, :DATE, 'Date') %> </th>   
+          <th>Start Time</th>
+          <th>Trigs</th>
+          <th>Pricelist</th> 
+          <th>Conf Call</th>         
+          <th> <%= sort_link(@q, :CONF, "Conf", default_order: :desc) %> </th>
+          <th> Conf Y/N </th>
+          <th>Reconf Call</th>
+          <th> <%= sort_link(@q, :RECONF, "Reconf", default_order: :desc) %> </th>
+          <th> ReConf Y/N </th>
           <th></th>
-
-          <th colspan="3"></th>
         </tr>
       </thead>
 
@@ -31,20 +29,20 @@
         <% @djobs.each do |djob| %>
           <tr>
             <td><%= link_to 'Edit', edit_djob_path(djob, q: params[:q]) %></td>
-            <td width="8%" class="dotted" ><%= djob.school.dname %></td>
-            <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%a, %b %e, %Y') %></td>
-            <td width="8%" class="dotted" ><%= djob.STARTTIME %></td>
+            <td width="8%" class="dotted" ><%= djob.school.scode %></td>
+            <td width="8%" class="dotted" ><%= djob.school.name %></td>
             <td width="8%" class="dotted" ><%= djob.JOB %></td>
             <td width="8%" class="dotted" ><%= djob.JOBTYPE %></td>
-            <td width="8%" class="dotted" ><%= djob.LOCATION %></td>
+            <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%a, %b %e, %Y') %></td>
+            <td width="8%" class="dotted" ><%= djob.STARTTIME %></td>
             <td width="8%" class="dotted" ><%= djob.TRIGS %></td>
-            <td width="8%" class="dotted" ><%= djob.RIGS %></td>
+            <td width="8%" class="dotted" ><%= djob.PRICELIST %></td>
+            <td width="8%" class="dotted" ><%= djob.CONF_CALL %></td>
             <td width="8%" class="dotted" ><%= djob.CONF %></td>
             <td width="8%" class="dotted" ><%= djob.CONF_YN %></td>
+            <td width="8%" class="dotted" ><%= djob.RECONFIRM_CALL %></td>
             <td width="8%" class="dotted" ><%= djob.RECONF %></td>
             <td width="8%" class="dotted" ><%= djob.RECONFYN %></td>
-            <td width="8%" class="dotted" ><%= djob.RECONFIRM_CALL %></td>
-            <td width="18%" class="dotted" ><%= djob.JOB_NOTES %></td>
             <td><%= button_to 'Destroy', djob, method: :delete, data:{confirm: "Are you sure?"} %></td>
           </tr>
         <% end %>
@@ -54,20 +52,20 @@
 <table class = "printThis">
  <thead>      
       <tr style="border-bottom: 2px solid black;">
+          <th>Scode</th>
           <th>School</th>
-          <th>Date</th>   
-          <th>Start Time</th>   
           <th>Job</th>
           <th>Jobtype</th>
-          <th>Location</th>
-          <th>Trigs</th>          
-          <th>Rigs</th>
-          <th>Confirmed</th>
-          <th>Confirmed Y/N</th>
-          <th>ReConfirmed</th>
-          <th>ReConfirmed Y/N</th>
-          <th>Reconfirm call</th>
-          <th>Job notes</th>
+          <th>Date</th>   
+          <th>Start Time</th>   
+          <th>Trigs</th> 
+          <th>Pricelist</th>         
+          <th>Conf Call</th>
+          <th>Conf</th>
+          <th>Conf Y/N</th>
+          <th>Reconf Call</th>
+          <th>Reconf</th>
+          <th>Reconf Y/N</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -75,20 +73,20 @@
       <tbody>
         <% @djobs.each do |djob| %>
           <tr>
+            <td width="8%" class="dotted" ><%= djob.school.scode %></td>
             <td width="8%" class="dotted" ><%= djob.school.name %></td>
-            <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%a, %b %e, %Y') %></td>
-            <td width="8%" class="dotted" ><%= djob.STARTTIME %></td>
             <td width="8%" class="dotted" ><%= djob.JOB %></td>
             <td width="8%" class="dotted" ><%= djob.JOBTYPE %></td>
-            <td width="8%" class="dotted" ><%= djob.LOCATION %></td>
+            <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%a, %b %e, %Y') %></td>
+            <td width="8%" class="dotted" ><%= djob.STARTTIME %></td>
             <td width="8%" class="dotted" ><%= djob.TRIGS %></td>
-            <td width="8%" class="dotted" ><%= djob.RIGS %></td>
+            <td width="8%" class="dotted" ><%= djob.PRICELIST %></td>
+            <td width="8%" class="dotted" ><%= djob.CONF_CALL %></td>
             <td width="8%" class="dotted" ><%= djob.CONF %></td>
             <td width="8%" class="dotted" ><%= djob.CONF_YN %></td>
+            <td width="8%" class="dotted" ><%= djob.RECONFIRM_CALL %></td>
             <td width="8%" class="dotted" ><%= djob.RECONF %></td>
             <td width="8%" class="dotted" ><%= djob.RECONFYN %></td>
-            <td width="8%" class="dotted" ><%= djob.RECONFIRM_CALL %></td>
-            <td width="18%" class="dotted" ><%= djob.JOB_NOTES %></td>
           </tr>
         <% end %>
       </tbody>

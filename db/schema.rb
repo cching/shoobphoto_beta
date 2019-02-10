@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190129014524) do
+ActiveRecord::Schema.define(version: 20190210135725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -329,6 +329,7 @@ ActiveRecord::Schema.define(version: 20190129014524) do
     t.string   "status"
     t.string   "RECONF"
     t.boolean  "RECONFYN"
+    t.text     "DATA_NOTES"
   end
 
   create_table "download_images", force: true do |t|
