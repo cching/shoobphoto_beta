@@ -38,7 +38,7 @@ class AutoImport
 				      			
 				      		package = Package.find(h[:package_id].to_i)
 				      		## import senior images
-					      	if package.id == 6
+					      	if package.senior_portraits?
 						        
 									unless h[:student_id].nil?
 										students = school.students.where(:student_id => "#{h[:student_id]}").where(:id_only => true)

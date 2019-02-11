@@ -46,12 +46,12 @@ class OrderExport
                 @string2 = ""
 
                 order.cart.order_packages.where(:student_id => student.id).each do |opackage|
-                  if opackage.package.try(:id) == 6
+                  if opackage.package.try(:senior_portraits?)
                     @extra_poses = @extra_poses + "#{opackage.try(:extra_poses)}; "
                     @yearbook_pose = @yearbook_pose + "#{opackage.background_id}, #{opackage.senior_image.image.url if opackage.senior_image}; "
                   end
 
-                  if opackage.package.try(:id) == 6 && opackage.sheets.any?
+                  if opackage.package.try(:senior_portraits?) && opackage.sheets.any?
                     ImageType.find(opackage.sheets.pluck(:image_type_id).uniq).each do |image_type|
                       opackage.sheets.where(:image_type_id => image_type.id).each do |sheet|
                         @sheet = @sheet + "(#{ImageType.count_types(image_type.id)}) #{ImageType.name_out(image_type.id)}, #{sheet.senior_image.try(:url)}, #{sheet.try(:background_id)}; "
@@ -69,7 +69,7 @@ class OrderExport
                     if i + 1 == opackage.options.count
                       if opackage.package.try(:id) == 1
                         @string2 = @string2 + "#{option.name[0]}; "
-                      elsif opackage.package.try(:id) == 6
+                      elsif opackage.package.try(:senior_portraits?)
                         @string2 = @string2 + "#{option.name[8]}; "
                       else
                         @string2 = @string2 +  "#{option.name[-1]}; "
@@ -77,7 +77,7 @@ class OrderExport
                     else
                       if opackage.package.try(:id) == 1
                         @string2 = @string2 +  "#{option.name[0]}, "
-                      elsif opackage.package.try(:id) == 6
+                      elsif opackage.package.try(:senior_portraits?)
                         @string2 = @string2 +  "#{option.name[8]}, "
                       else
                         @string2 = @string2 +  "#{option.name[-1]}, "

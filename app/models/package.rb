@@ -35,10 +35,12 @@ class Package < ActiveRecord::Base
   	validates_attachment_content_type :banner, :content_type => /\Aimage\/.*\Z/
 
     def price school = nil
-    prices.where('school_id = ? OR school_id IS NULL', school).where('end > ? OR end IS NULL', Time.now).where('begin < ? OR begin IS NULL', Time.now).order('school_id DESC, end DESC, begin DESC').first.price rescue 0
-  end
+      prices.where('school_id = ? OR school_id IS NULL', school).where('end > ? OR end IS NULL', Time.now).where('begin < ? OR begin IS NULL', Time.now).order('school_id DESC, end DESC, begin DESC').first.price rescue 0
+    end
 
-
+    def senior_portraits?
+      name.include? 'Senior'
+    end
 
     def self.concat order_id, student_id
       @string = ""

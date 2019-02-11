@@ -89,7 +89,7 @@ class OrdersController < ApplicationController
 		@package = @opackage.package
       	image = @package.student_images.where(:student_id => @opackage.student.id).last
 
-      	if @package.id == 6 && image.present?
+      	if @package.senior_portraits? && image.present?
         @senior_url = []
         @senior_id = []
           image.senior_images.each do |senior_image|
@@ -112,7 +112,7 @@ class OrdersController < ApplicationController
 		@package = @opackage.package
       	image = @package.student_images.where(:student_id => @opackage.student.id).last
 
-      	if @package.id == 6 && image.present?
+      	if @package.senior_portraits && image.present?
         @senior_url = []
         @senior_id = []
           SeniorImage.find(@favorites.pluck(:senior_image_id)).each do |senior_image|

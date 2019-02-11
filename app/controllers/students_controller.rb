@@ -173,11 +173,12 @@ class StudentsController < ApplicationController
   def select
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @student = @cart.cart_students.order(:i).last.student
+    senior_package = @student.school.packages.find { |package| package.senior_portraits? }
 
-    if @cart.order_packages.where(:package_id => 6).any?
-      @opackage = @cart.order_packages.where(:package_id => 6).last
+    if @cart.order_packages.includes(:package).any? { |order_package| order_package.package.senior_portraits? }
+      @opackage = @cart.order_packages.includes(:package).find { |order_package| order_package.package.senior_portraits? }
     else
-      @opackage = @cart.order_packages.create(:package_id => 6, :student_id => @student.id)
+      @opackage = @cart.order_packages.create(:package_id => senior_package.id, :student_id => @student.id)
     end
 
     @opackage.options = []
@@ -208,8 +209,7 @@ class StudentsController < ApplicationController
           @ids << false
         end
 
-
-      if @cart.order_packages.where(:student_id => @student.id).pluck(:package_id).include?(6) && @cart.id_supplied?
+      if @cart.order_packages.where(:student_id => @student.id).includes(:package).any? { |order_package| order_package.package.senior_portraits? } && @cart.id_supplied?
         redirect_to senior_portraits_path(@cart.cart_id, params[:i])
       elsif @ids.include?(true) && @cart.id_supplied?
         redirect_to previous_images_path(@cart.cart_id, @cart.students.count - 1)
@@ -237,7 +237,7 @@ class StudentsController < ApplicationController
     @cart = Cart.find_by_cart_id(params[:cart_id])
     @student = @cart.cart_students.order(:i).last.student
     @i = params[:i]
-    @opackage = @cart.order_packages.where(:package_id => 6).last
+    @opackage = @cart.order_packages.includes(:package).find { |order_package| order_package.package.senior_portraits? }
 
     @package = @opackage.package
     student_image = @package.student_images.where(:student_id => @student.id)
@@ -249,7 +249,7 @@ class StudentsController < ApplicationController
 
     image = @package.student_images.where(:student_id => @opackage.student.id).last
 
-        if @package.id == 6 && image.present? && @cart.id_supplied?
+        if @package.senior_portraits? && image.present? && @cart.id_supplied?
           @boolean = false
           image.senior_images.each do |senior_image|
             if senior_image.watermark.exists?
@@ -296,7 +296,7 @@ class StudentsController < ApplicationController
     @student = @cart.cart_students.order(:i).last.student
     @i = params[:i]
 
-    @opackage = @cart.order_packages.where(:package_id => 6).last
+    @opackage = @cart.order_packages.includes(:package).find { |order_package| order_package.package.senior_portraits? }
 
     @package = @opackage.package
     student_image = @package.student_images.where(:student_id => @student.id)
@@ -311,7 +311,7 @@ class StudentsController < ApplicationController
     @package = @opackage.package
     image = @package.student_images.where(:student_id => @opackage.student.id).last
 
-        if @package.id == 6 && image && @cart.id_supplied?
+        if @package.senior_portraits? && image && @cart.id_supplied?
           @boolean = false
           image.senior_images.each do |senior_image|
             if senior_image.watermark.exists?
@@ -434,8 +434,8 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
 
    # @cart.order_packages.create(:package_id => id, :student_id => @student.id, :download_image_id => @dimage.id)
-   if @dimage.package_id == 6
-    @package = Package.find(6)
+   if @dimage.package.senior_portraits?
+    @package = @dimage.package
   else
     @package = Package.find(253)
   end
@@ -458,8 +458,8 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
 
    # @cart.order_packages.create(:package_id => id, :student_id => @student.id, :download_image_id => @dimage.id)
-   if @dimage.package_id == 6
-    @package = Package.find(6)
+   if @dimage.package.senior_portraits?
+    @package = @dimage.package
   else
     @package = Package.find(253)
   end
