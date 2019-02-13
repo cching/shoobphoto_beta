@@ -97,6 +97,7 @@ class DjobsController < ApplicationController
   end
 
   def edit
+    @renderType = params[:type]
     @q = params[:q]
   end
 

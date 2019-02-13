@@ -27,7 +27,7 @@
       <tbody>
         <% @djobs.each do |djob| %>
           <tr>
-            <td><%= link_to 'Edit', edit_djob_path(djob, q: params[:q]) %></td>
+            <td><%= link_to 'Edit', edit_djob_path(djob, q: params[:q], :type => "confirms") %></td>
             <td width="8%" class="dotted" ><%= djob.school.scode %></td>
             <td width="8%" class="dotted" ><%= djob.school.name %></td>
             <td width="8%" class="dotted" ><%= djob.JOB %></td>

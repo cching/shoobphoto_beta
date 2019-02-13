@@ -5,7 +5,7 @@
     <%= f.input :JOBTYPE_eq, as: :hidden, input_html: { value: params[:q][:JOBTYPE_eq] } if params[:q] && params[:q][:JOBTYPE_eq] %>
     <%= f.input :CONF_YN_eq, as: :hidden, input_html: { value: params[:q][:CONF_YN_eq] } if params[:q] && params[:q][:JOBTYPE_eq] %>
     <%= f.input :s, as: :hidden, input_html: { value: params[:q][:s] } if params[:q] && params[:q][:s] %>
-  
+
 <div class="form-inputs">
   <div class = "row">    
    <div class = "col-xs-4">
@@ -13,9 +13,20 @@
           <%= @djob.school.dname %>
    </div>
    <div class = "col-xs-2">
-          Account <br />
+          Scode <br />
           <%= @djob.school.scode %>
-   </div>    
+   </div>
+   <div class = "col-xs-3">
+          District <br />
+          <%= @djob.school.ddistrict %>
+   </div>
+   <div class = "col-xs-3">
+          Address <br />
+          <%= @djob.school.daddress %>
+   </div> 
+  </div> 
+  <hr>
+  <div class = "row">     
    <div class = "col-xs-3">
           Principal <br />
           <%= @djob.school.principal %>
@@ -24,23 +35,30 @@
           Principal Email <br />
           <%= @djob.school.prin_email %>
       </div>
+    <div class = "col-xs-3">
+      Secretary <br />
+      <%= @djob.school.secretary %>
+    </div>
+    <div class = "col-xs-3">
+      Secretary Email <br />
+      <%= @djob.school.sec1_email %>
     </div>
   </div>
   <hr>
   <div class = "row">    
       <div class = "col-xs-3">
-          Secretary <br />
-          <%= @djob.school.secretary %>
-      </div>
-      <div class = "col-xs-3">
-          Secretary Email <br />
-          <%= @djob.school.sec1_email %>
+          City <br />
+          <%= @djob.school.city %>
       </div>
       <div class = "col-xs-2">
-          City <br />
-          <%= @djob.school.city_id %>
-     </div>
-      <div class= "col-xs-2">
+          State <br />
+          <%= @djob.school.state %>
+      </div>
+      <div class = "col-xs-2">
+          ZIP Code <br />
+          <%= @djob.school.zip %>
+      </div>
+      <div class= "col-xs-3">
           Phone <br />
           <%= @djob.school.phone %>
           </div>
@@ -48,10 +66,8 @@
           Route <br />
           <%= @djob.school.route %>
       </div>
-    
-    
-      </div>
-  <hr>       
+  </div>
+<hr>       
   
 <% if current_user.admin? %>
 
@@ -91,7 +107,7 @@
     </div>
     <div class = "col-xs-3">  
         Date <br />
-        <%= @djob.DATE %>
+        <%= @djob.DATE.try(:strftime, '%a, %b %e, %Y') %>
     </div>
     <div class = "col-xs-3"> 
         Start Time <br />       
@@ -107,42 +123,48 @@
 
   <hr>
   <div class = "row">
-      <div class = "col-xs-2">
+  <div class = "col-xs-3">
       Price List <br />
       <%= f.input :PRICELIST, :label => false %>
   </div>
-      <div class = "col-xs-2">
-      Rigs <br />
-      <%= f.input :RIGS, :label => false %>
+  <div class = "col-xs-3">
+      Confirm call <br />
+      <%= f.input :CONF_CALL, :label => false %>
   </div>
-      <div class = "col-xs-4">
-      PhotoG1 <br />
-      <%= f.input :PHOTOG1, :label => false %>
+  <div class = "col-xs-3">
+      Confirmed by <br />
+      <%= f.input :CONF, :label => false %>
   </div>
-      <div class = "col-xs-4">
-      Status <br />
-      <%= f.input :status, :label => false %>
+  <div class = "col-xs-3">
+      Confirmed? <br />
+      <%= f.select(:CONF_YN, ["","true","false"], {}, {:class => 'form-control'}) %>
   </div>
   </div>
   <hr>
   <div class = "row">
-      <div class = "col-xs-3">
-      Confirmed by <br />
-      <%= f.input :CONF, :label => false %>
-      </div>
-      <div class = "col-xs-1">
-      Confirmed? <br />
-      <%= f.select(:CONF_YN, ["","true","false"], {}, {:class => 'form-control'}) %>
-      </div>
-      <div class = "col-xs-4">  
-      Notes <br />
-      <%= f.input :PHOTOG_NOTE, :as => :text, :input_html => {:rows => 4}, :label => false %>
-      </div>
-      <div class = "col-xs-4">
+  <div class = "col-xs-4">
+      Reconfirm call <br />
+      <%= f.input :CONF_CALL, :label => false %>
+  </div>
+  <div class = "col-xs-4">
+      ReConfirmed by <br />
+      <%= f.input :RECONF, :label => false %>
+  </div>
+  <div class = "col-xs-4">
+      ReConfirmed? <br />
+      <%= f.select(:RECONFYN, ["","true","false"], {}, {:class => 'form-control'}) %>
+  </div>
+  </div>
+  <div class = "row">
+  <div class = "col-xs-6">
       Job Notes <br />
-      <%= f.input :JOB_NOTES, :as => :text, :input_html => {:Rows => 4}, :label => false%>
-      </div>
-</div>
+      <%= f.input :JOB_NOTES, :input_html => {:rows => 4}, :label => false %>
+  </div>
+  <div class = "col-xs-6">
+      Lab Note <br />
+      <%= f.input :LAB_NOTE, :input_html => {:rows => 4}, :label => false %>
+  </div>
+  </div>
   <hr>
   </br></br>
   
@@ -151,6 +173,5 @@
     </div>
     <%= link_to("Previous Job", bysearch_djobs_path(q: @q, id: @djob.id, direction: -1)) if @djob.sequential_djob(@q, -1) %> |
     <%= link_to("Next Job", bysearch_djobs_path(q: @q, id: @djob.id, direction: 1)) if @djob.sequential_djob(@q, 1) %> 
-   
-  
-  <% end %>
+
+<% end %>

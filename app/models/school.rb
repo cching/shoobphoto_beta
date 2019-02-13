@@ -42,7 +42,15 @@ class School < ActiveRecord::Base
 
   	def dname
   		return name
-  	end
+	end
+	  
+	def daddress
+		return address
+	end
+
+	def ddistrict
+		return district
+	end
 
 	def dcity
 		return city
