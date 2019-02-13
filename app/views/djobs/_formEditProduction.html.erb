@@ -127,34 +127,21 @@
       Price List <br />
       <%= f.input :PRICELIST, :label => false %>
   </div>
-  <div class = "col-xs-3">
-      Confirm call <br />
-      <%= f.input :CONF_CALL, :label => false %>
+  <div class = "col-xs-2">
+      Rigs <br />
+      <%= f.input :RIGS, :label => false %>
   </div>
   <div class = "col-xs-3">
-      Confirmed by <br />
-      <%= f.input :CONF, :label => false %>
+      Photog1 <br />
+      <%= f.input :PHOTOG1, :label => false %>
   </div>
-  <div class = "col-xs-3">
-      Confirmed? <br />
-      <%= f.select(:CONF_YN, ["","true","false"], {}, {:class => 'form-control'}) %>
+  <div class = "col-xs-4">
+      Photog note <br />
+      <%= f.input :PHOTOG_NOTE, :label => false %>
   </div>
   </div>
   <hr>
-  <div class = "row">
-  <div class = "col-xs-4">
-      Reconfirm call <br />
-      <%= f.input :CONF_CALL, :label => false %>
-  </div>
-  <div class = "col-xs-4">
-      ReConfirmed by <br />
-      <%= f.input :RECONF, :label => false %>
-  </div>
-  <div class = "col-xs-4">
-      ReConfirmed? <br />
-      <%= f.select(:RECONFYN, ["","true","false"], {}, {:class => 'form-control'}) %>
-  </div>
-  </div>
+
   <div class = "row">
   <div class = "col-xs-6">
       Job Notes <br />
@@ -163,6 +150,117 @@
   <div class = "col-xs-6">
       Lab Note <br />
       <%= f.input :LAB_NOTE, :input_html => {:rows => 4}, :label => false %>
+  </div>
+  </div>
+  <hr>
+
+  <div class = "row">
+  <div class = "col-xs-2">
+      Data call <br />
+      <%= f.input :DATA_CALL, :label => false %>
+  </div>
+  <div class = "col-xs-2">
+      Data rec <br />
+      <%= f.date_field(:DATA_REC, {:class => "form-control"})%>
+  </div>
+  <div class = "col-xs-2">
+      Data setup <br />
+      <%= f.date_field(:DATA_SETUP, {:class => "form-control"}) %>
+  </div>
+  <div class = "col-xs-2">
+      Data2Web <br />
+      <%= f.input :DATA2WEB, :label => false %>
+  </div>
+  <div class = "col-xs-4">
+      Data Notes<br />
+      <%= f.input :DATA_NOTES, :label => false %>
+  </div>
+  </div>
+  <hr>
+
+  <div class = "row">
+  <div class = "col-xs-3">
+      Notices <br />
+      <%= f.input :NOTICES, :label => false %>
+  </div>
+  <div class = "col-xs-3">
+      Flyers <br />
+      <%= f.date_field(:FLYERS, {:class => "form-control"}) %>
+  </div>
+  <div class = "col-xs-3">
+      Posters <br />
+      <%= f.date_field(:POSTERS, {:class => "form-control"}) %>
+  </div>
+  <div class = "col-xs-3">
+      Notice note <br />
+      <%= f.input :NOTICE_NOTE, :label => false %>
+  </div>
+  </div>
+  <hr>
+
+  <div class = "row">
+  <div class = "col-xs-4">
+      Laptops <br />
+      <%= f.date_field(:LAPTOPS, {:class => "form-control"}) %>
+  </div>
+  <div class = "col-xs-4">
+      Laptop notes <br />
+      <%= f.input :LAPTOP_NOTES, :label => false %>
+  </div>
+  <div class = "col-xs-4">
+      Laptop download <br />
+      <%= f.input :LAPTOP_DLD, :label => false %>
+  </div>
+  </div>
+  <hr>
+
+  <div class = "row">
+  <div class = "col-xs-6">
+      Type Date <br />
+      <%= f.date_field(:TYPE_DATE, {:class => "form-control"}) %>
+  </div>
+  <div class = "col-xs-6">
+      Typed by <br />
+      <%= f.input :TYPED_BY, :label => false %>
+  </div>
+  <hr>
+
+  <div class = "row">
+  <div class = "col-xs-3">
+      Crop Date <br />
+      <%= f.date_field(:CROP_DATE, {:class => "form-control"}) %>
+  </div>
+  <div class = "col-xs-3">
+      Crop Note <br />
+      <%= f.input :CROP_NOTE, :label => false %>
+  </div>
+  <div class = "col-xs-3">
+      Corr Date <br />
+      <%= f.date_field(:CORR_DATE, {:class => "form-control"}) %>
+  </div>
+  <div class = "col-xs-3">
+      Corr by <br />
+      <%= f.input :CORR_BY, :label => false %>
+  </div>
+  </div>
+  <hr>
+
+  <div class = "row">
+  <div class = "col-xs-3">
+      Print Date <br />
+      <%= f.date_field(:PRINT_DATE, {:class => "form-control"}) %>
+  </div>
+  <div class = "col-xs-3">
+      Print by <br />
+      <%= f.input :PRINT_BY, :label => false %>
+  </div>
+  <div class = "col-xs-3">
+      Pks Ship <br />
+      <%= f.date_field(:PKS_SHIP, {:class => "form-control"}) %>
+  </div>
+  <div class = "col-xs-3">
+      Pks Note <br />
+      <%= f.input :PKS_NOTE, :label => false %>
   </div>
   </div>
   <hr>

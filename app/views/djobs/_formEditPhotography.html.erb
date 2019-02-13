@@ -127,34 +127,20 @@
       Price List <br />
       <%= f.input :PRICELIST, :label => false %>
   </div>
-  <div class = "col-xs-3">
-      Confirm call <br />
-      <%= f.input :CONF_CALL, :label => false %>
+  <div class = "col-xs-2">
+      Rigs <br />
+      <%= f.input :RIGS, :label => false %>
   </div>
   <div class = "col-xs-3">
-      Confirmed by <br />
-      <%= f.input :CONF, :label => false %>
+      Photog1 <br />
+      <%= f.input :PHOTOG1, :label => false %>
   </div>
-  <div class = "col-xs-3">
-      Confirmed? <br />
-      <%= f.select(:CONF_YN, ["","true","false"], {}, {:class => 'form-control'}) %>
+  <div class = "col-xs-4">
+      Photog note <br />
+      <%= f.input :PHOTOG_NOTE, :label => false %>
   </div>
   </div>
   <hr>
-  <div class = "row">
-  <div class = "col-xs-4">
-      Reconfirm call <br />
-      <%= f.input :CONF_CALL, :label => false %>
-  </div>
-  <div class = "col-xs-4">
-      ReConfirmed by <br />
-      <%= f.input :RECONF, :label => false %>
-  </div>
-  <div class = "col-xs-4">
-      ReConfirmed? <br />
-      <%= f.select(:RECONFYN, ["","true","false"], {}, {:class => 'form-control'}) %>
-  </div>
-  </div>
   <div class = "row">
   <div class = "col-xs-6">
       Job Notes <br />
