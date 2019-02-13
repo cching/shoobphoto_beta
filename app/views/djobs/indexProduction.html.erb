@@ -140,6 +140,17 @@ button {
 </div>
 </br>
 
+<div class="row noPrint">
+<div class="col-xs-1">
+</div>
+<div class="col-xs-1">
+  <%= link_to "Confirms", djobsconfirms_path, class: "btn btn-primary" %>
+</div>
+<div class="col-xs-1">
+  <%= link_to "Photography", djobsphotography_path, class: "btn btn-primary" %>
+</div>
+</div>
+
   <% if current_user.admin? %>
     <%= render 'production_admin' %>
   <% else %>
