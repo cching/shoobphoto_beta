@@ -16,27 +16,47 @@ p {
 			<p>STUDENTS</p>
 		</div> 
 	<% end %>
-	</br>
 
 	<%= link_to awards_path, id: "my-link" do %>
 		<div class="odd_blue">
 			<p>AWARDS</p>
 		</div> 
 	<% end %>
-	</br>
 
 	<%= link_to dprojects_path do %>
 		<div class="even_blue">
 			<p>PROJECTS</p>
 		</div> 
 	<% end %>
-	</br>
 
 	<% if current_user.try(:admin) %>
-	<%= link_to admin_dashboards_path do %>
+	<%= link_to djobsconfirms_path do %>
 		<div class="odd_blue">
-			<p>DASHBOARD</p>
+			<p>JOB CONFIRMS</p>
 		</div> 
 	<% end %>
 	<% end %>
 
+	<% if current_user.try(:admin) %>
+	<%= link_to djobsphotography_path do %>
+		<div class="even_blue">
+			<p>JOB PHOTOGRAPHY</p>
+		</div> 
+	<% end %>
+	<% end %>
+
+	<% if current_user.try(:admin) %>
+	<%= link_to djobsproduction_path do %>
+		<div class="odd_blue">
+			<p>JOB PRODUCTION</p>
+		</div> 
+	<% end %>
+	<% end %>
+
+	<% if current_user.try(:admin) %>
+	<%= link_to admin_dashboards_path do %>
+		<div class="even_blue">
+			<p>DASHBOARD</p>
+		</div> 
+	<% end %>
+	<% end %>

@@ -112,6 +112,7 @@ class DjobsController < ApplicationController
     end
 
   def update
+    @r = params[:type]
     q ={}
     q[:DATE_eq] = params[:djob].delete(:DATE_eq)
     q[:school_name_eq] = params[:djob].delete(:school_name_eq)
@@ -119,22 +120,30 @@ class DjobsController < ApplicationController
     q[:CONF_YN_eq] = params[:djob].delete(:CONF_YN_eq)
     q[:s] = params[:djob].delete(:s)
 
-
     @djob.update(djob_params)
     @djob.save
 
-    redirect_to djobs_path(q: q)
+    if @r == "Update Confirms"
+      redirect_to djobsconfirms_path(q: q)
+    elsif @r == "Update Photography"
+      redirect_to djobsphotography_path(q: q)
+    elsif @r == "Update Production"
+      redirect_to djobsproduction_path(q: q)
+    else
+      redirect_to "djobs/new"
+    end
+
   end
 
   def destroy
     @djob.destroy
-    redirect_to djobs_path
+    redirect_to djobsconfirms_path
   end
 
   def import
     Djob.import(params[:file])
     #After import, redirects and lets us know it worked
-    redirect_to "/djobs", notice: "Jobs added successfully"
+    redirect_to "/djobsconfirms", notice: "Jobs added successfully"
 
   end
 

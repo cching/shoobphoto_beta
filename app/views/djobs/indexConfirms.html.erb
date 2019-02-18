@@ -109,7 +109,7 @@ button {
       <div class = "Date">
         <div class="col-xs-6">
           Date:
-          <%= f.date_field :DATE_eq, class: 'form-control input-sm', 'datepicker' => true %>
+          <%= f.date_field :DATE_eq, class: 'form-control input-sm', id: 'date_fill', 'datepicker' => true %>
         </div>
       </div>
       </br>
@@ -122,6 +122,9 @@ button {
       </div>
         <div class = "col-xs-2"> 
           <%= link_to 'Next', bydate_djobs_path(q: params[:q], direction: 1)  %>
+        </div>
+        <div class = "col-xs-2"> 
+        today button here
         </div>
         <br />
       </div>
