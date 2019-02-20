@@ -85,14 +85,10 @@ button {
 
 <div class="row noPrint">
   <div class="col-xs-8">
-    <h4>Jobs</h4>
-    <br>
+    <h3>Jobs</h3>
     <div class="col-xs-4">
       <%= link_to 'New djob', new_djob_path, class: "btn btn-primary" %>
       </div>
-    <div class="col-xs-8">
-      <button onclick="printPage()">Print</button>
-    </div>
     </br></br>
     <%= search_form_for @q, url: djobsconfirms_path do |f| %>
     <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
@@ -136,6 +132,8 @@ button {
   </div>
   <div class="col-xs-1">
     <%= link_to "Photography", djobsphotography_path, class: "btn btn-primary" %>
+  </div>
+  <div class="col-xs-1">
   </div>
   <div class="col-xs-1">
     <%= link_to "Production", djobsproduction_path, class: "btn btn-primary" %>
