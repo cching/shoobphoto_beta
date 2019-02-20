@@ -1,0 +1,84 @@
+<h4 style="text-align: center;">Photography</h4>
+<div class="row">
+<div class="col-xs-12">
+<table class ="noPrint">
+      <thead>
+      <tr style="border-bottom: 2px solid black;">
+          <th></th>
+          <th> Scode </th>
+          <th> <%= sort_link(@q, :school_name, "School") %> </th>
+          <th> <%= sort_link(@q, :JOB, "Job") %> </th>
+          <th>Jobtype</th>
+          <th> <%= sort_link(@q, :DATE, 'Date') %> </th>   
+          <th>Start Time</th>
+          <th>Trigs</th>
+          <th>Pricelist</th>
+          <th>Rigs</th>         
+          <th>Photog1</th>
+          <th>Job Notes</th>
+          <th>Photog Note</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @djobs.each do |djob| %>
+          <tr>
+            <td><%= link_to 'Edit', edit_djob_path(djob, q: params[:q], :type => "photography") %></td>
+            <td width="8%" class="dotted" ><%= djob.school.scode %></td>
+            <td width="8%" class="dotted" ><%= djob.school.name %></td>
+            <td width="8%" class="dotted" ><%= djob.JOB %></td>
+            <td width="8%" class="dotted" ><%= djob.JOBTYPE %></td>
+            <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%a, %b %e, %Y') %></td>
+            <td width="8%" class="dotted" ><%= djob.STARTTIME %></td>
+            <td width="8%" class="dotted" ><%= djob.TRIGS %></td>
+            <td width="8%" class="dotted" ><%= djob.PRICELIST %></td>
+            <td width="8%" class="dotted" ><%= djob.RIGS %></td>
+            <td width="8%" class="dotted" ><%= djob.PHOTOG1 %></td>
+            <td width="8%" class="dotted" ><%= djob.JOB_NOTES %></td>
+            <td width="8%" class="dotted" ><%= djob.PHOTOG_NOTE %></td>
+            <td><%= button_to 'Destroy', djob, method: :delete, data:{confirm: "Are you sure?"} %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+<table class = "printThis">
+ <thead>      
+      <tr style="border-bottom: 2px solid black;">
+          <th> Scode </th>
+          <th> School </th>
+          <th> Job </th>
+          <th>Jobtype</th>
+          <th> Date </th>   
+          <th>Start Time</th>
+          <th>Trigs</th>
+          <th>Pricelist</th> 
+          <th>Conf Call</th>         
+          <th>Rigs</th>
+          <th>Photog1</th>
+          <th>Job Notes</th>
+          <th>Photog Note</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @djobs.each do |djob| %>
+          <tr>
+          <td width="8%" class="dotted" ><%= djob.school.scode %></td>
+          <td width="8%" class="dotted" ><%= djob.school.name %></td>
+          <td width="8%" class="dotted" ><%= djob.JOB %></td>
+          <td width="8%" class="dotted" ><%= djob.JOBTYPE %></td>
+          <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%a, %b %e, %Y') %></td>
+          <td width="8%" class="dotted" ><%= djob.STARTTIME %></td>
+          <td width="8%" class="dotted" ><%= djob.TRIGS %></td>
+          <td width="8%" class="dotted" ><%= djob.PRICELIST %></td>
+          <td width="8%" class="dotted" ><%= djob.RIGS %></td>
+          <td width="8%" class="dotted" ><%= djob.PHOTOG1 %></td>
+          <td width="8%" class="dotted" ><%= djob.JOB_NOTES %></td>
+          <td width="8%" class="dotted" ><%= djob.PHOTOG_NOTE %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div>
