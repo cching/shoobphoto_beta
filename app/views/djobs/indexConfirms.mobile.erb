@@ -115,10 +115,10 @@ button {
       </div>
       <br />
       <div class = "col-xs-2">
-        <%= link_to 'Previous', bydate_djobs_path(q: params[:q], direction: -1)  %>
+        <%= link_to 'Previous', bydate_djobs_path(q: params[:q], direction: -1, :type => "confirms")  %>
       </div>
         <div class = "col-xs-2"> 
-          <%= link_to 'Next', bydate_djobs_path(q: params[:q], direction: 1)  %>
+          <%= link_to 'Next', bydate_djobs_path(q: params[:q], direction: 1, :type => "confirms")  %>
         </div>
         <br />
       </div>

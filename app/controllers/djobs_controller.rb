@@ -82,6 +82,7 @@ class DjobsController < ApplicationController
 
   
   def bydate
+    @renderType = params[:type]
     new_params = params[:q] || { q: nil }
     date = new_params[:DATE_eq]
     direction = params[:direction].to_i
@@ -91,8 +92,13 @@ class DjobsController < ApplicationController
    
     new_params[:DATE_eq] = (new_date + direction).strftime('%Y-%m-%d')
 
-    
-    redirect_to djobs_path(q: new_params)
+    if @renderType == "confirms"
+      redirect_to djobsconfirms_path(q: new_params)
+    elsif @renderType == "photography"
+      redirect_to djobsphotography_path(q: new_params)
+    else
+      redirect_to djobsproduction_path(q: new_params)
+    end
 
   end
 
