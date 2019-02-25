@@ -55,11 +55,11 @@ class AutoImport
 								        end
 
 
-								        images = student.student_images.where(["package_id = ? and load_id = ?", 6, "#{h[:load_id]}"])
+								        images = student.student_images.where(["package_id = ? and load_id = ?", package.id, "#{h[:load_id]}"])
 								        if images.any?
 								            image = images.last
 								        else
-								        	image = package.student_images.new(:package_id => 6, :load_id => h[:load_id],:student_id => student.id, :image_file_name => h[:url], :folder => h[:folder], :grade => h[:grade], :url => h[:url], :shoob_id => h[:shoob_id], :accesscode => h[:accesscode])
+								        	image = package.student_images.new(:package_id => package.id, :load_id => h[:load_id],:student_id => student.id, :image_file_name => h[:url], :folder => h[:folder], :grade => h[:grade], :url => h[:url], :shoob_id => h[:shoob_id], :accesscode => h[:accesscode])
 								            image.index_file_name = "#{image.image_file_name}-index" 
 								            image.save
 								        end
