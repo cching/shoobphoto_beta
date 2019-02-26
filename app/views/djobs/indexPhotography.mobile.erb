@@ -131,12 +131,12 @@ button {
   <div class="col-xs-1">
   </div>
   <div class="col-xs-1">
-    <%= link_to "Confirms", djobsconfirms_path, class: "btn btn-primary" %>
+    <%= link_to "Confirms", djobsconfirms_path(q: params[:q]), class: "btn btn-primary" %>
   </div>
   <div class="col-xs-1">
   </div>
   <div class="col-xs-1">
-    <%= link_to "Production", djobsproduction_path, class: "btn btn-primary" %>
+    <%= link_to "Production", djobsproduction_path(q: params[:q]), class: "btn btn-primary" %>
   </div>
 </div>
 
