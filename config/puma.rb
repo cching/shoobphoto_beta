@@ -1,4 +1,5 @@
 workers Integer(ENV['WEB_CONCURRENCY'] || 2)
+worker_timeout (24*60*60) if ENV['RAILS_ENV']=='development'
 threads_count = Integer(ENV['MAX_THREADS'] || 5)
 threads threads_count, threads_count
 
