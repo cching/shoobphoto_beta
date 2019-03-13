@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     collection { post :import }
   end
   
+  resources :categories
 
   resources :dschools
 
