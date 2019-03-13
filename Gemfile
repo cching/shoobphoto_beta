@@ -78,13 +78,11 @@ gem 'remotipart', '~> 1.2'
 gem 'puma'
 gem "puma_worker_killer"
 
-gem "rack-timeout"
+gem "rack-timeout", require:"rack/timeout/base"
 gem 'jquery-minicolors-rails'
-
 
 gem 'sidekiq'
 gem 'american_date'
-
 
 gem 'sinatra', require: false
 gem 'slim'
