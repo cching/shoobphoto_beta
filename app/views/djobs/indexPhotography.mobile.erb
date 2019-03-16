@@ -105,10 +105,10 @@ button {
       <%= f.select :RECONFYN_eq, Djob.all.order(:RECONFYN).pluck(:RECONFYN).uniq, selected: (params[:q] ? params[:q][:RECONFYN_eq] : nil), include_blank: true %>
       <br />
       Data?:
-      <%= f.select :RECONFYN_eq, Djob.all.order(:RECONFYN).pluck(:RECONFYN).uniq, selected: (params[:q] ? params[:q][:RECONFYN_eq] : nil), include_blank: true %>
+      <%= f.select :DATA_NOTES_eq, Djob.all.order(:DATA_NOTES.pluck(:DATA_NOTES).uniq, selected: (params[:q] ? params[:q][:DATA_NOTES_eq] : nil), include_blank: true %>
       <br />
       Notices?:
-      <%= f.select :RECONFYN_eq, Djob.all.order(:RECONFYN).pluck(:RECONFYN).uniq, selected: (params[:q] ? params[:q][:RECONFYN_eq] : nil), include_blank: true %>
+      <%= f.select :NOTICES_eq, Djob.all.order(:NOTICES).pluck(:NOTICES).uniq, selected: (params[:q] ? params[:q][:NOTICES_eq] : nil), include_blank: true %>
       <div class = "Date">
         <div class="col-xs-6">
           Date:
