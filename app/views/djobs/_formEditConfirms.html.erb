@@ -167,10 +167,12 @@
   </div>
   <hr>
   </br></br>
-  
+    
+  <% if current_user.admin? %>
     <div class="form-actions">
       <%= f.button :submit, name: "type", value: "Update Confirms" %>
     </div>
+  <% end %>
     <%= link_to("Previous Job", bysearch_djobs_path(q: @q, id: @djob.id, direction: -1)) if @djob.sequential_djob(@q, -1) %> |
     <%= link_to("Next Job", bysearch_djobs_path(q: @q, id: @djob.id, direction: 1)) if @djob.sequential_djob(@q, 1) %> 
 
