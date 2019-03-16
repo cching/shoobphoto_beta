@@ -87,7 +87,6 @@ class DjobsController < ApplicationController
     date = new_params[:DATE_eq]
     direction = params[:direction].to_i
 
-
     new_date = date.nil? ? Time.now : Date.parse(date)
    
     new_params[:DATE_eq] = (new_date + direction).strftime('%Y-%m-%d')

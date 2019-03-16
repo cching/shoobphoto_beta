@@ -109,6 +109,19 @@ button {
       <br />
       Notices?:
       <%= f.select :NOTICES_YN_eq, Djob.all.order(:NOTICES_YN).pluck(:NOTICES_YN).uniq, selected: (params[:q] ? params[:q][:NOTICES_YN_eq] : nil), include_blank: true  %>
+
+      <% if params[:q] == nil %>
+
+      <div class = "Date">
+        <div class="col-xs-6">
+          Date:
+          <%= f.date_field :DATE_eq, class: 'form-control input-sm', id: 'date_fill', 'datepicker' => true, :value => Time.now.strftime('%Y-%m-%d')  %>
+        </div>
+      </div>
+      </br>
+
+      <% else %>
+
       <div class = "Date">
         <div class="col-xs-6">
           Date:
@@ -116,6 +129,9 @@ button {
         </div>
       </div>
       </br>
+
+      <% end %>
+
       <div class="col-xs-6">
         <%= f.submit %>
       </div>
