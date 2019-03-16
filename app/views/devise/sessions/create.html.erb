@@ -1,32 +1,62 @@
-<br/>
-<br/>
+<style>
 
-<div class="animated fadeInUp">
+p {
+	font-size: 35px !important;
+	height: 80px !important;
+	color: white !important;
+	text-align: center;
+}
+
+</style>
+
+</br>
 
 	<%= link_to export_students_path do %>
-		<div class="mobile_package even_blue">
+		<div class="even_blue">
 			<p>STUDENTS</p>
 		</div> 
 	<% end %>
 
 	<%= link_to awards_path, id: "my-link" do %>
-		<div class="mobile_package odd_blue">
+		<div class="odd_blue">
 			<p>AWARDS</p>
 		</div> 
 	<% end %>
 
 	<%= link_to dprojects_path do %>
-		<div class="mobile_package even_blue">
+		<div class="even_blue">
 			<p>PROJECTS</p>
 		</div> 
 	<% end %>
 
 	<% if current_user.try(:admin) %>
+	<%= link_to djobsconfirms_path do %>
+		<div class="odd_blue">
+			<p>JOB CONFIRMS</p>
+		</div> 
+	<% end %>
+	<% end %>
+
+	<% if current_user.try(:admin) %>
+	<%= link_to djobsphotography_path do %>
+		<div class="even_blue">
+			<p>JOB PHOTOGRAPHY</p>
+		</div> 
+	<% end %>
+	<% end %>
+
+	<% if current_user.try(:admin) %>
+	<%= link_to djobsproduction_path do %>
+		<div class="odd_blue">
+			<p>JOB PRODUCTION</p>
+		</div> 
+	<% end %>
+	<% end %>
+
+	<% if current_user.try(:admin) %>
 	<%= link_to admin_dashboards_path do %>
-		<div class="mobile_package odd_blue">
+		<div class="even_blue">
 			<p>DASHBOARD</p>
 		</div> 
 	<% end %>
 	<% end %>
-</div>
-
