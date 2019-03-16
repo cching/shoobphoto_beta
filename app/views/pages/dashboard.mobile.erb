@@ -4,11 +4,18 @@
 
 <% if current_user.try(:photographer) %>
 <%= link_to djobsphotography_path do %>
-	<div class="even_blue">
-		<p>JOB PHOTOGRAPHY</p>
+	<div class="mobile_package even_blue">
+		<p>JOBS</p>
 	</div> 
 <% end %>
 <% end %>
 
+	<% if current_user.try(:admin) %>
+	<%= link_to admin_dashboards_path do %>
+		<div class="mobile_package odd_blue">
+			<p>DASHBOARD</p>
+		</div> 
+	<% end %>
+	<% end %>
 </div>
 
