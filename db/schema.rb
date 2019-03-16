@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190213212609) do
+ActiveRecord::Schema.define(version: 20190316201904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -332,6 +332,8 @@ ActiveRecord::Schema.define(version: 20190213212609) do
     t.text     "DATA_NOTES"
     t.text     "LAPTOP_NOTES"
     t.text     "LAPTOP_DLD"
+    t.boolean  "NOTICES_YN"
+    t.boolean  "DATA_YN"
   end
 
   create_table "download_images", force: true do |t|
