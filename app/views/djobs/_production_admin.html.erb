@@ -14,7 +14,6 @@
           <th> <%= sort_link(@q, :DATE, 'Date') %> </th>   
           <th>Trigs</th>
           <th>Pricelist</th> 
-          <th>Job Notes</th>
           <th>Photog Note</th>
           <th>Lab Note</th>
           <th>Data Call</th>
@@ -37,7 +36,6 @@
             <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%a, %b %e, %Y') %></td>
             <td width="8%" class="dotted" ><%= djob.TRIGS %></td>
             <td width="8%" class="dotted" ><%= djob.PRICELIST %></td>
-            <td width="8%" class="dotted" ><%= djob.JOB_NOTES %></td>
             <td width="8%" class="dotted" ><%= djob.PHOTOG_NOTE %></td>
             <td width="8%" class="dotted" ><%= djob.LAB_NOTE %></td>
             <td width="8%" class="dotted" ><%= djob.DATA_CALL %></td>
@@ -61,7 +59,6 @@
         <th> <%= sort_link(@q, :DATE, 'Date') %> </th>   
         <th>Trigs</th>
         <th>Pricelist</th> 
-        <th>Job Notes</th>
         <th>Photog Note</th>
         <th>Lab Note</th>
         <th>Data Call</th>
@@ -82,7 +79,6 @@
             <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%a, %b %e, %Y') %></td>
             <td width="8%" class="dotted" ><%= djob.TRIGS %></td>
             <td width="8%" class="dotted" ><%= djob.PRICELIST %></td>
-            <td width="8%" class="dotted" ><%= djob.JOB_NOTES %></td>
             <td width="8%" class="dotted" ><%= djob.PHOTOG_NOTE %></td>
             <td width="8%" class="dotted" ><%= djob.LAB_NOTE %></td>
             <td width="8%" class="dotted" ><%= djob.DATA_CALL %></td>
