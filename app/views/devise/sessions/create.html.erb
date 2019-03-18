@@ -37,7 +37,7 @@ p {
 	<% end %>
 	<% end %>
 
-	<% if current_user.try(:admin) %>
+	<% if current_user.try(:photographer) %>
 	<%= link_to djobsphotography_path do %>
 		<div class="even_blue">
 			<p>JOB PHOTOGRAPHY</p>

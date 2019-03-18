@@ -18,6 +18,8 @@
           <th>Data Rec</th>
           <th>Data Notes</th>
           <th>Notices</th>
+          <th>Data Y/N</th>
+          <th>Notices Y/N</th>
           <th>Laptops (loaded)</th>
           <th></th>
         </tr>
@@ -40,6 +42,8 @@
             <td width="8%" class="dotted" ><%= djob.DATA_REC %></td>
             <td width="8%" class="dotted" ><%= djob.DATA_NOTES %></td>
             <td width="8%" class="dotted" ><%= djob.NOTICES %></td>
+            <td width="8%" class="dotted" ><%= djob.DATA_YN %></td>
+            <td width="8%" class="dotted" ><%= djob.NOTICES_YN %></td>
             <td width="8%" class="dotted" ><%= djob.LAPTOPS %></td>
             <td><%= button_to 'Destroy', djob, method: :delete, data:{confirm: "Are you sure?"} %></td>
           </tr>
@@ -63,6 +67,8 @@
         <th>Data Rec</th>
         <th>Data Notes</th>
         <th>Notices</th>
+        <th>Data Y/N</th>
+        <th>Notices Y/N</th>
         <th>Laptops (loaded)</th>
       </tr>
       </thead>
@@ -83,6 +89,8 @@
             <td width="8%" class="dotted" ><%= djob.DATA_REC %></td>
             <td width="8%" class="dotted" ><%= djob.DATA_NOTES %></td>
             <td width="8%" class="dotted" ><%= djob.NOTICES %></td>
+            <td width="8%" class="dotted" ><%= djob.DATA_YN %></td>
+            <td width="8%" class="dotted" ><%= djob.NOTICES_YN %></td>
             <td width="8%" class="dotted" ><%= djob.LAPTOPS %></td>
           </tr>
         <% end %>
