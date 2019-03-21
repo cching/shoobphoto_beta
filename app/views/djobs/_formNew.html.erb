@@ -63,6 +63,16 @@
     <%= f.select(:CONF_YN, ["", "True", "False"], {}, {:class => 'form-control'}) %>
 </div>
 </div>
+<div class ="row">
+    <div class = "col-xs-2">
+      Notices YN? <br />
+      <%= f.input :NOTICES_YN, :label => false %>
+    </div>
+    <div class = "col-xs-2">
+      Data YN? <br />
+      <%= f.input :DATA_YN, :label => false %>
+    </div>
+</div>
 
 
   <div class="form-actions">
