@@ -1,4 +1,21 @@
 <h4 style="text-align: center;">Confirms</h4>
+<% if params[:q] == nil %>
+
+<% else %>
+<div class="row">
+<div class="col-xs-1">
+</div>
+<div class="col-xs-10">
+TOTAL RIGS:
+    <% @djobs.each do |djob| %>
+      <% @total = @total.to_i + djob.TRIGS.to_i %>
+    <% end %>
+    <%= @total.to_i %>
+</div>
+<div class="col-xs-1">
+</div>
+</div>
+<% end %>
 <div class="row">
 <div class="col-xs-1">
 </div>

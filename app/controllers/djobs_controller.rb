@@ -13,6 +13,7 @@ class DjobsController < ApplicationController
 
     @q = Djob.ransack(params[:q])
     @djobs = @q.result.includes(:school)
+    @total = 0
     end
   end
 
@@ -26,6 +27,7 @@ class DjobsController < ApplicationController
 
     @q = Djob.ransack(params[:q])
     @djobs = @q.result.includes(:school)
+    @total = 0
     end
   end
 
@@ -39,7 +41,9 @@ class DjobsController < ApplicationController
 
     @q = Djob.ransack(params[:q])
     @djobs = @q.result.includes(:school)
+    @total = 0
     end
+    @total = 0
   end
 
   def indexProduction
@@ -52,7 +56,9 @@ class DjobsController < ApplicationController
 
     @q = Djob.ransack(params[:q])
     @djobs = @q.result.includes(:school)
+    @total = 0
     end
+    @total = 0
   end
 
   def show
