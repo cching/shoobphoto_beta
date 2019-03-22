@@ -32,7 +32,7 @@ class SendText
     client
       .messages
       .create(
-        body: "Sale ends tomorrow! Order your Spring Picture now and save up to $6! #{image.package.name.strip} now at #{url}",
+        body: "Sale ends tomorrow! Pay for your Spring Picture now and save up to $6! #{image.package.name.strip} now at #{url}",
         from: ENV['TWILIO_NUMBER'],
         media_url: image.watermark.url,
         to: phone
