@@ -19,7 +19,7 @@ class Djob < ActiveRecord::Base
 		CSV.generate do |csv|
 			csv << ["school", "SCODE", "JOB", "JOBTYPE", "DATE", "TRIGS", "PRICELIST", "CONF_YN"]
 			all.each do |djob|
-				csv << [djob.school.dname, djob.SCODE, djob.JOB, djob.JOBTYPE, djob.CONF_YN]
+				csv << [djob.school.dname, djob.SCODE, djob.JOB, djob.JOBTYPE, djob.DATE, djob.TRIGS, djob.PRICELIST, djob.CONF_YN]
 			end 
 		end  
 	end 
