@@ -84,35 +84,33 @@ button {
 
 <div class="row noPrint">
   <div class="col-xs-8">
-    <h4>Jobs</h4>
-    <br>
     <div class="col-xs-4">
-      <%= link_to 'New djob', new_djob_path, class: "btn btn-primary" %>
+      <%= link_to 'New Job', new_djob_path, class: "btn btn-primary" %>
       </div>
     <div class="col-xs-8">
       <button onclick="printPage()">Print</button>
     </div>
     </br></br>
-    <%= search_form_for @q, url: djobsproduction_path do |f| %>
+    <%= search_form_for @q, url: djobsconfirms_path do |f| %>
     <%= f.hidden_field :s, value: params[:q].try(:[], :s) %>
       School:
       <%= f.select :school_name_eq, Djob.includes(:school).order('schools.name').all.map { |djob| djob.school.name }.uniq, selected: (params[:q] ? params[:q][:school_name_eq] : nil), include_blank: true %>
       <br />
       Job Type:
       <%= f.select :JOBTYPE_eq, Djob.all.order(:JOBTYPE).pluck(:JOBTYPE).uniq, selected: (params[:q] ? params[:q][:JOBTYPE_eq] : nil), include_blank: true %>
-      <br/>
+      <br />
       Confirmed?:
       <%= f.select :CONF_YN_eq, Djob.all.order(:CONF_YN).pluck(:CONF_YN).uniq, selected: (params[:q] ? params[:q][:CONF_YN_eq] : nil), include_blank: true %>
-      <br/>
+      
       Reconfirmed?:
       <%= f.select :RECONFYN_eq, Djob.all.order(:RECONFYN).pluck(:RECONFYN).uniq, selected: (params[:q] ? params[:q][:RECONFYN_eq] : nil), include_blank: true %>
       <br />
       Data?:
       <%= f.select :DATA_YN_eq, Djob.all.order(:DATA_YN).pluck(:DATA_YN).uniq, selected: (params[:q] ? params[:q][:DATA_YN_eq] : nil), include_blank: true %>
-      <br />
+      
       Notices?:
       <%= f.select :NOTICES_YN_eq, Djob.all.order(:NOTICES_YN).pluck(:NOTICES_YN).uniq, selected: (params[:q] ? params[:q][:NOTICES_YN_eq] : nil), include_blank: true  %>
-
+      
       <% if params[:q] == nil %>
 
       <div class = "Date">
