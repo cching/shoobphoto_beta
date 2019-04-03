@@ -95,9 +95,13 @@ class DprojectsController < ApplicationController
   end
 
   def create
+    @s= params[:stay]
     @dproject = Dproject.new(dproject_params)
-    if @dproject.save
+    @dprojecti = Dproject.last.id + 1
+    if @dproject.save && @s == "Create"
       redirect_to "/dprojects"
+    elsif @dproject.save && @s == "Create & Edit"
+      redirect_to "/dprojects/"+ @dprojecti.to_s + "/edit"
     else
       redirect_to "/dprojects/new"
     end
