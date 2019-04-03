@@ -3,9 +3,9 @@
 <%= render 'formEdit' %>
 <br></br>
 <% if @renderType == "confirms" %>
-    <%= link_to 'Back', djobsconfirms_path %>
+    <%= link_to 'Home', djobsconfirms_path %>
 <% elsif @renderType == "photography" %>
-    <%= link_to 'Back', djobsphotography_path %>
+    <%= link_to 'Home', djobsphotography_path %>
 <% else %>
-    <%= link_to 'Back', djobsproduction_path %>
+    <%= link_to 'Home', djobsproduction_path %>
 <% end %>

@@ -65,13 +65,22 @@ class DjobsController < ApplicationController
   end
 
   def bysearch
+    @renderType = params[:type]
     # sending q as params
    
     # @ djob = finds id that is included in the parameters 
     current_djob = Djob.find(params[:id])
     sequential_djob = current_djob.sequential_djob(params[:q], params[:direction].to_i)
 
-    redirect_to edit_djob_path(sequential_djob, q: params[:q])
+    if @renderType == "confirms"
+      redirect_to edit_djob_path(sequential_djob, q: params[:q], :type => "confirms")
+    elsif @renderType == "photography"
+      redirect_to edit_djob_path(sequential_djob, q: params[:q], :type => "photography")
+    else
+      redirect_to edit_djob_path(sequential_djob, q: params[:q], :type => "production")
+    end
+
+    
   end
     
 
