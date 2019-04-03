@@ -30,7 +30,7 @@ TOTAL RIGS:
           <th>Jobtype</th>
           <th> <%= sort_link(@q, :DATE, 'Date') %> </th>   
           <th>Start Time</th>
-          <th>Job Notes</th>
+          <th>Trigs</th>
           <th>Pricelist</th> 
           <th>Conf Call</th>         
           <th> <%= sort_link(@q, :CONF, "Conf", default_order: :desc) %> </th>
@@ -51,7 +51,7 @@ TOTAL RIGS:
             <td width="8%" class="dotted" ><%= djob.JOBTYPE %></td>
             <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%a, %b %e, %Y') %></td>
             <td width="8%" class="dotted" ><%= djob.STARTTIME %></td>
-            <td width="8%" class="dotted" ><%= djob.JOB_NOTES %></td>
+            <td width="8%" class="dotted" ><%= djob.TRIGS %></td>
             <td width="8%" class="dotted" ><%= djob.PRICELIST %></td>
             <td width="8%" class="dotted" ><%= djob.CONF_CALL %></td>
             <td width="8%" class="dotted" ><%= djob.CONF %></td>
@@ -73,7 +73,7 @@ TOTAL RIGS:
           <th>Jobtype</th>
           <th>Date</th>   
           <th>Start Time</th>   
-          <th>Job Notes</th> 
+          <th>Trigs</th> 
           <th>Pricelist</th>         
           <th>Conf Call</th>
           <th>Conf</th>
@@ -94,7 +94,7 @@ TOTAL RIGS:
             <td width="8%" class="dotted" ><%= djob.JOBTYPE %></td>
             <td width="8%" class="dotted" ><%= djob.DATE.try(:strftime, '%a, %b %e, %Y') %></td>
             <td width="8%" class="dotted" ><%= djob.STARTTIME %></td>
-            <td width="8%" class="dotted" ><%= djob.JOB_NOTES %></td>
+            <td width="8%" class="dotted" ><%= djob.TRIGS %></td>
             <td width="8%" class="dotted" ><%= djob.PRICELIST %></td>
             <td width="8%" class="dotted" ><%= djob.CONF_CALL %></td>
             <td width="8%" class="dotted" ><%= djob.CONF %></td>
