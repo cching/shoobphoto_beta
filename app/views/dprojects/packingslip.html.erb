@@ -22,12 +22,10 @@
   <%= f.error_notification %>
 
 <div id="label">
-	<div class="row">
-		<div class="col-xs-12">
-			<%#= raw @barcode_for_html.to_html %>
-			<%= image_tag(url_for({:controller => 'dprojects', :action => 'packingslip', :format => 'png' }) ) %>
-		</div>
-	</div>
+	<%= @dproject.school.dname %> </br>
+	<%= @dproject.id %> <%= @dproject.school.route %> <%= @dproject.project_type %> </br>
+	<%#= raw @barcode_for_html.to_html %>
+	<%= image_tag(url_for({:controller => 'dprojects', :action => 'packingslip', :format => 'png' }) ) %>
 </div>
 
 <div id="noLabel">
@@ -131,8 +129,11 @@
 </div>
 <br />
 <div class="row noPrint">
-	<div class="col-xs-4">
-		<button onclick="printShoob()">Print Slips/Label</button>
+	<div class="col-xs-2">
+		<button onclick="printShoob()">Print Slips</button>
+	</div>
+	<div class="col-xs-2">
+		<button onclick="printShoob2()">Print Label</button>
 	</div>
 </div>
 </div>
@@ -142,7 +143,6 @@
 <script>
 
 function printShoob() {
-	window.print();
 	var x = document.getElementById("printInstructions");
 	if (x.style.display === "none") {
         x.style.display = "block";
@@ -157,6 +157,25 @@ function printShoob() {
 		t.style.display = "none";
 	}
 	window.print();
+	var y = document.getElementById("label");
+	var z = document.getElementById("noLabel");
+	y.style.display = "block";
+	z.style.display = "none";
+}
+
+function printShoob2() {
+	var x = document.getElementById("printInstructions");
+	if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+	}
+	var t = document.getElementById("designInstructions");
+	if (t.style.display === "none"){
+		t.style.display = "block";
+	} else {
+		t.style.display = "none";
+	}
 	var y = document.getElementById("label");
 	var z = document.getElementById("noLabel");
 	y.style.display = "block";
