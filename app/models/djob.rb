@@ -19,10 +19,10 @@ class Djob < ActiveRecord::Base
 		CSV.generate do |csv|
 			csv << ["school", "SCODE", "JOB", "JOBTYPE", "DATE", "TRIGS", "PRICELIST", "CONF_YN", "RECONF_YN", "ROUTE", "NOTICES_YN", "DATA_YN"]
 			all.each do |djob|
-				csv << [djob.school.dname, djob.SCODE, djob.JOB, djob.JOBTYPE, djob.DATE, djob.TRIGS, djob.PRICELIST, djob.CONF_YN, djob.RECONFYN, djob.school.route, djob.NOTICES_YN, djob.DATA_YN]
+				csv << [djob.school.dname, djob.school.scode, djob.JOB, djob.JOBTYPE, djob.DATE, djob.TRIGS, djob.PRICELIST, djob.CONF_YN, djob.RECONFYN, djob.school.route, djob.NOTICES_YN, djob.DATA_YN]
 			end 
 		end  
-	end 
+	end  
 
 	def prev_djob
 		Djob.where(["id < ?", id]).order(:id).last
