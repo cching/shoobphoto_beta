@@ -22,8 +22,7 @@
   <%= f.error_notification %>
 
 <div id="label">
-	<%= @dproject.school.dname %> </br>
-	<%= @dproject.id %> <%= @dproject.school.route %> <%= @dproject.project_type %> </br>
+	<%= @dproject.id %> <%= @dproject.school.dname %> <%= @dproject.school.route %> <%= @dproject.project_type %></br>
 	<%#= raw @barcode_for_html.to_html %>
 	<%= image_tag(url_for({:controller => 'dprojects', :action => 'packingslip', :format => 'png' }) ) %>
 </div>
