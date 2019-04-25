@@ -7,8 +7,27 @@ class SendText
       .includes(:package, student: :school)
       .where(shoob_id: shoob_id, folder: folder)
       .take
-    
-    return if image.nil? || image.student.nil? || image.package.nil? || phone.nil? || image.watermark_file_name.nil?
+
+    if image.nil?
+      puts "image unavailable"
+      return
+
+    elsif image.student.nil?
+      puts "student unavailable"
+      return
+
+    elsif image.package.nil?
+      puts "package unavailable"
+      return
+
+    elsif phone.nil?
+      puts "phone number unavailable"
+      return
+      
+    elsif image.watermark_file_name.nil?
+      puts "watermark unavailable"
+      return
+    end
 
     cart = Cart.new(
       cart_id: (0...8).map { (65 + rand(26)).chr }.join
