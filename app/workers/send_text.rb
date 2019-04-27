@@ -27,6 +27,9 @@ class SendText
     elsif image.watermark_file_name.nil?
       puts "watermark unavailable"
       return
+
+    else
+      puts "sent to Twilio successfully"
     end
 
     cart = Cart.new(
