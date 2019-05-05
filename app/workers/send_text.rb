@@ -36,9 +36,6 @@ class SendText
       puts image.package
       puts phone
       puts image.watermark_file_name
-      puts image.index.url
-      puts image.url
-      puts image.index.path
       puts "Sent to Twilio successfully"
     end
 
@@ -59,7 +56,7 @@ class SendText
    def send_mms(client, cart, phone, image)
     url = "https://www.shoobphoto.com/students/packages/#{cart.cart_id}/select/0/#{image.package.id}"
 
-    image.watermark.reprocess!
+    image.reprocess!
 
     client
       .messages
