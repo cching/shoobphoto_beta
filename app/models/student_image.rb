@@ -25,7 +25,7 @@ class StudentImage < ActiveRecord::Base
 
     has_attached_file :watermark,
                     :url => ':s3_domain_url',
-                    :s3_headers =>  { "Content-Type" => "image/png" },
+                    :s3_headers =>  { "Content-Type" => "image/jpg" },
                     :path => "/images/watermarks/:id/watermark/:url:file_type",
                     :default_url => "https://shoobphoto.s3.amazonaws.com/images/package_types/:package_id/:package_image_file_name",
                      :preserve_files => true 
@@ -51,5 +51,5 @@ class StudentImage < ActiveRecord::Base
       self.image.instance_write :file_name, "#{Time.now.to_i.to_s}"
     end
 
-    
+
 end 

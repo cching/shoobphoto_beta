@@ -56,7 +56,7 @@ class SendText
    def send_mms(client, cart, phone, image)
     url = "https://www.shoobphoto.com/students/packages/#{cart.cart_id}/select/0/#{image.package.id}"
 
-    
+    image.watermark.reprocess!
 
     client
       .messages
