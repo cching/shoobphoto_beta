@@ -8,6 +8,8 @@ class SendText
       .where(shoob_id: shoob_id, folder: folder)
       .take
 
+    image = image.to_s.downcase
+
     if image.nil?
       puts "image unavailable"
       return
