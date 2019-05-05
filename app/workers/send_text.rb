@@ -10,10 +10,6 @@ class SendText
 
     puts image
 
-    image = image.to_str.downcase
-
-    puts image
-
     if image.nil?
       puts "image unavailable"
       return
