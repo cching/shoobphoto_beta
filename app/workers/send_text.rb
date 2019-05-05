@@ -7,28 +7,8 @@ class SendText
       .includes(:package, student: :school)
       .where(shoob_id: shoob_id, folder: folder)
       .take
-
-    puts "here is the image: #{image}"
-
-    if image.nil?
-      puts "image unavailable"
-      return
-
-    elsif image.student.nil?
-      puts "student unavailable"
-      return
-
-    elsif image.package.nil?
-      puts "package unavailable"
-      return
-
-    elsif phone.nil?
-      puts "phone number unavailable"
-      return
-
-    else
-      puts "sent to Twilio successfully"
-    end
+    
+    return if image.nil? || image.student.nil? || image.package.nil? || phone.nil? || image.watermark_file_name.nil?
 
     cart = Cart.new(
       cart_id: (0...8).map { (65 + rand(26)).chr }.join
@@ -52,7 +32,7 @@ class SendText
     client
       .messages
       .create(
-        body: "Sale ends tomorrow! Pay for your Spring Picture now and save up to $6! #{image.package.name.strip} now at #{url}",
+        body: "Shoob Photography: Order #{image.package.name.strip} now at #{url}",
         from: ENV['TWILIO_NUMBER'],
         media_url: image.watermark.url,
         to: phone
