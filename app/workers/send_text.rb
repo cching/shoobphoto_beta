@@ -8,7 +8,7 @@ class SendText
       .where(shoob_id: shoob_id, folder: folder)
       .take
 
-    puts image
+    puts "here is the image: #{image}"
 
     if image.nil?
       puts "image unavailable"
