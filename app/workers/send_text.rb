@@ -63,7 +63,7 @@ class SendText
       .create(
         body: "Sale ends tomorrow! Pay for your Spring Picture now and save up to $6! #{image.package.name.strip} now at #{url}",
         from: ENV['TWILIO_NUMBER'],
-        media_url: image.watermark.url,
+        media_url: image.image.url,
         to: phone
       )
   end
