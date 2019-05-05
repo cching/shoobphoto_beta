@@ -8,7 +8,11 @@ class SendText
       .where(shoob_id: shoob_id, folder: folder)
       .take
 
-    image = image.downcase
+    puts image + " before conversion"
+
+    image = image.to_str.downcase
+
+    puts image + " after conversion"
 
     if image.nil?
       puts "image unavailable"
