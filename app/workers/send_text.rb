@@ -31,6 +31,11 @@ class SendText
       return
 
     else
+      puts image
+      puts image.student
+      puts image.package
+      puts phone
+      puts image.watermark_file_name
       puts "Sent to Twilio successfully"
     end
 
