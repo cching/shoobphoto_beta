@@ -50,4 +50,6 @@ class StudentImage < ActiveRecord::Base
       extension = File.extname(image_file_name).downcase
       self.image.instance_write :file_name, "#{Time.now.to_i.to_s}"
     end
+
+    
 end 

@@ -56,14 +56,14 @@ class SendText
    def send_mms(client, cart, phone, image)
     url = "https://www.shoobphoto.com/students/packages/#{cart.cart_id}/select/0/#{image.package.id}"
 
-    image.watermark.reprocess!
+    
 
     client
       .messages
       .create(
         body: "Sale ends tomorrow! Pay for your Spring Picture now and save up to $6! #{image.package.name.strip} now at #{url}",
         from: ENV['TWILIO_NUMBER'],
-        media_url: image.watermark.url,
+        media_url: image.url,
         to: phone
       )
   end
