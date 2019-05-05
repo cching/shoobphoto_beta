@@ -8,26 +8,30 @@ class SendText
       .where(shoob_id: shoob_id, folder: folder)
       .take
 
-    puts "here is the image: #{image}"
+    puts "Here is the image: #{image}"
 
     if image.nil?
-      puts "image unavailable"
+      puts "image UNAVAILABLE"
       return
 
     elsif image.student.nil?
-      puts "student unavailable"
+      puts "student UNAVAILABLE"
       return
 
     elsif image.package.nil?
-      puts "package unavailable"
+      puts "package UNAVAILABLE"
       return
 
     elsif phone.nil?
-      puts "phone number unavailable"
+      puts "phone number UNAVAILABLE"
+      return
+
+    elsif image.watermark_file_name.nil?
+      puts "watermark ERROR"
       return
 
     else
-      puts "sent to Twilio successfully"
+      puts "Sent to Twilio successfully"
     end
 
     cart = Cart.new(
