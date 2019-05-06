@@ -3,22 +3,22 @@ class SendText
   sidekiq_options queue: "package_import"
 
    def perform(phone, shoob_id, folder)
-    image = StudentImage
+    timage = StudentImage
       .includes(:package, student: :school)
       .where(shoob_id: shoob_id, folder: folder)
       .take
 
-    puts "Here is the image: #{image}"
+    puts "Here is the image: #{timage}"
 
-    if image.nil?
+    if timage.nil?
       puts "image UNAVAILABLE"
       return
 
-    elsif image.student.nil?
+    elsif timage.student.nil?
       puts "student UNAVAILABLE"
       return
 
-    elsif image.package.nil?
+    elsif timage.package.nil?
       puts "package UNAVAILABLE"
       return
 
@@ -26,16 +26,17 @@ class SendText
       puts "phone number UNAVAILABLE"
       return
 
-    elsif image.watermark_file_name.nil?
+    elsif timage.watermark_file_name.nil?
       puts "watermark ERROR"
       return
 
     else
-      puts image
-      puts image.student
-      puts image.package
+      puts timage
+      puts timage.student
+      puts timage.package
       puts phone
-      puts image.watermark_file_name
+      puts timage.watermark_file_name
+      puts timage.image.url
       puts "Sent to Twilio successfully"
     end
 
@@ -56,14 +57,14 @@ class SendText
    def send_mms(client, cart, phone, image)
     url = "https://www.shoobphoto.com/students/packages/#{cart.cart_id}/select/0/#{image.package.id}"
 
-    image.reprocess!
+    timage.watermark.reprocess!
 
     client
       .messages
       .create(
-        body: "Sale ends tomorrow! Pay for your Spring Picture now and save up to $6! #{image.package.name.strip} now at #{url}",
+        body: "Sale ends tomorrow! Pay for your Spring Picture now and save up to $6! #{timage.package.name.strip} now at #{url}",
         from: ENV['TWILIO_NUMBER'],
-        media_url: image.url,
+        media_url: timage.image.url,
         to: phone
       )
   end
