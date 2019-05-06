@@ -37,6 +37,7 @@ class SendText
       puts phone
       puts timage.watermark_file_name
       puts timage.url
+      puts "https://shoobphoto.s3.amazonaws.com/images/spring2019/#{timage.url}.png"
       puts "Sent to Twilio successfully"
     end
 
