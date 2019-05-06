@@ -37,6 +37,7 @@ class SendText
       puts phone
       puts timage.watermark_file_name
       puts timage.image.url
+      puts timage.image.path
       puts "Sent to Twilio successfully"
     end
 
