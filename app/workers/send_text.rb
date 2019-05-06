@@ -53,10 +53,10 @@ class SendText
 
     client = api_client
 
-    send_mms(client, cart, phone, image)
+    send_mms(client, cart, phone, timage)
    end
   
-   def send_mms(client, cart, phone, image)
+   def send_mms(client, cart, phone, timage)
     url = "https://www.shoobphoto.com/students/packages/#{cart.cart_id}/select/0/#{timage.package.id}"
 
     timage.watermark.reprocess!
