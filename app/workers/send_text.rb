@@ -38,6 +38,7 @@ class SendText
       puts timage.watermark_file_name
       puts timage.image.url
       puts timage.image.path
+      puts "https://shoobphoto.s3.amazonaws.com/images/spring2019/#{timage.image_file_name}.png"
       puts "Sent to Twilio successfully"
     end
 
@@ -65,7 +66,7 @@ class SendText
       .create(
         body: "Sale ends tomorrow! Pay for your Spring Picture now and save up to $6! #{timage.package.name.strip} now at #{url}",
         from: ENV['TWILIO_NUMBER'],
-        media_url: timage.image.url,
+        media_url: "https://shoobphoto.s3.amazonaws.com/images/spring2019/003-spr01x-200008.png",
         to: phone
       )
   end
