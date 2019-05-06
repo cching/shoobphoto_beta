@@ -66,7 +66,7 @@ class SendText
       .create(
         body: "Sale ends tomorrow! Pay for your Spring Picture now and save up to $6! #{timage.package.name.strip} now at #{url}",
         from: ENV['TWILIO_NUMBER'],
-        media_url: "https://shoobphoto.s3.amazonaws.com/images/spring2019/003-spr01x-200008.png",
+        media_url: "https://shoobphoto.s3.amazonaws.com/images/spring2019/008-SPR01D-200312-01.png",
         to: phone
       )
   end
