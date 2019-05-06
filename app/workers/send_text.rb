@@ -46,8 +46,8 @@ class SendText
       cart_id: (0...8).map { (65 + rand(26)).chr }.join
     )
 
-    cart.school = image.student.school
-    cart.students = [image.student]
+    cart.school = timage.student.school
+    cart.students = [timage.student]
 
     cart.save
 
@@ -57,7 +57,7 @@ class SendText
    end
   
    def send_mms(client, cart, phone, image)
-    url = "https://www.shoobphoto.com/students/packages/#{cart.cart_id}/select/0/#{image.package.id}"
+    url = "https://www.shoobphoto.com/students/packages/#{cart.cart_id}/select/0/#{timage.package.id}"
 
     timage.watermark.reprocess!
 
