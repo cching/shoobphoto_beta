@@ -63,7 +63,7 @@ class SendText
     client
       .messages
       .create(
-        body: "Sale ends tomorrow! Pay for your Spring Picture now and save up to $6! #{timage.package.name.strip} now at #{url}",
+        body: "Sale ends tomorrow! Pay for your pictures now and save up to $6 or return unpurchased pictures to school.",
         from: ENV['TWILIO_NUMBER'],
         media_url: "https://shoobphoto.s3.amazonaws.com/images/spring2019/#{image_name}.png",
         to: phone
