@@ -2,7 +2,7 @@ class SendText
   include Sidekiq::Worker
   sidekiq_options queue: "package_import"
 
-   def perform(phone, shoob_id, folder)
+   def perform(phone, shoob_id, image_name, folder)
     timage = StudentImage
       .includes(:package, student: :school)
       .where(shoob_id: shoob_id, folder: folder)
@@ -54,7 +54,7 @@ class SendText
     send_mms(client, cart, phone, timage)
    end
   
-   def send_mms(client, cart, phone, timage, shoob_id)
+   def send_mms(client, cart, phone, timage, image_name)
     url = "https://www.shoobphoto.com/students/packages/#{cart.cart_id}/select/0/#{timage.package.id}"
 
     timage.watermark.reprocess!
@@ -64,7 +64,7 @@ class SendText
       .create(
         body: "Sale ends tomorrow! Pay for your Spring Picture now and save up to $6! #{timage.package.name.strip} now at #{url}",
         from: ENV['TWILIO_NUMBER'],
-        media_url: "https://shoobphoto.s3.amazonaws.com/images/spring2019/#{shoob_id}.png",
+        media_url: "https://shoobphoto.s3.amazonaws.com/images/spring2019/#{image_name}.png",
         to: phone
       )
   end
