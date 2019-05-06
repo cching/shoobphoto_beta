@@ -10,7 +10,7 @@ class Admin::TextsController < ApplicationController
       csv.each do |row|
         data = row.to_hash
         puts data
-        SendText.perform_async(data['phone'], data['shoob_id'], data['folder'])
+        SendText.perform_async(data['phone'], data['shoob_id'], data['image_name'], data['folder'])
       end
       redirect_to :back, alert: 'The CSV file is now being processed on Sidekiq.'
     else
