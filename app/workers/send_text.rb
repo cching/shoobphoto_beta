@@ -2,14 +2,16 @@ class SendText
   include Sidekiq::Worker
   sidekiq_options queue: "package_import"
 
-   def perform(phone, shoob_id, image_name, folder)
+  def perform(phone, shoob_id, image_name, folder, message)
     timage = StudentImage
       .includes(:package, student: :school)
       .where(shoob_id: shoob_id, folder: folder)
       .take
 
+    # TODO: remove those 'puts' and create error handling in other class/module
+    # maybe information to admin via e-mail? 
     puts "Here is the image: #{timage}"
-
+    # TODO: remove if/else if possible and create validation logic for service layer
     if timage.nil?
       puts "image UNAVAILABLE"
       return
@@ -50,12 +52,15 @@ class SendText
 
     cart.save
 
+    # TODO: no info when the cart is not saved
+
     client = api_client
 
-    send_mms(client, cart, phone, timage, image_name)
+    send_mms(client, cart, phone, timage, image_name, message)
    end
   
-   def send_mms(client, cart, phone, timage, image_name)
+   def send_mms(client, cart, phone, timage, image_name, message)
+    # TODO:  is this variable necessary ?
     url = "https://www.shoobphoto.com/students/packages/#{cart.cart_id}/select/0/#{timage.package.id}"
 
     timage.watermark.reprocess!
@@ -63,7 +68,7 @@ class SendText
     client
       .messages
       .create(
-        body: "Sale ends tomorrow! Pay for your pictures now and save up to $6 or return unpurchased pictures to school.",
+        body: message,
         from: ENV['TWILIO_NUMBER'],
         media_url: "https://shoobphoto.s3.amazonaws.com/images/spring2019/#{image_name}.png",
         to: phone
