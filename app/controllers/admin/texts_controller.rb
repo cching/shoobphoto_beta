@@ -15,7 +15,7 @@ class Admin::TextsController < ApplicationController
       end
       redirect_to :back, alert: 'The CSV file is now being processed on Sidekiq.'
     else
-      redirect_to :back, alert: 'No file selected'
+      redirect_to :back, alert: 'No file is selected'
     end
   end
 end
