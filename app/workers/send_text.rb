@@ -2,7 +2,7 @@ class SendText
   include Sidekiq::Worker
   sidekiq_options queue: "package_import"
 
-  def perform(phone, shoob_id, image_name, folder, message)
+  def perform(phone, shoob_id, folder, message)
     timage = StudentImage
       .includes(:package, student: :school)
       .where(shoob_id: shoob_id, folder: folder)
@@ -16,13 +16,13 @@ class SendText
       puts "image UNAVAILABLE"
       return
 
-    elsif timage.student.nil?
-      puts "student UNAVAILABLE"
-      return
+    # elsif timage.student.nil?
+    #   puts "student UNAVAILABLE"
+    #   return
 
-    elsif timage.package.nil?
-      puts "package UNAVAILABLE"
-      return
+    # elsif timage.package.nil?
+    #   puts "package UNAVAILABLE"
+    #   return
 
     elsif phone.nil?
       puts "phone number UNAVAILABLE"
@@ -34,45 +34,47 @@ class SendText
 
     else
       puts timage
-      puts timage.student
-      puts timage.package
+      # puts timage.student
+      # puts timage.package
       puts phone
       puts timage.watermark_file_name
       puts timage.url
-      puts image_name
-      puts "Sent to Twilio successfully"
     end
 
-    cart = Cart.new(
-      cart_id: (0...8).map { (65 + rand(26)).chr }.join
-    )
+    # cart = Cart.new(
+    #   cart_id: (0...8).map { (65 + rand(26)).chr }.join
+    # )
 
-    cart.school = timage.student.school
-    cart.students = [timage.student]
+    # cart.school = timage.student.school
+    # cart.students = [timage.student]
 
-    cart.save
+    # cart.save
 
     # TODO: no info when the cart is not saved
 
     client = api_client
 
-    send_mms(client, cart, phone, timage, image_name, message)
+    send_mms(client, phone, timage, message)
    end
   
-   def send_mms(client, cart, phone, timage, image_name, message)
+   def send_mms(client, phone, timage, message)
     # TODO:  is this variable necessary ?
-    url = "https://www.shoobphoto.com/students/packages/#{cart.cart_id}/select/0/#{timage.package.id}"
+    # url = "https://www.shoobphoto.com/students/packages/#{cart.cart_id}/select/0/#{timage.package.id}"
 
-    timage.watermark.reprocess!
+    # timage.watermark.reprocess!
+
+    url = timage.image.url
 
     client
       .messages
       .create(
         body: message,
         from: ENV['TWILIO_NUMBER'],
-        media_url: "https://shoobphoto.s3.amazonaws.com/images/spring2019/#{image_name}.png",
+        media_url: url,
         to: phone
       )
+
+    puts "Sent to Twilio successfully"
   end
 
   private
