@@ -15,17 +15,18 @@ module SMSService
                          .take
 
     return false if timage.nil?
+    return false if timage.student.blank?
 
-    # cart = Cart.new(
-    #   cart_id: (0...8).map { (65 + rand(26)).chr }.join
-    # )
+    cart = Cart.new(
+      cart_id: (0...8).map { (65 + rand(26)).chr }.join
+    )
 
-    # cart.school = timage.student.school
-    # cart.students = [timage.student]
+    cart.school = timage.student.school
+    cart.students = [timage.student]
 
-    # cart.save
+    return false unless cart.save
 
-    media_url = timage.image.url
+    media_url = timage.watermark.url
 
     client = SMSService::API::Client.new
     client.send_mms(message, media_url, receiver)
